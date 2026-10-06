@@ -1,0 +1,36 @@
+# Agentenharness im Kleinen (Schritt 5 des Fahrplans): ein Modell über OpenRouter,
+# fünf Reiche mit Modell, fünfzehn mit Skriptbots, 30 Spieltage. Zum Schärfen von Lagebild,
+# Schema und Fehlerquoten, bevor eine volle Epoche Geld kostet.
+#
+#   $env:OPENROUTER_API_KEY = "..."        (nur in der Umgebung, nie in einer Datei)
+#   python -m sternenepoche pruefen konfig/openrouter-klein.toml
+#   python -m sternenepoche kosten  konfig/openrouter-klein.toml
+#   python -m sternenepoche lauf    konfig/openrouter-klein.toml
+
+[lauf]
+startwert = 1
+spieler = 20
+tage = 30
+ki = [0, 1, 2, 3, 4]
+ausgabe = "laeufe/openrouter-klein"
+
+[grenzen]
+max_ausgabe_tokens = 1200
+temperatur = 0.7
+budget_usd = 3.0              # der Lauf hält an dieser Grenze sauber an und lässt sich fortsetzen
+
+[anbieter.klein]
+art = "openrouter"
+modell = "qwen/qwen3.5-9b"
+parallel = 20
+schema = "json_schema"        # Antwortschema wird beim Dekodieren erzwungen
+denken = "aus"
+
+[anbieter.klein.provider]
+data_collection = "deny"      # nur Provider, die Eingaben nicht speichern
+
+[rollen]
+stratege = "klein"
+verwalter = "klein"
+feldherr = "klein"
+diplomat = "klein"

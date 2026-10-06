@@ -1,0 +1,14 @@
+[workspace]
+resolver = "2"
+members = ["crates/kern", "crates/lauf", "crates/agenten", "crates/inhalt", "crates/spieler", "crates/wissen"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+
+[profile.release]
+opt-level = 3
+debug = false
+
+[profile.dev]
+opt-level = 1

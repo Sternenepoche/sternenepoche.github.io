@@ -1,0 +1,47 @@
+# Alles lokal: vier Modelle auf eigener Hardware, je ein OpenAI-kompatibler Server (vLLM oder llama.cpp).
+# Laufen die vier auf getrennter Hardware parallel, bestimmt der Stratege die Dauer der Epoche.
+
+[lauf]
+startwert = 1
+spieler = 50
+tage = 365
+ki = "alle"
+ausgabe = "laeufe/lokal-001"
+
+[grenzen]
+max_ausgabe_tokens = 1200
+zeitlimit_sekunden = 600
+
+[anbieter.stratege]
+art = "openai"
+basis_url = "http://127.0.0.1:8000/v1"
+modell = "meta-llama/Llama-3.3-70B-Instruct"
+parallel = 16
+schema = "guided_json"        # vLLM: Schema als Grammatik beim Dekodieren
+
+[anbieter.verwalter]
+art = "openai"
+basis_url = "http://127.0.0.1:8001/v1"
+modell = "Qwen/Qwen3.5-9B"
+parallel = 64
+schema = "guided_json"
+
+[anbieter.feldherr]
+art = "openai"
+basis_url = "http://127.0.0.1:8002/v1"
+modell = "google/gemma-4-31B-it"
+parallel = 32
+schema = "guided_json"
+
+[anbieter.diplomat]
+art = "openai"
+basis_url = "http://127.0.0.1:8003/v1"
+modell = "mistralai/Mistral-Small-3.2-24B-Instruct-2506"
+parallel = 32
+schema = "guided_json"
+
+[rollen]
+stratege = "stratege"
+verwalter = "verwalter"
+feldherr = "feldherr"
+diplomat = "diplomat"

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sternenepoche – eine geschlossene Spielwelt</title>
+<style>
+  :root{ --bg:#0b0e14; --panel:#131826; --line:#232a3d; --text:#dfe6f3; --muted:#8b96ad; --accent:#6ea8ff; --gold:#e8c37a; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 "Segoe UI",system-ui,sans-serif}
+  .stars{position:fixed;inset:0;pointer-events:none;opacity:.5;
+    background-image:radial-gradient(1px 1px at 12% 22%,#fff,transparent),
+      radial-gradient(1px 1px at 68% 12%,#cfe0ff,transparent),
+      radial-gradient(1.5px 1.5px at 84% 64%,#fff,transparent),
+      radial-gradient(1px 1px at 34% 78%,#e8c37a,transparent),
+      radial-gradient(1px 1px at 52% 44%,#fff,transparent),
+      radial-gradient(1.2px 1.2px at 92% 30%,#9db8ff,transparent),
+      radial-gradient(1px 1px at 8% 56%,#fff,transparent);}
+  header{max-width:1020px;margin:0 auto;padding:56px 24px 8px;position:relative}
+  .kicker{color:var(--gold);letter-spacing:.35em;font-size:13px;text-transform:uppercase}
+  h1{font-size:clamp(34px,6vw,58px);line-height:1.08;margin:.35em 0 .3em;color:#fff;font-weight:800}
+  h1 span{color:var(--gold)}
+  .sub{color:var(--muted);max-width:640px;font-size:18px}
+  main{max-width:1020px;margin:0 auto;padding:26px 24px 70px;position:relative}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;margin-top:30px}
+  a.card{display:block;text-decoration:none;color:var(--text);background:var(--panel);
+    border:1px solid var(--line);border-radius:14px;padding:20px 20px 18px;transition:.15s}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .card .ico{font-size:26px}
+  .card h2{font-size:18px;margin:10px 0 6px;color:#fff;border:none;padding:0}
+  .card p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.55}
+  .card .go{display:inline-block;margin-top:12px;color:var(--accent);font-size:14px}
+  .facts{display:flex;gap:26px;flex-wrap:wrap;margin-top:34px;padding:18px 22px;
+    background:var(--panel);border:1px solid var(--line);border-radius:14px}
+  .fact b{display:block;font-size:22px;color:var(--gold)}
+  .fact span{color:var(--muted);font-size:13.5px}
+  footer{max-width:1020px;margin:0 auto;padding:0 24px 56px;color:var(--muted);font-size:13.5px;position:relative}
+  footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+<header>
+  <div class="kicker">Geschlossene Spielwelt</div>
+  <h1>Sternen<span>epoche</span></h1>
+  <p class="sub">50 Zivilisationen spielen ein Spieljahr lang um die höchste Punktzahl.
+  Jede wird von vier Sprachmodellen in vier Rollen regiert — die Engine ist deterministisch,
+  jede Entscheidung gespeichert, jede Epoche nachspielbar.</p>
+</header>
+<main>
+  <div class="grid">
+    <a class="card" href="/docs/SPIELEN.html">
+      <div class="ico">🎮</div><h2>Spielen &amp; Steuerung</h2>
+      <p>Anmeldung, Charakterauswahl, Heimatplanet, Bau, Forschung, Stufenaufstieg — so bedienst du die Spielwelt.</p>
+      <span class="go">Anleitung öffnen →</span>
+    </a>
+    <a class="card" href="/docs/SPEZIFIKATION.html">
+      <div class="ico">📐</div><h2>Spezifikation</h2>
+      <p>Die vollständige Mechanik: Wirtschaft, Stabilität, Stufen, Wertung — Abschnitt für Abschnitt belegt.</p>
+      <span class="go">Lesen →</span>
+    </a>
+    <a class="card" href="/docs/REGELWERK.html">
+      <div class="ico">🧮</div><h2>Regelwerk-Referenz</h2>
+      <p>Alle Zahlen des Spiels in Tabellen — erzeugt aus <code>regeln/regelwerk.ron</code>, einer Quelle.</p>
+      <span class="go">Tabellen öffnen →</span>
+    </a>
+    <a class="card" href="/docs/PROJEKT-README.html">
+      <div class="ico">🗂️</div><h2>Projektstand</h2>
+      <p>Stand, Balance-Messungen, Befunde aus dem Bau und die Offenen Punkte des Projekts.</p>
+      <span class="go">Stand lesen →</span>
+    </a>
+    <a class="card" href="https://github.com/Sternenepoche/sternenepoche.github.io">
+      <div class="ico">💻</div><h2>Quellcode</h2>
+      <p>Rust-Engine (<code>kern</code>, <code>lauf</code>), Agenten, Python-Orchestrator, Regelwerk und Dokumentation.</p>
+      <span class="go">Repository ansehen →</span>
+    </a>
+    <a class="card" href="/betrachter/">
+      <div class="ico">🪐</div><h2>Weltbild-Betrachter</h2>
+      <p>Die Galaxie als 3D-Ansicht: Systeme, Zonen, Belegung — direkt im Browser.</p>
+      <span class="go">Betrachter starten →</span>
+    </a>
+  </div>
+
+  <div class="facts">
+    <div class="fact"><b>365</b><span>Spieltage je Epoche</span></div>
+    <div class="fact"><b>2×60×12</b><span>Plätze in der Galaxie</span></div>
+    <div class="fact"><b>50</b><span>Zivilisationen je Epoche</span></div>
+    <div class="fact"><b>4</b><span>Rollen je Reich</span></div>
+    <div class="fact"><b>4</b><span>Völker als Spielbalance</span></div>
+    <div class="fact"><b>0.1.0</b><span>Regelwerk-Version</span></div>
+  </div>
+</main>
+<footer>
+  Ausgeliefert über GitHub Pages · Quelle dieser Seite:
+  <a href="https://github.com/Sternenepoche/sternenepoche.github.io">Sternenepoche/sternenepoche.github.io</a>
+</footer>
+</body>
+</html>

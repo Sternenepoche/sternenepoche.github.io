@@ -1,0 +1,110 @@
+{
+  "generalist": {
+    "revision": 0,
+    "roles": [
+      {
+        "id": "regierung",
+        "purpose": "Versorgung sichern, Wirtschaft aufbauen, Nachbarn und Expansion planen.",
+        "model": "primary",
+        "capabilities": [
+          "doktrin",
+          "stufenaufstieg",
+          "meldung",
+          "bauen",
+          "reparieren",
+          "abreissen",
+          "schleife_leeren",
+          "forschen",
+          "steuersatz",
+          "prioritaeten",
+          "markt_order",
+          "markt_storno",
+          "fertigen",
+          "flotte_senden",
+          "flotte_zurueckrufen",
+          "verband_oeffnen",
+          "verband_beitreten",
+          "raketen_bauen",
+          "raketen_starten",
+          "nachricht",
+          "vertrag_anbieten",
+          "vertrag_annehmen",
+          "vertrag_ablehnen",
+          "vertrag_kuendigen",
+          "allianz_gruenden",
+          "allianz_einladen",
+          "allianz_beitreten",
+          "allianz_verlassen",
+          "schenken",
+          "flotte_versorgen"
+        ]
+      }
+    ]
+  },
+  "arbeitsteilung": {
+    "roles": [
+      {
+        "model": "primary",
+        "purpose": "Führe einen knappen Mehrfensterplan mit Ziel, nächstem Schritt, Voraussetzungen und Abbruchbedingung. Prüfe akute Ereignisse zuerst.",
+        "id": "planung",
+        "capabilities": [
+          "doktrin",
+          "stufenaufstieg",
+          "meldung",
+          "bauen",
+          "reparieren",
+          "abreissen",
+          "schleife_leeren",
+          "forschen",
+          "steuersatz",
+          "prioritaeten",
+          "markt_order",
+          "markt_storno",
+          "fertigen",
+          "flotte_senden",
+          "flotte_zurueckrufen",
+          "verband_oeffnen",
+          "verband_beitreten",
+          "raketen_bauen",
+          "raketen_starten",
+          "nachricht",
+          "vertrag_anbieten",
+          "vertrag_annehmen",
+          "vertrag_ablehnen",
+          "vertrag_kuendigen",
+          "allianz_gruenden",
+          "allianz_einladen",
+          "allianz_beitreten",
+          "allianz_verlassen",
+          "schenken",
+          "flotte_versorgen"
+        ]
+      },
+      {
+        "model": "primary",
+        "purpose": "Prüfe Versorgung und Opportunitätskosten. Reserviere Ressourcen für angekündigte Vorhaben und begründe konkurrierende Baufolgen.",
+        "id": "wirtschaft",
+        "capabilities": [
+          "bauen",
+          "reparieren",
+          "forschen",
+          "fertigen",
+          "markt_order",
+          "markt_storno"
+        ]
+      },
+      {
+        "model": "primary",
+        "purpose": "Prüfe Nachbarn, glaubwürdige Verpflichtungen, Erkundung, Kolonisation und Entsatz. Halte Hypothesen getrennt von bestätigten Beobachtungen.",
+        "id": "aussenpolitik",
+        "capabilities": [
+          "nachricht",
+          "flotte_senden",
+          "flotte_zurueckrufen",
+          "flotte_versorgen"
+        ]
+      }
+    ],
+    "revision": 0
+  }
+}

@@ -1,0 +1,9 @@
+title: Sternenepoche
+description: Eine geschlossene Spielwelt – 50 Zivilisationen, ein Spieljahr, höchste Punktzahl.
+url: https://sternenepoche.github.io
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+exclude:
+  - scratch

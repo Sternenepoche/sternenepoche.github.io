@@ -1,0 +1,61 @@
+# Volle Epoche über OpenRouter: 50 Reiche, vier Rollen, vier Modelle mit offenem Gewicht.
+# Das Gefälle von schnell bis stark entspricht dem Konzept; dieselben Modelle laufen auch lokal
+# (siehe lokal.toml und hybrid.toml), die Ergebnisse bleiben so vergleichbar.
+#
+# Für eine Messung zählt, dass alle Agenten einer Rolle dieselben Gewichte bekommen. OpenRouter
+# verteilt sonst auf verschiedene Provider mit verschiedener Quantisierung. Deshalb je Anbieter:
+#   provider.order = ["<provider>"]  und  provider.allow_fallbacks = false
+# Die Provider eines Modells stehen auf seiner Seite bei openrouter.ai. Der tatsächliche Provider
+# jeder Antwort steht im Datensatz (Feld upstream).
+
+[lauf]
+startwert = 1
+spieler = 50
+tage = 365
+ki = "alle"
+ausgabe = "laeufe/epoche-001"
+schnappschuss_tage = 5
+
+[grenzen]
+max_ausgabe_tokens = 1200     # gleiches Tokenbudget für jede Rolle
+denk_tokens = 1000            # hartes Denkbudget, wo denken = "budget" gesetzt ist
+temperatur = 0.7
+zeitlimit_sekunden = 180
+versuche = 3
+budget_usd = 250.0            # Schätzung rund 230 USD; an der Grenze hält der Lauf an und lässt sich fortsetzen
+
+[anbieter.stratege]           # größtes Modell: seltene, schwere Entscheidungen
+art = "openrouter"
+modell = "meta-llama/llama-3.3-70b-instruct"
+parallel = 16
+[anbieter.stratege.provider]
+data_collection = "deny"
+quantizations = ["fp8", "fp16", "bf16"]
+
+[anbieter.verwalter]          # kleines, schnelles Modell: häufige Routine
+art = "openrouter"
+modell = "qwen/qwen3.5-9b"
+parallel = 32
+denken = "aus"
+[anbieter.verwalter.provider]
+data_collection = "deny"
+
+[anbieter.feldherr]           # mittleres Modell
+art = "openrouter"
+modell = "google/gemma-4-31b-it"
+parallel = 24
+[anbieter.feldherr.provider]
+data_collection = "deny"
+
+[anbieter.diplomat]           # mittleres Modell mit starker Sprache
+art = "openrouter"
+modell = "mistralai/mistral-small-3.2-24b-instruct"
+parallel = 24
+[anbieter.diplomat.provider]
+data_collection = "deny"
+
+[rollen]
+stratege = "stratege"
+verwalter = "verwalter"
+feldherr = "feldherr"
+diplomat = "diplomat"

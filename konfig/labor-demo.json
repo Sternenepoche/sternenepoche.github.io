@@ -1,0 +1,442 @@
+{
+  "version": 2,
+  "seed": 42,
+  "days": 1,
+  "mode": "cold_start",
+  "interval_hours": 4,
+  "budget": {
+    "calls_per_day": 96,
+    "calls_per_window": 8,
+    "tools_per_window": 32,
+    "actions_per_window": 10,
+    "max_input_bytes": 64000,
+    "output_tokens": 2048,
+    "micro_usd_per_day": 1000000,
+    "memory_bytes": 16777216
+  },
+  "models": {
+    "demo": {
+      "kind": "mock",
+      "model": "labor-demo-v2",
+      "url": null,
+      "api_key_env": null,
+      "digest": null,
+      "context": 32768,
+      "timeout_seconds": 60,
+      "reserve_micro_usd": 0,
+      "resident_bytes": null,
+      "provider": null,
+      "cpu_only": false,
+      "thinking": false
+    }
+  },
+  "players": [
+    {
+      "revision": 0,
+      "roles": [
+        {
+          "id": "regierung",
+          "purpose": "Versorgung sichern, Wirtschaft aufbauen, Nachbarn und Expansion planen.",
+          "model": "demo",
+          "capabilities": [
+            "doktrin",
+            "stufenaufstieg",
+            "meldung",
+            "bauen",
+            "abreissen",
+            "schleife_leeren",
+            "forschen",
+            "steuersatz",
+            "prioritaeten",
+            "markt_order",
+            "markt_storno",
+            "fertigen",
+            "flotte_senden",
+            "flotte_zurueckrufen",
+            "verband_oeffnen",
+            "verband_beitreten",
+            "raketen_bauen",
+            "raketen_starten",
+            "nachricht",
+            "vertrag_anbieten",
+            "vertrag_annehmen",
+            "vertrag_ablehnen",
+            "vertrag_kuendigen",
+            "allianz_gruenden",
+            "allianz_einladen",
+            "allianz_beitreten",
+            "allianz_verlassen",
+            "schenken"
+          ]
+        }
+      ]
+    },
+    {
+      "revision": 0,
+      "roles": [
+        {
+          "id": "regierung",
+          "purpose": "Versorgung sichern, Wirtschaft aufbauen, Nachbarn und Expansion planen.",
+          "model": "demo",
+          "capabilities": [
+            "doktrin",
+            "stufenaufstieg",
+            "meldung",
+            "bauen",
+            "abreissen",
+            "schleife_leeren",
+            "forschen",
+            "steuersatz",
+            "prioritaeten",
+            "markt_order",
+            "markt_storno",
+            "fertigen",
+            "flotte_senden",
+            "flotte_zurueckrufen",
+            "verband_oeffnen",
+            "verband_beitreten",
+            "raketen_bauen",
+            "raketen_starten",
+            "nachricht",
+            "vertrag_anbieten",
+            "vertrag_annehmen",
+            "vertrag_ablehnen",
+            "vertrag_kuendigen",
+            "allianz_gruenden",
+            "allianz_einladen",
+            "allianz_beitreten",
+            "allianz_verlassen",
+            "schenken"
+          ]
+        }
+      ]
+    },
+    {
+      "revision": 0,
+      "roles": [
+        {
+          "id": "regierung",
+          "purpose": "Versorgung sichern, Wirtschaft aufbauen, Nachbarn und Expansion planen.",
+          "model": "demo",
+          "capabilities": [
+            "doktrin",
+            "stufenaufstieg",
+            "meldung",
+            "bauen",
+            "abreissen",
+            "schleife_leeren",
+            "forschen",
+            "steuersatz",
+            "prioritaeten",
+            "markt_order",
+            "markt_storno",
+            "fertigen",
+            "flotte_senden",
+            "flotte_zurueckrufen",
+            "verband_oeffnen",
+            "verband_beitreten",
+            "raketen_bauen",
+            "raketen_starten",
+            "nachricht",
+            "vertrag_anbieten",
+            "vertrag_annehmen",
+            "vertrag_ablehnen",
+            "vertrag_kuendigen",
+            "allianz_gruenden",
+            "allianz_einladen",
+            "allianz_beitreten",
+            "allianz_verlassen",
+            "schenken"
+          ]
+        }
+      ]
+    },
+    {
+      "revision": 0,
+      "roles": [
+        {
+          "id": "regierung",
+          "purpose": "Versorgung sichern, Wirtschaft aufbauen, Nachbarn und Expansion planen.",
+          "model": "demo",
+          "capabilities": [
+            "doktrin",
+            "stufenaufstieg",
+            "meldung",
+            "bauen",
+            "abreissen",
+            "schleife_leeren",
+            "forschen",
+            "steuersatz",
+            "prioritaeten",
+            "markt_order",
+            "markt_storno",
+            "fertigen",
+            "flotte_senden",
+            "flotte_zurueckrufen",
+            "verband_oeffnen",
+            "verband_beitreten",
+            "raketen_bauen",
+            "raketen_starten",
+            "nachricht",
+            "vertrag_anbieten",
+            "vertrag_annehmen",
+            "vertrag_ablehnen",
+            "vertrag_kuendigen",
+            "allianz_gruenden",
+            "allianz_einladen",
+            "allianz_beitreten",
+            "allianz_verlassen",
+            "schenken"
+          ]
+        }
+      ]
+    },
+    {
+      "revision": 0,
+      "roles": [
+        {
+          "id": "regierung",
+          "purpose": "Versorgung sichern, Wirtschaft aufbauen, Nachbarn und Expansion planen.",
+          "model": "demo",
+          "capabilities": [
+            "doktrin",
+            "stufenaufstieg",
+            "meldung",
+            "bauen",
+            "abreissen",
+            "schleife_leeren",
+            "forschen",
+            "steuersatz",
+            "prioritaeten",
+            "markt_order",
+            "markt_storno",
+            "fertigen",
+            "flotte_senden",
+            "flotte_zurueckrufen",
+            "verband_oeffnen",
+            "verband_beitreten",
+            "raketen_bauen",
+            "raketen_starten",
+            "nachricht",
+            "vertrag_anbieten",
+            "vertrag_annehmen",
+            "vertrag_ablehnen",
+            "vertrag_kuendigen",
+            "allianz_gruenden",
+            "allianz_einladen",
+            "allianz_beitreten",
+            "allianz_verlassen",
+            "schenken"
+          ]
+        }
+      ]
+    },
+    {
+      "revision": 0,
+      "roles": [
+        {
+          "id": "regierung",
+          "purpose": "Versorgung sichern, Wirtschaft aufbauen, Nachbarn und Expansion planen.",
+          "model": "demo",
+          "capabilities": [
+            "doktrin",
+            "stufenaufstieg",
+            "meldung",
+            "bauen",
+            "abreissen",
+            "schleife_leeren",
+            "forschen",
+            "steuersatz",
+            "prioritaeten",
+            "markt_order",
+            "markt_storno",
+            "fertigen",
+            "flotte_senden",
+            "flotte_zurueckrufen",
+            "verband_oeffnen",
+            "verband_beitreten",
+            "raketen_bauen",
+            "raketen_starten",
+            "nachricht",
+            "vertrag_anbieten",
+            "vertrag_annehmen",
+            "vertrag_ablehnen",
+            "vertrag_kuendigen",
+            "allianz_gruenden",
+            "allianz_einladen",
+            "allianz_beitreten",
+            "allianz_verlassen",
+            "schenken"
+          ]
+        }
+      ]
+    },
+    {
+      "revision": 0,
+      "roles": [
+        {
+          "id": "regierung",
+          "purpose": "Versorgung sichern, Wirtschaft aufbauen, Nachbarn und Expansion planen.",
+          "model": "demo",
+          "capabilities": [
+            "doktrin",
+            "stufenaufstieg",
+            "meldung",
+            "bauen",
+            "abreissen",
+            "schleife_leeren",
+            "forschen",
+            "steuersatz",
+            "prioritaeten",
+            "markt_order",
+            "markt_storno",
+            "fertigen",
+            "flotte_senden",
+            "flotte_zurueckrufen",
+            "verband_oeffnen",
+            "verband_beitreten",
+            "raketen_bauen",
+            "raketen_starten",
+            "nachricht",
+            "vertrag_anbieten",
+            "vertrag_annehmen",
+            "vertrag_ablehnen",
+            "vertrag_kuendigen",
+            "allianz_gruenden",
+            "allianz_einladen",
+            "allianz_beitreten",
+            "allianz_verlassen",
+            "schenken"
+          ]
+        }
+      ]
+    },
+    {
+      "revision": 0,
+      "roles": [
+        {
+          "id": "regierung",
+          "purpose": "Versorgung sichern, Wirtschaft aufbauen, Nachbarn und Expansion planen.",
+          "model": "demo",
+          "capabilities": [
+            "doktrin",
+            "stufenaufstieg",
+            "meldung",
+            "bauen",
+            "abreissen",
+            "schleife_leeren",
+            "forschen",
+            "steuersatz",
+            "prioritaeten",
+            "markt_order",
+            "markt_storno",
+            "fertigen",
+            "flotte_senden",
+            "flotte_zurueckrufen",
+            "verband_oeffnen",
+            "verband_beitreten",
+            "raketen_bauen",
+            "raketen_starten",
+            "nachricht",
+            "vertrag_anbieten",
+            "vertrag_annehmen",
+            "vertrag_ablehnen",
+            "vertrag_kuendigen",
+            "allianz_gruenden",
+            "allianz_einladen",
+            "allianz_beitreten",
+            "allianz_verlassen",
+            "schenken"
+          ]
+        }
+      ]
+    },
+    {
+      "revision": 0,
+      "roles": [
+        {
+          "id": "regierung",
+          "purpose": "Versorgung sichern, Wirtschaft aufbauen, Nachbarn und Expansion planen.",
+          "model": "demo",
+          "capabilities": [
+            "doktrin",
+            "stufenaufstieg",
+            "meldung",
+            "bauen",
+            "abreissen",
+            "schleife_leeren",
+            "forschen",
+            "steuersatz",
+            "prioritaeten",
+            "markt_order",
+            "markt_storno",
+            "fertigen",
+            "flotte_senden",
+            "flotte_zurueckrufen",
+            "verband_oeffnen",
+            "verband_beitreten",
+            "raketen_bauen",
+            "raketen_starten",
+            "nachricht",
+            "vertrag_anbieten",
+            "vertrag_annehmen",
+            "vertrag_ablehnen",
+            "vertrag_kuendigen",
+            "allianz_gruenden",
+            "allianz_einladen",
+            "allianz_beitreten",
+            "allianz_verlassen",
+            "schenken"
+          ]
+        }
+      ]
+    },
+    {
+      "revision": 0,
+      "roles": [
+        {
+          "id": "regierung",
+          "purpose": "Versorgung sichern, Wirtschaft aufbauen, Nachbarn und Expansion planen.",
+          "model": "demo",
+          "capabilities": [
+            "doktrin",
+            "stufenaufstieg",
+            "meldung",
+            "bauen",
+            "abreissen",
+            "schleife_leeren",
+            "forschen",
+            "steuersatz",
+            "prioritaeten",
+            "markt_order",
+            "markt_storno",
+            "fertigen",
+            "flotte_senden",
+            "flotte_zurueckrufen",
+            "verband_oeffnen",
+            "verband_beitreten",
+            "raketen_bauen",
+            "raketen_starten",
+            "nachricht",
+            "vertrag_anbieten",
+            "vertrag_annehmen",
+            "vertrag_ablehnen",
+            "vertrag_kuendigen",
+            "allianz_gruenden",
+            "allianz_einladen",
+            "allianz_beitreten",
+            "allianz_verlassen",
+            "schenken"
+          ]
+        }
+      ]
+    }
+  ],
+  "local_memory_bytes": 0,
+  "parallel": 1,
+  "sandbox": "trusted",
+  "sandbox_image": null,
+  "learning_package": null,
+  "learning_sha256": null,
+  "allow_model_switch": false
+}

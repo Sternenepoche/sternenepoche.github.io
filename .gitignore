@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+target/
+.venv/
+venv/
+_site/
+.jekyll-cache/
+.DS_Store

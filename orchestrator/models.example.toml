@@ -1,0 +1,38 @@
+# Modell-IDs durch tatsächlich bereitgestellte Modelle ersetzen.
+# Kein Netzwerkzugriff beim Laden dieser Datei.
+[roles.verwalter]
+provider = "local"
+base_url = "http://127.0.0.1:8000/v1"
+model = "lokales-wirtschaftsmodell"
+max_tokens = 1024
+max_requests = 1000
+
+[roles.feldherr]
+provider = "local"
+base_url = "http://127.0.0.1:8001/v1"
+model = "lokales-militaermodell"
+max_tokens = 1024
+max_requests = 1000
+
+[roles.diplomat]
+provider = "local"
+base_url = "http://127.0.0.1:8002/v1"
+model = "lokales-diplomatiemodell"
+max_tokens = 1024
+max_requests = 1000
+
+[roles.stratege]
+provider = "local"
+base_url = "http://127.0.0.1:8003/v1"
+model = "lokales-strategiemodell"
+max_tokens = 1024
+max_requests = 1000
+
+# Für OpenRouter den gewünschten Rollenblock ersetzen durch:
+# provider = "openrouter"
+# base_url = "https://openrouter.ai/api/v1"
+# model = "anbieter/exakte-modell-id"
+# api_key_env = "OPENROUTER_API_KEY"
+# allow_remote = true
+# max_tokens = 1024
+# max_requests = 100

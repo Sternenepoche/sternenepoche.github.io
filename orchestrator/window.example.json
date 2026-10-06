@@ -1,0 +1,10 @@
+[
+  {
+    "player_id": "reich-001",
+    "role": "verwalter",
+    "sim_time": 900,
+    "observation": {"hinweis": "Schnittstellenbeispiel; keine echte Weltbeobachtung", "eigene_planeten": []},
+    "rules": "Ziel ist die höchste Punktzahl am Ende von Tag 365. Dieses Schnittstellenbeispiel hat keine erlaubten Aktionen; gib eine leere Aktionsliste zurück.",
+    "notebook": ""
+  }
+]

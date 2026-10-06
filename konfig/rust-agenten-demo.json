@@ -1,0 +1,19 @@
+{
+  "startwert": 42,
+  "spieler": 50,
+  "tage": 365,
+  "parallel": 8,
+  "max_anfragen": 1000000,
+  "anbieter": {
+    "offline": {
+      "art": "mock",
+      "modell": "regel-demo-v1",
+      "url": null,
+      "api_key_env": null,
+      "remote_erlaubt": false,
+      "max_tokens": 1024,
+      "timeout_sekunden": 120
+    }
+  },
+  "rollen": {"stratege":"offline", "verwalter":"offline", "feldherr":"offline", "diplomat":"offline"}
+}

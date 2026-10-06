@@ -1,0 +1,1137 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sternenepoche – Betrachter</title>
+<style>
+  :root {
+    color-scheme: light;
+    --plane: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink2: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,0.10); --rest: #c3c2b7;
+    --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948;
+    --q0: #cde2fb; --q1: #9ec5f4; --q2: #6da7ec; --q3: #3987e5; --q4: #256abf; --q5: #104281;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --plane: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink2: #c3c2b7; --muted: #898781;
+      --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10); --rest: #52514e;
+      --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+      --q0: #0d366b; --q1: #184f95; --q2: #256abf; --q3: #3987e5; --q4: #6da7ec; --q5: #b7d3f6;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--plane); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 1180px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  h2 { font-size: 16px; margin: 0 0 4px; }
+  .meta, .hinweis { color: var(--ink2); }
+  section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-top: 16px; }
+  .zeile { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: space-between; margin-bottom: 8px; }
+  select, input[type=file] { font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--axis); border-radius: 6px; padding: 4px 8px; }
+  .legende { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 8px; color: var(--ink2); }
+  .legende span { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+  .legende i { width: 14px; height: 3px; border-radius: 2px; display: inline-block; }
+  svg text { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+  .karte { overflow-x: auto; }
+  .tip { position: fixed; pointer-events: none; background: var(--surface); color: var(--ink); border: 1px solid var(--axis); border-radius: 8px;
+         padding: 6px 9px; font-size: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.18); display: none; max-width: 320px; z-index: 5; }
+  .tip b { font-weight: 600; } .tip div { display: flex; gap: 8px; align-items: center; justify-content: space-between; }
+  .tip i { width: 10px; height: 3px; border-radius: 2px; display: inline-block; margin-right: 6px; }
+  .rolle { max-height: 420px; overflow: auto; border-top: 1px solid var(--grid); }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; padding: 5px 10px 5px 0; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+  th { color: var(--ink2); font-weight: 600; position: sticky; top: 0; background: var(--surface); }
+  td.r, th.r { text-align: right; }
+  tr.wahl td { background: color-mix(in srgb, var(--s1) 14%, transparent); }
+  tbody tr { cursor: pointer; }
+  .skala { display: inline-flex; align-items: center; gap: 6px; color: var(--ink2); font-size: 12px; }
+  .skala i { width: 16px; height: 10px; display: inline-block; border-radius: 2px; }
+  .live { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--s3); }
+  .live i { width: 8px; height: 8px; border-radius: 50%; background: var(--s3); animation: puls 1.6s ease-in-out infinite; }
+  @keyframes puls { 50% { opacity: .25; } }
+  @media (prefers-reduced-motion: reduce) { .live i { animation: none; } }
+  .filter { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; color: var(--ink2); }
+  .kennzahlen { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 8px 0 12px; }
+  .kennzahlen div { border: 1px solid var(--grid); border-radius: 8px; padding: 8px 10px; }
+  .kennzahlen b { display: block; font-size: 18px; font-variant-numeric: tabular-nums; }
+  .kennzahlen span { color: var(--ink2); font-size: 12px; }
+  details.ent { border-bottom: 1px solid var(--grid); padding: 6px 0; }
+  details.ent summary { cursor: pointer; display: grid; grid-template-columns: 112px minmax(90px, 150px) 84px 1fr 78px; gap: 10px; align-items: baseline; list-style: none; }
+  details.ent summary::-webkit-details-marker { display: none; }
+  details.ent .zeit, details.ent .kosten { color: var(--ink2); font-variant-numeric: tabular-nums; }
+  details.ent .kosten { text-align: right; }
+  .chip { display: inline-block; border-radius: 10px; padding: 0 7px; margin: 1px 3px 1px 0; font-size: 12px; border: 1px solid var(--grid); }
+  .chip.ok { color: var(--s3); border-color: color-mix(in srgb, var(--s3) 45%, transparent); }
+  .chip.nein { color: var(--s8); border-color: color-mix(in srgb, var(--s8) 45%, transparent); }
+  .ent .inhalt { padding: 8px 0 4px 12px; color: var(--ink); white-space: normal; }
+  .ent .inhalt p { margin: 4px 0; }
+  .ent .inhalt pre { white-space: pre-wrap; font: 12px/1.4 ui-monospace, Consolas, monospace; background: var(--plane); border: 1px solid var(--grid); border-radius: 6px; padding: 6px 8px; margin: 4px 0; }
+  .ent .fehler { color: var(--s8); }
+  @media (max-width: 700px) { details.ent summary { grid-template-columns: 1fr 1fr; } }
+
+  #system_detail { animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+  #galaxie2d circle:hover { filter: brightness(1.5); }
+  #galaxie3d { cursor: grab; }
+  #galaxie3d:active { cursor: grabbing; }
+</style>
+  <script src="three.min.js"></script>
+</head>
+<body>
+<main>
+  <h1>Sternenepoche – Betrachter</h1>
+  <div class="meta" id="meta">Dateien eines Laufs wählen: <code>schluss.json</code>, <code>tageswerte.jsonl</code>, <code>kampfberichte.jsonl</code>, <code>register.jsonl</code>.</div>
+  <p id="lader"><input type="file" id="dateien" multiple accept=".json,.jsonl"> <span class="hinweis">Über einen Webserver geht auch <code>?lauf=pfad/zum/lauf</code>. Live und mit den Entscheidungen der Modelle: <code>python -m sternenepoche zeigen laeufe/NAME</code>.</span></p>
+
+
+  <section id="verlauf" hidden>
+    <div class="zeile"><div><h2 id="vt">Punkte im Verlauf</h2><div class="hinweis">Die acht Bestplatzierten am Ende farbig, alle übrigen grau. Klick auf einen Namen hebt das Reich überall hervor.</div></div>
+      <select id="mass" aria-label="Messgröße">
+        <option value="gesamt">Punkte gesamt</option><option value="wirtschaft">Punkte Wirtschaft</option><option value="forschung">Punkte Forschung</option>
+        <option value="militaer">Punkte Militär</option><option value="bev">Einwohner</option><option value="flotte">Flottenwert</option><option value="stab">Stabilität der Heimatwelt</option>
+      </select></div>
+    <svg id="chart" width="100%" viewBox="0 0 1140 340" role="img" aria-label="Verlauf je Reich"></svg>
+    <div class="legende" id="legende"></div>
+  </section>
+
+  <section id="modelle" hidden>
+    <div class="zeile"><div><h2 id="mt">Entscheidungen der Modelle</h2><div class="hinweis">Neueste zuerst. Jede Zeile ist ein Aufruf einer Rolle: Befehle mit dem Urteil des Spielkerns (grün angenommen, rot abgelehnt), Kosten aller Runden. Klick öffnet Anlass, Begründung, Notiz und Prognose.</div></div>
+      <div class="filter">
+        <select id="mreich" aria-label="Reich"></select>
+        <select id="mrolle" aria-label="Rolle"><option value="">alle Rollen</option><option>stratege</option><option>verwalter</option><option>feldherr</option><option>diplomat</option></select>
+        <label><input type="checkbox" id="mfehler"> nur mit Ablehnungen oder Fehlern</label>
+      </div></div>
+    <div class="kennzahlen" id="mkz"></div>
+    <div class="rolle" id="mliste" style="max-height: 640px"></div>
+  </section>
+
+  <section id="galaxie" hidden>
+    <div class="zeile"><div><h2>Galaxie am Ende des Laufs</h2><div class="hinweis">Je Spalte ein System, je Zeile eine Position. Farbe: Punkte des Besitzers. N = Nebelsystem, A = Asteroidengürtel.</div></div>
+      <span class="skala">wenig <i style="background:var(--q0)"></i><i style="background:var(--q1)"></i><i style="background:var(--q2)"></i><i style="background:var(--q3)"></i><i style="background:var(--q4)"></i><i style="background:var(--q5)"></i> viele Punkte</span></div>
+    <div class="karte"><svg id="karte" width="1140" viewBox="0 0 1140 380"></svg></div>
+  </section>
+
+
+  
+<style>
+  /* GALAXY VIEW - Professional Dark Theme */
+  .galaxie-rahmen {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #06080f;
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .galaxie-toolbar {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    pointer-events: none;
+  }
+  .galaxie-toolbar > * { pointer-events: auto; }
+  .modus-toggle {
+    display: flex;
+    gap: 2px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 3px;
+    backdrop-filter: blur(12px);
+  }
+  .modus-btn {
+    padding: 6px 14px;
+    border: none;
+    background: transparent;
+    color: rgba(255,255,255,0.5);
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .modus-btn.aktiv {
+    background: rgba(255,255,255,0.12);
+    color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .modus-btn:hover:not(.aktiv) {
+    color: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.06);
+  }
+  .galaxie-legend {
+    display: flex;
+    gap: 16px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    background: rgba(0,0,0,0.3);
+    padding: 6px 12px;
+    border-radius: 6px;
+    backdrop-filter: blur(8px);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    box-shadow: 0 0 6px currentColor;
+  }
+  #galaxie3d, #galaxie2d {
+    display: block;
+    width: 100%;
+    background: #06080f;
+    cursor: grab;
+  }
+  #galaxie3d:active { cursor: grabbing; }
+  #galaxie2d { cursor: crosshair; }
+
+  /* Detail Panel - Elegant Overlay */
+  #system_detail {
+      position: absolute;
+      top: 60px;
+      right: 16px;
+      width: 280px;
+      background: rgba(12,14,20,0.92) url('bg_zone.png') center/cover;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 20px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+      z-index: 100;
+      animation: slideIn 0.25s ease;
+    }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .detail-close {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.5);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .detail-close:hover {
+    background: rgba(255,255,255,0.12);
+    color: white;
+  }
+  .detail-coord {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 8px 0;
+  }
+  .detail-zone {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+  }
+  .detail-section {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .detail-section-title {
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    font-size: 13px;
+  }
+  .detail-label {
+    color: rgba(255,255,255,0.5);
+  }
+  .detail-value {
+    font-weight: 500;
+    color: rgba(255,255,255,0.9);
+  }
+  .detail-planet {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 8px;
+    margin: 4px 0;
+    background: rgba(255,255,255,0.03);
+    border-radius: 6px;
+    font-size: 12px;
+  }
+  .detail-planet-code {
+    font-family: 'SF Mono', monospace;
+    color: #60a5fa;
+  }
+  .detail-planet-owner {
+    color: rgba(255,255,255,0.5);
+    font-size: 11px;
+  }
+  .detail-combat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+  }
+  .combat-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+  }
+  .combat-icon.angriff { background: rgba(239,68,68,0.2); color: #ef4444; }
+  .combat-icon.verteidigung { background: rgba(59,130,246,0.2); color: #3b82f6; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    #system_detail {
+      width: calc(100% - 32px);
+      right: 16px;
+      left: 16px;
+    }
+    .galaxie-toolbar {
+      flex-direction: column;
+      gap: 8px;
+      align-items: stretch;
+    }
+  }
+</style>
+
+<section id="verteilung" hidden>
+  <h2>Galaxie-Verteilung</h2>
+  <div class="galaxie-rahmen">
+    <div class="galaxie-toolbar">
+      <div class="modus-toggle">
+        <button class="modus-btn aktiv" id="modus_3d" onclick="setzeModus('3d')">🌌 3D-Ansicht</button>
+        <button class="modus-btn" id="modus_2d" onclick="setzeModus('2d')">◉ Radial</button>
+      </div>
+      <div class="galaxie-legend">
+        <div class="legend-item"><div class="legend-dot" style="color:#60a5fa;background:#60a5fa"></div>Zone 1–2</div>
+        <div class="legend-item"><div class="legend-dot" style="color:#a78bfa;background:#a78bfa"></div>Zone 3</div>
+        <div class="legend-item"><div class="legend-dot" style="color:#34d399;background:#34d399"></div>Zone 4–5</div>
+        <div class="legend-item"><div class="legend-dot" style="color:#fbbf24;background:#fbbf24"></div>Gürtel</div>
+      </div>
+    </div>
+    <canvas id="galaxie3d"></canvas>
+    <svg id="galaxie2d" viewBox="0 0 1140 600" style="display:none"></svg>
+    
+    <div id="system_detail" style="display:none">
+      <div class="detail-header">
+        <div>
+          <div class="detail-coord" id="sd_coord"></div>
+          <div class="detail-zone" id="sd_zone"></div>
+        </div>
+        <button class="detail-close" onclick="schliesseDetail()">×</button>
+      </div>
+      <div id="sd_content"></div>
+    </div>
+  </div>
+  <div class="hinweis" id="verteilung_info" style="margin-top:12px;color:var(--muted);font-size:12px"></div>
+</section>
+
+
+  <section id="rang" hidden><h2>Rangliste</h2><div class="rolle"><table id="rangtabelle"></table></div></section>
+  <section id="kaempfe" hidden><h2 id="kt">Kämpfe</h2><div class="rolle"><table id="kampftabelle"></table></div></section>
+  <section id="register" hidden><h2>Vertragsregister</h2><div class="rolle"><table id="registertabelle"></table></div></section>
+</main>
+<div class="tip" id="tip"></div>
+<script>
+const $ = id => document.getElementById(id);
+const fmt = n => Math.round(n).toLocaleString("de-DE");
+const zeit = t => `Tag ${Math.floor(t / 86400) + 1}, ${String(Math.floor(t % 86400 / 3600)).padStart(2, "0")}:${String(Math.floor(t % 3600 / 60)).padStart(2, "0")}`;
+const jsonl = text => text.split("\n").filter(z => z.trim()).map(z => JSON.parse(z));
+const D = { schluss: null, tage: [], kaempfe: [], register: [] };
+let wahl = null, farbe = {}, spieler = [];
+
+const MASS = {
+  gesamt: r => r.punkte.wirtschaft + r.punkte.forschung + r.punkte.militaer + r.punkte.zivilisation,
+  wirtschaft: r => r.punkte.wirtschaft, forschung: r => r.punkte.forschung, militaer: r => r.punkte.militaer,
+  bev: r => r.bevoelkerung / 1000, flotte: r => r.flottenwert / 1000, stab: r => r.stabilitaet / 1000,
+};
+
+function tip(html, e) {
+  const t = $("tip");
+  if (!html) { t.style.display = "none"; return; }
+  t.innerHTML = html; t.style.display = "block";
+  const b = t.getBoundingClientRect();
+  t.style.left = Math.min(e.clientX + 14, innerWidth - b.width - 8) + "px";
+  t.style.top = Math.max(8, e.clientY - b.height - 10) + "px";
+}
+
+function start() {
+  const s = D.schluss, w = s.welt;
+  const stat = Object.fromEntries((s.statistik || []).map(x => [x.id, x]));
+  spieler = w.spieler.map(p => ({ ...p, steuerung: stat[p.id]?.steuerung || (s.bots && s.bots[p.id]) || (p.ki ? "Modell" : "Bot"),
+    statistik: stat[p.id]?.statistik, kolonien: w.planeten.filter(x => x.spieler === p.id && !x.heimat).length }));
+  // Farbe folgt dem Reich, nicht der Messgröße: die acht Besten am Ende behalten ihre Farbe in jeder Ansicht.
+  farbe = {};
+  [...spieler].sort((a, b) => a.rang - b.rang).slice(0, 8).forEach((p, i) => farbe[p.id] = `var(--s${i + 1})`);
+  const lage = s.live ? `<span class="live"><i></i>läuft</span> Stand ${s.stand} (letzter Schnappschuss), aktualisiert sich alle 30 Sekunden. `
+    : s.beendet === false ? `Angehalten bei ${zeit(s.zeit)}${s.angehalten ? " (" + esc(s.angehalten) + ")" : ""}. ` : "";
+  $("meta").innerHTML = lage + `Startwert ${s.startwert}, ${s.spieler} Reiche, ${s.tage} Spieltage, Regelwerk ${s.regel_version} (${s.regel_hash.slice(0, 12)}), Zustand ${s.hash.slice(0, 16)}`
+    + (s.kosten ? `, ${fmt(s.kosten.aufrufe)} Modellaufrufe, ${s.kosten.usd.toFixed(2)} USD` : "");
+  $("lader").hidden = true;
+  for (const id of ["verlauf", "galaxie", "verteilung", "rang", "kaempfe", "register"]) $(id).hidden = false;
+  zeichne();
+}
+function zeichne() { verlauf(); karte(); rangliste(); kampfliste(); registerliste(); zeichneGalaxie(); }
+function waehle(id) { wahl = wahl === id ? null : id; zeichne(); }
+
+function verlauf() {
+  const f = MASS[$("mass").value], svg = $("chart"), B = 1140, H = 340, l = 56, r = 96, o = 12, u = 26;
+  $("vt").textContent = $("mass").selectedOptions[0].textContent + " im Verlauf";
+  const reihen = {}; let maxTag = 1, max = 1;
+  for (const z of D.tage) { (reihen[z.spieler] ||= [])[z.tag] = f(z); maxTag = Math.max(maxTag, z.tag); max = Math.max(max, f(z)); }
+  const x = t => l + (t - 1) / Math.max(1, maxTag - 1) * (B - l - r), y = v => H - u - v / max * (H - o - u);
+  const schritt = Math.pow(10, Math.floor(Math.log10(max))) * (max / Math.pow(10, Math.floor(Math.log10(max))) > 4 ? 1 : 0.5);
+  let h = "";
+  for (let v = 0; v <= max; v += schritt) h += `<line x1="${l}" x2="${B - r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--grid)"/><text x="${l - 8}" y="${y(v) + 4}" text-anchor="end">${fmt(v)}</text>`;
+  const tschritt = maxTag > 200 ? 50 : maxTag > 60 ? 20 : maxTag > 20 ? 5 : 1;
+  for (let t = tschritt; t <= maxTag; t += tschritt) h += `<text x="${x(t)}" y="${H - 8}" text-anchor="middle">Tag ${t}</text>`;
+  h += `<line x1="${l}" x2="${B - r}" y1="${y(0)}" y2="${y(0)}" stroke="var(--axis)"/>`;
+  const linie = (id, stil) => { const p = []; (reihen[id] || []).forEach((v, t) => p.push(`${x(t).toFixed(1)},${y(v).toFixed(1)}`)); return `<polyline points="${p.join(" ")}" fill="none" ${stil}/>`; };
+  const vorn = spieler.filter(p => farbe[p.id]).sort((a, b) => a.rang - b.rang);
+  for (const p of spieler) if (!farbe[p.id] && p.id !== wahl) h += linie(p.id, `stroke="var(--rest)" stroke-width="1" opacity="${wahl === null ? 0.7 : 0.35}"`);
+  for (const p of vorn) if (p.id !== wahl) h += linie(p.id, `stroke="${farbe[p.id]}" stroke-width="2" stroke-linejoin="round" opacity="${wahl === null ? 1 : 0.3}"`);
+  if (wahl !== null) h += linie(wahl, `stroke="${farbe[wahl] || "var(--ink)"}" stroke-width="3" stroke-linejoin="round"`);
+  // Direkte Beschriftung nur für die ersten vier und die Auswahl, ohne Überlappung.
+  const marken = [...vorn.slice(0, 4), ...spieler.filter(p => p.id === wahl && !vorn.slice(0, 4).includes(p))]
+    .map(p => ({ p, y: y((reihen[p.id] || [])[maxTag] || 0) })).sort((a, b) => a.y - b.y);
+  marken.forEach((m, i) => { if (i && m.y - marken[i - 1].y < 13) m.y = marken[i - 1].y + 13; });
+  for (const m of marken) h += `<text x="${B - r + 6}" y="${m.y + 4}" style="fill:var(--ink2)">${m.p.name}</text>`;
+  h += `<line id="faden" y1="${o}" y2="${H - u}" stroke="var(--axis)" visibility="hidden"/><rect x="${l}" y="${o}" width="${B - l - r}" height="${H - o - u}" fill="transparent" id="flaeche"/>`;
+  svg.innerHTML = h;
+  const fl = $("flaeche"), faden = $("faden");
+  fl.onmousemove = e => {
+    const b = svg.getBoundingClientRect(), px = (e.clientX - b.left) / b.width * B;
+    const t = Math.max(1, Math.min(maxTag, Math.round(1 + (px - l) / (B - l - r) * (maxTag - 1))));
+    faden.setAttribute("x1", x(t)); faden.setAttribute("x2", x(t)); faden.setAttribute("visibility", "visible");
+    const zeigen = [...vorn, ...spieler.filter(p => p.id === wahl && !farbe[p.id])].sort((a, b) => ((reihen[b.id] || [])[t] || 0) - ((reihen[a.id] || [])[t] || 0));
+    tip(`<b>Tag ${t}</b>` + zeigen.map(p => `<div><span><i style="background:${farbe[p.id] || "var(--ink)"}"></i>${p.name}</span><span>${fmt((reihen[p.id] || [])[t] || 0)}</span></div>`).join(""), e);
+  };
+  fl.onmouseleave = () => { faden.setAttribute("visibility", "hidden"); tip(null); };
+  $("legende").innerHTML = vorn.map(p => `<span data-id="${p.id}"><i style="background:${farbe[p.id]}"></i>${p.rang}. ${p.name}</span>`).join("")
+    + `<span><i style="background:var(--rest)"></i>übrige ${spieler.length - vorn.length} Reiche</span>`;
+  $("legende").querySelectorAll("[data-id]").forEach(e => e.onclick = () => waehle(+e.dataset.id));
+}
+
+function karte() {
+  const w = D.schluss.welt, svg = $("karte"), z = 15, l = 28, je = Math.max(...w.systeme.map(s => s[1]));
+  const sektoren = [...new Set(w.systeme.map(s => s[0]))], maxP = Math.max(1, ...spieler.map(p => p.punkte));
+  const stufe = p => `var(--q${Math.min(5, Math.floor(Math.sqrt(p / maxP) * 6))})`;
+  const belegt = Object.fromEntries(w.planeten.map(p => [p.koord, p]));
+  let h = "";
+  sektoren.forEach((sek, si) => {
+    const oy = 20 + si * (12 * z + 46);
+    h += `<text x="0" y="${oy - 6}" style="fill:var(--ink2)">Sektor ${sek}</text>`;
+    for (let pos = 1; pos <= 12; pos += 1) if (pos % 3 === 0) h += `<text x="${l - 6}" y="${oy + pos * z - 3}" text-anchor="end">${pos}</text>`;
+    for (const [s, n, nebel, guertel] of w.systeme.filter(x => x[0] === sek)) {
+      const x = l + (n - 1) * (z + 3.3);
+      if (nebel || guertel) h += `<text x="${x + z / 2 - 1}" y="${oy + 12 * z + 13}" text-anchor="middle">${nebel ? "N" : "A"}</text>`;
+      else if (n % 10 === 0) h += `<text x="${x + z / 2 - 1}" y="${oy + 12 * z + 13}" text-anchor="middle">${n}</text>`;
+      for (let pos = 1; pos <= 12; pos += 1) {
+        const k = `${s}:${n}:${pos}`, p = belegt[k], y = oy + (pos - 1) * z;
+        if (!p) { h += `<rect x="${x}" y="${y}" width="${z - 2}" height="${z - 2}" rx="2" fill="${nebel ? "var(--grid)" : "none"}" stroke="var(--grid)"/>`; continue; }
+        const b = spieler[p.spieler], gew = wahl === b.id;
+        h += `<rect x="${x}" y="${y}" width="${z - 2}" height="${z - 2}" rx="${p.heimat ? 2 : 6}" fill="${stufe(b.punkte)}" stroke="${gew ? "var(--ink)" : "var(--surface)"}" stroke-width="${gew ? 2 : 1}"
+          opacity="${wahl === null || gew ? 1 : 0.35}" data-k="${k}" data-id="${b.id}"/>`;
+      }
+    }
+  });
+  svg.setAttribute("viewBox", `0 0 1140 ${20 + sektoren.length * (12 * z + 46)}`);
+  svg.setAttribute("height", 20 + sektoren.length * (12 * z + 46));
+  svg.innerHTML = h;
+  svg.querySelectorAll("[data-k]").forEach(e => {
+    const b = spieler[+e.dataset.id], p = belegt[e.dataset.k];
+    e.style.cursor = "pointer";
+    e.onmousemove = ev => tip(`<b>${e.dataset.k}</b> ${p.heimat ? "Heimatwelt" : "Kolonie"}<div><span>${b.name} (${b.volk}, ${b.steuerung})</span></div><div><span>Rang ${b.rang}</span><span>${fmt(b.punkte)} Punkte</span></div>`, ev);
+    e.onmouseleave = () => tip(null);
+    e.onclick = () => waehle(b.id);
+  });
+}
+
+function tabelle(id, kopf, zeilen) {
+  $(id).innerHTML = `<thead><tr>${kopf.map(k => `<th class="${k[1] || ""}">${k[0]}</th>`).join("")}</tr></thead><tbody>`
+    + zeilen.map(z => `<tr data-id="${z.id ?? ""}" class="${z.id === wahl && wahl !== null ? "wahl" : ""}">${z.zellen.map((c, i) => `<td class="${kopf[i][1] || ""}">${c}</td>`).join("")}</tr>`).join("") + "</tbody>";
+  $(id).querySelectorAll("tbody tr").forEach(tr => { if (tr.dataset.id !== "") tr.onclick = () => waehle(+tr.dataset.id); });
+}
+function rangliste() {
+  const st = p => p.statistik || {};
+  tabelle("rangtabelle", [["Rang", "r"], ["Reich"], ["Volk"], ["Steuerung"], ["Stufe", "r"], ["Punkte", "r"], ["Kolonien", "r"], ["Angriffe", "r"], ["Beute", "r"], ["Verluste", "r"], ["Vertragsbrüche", "r"]],
+    [...spieler].sort((a, b) => a.rang - b.rang).map(p => ({ id: p.id, zellen: [p.rang, p.name, p.volk, p.steuerung, p.stufe, fmt(p.punkte), p.kolonien,
+      st(p).angriffe ?? "–", st(p).beute != null ? fmt(st(p).beute / 1000) : "–", st(p).verluste != null ? fmt(st(p).verluste / 1000) : "–", st(p).vertragsbrueche ?? "–"] })));
+}
+function kampfliste() {
+  const alle = D.kaempfe.filter(k => wahl === null || k.angreifer === wahl || k.verteidiger.includes(wahl));
+  $("kt").textContent = `Kämpfe (${fmt(alle.length)}${wahl !== null ? " mit " + spieler[wahl].name : ""}, neueste zuerst)`;
+  const text = { Angreifer: "Sieg des Angreifers", Verteidiger: "Sieg des Verteidigers", Unentschieden: "unentschieden" };
+  tabelle("kampftabelle", [["Zeit"], ["Ort"], ["Mission"], ["Angreifer"], ["Verteidiger"], ["Ausgang"], ["Runden", "r"], ["Schiffe vorher", "r"], ["Schiffe nachher", "r"], ["Beute (Einheiten)", "r"]],
+    alle.slice(-400).reverse().map(k => ({ zellen: [zeit(k.zeit), k.ort, k.mission, spieler[k.angreifer].name, k.verteidiger.map(v => spieler[v].name).join(", "), text[k.sieger], k.runden,
+      fmt(k.ang_vorher.reduce((a, b) => a + b, 0)), fmt(k.ang_nachher.reduce((a, b) => a + b, 0)), fmt(k.beute.reduce((a, b) => a + b, 0) / 1000)] })));
+}
+function registerliste() {
+  tabelle("registertabelle", [["Zeit"], ["Art"], ["Zwischen"], ["Vorgang"]],
+    [...D.register].reverse().slice(0, 400).map(e => ({ zellen: [zeit(e.zeit), e.art, e.a === e.b ? e.a : `${e.a} und ${e.b}`, e.vorgang] })));
+}
+
+async function ausPfad(pfad) {
+  const hol = async n => { const r = await fetch(`${pfad}/${n}`); if (!r.ok) throw new Error(`${n}: ${r.status}`); return r.text(); };
+  D.schluss = JSON.parse(await hol("schluss.json"));
+  D.tage = jsonl(await hol("tageswerte.jsonl"));
+  D.kaempfe = jsonl(await hol("kampfberichte.jsonl").catch(() => ""));
+  D.register = jsonl(await hol("register.jsonl").catch(() => ""));
+  start();
+}
+$("dateien").onchange = async e => {
+  for (const f of e.target.files) {
+    const t = await f.text();
+    if (f.name === "schluss.json") D.schluss = JSON.parse(t);
+    else if (f.name.startsWith("tageswerte")) D.tage = jsonl(t);
+    else if (f.name.startsWith("kampfberichte")) D.kaempfe = jsonl(t);
+    else if (f.name.startsWith("register")) D.register = jsonl(t);
+  }
+  if (D.schluss && D.tage.length) start(); else $("meta").textContent = "Es fehlen noch schluss.json oder tageswerte.jsonl.";
+};
+$("mass").onchange = verlauf;
+
+// ---------------------------------------------------------------- Entscheidungen der Modelle
+// Modelltexte sind fremde Daten: alles, was aus Antworten stammt, wird maskiert eingesetzt.
+const esc = t => String(t ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const E = [];
+const ROLLE = { stratege: "Stratege", verwalter: "Verwalter", feldherr: "Feldherr", diplomat: "Diplomat" };
+
+function modellfilter() {
+  const reich = $("mreich").value, rolle = $("mrolle").value, nurFehler = $("mfehler").checked;
+  return E.filter(e => (!reich || e.name === reich) && (!rolle || e.rolle === rolle)
+    && (!nurFehler || e.fehler || e.aktionen.some(a => !a.ok)));
+}
+
+function modelle() {
+  if (!E.length) return;
+  $("modelle").hidden = false;
+  const namen = [...new Set(E.map(e => e.name))].sort();
+  const wahlReich = $("mreich").value;
+  $("mreich").innerHTML = `<option value="">alle Reiche mit Modellen</option>` + namen.map(n => `<option${n === wahlReich ? " selected" : ""}>${esc(n)}</option>`).join("");
+  const liste = modellfilter();
+  const akt = liste.flatMap(e => e.aktionen.filter(a => !a.korrektur));
+  const kosten = liste.reduce((s, e) => s + e.kosten, 0);
+  const tage = Math.max(1, (Math.max(...liste.map(e => e.zeit), 0)) / 86400);
+  $("mt").textContent = `Entscheidungen der Modelle (${fmt(liste.length)} von ${fmt(E.length)})`;
+  const kz = [
+    [fmt(liste.length), "Aufrufe"],
+    [`${kosten.toFixed(3)} USD`, `${(kosten / tage).toFixed(4)} USD je Spieltag`],
+    [akt.length ? `${Math.round(100 * akt.filter(a => a.ok).length / akt.length)} %` : "–", `von ${fmt(akt.length)} Befehlen angenommen`],
+    [liste.length ? `${Math.round(100 * liste.filter(e => e.abfragen).length / liste.length)} %` : "–", "Aufrufe mit Abfragen"],
+    [fmt(liste.filter(e => e.fehler).length), "ohne gültige Antwort"],
+  ];
+  $("mkz").innerHTML = kz.map(([w, t]) => `<div><b>${w}</b><span>${t}</span></div>`).join("");
+  // Beim Nachladen bleiben aufgeklappte Einträge offen.
+  const offen = new Set([...document.querySelectorAll("details.ent[open]")].map(d => +d.dataset.nr));
+  $("mliste").innerHTML = liste.slice(-150).reverse().map(e => {
+    const chips = e.aktionen.map(a => `<span class="chip ${a.ok ? "ok" : "nein"}" title="${esc(a.text)}">${a.ok ? "✓" : "✗"} ${esc(a.typ)}${a.korrektur ? " (Korrektur)" : ""}</span>`).join("")
+      || (e.fehler ? `<span class="chip nein">keine Antwort</span>` : `<span class="hinweis">keine Befehle</span>`);
+    const befehle = e.aktionen.map(a => `<li><span class="${a.ok ? "" : "fehler"}">${a.ok ? "angenommen" : "abgelehnt"}${a.korrektur ? " in der Korrektur" : ""}:</span> <code>${esc(a.befehl)}</code>${a.ok ? "" : " – " + esc(a.text)}</li>`).join("");
+    return `<details class="ent" data-nr="${e.nr}"${offen.has(e.nr) ? " open" : ""}><summary><span class="zeit">${esc(e.zeittext)}</span><b>${esc(e.name)}</b><span>${ROLLE[e.rolle] || esc(e.rolle)}</span><span>${chips}</span><span class="kosten">${e.kosten.toFixed(4)} USD</span></summary>
+      <div class="inhalt"><p class="hinweis">Anlass: ${esc(e.gruende.join(", ") || "–")} · ${esc(e.modell || "")} · ${e.runden} Runden${e.abfragen ? `, ${e.abfragen} Abfragen` : ""} · Rang ${e.rang ?? "–"}, ${fmt(e.punkte || 0)} Punkte, Stufe ${e.stufe ?? "–"}${e.wecker_stunden ? ` · Wecker in ${e.wecker_stunden} h` : ""}</p>
+      ${e.fehler ? `<p class="fehler">${esc(e.fehler)}</p>` : ""}
+      ${e.begruendung ? `<p><b>Begründung.</b> ${esc(e.begruendung)}</p>` : ""}
+      ${befehle ? `<ul>${befehle}</ul>` : ""}
+      ${e.prognose ? `<p><b>Prognose.</b> ${esc(e.prognose)}</p>` : ""}
+      ${e.notiz ? `<b>Notizbuch</b><pre>${esc(e.notiz)}</pre>` : ""}</div></details>`;
+  }).join("");
+}
+for (const id of ["mreich", "mrolle", "mfehler"]) $(id).onchange = modelle;
+
+async function entscheidungenHolen() {
+  const r = await fetch(`/api/entscheidungen?ab=${E.length}`);
+  if (r.ok) E.push(...await r.json());
+}
+
+// ---------------------------------------------------------------- Laden
+// Vom Server `python -m sternenepoche zeigen`: Lauf unter /lauf, Entscheidungen unter /api; ein laufender Lauf
+// wird alle 30 Sekunden neu gelesen. Sonst Dateiauswahl oder ?lauf=pfad.
+async function vomServer() {
+  const r = await fetch("/api/stand").catch(() => null);
+  if (!r || !r.ok) return false;
+  const stand = await r.json();
+  await ausPfad("/lauf").catch(x => { $("meta").textContent = `Lauf noch nicht lesbar (${x.message}); erneuter Versuch in 30 Sekunden.`; });
+  await entscheidungenHolen();
+  modelle();
+  if (stand.live) {
+    setInterval(async () => {
+      try {
+        await ausPfad("/lauf");
+        await entscheidungenHolen();
+        modelle();
+      } catch (x) { /* nächster Versuch beim nächsten Takt */ }
+    }, 30000);
+  }
+  return true;
+}
+
+const lauf = new URLSearchParams(location.search).get("lauf");
+if (lauf) ausPfad(lauf).catch(x => $("meta").textContent = `Lauf nicht lesbar: ${x.message}`);
+else if (location.protocol.startsWith("http")) vomServer();
+
+// === GALAXIE-VERTEILUNG (Dual Mode: 3D Cloud + Radial Graph) ===
+const GOLDEN_ANGLE = 2.399963229728653; // 137.508° in Radian
+const ZONEN = [
+  { zone: 1, minID: 1, maxID: 30, rMin: 15, rMax: 92, name: "Kernzone", dichte: "Extrem dicht" },
+  { zone: 2, minID: 31, maxID: 60, rMin: 100, rMax: 192, name: "Innere Zone", dichte: "Dicht" },
+  { zone: 3, minID: 61, maxID: 120, rMin: 200, rMax: 392, name: "Mittlere Zone", dichte: "Mäßig" },
+  { zone: 4, minID: 121, maxID: 240, rMin: 400, rMax: 792, name: "Äußere Zone", dichte: "Spärlich" },
+  { zone: 5, minID: 241, maxID: 300, rMin: 800, rMax: 1600, name: "Außengrenze", dichte: "Sehr spärlich" }
+];
+const ASTEROID_WIDTH = 8;
+
+let galaxieModus = '3d';
+let systemDaten = [];
+
+function berechnePosition(id, sektor) {
+  const zone = ZONEN.find(z => id >= z.minID && id <= z.maxID) || ZONEN[4];
+  const j = id - zone.minID;
+  const N = zone.maxID - zone.minID + 1;
+  const seed = Math.sin(sektor * 9999 + id * 1337);
+  const noiseR = (seed - Math.floor(seed)) * 0.4 - 0.2;
+  const progress = (j + 0.5 + noiseR) / N;
+  const r = zone.rMin + progress * (zone.rMax - zone.rMin);
+  const theta = (id * GOLDEN_ANGLE + sektor * 1.5) % (2 * Math.PI);
+  const heightScale = 10 + r * 0.04;
+  const y = Math.sin(id * 17.3) * heightScale;
+  return { x: r * Math.cos(theta), y, z: r * Math.sin(theta), r, theta, zone: zone.zone };
+}
+
+
+// === SIMPLE CAMERA CONTROLS (replaces OrbitControls) ===
+
+// === FLEET & COMBAT DATA ===
+
+
+
+
+
+
+
+
+// ═══════════════════════════════════════════════════════════════
+// GALAXY VISUALIZATION ENGINE
+// ═══════════════════════════════════════════════════════════════
+
+const GOLDEN_ANGLE = 137.508 * (Math.PI / 180);
+const ZONEN = [
+  { zone: 1, name: 'Dichter Kern', rMin: 0, rMax: 100, dichte: '30 Systeme', color: '#60a5fa' },
+  { zone: 2, name: 'Innere Region', rMin: 100, rMax: 200, dichte: '30 Systeme', color: '#818cf8' },
+  { zone: 3, name: 'Mittlere Region', rMin: 200, rMax: 400, dichte: '60 Systeme', color: '#a78bfa' },
+  { zone: 4, name: 'Äußere Region', rMin: 400, rMax: 800, dichte: '120 Systeme', color: '#c084fc' },
+  { zone: 5, name: 'Peripherie', rMin: 800, rMax: 1600, dichte: '60+ Systeme', color: '#34d399' }
+];
+const ASTEROID_WIDTH = 16;
+
+let systemDaten = [];
+let galaxieModus = '3d';
+let scene3d, camera3d, renderer3d, starsMesh, zoneGroup, nebulaParticles;
+let galaxyReady = false;
+let animFrame;
+
+function initGalaxieDaten() {
+  if (!D?.schluss?.welt?.systeme) return;
+  systemDaten = [];
+  for (const [sektor, nr, nebel, guertel] of D.schluss.welt.systeme) {
+    const zone = nr <= 30 ? 1 : nr <= 60 ? 2 : nr <= 120 ? 3 : nr <= 240 ? 4 : 5;
+    const z = ZONEN[zone - 1];
+    const localIdx = zone === 1 ? nr - 1 : zone === 2 ? nr - 31 : zone === 3 ? nr - 61 : zone === 4 ? nr - 121 : nr - 241;
+    const count = zone === 1 ? 30 : zone === 2 ? 30 : zone === 3 ? 60 : zone === 4 ? 120 : 60;
+    const r = z.rMin + ((localIdx + 0.5) / count) * (z.rMax - z.rMin);
+    const theta = (nr * GOLDEN_ANGLE + sektor * 1.5) % (Math.PI * 2);
+    const heightScale = 10 + r * 0.04;
+    const y = Math.sin(nr * 17.3) * heightScale;
+    const x = Math.cos(theta) * r;
+    const zPos = Math.sin(theta) * r;
+    systemDaten.push({ sektor, nr, zone, nebel: !!nebel, guertel: !!guertel, x, y, z: zPos, r, theta });
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// THREE.JS 3D RENDERER
+// ═══════════════════════════════════════════════════════════════
+
+function initThreeJS() {
+  if (galaxyReady || typeof THREE === 'undefined') return;
+  const canvas = $('galaxie3d');
+  
+  // Scene with subtle fog for depth
+  scene3d = new THREE.Scene();
+  scene3d.fog = new THREE.FogExp2(0x06080f, 0.0004);
+  
+  // Camera
+  camera3d = new THREE.PerspectiveCamera(55, canvas.clientWidth / canvas.clientHeight, 1, 8000);
+  camera3d.position.set(0, 350, 700);
+  camera3d.lookAt(0, 0, 0);
+  
+  // Renderer with antialiasing
+  renderer3d = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer3d.setSize(canvas.clientWidth, canvas.clientHeight);
+  renderer3d.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer3d.setClearColor(0x06080f, 1);
+  renderer3d.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer3d.toneMappingExposure = 1.2;
+  
+  // Background nebula (subtle)
+  const bgTexture = new THREE.TextureLoader().load('bg_volumetric.png');
+  const bgGeo = new THREE.PlaneGeometry(6000, 3600);
+  const bgMat = new THREE.MeshBasicMaterial({
+    map: bgTexture,
+    transparent: true,
+    opacity: 0.2,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending
+  });
+  const bgMesh = new THREE.Mesh(bgGeo, bgMat);
+  bgMesh.position.set(0, -300, -2000);
+  scene3d.add(bgMesh);
+  
+  // Ambient star field (tiny particles)
+  const starCount = 2000;
+  const starGeo = new THREE.BufferGeometry();
+  const starPos = new Float32Array(starCount * 3);
+  for (let i = 0; i < starCount; i++) {
+    starPos[i * 3] = (Math.random() - 0.5) * 4000;
+    starPos[i * 3 + 1] = (Math.random() - 0.5) * 2000;
+    starPos[i * 3 + 2] = (Math.random() - 0.5) * 4000;
+  }
+  starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+  const starMat = new THREE.PointsMaterial({
+    color: 0xffffff,
+    size: 1.2,
+    transparent: true,
+    opacity: 0.3,
+    sizeAttenuation: true
+  });
+  scene3d.add(new THREE.Points(starGeo, starMat));
+  
+  // Zone rings (subtle)
+  zoneGroup = new THREE.Group();
+  for (const z of ZONEN) {
+    const points = [];
+    const segments = 256;
+    for (let i = 0; i <= segments; i++) {
+      const angle = (i / segments) * Math.PI * 2;
+      points.push(new THREE.Vector3(Math.cos(angle) * z.rMax, 0, Math.sin(angle) * z.rMax));
+    }
+    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+    const material = new THREE.LineBasicMaterial({
+      color: new THREE.Color(z.color),
+      transparent: true,
+      opacity: 0.08,
+      blending: THREE.AdditiveBlending
+    });
+    zoneGroup.add(new THREE.Line(geometry, material));
+  }
+  scene3d.add(zoneGroup);
+  
+  // Asteroid belts (between zones)
+  const beltCount = 5000;
+  const beltGeo = new THREE.BufferGeometry();
+  const beltPos = new Float32Array(beltCount * 3);
+  const beltSizes = new Float32Array(beltCount);
+  for (let i = 0; i < beltCount; i++) {
+    const zoneIdx = Math.floor(Math.random() * 4);
+    const z = ZONEN[zoneIdx];
+    const angle = Math.random() * Math.PI * 2;
+    const radius = z.rMax + (Math.random() - 0.5) * ASTEROID_WIDTH;
+    beltPos[i * 3] = Math.cos(angle) * radius;
+    beltPos[i * 3 + 1] = (Math.random() - 0.5) * 8;
+    beltPos[i * 3 + 2] = Math.sin(angle) * radius;
+    beltSizes[i] = Math.random() * 1.5 + 0.3;
+  }
+  beltGeo.setAttribute('position', new THREE.BufferAttribute(beltPos, 3));
+  beltGeo.setAttribute('size', new THREE.BufferAttribute(beltSizes, 1));
+  const beltMat = new THREE.PointsMaterial({
+    color: 0x8b7355,
+    size: 1.2,
+    transparent: true,
+    opacity: 0.25,
+    sizeAttenuation: true,
+    blending: THREE.AdditiveBlending
+  });
+  scene3d.add(new THREE.Points(beltGeo, beltMat));
+  
+  // Star systems (InstancedMesh)
+  const starSysCount = systemDaten.length;
+  const sysGeo = new THREE.SphereGeometry(1, 12, 12);
+  const sysMat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.9 });
+  starsMesh = new THREE.InstancedMesh(sysGeo, sysMat, starSysCount);
+  
+  const dummy = new THREE.Object3D();
+  const color = new THREE.Color();
+  const zoneColors = ['#60a5fa', '#818cf8', '#a78bfa', '#c084fc', '#34d399'];
+  
+  for (let i = 0; i < starSysCount; i++) {
+    const s = systemDaten[i];
+    dummy.position.set(s.x, s.y, s.z);
+    const size = s.zone === 1 ? 5 : s.zone <= 3 ? 3.5 : 2.5;
+    dummy.scale.setScalar(size);
+    dummy.updateMatrix();
+    starsMesh.setMatrixAt(i, dummy.matrix);
+    
+    // Color based on owner or zone
+    if (s.besitzer !== null && farbe[s.besitzer]) {
+      color.set(farbe[s.besitzer]);
+    } else if (s.nebel) {
+      color.set('#9333ea');
+    } else if (s.guertel) {
+      color.set('#b8860b');
+    } else {
+      color.set(zoneColors[s.zone - 1]);
+    }
+    starsMesh.setColorAt(i, color);
+  }
+  starsMesh.instanceMatrix.needsUpdate = true;
+  if (starsMesh.instanceColor) starsMesh.instanceColor.needsUpdate = true;
+  scene3d.add(starsMesh);
+  
+  // Glow sprites for core systems
+  const glowTex = createGlowTexture();
+  for (let i = 0; i < starSysCount; i++) {
+    const s = systemDaten[i];
+    if (s.zone <= 2 && s.planeten > 0) {
+      const glowMat = new THREE.SpriteMaterial({
+        map: glowTex,
+        color: new THREE.Color(zoneColors[s.zone - 1]),
+        transparent: true,
+        opacity: 0.4,
+        blending: THREE.AdditiveBlending
+      });
+      const sprite = new THREE.Sprite(glowMat);
+      sprite.position.set(s.x, s.y, s.z);
+      sprite.scale.setScalar(s.zone === 1 ? 40 : 28);
+      scene3d.add(sprite);
+    }
+  }
+  
+  // Setup camera controls
+  setupCameraControls(canvas, camera3d);
+  
+  galaxyReady = true;
+  animate();
+}
+
+function createGlowTexture() {
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = 128;
+  const ctx = canvas.getContext('2d');
+  const gradient = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+  gradient.addColorStop(0, 'rgba(255,255,255,1)');
+  gradient.addColorStop(0.15, 'rgba(255,255,255,0.6)');
+  gradient.addColorStop(0.4, 'rgba(255,255,255,0.15)');
+  gradient.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, 128, 128);
+  return new THREE.CanvasTexture(canvas);
+}
+
+function animate() {
+  animFrame = requestAnimationFrame(animate);
+  if (!galaxyReady) return;
+  
+  // Subtle rotation
+  if (starsMesh) starsMesh.rotation.y += 0.00015;
+  if (zoneGroup) zoneGroup.rotation.y += 0.00015;
+  
+  renderer3d.render(scene3d, camera3d);
+}
+
+function resizeGalaxy3D() {
+  if (!galaxyReady) return;
+  const canvas = $('galaxie3d');
+  const w = canvas.parentElement.clientWidth;
+  const h = Math.min(650, w * 0.5);
+  canvas.style.width = w + 'px';
+  canvas.style.height = h + 'px';
+  camera3d.aspect = w / h;
+  camera3d.updateProjectionMatrix();
+  renderer3d.setSize(w, h);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CAMERA CONTROLS (Mouse + Touch)
+// ═══════════════════════════════════════════════════════════════
+
+function setupCameraControls(canvas, camera) {
+  let isDragging = false;
+  let prev = { x: 0, y: 0 };
+  const spherical = { radius: 700, phi: Math.PI / 3, theta: 0 };
+  
+  function update() {
+    camera.position.x = spherical.radius * Math.sin(spherical.phi) * Math.cos(spherical.theta);
+    camera.position.y = spherical.radius * Math.cos(spherical.phi);
+    camera.position.z = spherical.radius * Math.sin(spherical.phi) * Math.sin(spherical.theta);
+    camera.lookAt(0, 0, 0);
+  }
+  
+  canvas.addEventListener('mousedown', e => {
+    isDragging = true;
+    prev = { x: e.clientX, y: e.clientY };
+  });
+  
+  canvas.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    const dx = e.clientX - prev.x;
+    const dy = e.clientY - prev.y;
+    spherical.theta -= dx * 0.004;
+    spherical.phi = Math.max(0.15, Math.min(Math.PI - 0.15, spherical.phi - dy * 0.004));
+    prev = { x: e.clientX, y: e.clientY };
+    update();
+  });
+  
+  canvas.addEventListener('mouseup', () => isDragging = false);
+  canvas.addEventListener('mouseleave', () => isDragging = false);
+  
+  canvas.addEventListener('wheel', e => {
+    e.preventDefault();
+    spherical.radius = Math.max(150, Math.min(2500, spherical.radius + e.deltaY * 0.4));
+    update();
+  }, { passive: false });
+  
+  // Touch support
+  canvas.addEventListener('touchstart', e => {
+    if (e.touches.length === 1) {
+      isDragging = true;
+      prev = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }
+  });
+  
+  canvas.addEventListener('touchmove', e => {
+    if (!isDragging || e.touches.length !== 1) return;
+    e.preventDefault();
+    const dx = e.touches[0].clientX - prev.x;
+    const dy = e.touches[0].clientY - prev.y;
+    spherical.theta -= dx * 0.004;
+    spherical.phi = Math.max(0.15, Math.min(Math.PI - 0.15, spherical.phi - dy * 0.004));
+    prev = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    update();
+  }, { passive: false });
+  
+  canvas.addEventListener('touchend', () => isDragging = false);
+  
+  update();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CLICK DETECTION (3D)
+// ═══════════════════════════════════════════════════════════════
+
+function setupClickDetection() {
+  const canvas = $('galaxie3d');
+  const raycaster = new THREE.Raycaster();
+  const mouse = new THREE.Vector2();
+  
+  canvas.addEventListener('click', e => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+    
+    raycaster.setFromCamera(mouse, camera3d);
+    const intersects = raycaster.intersectObject(starsMesh);
+    
+    if (intersects.length > 0 && intersects[0].instanceId !== undefined) {
+      const s = systemDaten[intersects[0].instanceId];
+      if (s) zeigeDetail(s);
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// 2D RADIAL VIEW (Clean SVG)
+// ═══════════════════════════════════════════════════════════════
+
+function zeichne2D() {
+  const svg = $('galaxie2d');
+  const W = 1140, H = 600, cx = W / 2, cy = H / 2;
+  const maxR = Math.max(...systemDaten.map(s => s.r));
+  const skala = Math.min(W, H) / (maxR * 2.2);
+  
+  let h = `<rect width="${W}" height="${H}" fill="#06080f"/>`;
+  
+  // Background image (very subtle)
+  h += `<image href="bg_radial.png" x="0" y="0" width="${W}" height="${H}" opacity="0.1" preserveAspectRatio="xMidYMid slice"/>`;
+  
+  // Zone rings with labels
+  for (const z of ZONEN) {
+    const r = z.rMax * skala;
+    h += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${z.color}" stroke-width="1" opacity="0.12"/>`;
+    h += `<text x="${cx}" y="${cy - r - 8}" fill="${z.color}" font-size="10" text-anchor="middle" opacity="0.6">${z.name}</text>`;
+  }
+  
+  // Asteroid belt indicators
+  for (const z of ZONEN.slice(0, -1)) {
+    const r = z.rMax * skala;
+    h += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#8b7355" stroke-width="2" opacity="0.15" stroke-dasharray="2,4"/>`;
+  }
+  
+  // Systems
+  for (const s of systemDaten) {
+    const sx = cx + s.x * skala;
+    const sy = cy + s.z * skala;
+    const size = s.zone === 1 ? 5 : s.zone <= 3 ? 3.5 : 2.5;
+    const col = s.besitzer !== null && farbe[s.besitzer] ? farbe[s.besitzer] :
+      s.nebel ? '#9333ea' : s.guertel ? '#b8860b' : ZONEN[s.zone - 1].color;
+    
+    // Glow
+    h += `<circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="${size * 2}" fill="${col}" opacity="0.15"/>`;
+    // Core
+    h += `<circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="${size}" fill="${col}" opacity="0.9" style="cursor:pointer" onclick="zeigeDetail(${JSON.stringify(s).replace(/"/g, '&quot;')})"><title>${s.sektor}:${s.nr} — ${ZONEN[s.zone - 1].name}</title></circle>`;
+    
+    // Label for important systems
+    if (s.zone === 1 && s.planeten > 0) {
+      h += `<text x="${sx.toFixed(1)}" y="${(sy - size - 4).toFixed(1)}" fill="rgba(255,255,255,0.5)" font-size="9" text-anchor="middle" style="pointer-events:none">${s.sektor}:${s.nr}</text>`;
+    }
+  }
+  
+  svg.innerHTML = h;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// DETAIL PANEL
+// ═══════════════════════════════════════════════════════════════
+
+function zeigeDetail(s) {
+  const panel = $('system_detail');
+  
+  $('sd_coord').textContent = `${s.sektor}:${s.nr}`;
+  $('sd_zone').textContent = `Zone ${s.zone} · ${ZONEN[s.zone - 1].name}`;
+  
+  let content = '';
+  
+  // Owner
+  const planeten = (D?.schluss?.welt?.planeten || []).filter(p => p.koord.startsWith(`${s.sektor}:${s.nr}:`));
+  const owner = s.besitzer !== null && spieler[s.besitzer] ? spieler[s.besitzer] : null;
+  
+  if (owner) {
+    content += `<div class="detail-section"><div class="detail-section-title">Besitzer</div>`;
+    content += `<div class="detail-row"><span class="detail-label">Name</span><span class="detail-value" style="color:${farbe[s.besitzer]}">${esc(owner.name)}</span></div>`;
+    content += `<div class="detail-row"><span class="detail-label">Punkte</span><span class="detail-value">${fmt(owner.punkte)}</span></div>`;
+    content += `<div class="detail-row"><span class="detail-label">Kolonien</span><span class="detail-value">${owner.kolonien ?? '–'}</span></div>`;
+    content += `<div class="detail-row"><span class="detail-label">Flottenwert</span><span class="detail-value">${fmt(owner.flottenwert ?? 0)}</span></div>`;
+    content += `</div>`;
+  }
+  
+  // Planets
+  if (planeten.length > 0) {
+    content += `<div class="detail-section"><div class="detail-section-title">Planeten (${planeten.length})</div>`;
+    for (const p of planeten) {
+      const pOwner = p.spieler !== null && spieler[p.spieler] ? spieler[p.spieler].name : 'Unbewohnt';
+      content += `<div class="detail-planet">`;
+      content += `<span class="detail-planet-code">${p.koord}${p.heimat ? ' ★' : ''}</span>`;
+      content += `<span class="detail-planet-owner">${esc(pOwner)}</span>`;
+      content += `</div>`;
+    }
+    content += `</div>`;
+  }
+  
+  // Properties
+  if (s.nebel || s.guertel) {
+    content += `<div class="detail-section"><div class="detail-section-title">Eigenschaften</div>`;
+    if (s.nebel) content += `<div class="detail-row"><span class="detail-label">Nebel</span><span class="detail-value">🌫</span></div>`;
+    if (s.guertel) content += `<div class="detail-row"><span class="detail-label">Asteroidengürtel</span><span class="detail-value">☄</span></div>`;
+    content += `</div>`;
+  }
+  
+  $('sd_content').innerHTML = content;
+  panel.style.display = 'block';
+}
+
+function schliesseDetail() {
+  $('system_detail').style.display = 'none';
+}
+
+// ═══════════════════════════════════════════════════════════════
+// MODE SWITCHING
+// ═══════════════════════════════════════════════════════════════
+
+function setzeModus(modus) {
+  galaxieModus = modus;
+  $('galaxie3d').style.display = modus === '3d' ? 'block' : 'none';
+  $('galaxie2d').style.display = modus === '2d' ? 'block' : 'none';
+  $('modus_3d').classList.toggle('aktiv', modus === '3d');
+  $('modus_2d').classList.toggle('aktiv', modus === '2d');
+  
+  if (modus === '3d') {
+    if (!galaxyReady) initThreeJS();
+    else resizeGalaxy3D();
+  } else {
+    zeichne2D();
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INTEGRATION
+// ═══════════════════════════════════════════════════════════════
+
+function zeichneGalaxie() {
+  initGalaxieDaten();
+  if (!$('verteilung').hidden) {
+    if (galaxieModus === '3d') {
+      if (!galaxyReady) initThreeJS();
+      else resizeGalaxy3D();
+    } else {
+      zeichne2D();
+    }
+  }
+}
+
+// Keyboard shortcut
+document.addEventListener('keydown', e => {
+  const vert = $('verteilung');
+  if (e.key === 'Tab' && vert && !vert.hidden) {
+    e.preventDefault();
+    setzeModus(galaxieModus === '3d' ? '2d' : '3d');
+  }
+});
+
+// Resize handler
+window.addEventListener('resize', () => {
+  if (typeof resizeGalaxy3D === 'function') resizeGalaxy3D();
+});
+
+</script>
+</body>
+</html>

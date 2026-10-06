@@ -1,0 +1,21 @@
+# Probe ohne Modell: drei Reiche mit der Attrappe, drei mit Skriptbots, fünf Spieltage.
+# Prüft den ganzen Ablauf (Lagebild, Abfragen, Korrektur, Protokoll, Nachspielen) in Sekunden und ohne Kosten.
+#   python -m sternenepoche lauf konfig/probe.toml
+
+[lauf]
+startwert = 7
+spieler = 6
+tage = 5
+ki = [0, 1, 2]
+bottypen = ["oekonom", "raeuber", "igel"]
+ausgabe = "laeufe/probe"
+schnappschuss_tage = 2
+
+[anbieter.attrappe]
+art = "mock"
+
+[rollen]
+stratege = "attrappe"
+verwalter = "attrappe"
+feldherr = "attrappe"
+diplomat = "attrappe"

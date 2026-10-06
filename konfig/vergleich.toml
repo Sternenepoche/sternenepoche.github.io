@@ -1,0 +1,48 @@
+# Modellvergleich: jedes Modell steuert 12 oder 13 Reiche vollständig in allen vier Rollen.
+# Mit gleichem Startwert wie openrouter.toml gefahren, lassen sich beide Varianten direkt vergleichen.
+# Die Zuordnung Modell zu Reich wechselt mit dem Startwert; für eine belastbare Aussage mehrere
+# Startwerte fahren, damit Startlage und Volk nicht mit dem Modell zusammenfallen.
+
+[lauf]
+startwert = 1
+spieler = 50
+tage = 365
+ki = "alle"
+ausgabe = "laeufe/vergleich-001"
+
+[grenzen]
+max_ausgabe_tokens = 1200
+denk_tokens = 1000
+budget_usd = 200.0
+
+[anbieter.llama70]
+art = "openrouter"
+modell = "meta-llama/llama-3.3-70b-instruct"
+parallel = 24
+[anbieter.llama70.provider]
+data_collection = "deny"
+
+[anbieter.qwen9]
+art = "openrouter"
+modell = "qwen/qwen3.5-9b"
+parallel = 24
+denken = "aus"
+[anbieter.qwen9.provider]
+data_collection = "deny"
+
+[anbieter.gemma31]
+art = "openrouter"
+modell = "google/gemma-4-31b-it"
+parallel = 24
+[anbieter.gemma31.provider]
+data_collection = "deny"
+
+[anbieter.mistral24]
+art = "openrouter"
+modell = "mistralai/mistral-small-3.2-24b-instruct"
+parallel = 24
+[anbieter.mistral24.provider]
+data_collection = "deny"
+
+[vergleich]
+anbieter = ["llama70", "qwen9", "gemma31", "mistral24"]

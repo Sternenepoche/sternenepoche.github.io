@@ -1,0 +1,57 @@
+# Hybrid: der Verwalter läuft lokal, die drei größeren Rollen über OpenRouter.
+# Der Verwalter stellt die Hälfte aller Aufrufe und passt als 7- bis 9-Mrd.-Modell auf eine
+# einzelne Grafikkarte; ein 70-Mrd.-Stratege passt dort nicht. So bleibt die teure Menge lokal
+# und nur die seltenen, schweren Entscheidungen gehen nach außen.
+#
+# Lokaler Server, eines von:
+#   llama-server -m qwen3.5-9b-q5_k_m.gguf --port 8001 -np 8 -c 65536      (llama.cpp)
+#   vllm serve Qwen/Qwen3.5-9B --port 8001                                  (vLLM, dann schema = "guided_json")
+#   ollama serve                                                            (basis_url http://127.0.0.1:11434/v1)
+
+[lauf]
+startwert = 1
+spieler = 50
+tage = 365
+ki = "alle"
+ausgabe = "laeufe/hybrid-001"
+
+[grenzen]
+max_ausgabe_tokens = 1200
+denk_tokens = 1000
+budget_usd = 100.0
+
+[anbieter.verwalter_lokal]
+art = "openai"
+basis_url = "http://127.0.0.1:8001/v1"
+modell = "qwen3.5-9b"
+parallel = 8
+schema = "json_schema"        # llama.cpp macht daraus eine Grammatik
+[anbieter.verwalter_lokal.zusatz]
+cache_prompt = true           # llama.cpp: gemeinsamen Anfang des Prompts wiederverwenden
+
+[anbieter.stratege]
+art = "openrouter"
+modell = "meta-llama/llama-3.3-70b-instruct"
+parallel = 16
+[anbieter.stratege.provider]
+data_collection = "deny"
+
+[anbieter.feldherr]
+art = "openrouter"
+modell = "google/gemma-4-31b-it"
+parallel = 24
+[anbieter.feldherr.provider]
+data_collection = "deny"
+
+[anbieter.diplomat]
+art = "openrouter"
+modell = "mistralai/mistral-small-3.2-24b-instruct"
+parallel = 24
+[anbieter.diplomat.provider]
+data_collection = "deny"
+
+[rollen]
+stratege = "stratege"
+verwalter = "verwalter_lokal"
+feldherr = "feldherr"
+diplomat = "diplomat"

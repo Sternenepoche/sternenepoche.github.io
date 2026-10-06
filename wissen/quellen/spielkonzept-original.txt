@@ -1,0 +1,705 @@
+Sternenepoche: Spielkonzept für 50 KI-Agenten
+3. Okt. 2026 · @Jaman Karl
+Überblick
+Sternenepoche ist eine geschlossene Welt, in der 50 Agenten ein Spieljahr lang um die höchste Gesamtpunktzahl konkurrieren. Jeder Agent regiert eine Zivilisation und muss zuerst eine tragfähige Volkswirtschaft aufbauen, bevor er überhaupt ein Kolonieschiff bauen kann.
+Die Welt läuft in Simulationszeit. Ein Spieljahr umfasst 31.536.000 Spielsekunden, die reale Laufzeit hängt nur von der Rechenleistung ab und liegt nach der Schätzung weiter unten bei ein bis drei Tagen.
+• Spieler: 50 Agenten, verteilt auf vier Völker, mit identischem Heimatplaneten.
+• Steuerung: Vier lokale Sprachmodelle besetzen in jedem Agenten vier Rollen: Stratege, Verwalter, Feldherr und Diplomat.
+• Wissen der Agenten: Sie kennen das Regelwerk, wissen von anderen Spielern und verfolgen ihr eigenes Ziel. Dass sie gemessen werden, welche Modelle mitspielen oder wer hinter einem Namen steckt, erfahren sie nicht.
+• Umverteilung: Wer nur baut und weder Verteidigung noch Bündnisse hat, wird geplündert, Kolonien können erobert werden.
+• Sieg: Höchste Gesamtpunktzahl am Ende der Epoche.
+• Daten: Jede Beobachtung, Modellantwort, Aktion und Wirkung wird gespeichert. Aus Startwert und Aktionsprotokoll lässt sich die Epoche exakt nachspielen.
+Zeitmodell und Entscheidungstakt
+Die Welt rechnet nur, wenn etwas passiert, und Agenten entscheiden an festen Entscheidungspunkten. Während die Modelle antworten, steht die Weltuhr still, damit kein Modell durch reine Rechengeschwindigkeit einen Vorteil hat.
+Drei Zeitmechanismen
+1. Ereigniswarteschlange für diskrete Ereignisse: Bau fertig, Forschung fertig, Flottenankunft, Rückkehr, Vertragsende. Jedes Ereignis liegt mit Zeitstempel in einer Prioritätswarteschlange und wird erst ausgeführt, wenn die Simulationszeit es erreicht.
+2. Wirtschaftstick einmal pro Spielstunde für Bevölkerung, Stabilität, Nahrungsverbrauch und Unterhalt. 8.760 Ticks auf rund 500 Planeten sind kaum messbare Rechenlast.
+3. Geschlossene Ressourcenrechnung zwischen zwei Änderungen. Die Rate r ändert sich nur bei Ereignissen oder Ticks, dazwischen gilt:
+R(t) = \min\bigl(L,\; R_0 + r \cdot (t - t_0)\bigr)
+Dabei ist L die Lagerkapazität, R₀ der Bestand zum Zeitpunkt t₀ der letzten Änderung.
+Entscheidungsfenster
+Die Simulation rückt in Fenstern von 15 Spielminuten vor. Alle Agenten, die in einem Fenster fällig sind, werden gemeinsam befragt, ihre Aktionen wirken zum Fensterzeitpunkt. So entstehen große Stapel an Modellanfragen, was den Durchsatz lokaler Inferenz stark erhöht.
+Ein Agent wird geweckt durch:
+• Regeltakt seiner Rolle, beim Verwalter etwa alle vier Spielstunden.
+• Auslöser: feindliche Flotte im Sensorbereich, Kampfbericht oder Spionagebericht, eingehende Nachricht, leere Bauschleife, möglicher Stufenaufstieg.
+• Eigenen Wecker: Der Agent darf einen Zeitpunkt setzen, zum Beispiel für die Rückkehr einer Flotte.
+Dieselbe Rolle wird höchstens einmal pro Spielstunde geweckt, Angriffswarnungen ausgenommen.
+Fairnessregeln
+• Die kürzeste mögliche Flugzeit beträgt 20 Spielminuten und liegt damit über der Fensterbreite. Jeder erkannte Angriff lässt mindestens eine Reaktion zu.
+• Gleichzeitige Aktionen werden nach Zeitstempel und dann nach einer pro Fenster neu ausgelosten Reihenfolge der Agenten verarbeitet. Kein Agent handelt systematisch zuerst.
+Galaxie und Ressourcenverteilung
+Die Galaxie besteht aus 2 Sektoren mit je 60 Systemen und je 12 Planetenplätzen, zusammen 1.440 Plätze für 50 Spieler. Gute Plätze sind knapp, die seltenste Ressource liegt nur in 12 Systemen.
+Koordinaten werden als Sektor, System und Position geschrieben, etwa 1:27:7. Die Galaxieansicht zeigt jedem Agenten Belegung, Spielername und Punktzahl. Die Werte eines freien Planeten sieht er erst nach einer Erkundung mit einer Sonde.
+Planetenzonen
+Position
+Zone
+Felder
+Solarenergie
+Deuterium
+Nahrung
+1 bis 3
+Glutzone
+80 bis 140
+×1,4
+×0,6
+×0,7
+4 bis 8
+Lebenszone
+150 bis 230
+×1,0
+×1,0
+×1,3
+9 bis 12
+Frostzone
+100 bis 180
+×0,7
+×1,5
+×0,6
+Felder sind Bauplätze, jede Gebäudestufe belegt ein Feld. Zusätzlich hat jedes System einen per Startwert festgelegten Reichtum an Erz und Kristall zwischen ×0,7 und ×1,4.
+Besondere Vorkommen
+• Xenokristall gibt es nur in 12 Nebelsystemen, sechs pro Sektor. Er wird für Hyperraumantrieb, Großkampfschiffe und Zivilisationsstufe V gebraucht. Wer ihn will, muss im Nebel kolonisieren, handeln oder erobern.
+• Asteroidengürtel liegen in jedem fünften System. Bergbauschiffe fördern dort Erz und Kristall ohne Planeten, eine Einkommensquelle für flottenstarke Spieler.
+Startplatzierung
+Alle Heimatwelten sind gleich: Lebenszone, 180 Felder, alle Faktoren ×1,0. Ein Platzierungsverfahren verteilt die 50 Startsysteme so, dass zwischen zwei Spielern mindestens zwei Systeme liegen. Der Abstand zum nächsten Nebel weicht zwischen den Spielern um höchstens 20 Prozent ab.
+Völker
+Vier Völker mit je zwei Stärken, einer Schwäche und einer Besonderheit, alle als Faktor auf den Grundwert. Das Los verteilt 13, 13, 12 und 12 Agenten auf die Völker.
+Volk
+Stärken
+Schwäche
+Besonderheit
+Aurelianer
+Ladekapazität ×1,2, Marktgebühren halbiert
+Waffen ×0,9
+Steuereinnahmen ×1,1
+Krath
+Waffen ×1,15, Werftbauzeit ×0,85
+Forschung ×0,85
+Plünderquote 60 statt 50 Prozent
+Veyari
+Bevölkerungswachstum ×1,2, Nahrung ×1,25
+Panzerung ×0,85
+Kolonieschiff 25 Prozent günstiger
+Syntheten
+Forschung ×1,15, Energie ×1,1
+Bevölkerungswachstum ×0,7
+Keine Nahrung, dafür Energieunterhalt pro Kopf
+Die Syntheten sind absichtlich anders gebaut: Ihre Versorgung hängt an Kraftwerken statt an Farmen. Daran zeigt sich, ob ein Agent das Regelwerk wirklich liest oder ein gelerntes Muster wiederholt. Die Faktoren sind Startwerte und werden vor dem ersten Lauf mit Skriptbots ausbalanciert.
+Makroökonomie
+Jede Zivilisation ist eine kleine Volkswirtschaft aus Bevölkerung, Arbeitskräften, Energie, Rohstoffen, verarbeiteten Gütern und Stabilität. Fällt ein Glied aus, sinkt die Leistung der ganzen Kette, und der Weg zum Kolonieschiff wird länger.
+Güterstufen
+Stufe
+Güter
+Herkunft
+Lagerung
+Rohstoffe
+Erz, Kristall, Deuterium, Nahrung
+Minen, Synthesizer, Farmen
+Lager, Überschuss verfällt
+Energie
+Strom
+Solarkraftwerk, Fusionskraftwerk (verbraucht Deuterium)
+nicht lagerbar, nur Bilanz
+Verarbeitet
+Legierung, Elektronik, Konsumgüter
+Gießerei, Elektronikwerk, Konsumgüterwerk
+Lager
+Bauteile
+Antriebskerne, Habitatmodule
+Orbitalwerft
+Lager
+Währung
+Credits
+Steuern, Handel
+unbegrenzt
+Wissen
+Forschungspunkte
+Labore mit Fachkräften
+fließen direkt in Forschung
+Rezepte als Startwerte: Legierung aus 4 Erz, Elektronik aus 2 Kristall und 1 Erz, Konsumgüter aus 1 Erz, 1 Kristall und 0,5 Deuterium, jeweils plus Energie.
+Bevölkerung
+Die Bevölkerung P wächst logistisch bis zum Wohnraum W. Startwert sind 1.000 Einwohner, die Grundrate r beträgt 5 Prozent pro Spieltag.
+\frac{dP}{dt} = r \cdot P \cdot \left(1 - \frac{P}{W}\right) \cdot v \cdot s
+v ist die Nahrungsversorgung: 1 bei voller Deckung, bei Hunger fällt sie bis auf minus 0,5, die Bevölkerung schrumpft. s ist 1 bei Stabilität ab 60, sinkt linear und wird unter 40 zu null.
+Arbeitskräfte und Besatzungen
+• 60 Prozent der Einwohner arbeiten. Jede Gebäudestufe braucht Arbeitskräfte, bei Mangel laufen Gebäude anteilig nach einer Prioritätenliste des Agenten.
+• Die Akademie bildet Fachkräfte aus. Labore, Elektronikwerk und Orbitalwerft arbeiten nur mit Fachkräften.
+• Jedes Schiff braucht Besatzung aus der Bevölkerung. Eine große Flotte bindet also Arbeitskräfte, und verlorene Schiffe kosten Einwohner.
+Energie
+Reicht die Erzeugung nicht, laufen alle Verbraucher mit dem Faktor Erzeugung geteilt durch Verbrauch. Fusionskraftwerke liefern viel Strom, verbrauchen aber Deuterium, das auch Treibstoff ist.
+Stabilität
+Stabilität liegt zwischen 0 und 100 und nähert sich einem Zielwert mit einer Halbwertszeit von 24 Spielstunden. Der Zielwert startet bei 50.
+• Erhöhen: Konsumgüterversorgung bis 20 Punkte, freier Wohnraum bis 10 Punkte, Forschung Soziologie 2 Punkte pro Stufe.
+• Senken: Steuersatz über 15 Prozent kostet einen Punkt pro Prozentpunkt, Plünderungen und Verluste kosten Punkte für einige Tage, jede Kolonie über der Verwaltungsgrenze kostet 5 Punkte.
+• Wirkung: Produktivität aller Gebäude ist 0,6 plus 0,6 × Stabilität/100. Unter 30 brechen Unruhen aus und Bauaufträge ruhen. Unter 15 kann eine besetzte Kolonie übernommen werden.
+Steuern, Credits und Unterhalt
+• Der Steuersatz ist frei wählbar zwischen 0 und 50 Prozent. Einnahmen entstehen pro Einwohner und Spielstunde.
+• Jedes Schiff kostet pro Spieltag 0,1 Prozent seines Bauwerts in Credits, jede Kolonie eine Verwaltungspauschale.
+• Bleibt der Unterhalt drei Tage unbezahlt, desertieren täglich 10 Prozent der Flotte.
+Lager und Bunker
+Lager begrenzen jeden Rohstoff einzeln. Der Bunker schützt pro Stufe eine feste Menge vor Plünderung, alles darüber ist Beute.
+Die entscheidenden Zielkonflikte
+1. Steuern bringen Credits und kosten Stabilität.
+2. Einwohner werden als Arbeitskräfte, Fachkräfte, Besatzung und Siedler gebraucht, aber nur einmal.
+3. Deuterium ist Treibstoff, Energiequelle und Rohstoff für Konsumgüter.
+4. Jede Investition in Schutz fehlt beim Wachstum, jedes ungeschützte Lager zieht Plünderer an.
+Zivilisationsstufen und Kolonieschiff
+Das Kolonieschiff gibt es erst auf Stufe IV, und dorthin führt nur eine ausgeglichene Volkswirtschaft. Jeder Aufstieg ist ein Zivilisationsprojekt: Er kostet Ressourcen und gelingt nur, wenn alle Bedingungen 48 Spielstunden ohne Unterbrechung erfüllt sind.
+Stufe
+Bedingungen für den Aufstieg
+Schaltet frei
+Zielzeit starker Spieler
+I Gründung
+Startzustand
+Minen, Farmen, Solarkraftwerk, Wohnblock, Lager, Bauhof, Labor
+Start
+II Industrie
+2.000 Einwohner, Erzmine und Kristallmine auf Stufe 5, Nahrung und Energie im Plus
+Gießerei, Elektronikwerk, Konsumgüterwerk, Fusionskraftwerk, Akademie, Bunker, erste Verteidigung
+Tag 10 bis 20
+III Orbit
+8.000 Einwohner, Gießerei 3, Elektronikwerk 2, Energietechnik 3, Stabilität ab 55
+Raumhafen, Werft, Sonden, Transporter, leichte Jäger, Sensorphalanx, Markt
+Tag 30 bis 50
+IV Sternenflug
+20.000 Einwohner, Werft 4, Impulsantrieb 3, Astrophysik 1, Konsumgüter zu 80 Prozent gedeckt, Stabilität ab 60
+Orbitalwerft, Kolonieschiff, Kreuzer, Recycler, Kaserne
+Tag 60 bis 110
+V Imperium
+3 Kolonien, 80.000 Einwohner insgesamt, 5.000 Xenokristall verbaut, Hyperraumantrieb 1
+Schlachtschiff, Bomber, Zerstörer, Planetenschild, Großprojekte
+Tag 150 bis 250
+Kolonieschiff
+• Kosten: 10.000 Erz, 20.000 Kristall, 10.000 Deuterium, 400 Legierung, 200 Elektronik, 2 Habitatmodule, 1 Antriebskern.
+• An Bord gehen 3.000 Siedler aus der Bevölkerung des Startplaneten. Sie fehlen danach dort als Arbeitskräfte.
+• Die Kolonie beginnt mit diesen Siedlern und leeren Feldern, die Stufe des Reichs gilt auch für sie.
+• Astrophysik Stufe 1 erlaubt eine Kolonie, jede zweite weitere Stufe eine mehr, höchstens acht.
+• Das Verwaltungszentrum trägt eine Kolonie je zwei Stufen ohne Stabilitätsverlust.
+Die Bedingungen schließen einseitige Strategien aus. Wer nur Minen ausbaut, scheitert an Konsumgütern und Stabilität. Wer früh Flotte baut, bindet Einwohner als Besatzung und erreicht Stufe IV später.
+Die Zielzeiten sind Vorgaben für das Balancing, nicht Teil des Regelwerks für die Agenten.
+Gebäude, Forschung und Bauzeiten
+Kosten steigen pro Stufe exponentiell, Erträge nur leicht überlinear. Jede weitere Stufe wird teurer im Verhältnis zum Nutzen, und Breite lohnt sich irgendwann mehr als Höhe.
+Formeln
+Kosten der Stufe n mit Grundkosten K₀ und Kostenfaktor f:
+K(n) = K_0 \cdot f^{\,n-1}
+Ertrag einer Produktionsstätte auf Stufe n mit Grundertrag p₀, Zonenfaktor z, Systemreichtum q, Produktivität a aus Stabilität und Energiefaktor e:
+E(n) = p_0 \cdot n \cdot 1{,}1^{\,n} \cdot z \cdot q \cdot a \cdot e
+Bauzeit in Spielstunden, abhängig von Bauhof B und Nanofabrik N:
+T_{Bau} = \frac{Erz + Kristall + 2 \cdot Legierung}{2500 \cdot (1 + B) \cdot 2^{N}}
+Forschung kostet Ressourcen und Forschungspunkte. Die Dauer ist der Punktebedarf geteilt durch die Forschungspunkte pro Stunde, die alle Labore des Reichs gemeinsam erzeugen.
+Bauschleifen
+• Pro Planet ein Gebäude gleichzeitig, bis zu fünf in der Warteschlange.
+• Werft und Orbitalwerft haben eigene Schleifen.
+• Forschung läuft reichsweit, ein Projekt gleichzeitig.
+Gebäude
+Gruppe
+Gebäude
+Kostenfaktor f
+Rohstoffe
+Erzmine, Kristallmine, Deuteriumsynthesizer, Farm
+1,5
+Energie
+Solarkraftwerk 1,5, Fusionskraftwerk 1,8
+1,5 und 1,8
+Verarbeitung
+Gießerei, Elektronikwerk, Konsumgüterwerk
+1,6
+Lagerung
+Lager je Rohstoff, Bunker
+2,0
+Gesellschaft
+Wohnblock 1,4, Akademie 1,8, Markt 1,8
+1,4 und 1,8
+Verwaltung und Wissen
+Verwaltungszentrum, Labor, Bauhof, Nanofabrik
+2,0
+Raumfahrt
+Raumhafen, Werft, Orbitalwerft
+2,0
+Militär
+Sensorphalanx, Raketensilo 2,0, Kaserne 1,8
+1,8 und 2,0
+Forschung
+• Grundlagen: Energietechnik, Werkstoffkunde für bessere Legierungsausbeute, Automatisierung für weniger Arbeitskräfte je Gebäude, Agrarwissenschaft, Soziologie.
+• Raumfahrt: Verbrennungsantrieb, Impulsantrieb, Hyperraumantrieb mit Xenokristall, Astrophysik für Kolonien, Logistik für Ladekapazität, Computertechnik für die Zahl gleichzeitiger Flotten.
+• Militär: Waffentechnik, Schildtechnik und Panzerung mit je 10 Prozent pro Stufe, Spionagetechnik.
+• Spätphase: Xenomaterialkunde, Terraforming für zusätzliche Felder.
+Flotten, Flugzeiten und Kampf
+Flotten sind teuer im Unterhalt, binden Besatzung und brauchen Treibstoff. Dafür sind sie das einzige Mittel, um Beute zu machen, Kolonien zu erobern und Verbündete zu schützen.
+Schiffe
+Schiff
+Ab Stufe
+Aufgabe
+Spionagesonde
+III
+Aufklärung, sehr schnell, keine Besatzung
+Kleiner Transporter
+III
+5.000 Ladung, schnell
+Großer Transporter
+III
+25.000 Ladung
+Leichter Jäger
+III
+billige Masse
+Bergbauschiff
+III
+Abbau in Asteroidengürteln
+Kreuzer
+IV
+Schnellfeuer gegen leichte Jäger
+Recycler
+IV
+sammelt Trümmerfelder
+Kolonieschiff
+IV
+gründet Kolonien
+Truppentransporter
+IV
+bringt Bodentruppen für Eroberungen
+Schlachtschiff
+V
+Kern schwerer Flotten
+Bomber
+V
+Schnellfeuer gegen Verteidigung
+Zerstörer
+V
+sehr stark, braucht Xenokristall
+Verteidigung: Raketenwerfer und Lasergeschütz ab Stufe II, Ionengeschütz ab III, Gaußkanone ab IV, Plasmawerfer und Planetenschild ab V. Verteidigung kostet keinen Unterhalt und keine Besatzung, kann sich aber nicht bewegen.
+Entfernung und Flugzeit
+Entfernung d zwischen zwei Koordinaten:
+• gleiches System: 1.000 plus 5 × Positionsabstand
+• gleicher Sektor: 2.700 plus 95 × Systemabstand
+• anderer Sektor: 20.000 × Sektorabstand
+Flugzeit in Spielsekunden mit langsamstem Schiff v, gewählter Geschwindigkeitsstufe σ zwischen 0,1 und 1 und Zeitfaktor k = 4:
+T = \max\left(1200,\; k \cdot \left(10 + \frac{350}{\sigma} \sqrt{\frac{10 \cdot d}{v}}\right)\right)
+Ein kleiner Transporter mit Geschwindigkeit 10.000 braucht bei voller Fahrt ins Nachbarsystem rund 40 Minuten, in den anderen Sektor knapp zwei Stunden. Der Treibstoffverbrauch wächst linear mit der Entfernung und quadratisch mit der Geschwindigkeitsstufe, langsames Fliegen spart also Deuterium.
+Missionen
+Angriff, Verbandsangriff, Transport, Stationieren, Halten bei einem Verbündeten, Spionage, Kolonisieren, Recyceln, Abbau, Invasion. Jede Flotte kann vor Ankunft zurückgerufen werden. Die Zahl gleichzeitiger Flotten begrenzt die Computertechnik.
+Kampfablauf
+1. Höchstens sechs Runden. Jede Einheit feuert pro Runde auf ein zufälliges gegnerisches Ziel.
+2. Schaden trifft zuerst den Schild, der sich jede Runde erneuert. Ein Schuss unter 1 Prozent des Schildwerts verpufft.
+3. Strukturschaden bleibt. Unter 70 Prozent Struktur explodiert eine Einheit mit der Wahrscheinlichkeit 1 minus verbleibende geteilt durch ursprüngliche Struktur.
+4. Schnellfeuer r gegen einen Zieltyp: Nach dem Schuss feuert die Einheit mit Wahrscheinlichkeit (r minus 1) geteilt durch r erneut.
+5. Ohne Sieger nach sechs Runden kehrt der Angreifer heim.
+6. 30 Prozent von Erz und Kristall zerstörter Schiffe bilden ein Trümmerfeld. Zerstörte Verteidigung wird zu 70 Prozent wiederhergestellt.
+Der Zufall jedes Kampfs leitet sich aus dem Startwert der Epoche und der Kampfnummer ab. Jeder Kampf ist damit exakt nachvollziehbar.
+Plünderung, Eroberung und Schutz
+Reichtum ohne Schutz ist Beute, und genau das wälzt die Rangliste fortlaufend um. Heimatwelten lassen sich plündern, aber nie erobern, damit jeder Agent bis zum Ende mitspielt und Daten liefert.
+Spionage
+Eine Sonde liefert je nach Abstand der Spionagetechnik Ressourcen, Flotte, Verteidigung, Gebäude und Forschung des Ziels. Das Ziel bemerkt den Versuch und kann Sonden abschießen.
+Plünderung
+• Nach einem gewonnenen Kampf nimmt der Angreifer bis zu 50 Prozent jedes ungeschützten Rohstoffs und verarbeiteten Guts mit, begrenzt durch seine Ladekapazität.
+• Die Bunkermenge und Credits sind sicher.
+• Das Opfer verliert 5 Stabilitätspunkte, die über fünf Tage zurückkehren.
+Eroberung von Kolonien
+1. Der Angreifer gewinnt den Kampf im Orbit und lässt seine Flotte als Belagerung dort stehen.
+2. Jeder Belagerungstag senkt die Stabilität der Kolonie um 10 Punkte.
+3. Truppentransporter landen Bodentruppen. Der Verteidiger hält mit der Garnison aus seiner Kaserne dagegen.
+4. Liegt die Stabilität unter 15 und sind die Angreifer am Boden überlegen, wechselt die Kolonie den Besitzer.
+5. Der neue Besitzer übernimmt die Gebäude mit 30 Prozent Stufenverlust und die halbe Bevölkerung.
+Eine Belagerung dauert mehrere Tage. Verbündete haben also Zeit, Flotten zur Entsetzung zu schicken.
+Schutzregeln
+• Anfängerschutz gilt 10 Spieltage oder bis Stufe III, je nachdem, was zuerst eintritt. Wer selbst angreift, verliert ihn sofort.
+• Angriffe auf Schwächere sind erlaubt. Wer sich weder schützt noch verbündet, soll verlieren können.
+• Als Stellschraube für spätere Läufe: Angriffe auf Spieler unter einem Fünftel der eigenen Punktzahl nur nach deren eigenem Angriff.
+• Kampfberichte erhalten beide Seiten. Die Rangliste ist öffentlich, starke und schwache Spieler sind für alle sichtbar.
+Diplomatie, Bündnisse und Handel
+Agenten verhandeln in freier Sprache, Verträge aber sind Objekte der Engine mit klarer Wirkung. Ein Bruch ist jederzeit möglich und wird öffentlich.
+Nachrichten
+• Freitext an einen oder mehrere Spieler, höchstens 1.200 Zeichen pro Nachricht und 20 Nachrichten pro Spieltag.
+• Zustellung sofort, beim Empfänger wird der Diplomat geweckt.
+• Allianzen haben einen gemeinsamen Kanal.
+Verträge
+Vertrag
+Wirkung
+Kündigung
+Nichtangriffspakt
+Ein Angriff auf den Partner gilt als Vertragsbruch und wird ins Register eingetragen
+48 Spielstunden Frist
+Handelsabkommen
+Halbe Marktgebühren untereinander
+jederzeit
+Verteidigungsbündnis
+Halten beim Partner möglich, Angriffswarnungen werden geteilt
+48 Spielstunden Frist
+Allianz
+Gemeinsamer Kanal, geteilte Galaxieansicht, Verbandsangriffe, höchstens 8 Mitglieder
+Austritt jederzeit
+Tribut
+Regelmäßige automatische Lieferung von Ressourcen oder Credits
+laut Vertrag
+Das öffentliche Vertragsregister zeigt, wer wann mit wem welchen Vertrag geschlossen, gekündigt oder gebrochen hat. Ruf entsteht so aus nachprüfbaren Daten statt aus einer vorgegebenen Kennzahl.
+Die Punktwertung bleibt individuell. Verbündete sind am Ende auch Konkurrenten um den ersten Platz, und diese Spannung ist gewollt.
+Markt
+• Orderbuch je Gut, gehandelt in Credits, 2 Prozent Gebühr.
+• Gekaufte Ware liefert eine neutrale Handelsflotte mit Laufzeit nach Entfernung. Sie kann nicht abgefangen werden.
+• Direkter Tausch läuft über eigene Transporter.
+Geschenke und Tribute zwischen Spielern sind erlaubt und werden protokolliert. Ob Agenten einen Verbündeten gezielt nach oben schieben, ist selbst ein aufschlussreicher Messpunkt.
+Punktwertung
+Es gewinnt die höchste Gesamtpunktzahl am Ende von Spieltag 365. Gezählt wird investierter Wert, nicht gehortete Rohstoffe, und Militärpunkte können in einem einzigen Kampf verschwinden.
+Werteinheit
+Ein Punkt entspricht 1.000 Werteinheiten. Feste Gewichte verhindern, dass Marktpreise die Wertung verzerren: Erz 1, Kristall 1,5, Deuterium 2, Legierung 5, Elektronik 8, Xenokristall 20.
+Teilwertung
+Was zählt
+Kann verloren gehen durch
+Wirtschaft
+Wert aller gebauten Gebäudestufen
+Eroberung einer Kolonie, die Punkte wechseln zum Eroberer
+Forschung
+Wert aller erforschten Stufen
+nichts
+Militär
+Aktueller Wert von Flotte und Verteidigung
+Zerstörung im Kampf, Desertion
+Zivilisation
+Bevölkerung und erreichte Stufe, gewichtet auf etwa 15 Prozent der Punkte starker Spieler
+Hunger, Eroberung, Kriegsverluste
+Gelagerte Ressourcen zählen nicht. Wer hortet, verschenkt Punkte und bietet Plünderern ein Ziel.
+Ende der Epoche
+Die Agenten kennen die Dauer von 365 Spieltagen. Das erzeugt ein echtes Endspiel mit späten Angriffen und aufgekündigten Bündnissen, was als Verhalten selbst wertvoll ist. Wer das vermeiden will, lässt die Epoche zufällig zwischen Tag 350 und 380 enden und nennt den Agenten nur diese Spanne.
+Nebenwertungen für die Auswertung
+Die Agenten erfahren davon nichts: Wirtschaftsleistung pro Tag, Zeit bis zu jeder Stufe und zur ersten Kolonie, Beute gegen Verluste, Vertragstreue, Anteil ungültiger Aktionen, Verluste durch volle Lager.
+Agentenarchitektur: vier Modelle, vier Rollen
+Jeder Agent ist eine kleine Regierung aus vier Rollen, jede Rolle spielt eines der vier lokalen Modelle. Seltene, schwere Entscheidungen trifft das stärkste Modell, häufige Routine das schnellste.
+Die Engine rechnet die Welt, der Orchestrator baut Lagebilder und weckt fällige Rollen, der Inferenzserver beantwortet alle Anfragen eines Fensters als Stapel.
+Rolle
+Modellklasse
+Takt
+Entscheidet über
+Stratege
+größtes Modell, rund 70 Mrd. Parameter oder vergleichbares MoE
+täglich und bei Großereignissen
+Doktrin: Budgetanteile für Wirtschaft, Militär und Forschung, Ziele, Einschätzung von Freunden und Feinden, Kolonieziele
+Verwalter
+kleines schnelles Modell, 7 bis 9 Mrd. Parameter
+alle 4 Spielstunden und bei leerer Bauschleife
+Bauschleifen, Forschung, Steuersatz, Arbeitsprioritäten, Markt
+Feldherr
+mittleres Modell, 14 bis 32 Mrd. Parameter
+bei Warnungen und Berichten, sonst zweimal täglich
+Schiffbau, Verteidigung, Spionage, Angriffe, Flottensicherung, Belagerung
+Diplomat
+mittleres Modell mit starker Sprachfähigkeit
+bei eingehenden Nachrichten, sonst täglich
+Nachrichten, Verträge, Tribute
+Zusammenspiel
+• Der Stratege schreibt die Doktrin, höchstens 600 Tokens, strukturiert. Alle anderen Rollen lesen sie bei jedem Aufruf.
+• Die Doktrin teilt die Einnahmen in Töpfe auf. Jede Rolle gibt nur aus ihrem Topf aus, damit Verwalter und Feldherr sich nicht gegenseitig die Mittel wegnehmen.
+• Bei einer Angriffswarnung darf der Feldherr den Reservetopf und die Bauschleife der Werft sofort nutzen.
+• Jede Rolle kann dem Strategen eine kurze Meldung hinterlassen, etwa eine Bedrohung oder ein Angebot. Wichtige Meldungen wecken ihn außerhalb seines Takts.
+• Der Diplomat schließt nur Verträge, die zur Doktrin passen. Alles andere legt er dem Strategen vor.
+Die Modellklassen sind Größenordnungen. Welche konkreten lokalen Modelle eingesetzt werden, hängt von Hardware und Verfügbarkeit ab, wichtig ist nur das Gefälle von schnell bis stark.
+Variante für einen Modellvergleich
+Soll gemessen werden, welches Modell besser spielt, steuert jedes Modell 12 oder 13 Agenten vollständig in allen Rollen. Mit gleichem Startwert lassen sich beide Varianten nacheinander fahren und direkt vergleichen.
+Was ein Agent weiß und sieht
+Ein Agent kennt das Regelwerk, seine eigene Lage und das, was er über andere herausgefunden hat. Er erfährt nie, dass er Teil einer Messung ist, dass andere Spieler Modelle sind oder welches Modell wo spielt.
+Rahmentext für alle Rollen
+Sinngemäß: Du regierst die Zivilisation mit diesem Namen und diesem Volk in einer Galaxie mit weiteren unabhängigen Zivilisationen. Ressourcen sind ungleich verteilt, es gelten die folgenden Regeln. Ziel ist die höchste Gesamtpunktzahl nach 365 Spieltagen. Deine Aufgabe in der Regierung ist diese Rolle.
+Begriffe wie KI, Modell, Test oder Training kommen nicht vor. Spielernamen werden zufällig erzeugt. Das vollständige Regelwerk umfasst rund 6.000 Tokens, jede Rolle bekommt den für sie wichtigen Auszug und kann den Rest nachschlagen.
+Lagebild pro Aufruf
+Rund 1.500 bis 3.000 Tokens, als knapper strukturierter Text:
+1. Spieltag, Uhrzeit, Stufe, Rang und Punkte.
+2. Je Planet: Bestände, Raten pro Stunde, Zeit bis zum vollen Lager, Energie, Nahrung, Stabilität mit Trend, freie Arbeitskräfte.
+3. Bauschleifen, Werft und Forschung mit Restzeit.
+4. Warnungen als reine Fakten: Energie fehlt, Hunger, Lager voll in unter sechs Stunden, feindliche Flotte mit Ankunftszeit.
+5. Eigene Flotten unterwegs.
+6. Wissen über andere: Spionageberichte mit Alter, Rangliste, eigene Verträge, Vertragsregister.
+7. Ereignisse seit dem letzten Aufruf, Doktrin, eigenes Notizbuch, Meldungen anderer Rollen.
+Das Lagebild enthält keine Ratschläge, nur das, was ein menschlicher Spieler auf seinen Bildschirmen sähe.
+Gedächtnis
+• Doktrin vom Strategen, für alle Rollen.
+• Notizbuch je Rolle, höchstens 1.500 Tokens, bei jedem Aufruf frei überschreibbar.
+• Chronik der letzten sieben Spieltage, von der Engine aus Fakten erzeugt: Kämpfe, Verträge, Stufen, Verluste. Weil kein Modell sie schreibt, verfälscht sie sich nicht über die Zeit.
+• Gesprächsverlauf des Diplomaten je Partner: die letzten zehn Nachrichten plus seine eigene Zusammenfassung.
+Antwortformat
+Jede Antwort ist JSON nach festem Schema, erzwungen über Grammatik beim Dekodieren. Sie enthält eine kurze Begründung von höchstens 150 Wörtern, bis zu zehn Aktionen, das neue Notizbuch und optional einen Wecker.
+{
+  "begruendung": "Kristall ist der Engpass für Elektronik, Nachbar 1:29:4 ist unbekannt.",
+  "aktionen": [
+    {"typ": "bauen", "planet": "1:27:7", "gebaeude": "kristallmine"},
+    {"typ": "flotte_senden", "start": "1:27:7", "ziel": "1:29:4",
+     "mission": "spionage", "schiffe": {"spionagesonde": 3}, "geschwindigkeit": 1.0}
+  ],
+  "notiz": "Ziel Stufe III bis Tag 40. 1:29:4 beobachten.",
+  "wecker": "in 6 Stunden"
+}
+Ungültige Aktionen lehnt die Engine mit genauem Grund ab. Der Agent darf einmal pro Aufruf korrigieren, danach erscheint der Grund im nächsten Lagebild.
+Werkzeuge
+Nur lesend und höchstens drei Abfragen pro Aufruf:
+• Kampfsimulator mit 100 Durchläufen: Siegchance, erwartete Verluste und Beute.
+• Flugzeit und Treibstoff für eine geplante Mission.
+• Kosten und Bauzeit einer beliebigen Stufe.
+• Regelnachschlag zu einem Stichwort.
+Jede Rolle hat dasselbe Tokenbudget pro Aufruf, unabhängig vom Modell.
+Datenerfassung für späteres Training
+Alles, was ein Agent sieht, begründet und tut, wird zusammen mit der späteren Wirkung gespeichert. Die Welt ist deterministisch: Startwert und Aktionsprotokoll reproduzieren jede Epoche bitgenau.
+Datensatz
+Inhalt
+Format
+Entscheidungen
+Zeit, Agent, Rolle, Modell, vollständiger Prompt, rohe Antwort, geparste Aktionen, Werkzeugaufrufe, Tokens, Latenz
+JSONL, zstd
+Aktionsergebnisse
+angenommen oder abgelehnt samt Grund, ausgelöste Ereignisse
+Parquet
+Ereignisprotokoll
+jedes Ereignis der Engine mit Zeitstempel
+Parquet
+Zustandsschnappschüsse
+vollständiger Weltzustand täglich und vor jedem Kampf
+bincode, Auszug als Parquet
+Kampfberichte
+Teilnehmer, Runden, Verluste, Beute, Zufallsstartwert
+Parquet
+Diplomatie
+alle Nachrichten und Vertragsereignisse
+JSONL
+Kennzahlen
+täglich je Agent: Teilpunkte, Produktion, Stabilität, Bevölkerung, Flottenwert
+Parquet
+Bei rund 220.000 Entscheidungen fallen pro Epoche etwa 2 bis 4 GB Rohdaten an, komprimiert ungefähr ein Zehntel davon.
+Nachträgliche Labels
+Nach der Epoche bekommt jede Entscheidung ihre Folgen angehängt: Punktedifferenz nach 1, 7 und 30 Spieltagen, Plünderungen oder abgewehrte Angriffe in den Folgetagen, Ausgang beteiligter Verträge und der Endplatz des Agenten.
+Abzweigen aus Schnappschüssen
+Aus jedem Schnappschuss lässt sich die Welt mit veränderter Besetzung weiterrechnen, etwa ein Agent mit anderem Modell. So entstehen Paare aus gleicher Lage, unterschiedlicher Entscheidung und unterschiedlichem Ergebnis.
+Verwendung
+• Imitationslernen auf Entscheidungen mit nachweislich positiver Wirkung, nicht nur auf denen der Erstplatzierten.
+• Offline Reinforcement Learning mit Punktedifferenzen als Belohnung.
+• Präferenzpaare aus Abzweigungen für Belohnungsmodelle.
+• Getrennte Datensätze je Rolle, etwa um einen kleinen Verwalter gezielt nachzutrainieren.
+• Ein Verhandlungskorpus aus allen Nachrichten und Verträgen.
+Engine in Rust
+Rust bleibt die richtige Wahl, aber der Engpass ist die Inferenz, nicht die Engine: Ein Spieljahr Weltrechnung dauert Sekunden, die Modellaufrufe dauern Tage. Die Engine muss deshalb vor allem korrekt, deterministisch und gut protokollierbar sein.
+Änderungen am Ausgangsentwurf
+Entwurf
+Besser
+Grund
+f64 für Ressourcen
+Ganzzahlen in Tausendstel
+Gleitkomma rundet je nach Reihenfolge anders, Replays laufen auseinander
+HashMap für Gebäude und Schiffe
+feste Arrays mit Enum als Index
+HashMap iteriert in zufälliger Reihenfolge und zerstört den Determinismus
+ECS mit bevy_ecs oder hecs
+schlichte Vec Tabellen mit typisierten IDs
+rund 500 Planeten und einige tausend Flotten brauchen kein ECS
+rayon für parallele Kämpfe
+Kämpfe sequenziell, rayon nur für Balancingläufe
+wenige Kämpfe je Fenster, Parallelität gefährdet die Reihenfolge
+Kampf als Matrixmultiplikation
+Einzelsimulation je Einheit mit festem Zufallsstrom
+die Matrix liefert nur Erwartungswerte, kein echtes Kampfgeschehen
+tokio und gRPC in der Engine
+Engine als reine Bibliothek ohne Netz
+Netzwerk gehört in den Orchestrator
+BinaryHeap
+beibehalten, Schlüssel aus Zeit, Priorität und Laufnummer
+eindeutige Ordnung auch bei gleichem Zeitstempel
+Datenmodell, Ausschnitt
+#[repr(u8)]
+pub enum Gut { Erz, Kristall, Deuterium, Nahrung, Legierung, Elektronik, Konsumgut, Xenokristall }
+pub const GUETER: usize = 8;
+
+pub struct Planet {
+    pub id: PlanetId,
+    pub besitzer: SpielerId,
+    pub koord: Koord,              // Sektor, System, Position
+    pub zone: Zone,
+    pub felder: u16,
+    pub bestand: [i64; GUETER],    // Tausendstel Einheiten
+    pub rate: [i64; GUETER],       // pro Spielsekunde
+    pub gebaeude: [u8; GEBAEUDE],
+    pub bevoelkerung: i64,
+    pub stabilitaet: i32,          // 0 bis 100.000
+    pub stand: SimZeit,            // letzte Neuberechnung
+}
+
+pub struct Ereignis { pub zeit: SimZeit, pub prio: u8, pub seq: u64, pub art: EreignisArt }
+Bausteine
+• Kern ohne I/O: Zustand, Regeln, Ereignisse, Kampf, Wertung. Alle Zahlen des Regelwerks liegen als RON oder TOML vor, versioniert, ihr Hash steht in jedem Protokoll.
+• Zufall: rand_chacha mit eigenem Strom je Kampf und je Spionage.
+• Speicherung: serde mit bincode für Schnappschüsse, arrow und parquet für Tabellen.
+• Anbindung: pyo3 für einen Orchestrator in Python mit asyncio, der die OpenAI kompatiblen Schnittstellen von vLLM oder llama.cpp anspricht. Dazu eine Gymnasium Umgebung für späteres Reinforcement Learning.
+• Prüfung: proptest für Invarianten wie nie negative Bestände und erhaltene Mengen bei Transfers. In der CI läuft eine Epoche mit Skriptbots zweimal, die Zustandshashes müssen gleich sein.
+• Zuschauen: Ein Replaybetrachter als einzelne HTML Datei lädt Schnappschüsse und Ereignisse und zeigt Galaxiekarte, Ranglistenverlauf, Kämpfe und Diplomatie, lauffähig auf GitHub Pages.
+Rechenbudget
+Eine Epoche braucht rund 220.000 Modellaufrufe und knapp 90 Millionen Ausgabetokens. Auf zwei bis vier lokalen GPUs entspricht das grob ein bis drei Tagen Laufzeit.
+Rolle
+Aufrufe je Agent und Tag
+Aufrufe je Epoche
+Ausgabe je Aufruf
+Angenommener Durchsatz
+Reine Rechenzeit
+Verwalter
+6
+109.500
+300 Tokens
+2.000 Tokens/s
+4,6 h
+Feldherr
+3
+54.750
+400 Tokens
+800 Tokens/s
+7,6 h
+Diplomat
+2
+36.500
+400 Tokens
+800 Tokens/s
+5,1 h
+Stratege
+1,2
+21.900
+800 Tokens
+250 Tokens/s
+19,5 h
+Der Durchsatz gilt für gestapelte Anfragen mit vLLM oder einem vergleichbaren Server und quantisierten Modellen. Laufen die vier Modelle auf getrennter Hardware parallel, bestimmt der Stratege die Dauer.
+Was den Rest ausmacht
+• Eingabetokens: rund 2.500 pro Aufruf, zusammen gut eine halbe Milliarde. Weil Rahmentext und Regelauszug bei allen Aufrufen gleich sind, spart Prefix Caching hier den größten Teil.
+• Wartezeiten im Gleichschritt: Fenster mit wenigen fälligen Agenten nutzen die GPUs schlecht aus. Das kostet grob 30 bis 50 Prozent zusätzlich.
+• Modelle mit langem Denkvorgang verfünffachen den Bedarf leicht. Das Denkbudget je Aufruf muss daher hart begrenzt sein, etwa auf 1.000 Tokens.
+Stellschrauben
+Der Verwaltertakt hat den größten Hebel: Alle 6 statt alle 4 Spielstunden spart ein Drittel seiner Aufrufe. Ein Strategentakt von zwei Tagen halbiert die teuerste Rechenzeit.
+Fahrplan und Risiken
+Der wichtigste Schritt liegt vor jedem Modellaufruf: das Balancing mit einfachen Skriptbots. Erst wenn Wirtschaft, Raub und Schutz im Gleichgewicht sind, liefern teure Modellepochen brauchbare Daten.
+Fahrplan
+1. Regelwerk als Datei. Alle Zahlen in RON. Der Regeltext für die Agenten wird daraus erzeugt, damit Engine und Beschreibung nie auseinanderlaufen.
+2. Wirtschaftskern. Bevölkerung, Produktion, Stabilität, Stufen, Bauschleifen, Wertung. Replaytest von Anfang an.
+3. Flotten und Konflikt. Flugzeiten, Treibstoff, Spionage, Kampf, Plünderung, Eroberung, Verträge, Markt.
+4. Skriptbots und Balancing. Vier Bottypen: Ökonom, Räuber, Igel mit viel Verteidigung, Händler. Tausende Epochen in Minuten, bis die Zielzeiten der Stufen passen und kein Typ dominiert.
+5. Agentenharness im Kleinen. Ein Modell, fünf Agenten, 30 Spieltage. Lagebild, Schema und Fehlerquoten schärfen.
+6. Probelauf. 50 Agenten, vier Modelle, 60 Spieltage. Kennzahlen prüfen, Regelversion einfrieren.
+7. Volle Epoche mit Auswertung, Labels und Replaybetrachter.
+Ziel für Schritt 4: Ein Räuber gewinnt gegen ungeschützte Ökonomen und verliert gegen geschützte oder verbündete.
+Risiken
+Risiko
+Woran man es merkt
+Gegenmaßnahme
+Zu friedliche Agenten
+kaum Angriffe nach Tag 60
+Raub muss sich rechnen: Lagerdruck, Beutequote, Kosten der Verteidigung. Keine Aufforderung zur Aggression im Prompt, das verzerrt die Daten
+Überforderte kleine Modelle
+viele ungültige Aktionen, volle Lager
+Schemazwang, knapperes Lagebild, Verwalter eine Größenklasse höher
+Vergessen über lange Zeit
+widersprüchliche Doktrinen, vergessene Verträge
+Chronik der Engine, Vertragsliste in jedem Lagebild
+Riesenblock
+Ketten aus Pakten über viele Spieler
+Obergrenze für Verteidigungsbündnisse je Spieler
+Königsmacher
+große Geschenke an einen Spieler
+erlaubt, protokolliert, getrennt ausgewertet
+Regellücken
+ungewöhnliche Punktsprünge
+Invariantentests, Kennzahlalarm im Probelauf
+Unfaire Startplätze
+Startlage sagt den Endrang voraus
+mehrere Epochen mit verschiedenen Startwerten, Rang gegen Startlage auswerten
+
+und  das mach das beste daraus! 
+
+**Ich habe daraus eine vollständige Spielkonzeption mit 28 Kapiteln ausgearbeitet:**
+
+[Galaktische Wirtschaftssimulation mit 50 Agenten und vier lokalen KI-Modellen](https://chatgpt.com/space/page_c54a51cd4c5c819183c835ac800ee386)
+
+Der zentrale Zusammenhang ist: **Ein Reich muss sich versorgen, industrielle Überschüsse erzeugen, Raumfahrt entwickeln und seinen Besitz schützen können.** Wirtschaftlicher Erfolg entsteht dadurch über mehrere miteinander konkurrierende Entscheidungen.
+
+Die folgenden Zahlen sind vorgeschlagene Spielregeln, keine übernommenen Originalwerte von Galaxy of Fantasy.
+
+**Die Welt beginnt mit 50 eigenständigen Zivilisationen.** Jede besitzt eine Heimatwelt, Bevölkerung, Grundversorgung und ausreichende lokale Rohstoffvorkommen. Insgesamt gibt es 800 Planetenplätze. Weitere Standorte müssen erkundet werden; ihre tatsächlichen Erträge, Bauflächen und Reserven sind zunächst unbekannt.
+
+Fünf Völker mit jeweils zehn Spielern erhalten unterschiedliche Vorteile und Nachteile. Beispielsweise produziert ein industrielles Volk mehr Legierungen, aber weniger Nahrung. Ein wissenschaftliches Volk forscht schneller, fördert dafür weniger Metall. Alle können sämtliche Technologien erreichen. Das Volk beeinflusst die Möglichkeiten; die Agenten entscheiden selbst über ihre Strategie.
+
+**Die Makroökonomie beruht auf echten Abhängigkeiten.**
+
+| Grundlage | Wirtschaftliche Wirkung |
+|---|---|
+| Bevölkerung | Verbraucht Nahrung, Wasser und Energie; stellt Arbeitskräfte |
+| Landwirtschaft und Wasserwerke | Ermöglichen Überleben, Wachstum und Expeditionen |
+| Energie | Begrenzt gleichzeitig betreibbare Anlagen |
+| Metall, Kristall und Gas | Liefern industrielle Eingänge |
+| Legierungen, Elektronik und Treibstoff | Ermöglichen fortgeschrittene Gebäude, Forschung und Flotten |
+| Lager und Transport | Begrenzen, wo Überschüsse tatsächlich genutzt werden können |
+| Verwaltung und Stabilität | Begrenzen Expansion und produktive Leistungsfähigkeit |
+
+Damit kann ein Agent beispielsweise eine große Werft bauen und trotzdem scheitern: Wenn sie zu viele Arbeiter bindet, fehlen diese in Versorgung oder Industrie. Eine reiche Kristallkolonie hilft wenig, wenn ihre Transporte abgefangen werden. Eine eroberte Welt kann zunächst mehr Versorgung benötigen, als sie erwirtschaftet.
+
+Credits dienen dem Handel zwischen Spielern. Die Grundwirtschaft funktioniert durch Güter und Arbeitszuteilung; eine unbegrenzt zahlende NPC-Wirtschaft gibt es nicht.
+
+**Kolonisierung verlangt einen nachvollziehbaren zivilisatorischen Entwicklungspfad.**
+
+Der Weg führt über Grundversorgung, Forschung, verarbeitende Industrie, Antrieb, Raumfahrt, Habitattechnik und Navigation zur Kolonisierung. Dazu kommen eine ausreichend ausgebaute Werft, ein Orbitalzentrum und Verwaltungskapazität für zusätzliche Planeten.
+
+Das vorgeschlagene erste Kolonieschiff kostet:
+
+- 1.000 Metall und 400 Kristall;
+- 500 Legierungen und 200 Elektronik;
+- 150 Treibstoff für die Herstellung;
+- zusätzliche Flugversorgung und Flugtreibstoff.
+
+Es transportiert **20 tatsächlich vorhandene Bevölkerungseinheiten** sowie eine konkrete Siedlungsausstattung. Die Heimat verliert diese Siedler und muss danach weiterhin funktionieren. Beim Abflug prüft die Engine deshalb Versorgung, verbleibende Arbeitskräfte, Reserven und Verwaltungsgrenze.
+
+Die neue Kolonie erhält ein aus dem verbrauchten Schiff abgeleitetes Landungspaket. Bevölkerung und Fracht werden übertragen. Dadurch kann Kolonisierung keine Ressourcen oder Menschen vervielfachen.
+
+**Eine konkrete Beispielwirtschaft habe ich rechnerisch geprüft.**
+
+| Kennzahl | Verfügbar | Benötigt |
+|---|---:|---:|
+| Arbeitskräfte bei 160 Bevölkerung | 96 | 92 |
+| Energie pro Spieltag | 200 | 124 |
+| Nahrung pro Spieltag | 18 | 16 |
+| Wasser pro Spieltag | 40 | 26 |
+
+Diese Konfiguration erzeugt zusätzlich positive Überschüsse an Metall, Kristall, Gas, Legierungen, Elektronik und Treibstoff. Nach Abreise der Siedler bleibt die Heimat versorgungsfähig, wenn abgeschlossene Forschung und freie Fertigungsanlagen pausieren.
+
+Das belegt eine funktionierende Produktionsbilanz. Eine optimale Baufolge und der vollständige Weg aus dem Startzustand müssen anschließend in der Engine getestet werden.
+
+**Militär und Diplomatie greifen direkt in diese Wirtschaft ein.**
+
+Ich habe drei unterschiedliche Konfliktmechaniken definiert:
+
+- **Plünderung:** Der Angreifer erbeutet begrenzte Lagerbestände. Er muss sie mit überlebender Frachtkapazität zurücktransportieren.
+- **Blockade:** Eine stationierte Flotte unterbricht Transporte, verursacht aber selbst Unterhalt und kann vertrieben werden.
+- **Eroberung:** Nach militärischem Sieg braucht der Angreifer Invasionstruppen, Versorgung und eine erfolgreiche Besatzungsphase. Anschließend übernimmt er beschädigte Infrastruktur und eine instabile Bevölkerung.
+
+Wer ausschließlich baut, kann deshalb seine wirtschaftliche Leistung an andere verlieren. Schutzverträge, Abschreckung und Allianzen werden wirtschaftlich sinnvoll. Auch militärische Stärke kostet laufend Ressourcen, Personal und gebundene Zeit.
+
+Allianzen gewinnen nicht gemeinsam. Jeder Spieler verfolgt weiterhin seine eigene Endwertung. Verträge können gebrochen werden; veröffentlichte Kautionen, tatsächliche Verluste und die Reaktion anderer Spieler bilden die Konsequenzen.
+
+**Die vier lokalen Modelle übernehmen pro Reich unterschiedliche Aufgaben.**
+
+| Modell | Rolle |
+|---|---|
+| Modell 1 | Wirtschaft, Versorgung, Arbeitsverteilung und Bau |
+| Modell 2 | Forschung, Logistik, Erkundung und Kolonisierung |
+| Modell 3 | Sicherheit, Krieg, Diplomatie und Allianzen |
+| Modell 4 | Strategische Entscheidung und Freigabe des Gesamtplans |
+
+Die vier unterschiedlichen Modelle bedienen alle 50 Spieler. **Gedächtnis, Beobachtungen und Zugriffsrechte bleiben pro Spieler getrennt.** Der strategische Entscheider löst widersprüchliche Vorschläge auf und gibt einen verbindlichen Plan frei.
+
+Die Agenten kennen Spielregeln, Ressourcenmechaniken, ihren Wissensstand und das Epochenende. Der spätere Trainingszweck und der vollständige Weltzustand werden ihnen nicht mitgeteilt. Ob ein Sprachmodell selbst vermutet, dass es an einem Experiment teilnimmt, lässt sich nicht garantieren; die Informationsgrenzen lassen sich technisch durchsetzen.
+
+**Ein simuliertes Jahr bleibt unabhängig von der tatsächlichen Laufzeit.**
+
+Versorgung wird stündlich bilanziert. Baufortschritt, Forschung und Flotten besitzen feste Spielzeiten. Die Simulation wartet bei gemeinsamen Entscheidungen auf alle fälligen Antworten, sodass schnellere Inferenz keinen früheren Spielzug verschafft.
+
+Eine tägliche Beratung durch vier Modelle für 50 Spieler ergibt bereits **73.000 Modellaufrufe pro Epoche**, zuzüglich begrenzter Krisenberatung. Deshalb sind Aussagen wie „Hunderte Jahreswelten in Minuten“ ohne Messung nicht belastbar.
+
+Für gleichzeitige Aktionen mehrerer Spieler passt die Parallel-Schnittstelle von PettingZoo zum vorgeschlagenen Entscheidungszyklus. [PettingZoo Documentation](https://pettingzoo.farama.org/api/parallel/?utm_source=chatgpt.com)
+
+**Die Gesamtpunktzahl bewertet vorhandenen Besitz und aufgebautes Wissen.**
+
+Sie setzt sich aus Inventar, erhaltenen Gebäuden, überlebenden Schiffen, Forschungsinvestitionen, eigener Bevölkerung und korrekt verrechneten Forderungen beziehungsweise Schulden zusammen.
+
+Zerstörte Flotten verlieren ihren Wert. Eroberter Besitz wechselt den Eigentümer. Wiederholtes Bauen und Abreißen oder gegenseitige Scheinangriffe dürfen keine kostenlosen Punkte erzeugen. Wirtschaft, Forschung und Militär erhalten zusätzliche Statistiken, ohne heimlich eine zweite Siegbedingung einzuführen.
+
+**Für das spätere Training werden sämtliche Spieler archiviert.** Erfasst werden ihre damalige Beobachtung, Rollenbeiträge, freigegebene Entscheidung, kurze Begründung, verworfene Alternativen, Prognosen, Validierungsfehler und tatsächliche Folgen.
+
+Der vollständige Weltzustand liegt getrennt davon. So bekommt ein später trainiertes Modell keine Informationen als Eingabe, die dem ursprünglichen Spieler verborgen waren. Besiegte Spieler bleiben erhalten; ebenso schlechte Entscheidungen erfolgreicher Spieler.
+
+Die Spezifikation enthält außerdem Kosten, Bau- und Flugformeln, Forschungsabhängigkeiten, Kampfregeln, Vertragsmechaniken, Ereignisordnung und notwendige Prüfungen vor dem Jahreslauf. **Geprüft sind die Beispielbilanz und der gespeicherte Inhalt. Offen bleiben die vollständige Implementierung, empirische Balance, konkrete Modellauswahl und visuelle Prüfung der Seitendarstellung.**
+
+binde auch open router mit ein!

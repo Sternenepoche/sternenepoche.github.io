@@ -1,0 +1,48 @@
+# Probelauf über einen Spieltag zu openrouter-test.toml. Echter Test mit günstigen, aber fähigen Modellen über OpenRouter: ein Reich mit Modellen
+# (Aurelianer) gegen neunzehn Skriptbots, 90 Spieltage. Die Modelle je Rolle sind am echten
+# Prompt ausgewählt (README, Abschnitt "Echter Lauf"). Passt in ein Schlüssellimit von 2 USD;
+# ein Reich kostet rund 0,02 USD je Spieltag.
+#
+#   $env:OPENROUTER_API_KEY = "..."        (nur in der Umgebung, nie in einer Datei)
+#   python -m sternenepoche pruefen konfig/openrouter-test.toml
+#   python -m sternenepoche kosten  konfig/openrouter-test.toml
+#   python -m sternenepoche lauf    konfig/openrouter-test.toml
+
+[lauf]
+startwert = 3
+spieler = 20
+tage = 1
+ki = [1]
+ausgabe = "laeufe/openrouter-probe"
+schnappschuss_tage = 5
+
+[grenzen]
+max_ausgabe_tokens = 1500
+denk_tokens = 1500
+temperatur = 0.6
+zeitlimit_sekunden = 180
+versuche = 3
+budget_usd = 0.10             # der Lauf hält an dieser Grenze sauber an und lässt sich fortsetzen
+
+[anbieter.qwen]               # Stratege und Diplomat: schrieb im Vergleich die beste Doktrin, schnell
+art = "openrouter"
+modell = "qwen/qwen3.5-flash-02-23"
+parallel = 8
+denken = "aus"
+[anbieter.qwen.provider]
+data_collection = "deny"
+
+[anbieter.flash]              # Verwalter und Feldherr: vollständige, sinnvolle Bauaufträge ohne unnötige Abfragen.
+art = "openrouter"            # DeepSeek V4 hält kein Denkbudget ein, deshalb ohne Denken.
+modell = "deepseek/deepseek-v4-flash"
+parallel = 8
+denken = "aus"
+[anbieter.flash.provider]
+data_collection = "deny"
+order = ["deepinfra"]         # günstig bei Ein- und Ausgabe; andere Provider nur als Ausweichweg
+
+[rollen]
+stratege = "qwen"
+verwalter = "flash"
+feldherr = "flash"
+diplomat = "qwen"

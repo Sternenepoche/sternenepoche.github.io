@@ -1,0 +1,3994 @@
+[
+  {
+    "status": "implemented",
+    "id": "decision.v4-research-complete",
+    "details": {
+      "limitations": "Gebietsasymmetrie ausgewiesen; Kontrollrotationen; keine Modell-Siegerbehauptung. GPU-Freigaben gelten aus der Sitzung, nie aus der Wissensdatenbank.",
+      "tests": "33 aktuelle Laborprüfungen plus 12 native Mock-Forschungsfenster",
+      "conservative_profile": "konfig/labor-native-local-v4-kapazitaet.json",
+      "evidence": "laeufe/labor-evidence/LATEST-V4-RESEARCH.json"
+    },
+    "body": "B0-B7 als ausführbare Infrastruktur: private native Rust-Spieler, faire gemeinsame Commits, kleine Tools, lokale und gemischte Provider, prüfbare Kolonisationslogik, Gedächtnis und Lernexport. Neu: konkrete query-Werkzeuge, quellengestützte Kapazitätsplanung und vollständiges Modell-Harness-Kreuzprodukt mit Sitzrotation und Seed-Unsicherheit. Zehn echte Qwen8-Spieler führten 40 Calls und 14 Aktionen in 96,445 Sekunden aus; jeder speicherte Notizen und handelte. Keine Garantie optimaler Balance oder später 50-Modell-Kapazität.",
+    "source": "docs/LABOR-ABNAHME.md",
+    "source_line": 5,
+    "title": "V4-Backend abgeschlossen: Kapazität und Modell-Harness-Forschung",
+    "owner": "Codex + Sol 6.1 high",
+    "kind": "decision"
+  },
+  {
+    "id": "decision.v4-integrated-rules-and-learning",
+    "kind": "decision",
+    "title": "V4: Regeln, Spielersicht, Wiederaufnahme und Lernen konsistent integriert",
+    "status": "implemented",
+    "owner": "Codex + Sol 6.1 high",
+    "body": "5. Oktober 2026: Marktlieferungen behalten Käuferidentität und benötigen nach Eroberung einen echten Weiterflug zur Heimat. Capture entfernt alte Produktionsereignisse; Forschungsstart prüft Ersatzlabor; Abriss entfernt alte Integritätsreste. Private Sicht zeigt gebundene Empfänger, Warteorbit und eigene Marktlieferungen. Fensterabschluss wird dauerhaft vor dem Checkpoint gespeichert. Regelversion und Fairnesskennzahlen werden in Laufbericht, Export, Lernpaketen und Epochenfortsetzung berücksichtigt. Initialkontext-Überlast verliert keine Reaktion. Gedächtnispriorisierung umfasst alle begrenzten Records.",
+    "source": "docs/LABOR-ABNAHME.md",
+    "source_line": 5,
+    "details": {
+      "tests": "16 V4-Kern + 7 Kolonisation + 28 Labor-Integration; keine neue echte Modellmessung",
+      "evidence": "laeufe/labor-evidence/tests-v4-integration-2026-10-05.txt",
+      "scope": "Funktions- und Kompatibilitätsabnahme; keine Garantie optimaler Balance oder 50-Spieler-LLM-Durchsatz"
+    }
+  },
+  {
+    "id": "decision.v4-fair-catchup",
+    "kind": "decision",
+    "title": "V4: gemeinsamer Commit nach fairer Nachbearbeitung",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Bei Ablauf eines 900-Sekunden-Arbeitsabschnitts bleibt die gemeinsame Entscheidungswelt eingefroren. Nur fehlende Calls werden nachgeholt; gespeicherte Antworten werden wiederverwendet, Spielerbudgets nicht erneuert. Maximal vier Abschnitte im Standardvertrag, danach Kapazitätsstopp ohne strategische Niederlage. Echtzeitziel und fairer Vergleich sind separate Ergebnisfelder. Gesendete Calls mit unbekanntem Ausgang werden nicht automatisch wiederholt.",
+    "source": "docs/SPIELER-SANDBOX-KONZEPT.md",
+    "source_line": 1,
+    "details": {
+      "evidence": [
+        "crates/agenten/src/labor/runtime.rs",
+        "crates/agenten/tests/labor_v4.rs"
+      ],
+      "scope": "Implementierter Vertrag; keine Langzeit-Durchsatzgarantie. Ursprünglicher Heimatplanet bleibt vor Übernahme geschützt."
+    }
+  },
+  {
+    "id": "requirement.closed-world",
+    "kind": "requirement",
+    "title": "Geschlossene Epoche mit 50 Zivilisationen",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "50 Spieler, ein deterministisches Spieljahr; Kern kann auch kleinere Testwelten erzeugen.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 4,
+    "details": {
+      "evidence": [
+        "crates/kern/src/welt.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.roles",
+    "kind": "requirement",
+    "title": "Vier Rollen je Reich",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Stratege, Verwalter, Feldherr und Diplomat besitzen eigene Zuständigkeiten; konkrete Modelle bleiben konfigurierbar.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 7,
+    "details": {
+      "evidence": [
+        "crates/kern/src/aktion.rs",
+        "crates/agenten/src/config.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.information-boundary",
+    "kind": "requirement",
+    "title": "Private Beobachtungen statt globalem Wissen",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Spieler erhalten eigene und beobachtete Daten über Welt::sicht. Eine garantierte Unkenntnis darüber, dass ein Modell an einem Versuch teilnimmt, lässt sich nicht erzwingen.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 8,
+    "details": {
+      "evidence": [
+        "crates/kern/src/sicht.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.deterministic-replay",
+    "kind": "requirement",
+    "title": "Startwert und Aktionsprotokoll reproduzieren Welt",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "ChaCha-Ströme, geordnete Tabellen, Ereignisse und Zustandshashes vorhanden. Persistente Schemazustände müssen versionsgleich bleiben.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 11,
+    "details": {
+      "evidence": [
+        "crates/kern/src/sim.rs",
+        "crates/lauf/src/main.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.clock-barrier",
+    "kind": "requirement",
+    "title": "Weltuhr wartet auf sämtliche Modellantworten",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Rust-Orchestrator hält Welt während einer Providerbarriere an; Kern bietet schritt_wenn_bereit. Direkte schritt-Aufrufe bleiben interne Primitive.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 13,
+    "details": {
+      "evidence": [
+        "crates/agenten/src/lib.rs",
+        "crates/kern/src/sim.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.event-queue",
+    "kind": "requirement",
+    "title": "Deterministische Ereigniswarteschlange",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Zeit, Priorität und Laufnummer ordnen Bau, Flotten und weitere diskrete Ereignisse.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 15,
+    "details": {
+      "evidence": [
+        "crates/kern/src/welt.rs",
+        "crates/kern/src/sim.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.economic-tick",
+    "kind": "requirement",
+    "title": "Stündliche Wirtschaft",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Bevölkerung, Versorgung, Stabilität, Unterhalt und weitere Raten werden regelmäßig bilanziert.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 16,
+    "details": {
+      "evidence": [
+        "crates/kern/src/wirtschaft.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.closed-resource-accounting",
+    "kind": "requirement",
+    "title": "Geschlossene Ressourcenrechnung",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Bestände werden zwischen Änderungen aus gespeicherter Rate und Zeitdifferenz gerechnet, mit Lagergrenzen.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 17,
+    "details": {
+      "evidence": [
+        "crates/kern/src/wirtschaft.rs",
+        "crates/kern/src/sicht.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.decision-windows",
+    "kind": "requirement",
+    "title": "15-Minuten-Entscheidungsfenster",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Fensterlänge kommt aus RON; für fällige Rollen gelten gleiche Spielzeit und normale Rechte.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 21,
+    "details": {
+      "evidence": [
+        "crates/kern/src/sim.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.wake-triggers",
+    "kind": "requirement",
+    "title": "Regeltakt, Ereignisse und eigener Wecker",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Takte und dringende Warnungen sind kernseitig; Provider-Protokoll muss absolute Wecker in relative Kerndauer umrechnen.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 23,
+    "details": {
+      "evidence": [
+        "crates/kern/src/sim.rs",
+        "crates/agenten/src/lib.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.flight-reaction",
+    "kind": "requirement",
+    "title": "Mindestens 20 Minuten Flugzeit",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Flugzeitminimum liegt über dem Entscheidungsfenster; Sensorwarnung erzeugt Handlungsgelegenheiten.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 28,
+    "details": {
+      "evidence": [
+        "crates/kern/tests/spiel.rs:88"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.seeded-order",
+    "kind": "requirement",
+    "title": "Gleiche Zeit, geloste Spielerreihenfolge",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Pro Fenster eigener deterministischer Reihenfolgestrom; Trainingsumgebung nutzt dieselbe Ordnung.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 29,
+    "details": {
+      "evidence": [
+        "crates/kern/src/sim.rs",
+        "crates/kern/src/umgebung.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.galaxy-layout",
+    "kind": "requirement",
+    "title": "1440 Plätze in zwei Sektoren",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Ursprungsprofil 2×60×12 umgesetzt; 800-Plätze-Variante im angehängten Zweitentwurf nicht gleichzeitig aktiv.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 31,
+    "details": {
+      "evidence": [
+        "regeln/regelwerk.ron"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.reconnaissance",
+    "kind": "requirement",
+    "title": "Freie Planetendetails erst nach Erkundung",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Erkundung und Galaxiewerkzeug sind spielergefiltert. Grafik darf keine Faktoren aus globalem Zustand ergänzen.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 32,
+    "details": {
+      "evidence": [
+        "crates/kern/src/sicht.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.planet-zones",
+    "kind": "requirement",
+    "title": "Glut-, Lebens- und Frostzone",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Felder und Ertragsfaktoren werden regelbasiert vergeben; Rust-Renderer setzt die Zone kosmetisch um.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 33,
+    "details": {
+      "evidence": [
+        "regeln/regelwerk.ron",
+        "crates/inhalt/src/planet.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.system-richness",
+    "kind": "requirement",
+    "title": "Baufelder und Systemreichtum",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Gebäudestufen belegen Felder; Erz-/Kristallreichtum ist ein Skalar pro System, kein geografisches Raster.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 61,
+    "details": {
+      "evidence": [
+        "crates/kern/src/welt.rs",
+        "crates/kern/src/wirtschaft.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.xeno-nebula",
+    "kind": "requirement",
+    "title": "Xenokristall in zwölf Nebelsystemen",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Seltene Vorkommen und Xenoabhängigkeiten sind im Regelwerk verankert.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 63,
+    "details": {
+      "evidence": [
+        "regeln/regelwerk.ron"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.asteroid-belts",
+    "kind": "requirement",
+    "title": "Asteroidenabbau",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Position 0 repräsentiert Gürtel; Bergbauschiffe erhalten tatsächlichen Ertrag nach Dauer und Frachtraum.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 64,
+    "details": {
+      "evidence": [
+        "crates/kern/src/flotte.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.homeworld-equality",
+    "kind": "requirement",
+    "title": "Gleiche Heimatwelten",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Heimatwerte identisch, Völkerfaktoren anschließend angewandt; Fairness wird über mehrere Seeds weiter zu prüfen sein.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 66,
+    "details": {
+      "evidence": [
+        "crates/kern/tests/spiel.rs:102"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.start-distance-conflict",
+    "kind": "requirement",
+    "title": "Zwei leere Systeme passen nicht zu 50 Starts",
+    "status": "open",
+    "owner": "Codex",
+    "body": "Originalforderung mindestens zwei Systeme zwischen Spielern erlaubt in 120 Systemen nur ungefähr 40 Starts. Aktuelles start_abstand=2 bezeichnet Differenz der Systemnummern, nicht zwei leere Zwischensysteme.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 66,
+    "details": {
+      "evidence": [
+        "regeln/regelwerk.ron"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.faction-balance",
+    "kind": "requirement",
+    "title": "Vier Völker im Verhältnis 13/13/12/12",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Aurelianer, Krath, Veyari, Syntheten sind die aktiven Völker. Empirische Fairness ihrer Faktoren bleibt Balancingaufgabe.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 68,
+    "details": {
+      "evidence": [
+        "crates/kern/src/typen.rs",
+        "regeln/regelwerk.ron"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.synthetic-supply",
+    "kind": "requirement",
+    "title": "Syntheten verbrauchen Energie statt Nahrung",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Andere Versorgung ist mechanisch wirksam; bereits vorhandener spezialisierter Kern-Test.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 89,
+    "details": {
+      "evidence": [
+        "crates/kern/tests/spiel.rs:171"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.goods-chain",
+    "kind": "requirement",
+    "title": "Rohstoffe, Verarbeitung, Bauteile, Geld und Wissen",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Zehn lagerbare Güter einschließlich Antriebskern und Habitatmodul; Energie, Credits und Forschung sind getrennte Größen.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 92,
+    "details": {
+      "evidence": [
+        "crates/kern/src/typen.rs",
+        "crates/kern/src/wirtschaft.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.recipes",
+    "kind": "requirement",
+    "title": "Verarbeitungsrezepte",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Rohstoffeingänge, Energie, Personal und Zuteilung bestimmen die Produktion.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 121,
+    "details": {
+      "evidence": [
+        "regeln/regelwerk.ron",
+        "crates/kern/src/wirtschaft.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.population",
+    "kind": "requirement",
+    "title": "Logistisches Bevölkerungswachstum",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Wohnraum, Versorgung und Stabilität begrenzen Wachstum; Hunger kann schrumpfen lassen.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 123,
+    "details": {
+      "evidence": [
+        "crates/kern/src/wirtschaft.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.workforce",
+    "kind": "requirement",
+    "title": "Arbeiter und priorisierte Produktion",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Arbeitskräfte werden aus Bevölkerung abgeleitet und bei Mangel priorisiert verteilt.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 127,
+    "details": {
+      "evidence": [
+        "crates/kern/src/wirtschaft.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.specialists",
+    "kind": "requirement",
+    "title": "Fachkräfte aus Akademien",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Labore und fortgeschrittene Produktion benötigen Fachkräfte.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 128,
+    "details": {
+      "evidence": [
+        "crates/kern/src/wirtschaft.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.crew",
+    "kind": "requirement",
+    "title": "Besatzungen konkurrieren um Bevölkerung",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Schiffbau und Bevölkerung koppeln zivile und militärische Entwicklung.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 129,
+    "details": {
+      "evidence": [
+        "crates/kern/src/wirtschaft.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.power",
+    "kind": "requirement",
+    "title": "Energieknappheit drosselt Produktion",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Verbrauch und Erzeugung steuern den Leistungsfaktor; Fusion verbraucht Deuterium.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 131,
+    "details": {
+      "evidence": [
+        "crates/kern/src/wirtschaft.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.stability",
+    "kind": "requirement",
+    "title": "Stabilitätsziel, Halbwertszeit und Unruhen",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Steuern, Versorgung, Soziologie, Expansion und Krieg beeinflussen Stabilität und Baufortschritt.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 133,
+    "details": {
+      "evidence": [
+        "regeln/regelwerk.ron",
+        "crates/kern/src/wirtschaft.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.tax-upkeep",
+    "kind": "requirement",
+    "title": "Steuern, Unterhalt und Desertion",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Laufender militärischer Unterhalt und Zahlungsprobleme sind mechanisch wirksam; UI darf nur zulässigen Steuerbereich anbieten.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 138,
+    "details": {
+      "evidence": [
+        "crates/kern/tests/spiel.rs:435",
+        "crates/spieler/src/main.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.storage-bunker",
+    "kind": "requirement",
+    "title": "Lager und Bunkerschutz",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Lagerkappen begrenzen Güter; geschützte Mengen sind nicht plünderbar.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 143,
+    "details": {
+      "evidence": [
+        "crates/kern/src/wirtschaft.rs",
+        "crates/kern/src/flotte.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.stages",
+    "kind": "requirement",
+    "title": "Fünf Zivilisationsstufen und 48-Stunden-Bedingung",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Stufenbedingungen müssen ununterbrochen erfüllt bleiben; Kosten und Schwellen liegen im Regelwerk.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 146,
+    "details": {
+      "evidence": [
+        "crates/kern/tests/spiel.rs:145"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.late-balance",
+    "kind": "requirement",
+    "title": "Stufe V innerhalb Epochenhorizont",
+    "status": "verified",
+    "owner": "Claude",
+    "body": "Stufe V im Zielfenster: balance --abnahme --laeufe 24 erfüllt alle Kriterien, Median Tag 161–174, erreicht von 99–100 Prozent der Bots aller vier Typen. Stufe IV 32.000, Stufe V 700.000 Einwohner.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 168,
+    "details": {
+      "evidence": [
+        "README.md#balance",
+        "crates/lauf/src/main.rs",
+        "crates/lauf/src/bots.rs",
+        "regeln/regelwerk.ron"
+      ],
+      "checked_at": "2026-10-04",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.colony-costs",
+    "kind": "requirement",
+    "title": "Kolonieschiff mit echten Siedlern und Bauteilen",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Legacykosten bleiben erhalten. V3 zusätzlich eigene Sondenaufklärung, bewaffnete Eskorte und Startfracht für vier Basisgebäude plus einen Tag Siedlernahrung. Anforderungen bei Start und Ankunft geprüft.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 172,
+    "details": {
+      "evidence": [
+        "docs/LABOR-BACKEND.md",
+        "docs/LABOR-ABNAHME.md",
+        "crates/kern/src/kolonisation.rs",
+        "crates/agenten/src/labor/runtime.rs"
+      ],
+      "checked_at": "2026-10-04",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.colony-limit",
+    "kind": "requirement",
+    "title": "Astrophysik und Verwaltung begrenzen Expansion",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Kolonielimit und Stabilitätsfolgen gehören zum Kern, nicht in Grafiklogik.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 175,
+    "details": {
+      "evidence": [
+        "crates/kern/src/flotte.rs",
+        "crates/kern/src/wirtschaft.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.level-costs",
+    "kind": "requirement",
+    "title": "Exponentielle Kosten und Produktionskurven",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Kostenfaktoren und Arbeits-/Energieeinflüsse werden aus RON berechnet.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 180,
+    "details": {
+      "evidence": [
+        "crates/kern/src/regeln.rs",
+        "crates/kern/src/wirtschaft.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.construction-time",
+    "kind": "requirement",
+    "title": "Bauzeit mit Bauhof und Nanofabrik",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Bauzeitabkürzung und Kostenberechnung sind kernseitig.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 186,
+    "details": {
+      "evidence": [
+        "crates/kern/src/wirtschaft.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.queues",
+    "kind": "requirement",
+    "title": "Gebäude-, Werft-, Orbitalwerft- und Forschungsschlangen",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Getrennte Produktionswege vorhanden; Anzeige folgt Beobachtung.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 190,
+    "details": {
+      "evidence": [
+        "crates/kern/src/wirtschaft.rs",
+        "crates/spieler/src/main.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.missile-silo",
+    "kind": "requirement",
+    "title": "Raketensilo",
+    "status": "implemented",
+    "owner": "Codex, Claude",
+    "body": "Raketensilo, Raketenbau und -start im Kern; Antwortschema enthält die Felder (vorher fehlten sie, Aktionen wurden immer abgelehnt), Motive im Katalog, Aktionen den Ansichten zugeordnet.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 219,
+    "details": {
+      "evidence": [
+        "crates/kern/src/erweiterung.rs",
+        "crates/kern/tests/schema.rs",
+        "content/catalog.json",
+        "content/coverage.json"
+      ],
+      "checked_at": "2026-10-04",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.research-effects",
+    "kind": "requirement",
+    "title": "Grundlagen-, Raumfahrt-, Militär- und Spätforschung",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "17 Forschungsarten mit tatsächlichen Wirkungen und Labor-/Stufengates. Optische Technikbäume dürfen keine erfundenen Kanten hinzufügen.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 222,
+    "details": {
+      "evidence": [
+        "crates/kern/src/typen.rs",
+        "regeln/regelwerk.ron"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.ships",
+    "kind": "requirement",
+    "title": "Zwölf Schiffstypen",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Sonden, Transporter, Jäger, Bergbau, Kreuzer, Recycler, Kolonie, Truppen und drei schwere Typen existieren.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 232,
+    "details": {
+      "evidence": [
+        "crates/kern/src/typen.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.defense",
+    "kind": "requirement",
+    "title": "Sechs ortsfeste Verteidigungstypen",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Kosten, Kampfeigenschaften und Wiederaufbau getrennt von mobilen Flotten.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 268,
+    "details": {
+      "evidence": [
+        "crates/kern/src/kampf.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.flight",
+    "kind": "requirement",
+    "title": "Entfernung, Geschwindigkeit und Treibstoff",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Langsamstes Schiff bestimmt Flugzeit, reduzierte Geschwindigkeit spart Treibstoff; Formelbeispiele im Kern-Test.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 270,
+    "details": {
+      "evidence": [
+        "crates/kern/tests/spiel.rs:88"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.missions",
+    "kind": "requirement",
+    "title": "Missionen und Rückruf",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Angriff, Transport, Stationieren, Halten, Spionage, Kolonisieren, Recyceln, Abbau, Blockade und Invasion vorhanden.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 278,
+    "details": {
+      "evidence": [
+        "crates/kern/src/flotte.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.group-attacks",
+    "kind": "requirement",
+    "title": "Freiwillige Allianz-Verbandsangriffe",
+    "status": "verified",
+    "owner": "Codex",
+    "body": "Öffnen und Beitreten eigener Angriffsflotten; gleicher Zielort, Allianz, höchstens16 Flotten, maximale kumulierte Verzögerung6h. Eigentümer behalten Forschung und Verluste; ein gemeinsamer Beutepool. Fünf gezielte Tests am 03.10.2026 bestanden.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 278,
+    "details": {
+      "evidence": [
+        "crates/kern/tests/verband.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.combat",
+    "kind": "requirement",
+    "title": "Deterministischer Einzelkampf bis sechs Runden",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Schilde, Struktur, Explosion, Schnellfeuer und Zufallsströme werden pro Einheit simuliert.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 280,
+    "details": {
+      "evidence": [
+        "crates/kern/src/kampf.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.debris-rebuild",
+    "kind": "requirement",
+    "title": "Trümmer und Verteidigungswiederaufbau",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Schiffsverluste liefern Trümmer; Verteidigung erhält den konfigurierten Wiederaufbauanteil.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 285,
+    "details": {
+      "evidence": [
+        "crates/kern/src/flotte.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.spy-depth",
+    "kind": "requirement",
+    "title": "Spionagetechnik bestimmt Berichtstiefe",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Ressourcen, Flotten, Verteidigung, Gebäude und Forschung werden gestaffelt offengelegt; Berichte besitzen Alter.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 290,
+    "details": {
+      "evidence": [
+        "crates/kern/src/flotte.rs",
+        "crates/kern/src/sicht.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.loot",
+    "kind": "requirement",
+    "title": "Plünderung nur ungeschützter Güter und freier Frachtraum",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Einzelangriffe sowie Verbände begrenzen Beute nach überlebender Kapazität; Credits und Bauteile bleiben von Standardbeute ausgenommen.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 292,
+    "details": {
+      "evidence": [
+        "crates/kern/src/flotte.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.siege",
+    "kind": "requirement",
+    "title": "Mehrstufige Belagerung und Eroberung",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Orbitaldominanz, fallende Stabilität und Bodentruppen erforderlich; Heimatwelten bleiben uneinnehmbar.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 296,
+    "details": {
+      "evidence": [
+        "crates/kern/tests/spiel.rs:269"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.capture-losses",
+    "kind": "requirement",
+    "title": "Eroberungsverluste bei Gebäuden und Bevölkerung",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Besitzerwechsel, beschädigte Infrastruktur und reduzierte Bevölkerung; neue Raketenvorräte/Produktionsereignisse brauchen Eroberungsprüfung.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 300,
+    "details": {
+      "evidence": [
+        "crates/kern/src/flotte.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.protection",
+    "kind": "requirement",
+    "title": "Anfängerschutz und optionaler Schwachenschutz",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Schutz endet zeit-/stufenbasiert bzw. durch eigenen Angriff; Schwachenschutz ist ein Regelparameter.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 303,
+    "details": {
+      "evidence": [
+        "crates/kern/tests/spiel.rs:249"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.messages",
+    "kind": "requirement",
+    "title": "Nachrichten mit Tages- und Zeichenlimits",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Private oder Allianz-Nachrichten wecken Diplomaten; sprachlicher Inhalt bleibt Akteursdaten.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 310,
+    "details": {
+      "evidence": [
+        "crates/kern/src/diplomatie.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.treaties",
+    "kind": "requirement",
+    "title": "NAP, Handel, Verteidigung und Tribut",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Verträge sind Engineobjekte mit Fristen, Status, Kautionen und öffentlichem Bruchregister.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 317,
+    "details": {
+      "evidence": [
+        "crates/kern/src/diplomatie.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.alliance-knowledge",
+    "kind": "requirement",
+    "title": "Allianzkanal und geteilte Galaxieansicht",
+    "status": "open",
+    "owner": "Codex",
+    "body": "Mitgliedschaften, Kanal und Warnungen vorhanden. Vollständige Zusammenführung sämtlicher Erkundungs-/Spionagedaten gesondert gegen Original prüfen.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 327,
+    "details": {
+      "evidence": [
+        "crates/kern/src/diplomatie.rs",
+        "crates/kern/src/sicht.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.market",
+    "kind": "requirement",
+    "title": "Orderbuch, Gebühren und neutrale Lieferung",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Handel in Credits, Lieferzeiten, direkte Transporte und Geschenke werden verarbeitet.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 335,
+    "details": {
+      "evidence": [
+        "crates/kern/src/markt.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.individual-score",
+    "kind": "requirement",
+    "title": "Investierter Wert statt gehorteter Vorräte",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Aktives Ursprungsprofil zählt Wirtschaft, Forschung, Militär und Zivilisation; Inventarpunkte des Zweitentwurfs sind nicht gleichzeitig aktiv.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 340,
+    "details": {
+      "evidence": [
+        "crates/kern/src/wertung.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.endgame",
+    "kind": "requirement",
+    "title": "Bekanntes Epochenende",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "365 Tage als aktive Regel. Zufälliges Ende350..380 ist eine optionale Konzeptvariante, kein aktiver Standard.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 360,
+    "details": {
+      "evidence": [
+        "regeln/regelwerk.ron"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.hidden-metrics",
+    "kind": "requirement",
+    "title": "Geheime Auswertungskennzahlen",
+    "status": "open",
+    "owner": "Codex",
+    "body": "Statistiken sind vorhanden; vollständige spätere Analysesuite einschließlich Lagerverlusten und Strategiebeurteilung benötigt eigenen Abgleich.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 362,
+    "details": {
+      "evidence": [
+        "crates/lauf/src/main.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.doctrine-budget",
+    "kind": "requirement",
+    "title": "Doktrin und getrennte Budgettöpfe",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Rollenrechte und Budgets werden kernseitig validiert. Strategische Aussagen im Text sind keine automatisch durchgesetzte semantische Vertragspolitik.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 387,
+    "details": {
+      "evidence": [
+        "crates/kern/src/aktion.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.emergency-reserve",
+    "kind": "requirement",
+    "title": "Feldherr darf bei Warnung Reserve nutzen",
+    "status": "verified",
+    "owner": "Codex, Claude",
+    "body": "Bei sichtbarer feindlicher Flotte zahlt die Reserve für den Feldherrn mit, sonst nicht; andere Rollen nie.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 389,
+    "details": {
+      "evidence": [
+        "crates/kern/src/wirtschaft.rs",
+        "crates/kern/tests/spiel.rs#feldherr_zahlt_bei_warnung_auch_aus_der_reserve"
+      ],
+      "checked_at": "2026-10-04",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.role-messages",
+    "kind": "requirement",
+    "title": "Interne Rollenmeldungen",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Meldungen und Notizen existieren; Strategenweckung gehört zum Rollenprotokoll.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 390,
+    "details": {
+      "evidence": [
+        "crates/kern/src/aktion.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.model-comparison",
+    "kind": "requirement",
+    "title": "Alternative komplette Modellbesetzung",
+    "status": "planned",
+    "owner": "Codex",
+    "body": "Rollenanbieter konfigurierbar; kontrollierter Vergleich mit identischen Seeds und rollierenden Zuordnungen benötigt Versuchsplan.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 394,
+    "details": {
+      "evidence": [
+        "crates/agenten/src/config.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.memory",
+    "kind": "requirement",
+    "title": "Doktrin, Notizbücher und Tatsachenchronik",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Kern hält getrennte Rollen-Notizen und Ereignisgeschichte. Tokenlimits sind nicht automatisch identisch mit Zeichenlimits.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 411,
+    "details": {
+      "evidence": [
+        "crates/kern/src/sicht.rs",
+        "crates/agenten/src/protocol.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.diplomat-history",
+    "kind": "requirement",
+    "title": "Zehn Nachrichten je Partner plus Zusammenfassung",
+    "status": "open",
+    "owner": "Codex",
+    "body": "Sicht zeigt derzeit begrenzten Nachrichtenverlauf; genaue Partnersegmentierung und eigene Langzeitzusammenfassung noch gesondert belegen.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 414,
+    "details": {
+      "evidence": [
+        "crates/kern/src/sicht.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.response-envelope",
+    "kind": "requirement",
+    "title": "JSON-Schema und begrenzte Korrektur",
+    "status": "verified",
+    "owner": "Codex, Claude",
+    "body": "Schema aus der Engine je Rolle, durch Tests gegen Kern und Werkzeug abgesichert; reale Läufe über OpenRouter mit Abfrage- und Korrekturrunde im Python- und im Rust-Orchestrator.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 416,
+    "details": {
+      "evidence": [
+        "crates/kern/src/aktion.rs",
+        "crates/kern/tests/schema.rs",
+        "orchestrator/sternenepoche/lauf.py",
+        "crates/agenten/src/lib.rs"
+      ],
+      "checked_at": "2026-10-04",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.read-only-tools",
+    "kind": "requirement",
+    "title": "Drei lesende Werkzeuge pro Aufruf",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Kern enthält Kampfsimulator, Flugplanung, Kosten und Regelnachschlag. Durchsetzung des dreifachen Abfragelimits im vollständigen Providerzyklus separat belegen.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 429,
+    "details": {
+      "evidence": [
+        "crates/kern/src/sicht.rs",
+        "crates/agenten/src/lib.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.equal-token-budget",
+    "kind": "requirement",
+    "title": "Gleiches Tokenbudget pro Rolle/Modellvergleich",
+    "status": "open",
+    "owner": "Codex",
+    "body": "Budget ist konfigurierbar; gleiche tatsächliche Begrenzung bei heterogenen APIs und Reasoning-Tokens muss Versuchsplan absichern.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 434,
+    "details": {
+      "evidence": [
+        "crates/agenten/src/config.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.decision-archive",
+    "kind": "requirement",
+    "title": "Prompts, Rohantworten und Entscheidungen archivieren",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Rust-Journal persistiert Requests/Antworten und Export; keine realen bezahlten Antworten in diesem Arbeitslauf erzeugt.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 441,
+    "details": {
+      "evidence": [
+        "crates/agenten/src/journal.rs",
+        "crates/agenten/src/export.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.columnar-archive",
+    "kind": "requirement",
+    "title": "Parquet-/zstd-Archivformate",
+    "status": "open",
+    "owner": "Codex",
+    "body": "Vorhandene JSONL/Checkpoint-Ausgaben ersetzen nicht sämtliche gewünschten Parquet-Ereignis-, Kennzahl- und Aktionsresultattabellen. Root erstellt zusätzlich DuckDB-Wissensindex, kein Ersatz für Episodentrainingsexport.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 445,
+    "details": {
+      "evidence": [
+        "crates/lauf/src/main.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.daily-precombat-snapshots",
+    "kind": "requirement",
+    "title": "Tägliche und Vor-Kampf-Schnappschüsse",
+    "status": "open",
+    "owner": "Codex",
+    "body": "Bincode-Schnappschuss und Replay vorhanden; automatische exakte Vor-Kampf-Sicherung jedes Kampfes separat prüfen.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 450,
+    "details": {
+      "evidence": [
+        "crates/lauf/src/main.rs",
+        "crates/kern/src/sim.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.labels",
+    "kind": "requirement",
+    "title": "Labels nach1/7/30 Tagen und Endrang",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Python-Orchestrator: etiketten hängt jeder Entscheidung die Punktedifferenz nach 1, 7 und 30 Spieltagen und den Endrang an; unvollständige Horizonte bleiben null.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 463,
+    "details": {
+      "evidence": [
+        "orchestrator/sternenepoche/protokoll.py",
+        "orchestrator/tests/test_ablauf.py"
+      ],
+      "checked_at": "2026-10-04",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.branching",
+    "kind": "requirement",
+    "title": "Abzweigungen für kontrafaktische Vergleiche",
+    "status": "open",
+    "owner": "Codex",
+    "body": "Weltkopie/Checkpoint ermöglichen technische Basis. Vollständiger Runner mit neuen Modellbesetzungen und gepaarten Datensätzen noch zu ergänzen.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 465,
+    "details": {
+      "evidence": [
+        "crates/kern/src/sim.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.training-uses",
+    "kind": "requirement",
+    "title": "Imitation, Offline-RL, Präferenzpaare, Rollensplits, Verhandlungskorpus",
+    "status": "planned",
+    "owner": "Codex",
+    "body": "Nutzungsziele verlangen überprüfte Episoden, Labels und Leckagekontrolle; noch kein trainierter Sternenepoche-Modellcheckpoint.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 467,
+    "details": {
+      "evidence": [
+        "wissen/quellen/spielkonzept-original.txt"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.fixed-point",
+    "kind": "requirement",
+    "title": "Ganzzahlen in Tausendsteln",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Weltmengen sind ganzzahlig; Regeln besitzen Faktoren, deren Anwendung über feste Skalierung erfolgt. Renderer nutzt f64 ausschließlich kosmetisch.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 479,
+    "details": {
+      "evidence": [
+        "crates/kern/src/typen.rs",
+        "crates/inhalt/src/planet.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.no-ecs",
+    "kind": "requirement",
+    "title": "Vec-Tabellen statt unnötigem ECS",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Kern bleibt einfache, typisierte Bibliothek ohne GUI-/Netzwerkzwang.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 485,
+    "details": {
+      "evidence": [
+        "crates/kern/src/lib.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.sequential-combat",
+    "kind": "requirement",
+    "title": "Kämpfe sequenziell",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Kampfereignisse werden in fester Reihenfolge ausgeführt; parallele Provider dürfen Welt nicht verändern.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 488,
+    "details": {
+      "evidence": [
+        "crates/kern/src/sim.rs",
+        "crates/agenten/src/lib.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.data-driven-rules",
+    "kind": "requirement",
+    "title": "Versioniertes RON und daraus erzeugter Regeltext",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Engine lädt Regelwerk; Regeltext und neue Inhaltsgates werden aus denselben Daten abgeleitet.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 520,
+    "details": {
+      "evidence": [
+        "crates/kern/src/regeln.rs",
+        "crates/kern/src/regeltext.rs",
+        "crates/inhalt/src/catalog.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.python-binding",
+    "kind": "requirement",
+    "title": "Ursprünglicher pyo3-/Python-Orchestrator",
+    "status": "superseded",
+    "owner": "Codex",
+    "body": "Karl fordert nun alles in Rust. Native Rust-Orchestrierung und Rust-reset/step ersetzen die aktive Python-Architektur; alte Dateien bleiben als Legacy erhalten.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 523,
+    "details": {
+      "evidence": [
+        "crates/agenten/src/lib.rs",
+        "crates/kern/src/umgebung.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.native-training",
+    "kind": "requirement",
+    "title": "Rust reset/step-Umgebung",
+    "status": "in_progress",
+    "owner": "Codex",
+    "body": "Implementiert mit vollständig gemeinsamem Teilnehmer-Envelope, Rollenrechten, fälligen Rollen, Punktedelta, End-/Zeitlimitflags. Integrationstests werden nach mechanischen Erweiterungen ausgeführt.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 523,
+    "details": {
+      "evidence": [
+        "crates/kern/src/umgebung.rs",
+        "crates/kern/tests/umgebung.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.property-testing",
+    "kind": "requirement",
+    "title": "Invariantentests und CI-Doppel-Epoche",
+    "status": "open",
+    "owner": "Codex",
+    "body": "Handgeschriebene Kernintegrationstests vorhanden; proptest-Suite und CI-Ausführung über vollständige Episoden gesondert bestätigen.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 524,
+    "details": {
+      "evidence": [
+        "crates/kern/tests/spiel.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.html-replay",
+    "kind": "requirement",
+    "title": "Einzeldatei-Replay und GitHub-Pages",
+    "status": "superseded",
+    "owner": "Codex",
+    "body": "CLI-Replay ist vorhanden. Eine Browser-Replaydatei widerspricht nicht Datenformaten, ist aber nicht die nun gewünschte aktive Rust-Spieloberfläche; native komfortable Zeitsuche bleibt Produktaufgabe.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 525,
+    "details": {
+      "evidence": [
+        "crates/lauf/src/main.rs",
+        "crates/spieler/src/main.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.runtime-estimates",
+    "kind": "requirement",
+    "title": "220000 Aufrufe und90M Tokens sind Schätzungen",
+    "status": "open",
+    "owner": "Codex",
+    "body": "Ein bis drei Tage auf mehreren GPUs ist keine Messung auf Karls RTX3080. Keine Leistungszusage ohne Modell-/Hardwarebenchmark.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 527,
+    "details": {
+      "evidence": [
+        "wissen/quellen/spielkonzept-original.txt"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.prefix-cache",
+    "kind": "requirement",
+    "title": "Prefix-Caching und harte Denklimits",
+    "status": "in_progress",
+    "owner": "Claude",
+    "body": "Denklimits: pruefen meldet Modelle, die kein Budget einhalten; Neuversuche nach Tokenlimit mit weniger Denken. Caching gemessen: DeepSeek V4 Flash über DeepInfra rund 59 Prozent zwischengespeicherte Eingabe; Qwen über Alibaba ohne Cache.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 560,
+    "details": {
+      "evidence": [
+        "orchestrator/sternenepoche/backends.py",
+        "orchestrator/sternenepoche/kosten.py",
+        "crates/agenten/src/provider.rs"
+      ],
+      "checked_at": "2026-10-04",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.balance-gate",
+    "kind": "requirement",
+    "title": "Balance vor teuren Modellepochen",
+    "status": "verified",
+    "owner": "Claude",
+    "body": "Abnahme über drei Aufstellungen (Mischung, Räuber gegen Wehrlose, Räuber gegen Igel) mit 12 bzw. 24 Startwerten: keine Dominanz (Räuber-Faktor 1,04), Raub lohnt sich, Schutz wirkt, Stufenzeiten in den Zielfenstern, Völker höchstens 15 Prozent auseinander, keine Plateaus.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 566,
+    "details": {
+      "evidence": [
+        "README.md#balance",
+        "crates/lauf/src/main.rs",
+        "COORDINATION.md"
+      ],
+      "checked_at": "2026-10-04",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.pilot-model-run",
+    "kind": "requirement",
+    "title": "Ein Modell, fünf Agenten,30Tage",
+    "status": "in_progress",
+    "owner": "Claude",
+    "body": "Realer OpenRouter-Lauf mit günstigen Modellen läuft (Schlüssellimit 2 USD, daher ein Reich gegen 19 Bots über bis zu 90 Tage); Rust-Orchestrator ein Fenster real geprüft. Modellwahl, Fehler und Kosten in README und COORDINATION.md.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 572,
+    "details": {
+      "evidence": [
+        "konfig/openrouter-test.toml",
+        "konfig/rust-agenten-openrouter.json",
+        "COORDINATION.md"
+      ],
+      "checked_at": "2026-10-04",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.full-pilot",
+    "kind": "requirement",
+    "title": "50Agenten, vierModelle,60Tage",
+    "status": "planned",
+    "owner": "Codex",
+    "body": "Benötigt ausgewählte Endpunkte, geprüfte Balance und explizite Kosten-/Ressourcenlimits.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 573,
+    "details": {
+      "evidence": [
+        "crates/agenten/src/config.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.full-epoch",
+    "kind": "requirement",
+    "title": "Volle Epoche mit Labels und Auswertung",
+    "status": "planned",
+    "owner": "Codex",
+    "body": "Noch kein vollständiger Lauf mit allen echten Modellrollen nachgewiesen.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 574,
+    "details": {
+      "evidence": [
+        "crates/agenten/src/main.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.risk-peace",
+    "kind": "requirement",
+    "title": "Zu friedliche oder überforderte Agenten",
+    "status": "open",
+    "owner": "Codex",
+    "body": "Angriffshäufigkeit und ungültige Aktionen messen; Aggressionsanweisungen würden den Vergleich verzerren.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 580,
+    "details": {
+      "evidence": [
+        "wissen/quellen/spielkonzept-original.txt"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.risk-blocs",
+    "kind": "requirement",
+    "title": "Riesenblöcke und Königsmacher",
+    "status": "open",
+    "owner": "Codex",
+    "body": "Allianzgrenzen/Vertragszahlen prüfen, Geschenke und Tribute separat auswerten; individuelle Wertung allein beseitigt Königsmacherei nicht.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 589,
+    "details": {
+      "evidence": [
+        "crates/kern/src/diplomatie.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.risk-starts",
+    "kind": "requirement",
+    "title": "Startlage gegen Endrang prüfen",
+    "status": "open",
+    "owner": "Codex",
+    "body": "Mehrere Seeds und Kontrollläufe erforderlich; einzelner Startplatztest ist kein empirischer Fairnessnachweis.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 598,
+    "details": {
+      "evidence": [
+        "crates/kern/tests/spiel.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.second-design-conflict",
+    "kind": "requirement",
+    "title": "Widersprüchlicher angehängter Zweitentwurf",
+    "status": "open",
+    "owner": "Codex",
+    "body": "Zweiter Text nennt800 Plätze, fünfVölker, Wasser/Gas,20 Siedler undInventarpunkte. Aktive Engine folgt dem ersten1440/4Völker/3000Siedler/Investitionswert-Profil. Nicht unbemerkt vermischen.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 612,
+    "details": {
+      "evidence": [
+        "wissen/quellen/spielkonzept-original.txt:612"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.second-role-conflict",
+    "kind": "requirement",
+    "title": "Alternative Rollenaufteilung des Zweitentwurfs",
+    "status": "superseded",
+    "owner": "Codex",
+    "body": "Zweitentwurf mischt Forschung/Logistik und Krieg/Diplomatie anders; aktive Regierung verwendet die vier ursprünglichen Rollennamen mit Kernrechten.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 674,
+    "details": {
+      "evidence": [
+        "crates/kern/src/typen.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.pettingzoo",
+    "kind": "requirement",
+    "title": "PettingZoo-Parallelidee",
+    "status": "superseded",
+    "owner": "Codex",
+    "body": "Gemeinsame Aktionsbarriere wird nativ in Rust abgebildet. Keine Behauptung einer registrierten Python-PettingZoo/Gymnasium-Integration.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 691,
+    "details": {
+      "evidence": [
+        "crates/kern/src/umgebung.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "requirement.openrouter",
+    "kind": "requirement",
+    "title": "OpenRouter zusätzlich zu lokalen Modellen",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Rust-Provider hält Remote-Aufrufe hinter ausdrücklichem Opt-in und Umgebungs-Schlüssel; kein stiller kostenpflichtiger Fallback.",
+    "source": "wissen/quellen/spielkonzept-original.txt",
+    "source_line": 705,
+    "details": {
+      "evidence": [
+        "crates/agenten/src/provider.rs"
+      ],
+      "checked_at": "2026-10-03",
+      "scope": "Originalkonzept gegen aktive Rust-Architektur; implemented bedeutet Code vorhanden, nicht komplette Produktabnahme"
+    }
+  },
+  {
+    "id": "screen.start",
+    "kind": "player_screen",
+    "title": "Start & Moduswahl",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Headless, Player und Replay erkennbar; identisches Regelwerk, klarer Sitzungsstatus. Umsetzung: Start über Spielen.cmd (Partie gegen Skriptbots) oder Live-Test.cmd (Bereich Live-KI); in der Seitenleiste Neue Partie mit Startwert, Spielstand wählen, Laden, Speichern (mit Rückfrage vor dem Überschreiben). Kopf- und Statuszeile nennen die Art der Partie. Headless-Läufe über die Kommandozeile, Replay im Betrachter (eigener Eintrag screen.replay).",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "Spielen.cmd",
+      "evidence": [
+        "Spielen.cmd",
+        "Live-Test.cmd",
+        "crates/spieler/src/main.rs",
+        "docs/SPIELEN.md"
+      ],
+      "checked_at": "2026-10-04",
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster."
+    }
+  },
+  {
+    "id": "screen.empire",
+    "kind": "player_screen",
+    "title": "Reichsübersicht",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Punkte, Stufe, Versorgung, Warnungen und alle Kolonien aus gefilterter Beobachtung. Umsetzung: Übersicht: Kacheln für Punkte, Rang, Stufe, Einwohner, Kolonien, Credits, Flotten; „Was jetzt ansteht“ mit Sprung in den passenden Bereich; Planetenliste mit Strom, Stabilität, Bauschleife; letzte Ereignisse. Dringendes erscheint als Balken über jedem Bereich.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/uebersicht.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/uebersicht.rs",
+        "crates/spieler/src/ansicht/hilfe.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.planet",
+    "kind": "player_screen",
+    "title": "Planet & Rohstoffprofil",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Seed/Zone aus öffentlicher Beobachtung; unbekannte Faktoren und Reserven verborgen. Umsetzung: Kolonie: Zone, Felder, Ertragsfaktoren, Planetenbild mit Rohstoffschicht. Fremde Planeten zeigen nur, was öffentlich oder erkundet ist (Galaxie, Spionageberichte).",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/kolonie.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/kolonie.rs",
+        "crates/spieler/src/ansicht/galaxie.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.galaxy",
+    "kind": "player_screen",
+    "title": "Galaxie & System",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "2 Sektoren, 12 Planetenplätze, Gürtel, Nebel; freie Welt ist ohne Sonde unbekannt. Umsetzung: Galaxiekarte je Sektor (öffnet im Heimatsektor), Nebel und Asteroidengürtel markiert, Tooltip je Platz, Auswahl mit Knöpfen in die Flottenplanung; freie Plätze zeigen Felder und Zone erst nach Erkundung.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/galaxie.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/galaxie.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.economy",
+    "kind": "player_screen",
+    "title": "Wirtschaft & Bevölkerung",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Raten, Lager, Energie, Versorgung, Steuern, Fachkräfte, Besatzung und Prioritäten. Umsetzung: Rohstoffleiste (Bestand, Rate, Füllstand, Tooltip mit „voll in …“), Lagertabelle, Strom, Arbeits- und Fachkräfte, Versorgung, Steuern (Zivilisation), Besatzung (Werft) und Prioritäten (Gebäude).",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/main.rs",
+      "evidence": [
+        "crates/spieler/src/main.rs",
+        "crates/spieler/src/ansicht/kolonie.rs",
+        "crates/spieler/src/ansicht/gebaeude.rs",
+        "crates/spieler/src/ansicht/regierung.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.build",
+    "kind": "player_screen",
+    "title": "Bauen & Abriss",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Kosten, Voraussetzungen, Arbeitskräfte, fünf Warteplätze; Abriss ohne Erstattung bestätigen. Umsetzung: Gebäude in Gruppen mit Kosten (fehlende rot), Bauzeit, Ertrag, Bedarf an Strom und Arbeitskräften, Voraussetzungen; grauer Knopf mit Grund und Zeitpunkt, ab dem die Güter reichen; Bauschleife mit fünf Plätzen; Abriss nach Rückfrage.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/gebaeude.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/gebaeude.rs",
+        "crates/spieler/src/ansicht/stil.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.yard",
+    "kind": "player_screen",
+    "title": "Werft & Orbitalwerft",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Getrennte Schleifen, Bauteile, Menge, Besatzung, Unterhalt und Treibstoff. Umsetzung: Werft mit Reitern Schiffe, Verteidigung, Bauteile, Raketen: Werte, Schnellfeuer, Menge, Gesamtkosten, Voraussetzungen, Fertigungsschleife, Besatzung und Unterhalt im Text; Treibstoff zeigt die Flottenvorschau.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/werft.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/werft.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.research",
+    "kind": "player_screen",
+    "title": "Forschung & Freischaltungen",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Echte Labor-/Stufenbedingungen und Wirkung; keine erfundenen Forschungsketten. Umsetzung: Forschung mit Forschungspunkten je Stunde, laufendem Projekt, Schlange mit drei Plätzen, Kosten, Dauer und Laborbedingung aus der Engine; gesperrte Forschungen nennen die Stufe.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/forschung.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/forschung.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.progression",
+    "kind": "player_screen",
+    "title": "Zivilisationsprojekte",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Fünf Stufen, Bedingungen, Kosten und ununterbrochene Qualifikationszeit sichtbar. Umsetzung: Zivilisation: Stufenleiter, Bedingungen mit Ist-Werten, Balken für die 48 Stunden, Kosten mit Wartezeit, Aufstieg.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/regierung.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/regierung.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.fleet",
+    "kind": "player_screen",
+    "title": "Flotten & Missionen",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Schiffsauswahl, Ziel, Geschwindigkeit, Ladung, Flugzeit, Treibstoff, Rückruf und Haltezeit. Umsetzung: Flotten in fünf Schritten (Ziel mit Liste, Mission mit Erklärung, Schiffe, Ladung und Tempo, Vorschau mit Flugzeit, Treibstoff, Laderaum und Kampfsimulator); eigene Flotten mit Rückruf und Verbänden; Haltedauer bei Mission halten.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/flotten.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/flotten.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.colonize",
+    "kind": "player_screen",
+    "title": "Erkundung & Kolonisierung",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Siedler verlassen Heimat, Fracht wird übertragen; Kolonielimit und freie Felder anzeigen. Umsetzung: Kolonisieren aus der Galaxie (freier Platz) in die Flottenplanung; Kolonien und erlaubte Zahl in Übersicht und Zivilisation, Felder erkundeter Plätze in der Zielliste.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/galaxie.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/galaxie.rs",
+        "crates/spieler/src/ansicht/flotten.rs",
+        "crates/spieler/src/ansicht/regierung.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.combat",
+    "kind": "player_screen",
+    "title": "Kampf & Berichte",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Bis sechs Runden, Verluste, Schilde, Beute, Trümmer; nur autorisierte Kampfdaten. Umsetzung: Kampfsimulator in der Flottenvorschau (Siegchance, Verluste), Kampfberichte mit Ausgang, Verlusten und Beute im Bereich Berichte, nur aus eigenen Daten.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/flotten.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/flotten.rs",
+        "crates/spieler/src/ansicht/berichte.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.occupation",
+    "kind": "player_screen",
+    "title": "Blockade & Eroberung",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Orbit, Garnison, Stabilität, Besatzung und nicht eroberbare Heimat erkennbar. Umsetzung: Garnison und Bunkerschutz in der Kolonie, Belagerung als eigener Hinweis (Stabilitätsziel je Tag, Schwelle der Übernahme, Garnison), Blockade als Hinweis, Mission Invasion erklärt, dass Heimatwelten nie erobert werden.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/kolonie.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/kolonie.rs",
+        "crates/spieler/src/ansicht/hilfe.rs",
+        "crates/spieler/src/ansicht/namen.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.intel",
+    "kind": "player_screen",
+    "title": "Spionage & Wissen",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Erkundung, Berichtsalter und sichtbare Berichtstiefe; unbekannte Werte niemals null darstellen. Umsetzung: Spionageberichte mit Alter (über 24 h markiert) und Tiefe; nicht gesehene Teile stehen als „unbekannt (mehr Sonden oder bessere Spionagetechnik)“, nie als null.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/berichte.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/berichte.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.market",
+    "kind": "player_screen",
+    "title": "Markt & Lieferungen",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Orderbuch je Gut, Preis/Menge, Gebühren, reservierte Ware und laufende Lieferung. Umsetzung: Orderbuch je Gut, eigene Orders mit Planet und Storno, belegte Orders je Planet, neue Order mit Gebühren- und Summenvorschau; ohne Markt ein Hinweis mit Sprung zum Bau.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/markt.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/markt.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.messages",
+    "kind": "player_screen",
+    "title": "Nachrichten",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Partner-/Allianzkanäle, Zeichen-/Tageslimit, Verlauf, Zustellung und leere Postfächer. Umsetzung: Nachrichten an Reiche oder die Allianz mit Zeichen- und Tageslimit, Posteingang und Gesendetes, leere Postfächer benannt; im Klicktest zugestellt.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/diplomatie.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/diplomatie.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.contracts",
+    "kind": "player_screen",
+    "title": "Verträge & Register",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Angeboten/aktiv/gekündigt/beendet/gebrochen/abgelehnt, Kautionen, Fristen, Tribute. Umsetzung: Verträge mit Status als Etikett (Angebot, aktiv, gekündigt, beendet, gebrochen), Kaution, Tribut, Annehmen, Ablehnen, Kündigen; öffentliches Register.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/diplomatie.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/diplomatie.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.alliance",
+    "kind": "player_screen",
+    "title": "Allianzen",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Mitgliedschaft, Einladungen, gemeinsamer Kanal, geteiltes Wissen; individuelle Wertung. Umsetzung: Allianz gründen, einladen, beitreten, verlassen, Einladungen als Hinweis, gemeinsamer Kanal über Nachrichten; Wertung bleibt je Reich.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/diplomatie.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/diplomatie.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.gifts",
+    "kind": "player_screen",
+    "title": "Geschenke & Tribute",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Empfänger, Betrag und verbleibender Bestand; konkrete Übertragung bestätigen. Umsetzung: Credits schenken mit Empfänger und Betrag; Güter per Transport.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/diplomatie.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/diplomatie.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.government",
+    "kind": "player_screen",
+    "title": "Regierung & Doktrin",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Vier Rollen, Budgettöpfe, Notizbücher und Meldungen; keine fremden privaten Erinnerungen. Umsetzung: Für den Menschen: Steuern und Töpfe zur Information im Bereich Zivilisation. Rollen, Begründungen, Notizen und Meldungen der Modellreiche im Protokoll des Bereichs Live-KI; private Notizen anderer Reiche bleiben verborgen.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/regierung.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/regierung.rs",
+        "crates/spieler/src/main.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.chronicle",
+    "kind": "player_screen",
+    "title": "Chronik & Warnungen",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Zeitstempel, gelesen/ungelesen, Priorität und Verweise zum zugehörigen Objekt. Umsetzung: Ereignisse mit Zeit, farbig nach Art, „neu“ seit dem letzten Besuch und Zähler in der Navigation (gelesen beim Verlassen des Bereichs), Knopf › springt zum Gegenstand (Kampfbericht, Spionagebericht, Vertrag, Allianz, Markt, Werft, Flotten, Zivilisation, Forschung, Gebäude, Kolonie, sonst der Platz in der Galaxie).",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/berichte.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/berichte.rs",
+        "crates/spieler/src/main.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Tests zeit_und_koordinate_aus_ereignissen und ereignisse_werden_gelesen, Bild des Bereichs nach 600 Fenstern.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.ranking",
+    "kind": "player_screen",
+    "title": "Rangliste & Epochenende",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Wirtschaft/Forschung/Militär/Zivilisation und individuelles Endergebnis; Lager zählt nicht. Umsetzung: Rangliste mit eigenem Eintrag, Modellreichen und Abstand zum nächsten Platz und zur Spitze; Punkte nach Wirtschaft, Forschung, Militär und Zivilisation in Zivilisation; Endfenster mit Schlussrangliste.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/berichte.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/berichte.rs",
+        "crates/spieler/src/ansicht/regierung.rs",
+        "crates/spieler/src/main.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.replay",
+    "kind": "player_screen",
+    "title": "Replay & Beobachter",
+    "status": "in_progress",
+    "owner": "Claude",
+    "body": "Eigener Betrachter vorhanden, jetzt auch live (zeigen): Endzustand oder Zwischenstand aus Schnappschuss klar gekennzeichnet, Verlauf je Tag mit Faden, Perspektive je Reich über Auswahl und Entscheidungsfilter. Offen: Zeitsuche, die die Galaxie zu einem früheren Tag zeigt.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_coverage_warning": "Browser coverage metadata predates native Rust UI and must be reconciled; no automatic full-completion claim.",
+      "native_evidence": "crates/spieler/src/main.rs",
+      "acceptance_not_proven": "End-to-end interaction, availability/blocked states and final graphic integration must be checked for this specific flow.",
+      "evidence": [
+        "betrachter/index.html",
+        "orchestrator/sternenepoche/zeigen.py"
+      ],
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.settings",
+    "kind": "player_screen",
+    "title": "Einstellungen & Bedienhilfen",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Tastaturfokus, reduzierte Bewegung, skalierbare Schrift, Ton aus/an, Status nicht nur durch Farbe. Umsetzung: Seitenleiste „⚙ Ansicht“ mit Schriftgröße 70 bis 200 % (auch Strg+Plus/Minus, Strg+0); Bedienung ohne Maus über Tab, Leertaste und Enter (egui); keine Animationen außer der Ladeanzeige; das Spiel hat keinen Ton, ein Schalter entfällt; jeder Zustand steht als Text (Etikett, Hinweis, Grund am Knopf), Farbe ist nur Zusatz.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/main.rs",
+      "evidence": [
+        "crates/spieler/src/main.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Glyphentest, Layouttest aller Bereiche.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.session",
+    "kind": "player_screen",
+    "title": "Echtzeit & Verbindung",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Serveruhr, Entscheidungsbarriere, ausstehende Befehle, Neuverbindung und Wiederaufnahme ohne Doppelaktion. Umgesetzt in der nativen Oberfläche: RealtimeClock, KI-Fenster als Barriere (Uhr wartet, Ladeanzeige mit Sekunden), vorgemerkte Befehle mit Zähler und Ergebnis, Wiederaufnahme über Journal (kein Aufruf doppelt) und Spielstand Version 2. Eine Neuverbindung entfällt: die Sitzung ist lokal, ohne Server.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_coverage_warning": "Browser coverage metadata predates native Rust UI and must be reconciled; no automatic full-completion claim.",
+      "native_evidence": "crates/spieler/src/main.rs",
+      "acceptance_not_proven": "End-to-end interaction, availability/blocked states and final graphic integration must be checked for this specific flow.",
+      "evidence": [
+        "crates/spieler/src/lib.rs",
+        "crates/spieler/src/main.rs",
+        "docs/LIVE-TEST.md"
+      ],
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "screen.help",
+    "kind": "player_screen",
+    "title": "Regeln & Rechner",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Regeltext/Version, Kosten/Bauzeit, Flugzeit/Treibstoff, Kampfsimulator aus Engine. Umsetzung: Spielanleitung mit Kurzfassung, Willkommen und durchsuchbarem Regeltext; je Bereich „So funktioniert es“ mit Regeln im Wortlaut; Befehlszentrale mit Abfragen Kosten, Flugzeit, Kampfsimulator, Regel, Galaxie aus der Engine; Handbuch docs/SPIELEN.md.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "native_evidence": "crates/spieler/src/ansicht/uebersicht.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/uebersicht.rs",
+        "crates/spieler/src/ansicht/hilfe.rs",
+        "crates/spieler/src/main.rs",
+        "docs/SPIELEN.md"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.bereit",
+    "kind": "ui_state",
+    "title": "Bereit",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Aktion ausführbar, vorbehaltlich Engine-Prüfung. Umsetzung: Aktiver Knopf; der Kern prüft beim Ausführen.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/ansicht/stil.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/stil.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.ausgewaehlt",
+    "kind": "ui_state",
+    "title": "Ausgewählt",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Aktuelle Kachel oder aktuelles Ziel. Umsetzung: gewählter Bereich in der Navigation hervorgehoben, gewählter Platz der Galaxie weiß umrandet mit Details darunter, gewählte Mission und gewählter Reiter hervorgehoben, Ziel der Flotte im Feld.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "evidence": [
+        "crates/spieler/src/ansicht/galaxie.rs",
+        "crates/spieler/src/ansicht/flotten.rs",
+        "crates/spieler/src/main.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026 im Klicktest (Auswahl in der Galaxie, Sprung in die Flottenplanung).",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.gesperrt",
+    "kind": "ui_state",
+    "title": "Gesperrt",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Voraussetzung: Zivilisationsstufe III. Umsetzung: „🔒 Ab Zivilisationsstufe …“ bei Gebäuden und Forschung, grauer Knopf mit Grund.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/ansicht/gebaeude.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/gebaeude.rs",
+        "crates/spieler/src/ansicht/forschung.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.unbekannt",
+    "kind": "ui_state",
+    "title": "Unbekannt",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Nicht erkundet; Details verborgen. Umsetzung: „Noch nicht erkundet“ in der Galaxie, „unbekannt“ in Spionageberichten.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/ansicht/galaxie.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/galaxie.rs",
+        "crates/spieler/src/ansicht/berichte.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.veraltet",
+    "kind": "ui_state",
+    "title": "Veraltet",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Bericht vor 12 Spielstunden empfangen. Umsetzung: Alter jedes Spionageberichts als Etikett, über 24 Stunden gelb.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/ansicht/berichte.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/berichte.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.warteschlange",
+    "kind": "ui_state",
+    "title": "In Warteschlange",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Position 2; Start nach laufendem Auftrag. Umsetzung: Etikett „in der Schlange“ in Bau- und Forschungsschleife, wartende Aufträge mit Zeitpunkt, ab dem die Güter reichen.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/ansicht/gebaeude.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/gebaeude.rs",
+        "crates/spieler/src/ansicht/forschung.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.aktiv",
+    "kind": "ui_state",
+    "title": "In Arbeit",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "42 % · Restzeit laut Engine. Umsetzung: Etikett „im Bau“ mit Restzeit.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/ansicht/gebaeude.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/gebaeude.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.pausiert",
+    "kind": "ui_state",
+    "title": "Pausiert",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Unruhen: Bau ruht. Umsetzung: Hinweis bei Unruhen (Stabilität unter der Schwelle: keine neuen Bauaufträge).",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/ansicht/hilfe.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/hilfe.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.mangel",
+    "kind": "ui_state",
+    "title": "Versorgung fehlt",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Energie oder Arbeitskräfte fehlen. Umsetzung: Strom- und Arbeitskräftemangel als Hinweis, rote Strombilanz, Balken in der Kolonie.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/ansicht/hilfe.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/hilfe.rs",
+        "crates/spieler/src/ansicht/kolonie.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.voll",
+    "kind": "ui_state",
+    "title": "Kapazität erreicht",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Lager voll; weiterer Ertrag verfällt. Umsetzung: Roter Lagerbalken, „voll in …“, Hinweis unter 6 Stunden.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/main.rs",
+      "evidence": [
+        "crates/spieler/src/main.rs",
+        "crates/spieler/src/ansicht/kolonie.rs",
+        "crates/spieler/src/ansicht/hilfe.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.fertig",
+    "kind": "ui_state",
+    "title": "Abgeschlossen",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Vom Regelkern bestätigtes Ergebnis. Umsetzung: Grüne Statuszeile mit der Antwort des Kerns, Ereignis „… fertig“.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/main.rs",
+      "evidence": [
+        "crates/spieler/src/main.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.warnung",
+    "kind": "ui_state",
+    "title": "Angriff erkannt",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Ankunftszeit und sichtbare Stärke anzeigen. Umsetzung: Angriffsbalken in Flotten und Übersicht mit Ankunft und sichtbarer Stärke, Raketenwarnung.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/ansicht/flotten.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/flotten.rs",
+        "crates/spieler/src/ansicht/hilfe.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.belagert",
+    "kind": "ui_state",
+    "title": "Belagert",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Stabilität sinkt; Entsetzung möglich. Umsetzung: Eigener Hinweis bei Belagerung mit Stabilitätsverlust je Tag und Übernahmeschwelle.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/ansicht/hilfe.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/hilfe.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.geschuetzt",
+    "kind": "ui_state",
+    "title": "Geschützt",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Heimatschutz oder Vertrag mit Ablaufzeit. Umsetzung: Anfängerschutz mit Ende in Flotten und Zivilisation; Schutz der Ziele in der Zielliste.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/ansicht/flotten.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/flotten.rs",
+        "crates/spieler/src/ansicht/regierung.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.angeboten",
+    "kind": "ui_state",
+    "title": "Angeboten",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Vertrag wartet auf Antwort. Umsetzung: Vertragsstatus „Angebot an dich“ / „von dir angeboten“ als Etikett, Hinweis in der Übersicht.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/ansicht/diplomatie.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/diplomatie.rs",
+        "crates/spieler/src/ansicht/hilfe.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.gekuendigt",
+    "kind": "ui_state",
+    "title": "Gekündigt",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Vertrag bleibt bis zum Ablauf wirksam. Umsetzung: Vertragsstatus als Etikett, Register mit Vorgang.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/ansicht/diplomatie.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/diplomatie.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.gebrochen",
+    "kind": "ui_state",
+    "title": "Gebrochen",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Öffentlicher Eintrag im Vertragsregister. Umsetzung: Register markiert Brüche rot.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/ansicht/diplomatie.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/diplomatie.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.abgelehnt",
+    "kind": "ui_state",
+    "title": "Abgelehnt",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Genauen Ablehnungsgrund der Engine anzeigen. Umsetzung: Rote Statuszeile mit dem Grund des Kerns, Verlauf „Deine letzten Befehle“.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/main.rs",
+      "evidence": [
+        "crates/spieler/src/main.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.leer",
+    "kind": "ui_state",
+    "title": "Keine Einträge",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Leere Liste mit passender nächster Aktion. Umsetzung: Leere Listen benannt, meist mit der nächsten Aktion (leere Bauschleife, keine Orders, keine Flotte).",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/ansicht/gebaeude.rs",
+      "evidence": [
+        "crates/spieler/src/ansicht/gebaeude.rs",
+        "crates/spieler/src/ansicht/markt.rs",
+        "crates/spieler/src/ansicht/flotten.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.laden",
+    "kind": "ui_state",
+    "title": "Wird geladen",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Warte auf freigegebene Beobachtung. Umsetzung: Ladeanzeige mit Sekunden, solange Modelle entscheiden; die Uhr wartet.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/main.rs",
+      "evidence": [
+        "crates/spieler/src/main.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.getrennt",
+    "kind": "ui_state",
+    "title": "Verbindung verloren",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Spielbefehle gesperrt bis zum Abgleich. Umsetzung: Die native Sitzung ist lokal, eine Netzverbindung gibt es nicht. Die Entsprechung ist ein gescheitertes Modellfenster: Befehle werden abgelehnt, bis das Fenster wiederholt oder für die wartenden Rollen ausgesetzt ist (Session::act bei ki.fehler, Knöpfe im Bereich Live-KI).",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "evidence": [
+        "crates/spieler/src/lib.rs",
+        "crates/spieler/src/main.rs"
+      ],
+      "acceptance": "Test live_screen_runs_model_empires_through_the_gui_path und die Fehlertests der Sitzung.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.ausstehend",
+    "kind": "ui_state",
+    "title": "Bestätigung ausstehend",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Nicht erneut senden; Ergebnis abgleichen. Umsetzung: Befehle während eines Modellfensters werden vorgemerkt und gezählt, danach mit Ergebnis gemeldet.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/main.rs",
+      "evidence": [
+        "crates/spieler/src/main.rs",
+        "crates/spieler/src/lib.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "ui-state.beendet",
+    "kind": "ui_state",
+    "title": "Epoche beendet",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Ergebnis und Chronik sind lesbar. Umsetzung: Fenster am Ende der Epoche mit Schlussrangliste, danach Rangliste.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "legacy_preview_implemented": true,
+      "native_acceptance": "Semantic state must reflect actual engine/session, be keyboard-readable and not rely only on color. Not all23 browser state examples are individually verified in Rust UI.",
+      "native_evidence": "crates/spieler/src/main.rs",
+      "evidence": [
+        "crates/spieler/src/main.rs"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "art.backgrounds",
+    "kind": "visual_content",
+    "title": "Grafikfamilie backgrounds",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 11,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "art.buildings",
+    "kind": "visual_content",
+    "title": "Grafikfamilie buildings",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 120,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "art.celestials",
+    "kind": "visual_content",
+    "title": "Grafikfamilie celestials",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 6,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "art.civilizations",
+    "kind": "visual_content",
+    "title": "Grafikfamilie civilizations",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 4,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "art.contracts",
+    "kind": "visual_content",
+    "title": "Grafikfamilie contracts",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 4,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "art.defenses",
+    "kind": "visual_content",
+    "title": "Grafikfamilie defenses",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 30,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "art.diplomacy",
+    "kind": "visual_content",
+    "title": "Grafikfamilie diplomacy",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 3,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "art.emblems",
+    "kind": "visual_content",
+    "title": "Grafikfamilie emblems",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 4,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "art.events",
+    "kind": "visual_content",
+    "title": "Grafikfamilie events",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 27,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "art.ground_units",
+    "kind": "visual_content",
+    "title": "Grafikfamilie ground_units",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 4,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "art.materials",
+    "kind": "visual_content",
+    "title": "Grafikfamilie materials",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 6,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "art.missions",
+    "kind": "visual_content",
+    "title": "Grafikfamilie missions",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 10,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "art.planets",
+    "kind": "visual_content",
+    "title": "Grafikfamilie planets",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 8,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "art.portraits",
+    "kind": "visual_content",
+    "title": "Grafikfamilie portraits",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 4,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "art.progression",
+    "kind": "visual_content",
+    "title": "Grafikfamilie progression",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 20,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "art.research",
+    "kind": "visual_content",
+    "title": "Grafikfamilie research",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 17,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "art.resources",
+    "kind": "visual_content",
+    "title": "Grafikfamilie resources",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 13,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "art.role_portraits",
+    "kind": "visual_content",
+    "title": "Grafikfamilie role_portraits",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 16,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "art.ships",
+    "kind": "visual_content",
+    "title": "Grafikfamilie ships",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 48,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "art.stats",
+    "kind": "visual_content",
+    "title": "Grafikfamilie stats",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 11,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "art.surfaces",
+    "kind": "visual_content",
+    "title": "Grafikfamilie surfaces",
+    "status": "blocked",
+    "owner": "Codex; GPU release by Karl",
+    "body": "Qwen-Motive geplant; keine fertigen oder sichtgeprüften Qwen-Bilder. Reservierung für Trellis gilt weiter.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "planned_at_snapshot": 12,
+      "generated_qwen": 0,
+      "reviewed_qwen": 0,
+      "workflow_generator": "crates/inhalt/src/production.rs",
+      "production_gate": "content/production.json gpu_released=false",
+      "style_direction": "OGame / Galaxy of Fantasy, eigene Motive ohne fremde Logos"
+    }
+  },
+  {
+    "id": "handoff.rust-scope",
+    "kind": "decision",
+    "title": "Aktive Anwendung vollständig in Rust",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Kern, Orchestrierung, Player und Inhaltsproduktion werden als Rust-Crates gebaut. JSON/RON/PNG bleiben Daten, keine zweite Spiellogik.",
+    "source": "Cargo.toml",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "Legacy-Python/JS-Dateien werden erhalten, sind nicht erforderlich für aktive Rust-Kommandos.",
+        "ComfyUI selbst bleibt externer vorhandener Bildserver; seine Python-Interna werden nicht neu in Rust geschrieben."
+      ],
+      "checked_at": "2026-10-03"
+    }
+  },
+  {
+    "id": "handoff.gpu-lock",
+    "kind": "constraint",
+    "title": "Trellis hat weiterhin GPU-Vorrang",
+    "status": "blocked",
+    "owner": "Codex",
+    "body": "Karl hat ausdrücklich bestätigt: Reservierung gilt weiter; Grafiken vorbereiten. Keine Qwen-Inferenz autorisiert, solange diese Reservierung gilt.",
+    "source": "content/production.json",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "Leere ComfyUI-Queue ist keine Freigabe.",
+        "Keine Modelle herunterladen, Server neu starten oder fremde Jobs abbrechen."
+      ],
+      "checked_at": "2026-10-03"
+    }
+  },
+  {
+    "id": "handoff.procedural-maps",
+    "kind": "evidence",
+    "title": "15 PNG-Karten tatsächlich durch Rust erzeugt",
+    "status": "verified",
+    "owner": "Codex",
+    "body": "Drei Zonen mit Albedo, Höhe, Rauheit, Wolken und Orbitalansicht als CPU-PNG. Leben-Orbitaldatei erfolgreich mit Bildbetrachter geöffnet.",
+    "source": "content/procedural-rust/manifest.json",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "crates/inhalt/src/planet.rs",
+        "Keine Qwen-Bilder und kein Beleg für finale Spielart."
+      ],
+      "checked_at": "2026-10-03"
+    }
+  },
+  {
+    "id": "handoff.resource-bands",
+    "kind": "decision",
+    "title": "Rohstoffbänder sind kosmetisch",
+    "status": "verified",
+    "owner": "Codex",
+    "body": "Unbekannte Ressourcendaten verändern Renderer-Pixel nicht; positive beobachtete Faktoren aktivieren kosmetische Bänder. Materialkarten enthalten nie Rohstoff-Overlays.",
+    "source": "crates/inhalt/src/planet.rs",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "tests: hidden_resource_cannot_change_pixels; overlay_never_enters_material_maps",
+        "Originalmechanik definiert keine geografisch abbaufähigen Lagerstätten pro Oberflächenpixel."
+      ],
+      "checked_at": "2026-10-03"
+    }
+  },
+  {
+    "id": "handoff.material-limits",
+    "kind": "gap",
+    "title": "Physikalisch geprüfte Materialpakete fehlen",
+    "status": "open",
+    "owner": "Codex",
+    "body": "Farb-, Höhen-, Rauheits- und Wolkenkarten vorhanden; Normalen-/Biomeintegration, Qwen-Materialien, Kalibrierung und finale Shaderabnahme fehlen.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "Keine garantierte Seamless-Qwen-Textur ohne Nachprüfung.",
+        "Orbitalgrafik hat transparente RGBA-Außenfläche."
+      ],
+      "checked_at": "2026-10-03"
+    }
+  },
+  {
+    "id": "handoff.style-consistency",
+    "kind": "gap",
+    "title": "Formkonsistenz und Pilotreferenzen",
+    "status": "blocked",
+    "owner": "Codex",
+    "body": "Textprompts allein garantieren keine wiedererkennbaren Schiffsfamilien über378+ Motive. Erst Pilotbilder freigeben und konsistente Referenzen wählen.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "OGame ist Stilrichtung, keine Erlaubnis fremde Grafikassets zu kopieren.",
+        "Galaxy of Fantasy ist als exakter Referenztitel nicht verifiziert."
+      ],
+      "checked_at": "2026-10-03"
+    }
+  },
+  {
+    "id": "handoff.derivatives",
+    "kind": "gap",
+    "title": "Kachelausschnitte und kleine Lesbarkeit",
+    "status": "blocked",
+    "owner": "Codex",
+    "body": "256×160- und96×64-Ableitungen, UI-Komposition, Kontrast und Fraktionssilhouetten können erst an tatsächlich erzeugten Motiven geprüft werden.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "Jedes gelieferte Asset bleibt reviewed:false bis Sichtprüfung.",
+        "Keine Platzhalter als erzeugte Qwen-Art deklarieren."
+      ],
+      "checked_at": "2026-10-03"
+    }
+  },
+  {
+    "id": "handoff.audio",
+    "kind": "gap",
+    "title": "Audio und Musik fehlen",
+    "status": "open",
+    "owner": "Codex",
+    "body": "Qwen Image erzeugt keine Klänge. Noch kein fertiges UI-/Raumfahrt-Audio- oder Musikpaket.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "Optionales eigenes Arbeitspaket; Lautstärke/Mute und Zugänglichkeit erforderlich."
+      ],
+      "checked_at": "2026-10-03"
+    }
+  },
+  {
+    "id": "handoff.paid-cost",
+    "kind": "constraint",
+    "title": "Keine kostenpflichtigen Provideraufrufe ohne Opt-in",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "OpenRouter-Schlüssel bleibt in Umgebungsvariable. Reservierungen vor Request, begrenzte Aufrufe/Tokens und kein automatischer Wiederholungsversuch nach unklarem POST.",
+    "source": "crates/agenten/src/journal.rs",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "Ein persistiertes pending ist ungeklärter Ausgang, nicht sichere Nichterfassung.",
+        "Gesamtkosten brauchen Tarif-/Tokenmessung vor großem Echtlauf."
+      ],
+      "checked_at": "2026-10-03"
+    }
+  },
+  {
+    "id": "handoff.comfy-idempotence",
+    "kind": "evidence",
+    "title": "Gegen doppelte Qwen-Aufträge abgesichert",
+    "status": "verified",
+    "owner": "Codex",
+    "body": "Mock-HTTP-Tests belegen belegte Queue ohne POST, persistierten unklaren POST ohne Wiederholung und Wiederaufnahme über vorhandene Prompt-ID.",
+    "source": "crates/inhalt/src/production.rs",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "Teststand15 Content-Tests bestanden vor nachfolgender Kernmechanikerweiterung.",
+        "Keine dieser Prüfungen erzeugte ein Modellbild."
+      ],
+      "checked_at": "2026-10-03"
+    }
+  },
+  {
+    "id": "handoff.queue-race",
+    "kind": "limitation",
+    "title": "Queueprüfung und POST sind nicht atomar",
+    "status": "open",
+    "owner": "Codex",
+    "body": "Lokale ComfyUI-API kann zwischen zwei Anfragen einen fremden Auftrag erhalten. Deshalb reicht Queueprüfung nicht als GPU-Reservierungsprotokoll.",
+    "source": "crates/inhalt/README.md",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "Explizite Freigabe bleibt führend; höchstens ein eigener Schritt/Job pro Aufruf."
+      ],
+      "checked_at": "2026-10-03"
+    }
+  },
+  {
+    "id": "handoff.snapshot-schema",
+    "kind": "risk",
+    "title": "Neue Weltfelder verändern Bincode-Schema",
+    "status": "open",
+    "owner": "Codex",
+    "body": "Neue Gebäude-Arraygrößen, Verbandsfelder und Raketenzustände können alte Binärspeicherstände inkompatibel machen; serde default löst Bincode-Schemaänderung nicht automatisch.",
+    "source": "crates/kern/src/welt.rs",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "Speicherformat-/Regelversionsprüfung und explizite Migration dokumentieren.",
+        "Alte Checkpoints nicht ungeprüft als aktuelle Fortsetzungen laden."
+      ],
+      "checked_at": "2026-10-03"
+    }
+  },
+  {
+    "id": "handoff.rule-gates",
+    "kind": "decision",
+    "title": "Technikbaum aus echten Voraussetzungen",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Rust sync-engine liest Gebäudebedingungen, Labore, Werften und Zivilisationsstufen direkt aus dem Regelwerk; keine erfundenen Forschungsabhängigkeiten.",
+    "source": "crates/inhalt/src/catalog.rs",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "Ein Freischaltungsdiagramm kann Zusammenhänge visualisieren, darf keine neue Enginevoraussetzung behaupten."
+      ],
+      "checked_at": "2026-10-03"
+    }
+  },
+  {
+    "id": "handoff.group-design",
+    "kind": "decision",
+    "title": "Konkrete Verbandsregeln schließen Konzeptlücke",
+    "status": "verified",
+    "owner": "Codex",
+    "body": "Öffnung durch Eigentümer, Beitritt nur gleicher Allianz, identisches Angriffsziel, bis16 Flotten und maximal6h zusätzliche Reisezeit. Bestehende Teilnehmer bleiben nach Rückruf der Führung zusammen; neue Beitritte benötigen aktive Führung.",
+    "source": "crates/kern/tests/verband.rs",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "Diese Grenzen sind konkretisierte Implementierungsentscheidungen; im Original nur Verbandsangriff benannt.",
+        "Gemeinsame Beutequote wird nach freiem überlebendem Frachtraum gewichtet."
+      ],
+      "checked_at": "2026-10-03"
+    }
+  },
+  {
+    "id": "handoff.unknown-major-projects",
+    "kind": "decision",
+    "title": "Drei Großprojekte konkretisiert",
+    "status": "implemented",
+    "owner": "Codex, Claude",
+    "body": "Orbitalring, Forschungsarchiv und Versorgungsnetz sind Gebäude ab Stufe V; die Bots bauen sie, die Balance-Abnahme läuft mit ihnen.",
+    "source": "crates/kern/src/erweiterung.rs",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "Neue Gebäudemotive jeweils neutral und pro Volk.",
+        "Kein historisches Originalregelwerk behauptet."
+      ],
+      "checked_at": "2026-10-04",
+      "evidence": [
+        "crates/kern/src/erweiterung.rs",
+        "crates/lauf/src/bots.rs",
+        "README.md#balance"
+      ]
+    }
+  },
+  {
+    "id": "handoff.player-polish",
+    "kind": "gap",
+    "title": "Native UI ist noch kein fertig poliertes Spiel",
+    "status": "in_progress",
+    "owner": "Codex, Claude",
+    "body": "Native eframe/egui-Oberfläche bindet Aktionen an denselben Kern. Spezialisierte Formulare plus fortgeschrittene Befehlsmaske decken Funktionen unterschiedlich tief ab. Seit 4. Okt. 2026 mit Bereich Live-KI (Partien mit Modellreichen über OpenRouter, Protokoll der Entscheidungen, Budget, Speichern/Laden).",
+    "source": "crates/spieler/src/main.rs",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "Alle26 Ansichtsanforderungen und23 Zustände einzeln abnehmen.",
+        "Save/Load, Tastatur, Skalierung, Endzustand, Rezeptdetails, Fehler und finale Bildintegration prüfen.",
+        "Live-KI: geprüft mit Attrappe (Tests, Bildschirmaufnahme) und echt über OpenRouter."
+      ],
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "handoff.legacy-coverage",
+    "kind": "risk",
+    "title": "Alte Abdeckungsdatei kann veraltet sein",
+    "status": "open",
+    "owner": "Codex",
+    "body": "content/coverage.json zählt bisherigen Browserstand. Neue Rust-Mechaniken und native UI erfordern Abgleich; bloße Anzahl von Motiven ist kein Funktionsvollständigkeitsbeweis.",
+    "source": "content/coverage.json",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "Wissensstatus ist absichtlich granular.",
+        "Neue Assets dürfen noch offene Frontendzustände nicht als fertig markieren."
+      ],
+      "checked_at": "2026-10-03"
+    }
+  },
+  {
+    "id": "handoff.user-storage",
+    "kind": "constraint",
+    "title": "Große Dateien ausschließlich auf D",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Modelle, Umgebungen und Caches ab ungefähr1GB bleiben auf D. CARGO_HOME und Buildtarget liegen im Projekt auf D; vor großen Downloads freie Kapazität mit10GB Reserve prüfen.",
+    "source": "AGENTS.md",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "Keine neuen Gewichte installiert.",
+        "Bestehende C-Junctions nicht wie unabhängige Datenbestände löschen."
+      ],
+      "checked_at": "2026-10-03"
+    }
+  },
+  {
+    "id": "handoff.coordination",
+    "kind": "decision",
+    "title": "Claude und Codex haben getrennte Arbeit",
+    "status": "superseded",
+    "owner": "Codex",
+    "body": "Claude bearbeitet empirisches Balancing/StufeV; Codex Rust-Migration, Inhalt, native UI, fehlende Mechaniken und Trainingsschnittstelle. Gemeinsames COORDINATION.md hält Übergaben fest.",
+    "source": "COORDINATION.md",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "Dateibesitz abstimmen; gemeinsame Rust-Dateien nicht gleichzeitig überschreiben.",
+        "Direkte Desktop-Nachricht war ursprünglich nicht bestätigt; nur bestätigte spätere Antworten als Empfang deklarieren.",
+        "Abgelöst durch decision.claude-uebernimmt (04.10.2026)."
+      ],
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "handoff.training-validation",
+    "kind": "gap",
+    "title": "Trainingsdaten benötigen Leckage- und Splitprüfung",
+    "status": "open",
+    "owner": "Codex",
+    "body": "Filterbeobachtungen ersetzen keine Prüfung aller exportierten Spalten. Vollständiger Zustand, Anbieterkennungen und künftige Labels dürfen nicht als damaliger Agenteneingang erscheinen.",
+    "source": "crates/agenten/src/export.rs",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "Seeds/Episoden für Train/Valid/Test trennen.",
+        "Ungültige und verlorene Entscheidungen nicht aus Dataset entfernen."
+      ],
+      "checked_at": "2026-10-03"
+    }
+  },
+  {
+    "id": "handoff.title-aesthetic",
+    "kind": "decision",
+    "title": "Ästhetikreferenz ist noch keine pixelgenaue Vorlage",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Karl nennt OGame oder Galaxy of Fantasy; eigene düstere metallische Space-Strategieoptik wird vorbereitet. Es liegt noch keine verbindliche Referenzserie mit genehmigten Pilotbildern vor.",
+    "source": "content/catalog.json",
+    "source_line": null,
+    "details": {
+      "notes": [
+        "Renderstil nach echten Pilotbildern vereinheitlichen."
+      ],
+      "checked_at": "2026-10-03"
+    }
+  },
+  {
+    "id": "requirement.dokumentation",
+    "kind": "requirement",
+    "title": "Ausführliche Dokumentation und Spezifikation",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "docs/: README (Index), LIVE-TEST, SPEZIFIKATION (Spielregeln mit Codeverweisen), AGENTEN-SCHNITTSTELLE (Rollen, Antwortschema, alle Aktionen und Abfragen, Wecker, Informationsgrenze, Fehlerverhalten), ARCHITEKTUR, BETRIEB, BALANCE, ECHTER-LAUF. REGELWERK.md und REGELTEXT.md erzeugt `sternenepoche doku` aus dem Regelwerk; der Test doku_passt_zum_regelwerk schlägt an, sobald sie veraltet sind.",
+    "source": "docs/README.md",
+    "source_line": 1,
+    "details": {
+      "evidence": [
+        "docs/README.md",
+        "crates/lauf/src/doku.rs",
+        "crates/lauf/src/main.rs"
+      ],
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "requirement.live-test-ui",
+    "kind": "requirement",
+    "title": "Live-Test über die Spieler-Oberfläche mit KI-Reichen",
+    "status": "verified",
+    "owner": "Claude",
+    "body": "Die native Oberfläche (sternenepoche-spieler) startet Partien, in denen Sprachmodelle über OpenRouter einige Reiche regieren (je vier Rollen), der Mensch eines und Skriptbots die übrigen. Bereich Live-KI: Startformular (Konfiguration, Zahl der KI-Reiche, Weltgröße, Startwert, Budget, Schlüssel nur für den Prozess), Status, Kosten, Budget, Tabelle der KI-Reiche, Protokoll jeder Entscheidung mit Urteil des Kerns. Modellfenster laufen auf einem eigenen Thread gegen eine Weltkopie, die Weltuhr wartet; Befehle des Menschen werden währenddessen vorgemerkt. Budgetstopp, Wiederholen oder Aussetzen gescheiterter Fenster, Speichern/Laden (Version 2). Attrappe ohne Kosten.",
+    "source": "docs/LIVE-TEST.md",
+    "source_line": 1,
+    "details": {
+      "evidence": [
+        "crates/spieler/src/lib.rs",
+        "crates/spieler/src/main.rs",
+        "konfig/spieler-live.json",
+        "docs/LIVE-TEST.md",
+        "docs/bilder/spieler-live-ki.png",
+        "laeufe/spieler-live-1791119886/entscheidungen.jsonl"
+      ],
+      "checked_at": "2026-10-04",
+      "tests": [
+        "crates/spieler/src/lib.rs: 10 Tests (u. a. model_empires_decide_while_the_clock_stands_still, budget_stops_the_models_and_can_be_raised, live_checkpoint_resumes_with_the_same_models_and_state)",
+        "crates/spieler/src/main.rs: live_screen_runs_model_empires_through_the_gui_path"
+      ]
+    }
+  },
+  {
+    "id": "evidence.live-spieler-openrouter",
+    "kind": "evidence",
+    "title": "Echter Live-Test der Oberfläche über OpenRouter",
+    "status": "verified",
+    "owner": "Claude",
+    "body": "4. Okt. 2026, sternenepoche-spieler --smoke-test-ki mit konfig/spieler-live.json (Qwen 3.5 Flash für Stratege und Diplomat, DeepSeek V4 Flash ohne Denken für Verwalter und Feldherr): 2 KI-Reiche in einer Welt mit 10 Reichen, 8 Fenster (2 Spielstunden), 8 Entscheidungen, 14 Modellanfragen, 19 angenommene Befehle, 38 s, 0,0102 USD. Abgelehnt wurden Forschung ohne Labor und Raketenwerfer vor Stufe II, jeweils mit Grund des Kerns. Danach Bildschirmaufnahme des Bereichs Live-KI geprüft (Häkchen in egui-Schrift korrigiert).",
+    "source": "docs/LIVE-TEST.md",
+    "source_line": 1,
+    "details": {
+      "evidence": [
+        "laeufe/spieler-live-1791119886/manifest.json",
+        "laeufe/spieler-live-1791119886/entscheidungen.jsonl",
+        "docs/bilder/spieler-live-ki.png"
+      ],
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "requirement.live-betrachter",
+    "kind": "requirement",
+    "title": "Laufende Läufe im Browser verfolgen",
+    "status": "verified",
+    "owner": "Claude",
+    "body": "python -m sternenepoche zeigen LAUFORDNER: Server nur auf 127.0.0.1:8198, liest nur. Ein laufender Lauf erscheint mit dem Stand des neuesten Tagesschnappschusses (die Engine lädt ihn und liefert Rangliste, Statistik, Galaxie) und aktualisiert sich alle 30 Sekunden. Neuer Abschnitt Entscheidungen der Modelle: Kennzahlen, jeder Aufruf mit Befehlen, Urteil des Kerns, Kosten, Begründung, Notiz, Prognose; Filter nach Reich, Rolle, Ablehnungen; Modelltexte maskiert. Gegen den laufenden echten Lauf im Browser geprüft.",
+    "source": "docs/LIVE-TEST.md",
+    "source_line": 1,
+    "details": {
+      "evidence": [
+        "orchestrator/sternenepoche/zeigen.py",
+        "betrachter/index.html",
+        "docs/bilder/betrachter-live-verlauf.jpg",
+        "docs/bilder/betrachter-live-entscheidungen.jpg"
+      ],
+      "checked_at": "2026-10-04",
+      "tests": [
+        "orchestrator/tests/test_ablauf.py: Betrachter.test_fertiger_und_laufender_lauf"
+      ]
+    }
+  },
+  {
+    "id": "decision.weckregel",
+    "kind": "decision",
+    "title": "Wecker und nicht dringende Ereignisse frühestens nach halbem Takt",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Modelle stellten bei jedem Aufruf einen Wecker auf eine Stunde, der Stratege mit 24-Stunden-Takt also stündlich. agenten.frueh_anteil = 0,5: Wecker und nicht dringende Ereignisse wecken frühestens nach dem halben Takt (AgentenRegel::frueheste_sekunden), dringende (feindliche Flotte, Raketen, Blockade, Vertragsbruch, Kampfbericht des Verteidigers) sofort. Der Regeltext nennt Takt und früheste Aufrufe je Rolle.",
+    "source": "regeln/regelwerk.ron",
+    "source_line": 1,
+    "details": {
+      "evidence": [
+        "crates/kern/src/regeln.rs",
+        "crates/kern/src/sim.rs",
+        "crates/kern/src/aktion.rs",
+        "regeln/regelwerk.ron"
+      ],
+      "checked_at": "2026-10-04",
+      "tests": [
+        "crates/kern/tests/spiel.rs: wecker_und_ereignisse_fruehestens_nach_halbem_takt"
+      ]
+    }
+  },
+  {
+    "id": "decision.regeltext-abgleich",
+    "kind": "decision",
+    "title": "Regeltext sagt, was der Kern tut",
+    "status": "verified",
+    "owner": "Claude",
+    "body": "Sechs Stellen, an denen der Regeltext der Modelle vom Kern abwich, an den Kern angepasst (Mechanik unverändert, weil die Balance mit ihr gemessen ist): Verbandsangriff nur mit derselben Allianz; Spionagebericht zeigt die Bestände immer; Stufenbonus nur der aktuellen Stufe; Freischalttexte nennen Raketensilo (III) und die drei Großprojekte (V); Zuflüsse aus Flotten, Markt und Tribut überschreiten die Lagergrenze, nur die Produktion endet dort; ein Bauauftrag in eine leere Schleife muss sofort bezahlbar sein, nur hinter anderen Aufträgen wartet er (im echten Lauf scheiterten daran rund 340 von 943 Bauaufträgen des Verwalters).",
+    "source": "docs/SPEZIFIKATION.md",
+    "source_line": 1,
+    "details": {
+      "evidence": [
+        "crates/kern/src/regeltext.rs",
+        "regeln/regelwerk.ron",
+        "docs/SPEZIFIKATION.md"
+      ],
+      "checked_at": "2026-10-04",
+      "tests": [
+        "crates/kern/tests/regeltext.rs: freischalttext_nennt_alle_gebaeude_und_anlagen_ihrer_stufe (Gegenprobe mit altem Regelwerk schlägt an), regeltext_beschreibt_was_der_kern_tut"
+      ]
+    }
+  },
+  {
+    "id": "decision.lagebild-vollstaendig",
+    "kind": "decision",
+    "title": "Lagebild zeigt Kämpfe, Raketen, Verbände und genau die erlaubten Einheiten",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Das Python-Lagebild zeigte keine Kampfberichte, Raketen und Verbände, und der Verwalter sah Verteidigungsanlagen statt Bergbauschiff und Recycler. Jetzt: Verwalter genau die fünf zivilen Schiffe, Raketensilo je Planet für Verwalter und Feldherr, offene Verbände und Raketen im Flug für den Feldherrn, Kampfberichte für Feldherr (8) und Stratege (3). Die Sicht liefert Kampfberichte dafür lesbar (Namen, Seite, Ausgang, Verluste je Einheit, Beute, Trümmer). Der Rust-Systemtext sagt jetzt wie der Python-Systemtext, dass Aktionen einer Antwort mit Abfragen verfallen und wo Kosten in der Sicht stehen.",
+    "source": "docs/AGENTEN-SCHNITTSTELLE.md",
+    "source_line": 1,
+    "details": {
+      "evidence": [
+        "orchestrator/sternenepoche/lagebild.py",
+        "crates/kern/src/sicht.rs",
+        "crates/agenten/src/protocol.rs"
+      ],
+      "checked_at": "2026-10-04",
+      "tests": [
+        "orchestrator/tests/test_ablauf.py: test_lagebild_kampf_raketen_verbaende_und_zivile_schiffe",
+        "crates/kern/tests/spiel.rs: angriff_pluendert_nach_beutequote_und_bricht_den_pakt (Kampfbericht in der Sicht)"
+      ]
+    }
+  },
+  {
+    "id": "decision.anbieter-ablehnung",
+    "kind": "decision",
+    "title": "Abgelehnte Anfragen halten den Rust-Lauf an",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "HTTP 401, 402, 403 (Schlüssel, Guthaben, Schlüssellimit): der Anbieter hat nichts verarbeitet; call_with_retries zieht die Reservierung zurück (Journal::cancel) und hält das Fenster an, beim Fortsetzen wird genau dieser Aufruf neu gestellt. Vorher setzten alle Rollen still aus. Ein endgültig gescheiterter Aufruf bekommt keine Korrekturanfrage mehr. window liefert je Aufruf einen Bericht mit Aktionen, Urteil des Kerns und Kosten aus usage.cost.",
+    "source": "docs/ARCHITEKTUR.md",
+    "source_line": 1,
+    "details": {
+      "evidence": [
+        "crates/agenten/src/lib.rs",
+        "crates/agenten/src/provider.rs",
+        "crates/agenten/src/journal.rs"
+      ],
+      "checked_at": "2026-10-04",
+      "tests": [
+        "crates/agenten/tests/integration.rs: refused_call_stops_the_run_and_is_sent_again_on_resume, failed_call_gets_no_correction_round"
+      ]
+    }
+  },
+  {
+    "id": "decision.lauf-traegt-regelwerk",
+    "kind": "decision",
+    "title": "Ein Lauf trägt sein Regelwerk und lässt sich auch angehalten nachspielen",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Die Engine gibt bei neu den Text des benutzten Regelwerks zurück, Orchestrator und epoche --aus legen ihn als regelwerk.ron in den Laufordner, replay nimmt ihn von dort. replay rechnet bis zur Zeit in schluss.json statt bis zum Epochenende, damit auch am Budget angehaltene Läufe prüfbar sind. Ein neuer Lauf in einen belegten Ausgabeordner wird abgelehnt, statt fremde Schnappschüsse liegen zu lassen.",
+    "source": "docs/BETRIEB.md",
+    "source_line": 1,
+    "details": {
+      "evidence": [
+        "crates/lauf/src/main.rs",
+        "orchestrator/sternenepoche/lauf.py"
+      ],
+      "checked_at": "2026-10-04",
+      "tests": [
+        "orchestrator/tests/test_ablauf.py: test_lauf_nachspielen_und_etiketten, test_budgetgrenze_haelt_an_und_fortsetzen_trifft_denselben_zustand"
+      ]
+    }
+  },
+  {
+    "id": "decision.katalog-zwei-wege",
+    "kind": "decision",
+    "title": "Python-Katalogaufbau und Rust-Abgleich ergeben denselben Katalog",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "tools/content/build_catalog.py brach an raketensilo ab (Motive der vier neuen Gebäude fehlten). Ergänzt mit denselben Motivtexten wie crates/inhalt/src/catalog.rs. Auf einer Kopie geprüft: Python-Aufbau plus sync-engine ergibt dieselben 398 Motive mit gleichem Inhalt. content/README.md nennt den Abgleich jetzt als Pflichtschritt.",
+    "source": "content/README.md",
+    "source_line": 1,
+    "details": {
+      "evidence": [
+        "tools/content/build_catalog.py",
+        "crates/inhalt/src/catalog.rs",
+        "content/README.md"
+      ],
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "constraint.schluessel",
+    "kind": "constraint",
+    "title": "API-Schlüssel nie in Dateien",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "OpenRouter-Schlüssel nur in der Umgebung (OPENROUTER_API_KEY). Konfigurationen, Journale, Spielstände und Laufordner nennen nur den Namen der Variable. Das Schlüsselfeld der Oberfläche setzt die Variable nur für den laufenden Prozess. Lange Läufe auf Windows per WMI, der Schlüssel nur in der Prozessumgebung.",
+    "source": "docs/BETRIEB.md",
+    "source_line": 1,
+    "details": {
+      "evidence": [
+        "crates/spieler/src/main.rs",
+        "crates/agenten/src/config.rs",
+        "orchestrator/sternenepoche/konfig.py",
+        "docs/BETRIEB.md"
+      ],
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "decision.claude-uebernimmt",
+    "kind": "decision",
+    "title": "Claude löst auch Codex' offene Punkte",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Codex-Kontingent bis 10.10.2026 aufgebraucht. Karl hat Claude am 4. Okt. 2026 beauftragt, auch die offenen Punkte aus Codex' Bereich zu lösen (Inhalt, Kern, Rust-Orchestrator, Oberfläche). Alle Änderungen stehen mit Grund in COORDINATION.md.",
+    "source": "COORDINATION.md",
+    "source_line": 1,
+    "details": {
+      "evidence": [
+        "COORDINATION.md"
+      ],
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "risk.modell-wiederholt-befehle",
+    "kind": "risk",
+    "title": "Modelle wiederholen abgelehnte Befehle in einer Antwort",
+    "status": "open",
+    "owner": "Claude",
+    "body": "Im echten Lauf schickte der Verwalter (DeepSeek V4 Flash) um Tag 40 siebenmal dieselbe Erz-Kauforder, für die die Credits nur einmal reichten; der Kern lehnte sechs mit Grund ab, die Korrekturrunde reparierte es. Er verwechselte außerdem Topfguthaben (Werteinheiten) mit verfügbaren Credits. Kein Fehler des Spiels: Die Ablehnungsgründe sind eindeutig, die Korrekturrunde greift. Messgröße für den Modellvergleich (Anteil abgelehnter Befehle).",
+    "source": "docs/ECHTER-LAUF.md",
+    "source_line": 1,
+    "details": {
+      "evidence": [
+        "laeufe/openrouter-test/entscheidungen.jsonl.gz",
+        "docs/ECHTER-LAUF.md"
+      ],
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "decision.schema-grenzen",
+    "kind": "decision",
+    "title": "Zahlengrenzen des Kerns stehen im Antwortschema",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "anzahl beim Fertigen 1 bis 10000, beim Raketenbau 1 bis 1000000, beim Raketenstart mindestens 1, Steuersatz 0 bis 50, Geschwindigkeit 0,1 bis 1,0 als minimum/maximum mit Beschreibung. Anlass: Der Feldherr schickte fertigen mit anzahl 0. Geprüft mit echten Aufrufen, die 0 verlangten: DeepInfra (DeepSeek V4 Flash) setzt die Grenze durch, Alibaba (Qwen 3.5 Flash) nimmt sie ohne Fehler an, setzt sie aber nicht durch. Ab Tag 31 des echten Laufs kamen keine fertigen-Platzhalter mit einheit und bauteil null mehr (Schema mit zwei Varianten).",
+    "source": "docs/AGENTEN-SCHNITTSTELLE.md",
+    "source_line": 1,
+    "details": {
+      "evidence": [
+        "crates/kern/src/aktion.rs",
+        "docs/AGENTEN-SCHNITTSTELLE.md"
+      ],
+      "checked_at": "2026-10-04",
+      "tests": [
+        "crates/kern/tests/schema.rs: schemagrenzen_sind_die_grenzen_des_kerns"
+      ]
+    }
+  },
+  {
+    "id": "requirement.human-ui",
+    "kind": "requirement",
+    "title": "Spielbar und erklärend für Menschen",
+    "status": "implemented",
+    "owner": "Claude",
+    "body": "Karl, 4. Okt. 2026: Die Oberfläche soll für Menschen schön, liebevoll erklärend und gut gestaltet sein, die Mechaniken wie gewünscht umsetzen und sich selbst testen lassen. Umgesetzt: deutsches Thema mit Kacheln, Karten und Balken; jeder Bereich mit Satz, Erklärung und Regeln im Wortlaut; „Was jetzt ansteht“; Tooltips an Zahlen, Kacheln und grauen Knöpfen mit Grund und Wartezeit; alle 28 Aktionen eines Menschen als Dialog; Rückfragen vor Unumkehrbarem; Speichern mit Auswahl und Rückfrage vor dem Überschreiben; Neue Partie; Handbuch docs/SPIELEN.md mit Bildern; Spielen.cmd.",
+    "source": "docs/SPIELEN.md",
+    "source_line": null,
+    "details": {
+      "evidence": [
+        "crates/spieler/src/main.rs",
+        "crates/spieler/src/ansicht/",
+        "docs/SPIELEN.md",
+        "Spielen.cmd"
+      ],
+      "acceptance": "Geprüft am 4. Okt. 2026: Layouttest aller Bereiche am Anfang und nach 7.000 Fenstern (alle_bildschirme_im_fortgeschrittenen_spiel), Befehlstests gegen kern::aktion (jeder_befehl_versteht_der_kern, jede_aktion_ist_bedienbar), Klicktest im echten Fenster. Im Klicktest gefundene und behobene Fehler: Tooltips ganzer Gruppen erschienen nicht, Statustexte mit Kernschlüsseln, veraltete Zeit nach Anhalten, Galaxie im falschen Sektor, zweites Speichern scheiterte, neue Partie hätte alten Spielstand überschrieben. Automatisch: klicks_wie_ein_mensch klickt Navigation, Bauauftrag und Hinweis mit echten Maus-Ereignissen.",
+      "checked_at": "2026-10-04"
+    }
+  },
+  {
+    "id": "decision.autonomous-backend-first",
+    "kind": "decision",
+    "title": "Autonome Spieler und Backend vor weiterer UI",
+    "status": "accepted",
+    "owner": "Codex",
+    "body": "Karl priorisiert autonome Spieler ohne Menschen; Backend und Logik zuerst. Bestehende UI bleibt Bestandsfunktion, kein nächster Schwerpunkt.",
+    "source": "docs/SPIELER-SANDBOX-KONZEPT.md",
+    "source_line": 8,
+    "details": {
+      "checked_at": "2026-10-04",
+      "scope": "Zielkonzept und Bestandsprüfung; planned bedeutet nicht implementiert",
+      "evidence": [
+        "docs/SPIELER-SANDBOX-KONZEPT.md",
+        "wissen/quellen/debatte-2026-10-04.transkript.json"
+      ]
+    }
+  },
+  {
+    "id": "requirement.persistent-player-sandbox",
+    "kind": "requirement",
+    "title": "Ein Spieler als persistente isolierte Organisation",
+    "status": "partial",
+    "owner": "Codex",
+    "body": "V3: kleine native Rust-Büros in Windows-LPAC mit Job Object, private SQLite, 50-Worker-Skalierung und echte lokale Modellspieler geprüft. Docker bleibt Altadapter. Keine Hardware-Mini-VM und keine freie Code-Skill-Ausführung.",
+    "source": "docs/LABOR-BACKEND.md",
+    "source_line": 1,
+    "details": {
+      "checked_at": "2026-10-04",
+      "scope": "Implementierter Labor-Stand; partial unterscheidet ausführbare Grundlage von noch offener Forschungsabnahme.",
+      "evidence": [
+        "docs/LABOR-BACKEND.md",
+        "docs/LABOR-ABNAHME.md",
+        "crates/kern/src/kolonisation.rs",
+        "crates/agenten/src/labor/runtime.rs"
+      ]
+    }
+  },
+  {
+    "id": "requirement.strategic-tool-interface",
+    "kind": "requirement",
+    "title": "Freie Planung mit kleinen geprüften Tool-Aufrufen",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Freie Texte und kleine native Ollama/OpenRouter-Tools; echtes CPU-Modell hat Notizen gespeichert und Spielaktionen ausgeführt.",
+    "source": "docs/LABOR-BACKEND.md",
+    "source_line": 1,
+    "details": {
+      "checked_at": "2026-10-04",
+      "scope": "Implementierter Labor-Stand; partial unterscheidet ausführbare Grundlage von noch offener Forschungsabnahme.",
+      "evidence": [
+        "docs/LABOR-BACKEND.md",
+        "docs/LABOR-ABNAHME.md",
+        "crates/agenten/src/labor",
+        "crates/agenten/tests/labor_runtime.rs",
+        "crates/agenten/tests/labor_gateway.rs"
+      ]
+    }
+  },
+  {
+    "id": "requirement.adaptive-player-harness",
+    "kind": "requirement",
+    "title": "Veränderbare Rollen und Skills innerhalb gleicher Spielerrechte",
+    "status": "partial",
+    "owner": "Codex",
+    "body": "V3: strategisches Hauptmodell organisiert veränderbare interne Rollen, nachladbare Tools, private Pläne und Aufgaben. Automatische Notizrevisionen sparen Formatbuchhaltung. Rechte und Budgets bleiben extern; Skills deklarativ.",
+    "source": "docs/LABOR-BACKEND.md",
+    "source_line": 1,
+    "details": {
+      "checked_at": "2026-10-04",
+      "scope": "Implementierter Labor-Stand; partial unterscheidet ausführbare Grundlage von noch offener Forschungsabnahme.",
+      "evidence": [
+        "docs/LABOR-BACKEND.md",
+        "docs/LABOR-ABNAHME.md",
+        "crates/kern/src/kolonisation.rs",
+        "crates/agenten/src/labor/runtime.rs"
+      ]
+    }
+  },
+  {
+    "id": "requirement.fair-model-harness-comparison",
+    "kind": "requirement",
+    "title": "Modell- und Harnessleistung kontrolliert vergleichen",
+    "status": "partial",
+    "owner": "Codex",
+    "body": "Unveränderliche Verträge, eingefrorene Fenster und Sitzrotations-Matrix implementiert; statistische Mehrmodell-Turniere noch offen.",
+    "source": "docs/LABOR-BACKEND.md",
+    "source_line": 1,
+    "details": {
+      "checked_at": "2026-10-04",
+      "scope": "Implementierter Labor-Stand; partial unterscheidet ausführbare Grundlage von noch offener Forschungsabnahme.",
+      "evidence": [
+        "docs/LABOR-BACKEND.md",
+        "docs/LABOR-ABNAHME.md",
+        "crates/agenten/src/labor",
+        "crates/agenten/tests/labor_runtime.rs",
+        "crates/agenten/tests/labor_gateway.rs"
+      ]
+    }
+  },
+  {
+    "id": "requirement.model-broker-capacity",
+    "kind": "requirement",
+    "title": "Ollama-Inventar und faire Inferenzverteilung",
+    "status": "partial",
+    "owner": "Codex",
+    "body": "V3: Ollama-only schließt Cloudmodelle aus; Mischbetrieb und vorab fixierter OpenRouter-Ersatz. Modellgruppenrotation, persistierte900sInferenzfrist, konservative Live-Speicherzulassung. RTX3080-Qwen3:8b8K real geprüft; größere Matches und OpenRouter live offen.",
+    "source": "docs/LABOR-BACKEND.md",
+    "source_line": 1,
+    "details": {
+      "checked_at": "2026-10-04",
+      "scope": "Implementierter Labor-Stand; partial unterscheidet ausführbare Grundlage von noch offener Forschungsabnahme.",
+      "evidence": [
+        "docs/LABOR-BACKEND.md",
+        "docs/LABOR-ABNAHME.md",
+        "crates/kern/src/kolonisation.rs",
+        "crates/agenten/src/labor/runtime.rs"
+      ]
+    }
+  },
+  {
+    "id": "requirement.scaled-paired-worlds",
+    "kind": "requirement",
+    "title": "Skalierte Welten mit garantierter Startnachbarschaft",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Labor-Karten skalieren mit Spielerzahl; Paarstarts und eine Dreiergruppe bei ungerader Zahl. Gleicher nächster Reiseabstand geprüft; der Mittelsitz einer Dreiergruppe ist strategisch asymmetrisch und wird rotiert.",
+    "source": "docs/LABOR-BACKEND.md",
+    "source_line": 1,
+    "details": {
+      "checked_at": "2026-10-04",
+      "scope": "Implementierter Labor-Stand; partial unterscheidet ausführbare Grundlage von noch offener Forschungsabnahme.",
+      "evidence": [
+        "docs/LABOR-BACKEND.md",
+        "docs/LABOR-ABNAHME.md",
+        "crates/agenten/src/labor",
+        "crates/agenten/tests/labor_runtime.rs",
+        "crates/agenten/tests/labor_gateway.rs"
+      ]
+    }
+  },
+  {
+    "id": "requirement.causal-audit-datasets",
+    "kind": "requirement",
+    "title": "Vollständige Weltwirkungen und versionierte Datensätze",
+    "status": "partial",
+    "owner": "Codex",
+    "body": "Versionierte Hashkette, gemeinsame Welt/DB-Checkpoints, Calls, Tools, Aktionen, Weltzustandsreferenzen und private JSONL-Exporte implementiert; feinere autonome Kausalereignisse und weitere Datasetformate offen.",
+    "source": "docs/LABOR-BACKEND.md",
+    "source_line": 1,
+    "details": {
+      "checked_at": "2026-10-04",
+      "scope": "Implementierter Labor-Stand; partial unterscheidet ausführbare Grundlage von noch offener Forschungsabnahme.",
+      "evidence": [
+        "docs/LABOR-BACKEND.md",
+        "docs/LABOR-ABNAHME.md",
+        "crates/agenten/src/labor",
+        "crates/agenten/tests/labor_runtime.rs",
+        "crates/agenten/tests/labor_gateway.rs"
+      ]
+    }
+  },
+  {
+    "id": "requirement.cross-epoch-learning",
+    "kind": "requirement",
+    "title": "Erfahrungspakete und unabhängige Evaluation über Epochen",
+    "status": "partial",
+    "owner": "Codex",
+    "body": "V3: eigene historische Notizen, Pläne und Skills aus beendeter Epoche bei neuem Seed fortsetzbar. Gemeinsame Konzeptpakete separat. Herkunft/Audit geprüft; automatische kausale Konzeptentdeckung und Training bleiben offen.",
+    "source": "docs/LABOR-BACKEND.md",
+    "source_line": 1,
+    "details": {
+      "checked_at": "2026-10-04",
+      "scope": "Implementierter Labor-Stand; partial unterscheidet ausführbare Grundlage von noch offener Forschungsabnahme.",
+      "evidence": [
+        "docs/LABOR-BACKEND.md",
+        "docs/LABOR-ABNAHME.md",
+        "crates/kern/src/kolonisation.rs",
+        "crates/agenten/src/labor/runtime.rs"
+      ]
+    }
+  },
+  {
+    "id": "requirement.explicit-wake-context",
+    "kind": "requirement",
+    "title": "Belegter Weckgrund im Fortsetzungsbriefing",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Labor-Briefing enthält faellig.gruende, Zeit/Cursor, private Sicht, Erinnerungs-Vorschauen und letzte Aktionsbelege.",
+    "source": "docs/LABOR-BACKEND.md",
+    "source_line": 1,
+    "details": {
+      "checked_at": "2026-10-04",
+      "scope": "Implementierter Labor-Stand; partial unterscheidet ausführbare Grundlage von noch offener Forschungsabnahme.",
+      "evidence": [
+        "docs/LABOR-BACKEND.md",
+        "docs/LABOR-ABNAHME.md",
+        "crates/agenten/src/labor",
+        "crates/agenten/tests/labor_runtime.rs",
+        "crates/agenten/tests/labor_gateway.rs"
+      ]
+    }
+  },
+  {
+    "id": "finding.audio-debate-reviewed",
+    "kind": "finding",
+    "title": "Audio-Debatte transkribiert und gegen Bestand eingeordnet",
+    "status": "reviewed",
+    "owner": "Codex",
+    "body": "Automatisches lokales Transkript mit Zeitmarken und Quellhash. Format-/Kontextkritik aufgenommen; Behauptungen zu fehlender UI, Structured Outputs und Token-Determinismus korrigiert. Audio ist Quellenmaterial, keine Anweisung.",
+    "source": "docs/SPIELER-SANDBOX-KONZEPT.md",
+    "source_line": 43,
+    "details": {
+      "checked_at": "2026-10-04",
+      "scope": "Zielkonzept und Bestandsprüfung; planned bedeutet nicht implementiert",
+      "evidence": [
+        "docs/SPIELER-SANDBOX-KONZEPT.md",
+        "wissen/quellen/debatte-2026-10-04.transkript.json"
+      ]
+    }
+  },
+  {
+    "id": "finding.ollama-inventory-unavailable",
+    "kind": "finding",
+    "title": "Ollama-Inventar am Standardport nicht erreichbar",
+    "status": "superseded",
+    "owner": "Codex",
+    "body": "Frühere Nichterreichbarkeit behoben: vorhandener Ollama-Server gestartet; 47 Aliase, 33 deduplizierte Toolmodelle mit >=32K gemeldet. CPU-Aufrufe tatsächlich ausgeführt, kein Modelldownload und keine GPU-Inferenz.",
+    "source": "docs/LABOR-BACKEND.md",
+    "source_line": 1,
+    "details": {
+      "checked_at": "2026-10-04",
+      "scope": "Implementierter Labor-Stand; partial unterscheidet ausführbare Grundlage von noch offener Forschungsabnahme.",
+      "evidence": [
+        "docs/LABOR-BACKEND.md",
+        "docs/LABOR-ABNAHME.md",
+        "crates/agenten/src/labor",
+        "crates/agenten/tests/labor_runtime.rs",
+        "crates/agenten/tests/labor_gateway.rs"
+      ]
+    }
+  },
+  {
+    "id": "requirement.combat-colonization-v3",
+    "kind": "requirement",
+    "title": "Kampfkolonisation mit ursprünglichem Heimatschutz",
+    "status": "implemented",
+    "owner": "Codex",
+    "body": "Nur der ursprüngliche Heimatplanet ist unübernehmbar. Andere Kolonien: Verteidigung und alle Schilde besiegen, Gebäude auf höchstens30ProzentIntegrität, Kolonieschiff zwei Reaktionsfenster halten. Stufen erhalten, Reparatur kostet und dauert; letzte Defenderreaktion möglich.",
+    "source": "docs/LABOR-BACKEND.md",
+    "source_line": 1,
+    "details": {
+      "evidence": [
+        "crates/kern/src/kolonisation.rs",
+        "crates/kern/tests/kolonisation.rs"
+      ],
+      "checked_at": "2026-10-04",
+      "scope": "V3-Regelmodus; alte Schnappschüsse behalten Legacyregeln"
+    }
+  }
+]

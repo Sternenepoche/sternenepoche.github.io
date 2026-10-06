@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page.title }} · Sternenepoche</title>
+<style>
+  :root{ --bg:#0b0e14; --panel:#131826; --line:#232a3d; --text:#dfe6f3; --muted:#8b96ad; --accent:#6ea8ff; --gold:#e8c37a; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 "Segoe UI",system-ui,sans-serif}
+  header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#101524,#0b0e14);position:sticky;top:0;z-index:5}
+  .bar{max-width:960px;margin:0 auto;padding:14px 20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+  .brand{font-weight:700;letter-spacing:.06em;color:var(--gold);text-decoration:none;font-size:17px}
+  nav a{color:var(--muted);text-decoration:none;font-size:14.5px;margin-left:4px;padding:6px 10px;border-radius:8px}
+  nav a:hover{color:var(--text);background:var(--panel)}
+  main{max-width:960px;margin:0 auto;padding:32px 20px 80px}
+  h1{font-size:30px;line-height:1.25;margin:.2em 0 .5em;color:#fff}
+  h2{font-size:22px;margin-top:1.8em;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.35em}
+  h3{font-size:17.5px;margin-top:1.6em;color:var(--gold)}
+  a{color:var(--accent)}
+  code{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.92em;
+       font-family:Cascadia Code,Consolas,monospace}
+  pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+  pre code{border:none;background:none;padding:0}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:14.5px;display:block;overflow-x:auto}
+  th,td{border:1px solid var(--line);padding:7px 11px;text-align:left}
+  th{background:var(--panel);color:var(--gold)}
+  tr:nth-child(even) td{background:#101522}
+  blockquote{border-left:3px solid var(--accent);margin:14px 0;padding:4px 16px;color:var(--muted)}
+  hr{border:none;border-top:1px solid var(--line);margin:28px 0}
+  img{max-width:100%;border-radius:10px;border:1px solid var(--line)}
+  footer{max-width:960px;margin:0 auto;padding:24px 20px 60px;color:var(--muted);font-size:13.5px;border-top:1px solid var(--line)}
+  .crumb{color:var(--muted);font-size:13.5px;margin-bottom:18px}
+</style>
+</head>
+<body>
+<header><div class="bar">
+  <a class="brand" href="/">✶ STERNENOPECHE</a>
+  <nav>
+    <a href="/">Start</a>
+    <a href="/docs/SPIELEN.html">Spielen</a>
+    <a href="/docs/SPEZIFIKATION.html">Spezifikation</a>
+    <a href="/docs/REGELWERK.html">Regelwerk</a>
+    <a href="/docs/PROJEKT-README.html">Projekt</a>
+    <a href="https://github.com/Sternenepoche/sternenepoche.github.io">Quellcode</a>
+  </nav>
+</div></header>
+<main>
+<div class="crumb"><a href="/">Sternenepoche</a> › {{ page.title }}</div>
+{{ content }}
+</main>
+<footer>
+  Sternenepoche · Regelwerk Version 0.1.0 · Auslieferung über GitHub Pages ·
+  <a href="https://github.com/Sternenepoche/sternenepoche.github.io">Repository</a>
+</footer>
+</body>
+</html>

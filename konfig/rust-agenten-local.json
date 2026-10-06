@@ -1,0 +1,28 @@
+{
+  "startwert": 42,
+  "spieler": 50,
+  "tage": 365,
+  "parallel": 4,
+  "max_anfragen": 200,
+  "anbieter": {
+    "local": {
+      "art": "local",
+      "modell": "MODELL_ID_DES_LOKALEN_SERVERS",
+      "url": "http://127.0.0.1:8000/v1",
+      "api_key_env": null,
+      "remote_erlaubt": false,
+      "max_tokens": 2048,
+      "timeout_sekunden": 120
+    },
+    "openrouter": {
+      "art": "openrouter",
+      "modell": "ANBIETER/MODELL",
+      "url": "https://openrouter.ai/api/v1",
+      "api_key_env": "OPENROUTER_API_KEY",
+      "remote_erlaubt": false,
+      "max_tokens": 2048,
+      "timeout_sekunden": 120
+    }
+  },
+  "rollen": {"stratege":"local", "verwalter":"local", "feldherr":"local", "diplomat":"local"}
+}
