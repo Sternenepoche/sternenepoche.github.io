@@ -6,7 +6,10 @@ let base='',session=null,world=null,view=null,rules=null,refreshBusy=false,agent
 function show(s,error=false){$('message').textContent=s;$('message').hidden=false;$('message').classList.toggle('error',error);clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('message').hidden=true,9000);}
 async function api(path,body,auth=true){
   const headers={};if(body!==undefined)headers['Content-Type']='application/json';if(auth&&session)headers.Authorization='Bearer '+session.token;
-  const r=await fetch(base+path,{method:body===undefined?'GET':'POST',headers,body:body===undefined?undefined:JSON.stringify(body),signal:AbortSignal.timeout(15000)});
+  let r;try{r=await fetch(base+path,{method:body===undefined?'GET':'POST',headers,body:body===undefined?undefined:JSON.stringify(body),signal:AbortSignal.timeout(15000)});}catch{
+    const local=['127.0.0.1','localhost'].includes(new URL(base).hostname);
+    throw Error(local&&location.protocol==='https:'?'PC-Server nicht erreichbar. Prüfe, ob er läuft, und die lokale Netzwerkfreigabe dieser Website im Browser. Am PC kannst du direkt http://127.0.0.1:8890 öffnen.':'Spielserver nicht erreichbar. Prüfe Adresse und Serverbetrieb; versuche die Verbindung erneut.');
+  }
   const v=await r.json();if(!r.ok){const e=new Error(v.error||`Server antwortet ${r.status}`);e.status=r.status;throw e;}return v;
 }
 function endpoint(s){const u=new URL(s);if(!['http:','https:'].includes(u.protocol)||u.username||u.password||u.search||u.hash)throw Error('Eine HTTP(S)-Serveradresse ohne Passwort eingeben');if(location.protocol==='https:'&&u.protocol==='http:'&&!['127.0.0.1','localhost'].includes(u.hostname))throw Error('Für den Internetbetrieb ist eine HTTPS-Serveradresse nötig');return u.href.replace(/\/$/,'');}

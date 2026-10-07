@@ -82,6 +82,13 @@ Je nach Browser ist die lokale Netzwerkfreigabe erforderlich. Keine Portfreigabe
 ins Internet. [Ollama FAQ](https://docs.ollama.com/faq),
 [Browserzugriff auf lokale Netze](https://developer.chrome.com/blog/local-network-access).
 
+Auch Pages-Zugriff auf den PC-Spielserver braucht diese Browserfreigabe. Falls der Browser
+das blockiert oder in einen Timeout läuft, den gleichen Spielbrowser direkt auf
+`http://127.0.0.1:8890` öffnen. Die veröffentlichte Pages-Oberfläche wurde geladen; ihr
+Zugriff auf den PC-Loopback blieb im eingebauten Prüf-Browser im Timeout. Eine öffentliche
+HTTPS-Spieladresse vermeidet diese Grenze für den Weltzugang; lokales Ollama benötigt
+weiter seine eigene Freigabe. Es wurde keine Browser-Sicherheitswarnung umgangen.
+
 OpenRouter benötigt den Schlüssel des Spielers und den vollständigen Modellnamen.
 Aufruflimit und Tokenzähler begrenzen/zeigen Browseraktivität; sie sind **kein garantierter
 Gelddeckel**. Einen Gelddeckel beim Anbieter über den verwendeten Schlüssel setzen.
