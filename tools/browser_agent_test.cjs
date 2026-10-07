@@ -25,10 +25,13 @@ const ctx=vm.createContext({console,URL,AbortSignal,AbortController,performance,
  fetch:fetchMock,setTimeout:(fn)=>setTimeout(fn,0),clearTimeout,setInterval:()=>1,clearInterval(){},
  document:{getElementById(id){assert(html.includes('id="'+id+'"'),'Real HTML is missing '+id);if(!elements.has(id))elements.set(id,element());return elements.get(id);},addEventListener(){},querySelectorAll(){return []}},
  window:{addEventListener(){},STERNENEPOCHE:{api:''}},location:{hostname:'offline.test',origin:'https://offline.test',protocol:'https:'},localStorage:storage,sessionStorage:storage});
-vm.runInContext(fs.readFileSync('web-client/presentation.js','utf8')+fs.readFileSync('web-client/app.js','utf8')+`;globalThis.harness={modelCall,agentLoop,stopAgent,prepare(a){base='http://game.test';session={token:'game-session'};world=${JSON.stringify(world)};rules={text:'public rules'};agent=a;}};`,ctx);
+vm.runInContext(fs.readFileSync('web-client/presentation.js','utf8')+fs.readFileSync('web-client/app.js','utf8')+`;globalThis.harness={fuelReserve,modelCall,agentLoop,stopAgent,prepare(a){base='http://game.test';session={token:'game-session'};world=${JSON.stringify(world)};rules={text:'public rules'};agent=a;}};`,ctx);
 const harness=ctx.harness;
 function agent(overrides={}){return {provider:'ollama',url:'http://127.0.0.1:11434',key:'PRIVATE-KEY',model:'mock',limit:1,delay:15,roles:['verwalter'],controller:new AbortController(),world_id:world.world_id,lease:'lease-one',calls:0,errors:0,tokens:0,status:'start',latency:0,...overrides};}
 (async()=>{
+ assert.equal(harness.fuelReserve({treibstoff_je_strecke:1,treibstoff_je_strecke_milli:1999},2),4,'save cargo must leave enough fractional fuel for both legs');
+ assert.equal(harness.fuelReserve({treibstoff_je_strecke:1,treibstoff_je_strecke_milli:1500},2),3,'reserve must round the complete trip, not each leg separately');
+ assert.equal(harness.fuelReserve({treibstoff_je_strecke:12},2),24,'legacy quote remains supported');
  let a=agent();await harness.modelCall(a,[{role:'user',content:'own view'}],{});assert.equal(a.calls,1);assert.equal(a.tokens,12);
  await assert.rejects(()=>harness.modelCall(a,[],{}),/Aufruflimit/);
  a=agent({provider:'openrouter'});await harness.modelCall(a,[],{});assert.equal(requests.at(-1).headers.Authorization,'Bearer PRIVATE-KEY');assert(!JSON.stringify(requests.at(-1).body).includes(a.key));

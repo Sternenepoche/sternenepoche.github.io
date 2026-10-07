@@ -68,16 +68,17 @@ function renderGalaxy(data){
 }
 function navigateGame(id){document.querySelectorAll('#game > section').forEach(s=>s.hidden=s.id!==id);document.querySelectorAll('[data-tab]').forEach(t=>t.setAttribute('aria-selected',String(t.dataset.tab===id)));}
 function pickFleet(target,mission){navigateGame('karte');const form=$('fleet');form.elements.ziel.value=target;form.elements.mission.value=mission;for(const id of ['ship-inputs','cargo-inputs'])$(id).querySelectorAll('input').forEach(i=>i.value='0');if(['spionage','system_erkunden'].includes(mission))$('ship-inputs').querySelector('[data-map="spionagesonde"]').value='1';$('fleet').scrollIntoView?.({block:'start'});}
+function fuelReserve(q,legs){return Math.ceil((q.treibstoff_je_strecke_milli??q.treibstoff_je_strecke*1000)*legs/1000);}
 function flightSummary(q,a){
  const hold=['saven','halten','abbau','blockade'].includes(a.mission)?a.haltedauer_stunden:0,oneway=['stationieren','kolonisieren'].includes(a.mission),legs=oneway?1:2,minutes=(q.dauer_sekunden??q.dauer_min*60)/60,gameMinutes=minutes*legs+hold*60;
- const cargo=Object.values(a.ladung).reduce((sum,n)=>sum+n,0),p=view.planeten.find(p=>p.koord===a.start);
- $('flight-quote').innerHTML=`<h3>Flugplanung</h3><div class="stats">${stat(fmt(minutes)+' Min.','Hinflug (Spielzeit)')}${stat(fmt(gameMinutes)+' Min.',oneway?'Ankunft nach Start':'Planmäßige Rückkehr nach Start')}${stat(q.treibstoff_je_strecke*legs,oneway?'Treibstoff für Hinflug':'Treibstoff für beide Strecken')}${stat(cargo+' / '+q.ladekapazitaet,'Fracht / Laderaum')}</div><p>Bei ${world.tempo}×: ca. ${fmt(gameMinutes/world.tempo)} echte Minuten. ${hold?'Wartezeit: '+hold+' Spielstunden.':''} ${oneway?'Einwegauftrag. Erfolg und tatsächlicher Verbleib werden bei Ankunft geprüft.':'Kampf, Blockaden und Rückruf können den Verlauf ändern.'}</p><p>Auf dem Planeten bleiben: ${esc(goods(Object.fromEntries(Object.entries(p.bestand).map(([k,n])=>[k,Math.max(0,n-(a.ladung[k]||0)-(k==='deuterium'?q.treibstoff_je_strecke*legs:0))]))))}</p>`;
+ const cargo=Object.values(a.ladung).reduce((sum,n)=>sum+n,0),p=view.planeten.find(p=>p.koord===a.start),fuel=fuelReserve(q,legs);
+ $('flight-quote').innerHTML=`<h3>Flugplanung</h3><div class="stats">${stat(fmt(minutes)+' Min.','Hinflug (Spielzeit)')}${stat(fmt(gameMinutes)+' Min.',oneway?'Ankunft nach Start':'Planmäßige Rückkehr nach Start')}${stat(fuel,oneway?'Treibstoffreserve für Hinflug':'Treibstoffreserve für beide Strecken')}${stat(cargo+' / '+q.ladekapazitaet,'Fracht / Laderaum')}</div><p>Bei ${world.tempo}×: ca. ${fmt(gameMinutes/world.tempo)} echte Minuten. ${hold?'Wartezeit: '+hold+' Spielstunden.':''} ${oneway?'Einwegauftrag. Erfolg und tatsächlicher Verbleib werden bei Ankunft geprüft.':'Kampf, Blockaden und Rückruf können den Verlauf ändern.'}</p><p>Auf dem Planeten bleiben: ${esc(goods(Object.fromEntries(Object.entries(p.bestand).map(([k,n])=>[k,Math.max(0,n-(a.ladung[k]||0)-(k==='deuterium'?fuel:0))]))))}</p>`;
 }
 function selectAllShips(){const p=view.planeten.find(p=>p.koord===$('fleet').elements.start.value);$('ship-inputs').querySelectorAll('input').forEach(i=>i.value=p.schiffe[i.dataset.map]||0);}
 async function fillSaveCargo(){
  const a=fleetData();if(a.mission!=='saven')throw Error('Fracht automatisch sichern ist für den Auftrag Saven vorgesehen.');
  const q=await api('/api/tool',{...a,typ:'flugzeit'}),p=view.planeten.find(p=>p.koord===a.start);let capacity=q.ladekapazitaet;
- const available={...p.bestand,deuterium:Math.max(0,p.bestand.deuterium-q.treibstoff_je_strecke*2)};
+ const available={...p.bestand,deuterium:Math.max(0,p.bestand.deuterium-fuelReserve(q,2))};
  $('cargo-inputs').querySelectorAll('input').forEach(i=>{const n=Math.max(0,Math.min(capacity,Math.floor(available[i.dataset.map]||0)));i.value=n;capacity-=n;});flightSummary(q,fleetData());
 }
 function compactView(v){

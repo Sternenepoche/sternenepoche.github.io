@@ -865,7 +865,7 @@ impl Welt {
                 let s = schiffe()?;
                 let sigma = milli(abfrage.get("geschwindigkeit").and_then(|v| v.as_f64()).unwrap_or(1.0)).clamp(100, 1000);
                 let plan = self.flugplan(sid, pid, ziel, &s, sigma)?;
-                Ok(json!({"entfernung": plan.entfernung, "dauer_min": plan.dauer / 60, "dauer_sekunden":plan.dauer, "treibstoff_je_strecke": ganz(plan.treibstoff),
+                Ok(json!({"entfernung": plan.entfernung, "dauer_min": plan.dauer / 60, "dauer_sekunden":plan.dauer, "treibstoff_je_strecke": ganz(plan.treibstoff), "treibstoff_je_strecke_milli":plan.treibstoff,
                     "ladekapazitaet": ganz(plan.kapazitaet), "tempo": plan.tempo}))
             }
             "kampfsimulator" => {

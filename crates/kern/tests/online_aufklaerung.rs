@@ -383,6 +383,25 @@ fn unseen_and_too_late_fleet_probes_cannot_spend_resources_or_oracle_ids() {
     assert_eq!(before, w.planeten[1].bestand);
 }
 #[test]
+fn flight_quote_keeps_fractional_fuel_for_the_full_save_return_trip() {
+    let mut w = world();
+    let origin = home(&w, 0);
+    let target = Koord { sektor: origin.sektor, system: if origin.system < 60 { origin.system + 1 } else { origin.system - 1 }, position: 6 };
+    let quote = w.werkzeug(0, &json!({"typ":"flugzeit","start":origin.to_string(),"ziel":target.to_string(),
+        "schiffe":{"kleiner_transporter":1,"spionagesonde":1},"geschwindigkeit":1})).unwrap();
+    let fuel = quote["treibstoff_je_strecke_milli"].as_i64().unwrap();
+    assert_ne!(fuel % M, 0, "regression needs fractional fuel");
+    let reserve = (2 * fuel + M - 1) / M;
+    let pid = w.spieler[0].heimat as usize;
+    let cargo = 100 * M;
+    w.planeten[pid].bestand[Gut::Deuterium.idx()] = cargo + reserve * M;
+    let before = w.planeten[pid].bestand[Gut::Deuterium.idx()];
+    assert!(w.handeln(0, Rolle::Alle, &json!({"typ":"flotte_senden","start":origin.to_string(),"ziel":target.to_string(),
+        "mission":"saven","schiffe":{"kleiner_transporter":1,"spionagesonde":1},"ladung":{"deuterium":100},"geschwindigkeit":1,"haltedauer_stunden":3})).0);
+    assert_eq!(before - w.planeten[pid].bestand[Gut::Deuterium.idx()], cargo + 2 * fuel);
+    assert!(w.planeten[pid].bestand[Gut::Deuterium.idx()] < M);
+}
+#[test]
 fn saven_preserves_cargo_and_ships_and_has_a_real_return_fuel_cost_and_no_delivery() {
     let mut w = world();
     let origin = home(&w, 0);
