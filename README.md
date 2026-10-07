@@ -1,12 +1,12 @@
 # Sternenepoche
 
-**7. Oktober 2026 – gemeinsame Onlinewelt:** Neuer Rust-Dienst mit 30 Bots, 20 freien
-Plätzen, Browser für Mensch/Agent/Mischbetrieb und getrenntem lokalem Verwaltungsdashboard.
+**7. Oktober 2026 – gemeinsame Onlinewelt:** Rust-Dienst mit 30 Bots, 20 möglichen
+Plätzen (zunächst drei freigegeben, weitere Anmeldungen auf Warteliste), Browser für Mensch/Agent/Mischbetrieb und getrenntem lokalem Verwaltungsdashboard.
 Zunächst auf Karls PC, später mit derselben Datenbank auf einem VPS. Start über
 `Server-starten.cmd`; Spiel `http://127.0.0.1:8890`, Dashboard `http://127.0.0.1:8891`.
 System- und Planetensonden, Geheimdienst/Überwachung, Flottenspionage und Saven sind im
 separaten Online-Regelsatz umgesetzt. GitHub Pages liefert den Browser; die Rust-Welt
-benötigt den laufenden PC/VPS. Öffentlicher HTTPS-Zugang ist noch nicht eingerichtet.
+benötigt den laufenden PC/VPS. Öffentlicher TLS-Zugang über Tailscale Funnel ist eingerichtet: [Online anmelden und spielen](https://desktop-3dei636.taila4f584.ts.net/). Mitspieler benötigen kein Tailscale.
 [Inventur](docs/INVENTUR-2026-10-07.md) · [Konzept](docs/ONLINE-KONZEPT.md) ·
 [Start, Verwaltung und VPS-Umzug](docs/SERVER-BETRIEB.md).
 

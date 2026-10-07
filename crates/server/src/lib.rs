@@ -1,5 +1,6 @@
 //! One authoritative Rust world, transactional accounts/commands, no model proxy.
 mod monitoring;
+mod admission;
 use argon2::{
     password_hash::{PasswordHash, PasswordHasher, PasswordVerifier, SaltString},
     Argon2,
@@ -80,6 +81,10 @@ pub struct Runtime {
     public_history: Vec<Value>,
     #[serde(default)]
     pub maintenance: String,
+    #[serde(default = "admission::legacy_admission_limit")]
+    pub admission_limit: u16,
+    #[serde(default)]
+    waitlist: Vec<admission::Waiting>,
 }
 #[derive(Clone, Debug)]
 pub struct Account {
@@ -150,6 +155,8 @@ fn fresh(seed: u64, rules: &str) -> Result<(Welt, Runtime), String> {
             bot_trace: BTreeMap::new(),
             public_history: Vec::new(),
             maintenance: String::new(),
+            admission_limit: 3,
+            waitlist: Vec::new(),
         },
     ))
 }
@@ -362,47 +369,9 @@ impl Game {
     }
     pub fn lobby(&self) -> Value {
         json!({"api_version":API_VERSION,"world_id":self.runtime.world_id,"revision":self.runtime.revision,"sekunden":self.world.zeit,
-          "paused":self.runtime.paused,"tempo":self.runtime.tempo,"beendet":self.world.beendet(),"bots":BOT_COUNT,"freie_plaetze":self.world.aufklaerung.inaktive_spieler.len(),"plaetze":SEATS,
+          "paused":self.runtime.paused,"tempo":self.runtime.tempo,"beendet":self.world.beendet(),"bots":BOT_COUNT,"freie_plaetze":self.world.aufklaerung.inaktive_spieler.len(),"plaetze":SEATS,"freigegebene_plaetze":self.runtime.admission_limit,"freie_zugaenge":self.available_admissions(),"wartende":self.runtime.waitlist.len(),
             "rangliste":self.world.rangliste(),"regeln":self.world.regeln.version,"maintenance":self.runtime.maintenance,
             "epoche_tage":self.world.regeln.welt.epoche_tage,"verlauf":self.runtime.public_history.iter().rev().take(48).cloned().collect::<Vec<_>>()})
-    }
-    pub fn claim(&mut self, a: &Account, v: &Value) -> Reply {
-        let mode = str_field(v, "mode")?;
-        if !["mensch", "agent", "gemischt"].contains(&mode) {
-            return Err(err(400, "Modus mensch, agent oder gemischt wählen"));
-        }
-        let volk =
-            Volk::aus_name(str_field(v, "volk")?).ok_or_else(|| err(400, "Unbekanntes Volk"))?;
-        self.transaction(|g| {
-            let current = g
-                .account_by_name(&a.name)
-                .ok_or_else(|| err(401, "Konto fehlt"))?;
-            let sid = if let Some(sid) = current.sid {
-                sid
-            } else {
-                let sid = g
-                    .world
-                    .aufklaerung
-                    .inaktive_spieler
-                    .iter()
-                    .next()
-                    .copied()
-                    .ok_or_else(|| err(409, "Alle 20 Teilnehmerplätze sind belegt"))?;
-                if g.world.beendet() {
-                    return Err(err(409, "Epoche beendet"));
-                }
-                g.world
-                    .startplatz_aktivieren(sid, a.name.clone(), volk)
-                    .map_err(|e| err(409, &e))?;
-                sid
-            };
-            g.db.execute(
-                "UPDATE accounts SET sid=?1,mode=?2 WHERE id=?3",
-                params![sid, mode, a.id],
-            )
-            .map_err(|_| err(503, "Platz nicht gespeichert"))?;
-            Ok(json!({"spieler":sid,"mode":mode,"world_id":g.runtime.world_id}))
-        })
     }
     fn sid(a: &Account) -> Result<SpielerId, (u16, String)> {
         a.sid
@@ -612,7 +581,7 @@ impl Game {
             .filter(|p| p.bestand.iter().any(|n| *n < 0) || p.bevoelkerung < 0)
             .map(|p| format!("Negativer Bestand/Bevölkerung auf {}", p.koord))
             .collect::<Vec<_>>();
-        json!({"lobby":self.lobby(),"monitor":self.monitoring_status(),"storage_error":self.storage_error,"world_hash":self.world.hash(),"uptime_s":self.started.elapsed().as_secs(),"db_bytes":db_bytes,"invariant_errors":invariant_errors,"bots_enabled":self.runtime.bots_enabled,"bot_period_secs":self.runtime.bot_period_secs,"epoche_tage":self.world.regeln.welt.epoche_tage,"bots":bots,"accounts":accounts,
+        json!({"lobby":self.lobby(),"monitor":self.monitoring_status(),"storage_error":self.storage_error,"world_hash":self.world.hash(),"uptime_s":self.started.elapsed().as_secs(),"db_bytes":db_bytes,"invariant_errors":invariant_errors,"bots_enabled":self.runtime.bots_enabled,"bot_period_secs":self.runtime.bot_period_secs,"epoche_tage":self.world.regeln.welt.epoche_tage,"bots":bots,"accounts":accounts,"warteliste":self.private_waitlist(),
             "agents":self.runtime.agent_status.keys().chain(self.runtime.leases.keys()).copied().collect::<std::collections::BTreeSet<_>>().iter().map(|sid|json!({"spieler":sid,"active":self.runtime.leases.get(sid).is_some_and(|l|l.until>now()),"roles":self.runtime.leases.get(sid).map(|l|&l.roles),"stats":self.runtime.agent_status.get(sid).cloned().unwrap_or_else(||json!({"status":"Wartet auf erste Modellantwort","calls":0,"errors":0,"tokens":0,"latency_ms":0}))})).collect::<Vec<_>>(),
             "flotten":self.world.flotten.len(),"ereignisse":self.world.ereignisse.len(),"bot_actions":self.runtime.bot_actions,"bot_rejected":self.runtime.bot_rejected})
     }
@@ -641,6 +610,7 @@ impl Game {
             "seed",
             "typ",
             "maintenance",
+            "admission_limit",
         ];
         let context = Value::Object(
             fields
@@ -676,12 +646,14 @@ impl Game {
             "backup"=>Ok(json!({"backup":self.backup()?.file_name().unwrap().to_string_lossy()})),
             "settings"=>self.transaction(|g| {
                 if let Some(n)=v["tempo"].as_u64(){if !(1..=3600).contains(&n){return Err(err(400,"Tempo zwischen 1 und 3600"));}g.runtime.tempo=n as u32;}
+                if let Some(value)=v.get("admission_limit"){let n=value.as_u64().filter(|n|*n<=SEATS as u64).ok_or_else(||err(400,"Freigabe zwischen 0 und 20"))?;g.runtime.admission_limit=n as u16;}
                 if let Some(p)=v["paused"].as_bool(){g.runtime.paused=p;}
                 if let Some(p)=v["bots_enabled"].as_bool(){g.runtime.bots_enabled=p;}
                 if let Some(m)=v["maintenance"].as_str(){g.runtime.maintenance=m.chars().take(400).collect();}
                 if let Some(n)=v["bot_period_secs"].as_i64(){if !(900..=86400).contains(&n){return Err(err(400,"Botabstand zwischen 900 und 86400 Spielsekunden"));}g.runtime.bot_period_secs=n;}
                 if let Some(n)=v["epoche_tage"].as_i64(){if n<=g.world.zeit/TAG || n>10000{return Err(err(400,"Epochenende muss nach der aktuellen Spielzeit liegen, maximal 10000 Tage"));}
                     let mut r=(*g.world.regeln).clone();r.welt.epoche_tage=n;g.world.regeln=std::sync::Arc::new(r);}
+                g.admit_waiting()?;
                 Ok(g.lobby())}),
             "inspect"=>{
                 let sid=v["spieler"].as_u64().filter(|n|*n<(BOT_COUNT+SEATS) as u64).ok_or_else(||err(400,"Spielernummer fehlt"))? as u16;
@@ -691,8 +663,9 @@ impl Game {
                 let id=v["id"].as_i64().ok_or_else(||err(400,"Kontonummer fehlt"))?;
                 let banned=v["banned"].as_bool().ok_or_else(||err(400,"Sperrstatus fehlt"))?;
                 if g.db.execute("UPDATE accounts SET banned=?1 WHERE id=?2",params![banned,id]).map_err(|_|err(503,"Konto nicht gespeichert"))?!=1{return Err(err(404,"Konto fehlt"));}
-                if banned {g.db.execute("DELETE FROM sessions WHERE account=?1",[id]).map_err(|_|err(503,"Sitzungen nicht gesperrt"))?;g.runtime.leases.retain(|_,l|l.account!=id);}
+                if banned {g.runtime.waitlist.retain(|w|w.account!=id);g.db.execute("DELETE FROM sessions WHERE account=?1",[id]).map_err(|_|err(503,"Sitzungen nicht gesperrt"))?;g.runtime.leases.retain(|_,l|l.account!=id);}
                 Ok(json!({"ok":true}))}),
+            "waitlist_remove"=>self.transaction(|g| {let id=v["id"].as_i64().ok_or_else(||err(400,"Kontonummer fehlt"))?;g.runtime.waitlist.retain(|w|w.account!=id);g.admit_waiting()?;Ok(json!({"ok":true}))}),
             "bot"=>self.transaction(|g| {
                 let sid=v["spieler"].as_u64().filter(|n|*n<BOT_COUNT as u64).ok_or_else(||err(400,"Botnummer ungültig"))? as u16;
                 let typ=Bottyp::aus_name(str_field(v,"typ")?).ok_or_else(||err(400,"Unbekannter Bottyp"))?;
@@ -713,7 +686,8 @@ impl Game {
                 if v["confirm"].as_str()!=Some(&format!("RESET {}",self.runtime.world_id)){return Err(err(400,"Resetbestätigung passt nicht zur aktuellen Welt"));}
                 let seed=v["seed"].as_u64().unwrap_or_else(||OsRng.next_u64());
                 let rules=self.validated_profile(v)?;
-                let (world,runtime)=fresh(seed,&rules).map_err(|e|err(400,&e))?;
+                let (world,mut runtime)=fresh(seed,&rules).map_err(|e|err(400,&e))?;
+                runtime.admission_limit=self.runtime.admission_limit;
                 let backup=self.backup()?;
                 self.transaction(move |g| {g.world=world;g.runtime=runtime;
                     g.db.execute_batch("UPDATE accounts SET sid=NULL,mode='zuschauer'; DELETE FROM sessions; DELETE FROM commands;").map_err(|_|err(503,"Reset nicht gespeichert"))?;
@@ -757,18 +731,14 @@ mod tests {
         assert_eq!(old.bestand, p.bestand);
         assert_eq!(old.bevoelkerung, p.bevoelkerung);
         assert_eq!(credits, g.world.spieler[30].credits);
+        g.runtime.admission_limit=20;
         for i in 0..20 {
             let (a, _) = user(&mut g, &format!("Spieler{i}"));
             g.claim(&a, &json!({"mode":"mensch","volk":"veyari"}))
                 .unwrap();
         }
         let (a, _) = user(&mut g, "Einundzwanzig");
-        assert_eq!(
-            g.claim(&a, &json!({"mode":"mensch","volk":"krath"}))
-                .unwrap_err()
-                .0,
-            409
-        );
+        assert_eq!(g.claim(&a, &json!({"mode":"mensch","volk":"krath"})).unwrap()["warteliste"]["position"],1);
         assert_eq!(
             g.world.spieler[30].schutz_bis,
             86400 + g.world.regeln.diplomatie.anfaengerschutz_tage * TAG
@@ -896,7 +866,7 @@ mod tests {
         }
         assert!(g.admin(&json!({"action":"reset","world_id":wid,"confirm":format!("RESET {wid}"),"rules":"invalid"})).is_err());
         assert!(!g.data_root.join("backups").exists());assert_eq!(hash,g.world.hash());
-        let mut old=serde_json::to_value(&g.runtime).unwrap();for k in ["bot_trace","public_history","maintenance"]{old.as_object_mut().unwrap().remove(k);}
+        let mut old=serde_json::to_value(&g.runtime).unwrap();for k in ["bot_trace","public_history","maintenance","admission_limit","waitlist"]{old.as_object_mut().unwrap().remove(k);}
         let restored:Runtime=serde_json::from_value(old).unwrap();assert!(restored.bot_trace.is_empty());assert!(restored.public_history.is_empty());
         g.admin(&json!({"action":"reset","world_id":wid,"confirm":format!("RESET {wid}"),"rules":profile})).unwrap();
         assert_eq!(g.world.regeln.hash,preview["profile_hash"].as_str().unwrap());assert_eq!(g.lobby()["freie_plaetze"],20);

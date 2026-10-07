@@ -10,11 +10,11 @@ Stand: 7. Oktober 2026. Der neue Dienst ist `crates/server`, der gemeinsame Brow
 ```powershell
 .\start-server.ps1
 # Nach Quellcodeänderungen:
-.\start-server.ps1 -Build
+.\start-server.ps1 -Restart -Build
 ```
 
 Spiel: **http://127.0.0.1:8890**. Lokale Verwaltung: **http://127.0.0.1:8891**.
-Standard: eine gemeinsame Welt, 30 Skriptbots, 20 freie Plätze, 1× Echtzeit.
+Standard: eine gemeinsame Welt, 30 Skriptbots, 20 mögliche Teilnehmerplätze; zunächst drei freigegeben, 1× Echtzeit.
 Anmelden ohne Platz bleibt Zuschauer. Erst „Platz belegen“ aktiviert ein Reich. Spätere
 Anmeldungen behalten ihren Platz. Ein Wechsel Mensch/Agent/Gemischt erzeugt kein zweites Reich
 und ändert das gewählte Volk nicht. Keine neue Welt beim gewöhnlichen Serverneustart.
@@ -37,22 +37,65 @@ Skriptbots und offene Ereignisse werden ebenfalls wieder aufgenommen.
 GitHub Pages liefert den Browser, führt aber keine laufende Welt aus.
 [GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages)
 
-Für weltweiten Zugriff braucht der PC eine erreichbare **HTTPS-Adresse**: eigenen
-DNS-Namen mit HTTPS-Reverse-Proxy oder einen HTTPS-Tunnel zum Spielport 8890.
-Nur der Spielport wird vermittelt. Adminport 8891 bleibt lokal.
-Die Ports sind absichtlich an Loopback gebunden; eine einfache Routerweiterleitung
-direkt auf den Rust-Port stellt keinen vollständigen Internetbetrieb her.
+Der PC ist über **Tailscale Funnel mit gültigem TLS** erreichbar:
+[Online spielen und anmelden](https://desktop-3dei636.taila4f584.ts.net/).
+Die [GitHub-Website](https://sternenepoche.github.io/) verlinkt diesen Zugang; ihr eigener
+Browserclient hat dieselbe HTTPS-API-Adresse vorkonfiguriert. Mitspieler brauchen keine
+Tailscale-Installation. Der öffentlich freigegebene Listener ist ausschließlich 8890;
+das Dashboard auf 8891 bleibt auf Loopback.
 
-Die konkrete öffentliche Adresse ist noch nicht eingerichtet. Im Pages-Browser wird sie
-unter „Spielserver“ eingetragen. Alternativ `web-client/config.js` mit der öffentlichen
-API-Adresse konfigurieren. `--origin` lässt genau die tatsächlich verwendete Website zu;
-die Origin `https://sternenepoche.github.io` ist bereits freigegeben.
+```powershell
+.\tailscale-spielzugang.ps1 -Action Status
+# Erneut aktivieren, nur wenn noch höchstens drei Plätze freigegeben sind:
+.\tailscale-spielzugang.ps1 -Action Enable
+# Ausschließlich diese Webfreigabe abschalten:
+.\tailscale-spielzugang.ps1 -Action Disable
+```
 
-Für Caddy siehe `deploy/Caddyfile`. Domain ersetzen, Server mit `--trusted-proxy` und
-`--origin https://DEINE-DOMAIN` starten. Caddy begrenzt Bodygröße/Lesedauer, puffert
-vollständige Requests und setzt `X-Real-IP` selbst. Bei einem anderen Tunnel/Proxy dessen
-Timeouts, Requestgrenzen und vertrauenswürdige Client-IP-Konfiguration entsprechend setzen.
-Ohne vertrauenswürdige IP-Weitergabe gilt das Anmeldelimit gemeinsam für den Tunnel.
+Funnel läuft mit `--bg` und nimmt seine Freigabe nach einem Tailscale-/PC-Neustart wieder
+auf. Der Rust-Server muss nach dem PC-Start über `Server-starten.cmd` gestartet werden;
+ein Windows-Autostart wurde nicht eingerichtet. PC, Tailscale und Rust-Dienst müssen
+laufen. Im Ruhezustand/offline ist das Spiel nicht erreichbar; ausgeschaltete Zeit wird
+nicht nachgerechnet. `data/online/public-url.txt` speichert die HTTPS-Adresse für die
+Origin-Freigabe beim nächsten Serverstart. Das Hilfsscript überschreibt keine fremde
+Serve-/Funnel-Belegung und veröffentlicht weder Dateiverzeichnisse noch Adminports.
+Siehe [offizielle Funnel-Anleitung](https://tailscale.com/docs/features/tailscale-funnel)
+und [CLI, Hintergrundbetrieb und Abschalten](https://tailscale.com/docs/reference/tailscale-cli/funnel).
+
+Der geprüfte öffentliche DNS-Relaypfad und die direkte HTTPS-Browseransicht funktionieren.
+Auf Karls Tailscale-PC löst MagicDNS die Adresse intern auf eine Tailscale-IP auf: Der
+Pages-Client kann dann die lokale Netzwerkfreigabe des Browsers benötigen. Der Link
+„Spiel direkt auf diesem Server öffnen“ nutzt dieselbe sichere Adresse und denselben
+Server mit einer gemeinsamen Browser-Origin. Es wurde keine Zertifikatsprüfung umgangen.
+
+Der aktuelle Funnelbetrieb verwendet **kein `--trusted-proxy`** und vertraut keinem vom
+Spieler gesendeten IP-Header. Anmelde- und IP-Limits gelten deshalb gemeinsam für die
+Funnelverbindung. Der vorbereitete VPS-Caddy setzt `X-Real-IP` selbst und kann mit dem
+expliziten Proxyflag arbeiten. Der öffentliche und der private Listener haben getrennte
+Limit-Tabellen; öffentlicher Druck füllt keine private Admin-Limit-Tabelle.
+
+## Drei Plätze und Warteliste
+
+Konto anlegen oder anmelden, dann Spielweise und Volk wählen. Solange weniger als drei
+Teilnehmer aktiv sind, wird atomar ein Platz vergeben. Danach bedeutet der Button
+„Auf Warteliste anmelden“ eine gespeicherte Anmeldung mit persönlicher Position, Volk
+und Spielweise. Es wird noch kein Reich aktiviert. Zuschauer brauchen keinen Spielplatz.
+Die verbleibenden 17 möglichen Plätze sind zunächst gesperrt, keine simulierten Spieler.
+
+Im Dashboard bestimmt **Freigegebene Teilnehmerplätze (0–20)** die Kapazität. Eine Erhöhung
+lässt die Warteliste automatisch nach Reihenfolge nachrücken; das war beim Eintragen
+angekündigt und startet das Reich auch bei abgemeldetem Konto. Wiederholte Anmeldung
+aktualisiert die Wahl ohne neue Position. Verlassen und spätere Neuanmeldung stellt ans Ende.
+Nur eigener Status und Gesamtanzahl sind öffentlich; Namen/Präferenzen der Wartenden sind
+privat im Dashboard. Dort lassen sich Einträge entfernen. Das Limit der Warteliste ist
+1.000 Konten. Eine niedrigere Freigabe entfernt aktive Spieler nicht; gesperrte Spieler
+behalten ihr Reich und belegen weiter einen Platz. Gesperrte Wartende werden entfernt.
+
+Freigabe und Liste überstehen Prozessneustart und Backup. Reset leert die Liste, setzt
+Konten auf Zuschauer und behält die eingestellte Freigabe. Eine neue Epoche erfordert
+eine neue Spieleranmeldung. Alte Runtime-Daten ohne Freigabefeld bleiben kompatibel mit
+20 Plätzen; Karls bestehende Welt wurde ohne Reset auf drei begrenzt.
+
 [Caddy Reverse Proxy](https://caddyserver.com/docs/caddyfile/directives/reverse_proxy)
 
 ## Agenten und Mischbetrieb
@@ -85,8 +128,9 @@ ins Internet. [Ollama FAQ](https://docs.ollama.com/faq),
 Auch Pages-Zugriff auf den PC-Spielserver braucht diese Browserfreigabe. Falls der Browser
 das blockiert oder in einen Timeout läuft, den gleichen Spielbrowser direkt auf
 `http://127.0.0.1:8890` öffnen. Die veröffentlichte Pages-Oberfläche wurde geladen; ihr
-Zugriff auf den PC-Loopback blieb im eingebauten Prüf-Browser im Timeout. Eine öffentliche
-HTTPS-Spieladresse vermeidet diese Grenze für den Weltzugang; lokales Ollama benötigt
+Zugriff auf den PC-Loopback blieb im eingebauten Prüf-Browser im Timeout. Die direkte
+HTTPS-Spielansicht ist inzwischen geprüft; Pages-Zugriff auf MagicDNS-Adressen kann
+dagegen ebenfalls lokale Browserfreigabe verlangen; lokales Ollama benötigt
 weiter seine eigene Freigabe. Es wurde keine Browser-Sicherheitswarnung umgangen.
 
 OpenRouter benötigt den Schlüssel des Spielers und den vollständigen Modellnamen.
@@ -156,7 +200,7 @@ Der Browseragententest verwendet ausschließlich Mockanbieter. Die 24-Spielstund
 prüfen eingefrorene Plätze und alle 30 aktiven Bots beschleunigt, einschließlich einer
 identischen Fortsetzung aus einem Datenbankbackup; sie ersetzen keinen 24-Stunden-Dauerbetrieb.
 Offen für öffentliche Abnahme: bezahlter OpenRouter-Nachweis, zwei externe Netze,
-HTTPS-/Proxybetrieb auf dem Zielhost, längerer Last-/Botlauf und Online-Balancing.
+VPS-/Proxybetrieb auf dem späteren Zielhost, echter 24-Stunden-Betrieb und Online-Balancing.
 
 Für den beschleunigten 180-Tage-Botlauf ein **neues** Datenverzeichnis wählen:
 

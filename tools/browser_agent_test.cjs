@@ -1,6 +1,7 @@
 // Execute the actual browser agent loop with mock model/network endpoints, no billable calls.
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 function element(){return {hidden:false,textContent:'',value:'',classList:{toggle(){}},addEventListener(){},setAttribute(){},querySelector(){return element();},querySelectorAll(){return []}};}
+const html=fs.readFileSync('web-client/index.html','utf8');
 const elements=new Map(),requests=[];
 const world={world_id:'world-one',api_version:1,sekunden:0,paused:false,tempo:1,bots:30,freie_plaetze:20,rangliste:[]};
 let mode='normal',releaseModel;
@@ -22,7 +23,7 @@ async function fetchMock(url,opts={}){
 const values=new Map();const storage={getItem(k){return values.get(k)||null},setItem(k,v){values.set(k,v)},removeItem(k){values.delete(k)}};
 const ctx=vm.createContext({console,URL,AbortSignal,AbortController,performance,crypto:require('node:crypto').webcrypto,
  fetch:fetchMock,setTimeout:(fn)=>setTimeout(fn,0),clearTimeout,setInterval:()=>1,clearInterval(){},
- document:{getElementById(id){if(!elements.has(id))elements.set(id,element());return elements.get(id);},addEventListener(){},querySelectorAll(){return []}},
+ document:{getElementById(id){assert(html.includes('id="'+id+'"'),'Real HTML is missing '+id);if(!elements.has(id))elements.set(id,element());return elements.get(id);},addEventListener(){},querySelectorAll(){return []}},
  window:{addEventListener(){},STERNENEPOCHE:{api:''}},location:{hostname:'offline.test',origin:'https://offline.test',protocol:'https:'},localStorage:storage,sessionStorage:storage});
 vm.runInContext(fs.readFileSync('web-client/presentation.js','utf8')+fs.readFileSync('web-client/app.js','utf8')+`;globalThis.harness={modelCall,agentLoop,stopAgent,prepare(a){base='http://game.test';session={token:'game-session'};world=${JSON.stringify(world)};rules={text:'public rules'};agent=a;}};`,ctx);
 const harness=ctx.harness;

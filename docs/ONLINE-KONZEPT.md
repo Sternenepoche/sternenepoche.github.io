@@ -8,7 +8,7 @@ Der Implementierungsstand und die Abnahmekriterien stehen in Abschnitt 12.
 
 | Ebene | Aufgabe | Laufzeit und Daten |
 |---|---|---|
-| Öffentliche Spielwelt | Anmeldung, 30 Bots und 20 freie Teilnehmerplätze, autoritative Regeln, Weltuhr, Speicherung | Rust-Dienst auf dauerhaft erreichbarem Host, HTTPS, private Datenbank |
+| Öffentliche Spielwelt | Anmeldung, 30 Bots und 20 mögliche Teilnehmerplätze (zunächst drei freigegeben), autoritative Regeln, Weltuhr, Speicherung | Rust-Dienst auf dauerhaft erreichbarem Host, HTTPS, private Datenbank |
 | Browser von GitHub Pages | Zuschauen, als Mensch spielen, eigenen Agenten über Ollama/OpenRouter oder gemischt betreiben | Statische Website von GitHub; erhält ausschließlich erlaubte Spielersicht und sendet Befehle an den Rust-Dienst |
 | Dashboard auf Karls PC | Welt verwalten, Spieler und Bots kontrollieren, Zeit/Regeln konfigurieren, sichern, zurücksetzen | Lokale Rust-Anwendung mit eigenem Adminzugang; verbindet sich mit der privaten Verwaltungs-API |
 
@@ -45,7 +45,7 @@ belegte Teilnehmerplätze. Drei verständliche Einstiegskarten führen zu:
 
 1. **Zuschauen:** öffentliche Rangliste, aggregierter Verlauf und öffentlich freigegebene
    Ereignisse. Kein Platzverbrauch; keine Modellschlüssel erforderlich.
-2. **Mensch:** Konto anmelden, einen der 20 Plätze belegen, Volk wählen; der nächste freie Startplatz wird atomar zugeteilt. Bauen, forschen, Flotten senden, erkunden, handeln und diplomatisch handeln.
+2. **Mensch:** Konto anmelden, einen der freigegebenen Plätze belegen oder auf die Warteliste treten, Volk wählen; der nächste freie Startplatz wird atomar zugeteilt. Bauen, forschen, Flotten senden, erkunden, handeln und diplomatisch handeln.
 3. **Eigener Agent:** denselben Platztyp belegen, Absicht und Modellbetrieb auswählen;
    Ollama, OpenRouter oder pro Rolle gemischt. Ein Agent kann später auf Mensch/Assistenz
    umgestellt werden, ohne ein zweites Reich zu erzeugen.
@@ -456,14 +456,14 @@ Kolonien, Punkten und Stufen; private Events/Strategien werden nicht gestreamt.
 | Lieferung | Enthält | Abnahme |
 |---|---|---|
 | O1 – Rust-Weltdienst | Autoritativer Welt-Aktor, Live-Uhr, SQLite, Wiederanlauf, 30 echte Bots und 20 inaktive Sitzreservierungen | 24 Stunden Lauf; gleiche Ereignisse/Hashes nach Crash+Resume; keine Produktion unbesetzter Plätze |
-| O2 – Konten und gemeinsame Clients | Login auch für Zuschauer, atomare Sitze, eigene Sicht, vollständige menschliche Befehle, öffentliche API-Konfiguration | Zwei unabhängige Browser spielen dieselbe Welt; 21. Sitz wird abgelehnt; Logout/Neustart verlieren keinen Besitz |
+| O2 – Konten und gemeinsame Clients | Login auch für Zuschauer, atomare Sitze, eigene Sicht, vollständige menschliche Befehle, öffentliche API-Konfiguration | Zwei unabhängige Browser spielen dieselbe Welt; weitere Anmeldung wartet; Logout/Neustart verlieren keinen Besitz |
 | O3 – Browser-/lokale Agenten | Ollama, OpenRouter, Mischrollen, private Prompts, exklusiver Lease, Fehler-/Kostenanzeigen | Echtes Ollama auf dem Spieler-PC; Server sieht keinen lokalen Modellcall; Mock-Providerprüfungen für Budget, Timeout, Stop und doppelte Antworten |
 | O4 – Lokales Dashboard | Zeit, Konten, Bots/Agenten, Invarianten, Backups, Resetvorbereitung | Änderungen wirken auf den richtigen Server; Adminrechte nie auf Pages; Reset invalidiert jede alte Antwort |
 | O5 – Öffentliche Freigabe | HTTPS, VPN-Admin, passende Browserversion, gefilterte Streams, Backupbetrieb, Online-Balance | Welt von zwei getrennten Netzen spielbar; Paket enthält keine Betriebsdaten; alle Sicht-/Fehlerkanäle und Botstrategien geprüft |
 
 ### Spielmechanische Pflichtszenarien
 
-1. Neue Welt: 30 Bots aktiv, exakt 20 freie Plätze; zwei konkurrierende letzte Anmeldungen.
+1. Neue Welt: 30 Bots aktiv, 20 mögliche Plätze, zunächst drei freigegeben; zwei konkurrierende letzte Anmeldungen, genau eine sofort aktiv und eine wartend.
 2. Ein Zuschauer loggt erneut ein, kann keinen Befehl ausführen und keine Strategie auslesen.
 3. Ein Systemscan entdeckt keinen Planeten; zwei benachbarte Planeten erfordern zwei eigene Scans.
 4. Fremder Besitzer/Ressourcen ändern sich, ohne dass ein alter Scan heimlich mitaktualisiert wird.
@@ -482,7 +482,7 @@ Kolonien, Punkten und Stufen; private Events/Strategien werden nicht gestreamt.
 17. Doppelte Requests, fremde IDs, Rollenüberschreibungen, veraltete Versions-/Leaseangaben und manipulierte Mengen.
 18. Gegenprobe aller öffentlichen Views, Fehlerrouten, Bots und Kampfvorschauen gegen die Informationsgrenze.
 
-209 Rust-Tests, reale HTTP-/Neustart-/Profilprüfungen, Browseranbieter-Mocks, echtes
+211 Rust-Tests, reale HTTP-/Neustart-/Profilprüfungen, Browseranbieter-Mocks, echtes
 Ollama qwen3.5:4b und zwei Browser in derselben Testwelt belegen Kern- und PC-Spielabläufe.
 Der 180-Spieltage-Botlauf zeigt Entwicklung bis Stufe V ohne geprüfte Bestandsfehler.
 Die konkreten Belege stehen in [INVENTUR-2026-10-07.md](INVENTUR-2026-10-07.md). Erst die
@@ -509,6 +509,14 @@ und kennt im Onlineprofil keine fremden Heimatkoordinaten für Vertragspartnerau
 Freie Teilnehmerplätze sind keine Diplomatiepartner. Überwachung und Abschirmung
 benötigen Spionagetechnik Stufe 1; Überwachung zusätzlich einen eigenen Geheimdienst.
 
-Öffentlicher Internetbetrieb bleibt an eine erreichbare HTTPS-Adresse des PC-Hosts oder
-des späteren VPS gebunden. Der Pages-Browser lässt diese Adresse eingeben. Es ist keine
-öffentliche Spielserveradresse erfunden oder ein Spielstand zurückgesetzt worden.
+Der PC-Spielzugang ist über [Tailscale Funnel mit TLS](https://desktop-3dei636.taila4f584.ts.net/)
+freigegeben, in Pages vorkonfiguriert und direkt im Browser geprüft. Dashboard und Betriebsdaten
+bleiben lokal. Zunächst werden drei aktive Teilnehmer aufgenommen; alle weiteren angemeldeten
+Spielinteressenten warten nach FIFO. `admission_limit` und Warteliste werden im selben
+SQLite-Checkpoint wie die Welt transaktional gespeichert. Eine Kapazitätserhöhung aktiviert
+die ersten gültigen Wartenden atomar mit ihrem gewählten Volk/Modus; Wiederholungen überholen
+niemanden. Wartende erhalten keine Wirtschaft, Planeten oder privaten Spielsichten.
+Die vollständigen Eintritts-, Sperr-, Neustart- und Resetregeln stehen in
+[SERVER-BETRIEB.md](SERVER-BETRIEB.md). Ein echter Test aus zwei unabhängigen fremden Netzen,
+24 Stunden Dauerbetrieb, bezahlte OpenRouter-Inferenz und Saisonbalance bleiben separate
+Betriebsabnahmen; der öffentliche Relaypfad mit gültiger Zertifikatsprüfung ist belegt.

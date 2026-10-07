@@ -235,7 +235,7 @@ fn serve(
             answer(
                 req,
                 200,
-                format!("window.STERNENEPOCHE={{api:'',version:{API_VERSION}}};").into_bytes(),
+                format!("window.STERNENEPOCHE={{api:location.origin,version:{API_VERSION}}};").into_bytes(),
                 "text/javascript; charset=utf-8",
                 &origin,
             );
@@ -345,9 +345,7 @@ fn serve(
                 match g.authenticate(&raw) {
                     Err(e) => Err(e),
                     Ok(a) => match (method, path) {
-                        (Method::Get, "/api/me") => Ok(
-                            json!({"name":a.name,"mode":a.mode,"spieler":a.sid,"world_id":g.runtime.world_id}),
-                        ),
+                        (Method::Get, "/api/me") => Ok(g.me(&a)),
                         (Method::Get, "/api/view") => g.view(&a, Rolle::Alle),
                         (Method::Post, "/api/context") => {
                             let role = body["rolle"]
@@ -357,6 +355,7 @@ fn serve(
                             match role {Some(r)=>g.view(&a,r).map(|view|json!({"view":view,"schema":kern::aktion::antwortschema(r),"text":kern::regeltext::regeltext(&g.world.regeln,r)})),None=>Err((400,"Regierungsrolle auswählen".into()))}
                         }
                         (Method::Post, "/api/claim") => g.claim(&a, &body),
+                        (Method::Post, "/api/waitlist/leave") => g.leave_waitlist(&a, &body),
                         (Method::Post, "/api/tool") => g.tool(&a, &body),
                         (Method::Post, "/api/command") => g.command(&a, &body),
                         (Method::Post, "/api/lease") => g.lease(&a, &body),

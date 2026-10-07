@@ -36,7 +36,7 @@ try:
     check(request('/monitoring.js')[0],401)
     check(request('/api/admin/status',admin=True)[0],401)
     check(request('/api/lobby',headers={'Origin':'https://unknown.invalid'})[0],403)
-    lobby=request('/api/lobby')[1];assert lobby['freie_plaetze']==20 and len(lobby['rangliste'])==30
+    lobby=request('/api/lobby')[1];assert lobby['freie_plaetze']==20 and lobby['freie_zugaenge']==3 and lobby['freigegebene_plaetze']==3 and len(lobby['rangliste'])==30
     assert set(lobby['verlauf'][0])<= {'sekunden','reiche','kolonien','punkte','stufen'} if lobby['verlauf'] else True
     auth={}
     for name in ['SpielerA','SpielerB','Zuschauer']:
@@ -46,6 +46,23 @@ try:
     check(request('/api/command',{'world_id':lobby['world_id'],'request_id':'watch','aktionen':[{'typ':'steuersatz','prozent':20}]},auth['Zuschauer'])[0],403)
     for name in ['SpielerA','SpielerB']:
         check(request('/api/claim',{'mode':'gemischt','volk':'veyari'},auth[name])[0],200)
+    racers=['Dritter','Vierter']
+    for name in racers:
+        s,v=request('/api/register',{'name':name,'password':'nur-ein-test-passwort'});check(s,200);auth[name]=v['token']
+    claim={'world_id':lobby['world_id'],'mode':'mensch','volk':'krath'}
+    with concurrent.futures.ThreadPoolExecutor(2) as pool:
+        results=list(pool.map(lambda name:request('/api/claim',claim,auth[name]),racers))
+    assert all(s==200 for s,v in results)
+    assert sum(v['spieler'] is not None for s,v in results)==1,results
+    waiter=next(name for name,(s,v) in zip(racers,results) if v['spieler'] is None)
+    assert request('/api/me',token=auth[waiter])[1]['warteliste']['position']==1
+    assert request('/api/claim',claim,auth[waiter])[1]['warteliste']['position']==1
+    check(request('/api/view',token=auth[waiter])[0],403)
+    public=request('/api/lobby')[1];assert public['freie_zugaenge']==0
+    assert public['freigegebene_plaetze']==3 and public['freie_plaetze']==17 and public['wartende']==1 and 'warteliste' not in public
+    assert request('/api/claim',claim,auth['Zuschauer'])[1]['warteliste']['position']==2
+    check(request('/api/waitlist/leave',{'world_id':lobby['world_id']},auth['Zuschauer'])[0],200)
+    assert request('/api/me',token=auth['Zuschauer'])[1]['warteliste'] is None
     views={name:request('/api/view',token=auth[name])[1] for name in ['SpielerA','SpielerB']}
     a,b=views.values();assert a['planeten'][0]['koord']!=b['planeten'][0]['koord']
     s,context=request('/api/context',{'rolle':'verwalter'},auth['SpielerA']);check(s,200)
@@ -72,7 +89,7 @@ try:
     s,private_map=admin_action('map',sektor=1,system=13);check(s,200);assert len(private_map['planeten'])==12
     s,profile=admin_action('rules_profile');check(s,200)
     s,preview=admin_action('reset_preview',rules=profile['text']);check(s,200)
-    assert preview['valid'] and len(preview['profile_hash'])==64 and preview['betroffene_konten']==3
+    assert preview['valid'] and len(preview['profile_hash'])==64 and preview['betroffene_konten']==5
     check(admin_action('rules_validate',rules='(')[0],400)
     bad_reset={'world_id':lobby['world_id'],'action':'reset','confirm':'RESET '+lobby['world_id'],'rules':'('}
     check(request('/api/admin/action',bad_reset,key,True)[0],400)
@@ -81,16 +98,21 @@ try:
     check(request('/api/admin/action',{'world_id':lobby['world_id'],'action':'backup'},key,True)[0],200)
     stop();start()
     after=request('/api/admin/status',token=key,admin=True)[1];assert after['world_hash']==before['world_hash']
+    assert after['lobby']['freigegebene_plaetze']==3 and after['warteliste'][0]['name']==waiter
+    assert request('/api/me',token=auth[waiter])[1]['warteliste']['position']==1
+    check(admin_action('settings',admission_limit=4)[0],200)
+    assert request('/api/me',token=auth[waiter])[1]['spieler'] is not None
+    assert request('/api/me',token=auth[waiter])[1]['warteliste'] is None
     check(request('/api/view',token=auth['SpielerA'])[0],200)
     check(request('/api/login',{'name':'Zuschauer','password':'nur-ein-test-passwort'})[0],200)
     check(request('/api/login',{'name':'Zuschauer','password':'falsches-test-passwort'})[0],401)
     reset={'world_id':lobby['world_id'],'action':'reset','confirm':'RESET '+lobby['world_id'],'rules':profile['text']}
     check(request('/api/admin/action',reset,key,True)[0],200)
     check(request('/api/view',token=auth['SpielerA'])[0],401)
-    assert request('/api/lobby')[1]['freie_plaetze']==20
+    assert request('/api/lobby')[1]['freie_plaetze']==20 and request('/api/lobby')[1]['freie_zugaenge']==4 and request('/api/lobby')[1]['wartende']==0
     new_lobby=request('/api/lobby')[1]
     s,new_profile=request('/api/admin/action',{'world_id':new_lobby['world_id'],'action':'rules_profile'},key,True);check(s,200)
     assert new_profile['hash']==preview['profile_hash']
-    print('PASS: HTTP login, private role contexts, two players, concurrent duplicate, ownership, exclusive roles, stop, admin isolation, CORS, bot monitoring, model reports, rule preview without mutation, invalid reset without backup, backup, durable restart and exact-profile reset.')
+    print('PASS: three-seat concurrent admission, private durable FIFO waitlist, cancellation, automatic promotion, reset limit persistence, HTTP login, private role contexts, two players, concurrent duplicate, ownership, exclusive roles, stop, admin isolation, CORS, bot monitoring, model reports, rule preview without mutation, invalid reset without backup, backup, durable restart and exact-profile reset.')
     print('Evidence directory:',DATA)
 finally:stop()
