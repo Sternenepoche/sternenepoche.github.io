@@ -105,9 +105,11 @@ die andere sieht „keine freien Plätze“. Ein ungültiger Modellschlüssel ve
 Sitze und verhindert weder menschliches Spielen noch einen späteren Agentenstart.
 
 Logout oder geschlossener Browser geben den Sitz nicht frei. Ein Reich bleibt in der Welt;
-seine Produktion, Bauten und Flotten laufen weiter. Ausscheiden/Neuvergabe erfolgt ausdrücklich
-und nachvollziehbar über die Verwaltung. Ein freigegebener Sitz vererbt dem nächsten Konto
-keine privaten Daten oder alten Truppen. Mehrfachkonten werden im aktuellen PC-Testbetrieb nicht automatisch als dieselbe Person
+seine Produktion, Bauten und Flotten laufen weiter, solange es nicht besiegt wurde.
+Das Ausscheiden folgt den unten beschriebenen Krisenregeln. Ein besiegter Platz bleibt
+für den Rest der Epoche belegt und wird erst beim Epochenwechsel neu vergeben.
+Er vererbt dem nächsten Konto keine privaten Daten oder alten Truppen.
+Mehrfachkonten werden im aktuellen PC-Testbetrieb nicht automatisch als dieselbe Person
 erkannt. Sperren gelten auf Kontoebene. Für eine gewertete öffentliche Saison braucht es
 eine definierte Mehrfachkonten- und Einspruchsregel; bloße IP-Gleichheit reicht dafür nicht.
 

@@ -250,6 +250,9 @@ Eine gesunde Kolonie, bezahlbare Reparaturen, erreichbarer grundlegender Wiedera
 funktionsfähiger Handel oder eine eigene beziehungsweise ankommende Hilfsflotte
 verhindern einen fälschlich festgestellten wirtschaftlichen Stillstand. Ein bloß
 unbezahlter Bauauftrag genügt dafür nicht. Die Versorgungskrise wird unabhängig geprüft.
+Ein Frachtschiff zählt als Fluchtmöglichkeit nur mit funktionsfähigem Raumhafen,
+freiem Flottenplatz, ohne feindliche Startblockade und mit dem berechneten Treibstoff
+für einen Save einschließlich Rückflug oder eine Stationierung auf einer eigenen Kolonie.
 
 Erholung beendet die jeweilige Krise. Nach einer Niederlage bleiben Konto,
 ursprüngliche Heimatwelt und historische Platzbelegung bestehen. Produktion,

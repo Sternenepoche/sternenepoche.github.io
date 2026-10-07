@@ -164,7 +164,7 @@ impl Welt {
         v
     }
 
-    fn blockiert_fuer(&self, pid: usize, sid: SpielerId) -> bool {
+    pub(crate) fn blockiert_fuer(&self, pid: usize, sid: SpielerId) -> bool {
         match self.planeten[pid].blockade {
             Some(bf) => self
                 .flotten
@@ -195,9 +195,9 @@ impl Welt {
         let pid = self.eigener_planet(sid, a.start)?;
         let p = &self.planeten[pid];
         let sp = &self.spieler[sid as usize];
-        if p.gebaeude[Gebaeude::Raumhafen.idx()] < 1 {
+        if p.gebaeude[Gebaeude::Raumhafen.idx()] < 1 || self.integritaet(pid, Gebaeude::Raumhafen) == 0 {
             return Err(format!(
-                "Flottenstart braucht einen Raumhafen auf {}",
+                "Flottenstart braucht einen funktionsfähigen Raumhafen auf {}",
                 a.start
             ));
         }

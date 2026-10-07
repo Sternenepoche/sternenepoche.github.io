@@ -196,3 +196,63 @@ fn reserved_seats_and_legacy_worlds_do_not_enter_crises() {
     w.ausscheiden_pruefen();
     assert!(!w.ausscheiden.erweitert());
 }
+
+#[test]
+fn stranded_cargo_ship_requires_a_real_launch_and_return_fuel() {
+    let mut w = world();
+    stranded(&mut w, 0);
+    let pid = w.spieler[0].heimat as usize;
+    let start = w.planeten[pid].koord;
+    let mut target = start;
+    target.position -= 1;
+    let e = Einheit::KleinerTransporter;
+    w.planeten[pid].einheiten[e.idx()] = 1;
+    w.planeten[pid].bestand[Gut::Deuterium.idx()] = 100 * M;
+    w.ausscheiden_pruefen();
+    assert_eq!(w.reich_status(0)["status"], "kritisch", "no spaceport");
+    w.planeten[pid].gebaeude[Gebaeude::Raumhafen.idx()] = 1;
+    w.planeten[pid].bestand[Gut::Deuterium.idx()] = M;
+    w.ausscheiden_pruefen();
+    assert_eq!(
+        w.reich_status(0)["status"],
+        "kritisch",
+        "one unit is insufficient"
+    );
+    let mut ships = [0; SCHIFFE];
+    ships[e.idx()] = 1;
+    let fuel = 2 * w.flugplan(0, pid, target, &ships, 100).unwrap().treibstoff;
+    w.planeten[pid].bestand[Gut::Deuterium.idx()] = fuel - 1;
+    w.ausscheiden_pruefen();
+    assert_eq!(w.reich_status(0)["status"], "kritisch");
+    w.planeten[pid].bestand[Gut::Deuterium.idx()] = fuel;
+    w.ausscheiden_pruefen();
+    assert_eq!(w.reich_status(0)["status"], "aktiv");
+    w.kolonisation
+        .integritaet
+        .insert((pid as u32, Gebaeude::Raumhafen), 0);
+    w.ausscheiden_pruefen();
+    assert_eq!(
+        w.reich_status(0)["status"],
+        "kritisch",
+        "destroyed spaceport"
+    );
+    w.kolonisation
+        .integritaet
+        .insert((pid as u32, Gebaeude::Raumhafen), 1000);
+    w.ausscheiden_pruefen();
+    assert!(w
+        .flotte_senden(
+            0,
+            Rolle::Alle,
+            kern::flotte::Flugauftrag {
+                start,
+                ziel: target,
+                mission: Mission::Saven,
+                schiffe: ships,
+                sigma_pm: 100,
+                ladung: [0; GUETER],
+                haltedauer: STUNDE,
+            }
+        )
+        .is_ok());
+}

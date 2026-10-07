@@ -127,6 +127,52 @@ impl Welt {
     }
     /// A finite closure over basic recovery steps. It includes reassignable workers,
     /// real repair costs, storage caps, fields and technical gates, not just today's rates.
+    fn frachter_abflug_moeglich(&self, pid: usize) -> bool {
+        let p = &self.planeten[pid];
+        let sid = p.besitzer;
+        if p.gebaeude[Gebaeude::Raumhafen.idx()] == 0
+            || self.integritaet(pid, Gebaeude::Raumhafen) == 0
+            || self.blockiert_fuer(pid, sid)
+            || self.flotten.values().filter(|f| f.besitzer == sid).count()
+                >= self.flottenplaetze(sid)
+        {
+            return false;
+        }
+        let dimensions = &self.regeln.welt;
+        let mut ziel = p.koord;
+        if dimensions.plaetze_je_system > 1 {
+            ziel.position = if ziel.position > 1 {
+                ziel.position - 1
+            } else {
+                2
+            };
+        } else if dimensions.systeme_je_sektor > 1 {
+            ziel.system = if ziel.system > 1 { ziel.system - 1 } else { 2 };
+        } else if dimensions.sektoren > 1 {
+            ziel.sektor = if ziel.sektor > 1 { ziel.sektor - 1 } else { 2 };
+        } else {
+            return false;
+        }
+        let fuel = self.bestand_jetzt(pid)[Gut::Deuterium.idx()];
+        Einheit::ALLE[..SCHIFFE].iter().any(|e| {
+            if self.regeln.einh(*e).ladung <= 0 || p.einheiten[e.idx()] <= 0 {
+                return false;
+            }
+            let mut ships = [0; SCHIFFE];
+            ships[e.idx()] = 1;
+            // A legal Save needs both directions; stationing on one's colony is one-way.
+            self.flugplan(sid, pid, ziel, &ships, 100)
+                .is_ok_and(|plan| fuel >= 2 * plan.treibstoff)
+                || self.spieler[sid as usize].planeten.iter().any(|id| {
+                    let target = self.planeten[*id as usize].koord;
+                    target != p.koord
+                        && !self.blockiert_fuer(*id as usize, sid)
+                        && self
+                            .flugplan(sid, pid, target, &ships, 100)
+                            .is_ok_and(|plan| fuel >= plan.treibstoff)
+                })
+        })
+    }
     fn wiederaufbau_moeglich(&self, pid: usize) -> bool {
         let p = &self.planeten[pid];
         let sp = &self.spieler[p.besitzer as usize];
@@ -137,11 +183,7 @@ impl Welt {
         {
             return true;
         }
-        if Einheit::ALLE[..SCHIFFE]
-            .iter()
-            .any(|e| r.einh(*e).ladung > 0 && p.einheiten[e.idx()] > 0)
-            && self.bestand_jetzt(pid)[Gut::Deuterium.idx()] >= M
-        {
+        if self.frachter_abflug_moeglich(pid) {
             return true;
         }
         if p.bauschleife.iter().any(|a| a.fertig.is_some())
