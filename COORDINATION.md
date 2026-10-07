@@ -10,6 +10,10 @@ Persistente FIFO-Warteliste: eigene Position/Präferenzen, Rückzug, private Adm
 automatisches Nachrücken bei Freigabeerhöhung; Neustart/Reset/Sperren sind getestet.
 `tailscale-spielzugang.ps1` verwaltet ausschließlich diese Freigabe, `start-server.ps1`
 liest private `public-url.txt`; Rust startet weiter manuell nach dem PC-Start.
+Ollama erlaubt jetzt zusätzlich die genaue TLS-Spiel-Origin. Vorige User-Origins sind
+privat gesichert; 54 Modelle erhalten. Neuer Helper `ollama-spielzugang.ps1` stoppt nur
+einen eindeutig erkannten lokalen Server ohne bestehende Verbindungen. Echte lokale
+JSON-Antwort mit dieser Origin geprüft; fremde Origin bleibt 403.
 
 ## Aktueller Auftrag: gemeinsame PC-Welt und VPS-Vorbereitung (7. Oktober 2026)
 

@@ -133,6 +133,21 @@ HTTPS-Spielansicht ist inzwischen geprüft; Pages-Zugriff auf MagicDNS-Adressen 
 dagegen ebenfalls lokale Browserfreigabe verlangen; lokales Ollama benötigt
 weiter seine eigene Freigabe. Es wurde keine Browser-Sicherheitswarnung umgangen.
 
+Auf Karls PC ist jetzt auch die genaue Tailscale-Spielwebsite in `OLLAMA_ORIGINS`
+freigegeben. Ollama bleibt auf `127.0.0.1:11434`, nicht im Funnel. Andere unbekannte
+Websites werden weiter mit 403 abgelehnt. Die vorhandenen 54 Modelle bleiben erhalten.
+Der idle Ollama-Server wurde dafür neu gestartet, die Ollama-App blieb geöffnet.
+Für andere Windows-Mitspieler oder nach Änderung der Spieladresse:
+
+```powershell
+.\ollama-spielzugang.ps1 -GameOrigin https://desktop-3dei636.taila4f584.ts.net -Restart
+```
+
+Das Script ergänzt genaue Origins, sichert die vorige Benutzereinstellung und stoppt
+nur einen eindeutig erkannten lokalen `ollama.exe serve` ohne bestehende Verbindungen.
+Es installiert keine Modelle und ändert keinen Modellspeicher. Ein Browser kann zusätzlich
+seine lokale Netzwerkfreigabe verlangen. [Ollama-Dokumentation zur Origin-Freigabe](https://docs.ollama.com/faq#how-can-i-allow-additional-web-origins-to-access-ollama).
+
 OpenRouter benötigt den Schlüssel des Spielers und den vollständigen Modellnamen.
 Aufruflimit und Tokenzähler begrenzen/zeigen Browseraktivität; sie sind **kein garantierter
 Gelddeckel**. Einen Gelddeckel beim Anbieter über den verwendeten Schlüssel setzen.
