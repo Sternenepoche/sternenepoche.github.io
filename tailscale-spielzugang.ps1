@@ -16,8 +16,8 @@ $url = 'https://' + $dnsName + $(if ($HttpsPort -ne 443) { ':' + $HttpsPort } el
 $target = 'http://127.0.0.1:8890'
 $config = (& $tailscale serve status --json | ConvertFrom-Json)
 if ($LASTEXITCODE -ne 0) { throw 'Tailscale-Konfiguration konnte nicht gelesen werden.' }
-$web = $config.Web.PSObject.Properties[$authority].Value
-$tcp = $config.TCP.PSObject.Properties[[string]$HttpsPort].Value
+$web = if ($config.Web) { $config.Web.PSObject.Properties[$authority].Value } else { $null }
+$tcp = if ($config.TCP) { $config.TCP.PSObject.Properties[[string]$HttpsPort].Value } else { $null }
 if ($tcp -or $web) {
     $handlers = @($web.Handlers.PSObject.Properties)
     if (!$tcp.HTTPS -or $handlers.Count -ne 1 -or $handlers[0].Name -ne '/' -or $handlers[0].Value.Proxy -ne $target) {
