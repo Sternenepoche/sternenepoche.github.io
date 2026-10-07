@@ -1,0 +1,28 @@
+// Verify timing semantics and production HTML, without a model call or live-world mutation.
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const code=fs.readFileSync('web-client/game-ui.js','utf8');
+const ctx=vm.createContext({performance:{now:()=>0}});
+vm.runInContext(code.split('// DOM bindings below.')[0]+';globalThis.clock=GameTime;',ctx);
+const c=ctx.clock;
+c.sync({sekunden:100,tempo:3,paused:false},1000);assert.equal(c.now(2000),103);
+assert.equal(c.now(61000),145,'a stale snapshot must not continue indefinitely');
+c.sync({sekunden:150,tempo:3,paused:true},1000);assert.equal(c.now(9000),150);
+c.sync({sekunden:100,tempo:2,paused:false},1000);c.disconnect(3000);assert.equal(c.now(9000),104);
+let j={fertig_sekunden:200,dauer_sekunden:100};assert.equal(c.job(j,150,100).progress,.5);
+assert.equal(c.job({...j,pausiert:true},180,150).progress,.5,'unrest must freeze the build');
+assert.equal(c.job({...j,wartet:true},180,150).progress,0);
+assert.equal(c.job(j,220,100).remaining,0);
+const research={fertig_sekunden:7200,punkte_gesamt:100,punkte_rest:100,rate:50,naechster_tick_sekunden:3600,begonnen_sekunden:1800};
+assert.equal(c.job(research,1800,1800).progress,0,'research started mid-hour must begin at zero');
+assert.equal(c.job(research,2700,1800).progress,.25);
+assert.equal(c.duration(3601),'01:00:01');
+let html=fs.readFileSync('web-client/index.html','utf8');let ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
+assert.equal(ids.length,new Set(ids).size,'duplicate IDs make live forms ambiguous');
+for(const tab of [...html.matchAll(/data-tab="([^"]+)"/g)])assert(ids.includes(tab[1]),'navigation target missing: '+tab[1]);
+assert.equal([...html.matchAll(/data-tab="/g)].length,17);
+assert(html.includes('minlength="12"'),'registration password policy regressed');
+const art=vm.createContext({window:{}});vm.runInContext(fs.readFileSync('web-client/art.js','utf8'),art);
+assert.equal(Object.keys(art.window.STERNEN_ART.images).length,402);
+for(const image of Object.values(art.window.STERNEN_ART.images))assert(fs.existsSync('web-client/'+image.url.split('?')[0]),image.url);
+assert(fs.readFileSync('web-client/game.css','utf8').includes('prefers-reduced-motion'));
+console.log('PASS: authoritative timer interpolation, pause, disconnect, stale cap, unrest, queue, 17 navigation targets, unique HTML IDs, 402 packaged assets and reduced motion.');

@@ -80,9 +80,9 @@ impl Welt {
                 self.tageswechsel();
                 self.plane(self.zeit + TAG, EreignisArt::Tag);
             }
-            EreignisArt::BauFertig { planet } => self.bau_fertig(planet as usize),
+            EreignisArt::BauFertig { planet } => {if self.spieler_aktiv(self.planeten[planet as usize].besitzer){self.bau_fertig(planet as usize)}},
             EreignisArt::FertigungFertig { planet, schleife } => {
-                self.fertigung_fertig(planet as usize, schleife as usize)
+                if self.spieler_aktiv(self.planeten[planet as usize].besitzer){self.fertigung_fertig(planet as usize, schleife as usize)}
             }
             EreignisArt::FlotteAnkunft { flotte } => self.flotte_ankunft(flotte),
             EreignisArt::FlotteRueckkehr { flotte } => self.flotte_rueckkehr(flotte),
@@ -102,13 +102,13 @@ impl Welt {
                 besitzer,
                 art,
                 anzahl,
-            } => self.raketen_fertig(planet as usize, besitzer, art, anzahl),
+            } => {if self.spieler_aktiv(besitzer){self.raketen_fertig(planet as usize, besitzer, art, anzahl)}},
             EreignisArt::RaketenAnkunft {
                 von,
                 ziel,
                 anzahl,
                 zieltyp,
-            } => self.raketen_ankunft(von, ziel, anzahl, zieltyp),
+            } => {if self.spieler_aktiv(von){self.raketen_ankunft(von, ziel, anzahl, zieltyp)}},
         }
     }
 
@@ -161,7 +161,7 @@ impl Welt {
         let mut faellig = Vec::new();
         for sid in &reihenfolge {
             let sp = &self.spieler[*sid as usize];
-            if !sp.ki || self.beendet() {
+            if !sp.ki || !self.spieler_aktiv(*sid) || self.beendet() {
                 continue;
             }
             for rolle in [
@@ -232,11 +232,32 @@ impl Welt {
             h.update(b"aufklaerung-online-v1");
             h.update(bincode::serialize(&self.aufklaerung).expect("Aufklärungszustand"));
         }
+        if self.ausscheiden.erweitert() {
+            h.update(b"ausscheiden-v1");
+            h.update(bincode::serialize(&self.ausscheiden).expect("Ausscheidestatus"));
+        }
         h.finalize().iter().map(|b| format!("{b:02x}")).collect()
     }
 
     /// Vollständiger Schnappschuss als Bytes.
     pub fn zu_bytes(&self) -> Vec<u8> {
+        let base=self.zu_bytes_v7();
+        if !self.ausscheiden.erweitert() {return base;}
+        let mut out=b"STERNEP8".to_vec();
+        out.extend_from_slice(&(base.len() as u64).to_le_bytes());out.extend(base);
+        out.extend(bincode::serialize(&self.ausscheiden).expect("Ausscheidestatus"));out
+    }
+    fn zu_bytes_v7(&self) -> Vec<u8> {
+        let base=self.zu_bytes_v6();
+        if !self.aufklaerung.neues_layout || (!self.planeten.iter().any(|p|p.bauschleife.iter().any(|a|a.dauer>0)) && !self.spieler.iter().any(|s|s.forschung_aktiv.as_ref().is_some_and(|a|a.begonnen.is_some()))){return base;}
+        let durations: Vec<Vec<i64>>=self.planeten.iter().map(|p|p.bauschleife.iter().map(|a|a.dauer).collect()).collect();
+        let mut out=b"STERNEP7".to_vec();
+        out.extend_from_slice(&(base.len() as u64).to_le_bytes());out.extend(base);
+        out.extend(bincode::serialize(&durations).expect("Bauzeiten"));
+        let research:Vec<Option<i64>>=self.spieler.iter().map(|s|s.forschung_aktiv.as_ref().and_then(|a|a.begonnen)).collect();
+        out.extend(bincode::serialize(&research).expect("Forschungsbeginn"));out
+    }
+    fn zu_bytes_v6(&self) -> Vec<u8> {
         let base = crate::snapshot_layout::with_layout(!self.aufklaerung.neues_layout, || self.zu_bytes_mit_scans());
         if !self.aufklaerung.neues_layout { return base; }
         let mut out = b"STERNEP6".to_vec();
@@ -281,6 +302,34 @@ impl Welt {
     }
 
     pub fn aus_bytes(b: &[u8]) -> Result<Welt, String> {
+        if b.starts_with(b"STERNEP8") {
+            let len=u64::from_le_bytes(b.get(8..16).ok_or("Snapshotkopf fehlt")?.try_into().unwrap()) as usize;
+            let end=16usize.checked_add(len).filter(|n|*n<=b.len()).ok_or("Snapshotlänge ungültig")?;
+            if !b[16..end].starts_with(b"STERNEP6") && !b[16..end].starts_with(b"STERNEP7") {return Err("V8 benötigt V6/V7-Basis".into());}
+            let mut w=Self::aus_bytes(&b[16..end])?;
+            w.ausscheiden=bincode::deserialize(&b[end..]).map_err(|e|e.to_string())?;
+            w.ausscheiden.validieren(&w)?;return Ok(w);
+        }
+        if b.starts_with(b"STERNEP7") {
+            let len=u64::from_le_bytes(b.get(8..16).ok_or("Snapshotkopf fehlt")?.try_into().unwrap()) as usize;
+            let end=16usize.checked_add(len).filter(|n|*n<=b.len()).ok_or("Snapshotlänge ungültig")?;
+            if !b[16..end].starts_with(b"STERNEP6"){return Err("V7 benötigt V6-Basis".into());}
+            let mut w=Self::aus_bytes(&b[16..end])?;
+            let mut timing=std::io::Cursor::new(&b[end..]);
+            let durations:Vec<Vec<i64>>=bincode::deserialize_from(&mut timing).map_err(|e|e.to_string())?;
+            if durations.len()!=w.planeten.len(){return Err("Bauzeiten passen nicht zu Planeten".into());}
+            for(p,d) in w.planeten.iter_mut().zip(durations){
+                if p.bauschleife.len()!=d.len() || d.iter().any(|n|*n<0){return Err("Ungültige Bauzeiten".into());}
+                for(a,n) in p.bauschleife.iter_mut().zip(d){a.dauer=n;}
+            }
+            // Optional appended extension: the earliest V7 snapshots only had building durations.
+            if timing.position()<(b.len()-end) as u64 {
+                let research:Vec<Option<i64>>=bincode::deserialize_from(&mut timing).map_err(|e|e.to_string())?;
+                if research.len()!=w.spieler.len() || research.iter().flatten().any(|n|*n<0||*n>w.zeit){return Err("Ungültiger Forschungsbeginn".into());}
+                for(s,begin) in w.spieler.iter_mut().zip(research){if let Some(a)=s.forschung_aktiv.as_mut(){a.begonnen=begin;}}
+            }
+            return Ok(w);
+        }
         if b.starts_with(b"STERNEP6") {
             let len = u64::from_le_bytes(b.get(8..16).ok_or("Snapshotkopf fehlt")?.try_into().unwrap()) as usize;
             let end = 16usize.checked_add(len).filter(|n|*n<=b.len()).ok_or("Snapshotlänge ungültig")?;

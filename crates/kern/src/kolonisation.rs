@@ -273,7 +273,7 @@ impl Welt {
                 let alt = self.integritaet(pid, g);
                 self.kolonisation
                     .integritaet
-                    .insert((pid as PlanetId, g), alt.min(300) as u16);
+                    .insert((pid as PlanetId, g), if self.aufklaerungsregeln(){(alt*300/1000) as u16}else{alt.min(300) as u16});
             }
         }
         self.kolonisation

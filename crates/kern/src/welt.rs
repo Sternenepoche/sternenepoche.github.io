@@ -73,6 +73,10 @@ pub struct Bauauftrag {
     pub stufe: u8,
     /// `None`: wartet auf Ressourcen oder auf den Auftrag davor.
     pub fertig: Option<SimZeit>,
+    /// Work duration captured when payment starts the job. Zero in older saves.
+    // Kept out of historical bincode layouts; V7 stores this UI timing extension.
+    #[serde(skip)]
+    pub dauer: SimZeit,
     pub topf: Option<Topf>,
 }
 
@@ -175,6 +179,9 @@ pub struct Forschungsauftrag {
     pub forschung: Forschung,
     pub stufe: u8,
     pub fp_rest: i64,
+    /// UI timing extension, excluded from historical base snapshot layouts.
+    #[serde(skip)]
+    pub begonnen: Option<SimZeit>,
 }
 
 #[derive(Clone, Debug, Default, Serialize, Deserialize)]
@@ -489,6 +496,8 @@ pub struct Tageswerte {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Welt {
     #[serde(skip)]
+    pub ausscheiden: crate::ausscheiden::AusscheidenZustand,
+    #[serde(skip)]
     pub aufklaerung: crate::aufklaerung::Aufklaerungszustand,
     #[serde(skip)]
     pub scans: BTreeMap<(SpielerId, Koord), crate::sternkarte::Scan>,
@@ -621,6 +630,7 @@ impl Welt {
         mischen(&mut rng, &mut voelker);
 
         let mut welt = Welt {
+            ausscheiden: Default::default(),
             aufklaerung: crate::aufklaerung::Aufklaerungszustand::neu(regeln.gebaeude.contains_key(&Gebaeude::Geheimdienst)),
             kolonisation: Default::default(),
             scans: Default::default(),
@@ -852,6 +862,7 @@ impl Welt {
     }
 
     pub fn eigener_planet(&self, sid: SpielerId, k: Koord) -> Result<usize, String> {
+        if self.ist_besiegt(sid) {return Err("Reich besiegt; keine weiteren Spielaktionen".into());}
         if self.aufklaerungsregeln() {
             return self.spieler[sid as usize].planeten.iter().copied().find(|pid|self.planeten[*pid as usize].koord==k)
                 .map(|pid|pid as usize).ok_or_else(||format!("{k} ist kein eigener Planet"));

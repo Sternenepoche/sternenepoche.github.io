@@ -286,6 +286,11 @@ impl Welt {
             if v.art != Vertragsart::Tribut || v.status != Vertragsstatus::Aktiv {
                 continue;
             }
+            if !self.spieler_aktiv(v.a) || !self.spieler_aktiv(v.b) {
+                self.vertraege[i].status=Vertragsstatus::Beendet;
+                self.kautionen_zurueck(i);
+                continue;
+            }
             if jetzt > v.tribut_bis {
                 self.vertraege[i].status = Vertragsstatus::Beendet;
                 self.kautionen_zurueck(i);

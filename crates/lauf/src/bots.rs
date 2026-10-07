@@ -1157,7 +1157,7 @@ fn kolonisieren(welt: &mut Welt, sid: SpielerId) {
 
 /// Ein Zug eines Bots im aktuellen Fenster.
 pub fn zug(welt: &mut Welt, sid: SpielerId, bot: &mut Bot) {
-    if welt.zeit < bot.naechster || welt.beendet() {
+    if welt.zeit < bot.naechster || welt.beendet() || !welt.spieler_aktiv(sid) {
         return;
     }
     bot.naechster = welt.zeit + TAKT;

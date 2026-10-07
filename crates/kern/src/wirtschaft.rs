@@ -447,6 +447,7 @@ impl Welt {
             self.bau_starten(pid);
         }
         self.eroberung_pruefen();
+        self.ausscheiden_pruefen();
         self.punkte_neu();
     }
 
@@ -638,6 +639,7 @@ impl Welt {
             gebaeude: g,
             stufe: ziel,
             fertig: None,
+            dauer: 0,
             topf,
         });
         self.planeten[pid].leer_gemeldet = false;
@@ -674,7 +676,9 @@ impl Welt {
             return;
         }
         self.zahlen(pid, &kosten, kopf.topf);
-        let fertig = self.zeit + self.bauzeit(pid, &kosten);
+        let dauer = self.bauzeit(pid, &kosten);
+        let fertig = self.zeit + dauer;
+        self.planeten[pid].bauschleife[0].dauer = dauer;
         self.planeten[pid].bauschleife[0].fertig = Some(fertig);
         let id = self.planeten[pid].id;
         self.plane(fertig, EreignisArt::BauFertig { planet: id });
@@ -1050,6 +1054,7 @@ impl Welt {
             forschung: f,
             stufe,
             fp_rest,
+            begonnen: Some(self.zeit),
         });
         Ok(())
     }

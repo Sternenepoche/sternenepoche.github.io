@@ -21,7 +21,7 @@ impl Game {
             let failures=trace.iter().rev().take_while(|v|v["ok"]==false).count();let p=&self.world.planeten[pid];
             let problems=[(p.energie_erzeugung<p.energie_verbrauch,"Energie fehlt"),(p.rate[Gut::Nahrung.idx()]<0,"Nahrungsbestand sinkt"),
                 (s.credits<0,"Credits negativ"),(failures>=3,"Mehrere Befehle hintereinander abgelehnt")].into_iter().filter(|(yes,_)|*yes).map(|(_,text)|text).collect::<Vec<_>>();
-            json!({"spieler":sid,"probleme":problems,"diagnose":lauf::bots::bau_diagnose(&self.world,*sid,pid,b.typ),"verlauf":trace,
+            json!({"spieler":sid,"reich_status":self.world.reich_status(*sid),"probleme":if self.world.ist_besiegt(*sid){vec!["Besiegt; für diese Epoche gestoppt"]}else{problems},"diagnose":if self.world.ist_besiegt(*sid){"Keine weiteren Botaktionen nach dem Ausscheiden".into()}else{lauf::bots::bau_diagnose(&self.world,*sid,pid,b.typ)},"verlauf":trace,
                 "letzter_erfolg":trace.iter().rev().find(|v|v["ok"]==true),"kolonien":s.planeten.len(),"forschung":s.forschung.iter().map(|n|*n as u32).sum::<u32>()})
         }).collect::<Vec<_>>();
         let latest=std::fs::read_dir(self.data_root.join("backups")).ok().into_iter().flatten().filter_map(Result::ok).filter_map(|e|e.metadata().ok().and_then(|m|m.modified().ok().map(|t|(t,e.file_name().to_string_lossy().into_owned())))).max_by_key(|(t,_)|*t).map(|(_,name)|name);

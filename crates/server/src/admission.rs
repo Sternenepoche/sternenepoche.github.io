@@ -14,7 +14,7 @@ impl Game {
     pub fn me(&self, a: &Account) -> Value {
         let waiting = self.runtime.waitlist.iter().enumerate().find(|(_, w)| w.account == a.id)
             .map(|(i, w)| json!({"position":i+1,"mode":w.mode,"volk":w.volk,"seit":w.joined}));
-        json!({"name":a.name,"mode":a.mode,"spieler":a.sid,"world_id":self.runtime.world_id,"warteliste":waiting})
+        json!({"name":a.name,"mode":a.mode,"spieler":a.sid,"world_id":self.runtime.world_id,"warteliste":waiting,"reich_status":a.sid.map(|sid|self.world.reich_status(sid))})
     }
     pub(crate) fn available_admissions(&self) -> usize {
         let inactive = self.world.aufklaerung.inaktive_spieler.len();

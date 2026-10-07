@@ -204,6 +204,17 @@ Spielstand und Botstrategie ziehen mit der Datenbank um; Agenten werden neu gest
 
 ## Nachweise
 
+### Spielstandkompatibilität ab 8. Oktober 2026
+
+Der Server liest bestehende V6-Spielstände weiter. Exakte Bauzeiten und der Beginn
+laufender Forschungen werden in einer V7-Erweiterung gespeichert; der unveränderte
+V6-Kern bleibt darin eingebettet. Krisen, Niederlagen und geänderte Rettungsfristen
+liegen zusätzlich in einer V8-Erweiterung; V6 und V7 werden weiterhin gelesen.
+Dafür ist kein Weltreset nötig. Vor dem Update
+ein Datenbankbackup erstellen. Ältere Serverversionen können die neue Erweiterung
+nicht lesen: Ein Rückwechsel erfordert das passende Backup und verliert dann alle
+Spielaktionen seit dessen Erstellung.
+
 ```powershell
 cargo test --workspace --release --offline
 python tools/online_smoke.py
@@ -227,3 +238,36 @@ Der Lauf verändert keine bestehende Welt und schreibt alle 30 Spieltage einen D
 Die Verwaltungsansicht zeigt Versorgungsprobleme als Hinweise; fallende Nahrung während
 eines Ausbaus ist kein Beweis für einen defekten Bot. Fehler sind mit Befehlsverlauf,
 Beständen und nächstem Zug zusammen zu beurteilen.
+
+### Ausscheiden und Epochenwechsel
+
+Im Dashboard sind zwei Rettungsfristen von 1 bis 720 **Spielstunden** einstellbar.
+Standard sind 72 Stunden für durchgehend weniger als 50 Prozent lebensnotwendige
+Versorgung auf allen bewohnten eigenen Planeten und 48 Stunden für eine nicht
+wiederanlaufbare Rohstoffwirtschaft. Bei Syntheten zählt Energie statt Nahrung.
+Pausieren hält diese Fristen an; das Tempo beschleunigt sie wie die übrige Spielzeit.
+Eine gesunde Kolonie, bezahlbare Reparaturen, erreichbarer grundlegender Wiederaufbau,
+funktionsfähiger Handel oder eine eigene beziehungsweise ankommende Hilfsflotte
+verhindern einen fälschlich festgestellten wirtschaftlichen Stillstand. Ein bloß
+unbezahlter Bauauftrag genügt dafür nicht. Die Versorgungskrise wird unabhängig geprüft.
+
+Erholung beendet die jeweilige Krise. Nach einer Niederlage bleiben Konto,
+ursprüngliche Heimatwelt und historische Platzbelegung bestehen. Produktion,
+Befehle, Bau-/Forschungsaufträge, Bots und Agenten stoppen dauerhaft für diese Epoche.
+Auch eine spätere Lieferung hebt eine Niederlage nicht auf. Die ausgegraute Heimatwelt
+bleibt gegen Kolonisation und Übernahme geschützt; andere Kolonien bleiben eroberbar.
+Ein besiegter Platz wird nicht an die Warteliste neu vergeben. Erst ein vorbereiteter
+Epochenreset löscht Niederlagen und Krisen; die eingestellten Rettungsfristen bleiben erhalten.
+
+Für einen kontrollierten Browsernachweis ein **neues, noch nicht vorhandenes**
+Datenverzeichnis verwenden:
+
+```powershell
+cargo run -p sternenepoche-server --example defeat_demo --release --offline -- laeufe/meine-neue-ausscheiden-pruefung
+```
+
+Die getrennte Prüfwelt enthält `UiNotstand` und `UiRettung` mit dem Testpasswort
+`nur-ein-test-passwort`. Sie startet pausiert, mit Tempo 60 und einer Stunde Frist.
+`UiRettung` kann sich durch den Bau einer Farm retten; `UiNotstand` hat keine
+wiederherstellbare Wirtschaft. Dieses Werkzeug verweigert vorhandene Verzeichnisse
+und darf niemals für das öffentliche Datenverzeichnis gestartet werden.

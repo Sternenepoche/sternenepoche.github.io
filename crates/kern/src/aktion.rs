@@ -344,6 +344,7 @@ impl Welt {
         if sid as usize >= self.spieler.len() {
             return (false, "Spieler existiert nicht".into());
         }
+        if self.ist_besiegt(sid) { return (false, "Reich besiegt; bis zur nächsten Epoche nur noch zuschauen".into()); }
         if !self.spieler_aktiv(sid) { return (false, "Startplatz noch nicht belegt".into()); }
         if self.beendet() {
             return (

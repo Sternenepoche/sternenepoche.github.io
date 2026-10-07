@@ -9,6 +9,7 @@ impl Welt {
         let r = self.regeln.clone();
         let einheit = r.wertung.einheit * M;
         for sid in 0..self.spieler.len() {
+            if self.ist_besiegt(sid as SpielerId) {continue;}
             if !self.spieler_aktiv(sid as SpielerId) {
                 self.spieler[sid].punkte = Punkte::default(); self.spieler[sid].rang = 0; continue;
             }
@@ -38,9 +39,9 @@ impl Welt {
             };
             self.spieler[sid].punkte = punkte;
         }
-        let mut ordnung: Vec<(i64, SpielerId)> = self.spieler.iter().filter(|s|self.spieler_aktiv(s.id)).map(|s| (-s.punkte.gesamt(), s.id)).collect();
+        let mut ordnung: Vec<(bool, i64, SpielerId)> = self.spieler.iter().filter(|s|!self.aufklaerung.inaktive_spieler.contains(&s.id)).map(|s| (self.ist_besiegt(s.id), -s.punkte.gesamt(), s.id)).collect();
         ordnung.sort();
-        for (rang, (_, sid)) in ordnung.iter().enumerate() {
+        for (rang, (_, _, sid)) in ordnung.iter().enumerate() {
             self.spieler[*sid as usize].rang = rang as u16 + 1;
         }
     }
@@ -48,7 +49,7 @@ impl Welt {
     /// Rangliste: Name, Gesamtpunkte, Stufe, nach Rang sortiert.
     pub fn rangliste(&self) -> Vec<(u16, String, i64, u8)> {
         let mut v: Vec<(u16, String, i64, u8)> =
-            self.spieler.iter().filter(|s|self.spieler_aktiv(s.id)).map(|s| (s.rang, s.name.clone(), s.punkte.gesamt(), s.stufe)).collect();
+            self.spieler.iter().filter(|s|!self.aufklaerung.inaktive_spieler.contains(&s.id)).map(|s| (s.rang, s.name.clone(), s.punkte.gesamt(), s.stufe)).collect();
         v.sort();
         v
     }

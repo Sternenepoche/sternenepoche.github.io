@@ -265,6 +265,7 @@ impl Game {
                 if g.runtime.bots_enabled {
                     let sids:Vec<_>=g.runtime.bots.keys().copied().collect();
                     for sid in sids {
+                        if !g.world.spieler_aktiv(sid) {continue;}
                         let bot=g.runtime.bots.get_mut(&sid).unwrap();
                         let due = bot.naechster <= g.world.zeit;
                         let prev = g.world.spieler[sid as usize].statistik.clone();
@@ -281,7 +282,7 @@ impl Game {
                 g.world.log_abholen();
                 if g.world.zeit % STUNDE == 0 {g.record_public_history();}
             }
-            g.runtime.leases.retain(|_, l| l.until > now());
+            g.runtime.leases.retain(|sid, l| l.until > now() && g.world.spieler_aktiv(*sid));
             Ok(json!({"sekunden":g.world.zeit}))
         })
     }
@@ -370,7 +371,7 @@ impl Game {
     pub fn lobby(&self) -> Value {
         json!({"api_version":API_VERSION,"world_id":self.runtime.world_id,"revision":self.runtime.revision,"sekunden":self.world.zeit,
           "paused":self.runtime.paused,"tempo":self.runtime.tempo,"beendet":self.world.beendet(),"bots":BOT_COUNT,"freie_plaetze":self.world.aufklaerung.inaktive_spieler.len(),"plaetze":SEATS,"freigegebene_plaetze":self.runtime.admission_limit,"freie_zugaenge":self.available_admissions(),"wartende":self.runtime.waitlist.len(),
-            "rangliste":self.world.rangliste(),"regeln":self.world.regeln.version,"maintenance":self.runtime.maintenance,
+            "rangliste":self.world.rangliste(),"ausgeschiedene":self.world.ausgeschiedene(),"aktive_reiche":self.world.spieler.iter().filter(|sp|self.world.spieler_aktiv(sp.id)).count(),"ausscheiden_regeln":self.world.ausscheiden.regeln,"regeln":self.world.regeln.version,"maintenance":self.runtime.maintenance,
             "epoche_tage":self.world.regeln.welt.epoche_tage,"verlauf":self.runtime.public_history.iter().rev().take(48).cloned().collect::<Vec<_>>()})
     }
     fn sid(a: &Account) -> Result<SpielerId, (u16, String)> {
@@ -420,6 +421,7 @@ impl Game {
                 g.runtime.leases.remove(&sid);
                 return Ok(json!({"stopped":true}));
             }
+            if !g.world.spieler_aktiv(sid) {return Err(err(409,"Reich besiegt; bis zur nächsten Epoche nur zuschauen"));}
             if action == "heartbeat" {
                 let l = g
                     .runtime
@@ -487,6 +489,7 @@ impl Game {
         if self.runtime.paused || self.world.beendet() {
             return Err(err(409, "Welt angehalten oder beendet"));
         }
+        if !self.world.spieler_aktiv(sid) {return Err(err(409,"Reich besiegt; bis zur nächsten Epoche nur zuschauen"));}
         let actions = v["aktionen"]
             .as_array()
             .filter(|a| a.len() <= 8 && (!a.is_empty() || v.get("lease").is_some()))
@@ -564,8 +567,9 @@ impl Game {
         })
     }
     pub fn admin_status(&self) -> Value {
-        let accounts=self.db.prepare("SELECT id,name,sid,mode,banned FROM accounts ORDER BY id").and_then(|mut s|s.query_map([],|r|Ok(json!({"id":r.get::<_,i64>(0)?,"name":r.get::<_,String>(1)?,"spieler":r.get::<_,Option<u16>>(2)?,"mode":r.get::<_,String>(3)?,"banned":r.get::<_,bool>(4)?})))?.collect::<Result<Vec<_>,_>>()).unwrap_or_default();
-        let bots=self.runtime.bots.iter().map(|(sid,b)|{let s=&self.world.spieler[*sid as usize];json!({"spieler":sid,"name":s.name,"typ":b.typ,"naechster":b.naechster,"aktionen":s.statistik.aktionen,"abgelehnt":s.statistik.abgelehnt,"stufe":s.stufe,"punkte":s.punkte.gesamt()})}).collect::<Vec<_>>();
+        let mut accounts=self.db.prepare("SELECT id,name,sid,mode,banned FROM accounts ORDER BY id").and_then(|mut s|s.query_map([],|r|Ok(json!({"id":r.get::<_,i64>(0)?,"name":r.get::<_,String>(1)?,"spieler":r.get::<_,Option<u16>>(2)?,"mode":r.get::<_,String>(3)?,"banned":r.get::<_,bool>(4)?})))?.collect::<Result<Vec<_>,_>>()).unwrap_or_default();
+        for a in &mut accounts {a["reich_status"]=a["spieler"].as_u64().map(|sid|self.world.reich_status(sid as u16)).unwrap_or(Value::Null);}
+        let bots=self.runtime.bots.iter().map(|(sid,b)|{let s=&self.world.spieler[*sid as usize];json!({"spieler":sid,"name":s.name,"typ":b.typ,"naechster":b.naechster,"aktionen":s.statistik.aktionen,"abgelehnt":s.statistik.abgelehnt,"stufe":s.stufe,"punkte":s.punkte.gesamt(),"reich_status":self.world.reich_status(*sid)})}).collect::<Vec<_>>();
         let db_bytes = ["spiel.sqlite3", "spiel.sqlite3-wal", "spiel.sqlite3-shm"]
             .iter()
             .map(|p| {
@@ -604,6 +608,8 @@ impl Game {
             "paused",
             "bots_enabled",
             "bot_period_secs",
+            "versorgung_stunden",
+            "stillstand_stunden",
             "epoche_tage",
             "credits",
             "bestand",
@@ -645,6 +651,12 @@ impl Game {
             "map"|"events"|"audit"|"rules_profile"|"rules_validate"|"reset_preview"=>self.admin_read(v),
             "backup"=>Ok(json!({"backup":self.backup()?.file_name().unwrap().to_string_lossy()})),
             "settings"=>self.transaction(|g| {
+                for field in ["versorgung_stunden","stillstand_stunden"] {
+                    if let Some(value)=v.get(field) {
+                        let n=value.as_i64().filter(|n|(1..=720).contains(n)).ok_or_else(||err(400,"Rettungsfristen zwischen 1 und 720 Spielstunden"))?;
+                        if field=="versorgung_stunden" {g.world.ausscheiden.regeln.versorgung_stunden=n;}else{g.world.ausscheiden.regeln.stillstand_stunden=n;}
+                    }
+                }
                 if let Some(n)=v["tempo"].as_u64(){if !(1..=3600).contains(&n){return Err(err(400,"Tempo zwischen 1 und 3600"));}g.runtime.tempo=n as u32;}
                 if let Some(value)=v.get("admission_limit"){let n=value.as_u64().filter(|n|*n<=SEATS as u64).ok_or_else(||err(400,"Freigabe zwischen 0 und 20"))?;g.runtime.admission_limit=n as u16;}
                 if let Some(p)=v["paused"].as_bool(){g.runtime.paused=p;}
@@ -686,8 +698,9 @@ impl Game {
                 if v["confirm"].as_str()!=Some(&format!("RESET {}",self.runtime.world_id)){return Err(err(400,"Resetbestätigung passt nicht zur aktuellen Welt"));}
                 let seed=v["seed"].as_u64().unwrap_or_else(||OsRng.next_u64());
                 let rules=self.validated_profile(v)?;
-                let (world,mut runtime)=fresh(seed,&rules).map_err(|e|err(400,&e))?;
+                let (mut world,mut runtime)=fresh(seed,&rules).map_err(|e|err(400,&e))?;
                 runtime.admission_limit=self.runtime.admission_limit;
+                world.ausscheiden.regeln=self.world.ausscheiden.regeln.clone();
                 let backup=self.backup()?;
                 self.transaction(move |g| {g.world=world;g.runtime=runtime;
                     g.db.execute_batch("UPDATE accounts SET sid=NULL,mode='zuschauer'; DELETE FROM sessions; DELETE FROM commands;").map_err(|_|err(503,"Reset nicht gespeichert"))?;

@@ -81,7 +81,9 @@ impl Welt {
             .bauschleife
             .iter()
             .map(|a| match a.fertig {
-                Some(t) => json!({"gebaeude": a.gebaeude.name(), "stufe": a.stufe, "rest_min": (t - jetzt).max(0) / 60}),
+                Some(t) => json!({"gebaeude": a.gebaeude.name(), "stufe": a.stufe, "rest_min": (t - jetzt).max(0) / 60,
+                    "fertig_sekunden":t,"dauer_sekunden":if a.dauer>0{a.dauer}else{self.bauzeit(pid,&r.kosten_gebaeude(a.gebaeude,a.stufe))},
+                    "pausiert":p.stabilitaet<milli(r.stabilitaet.unruhen_unter)}),
                 None => json!({"gebaeude": a.gebaeude.name(), "stufe": a.stufe, "wartet": true}),
             })
             .collect();
@@ -97,7 +99,8 @@ impl Welt {
                 } else {
                     f.dauer / 60
                 };
-                fertigung.push(json!({"schleife": name, "produkt": was, "rest": f.rest, "naechstes_in_min": naechstes}));
+                fertigung.push(json!({"schleife": name, "produkt": was, "rest": f.rest, "naechstes_in_min": naechstes,
+                    "wartet":j>0,"fertig_sekunden":if j==0{Some(p.fertigung_naechste[i])}else{None},"dauer_sekunden":f.dauer}));
             }
         }
         // Nächste Stufe jedes Gebäudes, das hier je gebaut werden kann, mit Kosten, Bauzeit und dem, was noch
@@ -174,7 +177,7 @@ impl Welt {
             }
             .filter(|(m, _)| *m > 0)
             .map(|(m, art)| json!({"plus": ganz(m), "art": art}));
-            baubar.push(json!({"gebaeude": g.name(), "stufe": naechste, "kosten": gueter(&k, false), "bauzeit_min": self.bauzeit(pid, &k) / 60,
+            baubar.push(json!({"gebaeude": g.name(), "stufe": naechste, "kosten": gueter(&k, false), "bauzeit_min": self.bauzeit(pid, &k) / 60, "bauzeit_sekunden":self.bauzeit(pid,&k),
                 "fehlt": fehlt, "braucht": braucht, "ertrag": ertrag, "strom_plus": ganz(plus(gr.energie)),
                 "arbeiter_plus": ganz(plus(gr.arbeiter)), "fachkraefte_plus": ganz(plus(gr.fachkraefte)), "kostenfaktor": gr.faktor}));
         }
@@ -252,8 +255,8 @@ impl Welt {
         let sp = &self.spieler[sid as usize];
         let anzahl = self.kolonien(sid);
         let ab = r.einh(Einheit::Kolonieschiff).ab_stufe;
-        // Erst eine Stufe vor dem Kolonieschiff, damit frühe Lagebilder kurz bleiben.
-        if anzahl >= r.wirtschaft.kolonien_max as usize || sp.stufe + 1 < ab {
+        // Auch junge Reiche sollen ihren vollständigen Weg zur Kolonie planen können.
+        if anzahl >= r.wirtschaft.kolonien_max as usize {
             return json!([]);
         }
         let planeten: Vec<usize> = sp.planeten.iter().map(|&p| p as usize).collect();
@@ -627,13 +630,18 @@ impl Welt {
             .map(|e| {
                 let er = r.einh(*e);
                 json!({"einheit": e.name(), "schiff": e.ist_schiff(), "kosten": gueter(&r.kosten_einheit(*e, sp.volk), false),
+                    "bauzeit_je_planet_sekunden":sp.planeten.iter().map(|pid| (self.planeten[*pid as usize].koord.to_string(),self.fertigungszeit(*pid as usize,&r.kosten_einheit(*e,sp.volk),0))).collect::<std::collections::BTreeMap<_,_>>(),
                     "werft": er.werft, "braucht": er.braucht.iter().map(|(b, st)| format!("{b} {st}")).collect::<Vec<_>>()})
             })
             .collect();
         let forschung = json!({
             "stufen": stufen(&Forschung::ALLE, &sp.forschung),
             "aktiv": sp.forschung_aktiv.as_ref().map(|a| json!({"forschung": a.forschung.name(), "stufe": a.stufe,
-                "rest_stunden": if fp > 0 { json!((a.fp_rest + fp - 1) / fp) } else { Value::Null }})),
+                "rest_stunden": if fp > 0 { json!((a.fp_rest + fp - 1) / fp) } else { Value::Null },
+                "punkte_rest":a.fp_rest,"punkte_gesamt":r.fp_forschung(a.forschung,a.stufe),"rate":fp,
+                "begonnen_sekunden":a.begonnen,
+                "naechster_tick_sekunden":(self.zeit/STUNDE+1)*STUNDE,
+                "fertig_sekunden":if fp>0{Some((self.zeit/STUNDE+(a.fp_rest+fp-1)/fp)*STUNDE)}else{None}})),
             "schlange": sp.forschung_schlange.iter().map(|(f, _, _)| f.name()).collect::<Vec<_>>(),
             "punkte_je_stunde": ganz(fp),
             "moeglich": forschung_moeglich,
@@ -687,6 +695,8 @@ impl Welt {
             "tag": jetzt / TAG + 1,
             "epoche_tage": r.welt.epoche_tage,
             "name": sp.name,
+            "reich_status": self.reich_status(sid),
+            "ausgeschiedene": self.ausgeschiedene(),
             "volk": sp.volk.name(),
             "rolle": rolle.name(),
             "stufe": sp.stufe,
@@ -888,10 +898,11 @@ impl Welt {
                     let stufe = b.forschung.as_ref().map(|t| t[f.idx()]).unwrap_or(sp.forschung[f.idx()]);
                     1.0 + r.kampf.tech_je_stufe * stufe as f64
                 };
-                let v = Gruppe::mit_werten(r, b.besitzer, vert, tech(Forschung::Waffentechnik), tech(Forschung::Schildtechnik), tech(Forschung::Panzerung));
+                let volk_v = self.spieler[b.besitzer as usize].volk;
+                let v = Gruppe::mit_werten(r, b.besitzer, vert, tech(Forschung::Waffentechnik)*r.volk(volk_v).waffen, tech(Forschung::Schildtechnik), tech(Forschung::Panzerung)*r.volk(volk_v).panzerung);
                 let laeufe = r.kampf.simulator_laeufe.max(1);
                 let (mut siege, mut patt, mut verlust_a, mut verlust_v) = (0u32, 0u32, 0i64, 0i64);
-                let wert = |e: usize, n: i64| n * r.wert(&r.kosten_einheit(Einheit::ALLE[e], sp.volk));
+                let wert = |e: usize, n: i64, volk:Volk| n * r.wert(&r.kosten_einheit(Einheit::ALLE[e], volk));
                 for i in 0..laeufe {
                     let mut rng = strom(self.startwert, KANAL_SIMULATOR, (self.zeit as u64) << 20 | (sid as u64) << 8 | i as u64);
                     let erg = kampf(r, std::slice::from_ref(&a), std::slice::from_ref(&v), &mut rng);
@@ -901,8 +912,8 @@ impl Welt {
                         Sieger::Verteidiger => {}
                     }
                     for e in 0..EINHEITEN {
-                        verlust_a += wert(e, ang[e] - erg.angreifer[0][e]);
-                        verlust_v += wert(e, vert[e] - erg.verteidiger[0][e]);
+                        verlust_a += wert(e, ang[e] - erg.angreifer[0][e], sp.volk);
+                        verlust_v += wert(e, vert[e] - erg.verteidiger[0][e], volk_v);
                     }
                 }
                 let quote = r.volk(sp.volk).pluenderquote.unwrap_or(r.kampf.pluenderquote);

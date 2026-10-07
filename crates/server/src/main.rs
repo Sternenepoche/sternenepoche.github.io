@@ -15,6 +15,8 @@ use sternenepoche_server::{
     digest, now, password_hash, password_matches, token, Game, Reply, API_VERSION,
 };
 use tiny_http::{Header, Method, Request, Response, Server};
+mod public_catalog;
+mod web_assets;
 
 struct Config {
     bind: String,
@@ -75,7 +77,8 @@ fn header(req: &Request, name: &'static str) -> String {
 }
 fn answer(req: Request, status: u16, body: Vec<u8>, mime: &str, origin: &str) {
     let mut r = Response::from_data(body).with_status_code(status);
-    for (k,v) in [("Content-Type",mime),("Cache-Control","no-store"),("X-Content-Type-Options","nosniff"),("Referrer-Policy","no-referrer"),("Cross-Origin-Resource-Policy","same-site"),
+    let cache=if status==200 && mime=="image/webp"{"public, max-age=86400"}else{"no-store"};
+    for (k,v) in [("Content-Type",mime),("Cache-Control",cache),("X-Content-Type-Options","nosniff"),("Referrer-Policy","no-referrer"),("Cross-Origin-Resource-Policy","same-site"),
       ("Content-Security-Policy","default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https: http://127.0.0.1:* http://localhost:*; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'")] {r.add_header(Header::from_bytes(k,v).unwrap());}
     if !origin.is_empty() {
         r.add_header(Header::from_bytes("Access-Control-Allow-Origin", origin).unwrap());
@@ -212,6 +215,9 @@ fn serve(
                 "text/javascript; charset=utf-8",
             )),
             (false,"/presentation.js")=>Some((include_bytes!("../../../web-client/presentation.js").as_slice(),"text/javascript; charset=utf-8")),
+            (false,"/game-ui.js")=>Some((include_bytes!("../../../web-client/game-ui.js").as_slice(),"text/javascript; charset=utf-8")),
+            (false,"/game.css")=>Some((include_bytes!("../../../web-client/game.css").as_slice(),"text/css; charset=utf-8")),
+            (false,"/art.js")=>Some((include_bytes!("../../../web-client/art.js").as_slice(),"text/javascript; charset=utf-8")),
             (_, "/style.css") => Some((
                 include_bytes!("../../../web-client/style.css").as_slice(),
                 "text/css; charset=utf-8",
@@ -225,6 +231,7 @@ fn serve(
                 include_bytes!("../../../web-client/admin/admin.js").as_slice(),
                 "text/javascript; charset=utf-8",
             )),
+            (false,p) => web_assets::get(p),
             _ => None,
         };
         if let Some((bytes, mime)) = asset {
@@ -339,7 +346,7 @@ fn serve(
         match (method, path.as_str()) {
             (Method::Get, "/api/lobby") | (Method::Get, "/api/health") => Ok(g.lobby()),
             (Method::Get, "/api/rules") => Ok(
-                json!({"api_version":API_VERSION,"schema":kern::aktion::antwortschema(Rolle::Alle),"volk":VolkNames::values(),"text":kern::regeltext::regeltext(&g.world.regeln,Rolle::Alle)}),
+                json!({"api_version":API_VERSION,"schema":kern::aktion::antwortschema(Rolle::Alle),"volk":VolkNames::values(),"catalog":public_catalog::catalog(&g.world.regeln),"text":format!("{}\n{}\n{}",kern::regeltext::regeltext(&g.world.regeln,Rolle::Alle),kern::kolonisation::REGELTEXT_V2,kern::ausscheiden::REGELTEXT)}),
             ),
             (method, path) => {
                 match g.authenticate(&raw) {

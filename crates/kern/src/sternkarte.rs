@@ -44,6 +44,7 @@ impl Welt {
             v["status"]=json!("eigen"); v["bekannt"]=json!(true);
             v["spieler"]=json!(self.spieler[sid as usize].name);
             v["felder"]=json!(p.felder); v["zone"]=json!(p.zone.name());
+            v["heimat"]=json!(p.heimat);v["besiegt"]=json!(self.ist_besiegt(sid));
             return v;
         }
         if let Some(s) = self.scans.get(&(sid,k)) {
@@ -53,11 +54,12 @@ impl Welt {
             v["ertrag_promille"]=json!({"erz":s.erz,"kristall":s.kristall});
             v["bestand_spannen"]=json!(Gut::ALLE.iter().zip(&s.bestand).map(|(g,b)|(g.name(),b)).collect::<std::collections::BTreeMap<_,_>>());
             v["status"]=json!(match s.besitzer {None=>"frei",Some(owner) if self.verbuendet(sid,owner)=>"freund",Some(_)=>"feind"});
-            if let Some(owner)=s.besitzer { v["spieler"]=json!(self.spieler[owner as usize].name); }
+            if let Some(owner)=s.besitzer { v["spieler"]=json!(self.spieler[owner as usize].name);v["besiegt"]=json!(self.ist_besiegt(owner));v["heimat"]=json!(self.planeten[self.spieler[owner as usize].heimat as usize].koord==k); }
         } else if let Some(b)=self.spieler[sid as usize].berichte.iter().find(|b|b.ziel==k) {
             v["bekannt"]=json!(true); v["spieler"]=json!(self.spieler[b.besitzer as usize].name);
             v["status"]=json!(if self.verbuendet(sid,b.besitzer){"freund"}else{"feind"});
             v["alter_stunden"]=json!((self.zeit-b.zeit)/STUNDE);
+            v["besiegt"]=json!(self.ist_besiegt(b.besitzer));v["heimat"]=json!(self.planeten[self.spieler[b.besitzer as usize].heimat as usize].koord==k);
         } else if let Some(e)=self.spieler[sid as usize].erkundet.get(&k) {
             v["bekannt"]=json!(true); v["status"]=json!("frei"); v["zone"]=json!(e.zone.name());
             v["felder"]=json!(e.felder); v["alter_stunden"]=json!((self.zeit-e.zeit)/STUNDE);

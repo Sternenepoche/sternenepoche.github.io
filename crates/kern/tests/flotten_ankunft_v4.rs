@@ -443,6 +443,7 @@ fn capture_cancels_planet_work_events_and_research_fallback_rechecks_laboratory(
         gebaeude: Gebaeude::Farm,
         stufe: 2,
         fertig: Some(10000),
+        dauer: 10000,
         topf: None,
     });
     w.planeten[p].fertigung[0].push(Fertigung {
@@ -479,6 +480,7 @@ fn capture_cancels_planet_work_events_and_research_fallback_rechecks_laboratory(
     w.planeten[home].gebaeude[Gebaeude::Labor.idx()] = 0;
     assert!(w.regeln.forsch(Forschung::Astrophysik).labor > 0);
     w.spieler[1].forschung_aktiv = Some(Forschungsauftrag {
+        begonnen: None,
         forschung: Forschung::Waffentechnik,
         stufe: 2,
         fp_rest: 100000000,

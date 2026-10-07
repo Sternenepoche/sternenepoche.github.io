@@ -23,5 +23,7 @@ jobs:
         run: node tools/browser_agent_test.cjs
       - name: Verify private dashboard script startup and rule preview
         run: node tools/admin_browser_test.cjs
+      - name: Verify game timers, navigation and packaged artwork
+        run: node tools/game_ui_test.cjs
       - name: Verify deliberately public Pages sources
         run: python3 tools/build_pages.py

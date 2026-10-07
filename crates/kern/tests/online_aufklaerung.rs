@@ -78,6 +78,30 @@ fn advance(w: &mut Welt, t: i64) {
         assert!(w.schritt());
     }
 }
+#[test]
+fn exact_build_timing_survives_save_and_bauhof_changes() {
+    let mut w=world();assert!(w.aufklaerung.neues_layout);
+    let pid=w.spieler[0].heimat as usize;let k=w.planeten[pid].koord;
+    w.planeten[pid].stabilitaet=80*M;
+    w.bauen(0,Rolle::Alle,k,Gebaeude::Farm).unwrap();
+    let duration=w.planeten[pid].bauschleife[0].dauer;assert!(duration>0);
+    w.planeten[pid].gebaeude[Gebaeude::Bauhof.idx()]=15;
+    let bytes=w.zu_bytes();assert!(bytes.starts_with(b"STERNEP7"));
+    let loaded=Welt::aus_bytes(&bytes).unwrap();
+    assert_eq!(loaded.planeten[pid].bauschleife[0].dauer,duration);
+    let sight=loaded.sicht(0,Rolle::Alle);
+    let job=&sight["planeten"][0]["bauschleife"][0];
+    assert_eq!(job["dauer_sekunden"],duration);
+    assert_eq!(job["fertig_sekunden"],w.planeten[pid].bauschleife[0].fertig.unwrap());
+    // Existing V6 checkpoints still load with a safe duration fallback.
+    let len=u64::from_le_bytes(bytes[8..16].try_into().unwrap()) as usize;
+    let old=Welt::aus_bytes(&bytes[16..16+len]).unwrap();
+    assert_eq!(old.planeten[pid].bauschleife[0].dauer,0);
+    assert!(old.sicht(0,Rolle::Alle)["planeten"][0]["bauschleife"][0]["dauer_sekunden"].as_i64().unwrap()>0);
+    w.spieler[0].forschung_aktiv=Some(kern::welt::Forschungsauftrag{forschung:Forschung::Agrarwissenschaft,stufe:1,fp_rest:100*M,begonnen:Some(0)});
+    let restored=Welt::aus_bytes(&w.zu_bytes()).unwrap();
+    assert_eq!(restored.spieler[0].forschung_aktiv.as_ref().unwrap().begonnen,Some(0));
+}
 fn attack(w: &mut Welt) -> u32 {
     let k = home(w, 1);
     fly(w, 0, Mission::Angriff, k, Einheit::LeichterJaeger, 17, 100)

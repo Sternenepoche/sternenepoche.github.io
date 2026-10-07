@@ -49,7 +49,7 @@ pub struct Systembericht {
 }
 impl Welt {
     pub fn spieler_aktiv(&self, sid: SpielerId) -> bool {
-        (sid as usize) < self.spieler.len() && !self.aufklaerung.inaktive_spieler.contains(&sid)
+        (sid as usize) < self.spieler.len() && !self.aufklaerung.inaktive_spieler.contains(&sid) && !self.ist_besiegt(sid)
     }
     /// Reserved lobby homes neither grow nor act until their account claims them.
     pub fn startplatz_reservieren(&mut self, sid: SpielerId) -> Result<(), String> {

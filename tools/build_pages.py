@@ -14,9 +14,20 @@ def prepare(out:Path):
         file=ROOT/name
         if file.is_file(): approved.append(file)
     # Deliberate file list: the sibling admin directory must never be packaged.
-    for name in ['index.html','app.js','presentation.js','style.css','config.js']:
+    for name in ['index.html','app.js','presentation.js','style.css','config.js','game-ui.js','game.css','art.js']:
         file=ROOT/'web-client'/name
         if file.is_file(): approved.append(file)
+    # Exact reviewed image manifest, never the whole web-client directory.
+    manifest=ROOT/'web-client/art.js'
+    if manifest.exists():
+        raw=manifest.read_text(encoding='utf-8').removeprefix('window.STERNEN_ART=').strip().removesuffix(';')
+        art=json.loads(raw)
+        for item in art['images'].values():
+            name=item['url'].split('?')[0]
+            if not re.fullmatch(r'assets/[a-z0-9_.-]+\.webp',name): raise ValueError('Unsafe image manifest')
+            image=ROOT/'web-client'/name
+            if image.relative_to(ROOT).as_posix() not in tracked: raise ValueError('Untracked public image')
+            approved.append(image)
     for folder in ['_layouts','docs','betrachter']:
         approved.extend(p for p in (ROOT/folder).rglob('*') if p.is_file() and p.suffix.lower() in EXT
                         and p.relative_to(ROOT).as_posix() in tracked

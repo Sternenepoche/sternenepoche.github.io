@@ -509,11 +509,13 @@ fn feldherr_zahlt_bei_warnung_auch_aus_der_reserve() {
     assert!(!ok);
 }
 
-/// Der Weg zur Kolonie erscheint ab Stufe III und hakt erreichte Schritte ab.
+/// Junge Reiche sehen die Voraussetzungen; erreichte Schritte werden abgehakt.
 #[test]
-fn kolonie_weg_ab_stufe_drei() {
+fn kolonie_weg_ab_spielbeginn() {
     let mut w = welt(4);
-    assert_eq!(w.sicht(0, Rolle::Alle)["kolonie_weg"], json!([]));
+    let frueh = w.sicht(0, Rolle::Alle)["kolonie_weg"].as_array().cloned().unwrap();
+    assert_eq!(frueh.len(), 8);
+    assert_eq!(frueh[0]["erledigt"], false);
     w.spieler[0].stufe = 3;
     let weg = w.sicht(0, Rolle::Alle)["kolonie_weg"].as_array().cloned().unwrap();
     assert_eq!(weg.len(), 8);

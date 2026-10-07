@@ -1,9 +1,31 @@
----
-layout: default
-title: "Selbst spielen: das Handbuch"
----
-
 # Selbst spielen: das Handbuch
+
+**Online-Oberfläche, 8. Oktober 2026:** Der [öffentliche Spielzugang](https://desktop-3dei636.taila4f584.ts.net/)
+verwendet jetzt die eigenen Völker-, Gebäude-, Forschungs-, Schiffs- und Planetenmotive.
+Vor der Reichsgründung zeigen vier Völkerkarten die Vorteile und Nachteile aus dem aktiven Serverprofil.
+Die Volkswahl gilt für die Epoche; Mensch, Agent oder Mischbetrieb können später gewechselt werden.
+Die Alpha-Freigabe bleibt bei drei der zwanzig möglichen Spielerplätze, danach folgt die Warteliste.
+
+Die Rohstoffleiste gilt für den rechts ausgewählten Planeten. Links stehen 17 Spielbereiche,
+darunter Gebäude, Versorgung, Forschung, Werft, Verteidigung, Flotten, Kolonisation,
+Imperiumsvergleich und Technologiebaum. Gesperrte Kacheln nennen Voraussetzungen.
+Ein Gebäudeklick öffnet Wirkung, Kosten, nächste Stufe und Bauzeit; ein Ausbau startet einen echten Serverauftrag.
+Aktive Kacheln zeigen Restzeit, Prozent und eine Einfärbung im Uhrzeigersinn. Die Werft zeigt das nächste Stück.
+Bei Weltpause oder Bauunterbrechung durch Unruhen bleibt der Fortschritt stehen. Fertig ist ein Auftrag erst,
+wenn der Server ihn bestätigt. Forschung ist eine Prognose bei unveränderter Laborleistung und wird an vollen
+Spielstunden verrechnet. Unter Spielerprofil wählst du Systemvorgabe, Uhrzeiger oder ruhige Darstellung.
+
+**Flotten & Saven:** „Neue Flotte planen“ aufklappen. Schiffe, Ziel, Mission, Geschwindigkeit und Wartezeit wählen;
+„Flugzeit & Treibstoff prüfen“ zeigt den Plan. Bei Saven lässt sich die Fracht automatisch mit Treibstoffreserve
+für beide Strecken verladen. Eigene Flotten, Rückruf und erfasste Angriffe stehen unmittelbar darunter.
+Die Galaxie zeigt nur eigene Sondenbeobachtungen. Im Bereich Kampf & Verbände simuliert dieselbe Engine
+die im Flottenformular gewählte Zusammensetzung anhand eines vollständigen Spionageberichts; Berichtsalter,
+geschätzte Technik, Siegchance und Verluste bleiben sichtbar. Verbandsbeitritt nutzt echte Flottennummern.
+
+**Kolonisation:** Die Checkliste zeigt Astrophysik, Infrastruktur, Bauteile, Kolonieschiff und eigene Aufklärung.
+„Startfracht anzeigen“ liefert die vom Server berechnete Mindestfracht. Freie Kolonisation und Kampfkolonisation
+führen zur Flottenplanung. Laufende Besetzungen zeigen Restzeit und Reaktionsfenster; beschädigte Gebäude
+erhalten eine Reparaturquote mit Kosten und Dauer vor dem Start.
 
 **Neu: Freischaltübersicht und Raketenbilder.** Unter **Forschung** stehen die fünf Zivilisationsstufen
 nebeneinander, mit allen Technologien, benötigten Laborstufen und deinem Forschungsstand. Öffne
@@ -427,6 +449,25 @@ Ein fortgeschrittenes Spiel ansehen, ohne es selbst aufzubauen (Tag 63, Stufe IV
 ./target/release/sternenepoche-spieler.exe --seed 7 --vorlauf 6000 --autopilot raeuber
 ```
 
+
+### Ausscheiden in der Onlinewelt
+
+Ein Reich kann diese Epoche verlieren. Die Übersicht warnt mit einer Rettungsfrist,
+wenn alle bewohnten eigenen Planeten dauerhaft weniger als 50 Prozent ihrer
+lebensnotwendigen Versorgung erhalten oder die Rohstoffwirtschaft nicht mehr
+wiederherstellbar ist. Standard sind 72 beziehungsweise 48 Spielstunden; der Betreiber
+kann sie im Dashboard einstellen. Für Syntheten ist Energie lebensnotwendig.
+Versorgung wiederherstellen, Grundproduktion reparieren, Handel oder rechtzeitige
+Hilfe können eine Krise beenden. Eine brauchbare eigene Kolonie hilft ebenfalls.
+Die Versorgungskrise wird dabei unabhängig vom wirtschaftlichen Wiederaufbau geprüft.
+
+Nach Ablauf der Frist erscheint das Reich grau als **besiegt**. Es bleibt für den
+Rest der Epoche ausgeschieden, einschließlich seiner Bots und Modellagenten.
+Du kannst weiter deine Ansicht und Berichte lesen, aber keine Befehle geben.
+Eine spätere Rohstofflieferung belebt das Reich nicht wieder. Deine ursprüngliche
+Heimatwelt bleibt geschützt und kann nicht kolonisiert oder übernommen werden;
+andere Kolonien können weiterhin erobert werden. Neue Teilnahme beginnt erst mit
+der nächsten Epoche. Ein besiegter Platz wird während derselben Epoche nicht neu vergeben.
 
 ### Bildintegration vom 05.10.2026
 

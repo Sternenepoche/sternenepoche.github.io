@@ -1,8 +1,45 @@
 # Sternenepoche: öffentliches Spiel, Browser und lokale Verwaltung
 
 Stand: 7. Oktober 2026. Verbindliche Zielarchitektur aus Karls Auftrag.
+Ergänzung vom 8. Oktober: Die Browseroberfläche übernimmt die Struktur der 26 Referenzbilder
+aus `beispiele/` mit ausschließlich eigenen Sternenepoche-Motiven. Sie ist mit der gemeinsamen Rust-Welt verbunden.
 Der Implementierungsstand und die Abnahmekriterien stehen in Abschnitt 12.
 „Beschlossen“ bedeutet in diesem Dokument nicht automatisch „bereits ausgeliefert“.
+
+## Überarbeitung der Spieleroberfläche vom 8. Oktober
+
+| Vorher | Danach | Zweck |
+| --- | --- | --- |
+| Sieben grobe Tabs, Gebäudetabellen | 17 Bereiche, Rohstoffleiste, eigene Planetenauswahl, bebilderte Kacheln und Detailansichten | Menschen können Angebote, Kosten und Voraussetzungen direkt vergleichen. |
+| Volksnamen im Auswahlfeld | Vier Porträtkarten mit berechneten Vor- und Nachteilen | Die Wahl ist vor der Reichsgründung verständlich und danach für diese Epoche fest. |
+| Gerundete Restminuten | Sekundengenaue Bauzeiten und Werftphasen, gespeicherte Baudauer, Forschungsbeginn, Uhrzeiger-/Ruhemodus | Fortschritt folgt dem Server, friert bei Pause ein und übersteht Neustarts. |
+| Weitere Funktionen im generischen Befehlsformular | Versorgung, Imperiumsvergleich, Technologiebaum, Simulator, Verbände, Kolonie- und Reparaturplanung | Bestehende Rust-Funktionen werden über konkrete Spieleransichten erreichbar. |
+
+Alle 402 Motive wurden gegen ihre geprüfte Herkunft und Dateihashes validiert. Der Web-Paketinhalt enthält
+nur verkleinerte Bilder, Anzeigenamen und Bildzuordnungen (rund 8 MiB), keine Produktionsworkflows oder Betriebsdaten.
+Der Server liefert genau diese Dateien aus seinem Programm aus; Pages veröffentlicht dieselbe ausdrücklich
+freigegebene Dateiliste. Lokale Verwaltung, Konten, Modellschlüssel und Spielstände bleiben privat.
+
+### Abgleich mit der verlinkten OGame-FAQ
+
+Die [FAQ](https://board.de.ogame.gameforge.com/index.php?thread/193284-die-h%C3%A4ufigsten-fragen-neuer-spieler/)
+und ihre Antworten wurden für Verbandsangriff, Rapidfire, Planetenspionage, Angriffserkennung,
+Saven, freie Kolonisation, Startfracht und Schildkuppeln gelesen. Die Referenz hat eigene Regeln;
+Sternenepoche behält Karls Aufklärungs- und Kolonisationsvorgaben sowie das aktive Regelprofil.
+
+| Spielprinzip | Umsetzung in Sternenepoche |
+| --- | --- |
+| Bauangebote, Kosten, Voraussetzungen und laufender Auftrag | Detailpanel plus farbige bzw. gesperrte Kacheln; Serveraufträge mit Restzeit und Fortschritt. |
+| Rapidfire, Schild, Struktur und Forschung | Bestehender deterministischer Einzelkampf, maximal sechs Runden im aktuellen Profil. Der Simulator berücksichtigt nun auch Volksboni des Verteidigers und dessen tatsächliche Einheitenkosten. |
+| Verbandsangriff und gemeinsames Eintreffen | Bestehende Verbandslogik; eigene Flotte eröffnet einen Verband, passende verbündete Flotte tritt über ihre Nummer bei. |
+| Fehlende Spionagedaten bedeuten unbekannt | System- und Planetensonde bleiben getrennt. Simulator verweigert die Rechnung ohne vollständige Schiff- und Verteidigungsbeobachtung. |
+| Saven schützt Schiffe und Fracht während der Abwesenheit | Eigene Mission mit Hinflug, Wartezeit, Rückflug, genauer Treibstoffreserve, Rückruf und tatsächlicher Landungsprüfung. |
+| Freie Kolonisation benötigt Astrophysik und Kolonieschiff | Zusätzlich eigene Sondenbeobachtung, bewaffnete Begleitung und Startfracht; Kapazität für laufende freie und feindliche Kolonisation wird gemeinsam reserviert. |
+| In der OGame-FAQ ist keine Übernahme fremder Planeten vorgesehen | Sternenepoche ergänzt die bereits festgelegte Kampfkolonisation: Bombardierung, höchstens 30 % Integrität, Orbitkontrolle, mindestens 30 Spielminuten und zwei vollständige Verteidiger-Reaktionen; ursprüngliche Heimat geschützt. |
+
+Die Anleitung im Browser verwendet das aktive Serverprofil einschließlich Kolonisationsregeln v2.
+Die vollständige Referenz wird nicht als pauschale Behauptung einer identischen OGame-Kopie verwendet:
+Monde, Echtgeldfunktionen und OGame-spezifische Kontoregeln sind keine zusätzlichen zugesagten Spielfunktionen.
 
 ## 1. Die drei Ebenen
 
@@ -520,3 +557,34 @@ Die vollständigen Eintritts-, Sperr-, Neustart- und Resetregeln stehen in
 [SERVER-BETRIEB.md](SERVER-BETRIEB.md). Ein echter Test aus zwei unabhängigen fremden Netzen,
 24 Stunden Dauerbetrieb, bezahlte OpenRouter-Inferenz und Saisonbalance bleiben separate
 Betriebsabnahmen; der öffentliche Relaypfad mit gültiger Zertifikatsprüfung ist belegt.
+
+### Endgültiges Ausscheiden innerhalb einer Epoche
+
+Eine echte Niederlage beendet die Teilnahme von Menschen, Skriptbots und Modellagenten.
+Die Onlinewelt prüft stündlich zwei unabhängig laufende, in der eigenen Ansicht sichtbare
+Rettungsfristen: 72 ununterbrochene Spielstunden unter 50 Prozent lebensnotwendiger
+Versorgung auf allen bewohnten eigenen Planeten oder 48 Stunden ohne erreichbaren
+Wiederanlauf der Rohstoffwirtschaft. Syntheten benötigen Energie statt Nahrung.
+Diese beiden Fristen sind im lokalen Dashboard einstellbar; Pausen frieren sie ein.
+Ein kurzfristiger Engpass allein ist damit noch keine Niederlage.
+
+Der Wirtschaftstest berücksichtigt vorhandene Bestände, tatsächlich mögliche
+Grundproduktion und Reparaturen, gesunde Kolonien, Handel und Hilfs-/Rückkehrflotten.
+Unbezahlte Warteschlangen verdecken eine zusammengebrochene Wirtschaft nicht.
+Wiederholte erfolgreiche Bombardements können Gebäude in der Onlinewelt bis auf
+null Integrität zerstören; die frühere Untergrenze von 30 Prozent gilt hier nicht mehr.
+Erholt sich die jeweilige Versorgung oder Wirtschaft rechtzeitig, endet ihre Krise.
+
+Nach Fristablauf wird das Reich dauerhaft als besiegt gespeichert, ausgegraut und
+in den Ranglisten nach den aktiven Reichen geführt. Menschen und Agenten erhalten
+keine Befehlsfreigabe mehr; Bots, Produktion, Aufträge und eigene Flotten stoppen.
+Das Konto darf weiter seine Ansicht und Berichte lesen. Die ursprüngliche Heimatwelt
+bleibt besiedelte Ruine und kann weder kolonisiert noch übernommen werden. Andere
+Kolonien bleiben eroberbar. Eine Lieferung kann ausgeschiedene Reiche nicht wiederbeleben.
+Der belegte Platz wird erst in der nächsten Epoche frei; damit entstehen innerhalb
+derselben Epoche keine Wiederanmeldungs- und Wiederbelebungsschleifen.
+
+Niederlagen, Krisen und Fristen überleben Serverneustarts in der V8-Erweiterung des
+Spielstands. Beim Epochenreset werden die Zustände gelöscht, die eingestellten Fristen
+bleiben erhalten. Kern- und Servertests prüfen Erholung, Reparatur, Handel, Kolonien,
+Syntheten, wiederholte Bombardements, gesperrte Befehle und Agenten sowie Neustarts.
