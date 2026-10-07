@@ -122,6 +122,12 @@ fn allowed(limits: &Limits, key: String, max: u32) -> bool {
     e.1 += 1;
     e.1 <= max
 }
+fn request_allowed(limits: &Limits, ip: &str, authorization: &str) -> bool {
+    // Random Authorization headers must not create an unlimited sequence of fresh budgets.
+    // Keep enough headroom for several legitimate players behind the same NAT.
+    allowed(limits, format!("ip:{ip}"), 6000)
+        && allowed(limits, format!("requests:{ip}:{}", digest(authorization)), 300)
+}
 fn serve(
     mut req: Request,
     admin: bool,
@@ -183,11 +189,7 @@ fn serve(
             .map(|a| a.ip().to_string())
             .unwrap_or_default()
     };
-    if !allowed(
-        limits,
-        format!("requests:{ip}:{}", digest(&header(&req, "Authorization"))),
-        300,
-    ) {
+    if !request_allowed(limits, &ip, &header(&req, "Authorization")) {
         json_reply(
             req,
             Err((
@@ -414,8 +416,9 @@ fn run() -> Result<(), String> {
         return Err("Admin-Token beschädigt".into());
     }
     let key = Arc::new(key);
-    let limits: Limits = Arc::new(Mutex::new(HashMap::new()));
     for (admin, addr, count) in [(false, &cfg.bind, 4), (true, &cfg.admin_bind, 2)] {
+        // Public request pressure must not fill the private dashboard's limiter.
+        let limits: Limits = Arc::new(Mutex::new(HashMap::new()));
         let server = Arc::new(Server::http(addr).map_err(|e| e.to_string())?);
         for _ in 0..count {
             let (s, g, c, k, l) = (
@@ -460,6 +463,20 @@ fn run() -> Result<(), String> {
                 eprintln!("{e}");
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn rotating_invalid_tokens_cannot_bypass_the_ip_budget() {
+        let limits: Limits = Arc::new(Mutex::new(HashMap::new()));
+        for n in 0..6000 {
+            assert!(request_allowed(&limits, "test-ip", &format!("invalid-token-{n}")));
+        }
+        assert!(!request_allowed(&limits, "test-ip", "another-invalid-token"));
+        assert!(request_allowed(&limits, "other-ip", "legitimate-session"));
     }
 }
 fn main() {

@@ -482,7 +482,7 @@ Kolonien, Punkten und Stufen; private Events/Strategien werden nicht gestreamt.
 17. Doppelte Requests, fremde IDs, Rollenüberschreibungen, veraltete Versions-/Leaseangaben und manipulierte Mengen.
 18. Gegenprobe aller öffentlichen Views, Fehlerrouten, Bots und Kampfvorschauen gegen die Informationsgrenze.
 
-208 Rust-Tests, reale HTTP-/Neustart-/Profilprüfungen, Browseranbieter-Mocks, echtes
+209 Rust-Tests, reale HTTP-/Neustart-/Profilprüfungen, Browseranbieter-Mocks, echtes
 Ollama qwen3.5:4b und zwei Browser in derselben Testwelt belegen Kern- und PC-Spielabläufe.
 Der 180-Spieltage-Botlauf zeigt Entwicklung bis Stufe V ohne geprüfte Bestandsfehler.
 Die konkreten Belege stehen in [INVENTUR-2026-10-07.md](INVENTUR-2026-10-07.md). Erst die

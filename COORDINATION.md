@@ -14,7 +14,7 @@ Sensorwarnung nach 120 Spielminuten, physischer Flottenspionage und Saven. Histo
 Laborprofile bleiben getrennt; insbesondere erhalten V2/V3/V4 keine vergrößerten
 Online-Werkzeugschemata. Alte V4-Snapshots sind byte- und hashkompatibel geprüft.
 HTTP-Mehrspieler-/Restartprüfung und Browseranbieter-Mocks stehen unter `tools/`.
-208 Rust-Tests bestanden; reale HTTP-/Neustart-/Profilprüfungen und Browseranbieter-Mocks
+209 Rust-Tests bestanden; reale HTTP-/Neustart-/Profilprüfungen und Browseranbieter-Mocks
 bestanden. Echtes Ollama qwen3.5:4b im Browser: zwei Aufrufe, drei gültige Befehle.
 Zwei Browser in derselben Testwelt prüften Aufklärung, Aufbau bis Stufe II, Save-Flug
 mit 6.000 Erz und Rückkehr, Nachricht sowie Nichtangriffspakt. Botlauf über 180 Spieltage:
