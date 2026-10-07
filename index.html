@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sternenepoche – eine geschlossene Spielwelt</title>
+<title>Sternenepoche – gemeinsam spielen</title>
 <style>
   :root{ --bg:#0b0e14; --panel:#131826; --line:#232a3d; --text:#dfe6f3; --muted:#8b96ad; --accent:#6ea8ff; --gold:#e8c37a; }
   *{box-sizing:border-box}
@@ -25,7 +25,9 @@
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;margin-top:30px}
   a.card{display:block;text-decoration:none;color:var(--text);background:var(--panel);
     border:1px solid var(--line);border-radius:14px;padding:20px 20px 18px;transition:.15s}
-  a.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+  a.card:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+  @media(hover:hover) and (pointer:fine){a.card:hover{border-color:var(--accent);transform:translateY(-2px)}}
+  @media(prefers-reduced-motion:reduce){a.card{transition:none}a.card:hover{transform:none}}
   .card .ico{font-size:26px}
   .card h2{font-size:18px;margin:10px 0 6px;color:#fff;border:none;padding:0}
   .card p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.55}
@@ -41,17 +43,27 @@
 <body>
 <div class="stars"></div>
 <header>
-  <div class="kicker">Geschlossene Spielwelt</div>
+  <div class="kicker">Gemeinsame Spielwelt</div>
   <h1>Sternen<span>epoche</span></h1>
-  <p class="sub">50 Zivilisationen spielen ein Spieljahr lang um die höchste Punktzahl.
-  Jede wird von vier Sprachmodellen in vier Rollen regiert — die Engine ist deterministisch,
-  jede Entscheidung gespeichert, jede Epoche nachspielbar.</p>
+  <p class="sub">30 Bots und 20 Teilnehmerplätze in einer gemeinsamen Rust-Welt.
+  Schau zu, spiele selbst oder nutze einen Agenten über Ollama oder OpenRouter.
+  Der Spielserver läuft zunächst auf dem PC und kann später auf einen VPS umziehen.</p>
 </header>
 <main>
   <div class="grid">
-    <a class="card" href="/docs/SPIELEN.html">
-      <div class="ico">🎮</div><h2>Spielen &amp; Steuerung</h2>
-      <p>Anmeldung, Charakterauswahl, Heimatplanet, Bau, Forschung, Stufenaufstieg — so bedienst du die Spielwelt.</p>
+    <a class="card" href="/web-client/">
+      <div class="ico">🚀</div><h2>Gemeinsame Welt öffnen</h2>
+      <p>Browser für Zuschauer, Menschen und Agenten. Zum Mitspielen die Adresse des laufenden Spielservers eintragen. Ein öffentlicher Serverzugang ist noch nicht eingerichtet.</p>
+      <span class="go">Spielbrowser öffnen →</span>
+    </a>
+    <a class="card" href="/docs/ONLINE-KONZEPT.html">
+      <div class="ico">🛰️</div><h2>Online-Konzept &amp; Inventur</h2>
+      <p>Drei Ebenen, echte Sondenaufklärung, Geheimdienst, Flottenspionage und Saven. Umgesetzter Stand und offene Betriebsabnahmen sind getrennt dokumentiert.</p>
+      <span class="go">Konzept lesen →</span>
+    </a>
+    <a class="card" href="/docs/SERVER-BETRIEB.html">
+      <div class="ico">🎮</div><h2>Spielstart &amp; Verwaltung</h2>
+      <p>PC-Server starten, dem Spiel beitreten, Ollama anbinden und die gemeinsame Welt im lokalen Dashboard verwalten.</p>
       <span class="go">Anleitung öffnen →</span>
     </a>
     <a class="card" href="/docs/SPEZIFIKATION.html">
@@ -61,7 +73,7 @@
     </a>
     <a class="card" href="/docs/REGELWERK.html">
       <div class="ico">🧮</div><h2>Regelwerk-Referenz</h2>
-      <p>Alle Zahlen des Spiels in Tabellen — erzeugt aus <code>regeln/regelwerk.ron</code>, einer Quelle.</p>
+      <p>Tabellen des ursprünglichen Laborprofils. Für die gemeinsame Welt gelten die Spielregeln im Browser und das Online-Konzept.</p>
       <span class="go">Tabellen öffnen →</span>
     </a>
     <a class="card" href="/docs/PROJEKT-README.html">
@@ -75,8 +87,8 @@
       <span class="go">Repository ansehen →</span>
     </a>
     <a class="card" href="/betrachter/">
-      <div class="ico">🪐</div><h2>Weltbild-Betrachter</h2>
-      <p>Die Galaxie als 3D-Ansicht: Systeme, Zonen, Belegung — direkt im Browser.</p>
+      <div class="ico">🪐</div><h2>Labor-Weltbild</h2>
+      <p>3D-Betrachter gespeicherter Laborwelten. Die aktuelle gemeinsame Welt erkundest du im Spielbrowser mit Sonden.</p>
       <span class="go">Betrachter starten →</span>
     </a>
   </div>
@@ -87,7 +99,7 @@
     <div class="fact"><b>50</b><span>Zivilisationen je Epoche</span></div>
     <div class="fact"><b>4</b><span>Rollen je Reich</span></div>
     <div class="fact"><b>4</b><span>Völker als Spielbalance</span></div>
-    <div class="fact"><b>0.1.0</b><span>Regelwerk-Version</span></div>
+    <div class="fact"><b>Online V1</b><span>Profil für gemeinsame Welten</span></div>
   </div>
 </main>
 <footer>

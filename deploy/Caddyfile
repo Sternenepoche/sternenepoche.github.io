@@ -1,0 +1,25 @@
+# Replace the domain. Only the public game listener is proxied.
+{
+    servers {
+        timeouts {
+            read_header 5s
+            read_body 10s
+            write 30s
+            idle 30s
+        }
+    }
+}
+spiel.example.com {
+    request_body {
+        max_size 64KB
+    }
+    reverse_proxy 127.0.0.1:8890 {
+        header_up X-Real-IP {remote_host}
+        # Buffer a complete bounded request before occupying a Rust HTTP worker.
+        request_buffers 64KB
+        transport http {
+            dial_timeout 3s
+            response_header_timeout 20s
+        }
+    }
+}

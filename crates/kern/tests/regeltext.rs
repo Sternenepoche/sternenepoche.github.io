@@ -21,9 +21,11 @@ fn norm(s: &str) -> String {
 /// ab der sie baubar ist. Fehlte das Raketensilo bei Stufe III, erfuhr kein Modell davon.
 #[test]
 fn freischalttext_nennt_alle_gebaeude_und_anlagen_ihrer_stufe() {
-    let r = Regelwerk::laden(REGELN).unwrap();
+    for source in [REGELN, include_str!("../../../regeln/online-v1.ron")] {
+    let r = Regelwerk::laden(source).unwrap();
     let mut namen: Vec<(String, u8)> = Gebaeude::ALLE
         .iter()
+        .filter(|g|r.gebaeude.contains_key(g))
         .map(|g| (g.name().to_string(), r.geb(*g).ab_stufe))
         .collect();
     namen.extend(
@@ -43,6 +45,7 @@ fn freischalttext_nennt_alle_gebaeude_und_anlagen_ihrer_stufe() {
         }
     }
     assert!(fehlt.is_empty(), "nicht im Freischalttext: {fehlt:?}");
+    }
 }
 
 /// Die von Hand formulierten Sätze, die der Kern anders umsetzte, sagen jetzt, was er tut.

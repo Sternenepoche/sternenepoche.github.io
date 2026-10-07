@@ -9,7 +9,7 @@ use crate::typen::*;
 use crate::welt::*;
 use serde_json::{json, Map, Value};
 
-fn gueter(a: &[i64], alle: bool) -> Value {
+pub(crate) fn gueter(a: &[i64], alle: bool) -> Value {
     let mut m = Map::new();
     for g in Gut::ALLE {
         if alle || a[g.idx()] != 0 {
@@ -19,7 +19,7 @@ fn gueter(a: &[i64], alle: bool) -> Value {
     Value::Object(m)
 }
 
-fn einheiten(a: &[i64], ab: usize) -> Value {
+pub(crate) fn einheiten(a: &[i64], ab: usize) -> Value {
     let mut m = Map::new();
     for (i, n) in a.iter().enumerate() {
         if *n > 0 {
@@ -106,6 +106,7 @@ impl Welt {
         let nebel = self.system(p.koord).map(|s| s.nebel).unwrap_or(false);
         let mut baubar = Vec::new();
         for g in Gebaeude::ALLE {
+            if !r.gebaeude.contains_key(&g) {continue;}
             let gr = r.geb(g);
             let gross = matches!(
                 g,
@@ -321,7 +322,7 @@ impl Welt {
             (
                 "Freier Platz erkundet (Mission spionage mit einer Sonde auf den Platz)"
                     .to_string(),
-                sp.erkundet.keys().any(|k| !self.belegung.contains_key(k)),
+                sp.erkundet.keys().any(|k| self.planetenwissen(sid,*k)["status"]=="frei"),
             ),
             (
                 "Flotte mit Kolonieschiff und Mission kolonisieren gestartet".to_string(),
@@ -448,18 +449,14 @@ impl Welt {
         }
         let mut angriffe: Vec<Value> = Vec::new();
         for fid in self.sichtbare_angriffe(sid) {
-            let f = &self.flotten[&fid];
+            let info = self.angriffswissen(sid, fid).expect("Sichtbarer Angriff");
             let text = format!(
-                "Feindliche Flotte von {} mit {} Schiffen erreicht {} um {} ({})",
-                name(f.besitzer),
-                f.schiffe.iter().sum::<i64>(),
-                f.ziel,
-                zeittext(f.ankunft),
-                f.mission
+                "Feindliche Flotte erreicht {} um {}; Schiffszahl: {}",
+                info["ziel"].as_str().unwrap_or(""), info["ankunft"].as_str().unwrap_or(""),
+                info["schiffe"].as_i64().map(|n|n.to_string()).unwrap_or_else(||"unbekannt".into())
             );
             warnungen.push(text);
-            angriffe.push(json!({"von": name(f.besitzer), "ziel": f.ziel.to_string(), "ankunft": zeittext(f.ankunft),
-                "in_min": (f.ankunft - jetzt) / 60, "schiffe": f.schiffe.iter().sum::<i64>(), "mission": f.mission.name()}));
+            angriffe.push(info);
         }
 
         let flotten: Vec<Value> = self
@@ -604,6 +601,7 @@ impl Welt {
         let labor_heim = self.planeten[heim].gebaeude[Gebaeude::Labor.idx()];
         let forschung_moeglich: Vec<Value> = Forschung::ALLE
             .iter()
+            .filter(|f|r.forschung.contains_key(f))
             .filter(|f| r.forsch(**f).ab_stufe <= sp.stufe)
             .filter_map(|f| {
                 let geplant = sp.forschung_aktiv.as_ref().filter(|a| a.forschung == *f).map(|_| 1).unwrap_or(0)
@@ -617,6 +615,8 @@ impl Welt {
                 Some(json!({"forschung": f.name(), "stufe": stufe, "kosten": gueter(&k, false),
                     "dauer_stunden": if fp > 0 { json!((punkte + fp - 1) / fp) } else { Value::Null },
                     "labor": r.forsch(*f).labor, "labor_heimat": labor_heim,
+                    "braucht": if matches!(*f,Forschung::Ueberwachungstechnik|Forschung::Abschirmtechnik){vec!["Spionagetechnik Stufe 1"]}else{vec![]},
+                    "infrastruktur":if *f==Forschung::Ueberwachungstechnik{Some("Eigenen Geheimdienst")}else{None},
                     "fehlt": Gut::ALLE.iter().filter(|x| bestand_heim[x.idx()] < k[x.idx()]).map(|x| x.name()).collect::<Vec<_>>()}))
             })
             .collect();
@@ -658,6 +658,9 @@ impl Welt {
             .truemmer
             .iter()
             .filter(|(k, _)| {
+                if self.aufklaerungsregeln() {
+                    return sp.planeten.iter().any(|pid|self.planeten[*pid as usize].koord == **k);
+                }
                 sp.planeten
                     .iter()
                     .any(|e| self.planeten[*e as usize].koord.sektor == k.sektor)
@@ -734,6 +737,8 @@ impl Welt {
                 })
                 .collect::<Vec<_>>(),
             "berichte": sp.berichte.iter().rev().map(|b| self.bericht_sicht(sid,b)).collect::<Vec<_>>(),
+            "flottenberichte": self.eigene_flottenberichte(sid),
+            "aufklaerungsregeln": self.aufklaerungsregeln(),
             "erkundet": sp.erkundet.iter().map(|(k, _)| {
                 let mut v=self.planetenwissen(sid,*k);
                 v["frei"]=json!(v["status"]=="frei");
@@ -860,7 +865,7 @@ impl Welt {
                 let s = schiffe()?;
                 let sigma = milli(abfrage.get("geschwindigkeit").and_then(|v| v.as_f64()).unwrap_or(1.0)).clamp(100, 1000);
                 let plan = self.flugplan(sid, pid, ziel, &s, sigma)?;
-                Ok(json!({"entfernung": plan.entfernung, "dauer_min": plan.dauer / 60, "treibstoff_je_strecke": ganz(plan.treibstoff),
+                Ok(json!({"entfernung": plan.entfernung, "dauer_min": plan.dauer / 60, "dauer_sekunden":plan.dauer, "treibstoff_je_strecke": ganz(plan.treibstoff),
                     "ladekapazitaet": ganz(plan.kapazitaet), "tempo": plan.tempo}))
             }
             "kampfsimulator" => {
@@ -932,7 +937,10 @@ impl Welt {
                     let sys = self.system(Koord::neu(sektor as u8, n as u8, 1)).unwrap();
                     let plaetze: Vec<Value> = (1..=r.welt.plaetze_je_system).map(|p|self.planetenwissen(sid,Koord::neu(sektor as u8,n as u8,p))).collect();
                     let belegt: Vec<Value> = plaetze.iter().filter(|p| !p["spieler"].is_null()).cloned().collect();
-                    systeme.push(json!({"system":n,"nebel":sys.nebel,"asteroidenguertel":sys.guertel,"belegt":belegt,"plaetze":plaetze}));
+                    let known = !self.aufklaerungsregeln() || self.system_erfasst(sid,Koord::neu(sektor as u8,n as u8,1));
+                    systeme.push(json!({"system":n,"bekannt":known,
+                        "nebel":if known {json!(sys.nebel)} else {Value::Null},
+                        "asteroidenguertel":if known {json!(sys.guertel)} else {Value::Null},"belegt":belegt,"plaetze":plaetze}));
                 }
                 Ok(json!({"sektor": sektor, "systeme": systeme}))
             }

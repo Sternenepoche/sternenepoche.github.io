@@ -1,0 +1,27 @@
+name: Check shared Rust world
+
+on:
+  workflow_call:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  linux-server:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test game rules and authoritative server
+        run: cargo test --release --locked -p kern -p sternenepoche-server
+      - name: Build Linux service
+        run: cargo build --release --locked -p sternenepoche-server
+      - name: Verify HTTP, restart, privacy and resets
+        run: python3 tools/online_smoke.py
+      - name: Verify browser agent transport and limits
+        run: node tools/browser_agent_test.cjs
+      - name: Verify private dashboard script startup and rule preview
+        run: node tools/admin_browser_test.cjs
+      - name: Verify deliberately public Pages sources
+        run: python3 tools/build_pages.py

@@ -40,6 +40,7 @@ pub fn name(schluessel: &str) -> String {
         "werft" => "Werft",
         "orbitalwerft" => "Orbitalwerft",
         "sensorphalanx" => "Sensorphalanx",
+        "geheimdienst" => "Geheimdienst",
         "kaserne" => "Kaserne",
         "raketensilo" => "Raketensilo",
         "orbitalring" => "Orbitalring",
@@ -61,6 +62,8 @@ pub fn name(schluessel: &str) -> String {
         "schildtechnik" => "Schildtechnik",
         "panzerung" => "Panzerung",
         "spionagetechnik" => "Spionagetechnik",
+        "ueberwachungstechnik" => "Überwachungstechniken",
+        "abschirmtechnik" => "Abschirmtechnologie",
         "xenomaterialkunde" => "Xenomaterialkunde",
         "terraforming" => "Terraforming",
         // Einheiten
@@ -90,6 +93,9 @@ pub fn name(schluessel: &str) -> String {
         "stationieren" => "Stationieren",
         "halten" => "Halten",
         "spionage" => "Spionage",
+        "flotten_spionage" => "Flottenspionage",
+        "system_erkunden" => "Sonnensystem erkunden",
+        "saven" => "Saven / Leerfahrt",
         "kolonisieren" => "Kolonisieren",
         "recyceln" => "Recyceln",
         "abbau" => "Abbau",
@@ -191,6 +197,9 @@ pub fn gut_zeichen(schluessel: &str) -> &'static str {
 /// Was eine Mission tut und was sie verlangt, für die Auswahl im Flottenkommando.
 pub fn mission_text(m: &str) -> &'static str {
     match m {
+        "flotten_spionage" => "Eine physische Spionagesonde fliegt zu einer erkannten feindlichen Flotte. Abschirmung und eigene Geheimdienst- und Spionagetechnik bestimmen, welche Schiffstypen sichtbar werden. Der Bericht bleibt eine Aufnahme zum Sondenzeitpunkt.",
+        "system_erkunden" => "Eine Sonde kartiert das Sonnensystem. Typ, Besitzer und Rohstoffe jedes Planeten bleiben bis zu dessen eigener Sondenmission unbekannt.",
+        "saven" => "Leerfahrt mit Schiffen und Fracht: keine Entladung und kein Kampf am Ziel. Rückflug nach 0 bis 72 Stunden Wartezeit. Treibstoff für beide Strecken und ein Flottenplatz werden benötigt.",
         "bombardieren" => "Besiegt bewaffnete Verteidigung und senkt die Gebäudeintegrität auf höchstens 30 %. Gebäude behalten ihre Stufen, leisten aber weniger. Nur mit aktuellen Kolonisationsregeln.",
         "kampfkolonisieren" => "Benötigt ein Kolonieschiff und Orbitkontrolle. Übernahme erst nach ausgeschalteter Verteidigung, höchstens 30 % Gebäudeintegrität und zwei vollen Reaktionsfenstern (mindestens 30 Spielminuten). Ursprüngliche Heimatwelten sind geschützt.",
         "transport" => "Bringt Ladung zu einem Planeten und fliegt zurück. Bei einem fremden Reich zählt die Ladung als Geschenk.",
@@ -254,14 +263,14 @@ pub const GEBAEUDE_GRUPPEN: &[(&str, &str, &[&str])] = &[
     ("👥", "Bevölkerung und Lager", &["wohnblock", "akademie", "lager", "bunker", "verwaltungszentrum"]),
     ("🔬", "Forschung und Bauwesen", &["labor", "bauhof", "nanofabrik"]),
     ("🚀", "Raumfahrt und Handel", &["raumhafen", "werft", "orbitalwerft", "markt", "sensorphalanx"]),
-    ("⚔", "Militär", &["kaserne", "raketensilo"]),
+    ("⚔", "Militär und Aufklärung", &["kaserne", "raketensilo", "geheimdienst"]),
     ("🌟", "Großprojekte der Stufe V", &["orbitalring", "forschungsarchiv", "versorgungsnetz"]),
 ];
 
 pub const FORSCHUNG_GRUPPEN: &[(&str, &str, &[&str])] = &[
     ("🏭", "Wirtschaft", &["energietechnik", "werkstoffkunde", "automatisierung", "agrarwissenschaft", "soziologie", "xenomaterialkunde", "terraforming"]),
     ("🚀", "Antriebe und Raumfahrt", &["verbrennungsantrieb", "impulsantrieb", "hyperraumantrieb", "astrophysik", "logistik", "computertechnik"]),
-    ("⚔", "Militär und Aufklärung", &["waffentechnik", "schildtechnik", "panzerung", "spionagetechnik"]),
+    ("⚔", "Militär und Aufklärung", &["waffentechnik", "schildtechnik", "panzerung", "spionagetechnik", "ueberwachungstechnik", "abschirmtechnik"]),
 ];
 
 #[cfg(test)]

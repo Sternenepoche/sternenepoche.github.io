@@ -40,6 +40,7 @@ fn screen_categories(screen: Bildschirm) -> &'static [&'static str] {
 }
 
 fn select_asset<'a>(catalog: &'a Catalog, category: &str, key: &str, faction: &str) -> Option<&'a Asset> {
+    let key=inhalt::catalog::visual_key(category,key);
     catalog.assets.iter().find(|a| a.category == category && a.key == key && a.faction.as_deref() == Some(faction))
         .or_else(|| catalog.assets.iter().find(|a| a.category == category && a.key == key && a.faction.is_none()))
 }

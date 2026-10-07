@@ -399,8 +399,8 @@ impl Regelwerk {
             }
             v
         };
-        let kum_gebaeude = Gebaeude::ALLE.iter().map(|g| kum(&|s| self.kosten_gebaeude(*g, s), max)).collect();
-        let kum_forschung = Forschung::ALLE.iter().map(|f| kum(&|s| self.kosten_forschung(*f, s), MAX_FORSCHUNG)).collect();
+        let kum_gebaeude = Gebaeude::ALLE.iter().filter(|g| self.gebaeude.contains_key(g)).map(|g| kum(&|s| self.kosten_gebaeude(*g, s), max)).collect();
+        let kum_forschung = Forschung::ALLE.iter().filter(|f| self.forschung.contains_key(f)).map(|f| kum(&|s| self.kosten_forschung(*f, s), MAX_FORSCHUNG)).collect();
         self.cache = RegelCache { pot_ertrag, kum_gebaeude, kum_forschung };
     }
 
@@ -417,11 +417,13 @@ impl Regelwerk {
             return Err("Regelwerk: ungültige Zusatzregeln für Raketen oder Großprojekte".into());
         }
         for g in Gebaeude::ALLE {
+            if self.version == "0.1.0" && g == Gebaeude::Geheimdienst { continue; }
             if !self.gebaeude.contains_key(&g) {
                 return Err(format!("Regelwerk: Gebäude {g} fehlt"));
             }
         }
         for f in Forschung::ALLE {
+            if self.version == "0.1.0" && matches!(f, Forschung::Ueberwachungstechnik | Forschung::Abschirmtechnik) { continue; }
             if !self.forschung.contains_key(&f) {
                 return Err(format!("Regelwerk: Forschung {f} fehlt"));
             }
@@ -467,10 +469,10 @@ impl Regelwerk {
     }
 
     pub fn geb(&self, g: Gebaeude) -> &GebaeudeRegel {
-        &self.gebaeude[&g]
+        self.gebaeude.get(&g).unwrap_or_else(|| &self.gebaeude[&Gebaeude::Sensorphalanx])
     }
     pub fn forsch(&self, f: Forschung) -> &ForschungRegel {
-        &self.forschung[&f]
+        self.forschung.get(&f).unwrap_or_else(|| &self.forschung[&Forschung::Spionagetechnik])
     }
     pub fn einh(&self, e: Einheit) -> &EinheitRegel {
         &self.einheiten[&e]
@@ -541,11 +543,13 @@ impl Regelwerk {
 
     /// Summe der Kosten aller Stufen 1 bis `stufe` als Wert.
     pub fn wert_gebaeude_bis(&self, g: Gebaeude, stufe: u8) -> i64 {
+        if stufe == 0 { return 0; }
         let v = &self.cache.kum_gebaeude[g.idx()];
         v[(stufe as usize).min(v.len() - 1)]
     }
 
     pub fn wert_forschung_bis(&self, f: Forschung, stufe: u8) -> i64 {
+        if stufe == 0 { return 0; }
         let v = &self.cache.kum_forschung[f.idx()];
         v[(stufe as usize).min(v.len() - 1)]
     }

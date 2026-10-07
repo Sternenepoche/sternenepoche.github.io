@@ -136,6 +136,7 @@ impl Welt {
 
     /// Vorwarnzeit eines Planeten in Sekunden.
     pub fn warnzeit(&self, pid: usize) -> i64 {
+        if self.aufklaerungsregeln() { return self.online_warnzeit(pid); }
         let k = &self.regeln.kampf;
         (k.warnzeit_basis_minuten
             + k.warnzeit_je_phalanx_minuten
@@ -185,6 +186,11 @@ impl Welt {
         rolle: Rolle,
         a: Flugauftrag,
     ) -> Result<String, String> {
+        self.flotte_senden_intern(sid, rolle, a, None)
+    }
+
+    pub(crate) fn flotte_senden_intern(&mut self, sid: SpielerId, rolle: Rolle,
+        a: Flugauftrag, sondenziel: Option<FlottenId>) -> Result<String, String> {
         let r = self.regeln.clone();
         let pid = self.eigener_planet(sid, a.start)?;
         let p = &self.planeten[pid];
@@ -229,6 +235,16 @@ impl Welt {
                 a.start, a.start
             ));
         }
+        if self.aufklaerungsregeln() {
+            let own = sp.planeten.iter().any(|id|self.planeten[*id as usize].koord==a.ziel);
+            if a.mission == Mission::Abbau && !self.system_erfasst(sid,a.ziel) {
+                return Err("Sonnensystem zuerst mit einer Systemsonde kartieren".into());
+            }
+            if !own && !matches!(a.mission,Mission::SystemErkunden|Mission::Spionage|Mission::FlottenSpionage|Mission::Saven|Mission::Abbau)
+                && self.planetenwissen(sid,a.ziel)["bekannt"] != true {
+                return Err("Ziel zuerst mit einer eigenen Planetensonde aufklären".into());
+            }
+        }
         let ziel_pid = self.belegung.get(&a.ziel).map(|x| *x as usize);
         let hat = |e: Einheit| a.schiffe[e.idx()] > 0;
         let mut einweg = false;
@@ -236,6 +252,26 @@ impl Welt {
         let mut haltedauer = 0i64;
         let mut feindlich_gegen: Option<SpielerId> = None;
         match a.mission {
+            Mission::SystemErkunden => {
+                if !self.aufklaerungsregeln() { return Err("Systemaufklärung benötigt Online-Regeln v1".into()); }
+                if (0..SCHIFFE).any(|e|e != Einheit::Spionagesonde.idx() && a.schiffe[e]>0) {
+                    return Err("Systemaufklärung verwendet ausschließlich Spionagesonden".into());
+                }
+            }
+            Mission::Saven => {
+                if !self.aufklaerungsregeln() { return Err("Saven benötigt Online-Regeln v1".into()); }
+                if a.ziel == a.start { return Err("Save-Flug benötigt eine andere Zielkoordinate".into()); }
+                if !(0..=72 * STUNDE).contains(&a.haltedauer) { return Err("Save-Wartezeit: 0 bis 72 Spielstunden".into()); }
+                haltedauer = a.haltedauer;
+            }
+            Mission::FlottenSpionage => {
+                if !self.aufklaerungsregeln() || sondenziel.is_none() {
+                    return Err("Flottensonden mit flotte_ausspaehen starten".into());
+                }
+                if (0..SCHIFFE).any(|e|e != Einheit::Spionagesonde.idx() && a.schiffe[e]>0) {
+                    return Err("Flottenaufklärung verwendet ausschließlich Sonden".into());
+                }
+            }
             Mission::Angriff
             | Mission::Blockade
             | Mission::Invasion
@@ -343,6 +379,9 @@ impl Welt {
                 }
             }
             Mission::Spionage => {
+                if self.aufklaerungsregeln() && !self.system_erfasst(sid,a.ziel) {
+                    return Err("Sonnensystem zuerst mit system_erkunden und einer Spionagesonde kartieren".into());
+                }
                 if (0..SCHIFFE).any(|e| e != Einheit::Spionagesonde.idx() && a.schiffe[e] > 0) {
                     return Err("eine Spionageflotte besteht nur aus Spionagesonden".into());
                 }
@@ -358,7 +397,7 @@ impl Welt {
                 if !hat(Einheit::Kolonieschiff) {
                     return Err("Kolonisieren braucht ein Kolonieschiff".into());
                 }
-                if ziel_pid.is_some() {
+                if ziel_pid.is_some() && !self.aufklaerungsregeln() {
                     return Err(format!("{} ist schon besiedelt", a.ziel));
                 }
                 let unterwegs = self
@@ -415,7 +454,7 @@ impl Welt {
         }
 
         let plan = self.flugplan(sid, pid, a.ziel, &a.schiffe, a.sigma_pm)?;
-        let fracht: i64 = a.ladung.iter().sum();
+        let fracht = a.ladung.iter().try_fold(0i64,|sum,n|sum.checked_add(*n)).ok_or("Ladung ist zu groß")?;
         if a.ladung.iter().any(|m| *m < 0) {
             return Err("ladung darf nicht negativ sein".into());
         }
@@ -426,13 +465,13 @@ impl Welt {
                 ganz(plan.kapazitaet)
             ));
         }
-        if a.mission == Mission::Spionage && fracht > 0 {
+        if matches!(a.mission, Mission::Spionage | Mission::FlottenSpionage | Mission::SystemErkunden) && fracht > 0 {
             return Err("Sonden tragen keine Ladung".into());
         }
         let treibstoff = plan.treibstoff * if einweg { 1 } else { 2 };
         self.abrechnen(pid);
         let mut bedarf = a.ladung;
-        bedarf[Gut::Deuterium.idx()] += treibstoff;
+        bedarf[Gut::Deuterium.idx()] = bedarf[Gut::Deuterium.idx()].checked_add(treibstoff).ok_or("Ladung und Treibstoff sind zu groß")?;
         let mut sprit = [0i64; GUETER];
         sprit[Gut::Deuterium.idx()] = treibstoff;
         let topf = Self::topf_fuer(rolle, Topf::Wirtschaft);
@@ -475,6 +514,17 @@ impl Welt {
             },
         );
         self.plane(ankunft, EreignisArt::FlotteAnkunft { flotte: id });
+        if self.aufklaerungsregeln() {
+            self.aufklaerung.abschirmung.insert(id, self.spieler[sid as usize].forschung[Forschung::Abschirmtechnik.idx()]);
+            if let Some(target) = sondenziel { self.aufklaerung.sondenziele.insert(id, target); }
+            if a.mission.feindlich() {
+                if let Some(zp) = ziel_pid {
+                    let kontakt = (ankunft - self.warnzeit(zp)).max(self.zeit);
+                    if kontakt == self.zeit { self.sensor_kontakt(id); }
+                    else { self.plane(kontakt, EreignisArt::SensorKontakt { flotte:id }); }
+                }
+            }
+        }
         if self.kolonisationsregeln_v2() && a.mission == Mission::Transport {
             if let Some(zp) = ziel_pid {
                 self.kolonisation.transportziele.insert(
@@ -772,9 +822,11 @@ impl Welt {
     ) -> Result<String, String> {
         let jetzt = self.zeit;
         let Some(f) = self.flotten.get(&fid) else {
+            if self.aufklaerungsregeln() {return Err("Keine eigene rückrufbare Flotte unter dieser Kennung".into());}
             return Err(format!("Flotte {fid} gibt es nicht"));
         };
         if f.besitzer != sid {
+            if self.aufklaerungsregeln() {return Err("Keine eigene rückrufbare Flotte unter dieser Kennung".into());}
             return Err(format!("Flotte {fid} gehört dir nicht"));
         }
         if self.kolonisationsregeln_v2()
@@ -832,7 +884,7 @@ impl Welt {
         }
     }
 
-    fn heimflug(&mut self, fid: FlottenId) {
+    pub(crate) fn heimflug(&mut self, fid: FlottenId) {
         if self.kolonisationsregeln_v2() {
             let Some(f) = self.flotten.get(&fid).cloned() else {
                 return;
@@ -1094,6 +1146,17 @@ impl Welt {
         let jetzt = self.zeit;
         let ziel_pid = self.belegung.get(&f.ziel).map(|x| *x as usize);
         match f.mission {
+            Mission::SystemErkunden => self.system_erkunden_ankunft(fid),
+            Mission::FlottenSpionage => self.flotten_spionage_ankunft(fid),
+            Mission::Saven => {
+                if f.haltedauer > 0 {
+                    let end = jetzt + f.haltedauer;
+                    let fleet = self.flotten.get_mut(&fid).unwrap();
+                    fleet.zustand = Flottenzustand::ImOrbit;
+                    fleet.orbit_ende = end;
+                    self.plane(end, EreignisArt::OrbitEnde { flotte:fid });
+                } else { self.heimflug(fid); }
+            }
             Mission::Transport => {
                 if self.kolonisationsregeln_v2() {
                     self.transport_ankunft_v2(fid);
@@ -2145,8 +2208,8 @@ impl Welt {
             bestand: ziel.bestand.to_vec(),
             schiffe: (info >= 2).then(|| ziel.einheiten[..SCHIFFE].to_vec()),
             verteidigung: (info >= 3).then(|| ziel.einheiten[SCHIFFE..].to_vec()),
-            gebaeude: (info >= 5).then(|| ziel.gebaeude.to_vec()),
-            forschung: (info >= 7).then(|| self.spieler[gegner as usize].forschung.to_vec()),
+            gebaeude: (info >= 5).then(|| ziel.gebaeude.iter().take(if self.aufklaerungsregeln(){GEBAEUDE}else{28}).copied().collect()),
+            forschung: (info >= 7).then(|| self.spieler[gegner as usize].forschung.iter().take(if self.aufklaerungsregeln(){FORSCHUNGEN}else{17}).copied().collect()),
         };
         let ziel_schiffe: i64 = ziel.einheiten[..SCHIFFE].iter().sum();
         let mut chance = (ziel_schiffe * sonden * 2).min(1000);

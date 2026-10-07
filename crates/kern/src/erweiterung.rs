@@ -45,6 +45,9 @@ impl Welt {
         self.wecke(besitzer,Rolle::Feldherr,"Raketen fertig",false);
     }
     pub fn raketen_starten(&mut self,sid:SpielerId,start:Koord,ziel:Koord,anzahl:i64,zieltyp:Einheit)->Result<String,String> {
+        if self.aufklaerungsregeln() && self.planetenwissen(sid,ziel)["bekannt"]!=true {
+            return Err("Ziel zuerst mit einer eigenen Planetensonde aufklären".into());
+        }
         let pid=self.eigener_planet(sid,start)?;
         if anzahl<=0 || anzahl>self.planeten[pid].raketen[1] {return Err("Nicht genügend fertige Interplanetarraketen oder ungültige Anzahl".into());}
         if zieltyp.ist_schiff(){return Err("Raketen treffen nur ausgewählte Verteidigungsanlagen".into());}

@@ -1,0 +1,22 @@
+[Unit]
+Description=Sternenepoche authoritative Rust game world
+After=network.target
+
+[Service]
+Type=simple
+User=sternenepoche
+Group=sternenepoche
+WorkingDirectory=/opt/sternenepoche
+ExecStart=/opt/sternenepoche/sternenepoche-server --data /var/lib/sternenepoche --trusted-proxy --origin https://spiel.example.com
+Restart=on-failure
+RestartSec=5
+StateDirectory=sternenepoche
+StateDirectoryMode=0700
+UMask=0077
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

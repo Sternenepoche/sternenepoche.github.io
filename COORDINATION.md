@@ -1,5 +1,28 @@
 # Abstimmung Sternenepoche
 
+## Aktueller Auftrag: gemeinsame PC-Welt und VPS-Vorbereitung (7. Oktober 2026)
+
+Inventur der beiden lokalen Bestände, Diagnose des Pages-/Python-Prototyps und ein
+verbindliches Drei-Ebenen-Konzept sind in `docs/INVENTUR-2026-10-07.md` und
+`docs/ONLINE-KONZEPT.md` dokumentiert. Karls Hostingentscheidung: erst eigener PC,
+später VPS ohne zweite Engine. `crates/server` verwendet den Rust-Kern, SQLite,
+30 Skriptbots und 20 eingefrorene freie Plätze. Gemeinsamer Browser: `web-client`;
+getrenntes lokales Dashboard: Port 8891. Start/Umzug: `docs/SERVER-BETRIEB.md`.
+
+Online-Regelsatz mit System-/Planetensonden, Geheimdienst, Überwachung, Abschirmung,
+Sensorwarnung nach 120 Spielminuten, physischer Flottenspionage und Saven. Historische
+Laborprofile bleiben getrennt; insbesondere erhalten V2/V3/V4 keine vergrößerten
+Online-Werkzeugschemata. Alte V4-Snapshots sind byte- und hashkompatibel geprüft.
+HTTP-Mehrspieler-/Restartprüfung und Browseranbieter-Mocks stehen unter `tools/`.
+208 Rust-Tests bestanden; reale HTTP-/Neustart-/Profilprüfungen und Browseranbieter-Mocks
+bestanden. Echtes Ollama qwen3.5:4b im Browser: zwei Aufrufe, drei gültige Befehle.
+Zwei Browser in derselben Testwelt prüften Aufklärung, Aufbau bis Stufe II, Save-Flug
+mit 6.000 Erz und Rückkehr, Nachricht sowie Nichtangriffspakt. Botlauf über 180 Spieltage:
+79.774 Befehle, fünf Ablehnungen, 102 bewohnte Welten, 17 Reiche auf Stufe V.
+Kein echter OpenRouter-, VPS-, weltweiter HTTPS- oder 24-Stunden-Dauertest wird behauptet.
+Pages-Packliste schließt Betriebsdaten und das Adminfrontend aus. Aktuelle Auslieferung
+erfolgt über den Workflow mit fünf ausdrücklich freigegebenen Browserdateien.
+
 ## Aktueller Stand: V4-Integration abgeschlossen (5. Oktober 2026)
 
 Auf Karls „mach weiter bis es fertig ist“ wurden die offenen Regelentscheidungen in Abschnitt 0.11

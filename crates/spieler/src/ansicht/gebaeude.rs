@@ -61,7 +61,7 @@ impl Player {
                 .show(ui, |ui| {
                     for schluessel in *liste {
                         let Some(g) = Gebaeude::aus_name(schluessel) else { continue };
-                        let regel = r.geb(g);
+                        let Some(regel) = r.gebaeude.get(&g) else {continue;};
                         let jetzt = i(&p["gebaeude"][*schluessel]);
                         let eintrag = baubar.iter().find(|b| b["gebaeude"] == *schluessel);
                         let mut abriss = false;

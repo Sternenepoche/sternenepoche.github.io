@@ -79,6 +79,13 @@ pub enum Aktion {
     FlotteZurueckrufen {
         flotte: u32,
     },
+    FlotteAusspaehen {
+        start: Koord,
+        flotte: u32,
+        sonden: i64,
+        #[serde(default = "voll")]
+        geschwindigkeit: f64,
+    },
     VerbandOeffnen {
         flotte: u32,
     },
@@ -184,6 +191,7 @@ impl Aktion {
             Aktion::FlotteSenden { .. } => "flotte_senden",
             Aktion::FlotteVersorgen { .. } => "flotte_versorgen",
             Aktion::FlotteZurueckrufen { .. } => "flotte_zurueckrufen",
+            Aktion::FlotteAusspaehen { .. } => "flotte_ausspaehen",
             Aktion::VerbandOeffnen { .. } => "verband_oeffnen",
             Aktion::VerbandBeitreten { .. } => "verband_beitreten",
             Aktion::RaketenBauen { .. } => "raketen_bauen",
@@ -226,6 +234,7 @@ impl Aktion {
             | Aktion::RaketenBauen { .. }
             | Aktion::FlotteVersorgen { .. } => &[Verwalter, Feldherr],
             Aktion::RaketenStarten { .. }
+            | Aktion::FlotteAusspaehen { .. }
             | Aktion::VerbandOeffnen { .. }
             | Aktion::VerbandBeitreten { .. } => &[Feldherr],
             Aktion::FlotteSenden { mission, .. } => match mission {
@@ -234,6 +243,7 @@ impl Aktion {
                 | Mission::Kolonisieren
                 | Mission::Abbau
                 | Mission::Recyceln => &[Verwalter, Feldherr],
+                Mission::Saven => &[Verwalter, Feldherr],
                 _ => &[Feldherr],
             },
             _ => &[Diplomat],
@@ -272,6 +282,7 @@ pub fn erlaubte_typen(rolle: Rolle) -> Vec<&'static str> {
             &[Rolle::Verwalter, Rolle::Feldherr][..],
         ),
         ("verband_oeffnen", &[Rolle::Feldherr][..]),
+        ("flotte_ausspaehen", &[Rolle::Feldherr][..]),
         ("verband_beitreten", &[Rolle::Feldherr][..]),
         ("raketen_bauen", &[Rolle::Verwalter, Rolle::Feldherr][..]),
         ("raketen_starten", &[Rolle::Feldherr][..]),
@@ -333,6 +344,7 @@ impl Welt {
         if sid as usize >= self.spieler.len() {
             return (false, "Spieler existiert nicht".into());
         }
+        if !self.spieler_aktiv(sid) { return (false, "Startplatz noch nicht belegt".into()); }
         if self.beendet() {
             return (
                 false,
@@ -343,7 +355,16 @@ impl Welt {
         let ergebnis = match serde_json::from_value::<Aktion>(aktion.clone()) {
             Err(e) => Err(format!("Aktion nicht lesbar: {e}")),
             Ok(a) => {
-                if rolle != Rolle::Alle && !a.zustaendig().contains(&rolle) {
+                let hidden_fleet = if self.aufklaerungsregeln() {
+                    match &a {
+                        Aktion::FlotteZurueckrufen{flotte}|Aktion::VerbandOeffnen{flotte}|
+                        Aktion::FlotteVersorgen{versorgungsflotte:flotte,..}=>!self.flotten.get(flotte).is_some_and(|f|f.besitzer==sid),
+                        Aktion::VerbandBeitreten{flotte,fuehrung}=>!self.flotten.get(flotte).is_some_and(|f|f.besitzer==sid) || !self.flotten.get(fuehrung).is_some_and(|f|f.verband==Some(f.id) && (f.besitzer==sid || self.verbuendet(sid,f.besitzer))),
+                        _=>false,
+                    }
+                } else {false};
+                if hidden_fleet {Err("Keine berechtigte Flotte unter dieser Kennung".into())}
+                else if rolle != Rolle::Alle && !a.zustaendig().contains(&rolle) {
                     let wer: Vec<&str> = a.zustaendig().iter().map(|r| r.name()).collect();
                     Err(format!(
                         "{} gehört nicht zur Rolle {rolle}, zuständig: {}",
@@ -496,6 +517,12 @@ impl Welt {
                 )
             }
             Aktion::FlotteZurueckrufen { flotte } => self.flotte_zurueckrufen(sid, flotte),
+            Aktion::FlotteAusspaehen { start, flotte, sonden, geschwindigkeit } => {
+                if !geschwindigkeit.is_finite() || !(0.1..=1.0).contains(&geschwindigkeit) {
+                    return Err("geschwindigkeit muss zwischen 0.1 und 1.0 liegen".into());
+                }
+                self.flotte_ausspaehen(sid, rolle, start, flotte, sonden, milli(geschwindigkeit))
+            }
             Aktion::FlotteVersorgen {
                 start,
                 ziel,
@@ -628,6 +655,24 @@ impl Welt {
 /// JSON-Schema der Antwort einer Rolle. Es steht neben der Aufzählung der Aktionen, damit
 /// beide nicht auseinanderlaufen, und ist so gebaut, dass es sich beim Dekodieren erzwingen
 /// lässt: alle Felder Pflicht, keine Zusatzfelder, fehlende Werte als null.
+pub fn antwortschema_legacy(rolle: Rolle) -> serde_json::Value {
+    let mut schema=antwortschema(rolle);
+    fn legacy(v:&mut serde_json::Value) {
+        if let Some(o)=v.as_object_mut() {
+            if let Some(list)=o.get_mut("enum").and_then(serde_json::Value::as_array_mut) {
+                list.retain(|v|!matches!(v.as_str(),Some("geheimdienst"|"ueberwachungstechnik"|"abschirmtechnik"|"saven"|"system_erkunden"|"flotten_spionage")));
+            }
+            if let Some(cargo)=o.get_mut("ladung") {
+                if let Some(props)=cargo["properties"].as_object_mut(){props.remove("antriebskern");props.remove("habitatmodul");}
+                if let Some(required)=cargo["required"].as_array_mut(){required.retain(|v|v!="antriebskern" && v!="habitatmodul");}
+            }
+            for child in o.values_mut(){legacy(child);}
+        } else if let Some(a)=v.as_array_mut(){for child in a{legacy(child);}}
+    }
+    schema["properties"]["aktionen"]["items"]["anyOf"].as_array_mut().unwrap().retain(|v|v["properties"]["typ"]["enum"][0]!="flotte_ausspaehen");
+    legacy(&mut schema);schema
+}
+
 pub fn antwortschema(rolle: Rolle) -> serde_json::Value {
     use serde_json::{json, Map, Value};
     let namen = |v: Vec<&str>| json!({"type": "string", "enum": v});
@@ -675,12 +720,13 @@ pub fn antwortschema(rolle: Rolle) -> serde_json::Value {
         .filter(|e| e.ist_schiff())
         .map(|g| g.name())
         .collect();
-    let fracht: Vec<&str> = Gut::ALLE.iter().take(8).map(|g| g.name()).collect();
+    let fracht: Vec<&str> = Gut::ALLE.iter().map(|g| g.name()).collect();
     let gut: Vec<&str> = Gut::ALLE.iter().map(|g| g.name()).collect();
     let schiffe = || alle_felder(schiffsnamen.clone(), "integer");
     let missionen: Vec<&str> = Mission::ALLE
         .iter()
         .filter(|m| {
+            if **m == Mission::FlottenSpionage { return false; }
             let a = Aktion::FlotteSenden {
                 start: Koord::neu(1, 1, 1),
                 ziel: Koord::neu(1, 1, 1),
@@ -764,6 +810,9 @@ pub fn antwortschema(rolle: Rolle) -> serde_json::Value {
                 ("haltedauer_stunden", ganzzahl()),
             ],
             "flotte_zurueckrufen" | "verband_oeffnen" => vec![("flotte", ganzzahl())],
+            "flotte_ausspaehen" => vec![("start", koord()), ("flotte", ganzzahl()),
+                ("sonden",begrenzt("integer",json!(1),Some(json!(1000)),"Physische Spionagesonden")),
+                ("geschwindigkeit",begrenzt("number",json!(0.1),Some(json!(1.0)),"Anteil der Höchstgeschwindigkeit"))],
             "flotte_versorgen" => vec![
                 ("start", koord()),
                 ("ziel", koord()),

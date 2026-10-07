@@ -27,10 +27,13 @@ impl Welt {
         let technik = self.spieler[sid as usize].forschung[Forschung::Spionagetechnik.idx()];
         let schritt = (800 / (1 + technik as i64)).max(25);
         let besitzer = self.belegung.get(&ziel).map(|pid| self.planeten[*pid as usize].besitzer);
+        let (felder,zone)=self.belegung.get(&ziel).filter(|_|self.aufklaerungsregeln()).map(|pid|{
+            let actual=&self.planeten[*pid as usize];(actual.felder,actual.zone)
+        }).unwrap_or((p.felder,p.zone));
         let bestand = self.belegung.get(&ziel).map(|pid| self.bestand_jetzt(*pid as usize)
             .iter().map(|v| intervall(ganz(*v), (10000 / (1 + technik as i64)).max(100))).collect()).unwrap_or_default();
         self.scans.insert((sid, ziel), Scan { zeit: self.zeit, technik, besitzer,
-            felder: p.felder, zone: p.zone, erz: intervall(s.reich_erz, schritt),
+            felder, zone, erz: intervall(s.reich_erz, schritt),
             kristall: intervall(s.reich_kristall, schritt), bestand });
     }
 

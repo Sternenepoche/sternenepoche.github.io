@@ -17,7 +17,9 @@ use std::{
 };
 use sternenepoche_agenten::{config::Config, journal::Journal};
 
-pub const BUILTIN_RULES: &str = include_str!("../../../regeln/regelwerk.ron");
+pub mod technologie;
+
+pub const BUILTIN_RULES: &str = include_str!("../../../regeln/online-v1.ron");
 /// Reports kept in memory for the live screen; all of them are also appended to
 /// `entscheidungen.jsonl` in the live folder.
 const PROTOKOLL_MAX: usize = 400;

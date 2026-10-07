@@ -1,6 +1,18 @@
 use kern::{Einheit, Forschung, Gebaeude, Gut, Volk};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+
+/// Explicit temporary reuse of existing art; never claim a new image was generated.
+pub fn visual_key<'a>(category: &str, key: &'a str) -> &'a str {
+    match (category,key) {
+        ("buildings","geheimdienst")=>"sensorphalanx",
+        ("research","ueberwachungstechnik")=>"spionagetechnik",
+        ("research","abschirmtechnik")=>"schildtechnik",
+        ("missions","system_erkunden"|"flotten_spionage")=>"spionage",
+        ("missions","saven")=>"transport",
+        _=>key,
+    }
+}
 use sha2::{Digest, Sha256};
 use std::{
     collections::{BTreeMap, BTreeSet},
@@ -95,10 +107,10 @@ impl Catalog {
             check("resources", g.name(), None)?;
         }
         for f in Forschung::ALLE {
-            check("research", f.name(), None)?;
+            check("research", visual_key("research",f.name()), None)?;
         }
         for b in Gebaeude::ALLE {
-            check("buildings", b.name(), None)?;
+            check("buildings", visual_key("buildings",b.name()), None)?;
         }
         for v in Volk::ALLE {
             if !self.factions.contains_key(v.name()) {
@@ -106,7 +118,7 @@ impl Catalog {
             }
             check("portraits", v.name(), Some(v.name()))?;
             for b in Gebaeude::ALLE {
-                check("buildings", b.name(), Some(v.name()))?;
+                check("buildings", visual_key("buildings",b.name()), Some(v.name()))?;
             }
             for e in Einheit::ALLE {
                 check(

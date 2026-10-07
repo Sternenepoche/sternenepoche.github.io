@@ -6,7 +6,7 @@ use super::{
     Result,
 };
 use kern::{
-    aktion::{antwortschema, Aktion},
+    aktion::{antwortschema_legacy as antwortschema, Aktion},
     Rolle, Welt,
 };
 use serde_json::{json, Value};

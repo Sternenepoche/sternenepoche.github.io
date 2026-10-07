@@ -24,6 +24,10 @@ impl Welt {
     /// Produktion endet an der Lagergrenze, Bestände werden nie negativ.
     pub fn abrechnen(&mut self, pid: usize) {
         let jetzt = self.zeit;
+        if !self.spieler_aktiv(self.planeten[pid].besitzer) {
+            self.planeten[pid].stand = jetzt;
+            return;
+        }
         let grenze = self.lagergrenze(pid);
         let p = &mut self.planeten[pid];
         let dt = jetzt - p.stand;
@@ -74,6 +78,10 @@ impl Welt {
 
     /// Rechnet Bestand ab und bestimmt alle Raten des Planeten neu.
     pub fn raten_neu(&mut self, pid: usize) {
+        if !self.spieler_aktiv(self.planeten[pid].besitzer) {
+            self.planeten[pid].rate = [0; GUETER];
+            return;
+        }
         self.abrechnen(pid);
         let r = self.regeln.clone();
         let w = &r.wirtschaft;
@@ -405,6 +413,7 @@ impl Welt {
         let w = &r.wirtschaft;
         let mut einkommen = vec![0i64; self.spieler.len()];
         for pid in 0..self.planeten.len() {
+            if !self.spieler_aktiv(self.planeten[pid].besitzer) { continue; }
             self.bevoelkerung_tick(pid);
             self.stabilitaet_tick(pid);
             let p = &self.planeten[pid];
@@ -424,6 +433,7 @@ impl Welt {
             einkommen[sid] += r.wert(&plus) + steuer;
         }
         for sid in 0..self.spieler.len() {
+            if !self.spieler_aktiv(sid as SpielerId) { continue; }
             // Einkommen nach den Anteilen der Doktrin auf die Töpfe verteilen.
             for t in 0..TOEPFE {
                 let teil = einkommen[sid] * self.spieler[sid].anteile[t] as i64 / 100;
@@ -433,6 +443,7 @@ impl Welt {
             self.stufen_tick(sid as SpielerId);
         }
         for pid in 0..self.planeten.len() {
+            if !self.spieler_aktiv(self.planeten[pid].besitzer) { continue; }
             self.bau_starten(pid);
         }
         self.eroberung_pruefen();
@@ -564,6 +575,7 @@ impl Welt {
         k: Koord,
         g: Gebaeude,
     ) -> Result<String, String> {
+        if !self.regeln.gebaeude.contains_key(&g) { return Err("Gebäude gehört nicht zu den Regeln dieser Partie".into()); }
         let pid = self.eigener_planet(sid, k)?;
         if self.integritaet(pid, g) < 1000 {
             return Err("Beschädigtes Gebäude vor weiterem Ausbau reparieren".into());
@@ -966,6 +978,14 @@ impl Welt {
         f: Forschung,
         planet: Option<Koord>,
     ) -> Result<String, String> {
+        if !self.regeln.forschung.contains_key(&f) { return Err("Forschung gehört nicht zu den Regeln dieser Partie".into()); }
+        if matches!(f,Forschung::Ueberwachungstechnik|Forschung::Abschirmtechnik) && self.spieler[sid as usize].forschung[Forschung::Spionagetechnik.idx()]==0 {
+            return Err("Überwachung und Abschirmtechnik benötigen Spionagetechnik Stufe 1".into());
+        }
+        if f == Forschung::Ueberwachungstechnik && !self.spieler[sid as usize].planeten.iter()
+            .any(|p|self.planeten[*p as usize].gebaeude[Gebaeude::Geheimdienst.idx()] > 0) {
+            return Err("Überwachungstechnik benötigt einen eigenen Geheimdienst".into());
+        }
         let r = self.regeln.clone();
         let fr = r.forsch(f);
         let sp = &self.spieler[sid as usize];
@@ -1264,6 +1284,7 @@ impl Welt {
         let w = &r.wirtschaft;
         let jetzt = self.zeit;
         for sid in 0..self.spieler.len() as SpielerId {
+            if !self.spieler_aktiv(sid) { continue; }
             // Unterhalt für Schiffe und Verwaltung der Kolonien.
             let kosten = mal(self.flottenwert(sid), w.unterhalt_schiffe_je_tag)
                 + self.kolonien(sid) as i64 * w.verwaltung_je_kolonie_tag * M;
@@ -1294,6 +1315,7 @@ impl Welt {
         self.punkte_neu();
         let tag = jetzt / TAG;
         for sid in 0..self.spieler.len() as SpielerId {
+            if !self.spieler_aktiv(sid) { continue; }
             let sp = &self.spieler[sid as usize];
             let produktion: i64 = sp
                 .planeten

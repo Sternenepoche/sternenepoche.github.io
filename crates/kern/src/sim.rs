@@ -58,6 +58,10 @@ impl Welt {
             self.ausfuehren(e.art);
         }
         self.zeit_vorruecken(ziel);
+        if self.aufklaerungsregeln() {
+            self.aufklaerung.abschirmung.retain(|id,_|self.flotten.contains_key(id));
+            self.aufklaerung.sondenziele.retain(|id,_|self.flotten.contains_key(id));
+        }
         if self.beendet() {
             self.punkte_neu();
         }
@@ -67,6 +71,7 @@ impl Welt {
 
     fn ausfuehren(&mut self, art: EreignisArt) {
         match art {
+            EreignisArt::SensorKontakt { flotte } => self.sensor_kontakt(flotte),
             EreignisArt::Tick => {
                 self.tick();
                 self.plane(self.zeit + STUNDE, EreignisArt::Tick);
@@ -123,6 +128,7 @@ impl Welt {
                 continue;
             }
             if let Some(zp) = self.belegung.get(&f.ziel) {
+                if self.aufklaerungsregeln() && (f.besitzer==self.planeten[*zp as usize].besitzer || self.verbuendet(f.besitzer,self.planeten[*zp as usize].besitzer)){continue;}
                 if jetzt >= f.ankunft - self.warnzeit(*zp as usize) {
                     warnungen.push((f.id, self.planeten[*zp as usize].besitzer));
                 }
@@ -195,6 +201,9 @@ impl Welt {
     /// SHA-256 über den gesamten Zustand. Zwei Läufe mit gleichem Startwert und
     /// gleichem Aktionsprotokoll liefern denselben Hash.
     pub fn hash(&self) -> String {
+        crate::snapshot_layout::with_layout(!self.aufklaerung.neues_layout, || self.hash_intern())
+    }
+    fn hash_intern(&self) -> String {
         let mut kopie = self.clone();
         let ereignisse =
             std::mem::replace(&mut kopie.ereignisse, BinaryHeap::new()).into_sorted_vec();
@@ -219,11 +228,24 @@ impl Welt {
             h.update(b"sternkarte-v1");
             h.update(bincode::serialize(&self.scans).expect("Scans"));
         }
+        if self.aufklaerung.neues_layout {
+            h.update(b"aufklaerung-online-v1");
+            h.update(bincode::serialize(&self.aufklaerung).expect("Aufklärungszustand"));
+        }
         h.finalize().iter().map(|b| format!("{b:02x}")).collect()
     }
 
     /// Vollständiger Schnappschuss als Bytes.
     pub fn zu_bytes(&self) -> Vec<u8> {
+        let base = crate::snapshot_layout::with_layout(!self.aufklaerung.neues_layout, || self.zu_bytes_mit_scans());
+        if !self.aufklaerung.neues_layout { return base; }
+        let mut out = b"STERNEP6".to_vec();
+        out.extend_from_slice(&(base.len() as u64).to_le_bytes());
+        out.extend(base);
+        out.extend(bincode::serialize(&self.aufklaerung).expect("Aufklärungszustand"));
+        out
+    }
+    fn zu_bytes_mit_scans(&self) -> Vec<u8> {
         let base = self.zu_bytes_legacy();
         if self.scans.is_empty() { return base; }
         let mut out = b"STERNEP5".to_vec();
@@ -259,11 +281,23 @@ impl Welt {
     }
 
     pub fn aus_bytes(b: &[u8]) -> Result<Welt, String> {
+        if b.starts_with(b"STERNEP6") {
+            let len = u64::from_le_bytes(b.get(8..16).ok_or("Snapshotkopf fehlt")?.try_into().unwrap()) as usize;
+            let end = 16usize.checked_add(len).filter(|n|*n<=b.len()).ok_or("Snapshotlänge ungültig")?;
+            if b[16..end].starts_with(b"STERNEP6") { return Err("Verschachtelter V6-Snapshot".into()); }
+            let mut w = crate::snapshot_layout::with_layout(false, ||Self::aus_bytes_intern(&b[16..end]))?;
+            w.aufklaerung = bincode::deserialize(&b[end..]).map_err(|e|e.to_string())?;
+            if !w.aufklaerung.neues_layout { return Err("V6-Snapshot ohne erweitertes Layout".into()); }
+            return Ok(w);
+        }
+        crate::snapshot_layout::with_layout(true, ||Self::aus_bytes_intern(b))
+    }
+    fn aus_bytes_intern(b: &[u8]) -> Result<Welt, String> {
         if b.starts_with(b"STERNEP5") {
             let len = u64::from_le_bytes(b.get(8..16).ok_or("Snapshotkopf fehlt")?.try_into().unwrap()) as usize;
             let end = 16usize.checked_add(len).filter(|n| *n <= b.len()).ok_or("Snapshotlänge ungültig")?;
             if b[16..end].starts_with(b"STERNEP5") { return Err("Verschachtelter V5-Snapshot".into()); }
-            let mut w = Self::aus_bytes(&b[16..end])?;
+            let mut w = Self::aus_bytes_intern(&b[16..end])?;
             w.scans = bincode::deserialize(&b[end..]).map_err(|e| e.to_string())?;
             return Ok(w);
         }

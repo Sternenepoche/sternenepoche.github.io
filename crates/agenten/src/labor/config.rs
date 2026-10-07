@@ -239,7 +239,7 @@ impl Config {
             model: "demo".into(),
             capabilities: kern::aktion::erlaubte_typen(kern::Rolle::Alle)
                 .into_iter()
-                .filter(|name| *name != "flotte_versorgen")
+                .filter(|name| !matches!(*name,"flotte_versorgen"|"flotte_ausspaehen"))
                 .map(str::to_string)
                 .collect(),
         };

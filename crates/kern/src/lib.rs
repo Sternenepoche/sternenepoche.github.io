@@ -6,6 +6,8 @@
 #![recursion_limit = "512"]
 
 pub mod aktion;
+pub mod aufklaerung;
+mod snapshot_layout;
 pub mod diplomatie;
 pub mod erweiterung;
 pub mod flotte;

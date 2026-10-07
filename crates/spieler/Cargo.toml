@@ -8,6 +8,10 @@ description = "Native Rust player mode using the authoritative Sternenepoche sim
 name = "sternenepoche-spieler"
 path = "src/main.rs"
 
+[[bin]]
+name = "sternenepoche-browser"
+path = "src/browser.rs"
+
 [dependencies]
 kern = { path = "../kern" }
 lauf = { path = "../lauf" }

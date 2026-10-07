@@ -112,6 +112,7 @@ pub struct Planet {
     /// Rate je Gut in Tausendsteln pro Spielstunde, gültig seit `stand`.
     pub rate: [i64; GUETER],
     pub stand: SimZeit,
+    #[serde(with = "crate::snapshot_layout::buildings")]
     pub gebaeude: [u8; GEBAEUDE],
     /// Schiffe und Verteidigung auf dem Planeten.
     pub einheiten: [i64; EINHEITEN],
@@ -240,6 +241,7 @@ pub struct Spieler {
     /// Credits in Tausendsteln.
     pub credits: i64,
     pub steuersatz: u8,
+    #[serde(with = "crate::snapshot_layout::research")]
     pub forschung: [u8; FORSCHUNGEN],
     pub forschung_aktiv: Option<Forschungsauftrag>,
     pub forschung_schlange: Vec<(Forschung, PlanetId, Option<Topf>)>,
@@ -315,6 +317,7 @@ pub enum EreignisArt {
     RaketenAnkunft { von: SpielerId, ziel: Koord, anzahl: i64, zieltyp: Einheit },
     // Append only: historical bincode enum discriminants remain unchanged.
     MarktlieferungGebunden { planet: PlanetId, empfaenger: SpielerId, gut: Gut, menge: i64 },
+    SensorKontakt { flotte: FlottenId },
 }
 
 /// Ereignis in der Prioritätswarteschlange. Der Schlüssel aus Zeit, Priorität und
@@ -486,6 +489,8 @@ pub struct Tageswerte {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Welt {
     #[serde(skip)]
+    pub aufklaerung: crate::aufklaerung::Aufklaerungszustand,
+    #[serde(skip)]
     pub scans: BTreeMap<(SpielerId, Koord), crate::sternkarte::Scan>,
     /// Extension lives in the versioned snapshot envelope, keeping old bincode layouts readable.
     #[serde(skip)]
@@ -557,6 +562,7 @@ impl Welt {
     /// Erzeugt eine neue Welt mit `anzahl` Spielern aus dem Startwert.
     pub fn neu(regeln: Regelwerk, startwert: u64, anzahl: usize) -> Result<Welt, String> {
         let regeln = Arc::new(regeln);
+        let online = regeln.gebaeude.contains_key(&Gebaeude::Geheimdienst);
         let w = &regeln.welt;
         let mut rng = strom(startwert, KANAL_GALAXIE, 0);
         let je_sektor_max = w.systeme_je_sektor as usize / w.start_abstand.max(1) as usize;
@@ -575,14 +581,15 @@ impl Welt {
                     nummer: n,
                     reich_erz: milli(w.reichtum_min) + zufall(&mut rng, spanne) as i64,
                     reich_kristall: milli(w.reichtum_min) + zufall(&mut rng, spanne) as i64,
-                    nebel: ist_nebel(n),
-                    guertel: n % w.guertel_abstand == w.guertel_versatz,
+                    nebel: if online {zufall(&mut rng,w.nebel_abstand as u64)==0} else {ist_nebel(n)},
+                    guertel: if online {zufall(&mut rng,w.guertel_abstand as u64)==0} else {n % w.guertel_abstand == w.guertel_versatz},
                 });
                 for pos in 1..=w.plaetze_je_system {
+                    let zone_position=if online {1+zufall(&mut rng,w.plaetze_je_system as u64) as u8} else {pos};
                     let (zone, zr) = regeln
                         .zonen
                         .iter()
-                        .find(|(_, z)| pos >= z.von && pos <= z.bis)
+                        .find(|(_, z)| zone_position >= z.von && zone_position <= z.bis)
                         .ok_or_else(|| format!("Position {pos} liegt in keiner Zone"))?;
                     let breite = (zr.felder_max - zr.felder_min + 1) as u64;
                     plaetze.push(Platz { felder: zr.felder_min + zufall(&mut rng, breite) as u16, zone: *zone });
@@ -601,7 +608,8 @@ impl Welt {
         }
         let mut startorte: Vec<Koord> = Vec::new();
         for (si, k) in je_sektor.iter().enumerate() {
-            let gewaehlt = Self::startsysteme(&mut rng, w.systeme_je_sektor, &ist_nebel, *k, w.start_abstand)?;
+            let sector_nebel=|n:u8|systeme[si*w.systeme_je_sektor as usize+n as usize-1].nebel;
+            let gewaehlt = Self::startsysteme(&mut rng, w.systeme_je_sektor, &sector_nebel, *k, w.start_abstand)?;
             for n in gewaehlt {
                 startorte.push(Koord::neu(si as u8 + 1, n, w.heimat_position));
             }
@@ -613,6 +621,7 @@ impl Welt {
         mischen(&mut rng, &mut voelker);
 
         let mut welt = Welt {
+            aufklaerung: crate::aufklaerung::Aufklaerungszustand::neu(regeln.gebaeude.contains_key(&Gebaeude::Geheimdienst)),
             kolonisation: Default::default(),
             scans: Default::default(),
             fachereignisse: Vec::new(),
@@ -752,6 +761,7 @@ impl Welt {
             welt.raten_neu(pid);
         }
         welt.punkte_neu();
+        if welt.aufklaerungsregeln() { welt.kolonisationsregeln_v2_aktivieren(); }
         welt.plane(STUNDE, EreignisArt::Tick);
         welt.plane(TAG, EreignisArt::Tag);
         welt.fenster_vorbereiten();
@@ -799,6 +809,7 @@ impl Welt {
 
     pub fn plane(&mut self, zeit: SimZeit, art: EreignisArt) {
         let prio = match art {
+            EreignisArt::SensorKontakt { .. } => 0,
             EreignisArt::BauFertig { .. } => 1,
             EreignisArt::FertigungFertig { .. } | EreignisArt::RaketenFertig { .. } => 2,
             EreignisArt::FlotteRueckkehr { .. } => 3,
@@ -835,12 +846,16 @@ impl Welt {
         let n = name.trim();
         self.spieler
             .iter()
-            .find(|s| s.name.eq_ignore_ascii_case(n))
+            .find(|s| self.spieler_aktiv(s.id) && s.name.eq_ignore_ascii_case(n))
             .map(|s| s.id)
             .ok_or_else(|| format!("Spieler '{n}' gibt es nicht"))
     }
 
     pub fn eigener_planet(&self, sid: SpielerId, k: Koord) -> Result<usize, String> {
+        if self.aufklaerungsregeln() {
+            return self.spieler[sid as usize].planeten.iter().copied().find(|pid|self.planeten[*pid as usize].koord==k)
+                .map(|pid|pid as usize).ok_or_else(||format!("{k} ist kein eigener Planet"));
+        }
         match self.belegung.get(&k) {
             Some(pid) if self.planeten[*pid as usize].besitzer == sid => Ok(*pid as usize),
             Some(_) => Err(format!("{k} gehört dir nicht")),

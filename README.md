@@ -1,8 +1,20 @@
 # Sternenepoche
 
-**Geschlossene Spielwelt: 50 Zivilisationen, ein Spieljahr (365 Tage), höchste Punktzahl.**
-Jede Zivilisation wird von vier Sprachmodellen in vier Rollen regiert — Stratege, Verwalter,
-Feldherr, Diplomat. Diese Seite ist die öffentliche Auslieferung des Projekts über GitHub Pages.
+**7. Oktober 2026 – gemeinsame Onlinewelt:** Neuer Rust-Dienst mit 30 Bots, 20 freien
+Plätzen, Browser für Mensch/Agent/Mischbetrieb und getrenntem lokalem Verwaltungsdashboard.
+Zunächst auf Karls PC, später mit derselben Datenbank auf einem VPS. Start über
+`Server-starten.cmd`; Spiel `http://127.0.0.1:8890`, Dashboard `http://127.0.0.1:8891`.
+System- und Planetensonden, Geheimdienst/Überwachung, Flottenspionage und Saven sind im
+separaten Online-Regelsatz umgesetzt. GitHub Pages liefert den Browser; die Rust-Welt
+benötigt den laufenden PC/VPS. Öffentlicher HTTPS-Zugang ist noch nicht eingerichtet.
+[Inventur](docs/INVENTUR-2026-10-07.md) · [Konzept](docs/ONLINE-KONZEPT.md) ·
+[Start, Verwaltung und VPS-Umzug](docs/SERVER-BETRIEB.md).
+
+
+**Gemeinsame Spielwelt: 30 Skriptbots und 20 Plätze für Menschen, Agenten oder Mischbetrieb.**
+Die vier Agentrollen sind Stratege, Verwalter, Feldherr und Diplomat; Anbieter und Modell
+können je Rolle ausgewählt werden. Das bisherige geschlossene Labor mit 50 Modellreichen
+bleibt als eigener Modus erhalten. GitHub Pages liefert Website und Browser aus.
 
 ## Live
 

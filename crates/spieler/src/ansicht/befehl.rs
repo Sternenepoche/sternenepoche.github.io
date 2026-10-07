@@ -59,6 +59,9 @@ pub fn flotte_senden(start: &str, ziel: &str, mission: &str, schiffe: &Map<Strin
 pub fn flotte_zurueckrufen(flotte: &Value) -> Value {
     json!({"typ": "flotte_zurueckrufen", "flotte": flotte})
 }
+pub fn flotte_ausspaehen(start: &str, flotte: &Value, sonden: i64) -> Value {
+    json!({"typ":"flotte_ausspaehen","start":start,"flotte":flotte,"sonden":sonden,"geschwindigkeit":1.0})
+}
 pub fn verband_oeffnen(flotte: &Value) -> Value {
     json!({"typ": "verband_oeffnen", "flotte": flotte})
 }
@@ -129,6 +132,7 @@ mod tests {
             markt_storno(&id),
             flotte_senden("1:2:6", "1:4:6", "transport", &schiffe, 0.7, &ladung, 0),
             flotte_zurueckrufen(&id),
+            flotte_ausspaehen("1:2:6", &id, 1),
             verband_oeffnen(&id),
             verband_beitreten(&id, &json!(9)),
             nachricht(&["Rabor".into()], false, "Frieden?"),

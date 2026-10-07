@@ -12,7 +12,7 @@ use kern::{Einheit, Gut, Mission, SCHIFFE};
 use serde_json::{json, Map, Value};
 
 /// Missionen, die mit Ladung fliegen.
-const MIT_LADUNG: [&str; 4] = ["transport", "stationieren", "kolonisieren", "kampfkolonisieren"];
+const MIT_LADUNG: [&str; 5] = ["transport", "stationieren", "kolonisieren", "kampfkolonisieren", "saven"];
 const FEINDLICH: [&str; 5] = ["angriff", "blockade", "invasion", "bombardieren", "kampfkolonisieren"];
 
 impl Player {
@@ -21,8 +21,20 @@ impl Player {
         hilfe::kopf(ui, Bildschirm::Flotten, &r);
         for a in v["angriffe"].as_array().into_iter().flatten() {
             hinweis_karte(ui, SCHLECHT, |ui| {
-                ui.label(RichText::new(format!("⚔ {} greift {} an: {} Schiffe, {} – Ankunft {} ({}).", text(&a["von"]), text(&a["ziel"]), z(&a["schiffe"]),
+                let ships = a["schiffe"].as_i64().map(|n|n.to_string()).unwrap_or_else(||"unbekannte Zahl".into());
+                let from = a["von"].as_str().unwrap_or("Unbekannter Angreifer");
+                ui.label(RichText::new(format!("⚔ {} greift {} an: {} Schiffe, {} – Ankunft {} ({}).", from, text(&a["ziel"]), ships,
                     name(a["mission"].as_str().unwrap_or("")), text(&a["ankunft"]), in_zeit(i(&a["in_min"])))).strong());
+                if v["aufklaerungsregeln"] == true && ui.button("Mit einer Spionagesonde untersuchen").clicked() {
+                    self.act(befehl::flotte_ausspaehen(p["koord"].as_str().unwrap_or(""), &a["flotte"], 1));
+                }
+                if let Some(report) = a.get("sondenbericht") {
+                    ui.label(format!("Sondenbericht ({} Sekunden alt): {}",i(&report["alter_sekunden"]),
+                        report["schiffe"].as_i64().map(|n|format!("{n} Schiffe")).unwrap_or_else(||"durch Abschirmung verdeckt".into())));
+                    if let Some(types) = report["schiffstypen"].as_object() {
+                        ui.label(types.iter().map(|(kind,count)|format!("{} × {}",z(count),name(kind))).collect::<Vec<_>>().join(", "));
+                    }
+                }
                 ui.label("Verteidigung bauen, Güter in den Bunker-Schutz bringen (verbrauchen oder verschicken) oder Verbündete um Hilfe bitten.");
             });
         }
@@ -144,6 +156,7 @@ impl Player {
             ui.horizontal_wrapped(|ui| {
                 for m in Mission::ALLE {
                     let n = m.name();
+                    if n == "flotten_spionage" || (n == "saven" && v["aufklaerungsregeln"] != true) { continue; }
                     let modern = i(&v["kolonisationsversion"]) > 0;
                     if (modern && n == "invasion") || (!modern && ["bombardieren", "kampfkolonisieren"].contains(&n)) { continue; }
                     let farbe = if FEINDLICH.contains(&n) { SCHLECHT } else { TEXT };
@@ -175,11 +188,12 @@ impl Player {
                     kosten(ui, &rules["kolonie_startfracht"], &p["bestand"], 1);
                 }
             }
-            if ["halten", "abbau"].contains(&self.mission.as_str()) {
+            if ["halten", "abbau", "saven"].contains(&self.mission.as_str()) {
                 ui.horizontal(|ui| {
                     ui.label("Aufenthalt am Ziel");
-                    let max = if self.mission == "halten" { 168 } else { 48 };
-                    ui.add(egui::DragValue::new(&mut self.hold_hours).range(1..=max).suffix(" Stunden"));
+                    let max = if self.mission == "halten" { 168 } else if self.mission == "saven" {72} else { 48 };
+                    let min = if self.mission == "saven" {0} else {1};
+                    ui.add(egui::DragValue::new(&mut self.hold_hours).range(min..=max).suffix(" Stunden"));
                 });
             }
         });

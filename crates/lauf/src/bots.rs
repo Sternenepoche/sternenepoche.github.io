@@ -91,6 +91,7 @@ fn ziele(r: &Regelwerk, stufe: u8, typ: Bottyp, heimat: bool, nebel: bool) -> Ve
     let mut v = vec![(Erzmine, 5), (Kristallmine, 5), (Bauhof, 1), (Labor, 1), (Deuteriumsynthesizer, 2), (Erzmine, 8), (Kristallmine, 7), (Bauhof, 2), (Deuteriumsynthesizer, 4)];
     if stufe >= 2 {
         v.extend([(Akademie, 1), (Giesserei, 1), (Konsumgueterwerk, 2), (Elektronikwerk, 1), (Labor, 2), (Giesserei, 3), (Elektronikwerk, 2), (Akademie, 2), (Labor, 3), (Bauhof, 3), (Deuteriumsynthesizer, 6)]);
+        if r.gebaeude.contains_key(&Geheimdienst) {v.extend([(Geheimdienst,1)]);}
         if typ == Bottyp::Igel {
             v.push((Bunker, 3));
         }
@@ -440,6 +441,7 @@ fn forschen(welt: &mut Welt, sid: SpielerId, typ: Bottyp) {
     }
     if sp.stufe >= 3 {
         plan.extend([(Impulsantrieb, 3), (Astrophysik, 1), (Logistik, 1), (Computertechnik, 2), (Energietechnik, 5), (Soziologie, 4), (Automatisierung, 4)]);
+        if r.forschung.contains_key(&Ueberwachungstechnik) {plan.extend([(Spionagetechnik,2),(Ueberwachungstechnik,2),(Abschirmtechnik,2)]);}
         if sp.stufe >= 4 {
             // Drei Kolonien und der Hyperraumantrieb sind Bedingungen der Stufe V: vor den Vorlieben des Typs.
             plan.extend([(Astrophysik, 3), (Astrophysik, 5), (Hyperraumantrieb, 1)]);
@@ -458,8 +460,10 @@ fn forschen(welt: &mut Welt, sid: SpielerId, typ: Bottyp) {
     let labor = welt.planeten[heimat].gebaeude[Gebaeude::Labor.idx()];
     let bestand = welt.bestand_jetzt(heimat);
     let moeglich = |f: Forschung| {
-        let fr = r.forsch(f);
+        let Some(fr)=r.forschung.get(&f) else {return false;};
         stufen[f.idx()] < MAX_FORSCHUNG && fr.ab_stufe <= stufe && labor >= fr.labor
+            && (!matches!(f,Ueberwachungstechnik|Abschirmtechnik)||stufen[Spionagetechnik.idx()]>=1)
+            && (f!=Ueberwachungstechnik || sp.planeten.iter().any(|pid|welt.planeten[*pid as usize].gebaeude[Gebaeude::Geheimdienst.idx()]>0))
     };
     for (f, min) in plan {
         if stufen[f.idx()] >= min || !moeglich(f) {
@@ -689,7 +693,7 @@ fn raeuber(welt: &mut Welt, sid: SpielerId, bot: &mut Bot) {
         let mut berichte: Vec<(i64, Spionagebericht)> = welt.spieler[sid as usize]
             .berichte
             .iter()
-            .filter(|b| jetzt - b.zeit < 8 * STUNDE && b.besitzer != sid && !geschuetzt(welt, b.besitzer))
+            .filter(|b| jetzt - b.zeit < 8 * STUNDE && b.besitzer != sid && (welt.aufklaerungsregeln() || !geschuetzt(welt, b.besitzer)))
             .filter(|b| !welt.vertrag_zwischen(sid, b.besitzer, Vertragsart::Nichtangriffspakt))
             .map(|b| {
                 let mut lager = [0i64; GUETER];
@@ -744,19 +748,34 @@ fn raeuber(welt: &mut Welt, sid: SpielerId, bot: &mut Bot) {
 
     // Neue Ziele ausspähen: belegte Plätze im eigenen Sektor, die nächsten zuerst.
     let mut sonden = n(welt, Einheit::Spionagesonde);
-    let mut kandidaten: Vec<(i64, Koord)> = welt
+    let mut kandidaten: Vec<(i64, Koord)> = if welt.aufklaerungsregeln() {
+        let mut known = Vec::new();
+        for system in 1..=r.welt.systeme_je_sektor {
+            if (system as i64-k.system as i64).abs()>15 {continue;}
+            for position in 1..=r.welt.plaetze_je_system {
+                let coord=Koord::neu(k.sektor,system,position);
+                let view=welt.planetenwissen(sid,coord);
+                if view["status"]=="eigen" || view["status"]=="frei" || view["status"]=="freund" {continue;}
+                if bot.gespaeht.get(&coord).is_some_and(|t|jetzt-*t<12*STUNDE) {continue;}
+                known.push((welt.entfernung(k,coord),coord));
+            }
+        }
+        known
+    } else { welt
         .planeten
         .iter()
         .filter(|z| z.besitzer != sid && z.koord.sektor == k.sektor && (z.koord.system as i64 - k.system as i64).abs() <= 15)
         .filter(|z| !geschuetzt(welt, z.besitzer) && bot.gespaeht.get(&z.koord).map(|t| jetzt - *t >= 12 * STUNDE).unwrap_or(true))
         .map(|z| (welt.entfernung(k, z.koord), z.koord))
-        .collect();
+        .collect() };
     kandidaten.sort();
     for (_, ziel) in kandidaten {
         if frei(welt) <= 0 || sonden < 2 {
             break;
         }
-        if tu(welt, sid, json!({"typ": "flotte_senden", "start": ks, "ziel": ziel.to_string(), "mission": "spionage", "schiffe": {"spionagesonde": 2}})) {
+        let mission=if welt.aufklaerungsregeln() && !welt.system_erfasst(sid,ziel) {"system_erkunden"} else {"spionage"};
+        if welt.flotten.values().any(|f|f.besitzer==sid && f.ziel.sektor==ziel.sektor && f.ziel.system==ziel.system && f.mission==Mission::SystemErkunden) {continue;}
+        if tu(welt, sid, json!({"typ": "flotte_senden", "start": ks, "ziel": ziel.to_string(), "mission": mission, "schiffe": {"spionagesonde": 2}})) {
             bot.gespaeht.insert(ziel, jetzt);
             sonden -= 2;
         }
@@ -821,12 +840,16 @@ fn diplomatie(welt: &mut Welt, sid: SpielerId, typ: Bottyp) {
         return;
     }
     let k = welt.planeten[welt.spieler[sid as usize].heimat as usize].koord;
-    let mut nachbarn: Vec<(i64, SpielerId)> = welt
+    let mut nachbarn: Vec<(i64, SpielerId)> = if welt.aufklaerungsregeln() {
+        // Names and active membership are public; hidden home coordinates are not.
+        (0..welt.spieler.len() as u16).filter(|id|*id!=sid&&welt.spieler_aktiv(*id))
+            .map(|id|(((id+50-sid)%50) as i64,id)).collect()
+    } else {welt
         .planeten
         .iter()
         .filter(|p| p.heimat && p.besitzer != sid && p.koord.sektor == k.sektor)
         .map(|p| (welt.entfernung(k, p.koord), p.besitzer))
-        .collect();
+        .collect()};
     nachbarn.sort();
     for (_, b) in nachbarn.into_iter().take(3) {
         if welt.vertraege.iter().any(|v| {
@@ -836,6 +859,7 @@ fn diplomatie(welt: &mut Welt, sid: SpielerId, typ: Bottyp) {
         }) {
             continue;
         }
+        if !welt.spieler_aktiv(b) {continue;}
         let name = welt.spieler[b as usize].name.clone();
         tu(welt, sid, json!({"typ": "vertrag_anbieten", "partner": name, "art": "nichtangriffspakt", "kaution": 100}));
     }
@@ -1026,13 +1050,19 @@ fn kolonisieren(welt: &mut Welt, sid: SpielerId) {
         let lz = &r.zonen[&Zone::Leben];
         let mut bestes: Option<(i64, Koord)> = None;
         for n in 1..=r.welt.systeme_je_sektor {
-            let nebel = welt.system(Koord::neu(k.sektor, n, 1)).map(|s| s.nebel).unwrap_or(false);
-            if !in_nebel && !nebel {
+            let observed= !welt.aufklaerungsregeln() || welt.system_erfasst(sid,Koord::neu(k.sektor,n,1));
+            let nebel = observed && welt.system(Koord::neu(k.sektor, n, 1)).map(|s| s.nebel).unwrap_or(false);
+            if !in_nebel && !nebel && observed {
                 continue;
             }
-            for pos in lz.von..=lz.bis {
+            let (von,bis)=if welt.aufklaerungsregeln(){(1,r.welt.plaetze_je_system)}else{(lz.von,lz.bis)};
+            for pos in von..=bis {
                 let z = Koord::neu(k.sektor, n, pos);
-                if welt.belegung.contains_key(&z) {
+                if welt.aufklaerungsregeln() && sp.erkundet.get(&z).is_some_and(|e|e.zone!=Zone::Leben) {continue;}
+                if if welt.aufklaerungsregeln() {
+                    let status=welt.planetenwissen(sid,z)["status"].as_str().unwrap_or("unbekannt").to_string();
+                    !matches!(status.as_str(),"frei"|"unbekannt")
+                } else {welt.belegung.contains_key(&z)} {
                     continue;
                 }
                 let d = welt.entfernung(k, z);
@@ -1042,6 +1072,16 @@ fn kolonisieren(welt: &mut Welt, sid: SpielerId) {
             }
         }
         if let Some((_, ziel)) = bestes {
+            if welt.aufklaerungsregeln() && !welt.system_erfasst(sid,ziel) {
+                if !welt.flotten.values().any(|f| f.besitzer==sid && f.mission==Mission::SystemErkunden && f.ziel.sektor==ziel.sektor && f.ziel.system==ziel.system) {
+                    if p.einheiten[Einheit::Spionagesonde.idx()]>0 {
+                        tu(welt,sid,json!({"typ":"flotte_senden","start":ks,"ziel":ziel.to_string(),"mission":"system_erkunden","schiffe":{"spionagesonde":1}}));
+                    } else if !p.fertigung[0].iter().any(|f|f.produkt==Produkt::Einheit(Einheit::Spionagesonde)) {
+                        tu(welt,sid,json!({"typ":"fertigen","planet":ks,"einheit":"spionagesonde","anzahl":1}));
+                    }
+                }
+                return;
+            }
             if welt.kolonisation.aktiv {
                 if !sp.erkundet.contains_key(&ziel) {
                     if !welt.flotten.values().any(|f| f.besitzer == sid && f.mission == Mission::Spionage && f.ziel == ziel) {

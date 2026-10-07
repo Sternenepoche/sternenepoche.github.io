@@ -107,6 +107,7 @@ aufzaehlung!(Gebaeude, GEBAEUDE, [
     Labor = "labor", Bauhof = "bauhof", Nanofabrik = "nanofabrik", Raumhafen = "raumhafen",
     Werft = "werft", Orbitalwerft = "orbitalwerft", Sensorphalanx = "sensorphalanx", Kaserne = "kaserne",
     Raketensilo = "raketensilo", Orbitalring = "orbitalring", Forschungsarchiv = "forschungsarchiv", Versorgungsnetz = "versorgungsnetz",
+    Geheimdienst = "geheimdienst",
 ]);
 
 aufzaehlung!(Forschung, FORSCHUNGEN, [
@@ -117,7 +118,7 @@ aufzaehlung!(Forschung, FORSCHUNGEN, [
     Astrophysik = "astrophysik", Logistik = "logistik", Computertechnik = "computertechnik",
     Waffentechnik = "waffentechnik", Schildtechnik = "schildtechnik", Panzerung = "panzerung",
     Spionagetechnik = "spionagetechnik", Xenomaterialkunde = "xenomaterialkunde",
-    Terraforming = "terraforming",
+    Terraforming = "terraforming", Ueberwachungstechnik = "ueberwachungstechnik", Abschirmtechnik = "abschirmtechnik",
 ]);
 
 aufzaehlung!(
@@ -165,6 +166,7 @@ aufzaehlung!(Mission, MISSIONEN, [
     Halten = "halten", Spionage = "spionage", Kolonisieren = "kolonisieren",
     Recyceln = "recyceln", Abbau = "abbau", Blockade = "blockade", Invasion = "invasion",
     Bombardieren = "bombardieren", Kampfkolonisieren = "kampfkolonisieren",
+    Saven = "saven", FlottenSpionage = "flotten_spionage", SystemErkunden = "system_erkunden",
 ]);
 
 impl Mission {

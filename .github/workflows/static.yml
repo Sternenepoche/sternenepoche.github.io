@@ -22,8 +22,11 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  verify:
+    uses: ./.github/workflows/online-checks.yml
   # Single deploy job since we're just deploying
   deploy:
+    needs: verify
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -33,11 +36,17 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Prepare public sources
+        run: python3 tools/build_pages.py
+      - name: Build public documentation
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./.pages-artifact/source
+          destination: ./.pages-artifact/site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: '.'
+          path: './.pages-artifact/site'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5

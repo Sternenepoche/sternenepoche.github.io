@@ -54,7 +54,7 @@ impl Player {
                 .show(ui, |ui| {
                     for schluessel in *liste {
                         let Some(fo) = Forschung::aus_name(schluessel) else { continue };
-                        let regel = r.forsch(fo);
+                        let Some(regel) = r.forschung.get(&fo) else {continue;};
                         let jetzt = i(&f["stufen"][*schluessel]);
                         let eintrag = moeglich.iter().find(|m| m["forschung"] == *schluessel);
                         karte(ui, |ui| {

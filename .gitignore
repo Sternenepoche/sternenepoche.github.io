@@ -6,3 +6,10 @@ venv/
 _site/
 .jekyll-cache/
 .DS_Store
+/data/
+/web/data/
+/saves/
+/laeufe/
+/.pages-artifact/
+.env
+*.key

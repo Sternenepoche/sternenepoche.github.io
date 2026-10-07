@@ -67,7 +67,13 @@ Gleichzeitige Aktionen mehrerer Spieler werden in einer pro Fenster ausgelosten 
         "{z} (Position {} bis {}): {} bis {} Felder, Solar {}, Deuterium {}, Nahrung {}",
         zr.von, zr.bis, zr.felder_min, zr.felder_max, mal_text(zr.solar), mal_text(zr.deuterium), mal_text(zr.nahrung)
     )).collect::<Vec<_>>().join("; ");
-    neu("galaxie", "Galaxie", SV, format!(
+    neu("galaxie", "Galaxie", SV, if r.gebaeude.contains_key(&Gebaeude::Geheimdienst) {format!(
+        "{} Sektoren mit je {} Sonnensystemen und {} Planetenplätzen. Koordinaten sind öffentlich, Bewohner, Planetentyp und Ressourcenprofile unbekannt. \
+Nebel, Gürtel und Planetentypen werden aus dem privaten Startwert erzeugt; Position allein verrät keinen Typ. system_erkunden mit mindestens einer Sonde kartiert nur das System. \
+Danach braucht jeder Planet seine eigene Mission spionage mit mindestens einer Sonde. Das Heimat-Sonnensystem ist bereits kartiert. \
+Ein Bericht zeigt den Stand bei Ankunft der Sonde, seine Zeit und sein Alter; es gibt keine automatische Aktualisierung. Eigene Planeten sind vollständig bekannt.",
+        w.sektoren,w.systeme_je_sektor,w.plaetze_je_system
+    )} else {format!(
         "{} Sektoren mit je {} Systemen und {} Planetenplätzen. Koordinaten: Sektor:System:Position, etwa 1:27:7. Zonen: {zonen}. \
 Felder sind Bauplätze, jede Gebäudestufe belegt ein Feld. Jedes System hat einen Reichtum an Erz und Kristall zwischen {} und {}. \
 Heimatwelten haben {} Felder und alle Faktoren x1. Die Werte eines freien Platzes zeigt erst eine Erkundung mit einer Sonde \
@@ -76,7 +82,12 @@ in jedem Sektor. Asteroidengürtel liegen in den Systemen {}, {}, {} und so weit
         w.sektoren, w.systeme_je_sektor, w.plaetze_je_system, mal_text(w.reichtum_min), mal_text(w.reichtum_max), w.heimat_felder,
         w.nebel_versatz, w.nebel_versatz + w.nebel_abstand, w.nebel_versatz + 2 * w.nebel_abstand,
         w.guertel_versatz, w.guertel_versatz + w.guertel_abstand, w.guertel_versatz + 2 * w.guertel_abstand,
-    ));
+    )});
+
+    if r.gebaeude.contains_key(&Gebaeude::Geheimdienst) {
+        neu("aufklaerung", "Sensoren, Flottensonden und Saven", VF,
+            "Online-Regeln v1: Überwachungs- und Abschirmtechnik setzen Spionagetechnik Stufe 1 voraus. Überwachungstechnik erfordert zusätzlich einen eigenen Geheimdienst. Basissensoren melden feindliche Anflüge zwei Spielstunden vor Ankunft, bei kürzeren Flügen sofort nach Start. Ankunft und Ziel sind genau; Besitzer, Schiffszahl, Zusammensetzung und Ladung bleiben zunächst unbekannt. Ausbauwirkung ist das Minimum aus Geheimdienst, Sensorphalanx, Überwachungstechnik und Spionagetechnik. Jede wirksame Stufe erhöht die Vorwarnzeit um 30 Minuten; ausgebildete Syntheten haben eine zusätzliche Sensorstufe. Abschirmtechnik bei Abflug senkt die Detailstärke, niemals die Basiswarnung. Detailstärke 1 zeigt Besitzer und Zehner-Intervall, 3 die genaue Gesamtzahl, 6 die Typenzahlen und Mission. flotte_ausspaehen schickt eigene Sonden auf einen bereits erfassten Anflug; die Sonden müssen vor dem Angriff eintreffen und belegen einen Flottenplatz. Ohne Abschirmung sind Schiffstypen sichtbar, sonst muss Spionagetechnik plus Geheimdienst die Abschirmung übertreffen; ausgebildete Veyari haben dabei eine zusätzliche Stufe. Ladung erst bei einem Vorsprung von mindestens 5. Sonden können verloren gehen; Berichte bleiben historische Werte. saven schickt Schiffe mit Fracht auf eine Leerfahrt zu einer anderen Koordinate, ohne Entladung oder Kampf am Ziel, mit optional 0 bis 72 Spielstunden Wartezeit und anschließendem Rückflug. Hin- und Rückflugtreibstoff werden beim Start bezahlt; Flottenplatz, Laderaum, Blockaden und Unterhalt gelten weiter. Keine Teleportation und kein unbegrenzter Schutz nach Rückkehr.".into());
+    }
 
     let mut voelker = String::new();
     for (volk, vr) in &r.voelker {
@@ -282,7 +293,7 @@ erneuert; ein Schuss unter {} Prozent des Schildwerts verpufft. Strukturschaden 
 Wahrscheinlichkeit 1 minus Rest geteilt durch Ausgangsstruktur. Schnellfeuer r: nach dem Schuss feuert die Einheit mit Wahrscheinlichkeit (r-1)/r erneut. \
 Der Angreifer siegt, wenn kein Verteidiger übrig ist; ohne Sieger nach {} Runden kehrt er heim. Waffen-, Schild- und Panzertechnik geben je Stufe {} Prozent. \
 {} Prozent von Erz und Kristall zerstörter Schiffe bilden ein Trümmerfeld. Eine anfliegende feindliche Flotte wird {} Minuten vor Ankunft sichtbar, \
-jede Stufe Sensorphalanx verlängert das um {} Minuten. Die kürzeste Flugzeit beträgt {} Minuten.",
+eine wirksame Sensorstufe verlängert das um {} Minuten (historische Regeln: Sensorphalanx; Online-Regeln: Geheimdienst, Sensorphalanx und beide Aufklärungsforschungen gemeinsam). Die kürzeste Flugzeit beträgt {} Minuten.",
         k.runden, pz(k.verpuffen_anteil), pz(k.explosion_unter), k.runden, pz(k.tech_je_stufe), pz(k.truemmer_anteil),
         k.warnzeit_basis_minuten, k.warnzeit_je_phalanx_minuten, fl.min_sekunden / 60,
     ));
@@ -389,6 +400,7 @@ pub fn aktionsbeispiel(typ: &str) -> &'static str {
         "stufenaufstieg" => r#"{"typ":"stufenaufstieg"}"#,
         "flotte_senden" => r#"{"typ":"flotte_senden","start":"1:27:6","ziel":"1:29:4","mission":"spionage","schiffe":{"spionagesonde":3},"geschwindigkeit":1.0,"ladung":{"erz":500},"haltedauer_stunden":0}"#,
         "flotte_zurueckrufen" => r#"{"typ":"flotte_zurueckrufen","flotte":12}"#,
+        "flotte_ausspaehen" => r#"{"typ":"flotte_ausspaehen","start":"1:27:6","flotte":12,"sonden":1,"geschwindigkeit":1.0}"#,
         "flotte_versorgen" => r#"{"typ":"flotte_versorgen","start":"1:27:6","ziel":"1:29:4","versorgungsflotte":12,"schiffe":{"kleiner_transporter":1},"geschwindigkeit":1.0,"ladung":{"nahrung":500}}"#,
         "verband_oeffnen" => r#"{"typ":"verband_oeffnen","flotte":12}"#,
         "verband_beitreten" => r#"{"typ":"verband_beitreten","flotte":13,"fuehrung":12}"#,
@@ -422,6 +434,7 @@ pub fn regeltext(r: &Regelwerk, rolle: Rolle) -> String {
     }
     s.push_str("## Aktionen deiner Rolle\n");
     for t in erlaubte_typen(rolle) {
+        if t=="flotte_ausspaehen" && !r.gebaeude.contains_key(&Gebaeude::Geheimdienst) {continue;}
         s.push_str(&format!("- {}\n", aktionsbeispiel(t)));
     }
     s
