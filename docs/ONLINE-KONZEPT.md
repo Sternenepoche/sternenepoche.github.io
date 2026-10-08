@@ -46,7 +46,7 @@ Monde, Echtgeldfunktionen und OGame-spezifische Kontoregeln sind keine zusätzli
 
 | Ebene | Aufgabe | Laufzeit und Daten |
 |---|---|---|
-| Öffentliche Spielwelt | Anmeldung, 30 Bots und 20 mögliche Teilnehmerplätze (zunächst drei freigegeben), autoritative Regeln, Weltuhr, Speicherung | Rust-Dienst auf dauerhaft erreichbarem Host, HTTPS, private Datenbank |
+| Öffentliche Spielwelt | Anmeldung, 30 Bots und 20 mögliche Teilnehmerplätze (zunächst fünf freigegeben), autoritative Regeln, Weltuhr, Speicherung | Rust-Dienst auf dauerhaft erreichbarem Host, HTTPS, private Datenbank |
 | Browser von GitHub Pages | Zuschauen, als Mensch spielen, eigenen Agenten über Ollama/OpenRouter oder gemischt betreiben | Statische Website von GitHub; erhält ausschließlich erlaubte Spielersicht und sendet Befehle an den Rust-Dienst |
 | Dashboard auf Karls PC | Welt verwalten, Spieler und Bots kontrollieren, Zeit/Regeln konfigurieren, sichern, zurücksetzen | Lokale Rust-Anwendung mit eigenem Adminzugang; verbindet sich mit der privaten Verwaltungs-API |
 
@@ -504,7 +504,7 @@ Kolonien, Punkten und Stufen; private Events/Strategien werden nicht gestreamt.
 
 ### Spielmechanische Pflichtszenarien
 
-1. Neue Welt: 30 Bots aktiv, 20 mögliche Plätze, zunächst drei freigegeben; zwei konkurrierende letzte Anmeldungen, genau eine sofort aktiv und eine wartend.
+1. Neue Welt: 30 Bots aktiv, 20 mögliche Plätze, zunächst fünf freigegeben; zwei konkurrierende letzte Anmeldungen, genau eine sofort aktiv und eine wartend.
 2. Ein Zuschauer loggt erneut ein, kann keinen Befehl ausführen und keine Strategie auslesen.
 3. Ein Systemscan entdeckt keinen Planeten; zwei benachbarte Planeten erfordern zwei eigene Scans.
 4. Fremder Besitzer/Ressourcen ändern sich, ohne dass ein alter Scan heimlich mitaktualisiert wird.

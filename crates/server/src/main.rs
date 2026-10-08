@@ -221,6 +221,7 @@ fn serve(
             (false,"/three.min.js")=>Some((include_bytes!("../../../web-client/three.min.js").as_slice(),"text/javascript; charset=utf-8")),
             (false,"/galaxy.css")=>Some((include_bytes!("../../../web-client/galaxy.css").as_slice(),"text/css; charset=utf-8")),
             (false,"/art.js")=>Some((include_bytes!("../../../web-client/art.js").as_slice(),"text/javascript; charset=utf-8")),
+            (_, "/identity-ui.css")=>Some((include_bytes!("../../../web-client/identity-ui.css").as_slice(),"text/css; charset=utf-8")),
             (_, "/style.css") => Some((
                 include_bytes!("../../../web-client/style.css").as_slice(),
                 "text/css; charset=utf-8",
@@ -299,9 +300,31 @@ fn serve(
             }
         };
     }
+    if !admin && method == Method::Post && path=="/api/registration/start" {
+        if !allowed(limits,format!("email-start:{ip}"),6) {json_reply(req,Err((429,"Zu viele Codes angefordert; später erneut versuchen".into())),&origin);return;}
+        let mail=match sternenepoche_server::mail::MailConfig::load(&cfg.root) {
+            Ok(Some(config))=>config,
+            _=>{json_reply(req,Err((503,"Neue Registrierung derzeit nicht verfügbar. Vorhandene Konten können sich anmelden.".into())),&origin);return;}
+        };
+        let challenge=game.lock().unwrap().begin_email(body["email"].as_str().unwrap_or(""));
+        let result=match challenge {
+            Err(e)=>Err(e),
+            Ok(challenge)=>{
+                // Network I/O never holds the authoritative world's mutex.
+                let sent=mail.send_code(&challenge.email,&challenge.code);
+                let saved=game.lock().unwrap().email_delivery(&challenge.id,sent.is_ok());
+                match sent {Ok(())=>saved,Err(e)=>Err((503,e))}
+            }
+        };
+        json_reply(req,result,&origin);return;
+    }
+    if !admin && method == Method::Post && path=="/api/registration/verify" {
+        let result=if allowed(limits,format!("email-verify:{ip}"),20){game.lock().unwrap().verify_email(&body)}else{Err((429,"Zu viele Codeversuche; später erneut versuchen".into()))};
+        json_reply(req,result,&origin);return;
+    }
     if !admin && method == Method::Post && ["/api/register", "/api/login"].contains(&path.as_str())
     {
-        if !allowed(limits, format!("auth:{ip}"), 12) {
+        if !allowed(limits, format!("auth:{ip}"), 30) {
             json_reply(
                 req,
                 Err((
@@ -315,8 +338,14 @@ fn serve(
         let password = body["password"].as_str().unwrap_or("");
         // Expensive password work runs outside the world mutex.
         let result = if path == "/api/register" {
+            if !sternenepoche_server::mail::MailConfig::load(&cfg.root).is_ok_and(|c|c.is_some()) {
+                json_reply(req,Err((503,"Neue Registrierung derzeit nicht verfügbar. Vorhandene Konten können sich anmelden.".into())),&origin);return;
+            }
+            if body["registration_token"].as_str().is_none_or(|s|s.len()!=64) {
+                json_reply(req,Err((403,"Zuerst E-Mail-Adresse bestätigen".into())),&origin);return;
+            }
             match password_hash(password) {
-                Ok(hash) => game.lock().unwrap().register(&body, hash),
+                Ok(hash) => game.lock().unwrap().register_email(&body, hash),
                 Err(e) => Err((400, e)),
             }
         } else {
@@ -327,8 +356,15 @@ fn serve(
             let hash=account.as_ref().map(|a|a.password.clone()).unwrap_or_else(||"$argon2id$v=19$m=19456,t=2,p=1$dGVzdHNhbHQxMjM0NTY3OA$Z9XRhYVbhvSMjrgd8qVTuXFtrV89zhU4BJG5ULtdhdA".into());
             let valid = password.len() <= 128 && password_matches(password, &hash);
             match account.filter(|_| valid) {
-                Some(a) => game.lock().unwrap().login_verified(a.id),
-                None => Err((401, "Name oder Passwort falsch".into())),
+                Some(a) => {
+                    let mut g=game.lock().unwrap();
+                    // A concurrent private password reset must invalidate an in-flight login.
+                    if !g.account_by_name(&a.name).is_some_and(|current|current.password==a.password && !current.banned){Err((401,"Anmeldung fehlgeschlagen; erneut anmelden".into()))}
+                    else if !g.login_permitted(a.id){Err((429,"Zu viele fehlgeschlagene Anmeldungen; in einer Minute erneut versuchen".into()))}
+                    else if g.check_second_factor(a.id,body["otp"].as_str().unwrap_or("")).unwrap_or(false){g.login_verified(a.id)}
+                    else{let _=g.failed_login(&a.name);Err((401,"Name, Passwort oder Authenticator-Code falsch. Verwende einen neuen, noch nicht benutzten App-Code.".into()))}
+                },
+                None => {let _=game.lock().unwrap().failed_login(body["name"].as_str().unwrap_or(""));Err((401, "Name oder Passwort falsch".into()))},
             }
         };
         json_reply(req, result, &origin);
@@ -338,6 +374,26 @@ fn serve(
         .strip_prefix("Bearer ")
         .unwrap_or("")
         .to_string();
+    if !admin && method==Method::Post && matches!(path.as_str(),"/api/authenticator/setup"|"/api/authenticator/enable"|"/api/authenticator/disable") {
+        if !allowed(limits,format!("authenticator:{ip}"),10){json_reply(req,Err((429,"Zu viele Sicherheitsänderungen; später erneut versuchen".into())),&origin);return;}
+        let account=game.lock().unwrap().authenticate(&raw);
+        let result=match account {
+            Err(e)=>Err(e),
+            Ok(a)=>{
+                let password=body["password"].as_str().unwrap_or("");
+                if password.len()>128 || !password_matches(password,&a.password){Err((401,"Aktuelles Passwort erforderlich".into()))}
+                else{let mut g=game.lock().unwrap();match g.authenticate(&raw){
+                    Err(e)=>Err(e),
+                    Ok(a)=>match path.as_str(){
+                        "/api/authenticator/setup"=>g.authenticator_start(&a),
+                        "/api/authenticator/enable"=>g.authenticator_enable(&a,&body,&raw),
+                        _=>g.authenticator_disable(&a,&body,&raw),
+                    }
+                }}
+            }
+        };
+        json_reply(req,result,&origin);return;
+    }
     let mut g = game.lock().unwrap();
     let result = if admin {
         match (method, path.as_str()) {
@@ -348,6 +404,7 @@ fn serve(
     } else {
         match (method, path.as_str()) {
             (Method::Get, "/api/lobby") | (Method::Get, "/api/health") => Ok(g.lobby()),
+            (Method::Get, "/api/registration/status")=>Ok(json!({"enabled":sternenepoche_server::mail::MailConfig::load(&cfg.root).is_ok_and(|c|c.is_some()),"code_digits":6,"test_login":true})),
             (Method::Get, "/api/rules") => Ok(
                 json!({"api_version":API_VERSION,"schema":kern::aktion::antwortschema(Rolle::Alle),"volk":VolkNames::values(),"catalog":public_catalog::catalog(&g.world.regeln),"text":format!("{}\n{}\n{}",kern::regeltext::regeltext(&g.world.regeln,Rolle::Alle),kern::kolonisation::REGELTEXT_V2,kern::ausscheiden::REGELTEXT)}),
             ),

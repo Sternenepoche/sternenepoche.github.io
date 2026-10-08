@@ -403,6 +403,8 @@ pub fn get(path:&str)->Option<(&'static [u8],&'static str)>{
         "/assets/missions.kampfkolonisieren.webp" => Some((include_bytes!("../../../web-client/assets/missions.kampfkolonisieren.webp").as_slice(), "image/webp")),
         "/assets/missiles.abfang.webp" => Some((include_bytes!("../../../web-client/assets/missiles.abfang.webp").as_slice(), "image/webp")),
         "/assets/missiles.interplanetar.webp" => Some((include_bytes!("../../../web-client/assets/missiles.interplanetar.webp").as_slice(), "image/webp")),
+        "/identity-ui.js" => Some((include_bytes!("../../../web-client/identity-ui.js").as_slice(), "text/javascript; charset=utf-8")),
+        "/identity-ui.css" => Some((include_bytes!("../../../web-client/identity-ui.css").as_slice(), "text/css; charset=utf-8")),
         "/loading-screen.js" => Some((include_bytes!("../../../web-client/loading-screen.js").as_slice(), "text/javascript; charset=utf-8")),
         "/loading-screen.css" => Some((include_bytes!("../../../web-client/loading-screen.css").as_slice(), "text/css; charset=utf-8")),
         "/loading-no-js.css" => Some((include_bytes!("../../../web-client/loading-no-js.css").as_slice(), "text/css; charset=utf-8")),

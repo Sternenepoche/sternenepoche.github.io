@@ -2,7 +2,7 @@
 (() => {
   'use strict';
   const labels = new Map();
-  const selector = 'img:not(.art-color), canvas, [data-ai-image]';
+  const selector = 'img:not(.art-color):not([data-auth-qr]), canvas, [data-ai-image]';
   let scheduled = false;
   const resize = new ResizeObserver(schedule);
 

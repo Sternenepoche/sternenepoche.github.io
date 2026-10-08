@@ -14,12 +14,12 @@ Stand: 8. Oktober 2026. Der gemeinsame Dienst ist `crates/server`, der Browser
 ```
 
 Spiel: **http://127.0.0.1:8890**. Lokale Verwaltung: **http://127.0.0.1:8891**.
-Standard: eine gemeinsame Welt, 30 Skriptbots, 20 mögliche Teilnehmerplätze; zunächst drei freigegeben, 1× Echtzeit.
+Standard: eine gemeinsame Welt, 30 Skriptbots, 20 mögliche Teilnehmerplätze; zunächst fünf freigegeben, 1× Echtzeit.
 Anmelden ohne Platz bleibt Zuschauer. Erst „Platz belegen“ aktiviert ein Reich. Spätere
 Anmeldungen behalten ihren Platz. Ein Wechsel Mensch/Agent/Gemischt erzeugt kein zweites Reich
 und ändert das gewählte Volk nicht. Keine neue Welt beim gewöhnlichen Serverneustart.
 
-Private Daten: `data/online/spiel.sqlite3`, SQLite-WAL, Admin-Token, Backups und Logs.
+Private Daten: `data/online/spiel.sqlite3`, SQLite-WAL, Admin-Token, Authenticator-Schlüssel, Mailkonfiguration, Backups und Logs. Die fünf Testzugänge stehen lokal in `data/online/TESTKONTEN-ZUGAENGE.txt`. [Anmeldung, Spielerregister und Authenticator](ANMELDUNG-UND-KONTEN.md) erklären Datenbank, lokale QR-Einrichtung und spätere E-Mail-Freigabe.
 Diese Dateien werden weder auf Pages gepackt noch ins Git-Repository aufgenommen.
 Für einen Vordergrundprozess `-Foreground` benutzen und zum Beenden Strg+C.
 Beim Hintergrundprozess steht die Prozessnummer in `data/online/server.pid`; beenden über
@@ -46,7 +46,7 @@ das Dashboard auf 8891 bleibt auf Loopback.
 
 ```powershell
 .\tailscale-spielzugang.ps1 -Action Status
-# Erneut aktivieren, nur wenn noch höchstens drei Plätze freigegeben sind:
+# Erneut aktivieren, nur wenn noch höchstens fünf Plätze freigegeben sind:
 .\tailscale-spielzugang.ps1 -Action Enable
 # Ausschließlich diese Webfreigabe abschalten:
 .\tailscale-spielzugang.ps1 -Action Disable
@@ -74,13 +74,13 @@ Funnelverbindung. Der vorbereitete VPS-Caddy setzt `X-Real-IP` selbst und kann m
 expliziten Proxyflag arbeiten. Der öffentliche und der private Listener haben getrennte
 Limit-Tabellen; öffentlicher Druck füllt keine private Admin-Limit-Tabelle.
 
-## Drei Plätze und Warteliste
+## Fünf Plätze und Warteliste
 
-Konto anlegen oder anmelden, dann Spielweise und Volk wählen. Solange weniger als drei
+Mit einem vom Betreiber angelegten Testkonto anmelden, dann Spielweise und Volk wählen. Solange weniger als fünf
 Teilnehmer aktiv sind, wird atomar ein Platz vergeben. Danach bedeutet der Button
 „Auf Warteliste anmelden“ eine gespeicherte Anmeldung mit persönlicher Position, Volk
 und Spielweise. Es wird noch kein Reich aktiviert. Zuschauer brauchen keinen Spielplatz.
-Die verbleibenden 17 möglichen Plätze sind zunächst gesperrt, keine simulierten Spieler.
+Die verbleibenden 15 möglichen Plätze sind zunächst gesperrt, keine simulierten Spieler.
 
 Im Dashboard bestimmt **Freigegebene Teilnehmerplätze (0–20)** die Kapazität. Eine Erhöhung
 lässt die Warteliste automatisch nach Reihenfolge nachrücken; das war beim Eintragen
@@ -94,7 +94,7 @@ behalten ihr Reich und belegen weiter einen Platz. Gesperrte Wartende werden ent
 Freigabe und Liste überstehen Prozessneustart und Backup. Reset leert die Liste, setzt
 Konten auf Zuschauer und behält die eingestellte Freigabe. Eine neue Epoche erfordert
 eine neue Spieleranmeldung. Alte Runtime-Daten ohne Freigabefeld bleiben kompatibel mit
-20 Plätzen; Karls bestehende Welt wurde ohne Reset auf drei begrenzt.
+20 Plätzen; Karls bestehende Welt wurde ohne Reset auf fünf freigegebene Plätze erweitert.
 
 [Caddy Reverse Proxy](https://caddyserver.com/docs/caddyfile/directives/reverse_proxy)
 
@@ -177,7 +177,7 @@ Epochenende und Botabstände lassen sich dagegen im Dashboard ändern.
 
 Backups regelmäßig im Dashboard erstellen und zusätzlich auf ein anderes Gerät kopieren.
 Zum Wiederherstellen **Dienst zuerst beenden**, den gesamten aktuellen Datenordner erhalten,
-in einem neuen Datenordner die gewählte Backupdatei als `spiel.sqlite3` ablegen und mit
+in einem neuen Datenordner die gewählte Backupdatei als `spiel.sqlite3` und den zugehörigen `.auth-key.txt`-Begleitschlüssel als `email-code-key.txt` ablegen und mit
 `--data <neuer Ordner>` starten. Niemals eine Datenbankdatei unter einem laufenden Prozess
 oder zusammen mit einem alten fremden `-wal` ersetzen. Der Admin-Token wird im neuen Ordner
 neu erzeugt. Wiederhergestellte Agentfreigaben werden beim Start widerrufen.
@@ -186,7 +186,7 @@ neu erzeugt. Wiederhergestellte Agentfreigaben werden beim Start widerrufen.
 
 1. Rust-Binary für das Betriebssystem des VPS bauen (`cargo build -p sternenepoche-server --release`).
 2. Dienst stoppen oder ein konsistentes Dashboardbackup erstellen; Backup als `spiel.sqlite3`
-   in `/var/lib/sternenepoche` übernehmen. Gleiche veröffentlichte Code-/Regelversion verwenden.
+   in `/var/lib/sternenepoche` übernehmen. Den zugehörigen `.auth-key.txt`-Schlüssel als `email-code-key.txt` mitnehmen und die private Mailkonfiguration separat übernehmen. Gleiche veröffentlichte Code-/Regelversion verwenden.
 3. Dedizierten Benutzer `sternenepoche` erstellen, Binary nach `/opt/sternenepoche` legen,
    `deploy/sternenepoche.service` auf Domain/Pfade anpassen und über systemd starten.
 4. DNS und Caddy konfigurieren. Öffentlich nur HTTPS-Spielzugang; beide Rust-Listener bleiben

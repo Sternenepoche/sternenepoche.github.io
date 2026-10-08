@@ -34,7 +34,7 @@ async function refresh(){
      if(me.spieler!==null){view=await api('/api/view');if((view.reich_status?.status==='besiegt'||world.beendet)&&agent)await stopAgent(world.beendet?'Epoche beendet':'Reich besiegt');renderView();}
    }
  }catch(e){$('connection').textContent='Verbindung unterbrochen';if(typeof uiConnectionLost==='function')uiConnectionLost();if(e.status===401||e.status===403){await stopAgent('Sitzung beendet');session=null;modeEditing=false;sessionStorage.removeItem('sternenepoche-session');$('account-panel').hidden=false;$('logout').hidden=true;$('game').hidden=true;$('claim-panel').hidden=true;$('lobby').hidden=false;$('server').hidden=false;}show(e.message,true);}
- finally{refreshBusy=false;if(typeof renderShell==='function')renderShell();applyControlState();}
+ finally{window.SternenSecurity?.render(session);refreshBusy=false;if(typeof renderShell==='function')renderShell();applyControlState();}
 }
 async function postCommand(payload){
  const pending=JSON.parse(sessionStorage.getItem('sternenepoche-pending-command')||'null');

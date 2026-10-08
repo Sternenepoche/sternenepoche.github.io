@@ -19,7 +19,7 @@ fn epoch_end_is_read_only_and_admission_recovers_after_reset() {
     let wid = g.runtime.world_id.clone();
     g.admin(&json!({"world_id":wid,"action":"settings","bots_enabled":false,"epoche_tage":1}))
         .unwrap();
-    assert_eq!(g.lobby()["freie_zugaenge"], 2);
+    assert_eq!(g.lobby()["freie_zugaenge"], 4);
     assert_eq!(g.view(&a, Rolle::Alle).unwrap()["beendet"], false);
     for _ in 0..24 {
         g.advance(3600).unwrap();
@@ -48,7 +48,7 @@ fn epoch_end_is_read_only_and_admission_recovers_after_reset() {
     assert_eq!(g.view(&a, Rolle::Alle).unwrap()["beendet"], true);
     g.admin(&json!({"world_id":wid,"action":"reset","confirm":format!("RESET {wid}")}))
         .unwrap();
-    assert_eq!(g.lobby()["freie_zugaenge"], 3);
+    assert_eq!(g.lobby()["freie_zugaenge"], 5);
     assert_eq!(g.lobby()["beendet"], false);
     assert_eq!(g.account_by_name("EndProbe").unwrap().sid, None);
 }

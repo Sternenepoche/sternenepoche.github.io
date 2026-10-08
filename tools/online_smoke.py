@@ -38,11 +38,15 @@ try:
     check(request('/monitoring.js')[0],401)
     check(request('/api/admin/status',admin=True)[0],401)
     check(request('/api/lobby',headers={'Origin':'https://unknown.invalid'})[0],403)
+    fresh=request('/api/lobby')[1];assert fresh['freigegebene_plaetze']==5
+    check(request('/api/register',{'name':'MailBypass','password':'nur-ein-test-passwort'})[0],503)
+    check(request('/api/admin/action',{'world_id':fresh['world_id'],'action':'settings','admission_limit':3},key,True)[0],200)
     lobby=request('/api/lobby')[1];assert lobby['freie_plaetze']==20 and lobby['freie_zugaenge']==3 and lobby['freigegebene_plaetze']==3 and len(lobby['rangliste'])==30
     assert set(lobby['verlauf'][0])<= {'sekunden','reiche','kolonien','punkte','stufen'} if lobby['verlauf'] else True
     auth={}
     for name in ['SpielerA','SpielerB','Zuschauer']:
-        s,v=request('/api/register',{'name':name,'password':'nur-ein-test-passwort'});check(s,200);auth[name]=v['token']
+        s,v=request('/api/admin/action',{'world_id':lobby['world_id'],'action':'test_account','name':name,'password':'nur-ein-test-passwort'},key,True);check(s,200)
+        s,v=request('/api/login',{'name':name,'password':'nur-ein-test-passwort'});check(s,200);auth[name]=v['token']
     check(request('/api/view',token=auth['Zuschauer'])[0],403)
     check(request('/monitoring.js',token=auth['Zuschauer'])[0],404)
     check(request('/api/command',{'world_id':lobby['world_id'],'request_id':'watch','aktionen':[{'typ':'steuersatz','prozent':20}]},auth['Zuschauer'])[0],403)
@@ -50,7 +54,8 @@ try:
         check(request('/api/claim',{'mode':'gemischt','volk':'veyari'},auth[name])[0],200)
     racers=['Dritter','Vierter']
     for name in racers:
-        s,v=request('/api/register',{'name':name,'password':'nur-ein-test-passwort'});check(s,200);auth[name]=v['token']
+        s,v=request('/api/admin/action',{'world_id':lobby['world_id'],'action':'test_account','name':name,'password':'nur-ein-test-passwort'},key,True);check(s,200)
+        s,v=request('/api/login',{'name':name,'password':'nur-ein-test-passwort'});check(s,200);auth[name]=v['token']
     claim={'world_id':lobby['world_id'],'mode':'mensch','volk':'krath'}
     with concurrent.futures.ThreadPoolExecutor(2) as pool:
         results=list(pool.map(lambda name:request('/api/claim',claim,auth[name]),racers))

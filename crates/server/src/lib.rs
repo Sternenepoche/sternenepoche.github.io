@@ -1,6 +1,9 @@
 //! One authoritative Rust world, transactional accounts/commands, no model proxy.
 mod monitoring;
 mod admission;
+mod identity;
+mod authenticator;
+pub mod mail;
 use argon2::{
     password_hash::{PasswordHash, PasswordHasher, PasswordVerifier, SaltString},
     Argon2,
@@ -34,6 +37,12 @@ pub fn token() -> String {
 }
 fn hex(b: &[u8]) -> String {
     b.iter().map(|n| format!("{n:02x}")).collect()
+}
+fn write_private(path:&Path,data:&[u8])->std::io::Result<()> {
+    use std::io::Write;
+    let mut options=std::fs::OpenOptions::new();options.write(true).create_new(true);
+    #[cfg(unix)] {use std::os::unix::fs::OpenOptionsExt;options.mode(0o600);}
+    let mut file=options.open(path)?;file.write_all(data)?;file.sync_all()
 }
 pub fn digest(s: &str) -> String {
     hex(&Sha256::digest(s.as_bytes()))
@@ -106,6 +115,7 @@ pub struct Game {
     pub storage_error: Option<String>,
     started: std::time::Instant,
     audit_context: Option<Value>,
+    email_code_key: String,
 }
 pub type Reply = Result<Value, (u16, String)>;
 fn err(code: u16, text: &str) -> (u16, String) {
@@ -155,7 +165,7 @@ fn fresh(seed: u64, rules: &str) -> Result<(Welt, Runtime), String> {
             bot_trace: BTreeMap::new(),
             public_history: Vec::new(),
             maintenance: String::new(),
-            admission_limit: 3,
+            admission_limit: 5,
             waitlist: Vec::new(),
         },
     ))
@@ -191,6 +201,9 @@ impl Game {
         } else {
             fresh(seed, include_str!("../../../regeln/online-v1.ron"))?
         };
+        let email_code_key=identity::setup(&db,root)?;
+        authenticator::setup(&db)?;
+        mail::MailConfig::initialize(root)?;
         let mut g = Self {
             world,
             runtime,
@@ -199,6 +212,7 @@ impl Game {
             storage_error: None,
             started: std::time::Instant::now(),
             audit_context: None,
+            email_code_key,
         };
         // No downtime catch-up and no model command survives a process restart.
         g.runtime.leases.clear();
@@ -206,6 +220,7 @@ impl Game {
         Ok(g)
     }
     fn save(&mut self) -> Result<(), (u16, String)> {
+        self.snapshot_players()?;
         let w = self.world.zu_bytes();
         let r = serde_json::to_vec(&self.runtime)
             .map_err(|_| err(500, "Checkpoint nicht serialisierbar"))?;
@@ -235,7 +250,7 @@ impl Game {
             if let Some(context)=&self.audit_context {
                 self.db.execute("INSERT INTO audit(time,account,kind,result) VALUES(?1,NULL,'admin',?2)",params![now(),json!({"context":context,"revision":self.runtime.revision+1,"world_id":self.runtime.world_id}).to_string()]).map_err(|_|err(503,"Admin-Audit konnte nicht gespeichert werden"))?;
             }
-            self.runtime.revision+=1; self.world.log_abholen(); self.save()?; Ok(v)
+            self.runtime.revision+=1; let logs=self.world.log_abholen();self.record_player_events(logs)?;self.save()?; Ok(v)
         });
         if result.is_ok() && self.db.execute_batch("COMMIT").is_ok() {
             return result;
@@ -262,6 +277,7 @@ impl Game {
                 if !g.world.schritt() {
                     break;
                 }
+                let logs=g.world.log_abholen();g.record_player_events(logs)?;
                 if g.runtime.bots_enabled {
                     let sids:Vec<_>=g.runtime.bots.keys().copied().collect();
                     for sid in sids {
@@ -276,10 +292,10 @@ impl Game {
                         let next = &g.world.spieler[sid as usize].statistik;
                         g.runtime.bot_actions += (next.aktionen - prev.aktionen) as u64;
                         g.runtime.bot_rejected += (next.abgelehnt - prev.abgelehnt) as u64;
-                        if due {g.record_bot_turn(sid);}
+                        if due {g.record_bot_turn(sid)?;}
                     }
                 }
-                g.world.log_abholen();
+                let logs=g.world.log_abholen();g.record_player_events(logs)?;
                 if g.world.zeit % STUNDE == 0 {g.record_public_history();}
             }
             g.runtime.leases.retain(|sid, l| l.until > now() && g.world.spieler_aktiv(*sid));
@@ -308,6 +324,8 @@ impl Game {
         Ok(a)
     }
     fn session(&mut self, a: &Account) -> Reply {
+        self.db.execute("UPDATE accounts SET last_login_at=?1,login_count=login_count+1 WHERE id=?2",params![now(),a.id]).map_err(|_|err(503,"Anmeldezeit nicht gespeichert"))?;
+        self.identity_event(Some(a.id),"login",json!({}))?;
         let raw = token();
         let expires = now() + 7 * 86400;
         self.db
@@ -324,33 +342,18 @@ impl Game {
         )
     }
     pub fn register(&mut self, v: &Value, hashed: String) -> Reply {
-        let name = str_field(v, "name")?.trim();
-        if name.chars().count() < 3
-            || name.chars().count() > 24
-            || !name
-                .chars()
-                .all(|c| c.is_alphanumeric() || c == '_' || c == '-')
-        {
-            return Err(err(400, "Name: 3 bis 24 Buchstaben, Ziffern, - oder _"));
-        }
-        if self
-            .world
-            .spieler
-            .iter()
-            .any(|s| s.name.eq_ignore_ascii_case(name))
-            || self.account_by_name(name).is_some()
-        {
-            return Err(err(409, "Name bereits vergeben"));
-        }
+        // Internal helper for game tests; HTTP registration uses register_email.
+        let name = self.validated_account_name(v)?;
         self.transaction(|g| {
             g.db.execute(
-                "INSERT INTO accounts(name,password,mode) VALUES(?1,?2,'zuschauer')",
-                params![name, hashed],
+                "INSERT INTO accounts(name,password,mode,created_at) VALUES(?1,?2,'zuschauer',?3)",
+                params![name, hashed,now()],
             )
             .map_err(|_| err(409, "Name bereits vergeben"))?;
             let a = g
                 .account_by_name(name)
                 .ok_or_else(|| err(503, "Konto konnte nicht gelesen werden"))?;
+            g.identity_event(Some(a.id),"registered",json!({"method":"internal"}))?;
             g.session(&a)
         })
     }
@@ -559,6 +562,7 @@ impl Game {
     }
     pub fn logout(&mut self, a: &Account, raw: &str) -> Reply {
         self.transaction(|g| {
+            g.identity_event(Some(a.id),"logout",json!({}))?;
             g.db.execute("DELETE FROM sessions WHERE hash=?1", [digest(raw)])
                 .map_err(|_| err(503, "Abmeldung fehlgeschlagen"))?;
             if let Some(sid) = a.sid {
@@ -568,7 +572,7 @@ impl Game {
         })
     }
     pub fn admin_status(&self) -> Value {
-        let mut accounts=self.db.prepare("SELECT id,name,sid,mode,banned FROM accounts ORDER BY id").and_then(|mut s|s.query_map([],|r|Ok(json!({"id":r.get::<_,i64>(0)?,"name":r.get::<_,String>(1)?,"spieler":r.get::<_,Option<u16>>(2)?,"mode":r.get::<_,String>(3)?,"banned":r.get::<_,bool>(4)?})))?.collect::<Result<Vec<_>,_>>()).unwrap_or_default();
+        let mut accounts=self.account_registry();
         for a in &mut accounts {a["reich_status"]=a["spieler"].as_u64().map(|sid|self.world.reich_status(sid as u16)).unwrap_or(Value::Null);}
         let bots=self.runtime.bots.iter().map(|(sid,b)|{let s=&self.world.spieler[*sid as usize];json!({"spieler":sid,"name":s.name,"typ":b.typ,"naechster":b.naechster,"aktionen":s.statistik.aktionen,"abgelehnt":s.statistik.abgelehnt,"stufe":s.stufe,"punkte":s.punkte.gesamt(),"reich_status":self.world.reich_status(*sid)})}).collect::<Vec<_>>();
         let db_bytes = ["spiel.sqlite3", "spiel.sqlite3-wal", "spiel.sqlite3-shm"]
@@ -588,7 +592,7 @@ impl Game {
             .collect::<Vec<_>>();
         json!({"lobby":self.lobby(),"monitor":self.monitoring_status(),"storage_error":self.storage_error,"world_hash":self.world.hash(),"uptime_s":self.started.elapsed().as_secs(),"db_bytes":db_bytes,"invariant_errors":invariant_errors,"bots_enabled":self.runtime.bots_enabled,"bot_period_secs":self.runtime.bot_period_secs,"epoche_tage":self.world.regeln.welt.epoche_tage,"bots":bots,"accounts":accounts,"warteliste":self.private_waitlist(),
             "agents":self.runtime.agent_status.keys().chain(self.runtime.leases.keys()).copied().collect::<std::collections::BTreeSet<_>>().iter().map(|sid|json!({"spieler":sid,"active":self.runtime.leases.get(sid).is_some_and(|l|l.until>now()),"roles":self.runtime.leases.get(sid).map(|l|&l.roles),"stats":self.runtime.agent_status.get(sid).cloned().unwrap_or_else(||json!({"status":"Wartet auf erste Modellantwort","calls":0,"errors":0,"tokens":0,"latency_ms":0}))})).collect::<Vec<_>>(),
-            "flotten":self.world.flotten.len(),"ereignisse":self.world.ereignisse.len(),"bot_actions":self.runtime.bot_actions,"bot_rejected":self.runtime.bot_rejected})
+            "flotten":self.world.flotten.len(),"ereignisse":self.world.ereignisse.len(),"bot_actions":self.runtime.bot_actions,"bot_rejected":self.runtime.bot_rejected,"registration":{"enabled":mail::MailConfig::load(&self.data_root).is_ok_and(|c|c.is_some()),"config_file":"mail-private.json","code_digits":6},"database":{"root":self.data_root.to_string_lossy(),"file":"spiel.sqlite3","players_view":"registered_players","states_table":"player_states","events_table":"account_events","snapshot_interval_seconds":60}})
     }
     pub fn backup(&self) -> Result<PathBuf, (u16, String)> {
         let dir = self.data_root.join("backups");
@@ -597,6 +601,7 @@ impl Game {
         self.db
             .backup(rusqlite::DatabaseName::Main, &path, None)
             .map_err(|_| err(503, "Backup fehlgeschlagen"))?;
+        write_private(&path.with_extension("auth-key.txt"),self.email_code_key.as_bytes()).map_err(|_|err(503,"Privater Authenticator-Backupschlüssel nicht gespeichert"))?;
         Ok(path)
     }
     pub fn admin(&mut self, v: &Value) -> Reply {
@@ -627,7 +632,7 @@ impl Game {
         );
         self.audit_context = Some(context.clone());
         let result = self.admin_inner(v);
-        if result.is_ok() && matches!(v["action"].as_str(), Some("backup" | "inspect" | "map" | "events" | "audit" | "rules_profile" | "rules_validate" | "reset_preview")) {
+        if result.is_ok() && matches!(v["action"].as_str(), Some("backup" | "inspect" | "map" | "events" | "audit" | "rules_profile" | "rules_validate" | "reset_preview" | "player_details")) {
             if self
                 .db
                 .execute(
@@ -649,6 +654,8 @@ impl Game {
     fn admin_inner(&mut self, v: &Value) -> Reply {
         self.world_matches(v)?;
         match str_field(v,"action")? {
+            "test_account"=>self.admin_test_account(v),
+            "player_details"=>self.player_details(v),
             "map"|"events"|"audit"|"rules_profile"|"rules_validate"|"reset_preview"=>self.admin_read(v),
             "backup"=>Ok(json!({"backup":self.backup()?.file_name().unwrap().to_string_lossy()})),
             "settings"=>self.transaction(|g| {

@@ -71,17 +71,29 @@ Wenn nur dein Browser geschlossen ist, läuft die Welt auf dem eingeschalteten S
 
 1. Öffne den öffentlichen Spielzugang oder die Website.
 2. Du kannst zunächst zuschauen. Dafür brauchst du keinen Spielerplatz und kein Sprachmodell.
-3. Für ein eigenes Reich gibst du einen Namen und ein Passwort ein und wählst **Konto anlegen**. Verwende ein langes, eigenes Passwort; mindestens zwölf Zeichen sind erforderlich.
-4. Mit einem vorhandenen Konto wählst du **Anmelden**.
+3. In der aktuellen Testphase erhältst du ein Konto vom Betreiber. Fünf Testkonten sind vorgesehen: **LiveDemo** und vier weitere. Sie funktionieren ohne E-Mail-Bestätigung.
+4. Gib deinen Kontonamen und dein Passwort ein und wähle **Anmelden**. Hast du einen Authenticator verbunden, trägst du zusätzlich dessen aktuellen sechsstelligen Code ein. Verwende ein langes, eigenes Passwort; mindestens zwölf Zeichen sind erforderlich.
 5. Wähle vor der Reichsgründung dein **Volk**. Lies seine Vor- und Nachteile.
 6. Wähle **Mensch**, **Agent** oder **Gemischt**.
 7. Wähle **Platz belegen**, wenn ein freigegebener Platz verfügbar ist. Andernfalls trittst du der Warteliste bei.
 
 Ein Konto allein erzeugt noch keinen Heimatplaneten. Erst der angenommene Beitritt ordnet dir ein Reich und einen automatisch vergebenen Heimatplatz zu.
 
-### Drei freigegebene Plätze und die Warteliste
+### Dein Konto mit einer Authenticator-App schützen
 
-Die Welt hat **20 mögliche Teilnehmerplätze**. Aktuell sind **drei** davon freigegeben. Hinzu kommen **30 Serverbots**. Die übrigen 17 Teilnehmerplätze sind zunächst gesperrt und produzieren keine Rohstoffe.
+Öffne nach dem Anmelden **Spielerprofil → Anmeldung mit Authenticator schützen**. Gib dein aktuelles Passwort ein und wähle **QR-Code erzeugen**. In Google Authenticator, Microsoft Authenticator, Aegis oder einer anderen TOTP-App fügst du ein Konto hinzu und scannst den QR-Code. Auf demselben Gerät kannst du den angebotenen App-Link benutzen oder den Schlüssel manuell eingeben. Bestätige die Verbindung im Spiel mit dem sechsstelligen App-Code.
+
+Speichere anschließend die **acht Wiederherstellungscodes** als Text. Jeder ersetzt genau einmal einen App-Code, falls dein Handy nicht verfügbar ist. Beim nächsten Login gibst du Name, Passwort und den aktuellen App-Code ein. Nach einer Anmeldung wartest du gegebenenfalls bis zum nächsten Codewechsel nach bis zu 30 Sekunden und verwendest dann den neuen Code. Die automatische Uhrzeit auf Handy und Server muss stimmen.
+
+Der QR-Code wird direkt vom Rust-Server erzeugt. Die App berechnet die Codes anschließend auch offline. Die Einrichtung funktioniert bereits am lokalen PC; beim späteren VPS-Umzug bleiben die Verbindungen erhalten, wenn Datenbank und privater Authenticator-Schlüssel gemeinsam umziehen. Unter Spielerprofil kannst du die Verbindung mit Passwort und gültigem App- oder Wiederherstellungscode entfernen.
+
+### Spätere Anmeldung per E-Mail
+
+Die öffentliche Neuregistrierung ist vorbereitet und derzeit **ausgeschaltet**. Sobald der Betreiber den Mailversand aktiviert, lautet der Ablauf unter **Neues Konto anlegen**: E-Mail-Adresse eingeben, den sechsstelligen Code aus der E-Mail bestätigen, Namen und Passwort festlegen und Volk sowie Spielweise wählen. Der Code gilt zehn Minuten und kann einmal verwendet werden; nach fünf Fehlversuchen ist ein neuer nötig. Ist ein Platz frei, wird das Reich gegründet, andernfalls wird die Auswahl auf der Warteliste gespeichert. Eine Authenticator-App lässt sich anschließend freiwillig im Spielerprofil verbinden.
+
+### Fünf freigegebene Plätze und die Warteliste
+
+Die Welt hat **20 mögliche Teilnehmerplätze**. Aktuell sind **fünf** davon freigegeben. Hinzu kommen **30 Serverbots**. Die übrigen 15 Teilnehmerplätze sind zunächst gesperrt und produzieren keine Rohstoffe.
 
 Die Warteliste wird nach der Reihenfolge des Beitritts bearbeitet. Erhöht Karl die Freigabe, können wartende Konten automatisch nachrücken, auch wenn ihr Browser gerade geschlossen ist. Ein Browser-Agent startet dadurch noch nicht: Seine Modellverbindung musst du selbst im Browser aktivieren.
 
@@ -223,9 +235,9 @@ Spiele die erste Sitzung als Aufbauphase. Diese Schritte beschreiben die Reihenf
 
 ### 01 Anmelden und das Reich wirklich gründen
 
-Öffne den öffentlichen Spielzugang. Gib **Name** und **Passwort** ein und wähle **Konto anlegen**, beim nächsten Besuch **Anmelden**. Das Passwort braucht mindestens zwölf Zeichen. Wähle dann dein **Volk** und zunächst die Spielweise **Mensch**, wenn du die Bedienung selbst kennenlernen möchtest. Mit **Platz belegen / Spielweise ändern** beantragst du dein Reich.
+Öffne den öffentlichen Spielzugang. Melde dich mit **Name** und **Passwort** deines vom Betreiber angelegten Testkontos an. Ein verbundener Authenticator benötigt zusätzlich den aktuellen App-Code. Wähle dann dein **Volk** und zunächst die Spielweise **Mensch**, wenn du die Bedienung selbst kennenlernen möchtest. Mit **Platz belegen / Spielweise ändern** beantragst du dein Reich. Die spätere E-Mail-Registrierung ist in Kapitel 3 beschrieben und derzeit ausgeschaltet.
 
-**Das erkennst du danach:** Bei erfolgreicher Zuteilung erscheinen dein eigener Heimatplanet und die Spielbereiche. Bei belegten freigegebenen Plätzen siehst du stattdessen deinen Wartestatus. Ein angelegtes Konto oder ein Wartelisteneintrag besitzt noch keinen bebaubaren Planeten. Drei Plätze sind freigegeben; das bedeutet nicht, dass gerade drei Plätze frei sind.
+**Das erkennst du danach:** Bei erfolgreicher Zuteilung erscheinen dein eigener Heimatplanet und die Spielbereiche. Bei belegten freigegebenen Plätzen siehst du stattdessen deinen Wartestatus. Ein angelegtes Konto oder ein Wartelisteneintrag besitzt noch keinen bebaubaren Planeten. Fünf Plätze sind freigegeben; die aktuelle Zahl freier Zugänge zeigt das Spiel.
 
 ### 02 Den Heimatplaneten und seine Versorgung lesen
 
@@ -1006,19 +1018,21 @@ Unter **Weltkontrolle** kannst du unter anderem einstellen:
 | **Welt pausiert** | Spielzeit und Ereignisse anhalten |
 | **Skriptbots aktiv** | Automatische Entscheidungen der Serverbots aktivieren |
 | **Botabstand** | Abstand der Botentscheidungen, 900 bis 86.400 Spielsekunden |
-| **Freigegebene Teilnehmerplätze** | 0 bis 20; derzeit drei |
+| **Freigegebene Teilnehmerplätze** | 0 bis 20; derzeit fünf |
 | **Rettungsfristen** | Fristen für Unterversorgung und Wirtschaftsstillstand, jeweils 1 bis 720 Spielstunden |
 | **Öffentlicher Betriebshinweis** | Nachricht für Spieler, beispielsweise eine Wartungsankündigung |
 
 Nach einer Änderung musst du **Einstellungen speichern**. Eine Tempoänderung betrifft die gesamte Welt. Sie kann Angriffe, Bauaufträge und Rettungsfristen für alle real sehr viel schneller ablaufen lassen.
 
-**Beispiel:** Du möchtest zwei wartende Spieler zusätzlich zulassen. Erhöhe die Teilnehmerfreigabe von drei auf fünf und speichere. Die nächsten passenden Konten rücken nach. Du musst dafür weder die Welt zurücksetzen noch die bestehenden drei Reiche neu anlegen.
+**Beispiel:** Du möchtest zwei wartende Spieler zusätzlich zulassen. Erhöhe die Teilnehmerfreigabe von fünf auf sieben und speichere. Die nächsten passenden Konten rücken nach. Die bestehenden Reiche bleiben erhalten.
 
 Eine niedrigere Freigabe wirft bereits aktive Teilnehmer nicht automatisch hinaus. Das Abschalten der Skriptbots beendet ihre künftigen automatischen Entscheidungen; für einen vollständigen Stillstand der Welt verwendest du die Weltpause.
 
 ### Spieler und Bots prüfen
 
-Unter **Spieler & Konten** siehst du Konten und ihren Status. Du kannst ein Reich prüfen, Konten sperren und bestimmte Reichswerte bearbeiten. Eine Kontosperre ist eine Verwaltungsmaßnahme und nicht dasselbe wie die spielmechanische Niederlage.
+Unter **Spieler & Konten** kannst du Konten nach Name oder E-Mail suchen und ihren Status, Testkonto-Kennzeichnung, Authenticator-Verbindung, letzte Anmeldung und Anmeldezahl prüfen. **Details & Logs** zeigt den aktuellen erlaubten Reichsstand, Kontoereignisse und letzte Befehle; der JSON-Export macht die Daten maschinenlesbar. Passwörter werden als Argon2-Hashes gespeichert und im Dashboard nicht angezeigt. Die Datenbank liegt privat unter **data/online/spiel.sqlite3**; technische Einzelheiten stehen in [Anmeldung und Konten](ANMELDUNG-UND-KONTEN.md).
+
+Du kannst ein Reich prüfen, Konten sperren und bestimmte Reichswerte bearbeiten. Eine Kontosperre ist eine Verwaltungsmaßnahme und nicht dasselbe wie die spielmechanische Niederlage.
 
 Erstelle vor gezielten Rohstoff- oder Creditkorrekturen ein Backup. Solche Eingriffe verändern die Konkurrenzbedingungen. Halte den Grund im Verwaltungsprotokoll nachvollziehbar.
 

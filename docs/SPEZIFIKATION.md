@@ -4,7 +4,7 @@
 > `regeln/online-v1.ron`, das beim Server gespeicherte aktive Profil und die daraus ausgelieferte
 > Referenz unter `/api/rules`. Verbindlicher Onlinevertrag: [ONLINE-KONZEPT.md](ONLINE-KONZEPT.md),
 > erzeugte Zahlen: [ONLINE-REGELN.md](ONLINE-REGELN.md). Die Onlinewelt hat 30 Skriptbots und 20
-> mögliche Teilnehmerplätze, zunächst drei freigegeben; Modelle halten ihre Uhr nicht an.
+> mögliche Teilnehmerplätze, zunächst fünf freigegeben; Modelle halten ihre Uhr nicht an.
 > Krisen, Rettungsfristen und dauerhaftes Ausscheiden werden einschließlich Neustarts gespeichert.
 >
 > **Nachfolgende Basis-/Legacy-Referenz, Regelversion V3:** Für neue Laborläufe gelten zusätzlich die tatsächlich implementierten

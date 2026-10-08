@@ -14,7 +14,7 @@ impl Game {
     pub fn me(&self, a: &Account) -> Value {
         let waiting = self.runtime.waitlist.iter().enumerate().find(|(_, w)| w.account == a.id)
             .map(|(i, w)| json!({"position":i+1,"mode":w.mode,"volk":w.volk,"seit":w.joined}));
-        json!({"name":a.name,"mode":a.mode,"spieler":a.sid,"world_id":self.runtime.world_id,"warteliste":waiting,"reich_status":a.sid.map(|sid|self.world.reich_status(sid))})
+        json!({"name":a.name,"mode":a.mode,"spieler":a.sid,"world_id":self.runtime.world_id,"warteliste":waiting,"reich_status":a.sid.map(|sid|self.world.reich_status(sid)),"authenticator_enabled":self.authenticator_enabled(a.id)})
     }
     pub(crate) fn available_admissions(&self) -> usize {
         if self.world.beendet() { return 0; }
@@ -86,6 +86,7 @@ mod tests {
     fn three_seats_fifo_duplicate_cancel_restart_and_reset() {
         let root=std::env::temp_dir().join(format!("admission-{}",token()));
         let mut g=Game::open(&root,83).unwrap();
+        g.runtime.admission_limit=3;
         let users:Vec<_>=(0..7).map(|i|user(&mut g,&format!("Wartender{i}"))).collect();
         let claim=json!({"mode":"mensch","volk":"veyari"});
         for a in &users {g.claim(a,&claim).unwrap();}

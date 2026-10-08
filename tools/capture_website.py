@@ -40,8 +40,8 @@ def main():
         else: raise RuntimeError('Demo server did not start')
         key = request('/api/admin/bootstrap',admin=True)['key']
         request('/api/admin/action',{'world_id':lobby['world_id'],'action':'settings','paused':True,'bots_enabled':False},key,True)
-        try: auth = request('/api/register',{'name':'Sternenreisende','password':'lokale-demo-fuer-den-spielguide'})
-        except Exception: auth = request('/api/login',{'name':'Sternenreisende','password':'lokale-demo-fuer-den-spielguide'})
+        request('/api/admin/action',{'world_id':lobby['world_id'],'action':'test_account','name':'Sternenreisende','password':'lokale-demo-fuer-den-spielguide'},key,True)
+        auth = request('/api/login',{'name':'Sternenreisende','password':'lokale-demo-fuer-den-spielguide'})
         request('/api/claim',{'world_id':lobby['world_id'],'mode':'mensch','volk':'aurelianer'},auth['token'])
         with sync_playwright() as p:
             browser = p.chromium.launch(channel='chrome',headless=True)

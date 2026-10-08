@@ -1,12 +1,14 @@
 use super::*;
 
 impl Game {
-    pub(super) fn record_bot_turn(&mut self,sid:SpielerId) {
+    pub(super) fn record_bot_turn(&mut self,sid:SpielerId)->Result<(),(u16,String)> {
+        let logs=self.world.log_abholen();self.record_player_events(logs.clone())?;
         let trace=self.runtime.bot_trace.entry(sid).or_default();
-        for e in self.world.log_abholen().into_iter().filter(|e|e.spieler==sid) {
+        for e in logs.into_iter().filter(|e|e.spieler==sid) {
             trace.push(json!({"zeit":e.zeit,"ok":e.ok,"aktion":serde_json::from_str::<Value>(&e.aktion).unwrap_or(Value::Null),"text":e.text}));
         }
         if trace.len()>20 {trace.drain(..trace.len()-20);}
+        Ok(())
     }
     pub(super) fn record_public_history(&mut self) {
         let active=self.world.spieler.iter().enumerate().filter(|(id,_)|self.world.spieler_aktiv(*id as u16)).map(|(_,s)|s).collect::<Vec<_>>();

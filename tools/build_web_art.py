@@ -23,7 +23,7 @@ def build():
         images['|'.join([a['category'],a['key'],a.get('faction') or ''])]={'url':'assets/'+name+'?v='+p['sha256'][:12],'label':a['label']}
         embeds.append(f'        "/assets/{name}" => Some((include_bytes!("../../../web-client/assets/{name}").as_slice(), "image/webp")),')
     # Explicit additional public brand files; no directory scanning or runtime files.
-    for name,mime in [('loading-screen.js','text/javascript; charset=utf-8'),('loading-screen.css','text/css; charset=utf-8'),('loading-no-js.css','text/css; charset=utf-8'),('brand-animation.js','text/javascript; charset=utf-8'),('brand/neuralstern-panels.webp','image/webp'),('brand/neuralstern-panels.png','image/png'),('brand/neuralstern-poster.jpg','image/jpeg')]:
+    for name,mime in [('identity-ui.js','text/javascript; charset=utf-8'),('identity-ui.css','text/css; charset=utf-8'),('loading-screen.js','text/javascript; charset=utf-8'),('loading-screen.css','text/css; charset=utf-8'),('loading-no-js.css','text/css; charset=utf-8'),('brand-animation.js','text/javascript; charset=utf-8'),('brand/neuralstern-panels.webp','image/webp'),('brand/neuralstern-panels.png','image/png'),('brand/neuralstern-poster.jpg','image/jpeg')]:
         if not (ROOT/'web-client'/name).is_file(): raise ValueError('Missing loading-screen asset: '+name)
         embeds.append(f'        "/{name}" => Some((include_bytes!("../../../web-client/{name}").as_slice(), "{mime}")),')
     name_source=(ROOT/'crates/spieler/src/ansicht/namen.rs').read_text(encoding='utf-8').split('pub fn gut(')[0]

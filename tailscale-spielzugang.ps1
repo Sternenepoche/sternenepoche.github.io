@@ -1,7 +1,7 @@
 param(
     [ValidateSet('Enable','Disable','Status')][string]$Action = 'Status',
     [ValidateSet(443,8443,10000)][int]$HttpsPort = 443,
-    [ValidateRange(0,20)][int]$MaxPlayers = 3,
+    [ValidateRange(0,20)][int]$MaxPlayers = 5,
     [string]$DataRoot = (Join-Path $PSScriptRoot 'data\online')
 )
 $ErrorActionPreference = 'Stop'

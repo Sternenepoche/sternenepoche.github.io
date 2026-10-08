@@ -1,7 +1,7 @@
 # Sternenepoche
 
 **8. Oktober 2026 – gemeinsame Onlinewelt:** 30 serverseitige Skriptbots und 20 mögliche
-Spielerplätze, davon zunächst drei freigegeben; weitere Anmeldungen kommen auf die Warteliste.
+Spielerplätze, davon zunächst fünf freigegeben; weitere Anmeldungen kommen auf die Warteliste.
 Menschen, lokale Ollama-Agenten, OpenRouter-Agenten und Mischbetrieb spielen dieselbe Rust-Welt.
 Vor dem Start werden Volk und Spielweise gewählt; die Vor- und Nachteile kommen aus dem aktiven Regelprofil.
 

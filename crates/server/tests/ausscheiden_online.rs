@@ -57,7 +57,7 @@ fn defeated_account_and_bot_stay_inactive_across_restart() {
     );
     assert_eq!(
         g.lobby()["freie_zugaenge"],
-        2,
+        4,
         "defeat must not recycle an occupied epoch seat"
     );
     g.advance(3600).unwrap();
