@@ -1,16 +1,31 @@
----
-layout: default
-title: "Architektur"
----
-
 # Architektur
 
-> **Bestandsreferenz.** Die neue Zielarchitektur steht in
-> [SPIELER-SANDBOX-KONZEPT.md](SPIELER-SANDBOX-KONZEPT.md): autonome persistente Spieler, veränderbare
-> Harnesses und ein gemeinsamer Modell-Broker. Der folgende Text beschreibt die bisherige Implementierung;
-> insbesondere feste Rollen, Gesamt-JSON und UI-Prioritäten sind keine Vorgabe für den neuen Umbau.
-> Die erste Umsetzung in `crates/agenten/src/labor` und `tools/sandbox` beschreibt
-> [LABOR-BACKEND.md](LABOR-BACKEND.md); der Spielkern bleibt die gemeinsame Autorität.
+## Aktuelle Onlinearchitektur · 8. Oktober 2026
+
+| Teil | Autorität und Aufgabe |
+| --- | --- |
+| `crates/kern` | Gemeinsame Wirtschaft, Kampf, Kolonisation, Aufklärung und Ausscheiden; alleinige Prüfung der Spielregeln |
+| `crates/server` | Gemeinsame Welt, monotone Uhr, 30 Skriptbots, Konten, 20 reservierte Plätze mit zunächst drei Zugängen, Warteliste, Rollenfreigaben und atomare SQLite-Checkpoints |
+| `web-client` | Derselbe Menschen-/Agentenclient vom Rust-Host und von Pages; bebilderte Spielansichten und räumlicher Sternenatlas, ausschließlich erlaubte Spielersicht |
+| `web-client/admin` | Getrennte private Verwaltung am Loopback-Listener; Kontrolle, Einstellungen, Backups und vorbereitete Resets |
+| GitHub Pages / Tailscale Funnel | Statische Veröffentlichung / öffentlicher TLS-Zugang zum PC-Host; keine Simulation in Pages |
+
+Der Server verwendet `regeln/online-v1.ron` bzw. das im Checkpoint gespeicherte aktive Profil.
+`/api/rules` enthält dessen Zahlen und Schema; `/api/view`, `/api/tool` und `/api/context` erzwingen
+dieselbe Informationsgrenze. 3D-Sternpositionen und sichtbare Umläufe sind eine schematische Darstellung,
+keine zusätzliche Quelle für Bewohner, Planetentypen, Ressourcen oder Flugzeiten.
+Die aktuelle Speicherung umfasst die V8-Erweiterung für Krisen und dauerhafte Niederlagen.
+API-Version 1, Regelprofil und Snapshot-Version bezeichnen verschiedene Verträge.
+
+Die Onlineuhr wartet nicht auf Modelle. Befehle wirken nach serverseitiger Prüfung am aktuellen Zustand;
+Rollenfreigaben verhindern gleichzeitige widersprüchliche Steuerung. Pause und Epochenende stoppen die
+Weltzeit. Besiegte Reiche bleiben für diese Epoche inaktiv und ihre ursprünglichen Heimatwelten geschützt.
+Browser und Server melden diese Zustände übereinstimmend. Ein Reset ersetzt die Welt und invalidiert
+alte Sitzungen, Rollenfreigaben und Befehle; Konten und konfigurierbare Betriebsgrenzen bleiben erhalten.
+
+Für Betrieb und konkrete Regelgrenzen gelten [ONLINE-KONZEPT.md](ONLINE-KONZEPT.md) und
+[SERVER-BETRIEB.md](SERVER-BETRIEB.md). Die folgenden Abschnitte beschreiben den bisherigen lokalen
+Lauf-/Laboraufbau. Seine eingefrorenen Modellfenster gelten ausschließlich für diese Betriebsarten.
 
 Dieses Dokument beschreibt den Aufbau von Sternenepoche: welche Teile es gibt, wie die Zeit in der Welt
 läuft, wie eine Modellentscheidung in die Welt gelangt, was ein Lauf auf die Platte schreibt und wo man
@@ -43,7 +58,7 @@ Das System besteht aus diesen Teilen:
 - **Wissensbasis** (`crates/wissen`, Daten in `wissen/`): DuckDB-Index über Regeln, Quelltext, Katalog und
   Laufbelege, mit HTTP-API und MCP-Server.
 
-Drei Grundsätze gelten in allen Teilen:
+Gemeinsamer Kern und modusspezifischer Takt:
 
 1. **Ein Weg für Aktionen.** Modelle, Skriptbots und der menschliche Spieler ändern die Welt nur über
    `Welt::handeln` in `crates/kern/src/aktion.rs`. Modelle handeln in ihrer Rolle; Bots und der Spieler nutzen
@@ -51,8 +66,9 @@ Drei Grundsätze gelten in allen Teilen:
 2. **Informationsgrenze im Kern.** Was ein Spieler sieht, bestimmt `Welt::sicht` in
    `crates/kern/src/sicht.rs`: die eigene Lage, öffentliche Daten und das, was der Spieler selbst
    herausgefunden hat. Orchestratoren und Oberfläche formatieren diese Daten nur.
-3. **Die Uhr steht, während entschieden wird.** Die Weltzeit rückt nur in `Welt::schritt` vor. Wie lange ein
-   Modell antwortet, ändert die Dauer eines Laufs, nie das Spiel.
+3. **Ein Weg für die Weltzeit.** Nur `Welt::schritt` rückt die Simulation vor. Lokale Lauf-/Laborfenster
+   können während Modellentscheidungen eingefroren werden. Der Onlinehost wartet nicht auf Modelle;
+   späte Antworten werden gegen seinen aktuellen Zustand geprüft.
 
 Abhängigkeiten laut den `Cargo.toml` der Crates (Workspace in `Cargo.toml`):
 

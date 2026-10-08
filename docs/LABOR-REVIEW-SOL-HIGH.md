@@ -1,8 +1,3 @@
----
-layout: default
-title: "Labor-Review: Gateway und Spieler-Sandbox"
----
-
 # Labor-Review: Gateway und Spieler-Sandbox
 
 Stand: 4. Oktober 2026. Review und Implementierung des angeforderten Sol-High-Partners. Diese Notiz trennt nachgewiesene Funktion von noch offenen Forschungs- und Ausführungsfragen.

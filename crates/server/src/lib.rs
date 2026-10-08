@@ -384,6 +384,7 @@ impl Game {
         v["world_id"] = json!(self.runtime.world_id);
         v["revision"] = json!(self.runtime.revision);
         v["paused"] = json!(self.runtime.paused);
+        v["beendet"] = json!(self.world.beendet());
         v["mode"] = json!(a.mode);
         v["agent"] = json!(self
             .runtime

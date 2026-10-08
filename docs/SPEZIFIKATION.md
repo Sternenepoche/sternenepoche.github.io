@@ -1,11 +1,13 @@
----
-layout: default
-title: "Sternenepoche – fachliche Spielspezifikation"
----
-
 # Sternenepoche – fachliche Spielspezifikation
 
-> **Regelversion V3:** Für neue Laborläufe gelten zusätzlich die tatsächlich implementierten
+> **Aktuelles Onlineprofil, 8. Oktober 2026:** Für die gemeinsame Spielwelt gelten
+> `regeln/online-v1.ron`, das beim Server gespeicherte aktive Profil und die daraus ausgelieferte
+> Referenz unter `/api/rules`. Verbindlicher Onlinevertrag: [ONLINE-KONZEPT.md](ONLINE-KONZEPT.md),
+> erzeugte Zahlen: [ONLINE-REGELN.md](ONLINE-REGELN.md). Die Onlinewelt hat 30 Skriptbots und 20
+> mögliche Teilnehmerplätze, zunächst drei freigegeben; Modelle halten ihre Uhr nicht an.
+> Krisen, Rettungsfristen und dauerhaftes Ausscheiden werden einschließlich Neustarts gespeichert.
+>
+> **Nachfolgende Basis-/Legacy-Referenz, Regelversion V3:** Für neue Laborläufe gelten zusätzlich die tatsächlich implementierten
 > [Kolonisations- und Reparaturregeln](LABOR-BACKEND.md#kolonisation-und-reparatur): eigene Sondenaufklärung,
 > Eskorte und Startfracht; Kampfkolonisation bei ausgeschalteter Verteidigung und 30 % Gebäudeintegrität
 > mit zwei Reaktionsfenstern. Nur der ursprüngliche Heimatplanet ist unübernehmbar.

@@ -1,7 +1,7 @@
 # Sternenepoche: öffentliches Spiel, Browser und lokale Verwaltung
 
-Stand: 7. Oktober 2026. Verbindliche Zielarchitektur aus Karls Auftrag.
-Ergänzung vom 8. Oktober: Die Browseroberfläche übernimmt die Struktur der 26 Referenzbilder
+Stand: 8. Oktober 2026. Verbindlicher Onlinevertrag aus Karls Auftrag.
+Aktuelle Spieleroberfläche: Die Browseroberfläche übernimmt die Struktur der 26 Referenzbilder
 aus `beispiele/` mit ausschließlich eigenen Sternenepoche-Motiven. Sie ist mit der gemeinsamen Rust-Welt verbunden.
 Der Implementierungsstand und die Abnahmekriterien stehen in Abschnitt 12.
 „Beschlossen“ bedeutet in diesem Dokument nicht automatisch „bereits ausgeliefert“.
@@ -10,6 +10,7 @@ Der Implementierungsstand und die Abnahmekriterien stehen in Abschnitt 12.
 
 | Vorher | Danach | Zweck |
 | --- | --- | --- |
+| Separate 3D-Laufansicht und reine Tabellenkarte | Integrierter Sternenatlas mit Sektorwolken, Systemen und animierten Planeten; native HTML-Berichte und Tastaturzugang | Räumliche Navigation für Menschen, dieselbe Informationsgrenze wie für Agenten. |
 | Sieben grobe Tabs, Gebäudetabellen | 17 Bereiche, Rohstoffleiste, eigene Planetenauswahl, bebilderte Kacheln und Detailansichten | Menschen können Angebote, Kosten und Voraussetzungen direkt vergleichen. |
 | Volksnamen im Auswahlfeld | Vier Porträtkarten mit berechneten Vor- und Nachteilen | Die Wahl ist vor der Reichsgründung verständlich und danach für diese Epoche fest. |
 | Gerundete Restminuten | Sekundengenaue Bauzeiten und Werftphasen, gespeicherte Baudauer, Forschungsbeginn, Uhrzeiger-/Ruhemodus | Fortschritt folgt dem Server, friert bei Pause ein und übersteht Neustarts. |
@@ -467,7 +468,8 @@ Rust-Kern und natives Spiel: eigener Online-Regelsatz, Geheimdienst und Forschun
 System- und Planetensonden, verdeckte Galaxiedaten, private Sensorstufen, Sensorereignis,
 physische Flottensonden mit Abschirmung, historische Flottenberichte und Save-Mission.
 Das native Spiel startet neue Partien mit diesem Profil; alte gespeicherte Partien behalten
-ihr Profil. Snapshot V6 speichert den zusätzlichen Zustand, V4 bleibt byte- und hashkompatibel.
+ihr Profil. Die aktuelle V8-Speicherung enthält Aufklärung, genaue Auftragszeiten und dauerhaftes Ausscheiden.
+Die jeweiligen Erweiterungen erhalten das Laden älterer unterstützter Snapshots; deren Profil bleibt erhalten.
 Dazu kommen der Rust-Dienst `crates/server`, Browser `web-client`, separates lokales
 Adminfrontend, Auth/Sitze/Leases, monotone Uhr und SQLite-Transaktionen. Backend und Dashboard
 starten auf dem PC; HTTPS-/systemd-/SSH-Vorlagen bereiten den VPS vor. Die GitHub-Packliste
@@ -521,13 +523,17 @@ Kolonien, Punkten und Stufen; private Events/Strategien werden nicht gestreamt.
 17. Doppelte Requests, fremde IDs, Rollenüberschreibungen, veraltete Versions-/Leaseangaben und manipulierte Mengen.
 18. Gegenprobe aller öffentlichen Views, Fehlerrouten, Bots und Kampfvorschauen gegen die Informationsgrenze.
 
-211 Rust-Tests, reale HTTP-/Neustart-/Profilprüfungen, Browseranbieter-Mocks, echtes
-Ollama qwen3.5:4b und zwei Browser in derselben Testwelt belegen Kern- und PC-Spielabläufe.
-Der 180-Spieltage-Botlauf zeigt Entwicklung bis Stufe V ohne geprüfte Bestandsfehler.
-Die konkreten Belege stehen in [INVENTUR-2026-10-07.md](INVENTUR-2026-10-07.md). Erst die
-vollständige O1–O5-Abnahme macht daraus das gewünschte öffentlich spielbare Gesamtsystem.
+Die aktuellen Regressionsprüfungen umfassen Kern, Server, Agentenlabor, Browseragenten, Verwaltung,
+echte HTTP-/SQLite-Neustarts und Epochenende. Drei getrennte Onlinewelten mit je 30 Skriptbots
+durchlaufen jeweils 365 Spieltage; täglich werden Bestände, Besitz, Flotten und reservierte Plätze geprüft.
+Neustarts und Resets gehören zum selben Prüfverfahren. Ein gemischter Krisentest prüft zusätzlich
+acht dauerhafte Niederlagen, acht Reparaturrettungen und vierzehn unbeschädigte Reiche.
+Die Zahlen und Grenzen dieser Abnahme stehen in [SERVER-BETRIEB.md](SERVER-BETRIEB.md).
+Frühere Modellproben und der damalige Stand bleiben in [INVENTUR-2026-10-07.md](INVENTUR-2026-10-07.md)
+als historische Belege erhalten. Beschleunigte Spieljahre belegen keinen 24-Stunden-Dauerbetrieb und
+keine Modellqualität über OpenRouter; der VPS-Umzug ist vorbereitet und noch nicht live abgenommen.
 
-### Nachbesserung nach dem ersten Prüfstand
+### Integrierte Steuerung und Diagnose
 
 Die Browseroberfläche bietet Regierung und Stufenaufstieg, Forschung und Fertigung,
 Marktorders, Nachrichten, Verträge, Allianzen, strukturierte Berichte und Sondenplanung.

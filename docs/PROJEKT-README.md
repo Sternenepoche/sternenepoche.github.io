@@ -1,17 +1,36 @@
----
-layout: default
-title: "Sternenepoche"
----
-
 # Sternenepoche
 
-**5. Oktober 2026 – Menschenmodus und Bildernacht:** Der Menschenmodus wird parallel zum Forschungslabor gepflegt: sofortige menschliche Befehle, KI-Rollen alle 15 Spielminuten, standardmäßig 1× Echtzeit und aktuelle Kolonisationsregeln für neue Partien. Qwen Image 2.1 erzeugt lokal über ComfyUI 400 Motive. Laufender Stand: `content/night-status.json`; Abnahme und Fortsetzung: [Nachtlauf](docs/NACHTLAUF-2026-10-05.md).
+**8. Oktober 2026 – gemeinsame Onlinewelt:** 30 serverseitige Skriptbots und 20 mögliche
+Spielerplätze, davon zunächst drei freigegeben; weitere Anmeldungen kommen auf die Warteliste.
+Menschen, lokale Ollama-Agenten, OpenRouter-Agenten und Mischbetrieb spielen dieselbe Rust-Welt.
+Vor dem Start werden Volk und Spielweise gewählt; die Vor- und Nachteile kommen aus dem aktiven Regelprofil.
+
+[Online anmelden und spielen](https://desktop-3dei636.taila4f584.ts.net/) ·
+[Website](https://sternenepoche.github.io/) · [Spielanleitung](SPIELEN.md) ·
+[Architektur und Regeln](ONLINE-KONZEPT.md) · [Betrieb und VPS-Umzug](SERVER-BETRIEB.md).
+
+GitHub Pages liefert Website und Browserclient. Der autoritative Rust-Dienst läuft zunächst auf Karls PC;
+Tailscale Funnel liefert den öffentlichen TLS-Zugang ohne Tailscale-Pflicht für Mitspieler.
+`Server-starten.cmd` startet Spiel (`http://127.0.0.1:8890`) und getrenntes lokales Dashboard
+(`http://127.0.0.1:8891`). Das Dashboard wird nicht öffentlich ausgeliefert.
+
+Der Menschenclient verbindet bebilderte Bau-/Forschungskacheln mit servergestützten Fortschrittsanzeigen
+und einem räumlichen Sternenatlas: Galaxie → Sektor → Sonnensystem → Planet.
+Systeme erscheinen als Sternwolken, Planeten laufen visuell um die zentrale Sonne.
+Typ, Bewohner und Ressourcen bleiben bis zum jeweiligen Sondenbericht unbekannt.
+Pause, Niederlage und Epochenende sperren Befehle einheitlich; Ansichten und Berichte bleiben lesbar.
+Der Online-Regelsatz `regeln/online-v1.ron` umfasst Kolonisation, Aufklärung, Saven und dauerhaftes Ausscheiden.
+Das geschlossene Forschungslabor und der native Einzelspielermodus bleiben eigene Betriebsarten.
+
+## Entwicklungshistorie der weiteren Betriebsarten
+
+**5. Oktober 2026 – Menschenmodus und Bildernacht:** Der Menschenmodus wird parallel zum Forschungslabor gepflegt: sofortige menschliche Befehle, KI-Rollen alle 15 Spielminuten, standardmäßig 1× Echtzeit und aktuelle Kolonisationsregeln für neue Partien. Qwen Image 2.1 erzeugt lokal über ComfyUI 400 Motive. Laufender Stand: `content/night-status.json`; Abnahme und Fortsetzung: [Nachtlauf](NACHTLAUF-2026-10-05.md).
 
 **Neue Zielrichtung (4. Oktober 2026):** Zunächst eine vollständig autonome Forschungsumgebung ohne
 menschliche Spieler. Ein Spieler wird als persistente Sandbox mit eigenem Gedächtnis, Pinwand und
 veränderbarem Harness betrachtet. Strategische Planung, faire Modellverteilung, passende Weltgrößen und
 belastbare Lerndaten haben Vorrang; die UI folgt später.
-Das [Spieler-Sandbox-Konzept](docs/SPIELER-SANDBOX-KONZEPT.md) beschreibt die Zielarchitektur.
+Das [Spieler-Sandbox-Konzept](SPIELER-SANDBOX-KONZEPT.md) beschreibt die Zielarchitektur.
 **Die autonome Rust-Laufzeit V4 ist implementiert:** `sternenepoche-labor` mit kleinen nativen
 Windows-Spielerbüros (LPAC + Job Object, ohne Docker), privater SQLite und Pinwand, strategischem
 Hauptmodell, nachladbaren Werkzeugen, Ollama-only/Mischbetrieb, 900-Sekunden-Aufruffenstern,
@@ -21,12 +40,12 @@ bewaffnete Eskorte und Startfracht. Kampfkolonisierung braucht vollständig besi
 V4 holt bei Rechenzeitmangel fehlende Calls im selben eingefrorenen Fenster nach, ohne neue Spielerbudgets.
 Der faire Strategievergleich und das 15-Minuten-Durchsatzziel werden getrennt bewertet. Hinzu kommen
 Kolonieplanung, empfängergebundener Nachschub und knappere gemeinsame Expansionsräume.
-Start, genaue Funktionen und verbleibende Grenzen stehen in [LABOR-BACKEND.md](docs/LABOR-BACKEND.md),
+Start, genaue Funktionen und verbleibende Grenzen stehen in [LABOR-BACKEND.md](LABOR-BACKEND.md),
 einschließlich `plan-capacity`, `balance-report` und gekreuzten Modell×Harness-Versuchen über `factorial`.
 Der kurze reale V4-Nachweis: zehn native Qwen-8B-Spieler, 40 Calls und 14 Aktionen in rund 96 Sekunden.
 Ein konservativ aus echten Messwerten abgeleitetes Startprofil liegt in
 `konfig/labor-native-local-v4-kapazitaet.json` (zwei Spieler, je vier Calls).
-Die Prüfbelege stehen in [LABOR-ABNAHME.md](docs/LABOR-ABNAHME.md). Die folgenden Abschnitte dokumentieren den
+Die Prüfbelege stehen in [LABOR-ABNAHME.md](LABOR-ABNAHME.md). Die folgenden Abschnitte dokumentieren den
 bisherigen Runner einschließlich seiner bereits vorhandenen UI.
 
 Eine geschlossene Welt, in der 50 Zivilisationen ein Spieljahr lang um die höchste Punktzahl konkurrieren.
@@ -35,18 +54,18 @@ Die Engine ist deterministisch, jede Entscheidung wird samt Wirkung gespeichert.
 
 Die Modelle laufen lokal (vLLM, llama.cpp, Ollama), über **OpenRouter** oder gemischt.
 
-Die ausführliche Dokumentation liegt in [`docs/`](docs/README.md): Spezifikation der Spielregeln,
+Die ausführliche Dokumentation liegt in [`docs/`](README.md): Spezifikation der Spielregeln,
 Agenten-Schnittstelle, Architektur, Betriebshandbuch, Balance, Live-Test und der echte Lauf. Alle Zahlen des
-Regelwerks als Tabellen stehen in [`docs/REGELWERK.md`](docs/REGELWERK.md), erzeugt aus dem Regelwerk.
+Regelwerks als Tabellen stehen in [`docs/REGELWERK.md`](REGELWERK.md), erzeugt aus dem Regelwerk.
 
 ## Selbst spielen
 
 Doppelklick auf `Spielen.cmd` (nach einmaligem `cargo build --release`): eine Partie gegen 49 Skriptbots, ganz
 ohne Netz. Die Oberfläche erklärt sich selbst (in jedem Bereich „So funktioniert es“, in der Übersicht „Was jetzt
 ansteht“, Tooltips an allen Zahlen und grauen Knöpfen); das Handbuch mit Bildern jedes Bereichs und einem
-Fahrplan für die ersten Tage ist [`docs/SPIELEN.md`](docs/SPIELEN.md).
+Fahrplan für die ersten Tage ist [`docs/SPIELEN.md`](SPIELEN.md).
 
-![Die Übersicht der Spieleroberfläche](docs/bilder/spiel-uebersicht.jpg)
+![Die Übersicht der Spieleroberfläche](bilder/spiel-uebersicht.jpg)
 
 ## Live-Test über die Oberfläche
 
@@ -67,7 +86,7 @@ Entscheidung der Modelle, alle 30 Sekunden aktualisiert:
 .venv/Scripts/python.exe -m sternenepoche zeigen laeufe/openrouter-test
 ```
 
-Schritt für Schritt, mit Checkliste: [`docs/LIVE-TEST.md`](docs/LIVE-TEST.md).
+Schritt für Schritt, mit Checkliste: [`docs/LIVE-TEST.md`](LIVE-TEST.md).
 
 ## Schnellstart
 

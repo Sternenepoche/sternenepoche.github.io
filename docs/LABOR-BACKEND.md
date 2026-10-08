@@ -1,8 +1,3 @@
----
-layout: default
-title: "Autonome Spieler: ausführbarer Backend-Stand"
----
-
 # Autonome Spieler: ausführbarer Backend-Stand
 
 Stand: 5. Oktober 2026. Der Rust-Befehl `sternenepoche-labor` implementiert die zusammenhängende

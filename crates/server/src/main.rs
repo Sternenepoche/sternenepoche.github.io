@@ -217,6 +217,9 @@ fn serve(
             (false,"/presentation.js")=>Some((include_bytes!("../../../web-client/presentation.js").as_slice(),"text/javascript; charset=utf-8")),
             (false,"/game-ui.js")=>Some((include_bytes!("../../../web-client/game-ui.js").as_slice(),"text/javascript; charset=utf-8")),
             (false,"/game.css")=>Some((include_bytes!("../../../web-client/game.css").as_slice(),"text/css; charset=utf-8")),
+            (false,"/galaxy.js")=>Some((include_bytes!("../../../web-client/galaxy.js").as_slice(),"text/javascript; charset=utf-8")),
+            (false,"/three.min.js")=>Some((include_bytes!("../../../web-client/three.min.js").as_slice(),"text/javascript; charset=utf-8")),
+            (false,"/galaxy.css")=>Some((include_bytes!("../../../web-client/galaxy.css").as_slice(),"text/css; charset=utf-8")),
             (false,"/art.js")=>Some((include_bytes!("../../../web-client/art.js").as_slice(),"text/javascript; charset=utf-8")),
             (_, "/style.css") => Some((
                 include_bytes!("../../../web-client/style.css").as_slice(),

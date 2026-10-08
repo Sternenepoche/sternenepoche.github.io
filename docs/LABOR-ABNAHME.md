@@ -1,8 +1,3 @@
----
-layout: default
-title: "Labor: Prüfbelege und verbleibende Abnahme"
----
-
 # Labor: Prüfbelege und verbleibende Abnahme
 
 Stand: 5. Oktober 2026. Windows-Host, native Rust-Isolation; frühere Docker-Belege bleiben historisch.

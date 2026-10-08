@@ -965,8 +965,12 @@ fn logistik(welt: &mut Welt, sid: SpielerId, typ: Bottyp) {
 
     // Zwei Transporter für die Heimat, einer je Kolonie.
     let fehlt = 2 + kolonien.len() as i64 - transporter_gesamt(welt, sid);
-    if fehlt > 0 && welt.planeten[heimat].fertigung[0].is_empty() && bezahlbar(&welt.bestand_jetzt(heimat), &r.kosten_einheit(gt, volk)) {
-        tu(welt, sid, json!({"typ": "fertigen", "planet": hk.to_string(), "einheit": gt.name(), "anzahl": fehlt.min(2)}));
+    let bestand = welt.bestand_jetzt(heimat);
+    let kosten = r.kosten_einheit(gt, volk);
+    let bezahlbare = (0..GUETER).filter(|g| kosten[*g] > 0).map(|g| bestand[g] / kosten[g]).min().unwrap_or(0);
+    let anzahl = fehlt.min(2).min(bezahlbare);
+    if anzahl > 0 && welt.planeten[heimat].fertigung[0].is_empty() {
+        tu(welt, sid, json!({"typ": "fertigen", "planet": hk.to_string(), "einheit": gt.name(), "anzahl": anzahl}));
     }
 
     // Kolonie zur Heimat: Xenokristall, was das Lager der Kolonie füllt, und Konsumgüter, wenn die Heimat
@@ -1114,7 +1118,7 @@ fn kolonisieren(welt: &mut Welt, sid: SpielerId) {
                 if !welt.flotten.values().any(|f| f.besitzer==sid && f.mission==Mission::SystemErkunden && f.ziel.sektor==ziel.sektor && f.ziel.system==ziel.system) {
                     if p.einheiten[Einheit::Spionagesonde.idx()]>0 {
                         tu(welt,sid,json!({"typ":"flotte_senden","start":ks,"ziel":ziel.to_string(),"mission":"system_erkunden","schiffe":{"spionagesonde":1}}));
-                    } else if !p.fertigung[0].iter().any(|f|f.produkt==Produkt::Einheit(Einheit::Spionagesonde)) {
+                    } else if !p.fertigung[0].iter().any(|f|f.produkt==Produkt::Einheit(Einheit::Spionagesonde)) && bezahlbar(&bestand,&r.kosten_einheit(Einheit::Spionagesonde,sp.volk)) {
                         tu(welt,sid,json!({"typ":"fertigen","planet":ks,"einheit":"spionagesonde","anzahl":1}));
                     }
                 }
@@ -1125,7 +1129,7 @@ fn kolonisieren(welt: &mut Welt, sid: SpielerId) {
                     if !welt.flotten.values().any(|f| f.besitzer == sid && f.mission == Mission::Spionage && f.ziel == ziel) {
                         if p.einheiten[Einheit::Spionagesonde.idx()] > 0 {
                             tu(welt, sid, json!({"typ":"flotte_senden","start":ks,"ziel":ziel.to_string(),"mission":"spionage","schiffe":{"spionagesonde":1}}));
-                        } else if !p.fertigung[0].iter().any(|f| f.produkt == Produkt::Einheit(Einheit::Spionagesonde)) {
+                        } else if !p.fertigung[0].iter().any(|f| f.produkt == Produkt::Einheit(Einheit::Spionagesonde)) && bezahlbar(&bestand,&r.kosten_einheit(Einheit::Spionagesonde,sp.volk)) {
                             tu(welt, sid, json!({"typ":"fertigen","planet":ks,"einheit":"spionagesonde","anzahl":1}));
                         }
                     }
@@ -1133,7 +1137,7 @@ fn kolonisieren(welt: &mut Welt, sid: SpielerId) {
                 }
                 let escort = Einheit::ALLE[..SCHIFFE].iter().copied().find(|e| *e != Einheit::Spionagesonde && *e != Einheit::Kolonieschiff && p.einheiten[e.idx()] > 0 && r.einh(*e).angriff > 0);
                 let Some(escort) = escort else {
-                    if !p.fertigung[0].iter().any(|f| f.produkt == Produkt::Einheit(Einheit::LeichterJaeger)) {
+                    if !p.fertigung[0].iter().any(|f| f.produkt == Produkt::Einheit(Einheit::LeichterJaeger)) && bezahlbar(&bestand,&r.kosten_einheit(Einheit::LeichterJaeger,sp.volk)) {
                         tu(welt, sid, json!({"typ":"fertigen","planet":ks,"einheit":"leichter_jaeger","anzahl":1}));
                     }
                     return;
@@ -1188,7 +1192,7 @@ fn kolonisieren(welt: &mut Welt, sid: SpielerId) {
             }
         }
     }
-    if genug && bezahlbar(&bestand, &r.kosten_einheit(Einheit::Kolonieschiff, volk)) && bevoelkerung > (r.wirtschaft.siedler + 6000) * M {
+    if genug && bezahlbar(&welt.bestand_jetzt(pid), &r.kosten_einheit(Einheit::Kolonieschiff, volk)) && bevoelkerung > (r.wirtschaft.siedler + 6000) * M {
         tu(welt, sid, json!({"typ": "fertigen", "planet": ks, "einheit": "kolonieschiff", "anzahl": 1}));
     }
 }
@@ -1283,6 +1287,40 @@ mod interactive_colony_tests {
         assert_eq!(w.spieler[0].statistik.aktionen, actions);
         assert_eq!(w.spieler[0].statistik.abgelehnt, 0);
         assert!(w.planeten[pid].bauschleife.is_empty());
+    }
+    #[test]
+    fn logistics_orders_only_the_affordable_number_of_transporters() {
+        let rules = Regelwerk::laden(include_str!("../../../regeln/online-v1.ron")).unwrap();
+        let mut w = Welt::neu(rules, 42, 2).unwrap();
+        let pid = w.spieler[0].heimat as usize;
+        let colony = w.spieler[1].heimat;
+        w.spieler[1].planeten.clear();
+        w.spieler[0].planeten.push(colony);
+        w.planeten[colony as usize].besitzer = 0;
+        w.planeten[colony as usize].heimat = false;
+        w.spieler[0].stufe = 3;
+        w.spieler[0].forschung.fill(10);
+        w.planeten[pid].gebaeude.fill(10);
+        w.planeten[pid].bestand = w.regeln.kosten_einheit(Einheit::GrosserTransporter, w.spieler[0].volk);
+        logistik(&mut w, 0, Bottyp::Haendler);
+        assert_eq!(w.spieler[0].statistik.abgelehnt, 0);
+        let orders: i64 = w.planeten[pid].fertigung[0].iter().filter(|f|f.produkt==Produkt::Einheit(Einheit::GrosserTransporter)).map(|f|f.rest).sum();
+        assert_eq!(orders, 1, "a one-ship budget must produce one transporter, not reject a two-ship order");
+    }
+    #[test]
+    fn colony_ship_budget_is_rechecked_after_component_orders() {
+        let rules = Regelwerk::laden(include_str!("../../../regeln/online-v1.ron")).unwrap();
+        let mut w = Welt::neu(rules, 42, 2).unwrap();
+        let pid = w.spieler[0].heimat as usize;
+        w.spieler[0].stufe = 4;
+        w.spieler[0].forschung.fill(10);
+        w.planeten[pid].gebaeude.fill(10);
+        w.planeten[pid].bevoelkerung = 100_000 * M;
+        w.planeten[pid].bestand = w.regeln.kosten_einheit(Einheit::Kolonieschiff, w.spieler[0].volk);
+        kolonisieren(&mut w, 0);
+        assert!(!w.planeten[pid].fertigung[1].is_empty(), "fixture must actually spend resources on orbital components");
+        assert_eq!(w.spieler[0].statistik.abgelehnt, 0, "colony ship used the pre-component stock snapshot");
+        assert!(w.bestand_jetzt(pid).iter().all(|n|*n>=0));
     }
     #[test]
     fn modern_bot_scouts_then_sends_escort_and_required_cargo() {

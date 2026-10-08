@@ -1,8 +1,3 @@
----
-layout: default
-title: "Agentenschnittstelle"
----
-
 # Agentenschnittstelle
 
 > **Bestehende Schnittstelle.** Für die nächste Backend-Ausbaustufe gilt das

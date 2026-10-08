@@ -1,8 +1,3 @@
----
-layout: default
-title: "Menschenmodus und Qwen-Bildernacht · 5. Oktober 2026"
----
-
 # Menschenmodus und Qwen-Bildernacht · 5. Oktober 2026
 
 Karl hat in diesem Chat ausdrücklich die nächtliche GPU-Produktion über ComfyUI und Qwen Image 2.1 sowie die Menschenmodus-Integration beauftragt. Keine Modellgewichte installiert oder heruntergeladen. Alles unter D:.
@@ -141,3 +136,15 @@ wurden angesehen. Alte bereits offene Kunstkorrekturen sind damit nicht pauschal
 `Spielen.cmd` und `Live-Test.cmd` starten die neue `sternenepoche-spieler-tech.exe`; laufende ältere
 Spielerprozesse wurden nicht beendet. Für die neue Übersicht die Anwendung einmal neu starten.
 
+
+### Abschluss der Bildproduktion (07.10.2026)
+
+Alle 400 urspruenglichen Qwen-Motive und die zwei zusaetzlichen Raketenbilder sind vollstaendig vorhanden. Saemtliche 95 Korrekturmotive wurden nach tatsaechlicher Sichtpruefung mit Originalarchiv uebernommen. Auch defenses.gausskanone.aurelianer ist freigegeben.
+
+Bei events.unruhen passten ein zwischenzeitlich geaendertes Kandidaten-PNG und seine Provenienz nicht zusammen. Die widerspruechlichen Nachweise wurden unter content/revision-archive/unruhen-inconsistent-evidence-20261007 gesichert. Der separat erzeugte Ersatz unruhen-v3 (prompt_id ea9327f6-da6a-425e-85ca-79388fc038d4) wurde am 07.10. im Vollbild angesehen: zivile Kolonisten diskutieren angespannt auf einem futuristischen Platz, keine dominierende Militaerdarstellung. Erst danach freigegeben und regulaer samt Workflow/Hash/Finaljob veroeffentlicht.
+
+production_watch.py beendete die wiederaufgenommene Publikation erfolgreich und decodierte alle 402 PNGs vollstaendig. Anschliessend audit_assets.py --require-complete: 402 total, 402 complete, 402 reviewed, 0 missing, errors=[], visual_issues=[]. Keine offenen needs_revision im aktiven Katalog. Abgelehnte archivierte Varianten bleiben als Nachweise erhalten. ComfyUI-Prozessidentitaet auf Port 8191 bestaetigt; Queue leer; keine doppelten Auftraege gesendet.
+
+Native Galerie und Werft mit der von Spielen.cmd verwendeten sternenepoche-spieler-tech.exe frisch gestartet, echte Screenshots aufgenommen und mit view_image angesehen: Bilder geladen, Herkunft geprueft, Sonde/Transporter korrekt zugeordnet und Bedienung lesbar. Nachweise: content/runtime/qa/final-20261007-galerie.png und final-20261007-werft.png. Maschinenlesbarer Abschluss inkl. Screenshot-Hashes: content/night-completion.json.
+
+Damit ist die Bildernacht einschliesslich Bildintegration abgeschlossen. Die gesonderte Weiterentwicklung von Browserbetrieb, Sternkarte und Spielmechanik ist damit nicht als fertig erklaert. Die zu dieser Bildernacht gehoerende Ueberwachung wird beendet.

@@ -1,8 +1,3 @@
----
-layout: default
-title: "Live-Test über die Oberfläche"
----
-
 # Live-Test über die Oberfläche
 
 Es gibt zwei Wege, die Sternenepoche mit echten Sprachmodellen live zu erleben:

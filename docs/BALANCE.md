@@ -1,9 +1,9 @@
----
-layout: default
-title: "Balance"
----
-
 # Balance
+
+**Onlineprüfung vom 8. Oktober 2026:** Die aktuellen 365-Tage-Läufe verwenden das separate Onlineprofil mit
+30 Skriptbots und 20 eingefrorenen Teilnehmerplätzen. Ergebnisse und Grenzen stehen in
+[SERVER-BETRIEB.md](SERVER-BETRIEB.md). Die folgenden 50-Reiche-Messungen beschreiben den älteren
+Labor-/Basisstand; sie sind kein Nachweis für menschlichen Mehrspielerbetrieb oder die Online-Auslese.
 
 Wie das Gleichgewicht des Spiels gemessen wird, nach welchen Kriterien es abgenommen ist, was dafür geändert
 wurde und wie man eine neue Schieflage findet. Stand 4. Okt. 2026; Zuständigkeit laut `COORDINATION.md`:
@@ -145,5 +145,5 @@ Die Bevölkerung taktet die Stufen; Forschungsbedingungen verschieben sie kaum.
 
 - **Verteidigung zählt ohne Unterhalt voll als Punkte.** Der Igel steckt bis zur Hälfte seines Gebäudewerts
   hinein und liegt trotzdem nicht vorn; nötig ist keine Änderung. Ob das so gewollt ist, entscheidet Karl.
-- Modelle spielen anders als Bots. Der echte Lauf (`docs/ECHTER-LAUF.md`) zeigt, wie ein Modellreich gegen die
+- Modelle spielen anders als Bots. Der echte Lauf (Projekt-`README.md`, Abschnitt „Echter Lauf") zeigt, wie ein Modellreich gegen die
   Bots abschneidet; für eine Balance unter Modellen braucht es mehrere Modellreiche und mehrere Startwerte.

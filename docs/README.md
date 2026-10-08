@@ -1,24 +1,20 @@
----
-layout: default
-title: "Dokumentation der Sternenepoche"
----
-
 # Dokumentation der Sternenepoche
 
-**Aktuelle Entwicklungspriorität:** autonome Spieler, persistente Sandboxes und strategische Harnesses;
-zuerst Backend und Logik, später UI. Einstieg in die neue Zielarchitektur:
-[LABOR-BACKEND.md](LABOR-BACKEND.md) beschreibt die implementierte Rust-Laufzeit;
-[LABOR-ABNAHME.md](LABOR-ABNAHME.md) ihre Prüfungen. Das umfassendere
-[SPIELER-SANDBOX-KONZEPT.md](SPIELER-SANDBOX-KONZEPT.md) beschreibt den umgesetzten B0–B7-Vertrag
-und weitergehende Forschungsziele. Kapazitätsplanung, Balancebericht und Modell×Harness-Vergleiche sind
-als CLI-Befehle verfügbar; die Abnahme trennt technische Fertigstellung von empirischen Leistungsbehauptungen.
+**Aktueller Einstieg, 8. Oktober 2026:** Die gemeinsame Onlinewelt läuft auf dem PC-Server,
+erreichbar über [TLS](https://desktop-3dei636.taila4f584.ts.net/). GitHub Pages veröffentlicht den
+Browserclient. 30 Skriptbots spielen neben bis zu 20 Teilnehmern; zunächst sind drei Plätze freigegeben.
+Die Browseroberfläche richtet sich an Menschen, Agenten und Mischbetrieb. Das lokale Dashboard verwaltet
+den gemeinsamen Dienst. Grundlage sind das aktive Onlineprofil und der gemeinsame Rust-Spielkern.
 
-Eine geschlossene Welt, in der 50 Zivilisationen ein Spieljahr lang um die höchste Punktzahl konkurrieren; jede
-wird von vier Sprachmodellen in vier Rollen regiert, oder von einem Skriptbot, oder von dir. Der Einstieg mit
-Schnellstart und Stand steht im `README.md` im Projektordner. Hier liegt alles Weitere.
+Das Forschungslabor mit persistenten Spielerbüros und der native Menschenmodus sind zusätzliche
+Betriebsarten. Ihre älteren Beschreibungen dürfen nicht mit dem Takt und den Platzregeln der Onlinewelt
+gleichgesetzt werden. Das Labor hält die Welt während Modellentscheidungen an; der Onlinehost läuft weiter.
 
 | Dokument | Inhalt | Für wen |
 |---|---|---|
+| [ONLINE-KONZEPT.md](ONLINE-KONZEPT.md) | Verbindliche Onlinearchitektur, Informationsgrenze, Anmeldung, Aufklärung, Kampf, Saven und Ausscheiden | Spiel, Entwicklung |
+| [SERVER-BETRIEB.md](SERVER-BETRIEB.md) | PC-Betrieb, TLS, Verwaltung, Backups, Epochenprüfung und VPS-Vorbereitung | Betreiber |
+| [ONLINE-REGELN.md](ONLINE-REGELN.md) | Erzeugte Referenz des Onlineprofils; der Server liefert das tatsächlich aktive Profil | Nachschlagen |
 | [LABOR-BACKEND.md](LABOR-BACKEND.md) | V4: native Rust-Büros ohne Docker, faire Entscheidungsfenster, Hauptmodelle, Ollama-only, Kolonieplanung, Besitzwechsel und versioniertes Lernen | Backend, Betrieb, Forschung |
 | [LABOR-ABNAHME.md](LABOR-ABNAHME.md) | Ausgeführte Tests, echte Modellproben und offene Abnahmen | Prüfung, Forschung |
 | [LABOR-REVIEW-SOL-HIGH.md](LABOR-REVIEW-SOL-HIGH.md) | Angeforderte Gegenprüfung mit gpt-6.1-sol high | Entwicklung |
@@ -32,12 +28,13 @@ Schnellstart und Stand steht im `README.md` im Projektordner. Hier liegt alles W
 | [ARCHITEKTUR.md](ARCHITEKTUR.md) | Aufbau: Crates, Orchestratoren, Oberflächen, Zeitmodell, Determinismus, Brücke, Datenformate, Erweitern | Entwicklung |
 | [BETRIEB.md](BETRIEB.md) | Bauen, Testen, alle Befehle, Konfigurationen, OpenRouter und Kosten, Fortsetzen, lange Läufe, Auswertung, Wissensdatenbank, Fehlerbehebung | Betrieb |
 | [BALANCE.md](BALANCE.md) | Messung mit Skriptbots, Abnahmekriterien, Ergebnis, Änderungen, wie man Schieflagen findet | Balance |
-| [ECHTER-LAUF.md](ECHTER-LAUF.md) | Der Lauf mit echten Modellen über OpenRouter: Modellwahl, Verlauf, Ergebnis gegen die Bots, Kosten, Befunde | Auswertung |
+| Echter Lauf | Der Lauf mit echten Modellen über OpenRouter: Modellwahl, Verlauf, Ergebnis gegen die Bots, Kosten, Befunde — steht im Projekt-`README.md`, Abschnitt „Echter Lauf" (die frühere Verweisdatei `docs/ECHTER-LAUF.md` existiert nicht) | Auswertung |
 
 ## Lesereihenfolge
 
-- **Nächste Backend-Ausbaustufe:** SPIELER-SANDBOX-KONZEPT, danach ARCHITEKTUR und AGENTEN-SCHNITTSTELLE als Bestandsreferenz.
-- **Selbst spielen:** SPIELEN (Doppelklick auf `Spielen.cmd`), gegen Sprachmodelle dann LIVE-TEST.
+- **Online spielen und verwalten:** SPIELEN, ONLINE-KONZEPT und SERVER-BETRIEB.
+- **Forschungslabor:** SPIELER-SANDBOX-KONZEPT, danach ARCHITEKTUR und AGENTEN-SCHNITTSTELLE als Bestandsreferenz.
+- **Nativ selbst spielen:** der ältere Teil von SPIELEN (Doppelklick auf `Spielen.cmd`), gegen Sprachmodelle dann LIVE-TEST.
 - **Modelle beobachten:** LIVE-TEST, dann SPEZIFIKATION in Auszügen.
 - **Ein Modell anbinden oder Prompts ändern:** AGENTEN-SCHNITTSTELLE, REGELTEXT, dann BETRIEB (Konfiguration).
 - **Am Code arbeiten:** ARCHITEKTUR, dann SPEZIFIKATION; vor dem Abschluss die Prüfungen aus ARCHITEKTUR 8.4.

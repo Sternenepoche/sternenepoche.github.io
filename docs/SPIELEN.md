@@ -18,6 +18,13 @@ Spielstunden verrechnet. Unter Spielerprofil wählst du Systemvorgabe, Uhrzeiger
 **Flotten & Saven:** „Neue Flotte planen“ aufklappen. Schiffe, Ziel, Mission, Geschwindigkeit und Wartezeit wählen;
 „Flugzeit & Treibstoff prüfen“ zeigt den Plan. Bei Saven lässt sich die Fracht automatisch mit Treibstoffreserve
 für beide Strecken verladen. Eigene Flotten, Rückruf und erfasste Angriffe stehen unmittelbar darunter.
+**Räumlicher Sternenatlas:** Unter Galaxie wählst du zuerst einen Sektor seiner Sternwolke,
+dann ein Sonnensystem und schließlich einen Planeten auf seiner Umlaufbahn. Ziehen dreht die Kamera,
+Scrollen zoomt; die Systemliste bietet dieselben Ziele per Tastatur. Sonne und Planeten sind räumlich.
+„Umläufe pausieren“ hält nur die visuelle Bewegung an. Bei reduzierter Systembewegung kannst du sie
+ausdrücklich aktivieren. Weltpause, fehlende Verbindung und Epochenende halten Umläufe ebenfalls an.
+Sondendaten, Ressourcen und Bewohner bleiben bis zur Aufklärung unbekannt. Größen, Sternverteilung und
+Umlaufgeschwindigkeit sind schematisch; die Engine berechnet Flugzeiten aus den Spielkoordinaten.
 Die Galaxie zeigt nur eigene Sondenbeobachtungen. Im Bereich Kampf & Verbände simuliert dieselbe Engine
 die im Flottenformular gewählte Zusammensetzung anhand eines vollständigen Spionageberichts; Berichtsalter,
 geschätzte Technik, Siegchance und Verluste bleiben sichtbar. Verbandsbeitritt nutzt echte Flottennummern.
@@ -27,7 +34,11 @@ geschätzte Technik, Siegchance und Verluste bleiben sichtbar. Verbandsbeitritt 
 führen zur Flottenplanung. Laufende Besetzungen zeigen Restzeit und Reaktionsfenster; beschädigte Gebäude
 erhalten eine Reparaturquote mit Kosten und Dauer vor dem Start.
 
-**Neu: Freischaltübersicht und Raketenbilder.** Unter **Forschung** stehen die fünf Zivilisationsstufen
+## Nativer Menschenmodus und ältere Partien
+
+Die folgenden Abschnitte betreffen `Spielen.cmd` und die egui-Oberfläche. Die Onlinewelt wird über die Website gespielt.
+
+**Freischaltübersicht und Raketenbilder.** Unter **Forschung** stehen die fünf Zivilisationsstufen
 nebeneinander, mit allen Technologien, benötigten Laborstufen und deinem Forschungsstand. Öffne
 „Aufstieg“, „Wirkung“, „Gebäude“ oder „Einheiten“ für Details aus dem geltenden Regelwerk. Die Übersicht
 lässt sich komplett zuklappen; Forschungsaufträge und Kosten stehen darunter. In schmalen Fenstern

@@ -1,8 +1,3 @@
----
-layout: default
-title: "Sternenepoche: persistente Spieler und strategische Harnesses"
----
-
 # Sternenepoche: persistente Spieler und strategische Harnesses
 
 Stand: 4. Oktober 2026. **Nach der Konzeptprüfung: Umsetzung des zusammenhängenden V4-Vertrags.**

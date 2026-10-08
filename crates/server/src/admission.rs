@@ -17,6 +17,7 @@ impl Game {
         json!({"name":a.name,"mode":a.mode,"spieler":a.sid,"world_id":self.runtime.world_id,"warteliste":waiting,"reich_status":a.sid.map(|sid|self.world.reich_status(sid))})
     }
     pub(crate) fn available_admissions(&self) -> usize {
+        if self.world.beendet() { return 0; }
         let inactive = self.world.aufklaerung.inaktive_spieler.len();
         (self.runtime.admission_limit as usize).saturating_sub(SEATS as usize - inactive).min(inactive)
     }

@@ -1,20 +1,26 @@
 # Sternenepoche
 
-**7. Oktober 2026 – gemeinsame Onlinewelt:** Rust-Dienst mit 30 Bots, 20 möglichen
-Plätzen (zunächst drei freigegeben, weitere Anmeldungen auf Warteliste), Browser für Mensch/Agent/Mischbetrieb und getrenntem lokalem Verwaltungsdashboard.
-Zunächst auf Karls PC, später mit derselben Datenbank auf einem VPS. Start über
-`Server-starten.cmd`; Spiel `http://127.0.0.1:8890`, Dashboard `http://127.0.0.1:8891`.
-System- und Planetensonden, Geheimdienst/Überwachung, Flottenspionage und Saven sind im
-separaten Online-Regelsatz umgesetzt. GitHub Pages liefert den Browser; die Rust-Welt
-benötigt den laufenden PC/VPS. Öffentlicher TLS-Zugang über Tailscale Funnel ist eingerichtet: [Online anmelden und spielen](https://desktop-3dei636.taila4f584.ts.net/). Mitspieler benötigen kein Tailscale.
-[Inventur](docs/INVENTUR-2026-10-07.md) · [Konzept](docs/ONLINE-KONZEPT.md) ·
-[Start, Verwaltung und VPS-Umzug](docs/SERVER-BETRIEB.md).
+**8. Oktober 2026 – gemeinsame Onlinewelt:** 30 serverseitige Skriptbots und 20 mögliche
+Spielerplätze, davon zunächst drei freigegeben; weitere Anmeldungen kommen auf die Warteliste.
+Menschen, lokale Ollama-Agenten, OpenRouter-Agenten und Mischbetrieb spielen dieselbe Rust-Welt.
+Vor dem Start werden Volk und Spielweise gewählt; die Vor- und Nachteile kommen aus dem aktiven Regelprofil.
 
+[Online anmelden und spielen](https://desktop-3dei636.taila4f584.ts.net/) ·
+[Website](https://sternenepoche.github.io/) · [Spielanleitung](docs/SPIELEN.md) ·
+[Architektur und Regeln](docs/ONLINE-KONZEPT.md) · [Betrieb und VPS-Umzug](docs/SERVER-BETRIEB.md).
 
-**Gemeinsame Spielwelt: 30 Skriptbots und 20 Plätze für Menschen, Agenten oder Mischbetrieb.**
-Die vier Agentrollen sind Stratege, Verwalter, Feldherr und Diplomat; Anbieter und Modell
-können je Rolle ausgewählt werden. Das bisherige geschlossene Labor mit 50 Modellreichen
-bleibt als eigener Modus erhalten. GitHub Pages liefert Website und Browser aus.
+GitHub Pages liefert Website und Browserclient. Der autoritative Rust-Dienst läuft zunächst auf Karls PC;
+Tailscale Funnel liefert den öffentlichen TLS-Zugang ohne Tailscale-Pflicht für Mitspieler.
+`Server-starten.cmd` startet Spiel (`http://127.0.0.1:8890`) und getrenntes lokales Dashboard
+(`http://127.0.0.1:8891`). Das Dashboard wird nicht öffentlich ausgeliefert.
+
+Der Menschenclient verbindet bebilderte Bau-/Forschungskacheln mit servergestützten Fortschrittsanzeigen
+und einem räumlichen Sternenatlas: Galaxie → Sektor → Sonnensystem → Planet.
+Systeme erscheinen als Sternwolken, Planeten laufen visuell um die zentrale Sonne.
+Typ, Bewohner und Ressourcen bleiben bis zum jeweiligen Sondenbericht unbekannt.
+Pause, Niederlage und Epochenende sperren Befehle einheitlich; Ansichten und Berichte bleiben lesbar.
+Der Online-Regelsatz `regeln/online-v1.ron` umfasst Kolonisation, Aufklärung, Saven und dauerhaftes Ausscheiden.
+Das geschlossene Forschungslabor und der native Einzelspielermodus bleiben eigene Betriebsarten.
 
 ## Live
 
@@ -31,7 +37,7 @@ bleibt als eigener Modus erhalten. GitHub Pages liefert Website und Browser aus.
 ## Im Repository
 
 - `docs/` – gesamte Dokumentation inkl. Bilder
-- `regeln/regelwerk.ron` – die eine Quelle aller Spielzahlen (SHA-256 im Regelwerk-Text)
+- `regeln/online-v1.ron` – aktuelles Onlineprofil; `regeln/regelwerk.ron` – Basisprofil für Labor und Altstände (SHA-256 im Regelwerk-Text)
 - `crates/` – Rust-Workspace: `kern` (Engine), `lauf` (Fenster-Schleife), `agenten`, `spieler`, `inhalt`, `wissen`
 - `orchestrator/` – Python-Laufleitung (OpenRouter/lokal)
 - `betrachter/` – 3D-Ansicht der Spielwelt im Browser

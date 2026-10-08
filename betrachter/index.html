@@ -612,45 +612,6 @@ if (lauf) ausPfad(lauf).catch(x => $("meta").textContent = `Lauf nicht lesbar: $
 else if (location.protocol.startsWith("http")) vomServer();
 
 // === GALAXIE-VERTEILUNG (Dual Mode: 3D Cloud + Radial Graph) ===
-const GOLDEN_ANGLE = 2.399963229728653; // 137.508° in Radian
-const ZONEN = [
-  { zone: 1, minID: 1, maxID: 30, rMin: 15, rMax: 92, name: "Kernzone", dichte: "Extrem dicht" },
-  { zone: 2, minID: 31, maxID: 60, rMin: 100, rMax: 192, name: "Innere Zone", dichte: "Dicht" },
-  { zone: 3, minID: 61, maxID: 120, rMin: 200, rMax: 392, name: "Mittlere Zone", dichte: "Mäßig" },
-  { zone: 4, minID: 121, maxID: 240, rMin: 400, rMax: 792, name: "Äußere Zone", dichte: "Spärlich" },
-  { zone: 5, minID: 241, maxID: 300, rMin: 800, rMax: 1600, name: "Außengrenze", dichte: "Sehr spärlich" }
-];
-const ASTEROID_WIDTH = 8;
-
-let galaxieModus = '3d';
-let systemDaten = [];
-
-function berechnePosition(id, sektor) {
-  const zone = ZONEN.find(z => id >= z.minID && id <= z.maxID) || ZONEN[4];
-  const j = id - zone.minID;
-  const N = zone.maxID - zone.minID + 1;
-  const seed = Math.sin(sektor * 9999 + id * 1337);
-  const noiseR = (seed - Math.floor(seed)) * 0.4 - 0.2;
-  const progress = (j + 0.5 + noiseR) / N;
-  const r = zone.rMin + progress * (zone.rMax - zone.rMin);
-  const theta = (id * GOLDEN_ANGLE + sektor * 1.5) % (2 * Math.PI);
-  const heightScale = 10 + r * 0.04;
-  const y = Math.sin(id * 17.3) * heightScale;
-  return { x: r * Math.cos(theta), y, z: r * Math.sin(theta), r, theta, zone: zone.zone };
-}
-
-
-// === SIMPLE CAMERA CONTROLS (replaces OrbitControls) ===
-
-// === FLEET & COMBAT DATA ===
-
-
-
-
-
-
-
-
 // ═══════════════════════════════════════════════════════════════
 // GALAXY VISUALIZATION ENGINE
 // ═══════════════════════════════════════════════════════════════

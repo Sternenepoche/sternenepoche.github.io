@@ -1,6 +1,6 @@
 """Real HTTP / SQLite / process-restart test, with isolated disposable test data on D:."""
 from pathlib import Path
-import concurrent.futures, json, subprocess, sys, time, urllib.request, urllib.error, uuid
+import concurrent.futures, json, os, subprocess, sys, time, urllib.request, urllib.error, uuid
 ROOT=Path(__file__).resolve().parents[1]
 DATA=ROOT/'laeufe'/'inventur-2026-10-07'/('http-test-'+uuid.uuid4().hex[:8])
 PUBLIC='http://127.0.0.1:18990'; ADMIN='http://127.0.0.1:18991'
@@ -17,7 +17,9 @@ def start():
     global process
     DATA.mkdir(parents=True,exist_ok=True)
     binary='sternenepoche-server'+('.exe' if sys.platform=='win32' else '')
-    process=subprocess.Popen([str(ROOT/'target/release'/binary),'--data',str(DATA),'--bind','127.0.0.1:18990','--admin-bind','127.0.0.1:18991'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+    executable=Path(os.environ.get('STERNENEPOCHE_SERVER_EXE',str(ROOT/'target/release'/binary)))
+    if not executable.is_file():raise AssertionError('server binary not found: '+str(executable))
+    process=subprocess.Popen([str(executable),'--data',str(DATA),'--bind','127.0.0.1:18990','--admin-bind','127.0.0.1:18991'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
     for _ in range(100):
         if process.poll() is not None:raise AssertionError('server failed to start')
         try:

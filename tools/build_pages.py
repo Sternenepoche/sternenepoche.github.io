@@ -14,7 +14,7 @@ def prepare(out:Path):
         file=ROOT/name
         if file.is_file(): approved.append(file)
     # Deliberate file list: the sibling admin directory must never be packaged.
-    for name in ['index.html','app.js','presentation.js','style.css','config.js','game-ui.js','game.css','art.js']:
+    for name in ['index.html','app.js','presentation.js','style.css','config.js','game-ui.js','game.css','art.js','three.min.js','galaxy.js','galaxy.css']:
         file=ROOT/'web-client'/name
         if file.is_file(): approved.append(file)
     # Exact reviewed image manifest, never the whole web-client directory.

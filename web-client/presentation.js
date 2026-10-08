@@ -42,9 +42,6 @@ function renderGovernment(){
  $('tax-form').onsubmit=guard(async e=>{await command([{typ:'steuersatz',prozent:Number(e.target.elements.prozent.value)}]);});
  const roles=view.agent?.roles||[];$('control-state').textContent=view.reich_status?.status==='besiegt'?'Dein Reich ist ausgeschieden. Du kannst seine Ansicht und Berichte weiter lesen.':roles.length?'Agent übernimmt: '+roles.map(label).join(', ')+'. Die übrigen Rollen steuerst du selbst.':'Du steuerst dein Reich. Kein Agent besitzt eine aktive Freigabe.';
 }
-function renderProduction(){
- $('production').innerHTML=view.planeten.map(p=>`<article class="card"><h3>Fertigung · ${esc(p.koord)}</h3>${recordCards(Object.values(p.fertigung||{}).flat(),'Fertigungsauftrag')}</article>`).join('');
-}
 function renderProducts(){
  const select=$('products'),previous=select.value,p=view.planeten.find(p=>p.koord===$('manufacture').elements.planet.value);
  const entries=view.einheiten_kosten.map(e=>{const needs=[...(e.werft?['werft '+e.werft]:[]),...(e.braucht||[])],ready=p&&requirementsMet(p,needs);return `<option value="${esc(e.einheit)}" ${ready?'':'disabled'}>${esc(label(e.einheit))} · ${esc(goods(e.kosten))}${ready?'':' · benötigt '+esc(needs.join(', '))}</option>`;});
@@ -62,11 +59,7 @@ function renderDiplomacy(){
  $('alliance-state').innerHTML=recordCards(view.allianz?[view.allianz]:[],'Deine Allianz')+recordCards((view.einladungen||[]).map(name=>({name})),'Einladung');
  $('messages').innerHTML=recordCards(view.nachrichten,'Nachricht');
 }
-function renderGalaxy(data){
- const systems=(Array.isArray(data)?data:data.systeme||[]).map(s=>({...s,erfasst:s.bekannt,guertel:s.asteroidenguertel}));
- $('map').innerHTML=systems.map(s=>`<article class="card"><div class="row"><h3>System ${esc(s.sektor??$('map-form').elements.sektor.value)}:${esc(s.system)}</h3>${badge(s.erfasst?'Kartiert':'Systemscan fehlt',s.erfasst?'good':'wait')}</div><p>Nebel: ${s.nebel==null?'Unbekannt':s.nebel?'Ja':'Nein'} · Asteroidengürtel: ${s.guertel==null?'Unbekannt':s.guertel?'Ja':'Nein'}</p>${table(['Planet','Kenntnis','Typ','Bewohner','Ressourcenprofil','Beobachtung',''],(s.plaetze||s.planeten||[]).map(p=>[esc(p.koord),badge(label(p.status||'unbekannt'),p.bekannt?'good':'wait'),esc(label(p.zone||'unbekannt')),esc(p.spieler??(p.status==='frei'?'Unbewohnt':'Unbekannt')),p.ertrag_promille?esc(readable(p.ertrag_promille)):'Unbekannt',p.alter_stunden!=null?`Vor ${p.alter_stunden} Spielstunden`:'Keine Sonde',`<button data-explore="${esc(p.koord)}" data-system="${!s.erfasst}" class="secondary">${s.erfasst?'Planet erkunden':'System erkunden'}</button>`]))}</article>`).join('')||empty('Keine Systeme im gewählten Bereich.');
-}
-function navigateGame(id){document.querySelectorAll('#game > section').forEach(s=>s.hidden=s.id!==id);document.querySelectorAll('[data-tab]').forEach(t=>t.setAttribute('aria-selected',String(t.dataset.tab===id)));}
+function navigateGame(id){if(window.GalaxyUI)GalaxyUI.visible(id==='karte');document.querySelectorAll('#game > section').forEach(s=>s.hidden=s.id!==id);document.querySelectorAll('[data-tab]').forEach(t=>t.setAttribute('aria-selected',String(t.dataset.tab===id)));}
 function pickFleet(target,mission){navigateGame('flotten');if($('fleet-planner'))$('fleet-planner').open=true;const form=$('fleet');form.elements.ziel.value=target;form.elements.mission.value=mission;for(const id of ['ship-inputs','cargo-inputs'])$(id).querySelectorAll('input').forEach(i=>i.value='0');if(['spionage','system_erkunden'].includes(mission))$('ship-inputs').querySelector('[data-map="spionagesonde"]').value='1';$('fleet').scrollIntoView?.({block:'start'});}
 function fuelReserve(q,legs){return Math.ceil((q.treibstoff_je_strecke_milli??q.treibstoff_je_strecke*1000)*legs/1000);}
 function flightSummary(q,a){

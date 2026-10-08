@@ -1,8 +1,3 @@
----
-layout: default
-title: "Betriebshandbuch Sternenepoche"
----
-
 # Betriebshandbuch Sternenepoche
 
 Dieses Handbuch beschreibt, wie man Sternenepoche baut, testet, startet, konfiguriert, Kosten abschätzt,
