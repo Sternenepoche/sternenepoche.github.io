@@ -934,7 +934,11 @@ fn ladung_fuer(welt: &Welt, sid: SpielerId, start: usize, ziel: Koord, anzahl: i
     let plan = welt.flugplan(sid, start, ziel, &schiffe, 1000).ok()?;
     let bestand = welt.bestand_jetzt(start);
     let d = Gut::Deuterium.idx();
-    menge[d] = menge[d].min((bestand[d] - 2 * plan.treibstoff - 200 * M).max(0));
+    let treibstoff = plan.treibstoff.checked_mul(2)?;
+    if bestand[d] < treibstoff {
+        return None;
+    }
+    menge[d] = menge[d].min((bestand[d] - treibstoff - 200 * M).max(0));
     let summe: i64 = menge.iter().sum();
     if summe > plan.kapazitaet {
         for g in 0..GUETER {
@@ -1321,6 +1325,35 @@ mod interactive_colony_tests {
         assert!(!w.planeten[pid].fertigung[1].is_empty(), "fixture must actually spend resources on orbital components");
         assert_eq!(w.spieler[0].statistik.abgelehnt, 0, "colony ship used the pre-component stock snapshot");
         assert!(w.bestand_jetzt(pid).iter().all(|n|*n>=0));
+    }
+    #[test]
+    fn logistics_waits_for_the_complete_round_trip_fuel_budget() {
+        let rules = Regelwerk::laden(include_str!("../../../regeln/online-v1.ron")).unwrap();
+        let mut w = Welt::neu(rules, 83, 2).unwrap();
+        let pid = w.spieler[0].heimat as usize;
+        let target = w.planeten[w.spieler[1].heimat as usize].koord;
+        w.spieler[0].erkundet.insert(target, Erkundung {zeit:0,felder:180,zone:Zone::Leben,reich_erz:1000,reich_kristall:1000,nebel:false});
+        w.spieler[0].stufe = 3;
+        w.spieler[0].forschung.fill(10);
+        w.planeten[pid].gebaeude[Gebaeude::Raumhafen.idx()] = 1;
+        w.planeten[pid].einheiten[Einheit::GrosserTransporter.idx()] = 1;
+        w.planeten[pid].bestand.fill(100_000 * M);
+        let mut ships = [0; SCHIFFE];
+        ships[Einheit::GrosserTransporter.idx()] = 1;
+        let fuel = 2 * w.flugplan(0, pid, target, &ships, 1000).unwrap().treibstoff;
+        assert!(fuel > 0);
+        let mut cargo = [0; GUETER];
+        cargo[Gut::Erz.idx()] = 5000 * M;
+        cargo[Gut::Deuterium.idx()] = 500 * M;
+        w.planeten[pid].bestand[Gut::Deuterium.idx()] = fuel - 1;
+        assert!(ladung_fuer(&w, 0, pid, target, 1, cargo).is_none(), "even a fractional fuel shortage must prevent a logistics order");
+        w.planeten[pid].bestand[Gut::Deuterium.idx()] = fuel;
+        let load = ladung_fuer(&w, 0, pid, target, 1, cargo).unwrap();
+        assert_eq!(load[Gut::Deuterium.idx()], 0);
+        let (ok, message) = w.handeln(0, Rolle::Alle, &json!({"typ":"flotte_senden","start":w.planeten[pid].koord.to_string(),"ziel":target.to_string(),"mission":"transport","schiffe":{"grosser_transporter":1},"ladung":ladung_json(&load)}));
+        assert!(ok, "a fully funded transport must still start: {message}");
+        assert_eq!(w.bestand_jetzt(pid)[Gut::Deuterium.idx()], 0);
+        assert_eq!(w.spieler[0].statistik.abgelehnt, 0);
     }
     #[test]
     fn modern_bot_scouts_then_sends_escort_and_required_cargo() {

@@ -291,6 +291,45 @@ Besiegte Reiche, Pause und Epochenende sperren Spielbefehle sowohl im Browser al
 im Server. Lesende Ansichten bleiben erreichbar; beendete Welten zeigen keine
 verfügbaren Zugänge für die laufende Epoche an.
 
+### Prüfstand vom 8. Oktober 2026
+
+Der konsolidierte Stand besteht 238 Rust-Tests; sieben Tests benötigen eine separate
+Docker-/native Laborumgebung und wurden ausgelassen. Die echten HTTP-Prüfungen sowie
+Browseragenten-, Dashboard- und UI-Prüfungen bestehen ebenfalls. Der öffentliche
+TLS-Client wurde angemeldet geprüft: dreidimensionale Sektoren, zwölf bewegte
+Planetenbahnen, unbekannte Planetendaten und unverdeckte Planetendetails. Die bestehende
+Welt und ihr Reichbesitz wurden beim Update mit vorherigem Datenbankbackup erhalten.
+
+Drei getrennte Welten mit je 30 Skriptbots durchliefen vollständige Online-Epochen:
+
+| Weltstart | Spieltage | Botaktionen | Abgelehnt | Kolonien | Kämpfe |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 83 | 365 | 153483 | 1 | 72 | 301 |
+| 42 | 365 | 148149 | 0 | 75 | 47 |
+| 20261008 | 365 | 134686 | 0 | 72 | 53 |
+
+Insgesamt: 1095 Tagesprüfungen, 15 identische Datenbank-Neuladungen und drei geprüfte
+Epochenresets, ohne verletzte Zustandsregeln. In diesen drei normalen Jahresläufen
+schied kein Bot natürlich aus. Ein separater Krisentest bestätigt acht dauerhafte
+Niederlagen, acht rechtzeitige Reparaturen und vierzehn weiter gesunde Reiche; besiegte
+Bots bleiben nach dem Neustart stillgelegt und ihre Heimatwelten geschützt.
+
+Die Jahresläufe fanden zuletzt einen unterfinanzierten Transport bei Weltstart 83:
+Der Server lehnte ihn wegen fehlenden Deuteriums korrekt ab. Der Bot prüft jetzt vor
+dem Transport auch den vollständigen Treibstoffbedarf für Hin- und Rückflug. Ein
+Grenzwerttest prüft sowohl die kleinste Unterdeckung als auch einen tatsächlich
+startenden, genau finanzierten Transport. Danach wurde Weltstart 83 mit der Korrektur
+über 90 Spieltage einschließlich der früheren Fehlerzeit erneut durchlaufen:
+32320 Botaktionen, keine Ablehnung, keine verletzte Zustandsregel und
+ein geprüfter Neustart sowie Reset. Die obigen Jahreszahlen gehören zur Fassung vor
+dieser letzten Vorprüfung; sie werden nicht als erneute Jahresläufe ausgegeben.
+
+Die lokalen Detailnachweise liegen unter `laeufe/epochen-pruefung-2026-10-08/`;
+`pruefbericht.json` verbindet Jahresläufe, Treibstoffkorrektur und die abschließenden
+Tests. Private Datenbanken, Konten und Zugangsdaten werden nicht veröffentlicht.
+Diese Abnahme ersetzt keinen Dauerbetrieb über 24 echte Stunden, keine bezahlten
+Modellaufrufe und keinen Test auf dem späteren VPS.
+
 ### Ausscheiden und Epochenwechsel
 
 Im Dashboard sind zwei Rettungsfristen von 1 bis 720 **Spielstunden** einstellbar.
