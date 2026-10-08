@@ -4,14 +4,15 @@
 .space-header h2{margin:0;font-size:25px}.space-header p{margin:5px 0 0;color:#a0b3c5}
 .space-toolbar{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:10px 16px;border-block:1px solid #283952;background:#0b1627}
 .space-toolbar button{font-size:11px;padding:7px 10px}.space-toolbar .spacer{flex:1}
-#galaxy-space{position:relative;height:clamp(440px,65vh,630px);isolation:isolate;background:#030813;overflow:hidden}
+#galaxy-viewport{display:grid;grid-template-columns:minmax(0,1fr) 225px}#galaxy-viewport:has(#galaxy-detail[hidden]){grid-template-columns:1fr}
+#galaxy-space{position:relative;min-width:0;height:clamp(440px,65vh,630px);isolation:isolate;background:#030813;overflow:hidden}
 #galaxy-canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}#galaxy-canvas:active{cursor:grabbing}
 #galaxy-labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .game-client .space-label{position:absolute;top:0;left:0;pointer-events:auto;background:#080f1dbb;color:#a5bbd4;border:1px solid #435b7544;border-radius:20px;min-width:27px;min-height:27px;font:10px/1.1 system-ui;padding:5px;box-shadow:0 0 12px #080f1d99;will-change:transform}
 .game-client .space-label.sector{padding:12px 18px;letter-spacing:2px;color:#e7d7bf;font-size:12px;border-color:#798bab77;background:#101a2ccc;min-height:44px}
 .game-client .space-label.planet{color:#d4dfed;min-width:30px;min-height:30px;top:13px}
 .game-client .space-label[aria-pressed=true]{border-color:#edc48d;color:#ffe3bc;background:#503c20cc;box-shadow:0 0 14px #ba824633}
-#galaxy-detail{position:absolute;right:14px;top:16px;width:205px;max-height:calc(100% - 32px);overflow:auto;background:linear-gradient(145deg,#14243aec,#080f1ef5);border:1px solid #3c536d;border-radius:8px;padding:14px;font-size:11px;box-shadow:0 18px 60px #0007}
+#galaxy-detail{background:linear-gradient(145deg,#14243a,#080f1e);border-left:1px solid #3c536d;padding:16px;font-size:11px;overflow-wrap:anywhere}
 #galaxy-detail h3{margin:4px 0;font-size:21px;color:#f0d3a4}#galaxy-detail dl{display:grid;grid-template-columns:auto 1fr;gap:5px;font-size:10px}#galaxy-detail dd{margin:0;text-align:right;color:#c7d9e9}#galaxy-detail dt{color:#8ca3ba}#galaxy-detail p{color:#aabacd;overflow-wrap:anywhere}
 #galaxy-detail .section-actions{display:grid;gap:6px}#galaxy-detail button{font-size:11px;min-height:34px}
 .space-planet-art{display:block;width:85px;height:85px;object-fit:cover;border-radius:50%;margin:10px auto}
@@ -23,6 +24,7 @@
 #map-form{padding:10px 0;gap:8px}#map-form input{width:80px}#map-form label{min-width:90px;font-size:11px}
 #galaxy-table .card{padding:10px;margin:7px 0;background:#102032}#galaxy-table td,#galaxy-table th{font-size:10px;padding:7px 4px}
 @media(hover:hover) and (pointer:fine){.game-client .space-label:hover{border-color:#e3bf90;color:#fff1d3;background:#253347}}
-@media(max-width:850px){#galaxy-space{height:520px}#galaxy-detail{width:175px;padding:10px;right:8px;top:8px}.space-header{padding:16px}.space-header h2{font-size:21px}}
-@media(max-width:580px){#galaxy-space{height:500px}#galaxy-detail{width:145px;font-size:10px;max-height:340px}#galaxy-detail .space-planet-art{width:55px;height:55px}#galaxy-detail h3{font-size:17px}#galaxy-detail dl{display:block}#galaxy-detail dd{text-align:left;margin-bottom:4px}.space-toolbar{padding:8px}.space-toolbar button{font-size:10px;padding:7px}.space-header p{font-size:11px}.space-instructions{font-size:9px;max-width:50%}.space-bottom{padding:12px}}
+@media(max-width:1400px){#galaxy-viewport{grid-template-columns:1fr}#galaxy-detail{border-left:0;border-top:1px solid #3c536d;display:grid;grid-template-columns:115px minmax(0,1fr) 150px;gap:8px 16px;align-items:start}#galaxy-detail>.eyebrow,#galaxy-detail>h3,#galaxy-detail>strong{grid-column:1}#galaxy-detail>.space-planet-art,#galaxy-detail>.space-unknown{grid-column:1;grid-row:4 / span 2;margin:4px auto}#galaxy-detail>dl{grid-column:2;grid-row:1 / span 3;margin:0}#galaxy-detail>p{grid-column:2;grid-row:4 / span 2;margin:0}#galaxy-detail>.section-actions{grid-column:3;grid-row:1 / span 5}#galaxy-detail h3{font-size:18px}}
+@media(max-width:850px){#galaxy-space{height:520px}.space-header{padding:16px}.space-header h2{font-size:21px}}
+@media(max-width:580px){#galaxy-space{height:430px}#galaxy-detail{grid-template-columns:90px minmax(0,1fr);gap:8px 12px;padding:12px;font-size:10px}#galaxy-detail .space-planet-art{width:55px;height:55px}#galaxy-detail h3{font-size:17px}#galaxy-detail>.section-actions{grid-column:1 / -1;grid-row:6;grid-template-columns:1fr 1fr}#galaxy-detail dl{display:block}#galaxy-detail dd{text-align:left;margin-bottom:4px}.space-toolbar{padding:8px}.space-toolbar button{font-size:10px;padding:7px}.space-header p{font-size:11px}.space-instructions{font-size:9px;max-width:85%}.space-bottom{padding:12px}}
 @media(prefers-reduced-motion:reduce){.space-label{transition:none}}

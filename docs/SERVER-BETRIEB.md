@@ -1,6 +1,6 @@
 # Sternenepoche: zuerst PC, später VPS
 
-Stand: 7. Oktober 2026. Der neue Dienst ist `crates/server`, der gemeinsame Browser
+Stand: 8. Oktober 2026. Der gemeinsame Dienst ist `crates/server`, der Browser
 `web-client`. Der ältere Python-Prototyp im GitHub-Checkout ist kein zweiter Produktionsserver.
 
 ## Am PC starten
@@ -219,7 +219,14 @@ Spielaktionen seit dessen Erstellung.
 cargo test --workspace --release --offline
 python tools/online_smoke.py
 node tools/browser_agent_test.cjs
+node tools/game_ui_test.cjs
+node tools/admin_browser_test.cjs
 ```
+
+Bei einem separaten Cargo-Zielverzeichnis muss `STERNENEPOCHE_SERVER_EXE` für den
+HTTP-Test auf genau dessen gebaute Serverdatei zeigen. Laufende Windows-Programme
+lassen sich nicht überschreiben: Epochenprüfungen verwenden deshalb `target/epoch-qa`,
+die private UI-Prüfung `target/ui-release`. Der Produktivdienst verwendet `target/release`.
 
 Der HTTP-Test startet/beendet eine eigene Welt auf 18990/18991 unter `laeufe/`.
 Der Browseragententest verwendet ausschließlich Mockanbieter. Die 24-Spielstunden-Tests
@@ -253,7 +260,7 @@ geprüft werden. Keine dieser Welten darf auf `data/online` zeigen.
 
 Die Prüfung kontrolliert täglich Bestände, Bevölkerung, Einheiten, Besitzlisten,
 Koordinaten, geschützte Heimatwelten, reservierte Plätze und stillgelegte Reiche.
-An Tag 90, 180, 270 und am Ende wird die Datenbank geschlossen und neu geladen;
+An Tag 90, 180, 270, 360 und am Ende wird die Datenbank geschlossen und neu geladen;
 Welt-Hash und Botlaufzeitstatus müssen identisch bleiben. Ein abgeschlossener Lauf
 prüft außerdem den Stillstand am Epochenende und einen echten Verwaltungsreset:
 neue Weltkennung, neue Botzähler, freie Plätze, erhaltene Zuschauerkonten und
@@ -267,9 +274,22 @@ ersetzen weder einen Dauertest über echte Tage noch Modellqualitätstests.
 Skriptbots berücksichtigen beim Angriffsvergleich die Volksboni des Verteidigers.
 Nach Bombardierungen reparieren sie beschädigte Gebäude, priorisieren Versorgung
 und reservieren Reparaturrohstoffe vor dem Kauf weiterer Schiffe. Reparaturen warten
-auf eine freie planetare Baustelle. Im Labor bleiben vollständige Baukarten über
+auf eine freie planetare Baustelle. Transporterbestellungen berücksichtigen die
+bezahlbare Stückzahl; Kolonieschiffe und Begleitschiffe werden nach vorherigen
+Bauteilbestellungen nur mit dem tatsächlich verbliebenen Bestand bestellt.
+Im Labor bleiben vollständige Baukarten über
 Werkzeuge abrufbar; sie werden auch im älteren Protokoll nicht mehr ungefragt dem
 anfänglichen Lagebild hinzugefügt und blockieren dadurch keinen ersten Modellaufruf.
+
+Der gemeinsame Browser verwendet eine integrierte WebGL-Karte für Galaxie, Sektoren,
+Sonnensysteme und Planetenberichte. Die Sternwolken und bewegten Umlaufbahnen verwenden
+öffentliche Koordinaten; Planetentyp, Bewohner und Ressourcen stammen ausschließlich
+aus der Sicht des angemeldeten Reichs. Tabellen ergänzen die räumliche Navigation.
+Planetendetails verdecken die Umlaufbahnen auch in schmalen Fenstern nicht.
+Pause, fehlende Verbindung und Epochenende stoppen die visuelle Bewegung.
+Besiegte Reiche, Pause und Epochenende sperren Spielbefehle sowohl im Browser als auch
+im Server. Lesende Ansichten bleiben erreichbar; beendete Welten zeigen keine
+verfügbaren Zugänge für die laufende Epoche an.
 
 ### Ausscheiden und Epochenwechsel
 

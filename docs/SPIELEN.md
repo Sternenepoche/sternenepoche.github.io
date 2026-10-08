@@ -21,6 +21,8 @@ für beide Strecken verladen. Eigene Flotten, Rückruf und erfasste Angriffe ste
 **Räumlicher Sternenatlas:** Unter Galaxie wählst du zuerst einen Sektor seiner Sternwolke,
 dann ein Sonnensystem und schließlich einen Planeten auf seiner Umlaufbahn. Ziehen dreht die Kamera,
 Scrollen zoomt; die Systemliste bietet dieselben Ziele per Tastatur. Sonne und Planeten sind räumlich.
+„Kamera zentrieren“ zeigt die vollständigen Umlaufbahnen. Planetendetails stehen in schmalen
+Fenstern unter der Karte, damit sie keine Planeten verdecken.
 „Umläufe pausieren“ hält nur die visuelle Bewegung an. Bei reduzierter Systembewegung kannst du sie
 ausdrücklich aktivieren. Weltpause, fehlende Verbindung und Epochenende halten Umläufe ebenfalls an.
 Sondendaten, Ressourcen und Bewohner bleiben bis zur Aufklärung unbekannt. Größen, Sternverteilung und
