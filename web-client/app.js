@@ -59,7 +59,7 @@ function applyControlState(){
 async function command(actions,extra={}){const reason=gameReadOnly();if(reason)throw Error(reason);const result=await postCommand({world_id:world.world_id,request_id:crypto.randomUUID(),aktionen:actions,...extra});show(result.ergebnisse.map(r=>r.text).join(' · ')||'Entscheidung gespeichert',result.ergebnisse.some(r=>!r.ok));await refresh();return result;}
 async function setupRules(){rules=await api('/api/rules',undefined,false);$('rules-text').textContent=rules.text;const actions=rules.schema.properties.aktionen.items.anyOf;
  $('action-type').innerHTML=actions.map((a,i)=>`<option value="${i}">${esc(label(a.properties.typ.enum[0]))}${a.properties.bauteil?' · Bauteil':''}</option>`).join('');renderActionFields();
- const mapFields=$('map-form').elements,catalogWorld=rules.catalog.welt;mapFields.sektor.max=catalogWorld.sektoren;mapFields.von.max=mapFields.bis.max=catalogWorld.systeme_je_sektor;
+ const mapFields=$('map-form').elements,catalogWorld=rules.catalog.welt;mapFields.sektor.max=catalogWorld.sektoren;mapFields.von.max=catalogWorld.systeme_je_sektor;
  const fleet=actions.find(a=>a.properties.typ.enum[0]==='flotte_senden');
  for(const[id,props]of[['ship-inputs',fleet.properties.schiffe.properties],['cargo-inputs',fleet.properties.ladung.properties]])$(id).innerHTML=Object.keys(props).map(k=>`<label>${esc(label(k))}<input data-map="${esc(k)}" type="number" min="0" max="1000000000" value="0"></label>`).join('');
  const missions=fleet.properties.mission.enum;$('fleet').elements.mission.innerHTML=missions.map(m=>`<option value="${esc(m)}">${esc(label(m))}</option>`).join('');$('fleet').elements.mission.value='system_erkunden';
@@ -90,7 +90,7 @@ $('manufacture').addEventListener('submit',guard(async e=>{const f=e.target.elem
 $('manufacture').addEventListener('change',e=>{if(e.target.name==='planet')renderProducts();});
 $('fleet').addEventListener('submit',guard(async()=>{await command([fleetData()]);}));
 $('flight-preview').onclick=guard(async()=>{const a=fleetData();flightSummary(await api('/api/tool',{...a,typ:'flugzeit'}),a);$('flight-quote').hidden=false;});
-$('map-form').addEventListener('submit',guard(async e=>{const a=Object.fromEntries(new FormData(e.target));for(const k in a)a[k]=Number(a[k]);renderGalaxy(await api('/api/tool',{typ:'galaxie',...a}));}));
+$('map-form').addEventListener('submit',guard(async e=>{const a=Object.fromEntries(new FormData(e.target));for(const k in a)a[k]=Number(a[k]);renderGalaxy(await api('/api/tool',{typ:'galaxie',...a,bis:a.von}));}));
 $('action-type').onchange=renderActionFields;$('action-form').addEventListener('submit',guard(async()=>{await command([collectAction()]);}));
 $('all-ships').onclick=selectAllShips;$('save-cargo').onclick=guard(async()=>{await fillSaveCargo();$('flight-quote').hidden=false;});
 $('market-form').addEventListener('submit',guard(async e=>{const f=e.target.elements;await command([{typ:'markt_order',planet:f.planet.value,gut:f.gut.value,seite:f.seite.value,menge:Number(f.menge.value),preis:Number(f.preis.value)}]);}));
