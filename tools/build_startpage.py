@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import base64
 import html
 import re
 from pathlib import Path
@@ -11,12 +10,12 @@ from urllib.parse import urlsplit
 import markdown
 from site_policy import decorate
 from markdown.extensions.toc import slugify
+from website_content import finish, screenshot, chapter_visual
 
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "docs" / "startseite.html"
 DESTINATION = ROOT / "Sternenepoche-Start.html"
-ASSETS = ROOT / "web-client" / "assets"
 HANDBUCH = ROOT / "docs" / "HANDBUCH.md"
 
 SCREENS = [
@@ -62,9 +61,10 @@ def guide_parts() -> tuple[dict[str, str], int]:
     first = chapters[7][1]
     intro = first.split("### ", 1)[0]
     steps = list(re.finditer(r'^### (\d+) ([^\n]+)\n(.*?)(?=^### |\Z)', first, re.M | re.S))
+    step_screens = {"01":"profil", "02":"kolonie", "03":"gebaeude", "04":"forschen", "05":"werft", "06":"flotten", "07":"karte", "08":"berichte"}
     first_html = render(intro) + '<div class="session-steps">' + ''.join(
         f'<article class="session-step" id="einstieg-{m[1]}"><span class="step-index" aria-hidden="true">{m[1]}</span>'
-        f'<div><h3>{html.escape(m[2])}</h3>{render(m[3])}</div></article>' for m in steps) + '</div>'
+        f'<div><h3>{html.escape(m[2])}</h3>{screenshot(step_screens[m[1]])}{render(m[3])}</div></article>' for m in steps) + '</div>'
     practical = {m[1]: m[2] for m in re.finditer(
         r'^### ([^\n]+)\n(.*?)(?=^### |\Z)', chapters[8][1], re.M | re.S)}
     screen_links, options, panels = [], [], []
@@ -75,7 +75,7 @@ def guide_parts() -> tuple[dict[str, str], int]:
         options.append(f'<option value="{key}">{html.escape(name)}</option>')
         panels.append(f'<article class="screen-panel" id="bedienweg-{key}" aria-labelledby="screen-{key}">'
                       f'<span class="eyebrow">Links im Spielmenü · {html.escape(name)}</span>'
-                      f'<h3 id="screen-{key}" tabindex="-1">{html.escape(name)}</h3>{render(practical[name])}'
+                      f'<h3 id="screen-{key}" tabindex="-1">{html.escape(name)}</h3>{screenshot(key)}{render(practical[name])}'
                       f'<a class="text-link" href="#{anchors[chapter]}">Die Spielregeln dazu lesen <span aria-hidden="true">↓</span></a></article>')
     screens_html = '<div class="screen-finder" id="screen-finder">' + (
         '<div class="screen-top"><strong>So orientierst du dich im Spiel</strong>'
@@ -97,7 +97,9 @@ def guide_parts() -> tuple[dict[str, str], int]:
             content = 'Der [Oberflächen-Wegweiser](#oberflaeche) erklärt alle 17 Bereiche: wo du etwas findest, welche Knöpfe du benutzt, was danach passiert und welche Fehler du prüfen solltest.\n\n' + chapters[8][1].split('### ', 1)[0]
         label = f'{number:02d} · {title}' + (' · Betreiber' if number == 20 else '')
         toc.append(f'<li><a href="#{target}">{html.escape(label)}</a></li>')
-        articles.append(f'<section class="guide-chapter" aria-labelledby="{target}" data-search-title="{html.escape(title, quote=True)}">{render(heading + content)}<a class="chapter-back" href="#spielguide">↑ Zur Kapitelauswahl</a></section>')
+        chapter = render(heading + content)
+        chapter = re.sub(r'(</h3>)', lambda m: m[1] + chapter_visual(number), chapter, count=1)
+        articles.append(f'<section class="guide-chapter" aria-labelledby="{target}" data-search-title="{html.escape(title, quote=True)}">{chapter}<a class="chapter-back" href="#spielguide">↑ Zur Kapitelauswahl</a></section>')
     book = '<div class="guide-layout"><aside class="guide-index"><details open><summary>22 Kapitel zum Nachschlagen</summary><nav aria-label="Spielguide-Kapitel"><ol>' + ''.join(toc) + '</ol></nav></details><p>Kapitel 20 erklärt die private Serververwaltung. Alle anderen Kapitel helfen beim Spielen.</p></aside><div class="guide-reading">' + ''.join(articles) + '</div></div>'
     return {"ERSTE_SITZUNG": first_html, "OBERFLAECHE": screens_html, "SPIELGUIDE": book}, len(source.split())
 
@@ -110,26 +112,11 @@ def build() -> None:
         if document.count(marker) != 1:
             raise ValueError(f"Genau ein Inhaltsplatzhalter erforderlich: {name}")
         document = document.replace(marker, body)
-    embedded: dict[str, str] = {}
-
-    def embed(match: re.Match[str]) -> str:
-        name = match.group(1)
-        if name not in embedded:
-            path = ASSETS / name
-            if path.suffix != ".webp" or not path.is_file():
-                raise ValueError(f"Spielmotiv fehlt oder ist ungültig: {name}")
-            embedded[name] = "data:image/webp;base64," + base64.b64encode(
-                path.read_bytes()
-            ).decode("ascii")
-        return embedded[name]
-
-    document = re.sub(r"asset://([a-zA-Z0-9_.-]+)", embed, document)
-    if "asset://" in document:
-        raise ValueError("Nicht aufgelöster Motivverweis")
+    document = finish(document)
     document = decorate(document, "KI-Hinweis.html")
     DESTINATION.write_text(document, encoding="utf-8")
     print(f"Erstellt: {DESTINATION}")
-    print(f"{len(embedded)} Spielmotive eingebettet, {DESTINATION.stat().st_size:,} Bytes")
+    print(f"Aktuelle Screenshots und Spielmotive eingebettet, {DESTINATION.stat().st_size:,} Bytes")
     print(f"17 Bedienwege, 8 Einstiegsschritte, 22 Kapitel; Handbuchquelle: {words:,} Wörter")
 
 

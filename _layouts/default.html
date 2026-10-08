@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; script-src &#x27;self&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;; img-src &#x27;self&#x27; data:; font-src &#x27;self&#x27;; connect-src &#x27;self&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;self&#x27;">
+<meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-DEyMZE+sP4+8RbEUUU2+KHiGN7nxxJ5wFNiPbkKRYTs=&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;; img-src &#x27;self&#x27; data:; font-src &#x27;self&#x27;; connect-src &#x27;self&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;self&#x27;">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ page.title }} · Sternenepoche</title>
 <style>
@@ -32,23 +32,35 @@
   img{max-width:100%;border-radius:10px;border:1px solid var(--line)}
   footer{max-width:960px;margin:0 auto;padding:24px 20px 60px;color:var(--muted);font-size:13.5px;border-top:1px solid var(--line)}
   .crumb{color:var(--muted);font-size:13.5px;margin-bottom:18px}
+
+  body{background:radial-gradient(ellipse at 90% 10%,#44356e33,transparent 45%),radial-gradient(ellipse at 5% 55%,#12576528,transparent 50%),#050b14;color:#dae5f1}
+  header{background:#071321ed;backdrop-filter:blur(14px)}
+  .bar{max-width:1200px;min-height:76px;padding:16px 28px}.brand{color:#efc88b;font-size:16px}
+  main{max-width:1080px;padding:55px 28px 90px}main>h1{font-size:clamp(32px,5vw,49px);letter-spacing:-.035em;line-height:1.15}
+  main>h2{font-size:27px;margin-top:2.1em}h3{color:#8be0dc}a{color:#8be0dc}strong{color:#f3f6fa}
+  nav a{font-size:13px}footer{max-width:1080px;padding-inline:28px}th{color:#efc88b}
+  @media(max-width:600px){.bar{gap:10px;padding-inline:20px}nav{display:flex;flex-wrap:wrap;gap:4px}nav a{margin:0;padding:6px 8px;font-size:12px}main{padding:35px 20px 60px}}
 </style>
 <style id="site-ai-notice-style">.site-ai-notice{box-sizing:border-box;position:relative;z-index:6;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 12px;margin:0;padding:8px 16px;background:#10212d;color:#d3e3e8;border-bottom:1px solid #38515d;font:12px/1.6 system-ui,'Segoe UI',sans-serif;letter-spacing:0;text-align:center}
 .site-ai-notice .site-ai-tag{display:inline-block;padding:0 7px;border:1px solid #729e9c;border-radius:4px;color:#bce9de;font-weight:700;letter-spacing:.05em}
 .site-ai-notice a{display:inline-flex;align-items:center;min-height:28px;color:#f2d3a2;text-decoration:underline;text-underline-offset:3px;font:inherit;white-space:nowrap}
 .site-ai-notice a:focus-visible{outline:2px solid #f2d3a2;outline-offset:3px}
-@media(max-width:480px){.site-ai-notice{font-size:11px;padding:7px 12px;gap:2px 8px}.site-ai-notice .site-ai-description{flex-basis:calc(100% - 50px);text-align:left}}</style>
+@media(max-width:480px){.site-ai-notice{font-size:11px;padding:7px 12px;gap:2px 8px}.site-ai-notice .site-ai-description{flex-basis:calc(100% - 50px);text-align:left}}
+.ai-image-label{box-sizing:border-box;position:absolute;z-index:5;display:block;width:auto;min-width:0;margin:0;padding:1px 3px;border:1px solid #ffffff42;border-radius:3px;background:#07111dd9;color:#fff;font:600 8px/1.2 system-ui,'Segoe UI',sans-serif;letter-spacing:.03em;text-align:center;white-space:nowrap;pointer-events:none;transform:translate(-100%,-100%)}
+.ai-image-label[hidden]{display:none!important}
+.ai-background-label{right:3px;bottom:3px;transform:none}
+.ai-page-label{position:fixed}</style>
 </head>
 <body>
-<div class="site-ai-notice" data-ai-disclosure="true" role="note" aria-label="KI-Kennzeichnung"><span class="site-ai-tag">KI</span><span class="site-ai-description">Mit KI-Unterstützung entwickelt · Spielgrafiken mit KI erstellt</span><a href="/KI-Hinweis.html">KI-Hinweis</a></div>
+<div class="site-ai-notice" data-ai-disclosure="true" role="note" aria-label="KI-Kennzeichnung"><span class="site-ai-tag">KI</span><span class="site-ai-description">Bild, Ton und Text sind KI-generiert</span><a href="/KI-Hinweis.html">KI-Hinweis</a></div>
 <header><div class="bar">
   <a class="brand" href="/">✶ STERNENEPOCHE</a>
   <nav>
     <a href="/">Start</a>
     <a href="/web-client/">Spielen</a>
-    <a href="/docs/SPEZIFIKATION.html">Spezifikation</a>
+    <a href="/Sternenepoche-Start.html">Spielguide</a>
     <a href="/Sternenepoche-Start.html#spielguide">Regelwerk</a>
-    <a href="/docs/PROJEKT-README.html">Projekt</a>
+    <a href="/Sternenepoche-Handbuch.html">Handbuch</a>
     <a href="https://github.com/Sternenepoche/sternenepoche.github.io">Quellcode</a>
   </nav>
 </div></header>
@@ -57,8 +69,78 @@
 {{ content }}
 </main>
 <footer>
-  Sternenepoche · Mit KI-Unterstützung entwickelt · <a href="/KI-Hinweis.html">KI-generierte Spielgrafiken</a> ·
+  Sternenepoche · <a href="/KI-Hinweis.html">Bild, Ton und Text sind KI-generiert</a> ·
   <a href="https://github.com/Sternenepoche/sternenepoche.github.io">Repository</a>
 </footer>
+<script id="site-ai-labels">// One small label per displayed image, including images added by the game UI.
+(() => {
+  'use strict';
+  const labels = new Map();
+  const selector = 'img:not(.art-color), canvas, [data-ai-image]';
+  let scheduled = false;
+  const resize = new ResizeObserver(schedule);
+
+  function schedule() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(update);
+  }
+
+  function update() {
+    scheduled = false;
+    for (const [source, label] of labels) {
+      if (!source.isConnected || label.parentElement !== hostFor(source)) {
+        resize.unobserve(source);
+        label.remove();
+        labels.delete(source);
+      }
+    }
+    for (const source of document.querySelectorAll(selector)) {
+      if (labels.has(source)) continue;
+      const host = hostFor(source);
+      if (!host) continue;
+      if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
+      const label = document.createElement('span');
+      label.className = 'ai-image-label';
+      label.textContent = 'KI';
+      label.setAttribute('aria-hidden', 'true');
+      if (source.hasAttribute('data-ai-image')) label.classList.add('ai-background-label');
+      if (source === document.body) label.classList.add('ai-page-label');
+      host.append(label);
+      labels.set(source, label);
+      resize.observe(source);
+    }
+    for (const [source, label] of labels) {
+      label.hidden = !source.getClientRects().length || !source.offsetWidth || !source.offsetHeight
+        || (source.tagName === 'IMG' && (!source.complete || !source.naturalWidth));
+      if (source.hasAttribute('data-ai-image')) continue;
+      // Sibling overlays preserve existing grid, flex and absolute image layouts.
+      label.style.left = `${source.offsetLeft + source.offsetWidth - 2}px`;
+      label.style.top = `${source.offsetTop + source.offsetHeight - 2}px`;
+    }
+  }
+
+  function hostFor(source) {
+    return source.hasAttribute('data-ai-image') ? source : source.parentElement;
+  }
+
+  function start() {
+    new MutationObserver(records => {
+      if (records.some(record => record.type === 'attributes'
+        ? !record.target.classList.contains('ai-image-label')
+        : [...record.addedNodes, ...record.removedNodes].some(node =>
+          node.nodeType === 1 && !node.classList.contains('ai-image-label')))) schedule();
+    }).observe(document.body, {subtree: true, childList: true, attributes: true,
+      attributeFilter: ['src', 'hidden', 'class', 'open']});
+    document.addEventListener('load', schedule, true);
+    document.addEventListener('error', schedule, true);
+    window.addEventListener('resize', schedule);
+    document.fonts?.ready.then(schedule);
+    schedule();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, {once: true});
+  else start();
+})();
+</script>
 </body>
 </html>

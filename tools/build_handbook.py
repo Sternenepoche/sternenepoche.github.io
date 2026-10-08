@@ -9,6 +9,7 @@ from urllib.parse import urlsplit
 
 import markdown
 from site_policy import decorate
+from website_content import chapter_visual, finish, DIALOG
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -180,6 +181,8 @@ def build() -> None:
         extension_configs={"toc": {"toc_depth": "2-2"}},
     )
     body = renderer.convert(source)
+    body = re.sub(r'(<h2\b[^>]*>(\d+)\s.*?</h2>)',
+                  lambda m: m[1] + chapter_visual(int(m[2])), body)
     body = re.sub(r"^<h1[^>]*>.*?</h1>\s*", "", body, count=1, flags=re.S)
     body = re.sub(
         r"<p>(<(?:strong)[^>]*>)?(?:Beispiel|Zeitbeispiel|Frachtbeispiel|Rechenbeispiel)",
@@ -248,7 +251,25 @@ def build() -> None:
 </body>
 </html>
 """
-    document = decorate(document, "KI-Hinweis.html")
+    # Reading layout shares the artwork and screenshot provenance with the guide.
+    reading_style = '''<style>
+    :root{--ink:#dbe6f3;--muted:#adbdcf;--line:#a1c9e222}
+    body{color:var(--ink)}.layout{max-width:1400px;grid-template-columns:290px minmax(0,1110px)}
+    main{background:#091421}.sidebar{background:#0c192b}.sidebar .brand{color:#f2f5f8}
+    .hero{display:block;min-height:0;padding:50px;isolation:isolate}.hero h1{font-size:52px;max-width:800px}.hero p{margin:0}
+    h2{color:#f2f5f8;font-size:31px}h3{color:#8be0dc}strong{color:#eef3f9}a{color:#8be0dc}
+    .example{background:#8be0dc0a;border-color:#8be0dc}th{background:#1a2c42;color:#edf5ff}
+    tbody tr:nth-child(even){background:#ffffff04}.foot{background:#0c192b}article{line-height:1.85}
+    .illustration strong{color:#efc88b}.screenshot{margin-block:28px 35px}
+    @media(max-width:960px){.layout{grid-template-columns:235px minmax(0,1fr)}.hero{padding:35px 30px}.hero h1{font-size:40px}}
+    @media(max-width:720px){.layout{display:block}.sidebar{position:static}.hero{padding:32px 23px}.hero h1{font-size:36px}h2{font-size:26px}}
+    @media print{body,main{background:white;color:#172c40}h2,h3,strong{color:#172c40}.hero h1{font-size:28pt}.hero::before,.hero::after{display:none}.example{background:#eef5f6}.foot{background:white}.sidebar{display:none}}
+    </style>'''
+    document = document.replace('</head>', '<!-- SITE_THEME -->' + reading_style + '</head>')
+    document = document.replace('</body>', DIALOG + '<!-- SITE_MOTION --></body>')
+    document = document.replace('<div class="brand">','<a class="brand" href="index.html" style="text-decoration:none">',1)
+    document = document.replace('        Sternenepoche\n      </div>', '        Sternenepoche\n      </a>',1)
+    document = decorate(finish(document), "KI-Hinweis.html")
     DESTINATION.write_text(document, encoding="utf-8")
     print(f"Erstellt: {DESTINATION}")
     print(f"{len(chapters)} Kapitel, {len(source.split())} Wörter, {len(document.encode('utf-8')):,} Bytes")

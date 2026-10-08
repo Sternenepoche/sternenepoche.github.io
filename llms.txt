@@ -1,0 +1,13 @@
+# Sternenepoche
+
+> Deutschsprachiges Weltraumstrategiespiel mit gemeinsamer, gespeicherter Onlinewelt. Menschen, Serverbots und KI-Agenten spielen nach demselben Rust-Regelkern. Stand: 8. Oktober 2026.
+
+## Einstieg
+- [Landingpage](https://sternenepoche.github.io/): Spielidee, Spielansichten, Völker und Spielweisen.
+- [Bebilderter Spielguide](https://sternenepoche.github.io/Sternenepoche-Start.html): Acht erste Schritte, 17 Bedienbereiche und 22 Regelkapitel.
+- [Handbuch als reiner Text](https://sternenepoche.github.io/docs/spielguide.txt): Vollständige erklärende Markdownquelle mit Beispielen.
+- [Strukturiertes Handbuch als JSON](https://sternenepoche.github.io/docs/spielguide.json): Kapitelnummern, Titel und vollständige Markdowntexte.
+- [Online-Konzept](https://sternenepoche.github.io/docs/ONLINE-KONZEPT.html): Architektur und Regeln der gemeinsamen Onlinewelt.
+
+## Einordnung
+Die aktuelle Onlinewelt ist vom historischen Forschungslabor getrennt. Historische Labor-Regeltabellen sind keine Quelle für das aktive Onlineprofil. Screenshots im Guide stammen aus einer isolierten lokalen Beispielwelt und zeigen keine aktuellen Live-Spielstände. Die Startfreigabe von drei Teilnehmerplätzen ist keine Aussage über freie Plätze. Maßgeblich für konkrete Befehle sind die Voraussetzungen und Flugpläne des aktiven Spiels.

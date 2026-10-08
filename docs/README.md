@@ -12,6 +12,8 @@ gleichgesetzt werden. Das Labor hält die Welt während Modellentscheidungen an;
 
 | Dokument | Inhalt | Für wen |
 |---|---|---|
+| [Sternenepoche Spielguide](../Sternenepoche-Start.html) | Bebilderte Singlepage: erste Spielsitzung, Bedienwege für alle 17 Bereiche, durchsuchbare Spielregeln mit Beispielen und einfacher Serverstart | Spieler und Betreiber |
+| [HANDBUCH.md](HANDBUCH.md) · [HTML zum Öffnen](../Sternenepoche-Handbuch.html) | Anmeldung, Völker, Mensch/Bot/Agent/Mischbetrieb, Bedienung, Spielregeln mit Beispielen und Serververwaltung | Spieler und Betreiber |
 | [ONLINE-KONZEPT.md](ONLINE-KONZEPT.md) | Verbindliche Onlinearchitektur, Informationsgrenze, Anmeldung, Aufklärung, Kampf, Saven und Ausscheiden | Spiel, Entwicklung |
 | [SERVER-BETRIEB.md](SERVER-BETRIEB.md) | PC-Betrieb, TLS, Verwaltung, Backups, Epochenprüfung und VPS-Vorbereitung | Betreiber |
 | [ONLINE-REGELN.md](ONLINE-REGELN.md) | Erzeugte Referenz des Onlineprofils; der Server liefert das tatsächlich aktive Profil | Nachschlagen |
@@ -32,13 +34,47 @@ gleichgesetzt werden. Das Labor hält die Welt während Modellentscheidungen an;
 
 ## Lesereihenfolge
 
-- **Online spielen und verwalten:** SPIELEN, ONLINE-KONZEPT und SERVER-BETRIEB.
+- **Online spielen und verwalten:** HANDBUCH, ONLINE-KONZEPT und SERVER-BETRIEB.
 - **Forschungslabor:** SPIELER-SANDBOX-KONZEPT, danach ARCHITEKTUR und AGENTEN-SCHNITTSTELLE als Bestandsreferenz.
 - **Nativ selbst spielen:** der ältere Teil von SPIELEN (Doppelklick auf `Spielen.cmd`), gegen Sprachmodelle dann LIVE-TEST.
 - **Modelle beobachten:** LIVE-TEST, dann SPEZIFIKATION in Auszügen.
 - **Ein Modell anbinden oder Prompts ändern:** AGENTEN-SCHNITTSTELLE, REGELTEXT, dann BETRIEB (Konfiguration).
 - **Am Code arbeiten:** ARCHITEKTUR, dann SPEZIFIKATION; vor dem Abschluss die Prüfungen aus ARCHITEKTUR 8.4.
 - **Regeln oder Balance ändern:** SPEZIFIKATION, REGELWERK, BALANCE.
+
+## Einstiegsseite und Handbuch bearbeiten
+
+**Öffentliche Website, Stand 8. Oktober 2026:** Die Landingpage liegt als Vorlage in
+**docs/landingpage.html**. **docs/site-theme.css** und **docs/site-motion.js** verbinden Landingpage,
+Spielguide und Handbuch gestalterisch. **python tools/build_website.py** erzeugt alle drei Seiten
+und die maschinenlesbaren Fassungen gemeinsam. Die bestehenden Spielgrafiken werden eingebettet;
+es gibt keine fremden Schrift-, Skript- oder Bilddienste.
+
+Die 17 aktuellen Browseransichten liegen unter **docs/bilder/online/**. Sie zeigen eine isolierte,
+pausierte Rust-Beispielwelt vom 8. Oktober 2026, keine Live-Spielerdaten. Bildunterschriften und
+die Zuordnung von Bildern zu Mechaniken werden in **tools/website_content.py** gepflegt.
+**python tools/capture_website.py** nimmt diese Ansichten mit dem vorhandenen Chrome und einer
+separaten lokalen Testwelt auf D: erneut auf. Die Originalgrafiken bleiben unverändert;
+dunkle Hintergründe dekorativer Schiffe und Asteroiden werden nur im Browser ausgeblendet.
+
+Für Browserprüfungen die Website lokal mit **python -m http.server 18888 --bind 127.0.0.1**
+ausliefern und **python tools/verify_website.py** starten. Die Prüfung umfasst Desktop/Handy,
+Bilder, Anker, Suche, Navigation, Vergrößerung, reduzierte Bewegung und Lesen ohne JavaScript.
+
+Die Gestaltung des bebilderten Spielguides wird in **docs/startseite.html** gepflegt.
+Die praktische erste Sitzung, alle 17 Bedienwege und die Spielregeln kommen aus **docs/HANDBUCH.md**.
+**python tools/build_startpage.py** erzeugt daraus **Sternenepoche-Start.html** mit eingebetteten
+Spielmotiven, Bereichsnavigation und Suche. Die fertige Datei lässt sich allein per Doppelklick öffnen;
+zum Lesen und Suchen braucht sie keine Internetverbindung. Die ersten 22 Handbuchkapitel sind direkt
+enthalten; die Projektdateiübersicht aus Kapitel 23 bleibt im separaten Handbuch.
+
+Die ausführliche Anleitung steht in **docs/HANDBUCH.md**.
+**python tools/build_handbook.py** erzeugt **Sternenepoche-Handbuch.html**.
+Beide Seiten verweisen aufeinander.
+
+**Server per Doppelklick:** Im Hauptordner liegen **Server-starten.cmd**, **Dashboard-oeffnen.cmd**,
+**Spiel-oeffnen.cmd**, **Server-status.cmd** und **Server-stoppen.cmd**. Ablauf und Voraussetzungen
+stehen im Spielguide unter **Den Server per Doppelklick starten** und in Handbuchkapitel 20.
 
 ## Was erzeugt ist und was geschrieben
 

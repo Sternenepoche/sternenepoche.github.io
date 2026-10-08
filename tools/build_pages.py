@@ -11,11 +11,11 @@ def prepare(out:Path):
     out.mkdir(parents=True,exist_ok=False)
     approved=[]
     tracked=set(subprocess.check_output(['git','ls-files','-z'],cwd=ROOT).decode('utf-8').split('\0'))
-    for name in ['index.html','Bestandsaufnahme.html','KI-Hinweis.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html','_config.yml']:
+    for name in ['index.html','Bestandsaufnahme.html','KI-Hinweis.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html','_config.yml','llms.txt','robots.txt','sitemap.xml','docs/spielguide.json','docs/spielguide.txt']:
         file=ROOT/name
         if file.is_file(): approved.append(file)
     # Deliberate file list: the sibling admin directory must never be packaged.
-    for name in ['index.html','app.js','presentation.js','style.css','config.js','game-ui.js','game.css','art.js','three.min.js','galaxy.js','galaxy.css']:
+    for name in ['index.html','app.js','presentation.js','style.css','config.js','game-ui.js','game.css','art.js','three.min.js','galaxy.js','galaxy.css','ai-labels.js']:
         file=ROOT/'web-client'/name
         if file.is_file(): approved.append(file)
     # Exact reviewed image manifest, never the whole web-client directory.
@@ -32,7 +32,7 @@ def prepare(out:Path):
     for folder in ['_layouts','docs','betrachter']:
         approved.extend(p for p in (ROOT/folder).rglob('*') if p.is_file() and p.suffix.lower() in EXT
                         and p.relative_to(ROOT).as_posix() in tracked
-                        and p.relative_to(ROOT).as_posix() != 'docs/startseite.html'
+                        and p.relative_to(ROOT).as_posix() not in {'docs/startseite.html','docs/landingpage.html','docs/site-theme.css','docs/site-motion.js'}
                         and not p.is_symlink() and not any(s in {'data','saves','keys','geheimnisse'} for s in p.parts))
     for file in approved:
         # Resolve before reading to reject links/junctions into runtime data.

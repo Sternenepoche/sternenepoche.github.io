@@ -1,0 +1,355 @@
+/* Shared visual language for the public landing page and the illustrated guide. */
+:root{color-scheme:dark;--bg:#050b14;--surface:#0e1929;--surface-raised:#15243a;--text:#f2f5f8;--muted:#b0bfd0;--gold:#efc88b;--cyan:#8be0dc;--line:#a1c9e222;--ease:cubic-bezier(.23,1,.32,1)}
+
+*{box-sizing:border-box}
+html{scroll-padding-top:105px}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.75 "Segoe UI",system-ui,sans-serif;overflow-wrap:break-word}
+button,input,select{font:inherit}
+button{cursor:pointer;color:inherit}
+a{color:inherit;text-underline-offset:5px}
+img{display:block;max-width:100%;height:auto}
+h1,h2,h3,h4,p{margin-top:0}
+h1,h2,h3{line-height:1.12;text-wrap:balance}
+h2{font-size:clamp(32px,4.3vw,58px);font-weight:600;letter-spacing:-.045em}
+h3{font-size:24px;font-weight:600;letter-spacing:-.025em}
+p{margin-bottom:22px}
+strong{font-weight:650}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--gold);outline-offset:5px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.skip{position:fixed;top:-100px;left:20px;z-index:100;background:var(--gold);color:#07111d;padding:12px 20px}
+.skip:focus{top:12px}
+.wrap{width:min(1240px,calc(100% - 96px));margin-inline:auto}
+.eyebrow{display:block;margin-bottom:20px;color:var(--cyan);font-size:11px;font-weight:650;letter-spacing:.2em;text-transform:uppercase}
+.lead{max-width:670px;color:var(--muted);font-size:18px;line-height:1.8}
+.muted{color:var(--muted)}
+.section{position:relative;padding-block:112px;border-bottom:1px solid var(--line)}
+.section-heading{max-width:760px;margin-bottom:46px}
+.section-heading h2{margin-bottom:22px}
+.section-heading .lead{margin-bottom:0}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:18px;min-height:48px;padding:13px 23px;border:1px solid #efc88b70;border-radius:4px;background:var(--gold);color:#111b27;text-decoration:none;font-size:14px;font-weight:650;transition:transform 140ms var(--ease),background-color 160ms ease,border-color 160ms ease}
+.button:active,.zoom:active{transform:scale(.98)}
+.button.secondary{color:var(--text);background:#1322388c;border-color:#b8d2ec40}
+.button.small{padding:9px 16px;font-size:12px;min-height:42px}
+.text-link{color:var(--cyan);text-decoration-color:#8be0dc66;font-size:14px;display:inline-flex;gap:12px;align-items:center}
+.arrow{font-size:20px;line-height:1}
+.site-header{position:sticky;top:0;z-index:20;background:#06101dec;border-bottom:1px solid var(--line);backdrop-filter:blur(16px)}
+.header-inner{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:inline-flex;gap:12px;align-items:center;font-size:16px;font-weight:650;letter-spacing:.09em;text-decoration:none;white-space:nowrap}
+.brand svg{flex-shrink:0;color:var(--gold)}
+.primary-nav{display:flex;gap:24px;align-items:center}
+.primary-nav a{font-size:12px;color:#bdc9d7;text-decoration:none;white-space:nowrap}
+.header-actions{display:flex;gap:18px;align-items:center}
+.hero-actions{display:flex;gap:13px;flex-wrap:wrap}
+.hero-note{margin:20px 0 0;color:#b3c1d2;font-size:12px}
+.hero{position:relative;isolation:isolate;overflow:hidden;min-height:730px;display:flex;align-items:center;background:transparent}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background:radial-gradient(ellipse at 76% 46%,#19808d2b,transparent 48%),radial-gradient(ellipse at 90% 16%,#724db84a,transparent 45%),url("asset://backgrounds.nebula.webp") center/cover;opacity:.9}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#050b14 0%,#050b14dd 32%,#050b1450 65%,transparent),linear-gradient(0deg,#050b14,transparent 30%)}
+.hero-content{position:relative;z-index:3;padding-block:85px 100px;pointer-events:none}
+.hero-content>*{pointer-events:auto}
+.hero h1{font-size:clamp(54px,7.4vw,104px);font-weight:600;letter-spacing:-.06em;max-width:720px;margin-bottom:28px}
+.hero h1 span{display:block;color:var(--gold)}
+.hero .lead{max-width:500px;font-size:17px;color:#c5cfdd;margin-bottom:32px}
+.hero-art{position:absolute;right:max(0px,calc((100vw - 1460px)/2));top:5%;width:58%;height:95%;pointer-events:none;z-index:1}
+.hero-orbit{position:absolute;width:88%;aspect-ratio:1;right:0;top:3%;border:1px solid #8be0dc25;border-radius:50%;transform:rotate(-28deg) scaleY(.64)}
+.hero-orbit::after{content:"";position:absolute;inset:-52px;border:1px solid #8be0dc12;border-radius:50%}
+.hero-planet{position:absolute;top:10%;right:0;width:79%;mix-blend-mode:screen;filter:drop-shadow(-18px 10px 60px #268aa826);animation:planet-float 24s ease-in-out infinite}
+.hero-ship{position:absolute;right:28%;bottom:2%;width:64%;mix-blend-mode:screen;filter:drop-shadow(0 20px 25px #0008);animation:ship-float 18s ease-in-out infinite}
+.coordinate{position:absolute;right:11%;bottom:17%;border-left:1px solid var(--cyan);padding-left:17px;color:#bde8ec;font:10px/1.9 Consolas,monospace;letter-spacing:.16em}
+.hero .coordinate{z-index:2}
+.coordinate b{display:block;font-weight:400;color:#fff;font-size:12px;letter-spacing:.12em}
+.hero-bottom{position:absolute;bottom:23px;left:0;right:0;z-index:4;display:flex;justify-content:space-between;align-items:center;font:10px Consolas,monospace;letter-spacing:.12em;color:#8fa7be}
+.status-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--cyan);margin-right:10px;box-shadow:0 0 12px #8be0dc80}
+.space-backdrop{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:radial-gradient(ellipse at 10% 48%,#164e5b25,transparent 50%),radial-gradient(ellipse at 100% 76%,#483c7820,transparent 50%)}
+.starfield{position:absolute;inset:0;background-image:radial-gradient(1px 1px at 17% 23%,#e2edffb0 90%,transparent),radial-gradient(1px 1px at 76% 64%,#b4e2ff90 90%,transparent),radial-gradient(1px 1px at 42% 89%,#dbe9ff80 90%,transparent),radial-gradient(1.5px 1.5px at 85% 18%,#ffd999a0 90%,transparent);background-size:311px 283px,439px 373px,227px 419px,607px 557px;opacity:.5}
+.space-rock{position:absolute;top:25%;left:0;width:82px;mix-blend-mode:screen;opacity:.32;animation:asteroid-pass 82s linear infinite;animation-delay:-32s}
+.space-rock.second{top:76%;width:36px;opacity:.22;animation-duration:116s;animation-delay:-78s}
+.space-rock.third{top:50%;width:132px;opacity:.18;animation-duration:143s;animation-delay:-12s}
+.motion-control{position:fixed;bottom:16px;right:16px;z-index:30;min-height:38px;padding:8px 13px;border:1px solid #8be0dc40;border-radius:4px;background:#0c192bec;color:#bcd4e6;font-size:11px;box-shadow:0 3px 18px #0004}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;padding-block:32px;border-block:1px solid var(--line);background:#0c172570}
+.fact{display:flex;align-items:center;gap:20px}
+.fact strong{font:300 35px/1 "Segoe UI",sans-serif;color:var(--gold)}
+.fact span{font-size:12px;color:var(--muted);line-height:1.6}
+.fact b{display:block;color:var(--text);font-size:13px;font-weight:550}
+.split-heading{display:flex;justify-content:space-between;gap:50px;align-items:end;margin-bottom:45px}
+.split-heading h2{margin:0;max-width:630px}
+.split-heading p{max-width:350px;margin:0;color:var(--muted);font-size:15px}
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.feature{position:relative;border-top:1px solid #8be0dc40;padding-top:20px}
+.feature-visual{position:relative;aspect-ratio:1.55;background:radial-gradient(ellipse at 50% 90%,#183e4a80,transparent 70%);overflow:hidden;margin-bottom:26px}
+.feature-visual img{width:100%;height:100%;object-fit:contain;mix-blend-mode:screen}
+.feature-number{font:11px Consolas,monospace;color:var(--gold);letter-spacing:.12em}
+.feature h3{margin:16px 0;font-size:24px}
+.feature p{font-size:14px;color:var(--muted)}
+.feature .text-link{margin-top:3px}
+.wide-scene{position:relative;background:#0c1a2b;overflow:hidden;border:1px solid var(--line);border-radius:8px}
+.wide-scene>img{width:100%;aspect-ratio:2;object-fit:cover}
+.scene-caption{padding:20px 24px;color:var(--muted);font-size:12px}
+.scene-caption strong{color:var(--text);display:block;font-size:15px;margin-bottom:4px}
+.mission-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.quick-steps{list-style:none;padding:0;margin:30px 0}
+.quick-steps li{display:grid;grid-template-columns:34px 1fr;gap:17px;padding:19px 0;border-top:1px solid var(--line)}
+.quick-steps .step-no{font:12px Consolas,monospace;color:var(--gold);padding-top:4px}
+.quick-steps h3{font-size:17px;margin-bottom:7px}
+.quick-steps p{font-size:14px;color:var(--muted);margin:0}
+.faction-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.faction-card{text-decoration:none;border:1px solid var(--line);background:#0c172580;border-radius:6px;overflow:hidden;transition:border-color 180ms ease,transform 180ms var(--ease)}
+.faction-card img{width:100%;aspect-ratio:1;object-fit:cover;object-position:center 20%}
+.faction-card>div{padding:22px}
+.faction-card h3{font-size:20px;margin-bottom:8px}
+.faction-card p{font-size:13px;color:var(--muted);margin-bottom:15px}
+.faction-card span{font-size:11px;color:var(--cyan)}
+.role-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.role-card{background:#0c1725aa;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.role-card img{width:100%;aspect-ratio:1.9;object-fit:cover}
+.role-card>div{padding:28px}
+.role-card h3{font-size:24px}
+.role-card p{font-size:14px;color:var(--muted)}
+.gallery{display:grid;grid-template-columns:1.25fr 1fr;gap:26px;align-items:start}
+.gallery .screenshot{margin:0}
+.gallery .gallery-stack{display:grid;gap:24px}
+.gallery .gallery-stack .screenshot img{aspect-ratio:1.8;object-fit:cover;object-position:top}
+.screenshot{margin:28px 0 32px;border:1px solid #8eb2d539;border-radius:6px;overflow:hidden;background:#081321}
+.screenshot .zoom{display:block;position:relative;width:100%;padding:0;border:0;border-bottom:1px solid var(--line);background:#091321;border-radius:0;transition:transform 140ms var(--ease)}
+.screenshot img{width:100%;height:auto}
+.zoom-label{position:absolute;right:12px;bottom:12px;padding:5px 10px;background:#07101eee;border:1px solid #b9d3ee50;border-radius:3px;color:#e1edf8;font:10px "Segoe UI",sans-serif}
+.screenshot figcaption{padding:16px 20px;color:#aabfd2;font-size:12px;line-height:1.7}
+.screenshot figcaption b{display:block;margin-bottom:5px;color:var(--cyan);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.illustration{display:grid;grid-template-columns:180px 1fr;align-items:center;gap:25px;border-block:1px solid var(--line);background:linear-gradient(100deg,#19465130,#14233c40);padding:22px;margin:26px 0 32px;border-radius:6px}
+.illustration img{width:180px;aspect-ratio:1.35;object-fit:contain;mix-blend-mode:screen}
+.illustration figcaption{font-size:13px;color:var(--muted)}
+.illustration strong{display:block;color:var(--gold);font-size:16px;margin-bottom:8px}
+.topic-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:35px 0 50px}
+.topic-card{text-decoration:none;border:1px solid var(--line);background:#111e2dc0;border-radius:5px;overflow:hidden}
+.topic-card img{width:100%;aspect-ratio:1.8;object-fit:cover}
+.topic-card span{display:block;padding:13px 15px;color:var(--text);font-size:13px}
+.journey img{width:90px;height:65px;object-fit:contain;float:right;mix-blend-mode:screen;margin:-3px 0 10px 15px}
+.rule img{width:70px;height:60px;object-fit:contain;mix-blend-mode:screen;float:right;margin:-5px 0 10px 14px}
+.steps img{width:100%;height:100px;object-fit:contain;mix-blend-mode:screen;margin-bottom:20px}
+.session-step{max-width:none}
+.session-step>div{max-width:none}
+.session-step .screenshot{max-width:780px}
+.guide-layout{grid-template-columns:250px minmax(0,1fr);gap:50px}
+.guide-chapter{padding-block:55px 60px}
+.guide-chapter>h3{font-size:clamp(28px,3vw,38px)}
+.guide-chapter h4{margin-top:40px}
+.guide-chapter p,.guide-chapter li{line-height:1.85}
+.guide-index a[aria-current="true"]{color:var(--gold);background:#efc88b0e;border-left:2px solid var(--gold)}
+.chapter-back{padding:9px 0}
+.guide-search{max-width:none;padding:25px 28px;background:#102033a8;border:1px solid #8be0dc30;border-radius:6px}
+.guide-index{top:104px}
+.screen-content{padding:30px}
+.screen-panel .screenshot{margin-top:22px}
+.screen-panel h3{margin-bottom:20px}
+.screen-select{display:none}
+.section[id="server-start"]{padding-block:70px;background:#0a1420aa}
+.section[id="server-start"] .section-heading{margin-bottom:25px}
+.section[id="server-start"] h2{font-size:36px}
+.final-cta{position:relative;isolation:isolate;text-align:center;padding-block:110px;overflow:hidden;background:radial-gradient(ellipse at 50% 70%,#164e5b40,transparent 70%)}
+.final-cta::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(#050b1480,#050b14c0),url("asset://backgrounds.command.webp") center/cover;opacity:.7}
+.final-cta h2{font-size:clamp(36px,5vw,64px)}
+.final-cta p{max-width:600px;margin:0 auto 30px;color:var(--muted)}
+.final-cta .hero-actions{justify-content:center}
+footer{padding-block:30px;border-top:1px solid var(--line)}
+.footer-inner{display:flex;justify-content:space-between;gap:25px;font-size:11px;color:var(--muted)}
+.footer-links{display:flex;flex-wrap:wrap;gap:22px}
+.footer-links a{text-decoration:none}
+.edition-note{color:#8fa7be;font:11px/1.8 Consolas,monospace;letter-spacing:.03em}
+.resource-strip{display:flex;gap:20px;flex-wrap:wrap;margin:26px 0}
+.resource-strip span{display:inline-flex;gap:9px;align-items:center;color:#c2d5e2;font-size:12px}
+.resource-strip img{width:34px;height:34px;object-fit:contain;mix-blend-mode:screen}
+.image-dialog{width:min(1500px,96vw);max-height:94dvh;padding:0;background:#081321;color:var(--text);border:1px solid #8be0dc60;border-radius:6px;box-shadow:0 30px 100px #000a}
+.image-dialog::backdrop{background:#020810ed}
+.dialog-toolbar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:13px 20px;border-bottom:1px solid var(--line);font-size:13px}
+.dialog-toolbar button{min-width:44px;min-height:44px;background:#182c42;border:1px solid #a1c9e242;border-radius:4px}
+.image-dialog img{width:100%;max-height:calc(94dvh - 75px);object-fit:contain}
+.no-scroll{overflow:hidden}
+.site-ai-notice{background:#0b1725!important;border-color:#a1c9e220!important;font-size:10px!important;padding:5px 16px!important}
+.ai-image-label{opacity:.8}
+.mobile-guide-menu{display:none}
+
+@keyframes planet-float{0%,100%{transform:translateY(0) rotate(-4deg)}
+50%{transform:translateY(-14px) rotate(-1deg)}
+}
+
+@keyframes ship-float{0%,100%{transform:translate(0,0) rotate(-4deg)}
+50%{transform:translate(15px,-10px) rotate(-2deg)}
+}
+
+@keyframes asteroid-pass{from{transform:translateX(-170px) translateY(70px) rotate(0)}
+to{transform:translateX(calc(100vw + 170px)) translateY(-100px) rotate(140deg)}
+}
+
+body[data-motion="paused"] .hero-planet,body[data-motion="paused"] .hero-ship,body[data-motion="paused"] .space-rock,body[data-page-hidden="true"] .hero-planet,body[data-page-hidden="true"] .hero-ship,body[data-page-hidden="true"] .space-rock{animation-play-state:paused}
+
+@media(hover:hover) and (pointer:fine){.button:hover{background:#ffe0ab}
+.button.secondary:hover{background:#1b314a}
+.primary-nav a:hover,.footer-links a:hover{color:var(--gold)}
+.faction-card:hover{border-color:#efc88b80;transform:translateY(-4px)}
+.topic-card:hover{border-color:#8be0dc80}
+.zoom:hover .zoom-label{background:#233e55}
+}
+
+@media(max-width:1100px){.wrap{width:calc(100% - 64px)}
+.primary-nav{gap:17px}
+.primary-nav a:last-child{display:none}
+.header-actions>.text-link{display:none}
+.hero h1{font-size:80px;max-width:600px}
+.hero-art{right:-8%;width:64%;opacity:.85}
+.hero .lead{max-width:440px}
+.mission-grid{gap:40px}
+.guide-layout{grid-template-columns:220px minmax(0,1fr);gap:32px}
+.faction-card>div{padding:18px}
+}
+
+@media(max-width:800px){html{scroll-padding-top:95px}
+.wrap{width:calc(100% - 40px)}
+.header-inner{min-height:68px;gap:12px}
+.brand{font-size:13px;gap:8px;letter-spacing:.04em}
+.brand svg{width:27px}
+.primary-nav{display:none}
+.header-actions{gap:9px}
+.hero{min-height:780px;align-items:flex-start}
+.hero-content{padding-block:55px 330px}
+.hero h1{font-size:clamp(50px,10vw,78px);max-width:600px}
+.hero .lead{max-width:490px;font-size:16px}
+.hero-art{width:76%;height:440px;top:auto;bottom:-30px;right:-3%;opacity:.9}
+.hero-planet{width:65%;top:-1%;right:0}
+.hero-ship{width:55%;right:36%;bottom:5%}
+.hero-orbit{width:65%;right:0;top:0}
+.coordinate{right:6%;bottom:13%;font-size:8px}
+.coordinate b{font-size:10px}
+.hero::after{background:linear-gradient(180deg,#050b14aa 30%,transparent 65%,#050b14),linear-gradient(90deg,#050b1480,transparent)}
+.hero-bottom{font-size:8px;bottom:15px}
+.hero-bottom span:last-child{display:none}
+.section{padding-block:75px}
+.split-heading{display:block}
+.split-heading h2{margin-bottom:23px}
+.split-heading p{max-width:520px}
+.feature-grid{grid-template-columns:1fr;gap:38px}
+.feature{display:grid;grid-template-columns:160px 1fr;gap:24px;align-items:center}
+.feature-visual{margin:0;aspect-ratio:1}
+.feature h3{font-size:23px;margin:10px 0}
+.feature p{margin-bottom:15px}
+.mission-grid,.gallery{grid-template-columns:1fr;gap:35px}
+.faction-cards{grid-template-columns:1fr 1fr;gap:17px}
+.role-cards{grid-template-columns:1fr;gap:22px}
+.role-card{display:grid;grid-template-columns:38% 1fr}
+.role-card img{height:100%;aspect-ratio:auto}
+.role-card>div{padding:24px}
+.facts{gap:15px;padding-block:24px}
+.fact{gap:10px}
+.fact strong{font-size:27px}
+.fact span{font-size:10px}
+.fact b{font-size:11px}
+.topic-gallery{grid-template-columns:1fr 1fr}
+.guide-layout{grid-template-columns:1fr}
+.guide-index{position:static;max-height:none;padding:18px;border:1px solid var(--line);border-radius:6px}
+.guide-index ol{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.screen-content{padding:22px}
+.screen-select{display:block}
+.screen-nav{display:none}
+.screen-layout{grid-template-columns:1fr}
+.illustration{grid-template-columns:120px 1fr;padding:15px;gap:18px}
+.illustration img{width:120px}
+.final-cta{padding-block:80px}
+.footer-inner{flex-direction:column;gap:16px}
+.motion-control{bottom:10px;right:10px;font-size:10px;min-height:36px}
+.mobile-guide-menu{display:block;position:relative}
+.mobile-guide-menu summary{font-size:12px;min-height:42px;display:flex;align-items:center;color:var(--gold);cursor:pointer}
+.mobile-guide-menu nav{position:absolute;top:100%;right:0;width:260px;padding:12px;background:#122238;border:1px solid #a1c9e250;border-radius:5px}
+.mobile-guide-menu a{display:block;text-decoration:none;padding:12px;font-size:14px}
+}
+
+@media(max-width:480px){.hero{min-height:830px}
+.hero-content{padding-block:45px 330px}
+.hero h1{font-size:56px}
+.hero .lead{font-size:15px;max-width:340px}
+.hero-art{width:100%;bottom:-15px;height:355px;right:-8%}
+.hero-planet{width:67%}
+.hero-ship{width:65%;right:30%;bottom:2%}
+.coordinate{bottom:12%;right:13%}
+.hero-orbit{top:0}
+.hero-actions{gap:10px}
+.hero-actions .button{font-size:12px;padding:12px 16px}
+.hero-note{font-size:11px}
+.feature{grid-template-columns:110px 1fr;gap:18px}
+.feature h3{font-size:21px}
+.feature p{font-size:13px}
+.feature .text-link{font-size:12px}
+.facts .fact{display:block}
+.fact strong{display:block;margin-bottom:10px}
+.faction-card>div{padding:16px}
+.faction-card h3{font-size:18px}
+.faction-card p{font-size:12px}
+.role-card{display:block}
+.role-card img{aspect-ratio:2.3;width:100%;height:auto}
+.guide-index ol{display:block}
+.illustration{grid-template-columns:90px 1fr;gap:14px}
+.illustration img{width:90px}
+.illustration strong{font-size:14px}
+.illustration figcaption{font-size:12px}
+.session-step{grid-template-columns:30px minmax(0,1fr);gap:14px}
+.session-step h3{font-size:22px}
+.session-step .screenshot{margin-left:-44px;width:calc(100% + 44px)}
+.guide-search{padding:20px}
+.guide-chapter>h3{font-size:29px}
+.topic-card span{font-size:12px;padding:12px}
+.header-actions .button.small{padding:9px 11px;font-size:11px}
+.footer-links{gap:14px}
+.space-rock.third{display:none}
+}
+
+@media(prefers-reduced-motion:reduce){.hero-planet,.hero-ship,.space-rock{animation:none!important}
+*,*::before,*::after{scroll-behavior:auto!important}
+.faction-card{transition:none}
+}
+
+@media print{.space-backdrop,.motion-control,.hero-art,.image-dialog,.zoom-label,.primary-nav,.header-actions,.site-ai-notice{display:none!important}
+.hero{min-height:0}
+.hero-content{padding:30px 0}
+.hero h1{font-size:44px}
+.wrap{width:100%}
+.section{padding:25px 0}
+.guide-layout{display:block}
+.guide-index{position:static;max-height:none}
+.screenshot{break-inside:avoid}
+.screen-panel[hidden]{display:block!important}
+.screen-nav,.screen-select{display:none}
+.guide-search{display:none}
+body{background:white;color:#142638}
+.guide-chapter p,.guide-chapter li,.lead,.muted{color:#26384c}
+.guide-chapter strong{color:#142638}
+.section h2,.guide-chapter h3{color:#142638}
+}
+
+
+/* Let artwork blend with the nebula itself, rather than an isolated child layer. */
+.hero-art{z-index:auto}
+.hero-planet{mask-image:radial-gradient(circle at 50% 50%,#000 60%,transparent 71%)}
+
+.hero::before{background:radial-gradient(ellipse at 76% 46%,#19808d47,transparent 50%),radial-gradient(ellipse at 90% 16%,#724db85c,transparent 53%),url("asset://backgrounds.nebula.webp") center/cover}
+
+
+/* In-browser luminance cutout of the dark studio backdrop; original assets stay intact. */
+.hero-ship{mix-blend-mode:normal;filter:url(#asset-cutout) drop-shadow(0 12px 22px #0006)}
+
+.space-rock{mix-blend-mode:normal;filter:url(#asset-cutout)}
+
+.space-backdrop .ai-image-label,.hero-art .ai-image-label{display:none}
+
+.ai-image-label{padding:1px 3px!important;font:600 8px/1.2 system-ui,sans-serif!important;letter-spacing:.03em!important}
+
+
+.space-backdrop::before{content:"";position:absolute;inset:-15%;background:url("asset://backgrounds.nebula.webp") center/cover;opacity:.13;animation:nebula-drift 90s ease-in-out infinite}
+
+.hero::before{animation:nebula-drift 70s ease-in-out infinite;transform-origin:70% 50%}
+
+@keyframes nebula-drift{0%,100%{transform:translate(0,0) scale(1.05)}
+50%{transform:translate(-2%,2%) scale(1.12)}
+}
+
+body[data-motion="paused"] .hero::before,body[data-motion="paused"] .space-backdrop::before,body[data-page-hidden="true"] .hero::before,body[data-page-hidden="true"] .space-backdrop::before{animation-play-state:paused}
+
+@media(prefers-reduced-motion:reduce){.hero::before,.space-backdrop::before{animation:none!important}
+}

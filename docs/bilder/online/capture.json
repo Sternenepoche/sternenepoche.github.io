@@ -1,0 +1,29 @@
+{
+  "captured": "2026-10-08",
+  "source": "web-client in isolated real Rust test world",
+  "viewport": [
+    1440,
+    1000
+  ],
+  "state": "Paused initial Aurelianer world; no live accounts or secrets",
+  "screens": [
+    "reich",
+    "gebaeude",
+    "kolonie",
+    "forschen",
+    "werft",
+    "verteidigung",
+    "flotten",
+    "karte",
+    "kolonien",
+    "kampf",
+    "aktionen",
+    "berichte",
+    "imperium",
+    "freischaltungen",
+    "agent",
+    "profil",
+    "regeln"
+  ],
+  "page_errors": []
+}
