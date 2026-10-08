@@ -74,7 +74,7 @@ def finish(document):
     embedded = {}
     def embed(match):
         kind,name = match.groups()
-        folder={'asset':'web-client/assets','screen':'docs/bilder/online','logo':'docs/branding','artwork':'docs/artwork','comm':'docs/bilder/kommunikation','team':'docs/bilder/team','team':'docs/bilder/team','team':'docs/bilder/team','team':'docs/bilder/team','team':'docs/bilder/team','team':'docs/bilder/team'}[kind]
+        folder={'asset':'web-client/assets','screen':'docs/bilder/online','logo':'docs/branding','artwork':'docs/artwork','comm':'docs/bilder/kommunikation','team':'docs/bilder/team'}[kind]
         file = ROOT/folder/name
         if not file.is_file(): raise ValueError('Missing public image: '+str(file))
         if (kind,name) not in embedded:

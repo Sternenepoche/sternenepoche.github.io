@@ -173,6 +173,10 @@ fn is_zero_u32(v: &u32) -> bool {
 fn is_zero(v: &u64) -> bool {
     *v == 0
 }
+// Keep historical eager V2/V3 tool bundles within their original context budgets.
+fn communication_capability(name: &str) -> bool {
+    matches!(name, "brief_senden" | "brief_lesen" | "diplomatie_anfrage" | "diplomatie_entscheiden" | "allianz_rolle" | "allianz_ausschliessen" | "allianz_hilfe" | "allianz_hilfe_status" | "intern_anbieten" | "intern_kaufen" | "intern_storno" | "allianz_anfrage" | "allianz_pakt_kuendigen")
+}
 impl Config {
     pub fn protocol(&self) -> &'static str {
         match self.version {
@@ -194,6 +198,7 @@ impl Config {
         for h in &mut c.players {
             for r in &mut h.roles {
                 r.capabilities.push("flotte_versorgen".into());
+                r.capabilities.extend(kern::aktion::erlaubte_typen(kern::Rolle::Alle).into_iter().filter(|name| communication_capability(name)).map(str::to_string));
             }
         }
         c
@@ -240,6 +245,7 @@ impl Config {
             capabilities: kern::aktion::erlaubte_typen(kern::Rolle::Alle)
                 .into_iter()
                 .filter(|name| !matches!(*name,"flotte_versorgen"|"flotte_ausspaehen"))
+                .filter(|name| !communication_capability(name))
                 .map(str::to_string)
                 .collect(),
         };
