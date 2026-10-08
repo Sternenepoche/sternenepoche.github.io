@@ -285,7 +285,9 @@ Der gemeinsame Browser verwendet eine integrierte WebGL-Karte für Galaxie, Sekt
 Sonnensysteme und Planetenberichte. Die Sternwolken und bewegten Umlaufbahnen verwenden
 öffentliche Koordinaten; Planetentyp, Bewohner und Ressourcen stammen ausschließlich
 aus der Sicht des angemeldeten Reichs. Tabellen ergänzen die räumliche Navigation.
-Planetendetails verdecken die Umlaufbahnen auch in schmalen Fenstern nicht.
+Ein Planetenklick öffnet seine Infokarte unmittelbar als Dialog über der Ansicht, auch
+in schmalen Fenstern. ×, Escape oder ein Klick daneben schließen sie. Nummern und
+Listeneinträge öffnen dieselbe Karte; unbekannte Planetendaten bleiben verdeckt.
 Pause, fehlende Verbindung und Epochenende stoppen die visuelle Bewegung.
 Besiegte Reiche, Pause und Epochenende sperren Spielbefehle sowohl im Browser als auch
 im Server. Lesende Ansichten bleiben erreichbar; beendete Welten zeigen keine
@@ -297,7 +299,7 @@ Der konsolidierte Stand besteht 238 Rust-Tests; sieben Tests benötigen eine sep
 Docker-/native Laborumgebung und wurden ausgelassen. Die echten HTTP-Prüfungen sowie
 Browseragenten-, Dashboard- und UI-Prüfungen bestehen ebenfalls. Der öffentliche
 TLS-Client wurde angemeldet geprüft: dreidimensionale Sektoren, zwölf bewegte
-Planetenbahnen, unbekannte Planetendaten und unverdeckte Planetendetails. Die bestehende
+Planetenbahnen, unbekannte Planetendaten und unmittelbar erreichbare Planeteninfokarten. Die bestehende
 Welt und ihr Reichbesitz wurden beim Update mit vorherigem Datenbankbackup erhalten.
 
 Drei getrennte Welten mit je 30 Skriptbots durchliefen vollständige Online-Epochen:

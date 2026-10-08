@@ -56,8 +56,11 @@ window.GalaxyUI=(()=>{
  function cameraUpdate(){camera.position.set(Math.sin(yaw)*Math.cos(pitch)*distance,Math.sin(pitch)*distance,Math.cos(yaw)*Math.cos(pitch)*distance);camera.lookAt(0,0,0);dirty=true;}
  function fitView(base){const extent=stage==='system'?GalaxyModel.orbit(profile().plaetze_je_system,0).radius+22:stage==='sector'?170:290;distance=Math.max(base,extent/(Math.tan(THREE.MathUtils.degToRad(camera.fov/2))*Math.min(1,camera.aspect)*.85));cameraUpdate();}
  function resize(){if(!renderer)return;const rect=canvas.getBoundingClientRect();if(!rect.width||!rect.height)return;renderer.setSize(rect.width,rect.height,false);const previous=camera.aspect;camera.aspect=rect.width/rect.height;distance*=Math.max(1,1/camera.aspect)/Math.max(1,1/previous);camera.updateProjectionMatrix();cameraUpdate();}
+ function closeDetail(){const card=$g('galaxy-infocard');if(card?.open)card.close();}
  function init(){
   host=$g('galaxy-space');canvas=$g('galaxy-canvas');if(!host||renderer)return;
+  $g('galaxy-detail-close').onclick=closeDetail;
+  $g('galaxy-infocard').onclick=e=>{const card=e.currentTarget;if(e.target.closest('[data-explore],[data-colonize],[data-space-own]'))closeDetail();else if(e.target===card){const r=card.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeDetail();}};
   $g('galaxy-back').onclick=()=>stage==='system'?showSector(sector):showGalaxy();$g('galaxy-home').onclick=showGalaxy;
   $g('galaxy-reset-camera').onclick=()=>{if(!renderer)return;yaw=.15;pitch=.8;fitView(stage==='system'?330:stage==='sector'?350:580);};
   $g('galaxy-motion').onclick=()=>{if(reduced.matches&&!motionOverride){motionOverride=true;paused=false;}else paused=!paused;motionState();dirty=true;};
@@ -65,16 +68,16 @@ window.GalaxyUI=(()=>{
   try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'low-power'});}catch(e){$g('galaxy-fallback').hidden=false;$g('galaxy-fallback').textContent='3D ist in diesem Browser nicht verfügbar. Die Systemliste und Aufklärungsberichte bleiben nutzbar.';return;}
   renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));renderer.setClearColor(0x030813);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;
   scene=new THREE.Scene();camera=new THREE.PerspectiveCamera(48,1,.1,4000);raycaster=new THREE.Raycaster();glow=texture();stars();scene.add(new THREE.AmbientLight(0x809ec0,.75));observer=new ResizeObserver(resize);observer.observe(host);
-  canvas.addEventListener('pointerdown',e=>{if(e.button!==0)return;drag={x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY};canvas.setPointerCapture(e.pointerId);});
-  canvas.addEventListener('pointermove',e=>{if(drag){yaw-=(e.clientX-drag.x)*.005;pitch=Math.max(.15,Math.min(1.45,pitch+(e.clientY-drag.y)*.004));drag.x=e.clientX;drag.y=e.clientY;cameraUpdate();}});
-  canvas.addEventListener('pointerup',e=>{if(!drag)return;const moved=Math.hypot(e.clientX-drag.startX,e.clientY-drag.startY);drag=null;if(moved<5){const r=canvas.getBoundingClientRect();raycaster.setFromCamera(new THREE.Vector2((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1),camera);const hit=raycaster.intersectObjects(targets,false)[0];if(hit)pick(hit.object.userData.kind,hit.object.userData.key);}});
+  canvas.addEventListener('pointerdown',e=>{if(e.button!==0||drag)return;drag={id:e.pointerId,x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY,moved:false};canvas.setPointerCapture(e.pointerId);});
+  canvas.addEventListener('pointermove',e=>{if(!drag||e.pointerId!==drag.id)return;if(!drag.moved&&Math.hypot(e.clientX-drag.startX,e.clientY-drag.startY)<5)return;drag.moved=true;yaw-=(e.clientX-drag.x)*.005;pitch=Math.max(.15,Math.min(1.45,pitch+(e.clientY-drag.y)*.004));drag.x=e.clientX;drag.y=e.clientY;cameraUpdate();});
+  canvas.addEventListener('pointerup',e=>{if(!drag||e.pointerId!==drag.id)return;const clicked=!drag.moved&&Math.hypot(e.clientX-drag.startX,e.clientY-drag.startY)<5;drag=null;if(clicked){const r=canvas.getBoundingClientRect();raycaster.setFromCamera(new THREE.Vector2((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1),camera);const hit=raycaster.intersectObjects(targets,false)[0];if(hit)pick(hit.object.userData.kind,hit.object.userData.key);}});
   canvas.addEventListener('pointercancel',()=>drag=null);
   canvas.addEventListener('wheel',e=>{e.preventDefault();distance=Math.max(stage==='system'?160:230,Math.min(1100,distance*Math.exp(e.deltaY*.001)));cameraUpdate();},{passive:false});
   canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();paused=true;$g('galaxy-fallback').hidden=false;$g('galaxy-fallback').textContent='3D-Grafik unterbrochen. Systemliste weiter nutzbar; Seite neu laden, um die Grafik wiederherzustellen.';});
   reduced.addEventListener('change',()=>{motionState();dirty=true;});resize();
  }
  function motionState(){if($g('galaxy-motion')){$g('galaxy-motion').textContent=reduced.matches&&!motionOverride?'Umläufe aktivieren':paused?'Umläufe fortsetzen':'Umläufe pausieren';$g('galaxy-motion').title=reduced.matches&&!motionOverride?'Deine Systemeinstellung reduziert Bewegung. Du kannst Umläufe hier ausdrücklich aktivieren.':'';}}
- function header(title,sub){$g('galaxy-title').textContent=title;$g('galaxy-subtitle').textContent=sub;$g('galaxy-back').hidden=stage==='galaxy';$g('galaxy-motion').hidden=stage!=='system';$g('galaxy-detail').hidden=stage!=='system';motionState();}
+ function header(title,sub){closeDetail();$g('galaxy-title').textContent=title;$g('galaxy-subtitle').textContent=sub;$g('galaxy-back').hidden=stage==='galaxy';$g('galaxy-motion').hidden=stage!=='system';motionState();}
  function index(items){$g('galaxy-index').innerHTML=items.map(i=>`<button type="button" data-space-kind="${i.kind}" data-space-key="${i.key}" class="${i.own?'space-own':''}" aria-label="${esc(i.text)} öffnen">${esc(i.text)}${i.known?' <small>kartiert</small>':''}</button>`).join('');}
  function showGalaxy(){
   stage='galaxy';selected=0;epoch++;if(renderer)resetScene();$g('galaxy-loading').hidden=true;header('Die Galaxie','Sektor wählen · Sterne öffnen die Sonnensysteme');
@@ -106,7 +109,7 @@ window.GalaxyUI=(()=>{
   }catch(e){if(request===epoch)show(e.message,true);}finally{if(request===epoch)$g('galaxy-loading').hidden=true;}
  }
  async function showSystem(s,n){
-  sector=Number(s);system=Number(n);stage='system';const request=++epoch;if(renderer)resetScene();index([]);$g('galaxy-table').innerHTML='';header('System '+sector+':'+system,'Sonne, Umlaufbahnen und deine Sondenberichte');$g('galaxy-detail').hidden=true;$g('galaxy-loading').hidden=false;
+  sector=Number(s);system=Number(n);stage='system';selected=0;const request=++epoch;if(renderer)resetScene();index([]);$g('galaxy-table').innerHTML='';header('System '+sector+':'+system,'Sonne, Umlaufbahnen und deine Sondenberichte');$g('galaxy-loading').hidden=false;
   try{const systems=await fetchSector(sector,request);if(!systems||request!==epoch)return;const data=systems.find(s=>s.system===system);if(!data)throw Error('System nicht vorhanden');const ps=GalaxyModel.planets(data,sector,profile().plaetze_je_system);if(renderer)resetScene();
    index(ps.map(p=>({kind:'planet',key:p.position,text:p.koord,known:p.bekannt,own:own(p.koord)})));
    if(renderer){const sun=new THREE.Mesh(new THREE.SphereGeometry(14,48,32),new THREE.MeshBasicMaterial({map:planetTexture('sun',system*.6),toneMapped:false}));group.add(sun);group.add(sprite('#ffa34b',115,.9));group.add(sprite('#fff5c0',58,.85));const light=new THREE.PointLight(0xffe2ae,3.5,0,0);light.position.set(0,0,0);group.add(light);
@@ -116,14 +119,15 @@ window.GalaxyUI=(()=>{
     }
     pitch=.8;fitView(330);dirty=true;
    }
-   $g('galaxy-table').innerHTML=`<details ${renderer?'':'open'}><summary>Aufklärungsberichte · System ${sector}:${system}</summary>${galaxyReports([data])}</details>`;selected=(ps.find(p=>own(p.koord))||ps[0]).position;planetDetail(ps.find(p=>p.position===selected));
+   $g('galaxy-table').innerHTML=`<details ${renderer?'':'open'}><summary>Aufklärungsberichte · System ${sector}:${system}</summary>${galaxyReports([data])}</details>`;
   }catch(e){if(request===epoch)show(e.message,true);}finally{if(request===epoch)$g('galaxy-loading').hidden=true;}
  }
  function planetDetail(p){
-  if(!p)return;selected=p.position;dirty=true;$g('galaxy-detail').hidden=false;
+  if(!p)return;selected=p.position;dirty=true;
   const known=!!p.bekannt,protectedHome=!!p.heimat,owner=known?(p.spieler??(p.status==='frei'?'Unbewohnt':'Unbekannt')):'Unbekannt';
-  $g('galaxy-detail').innerHTML=`<span class="eyebrow">PLANET ${p.position}</span><h3>${esc(p.koord)}</h3>${known&&p.zone?`<img class="space-planet-art ${p.besiegt?'defeated-planet':''}" src="${esc(planetArt(p))}" alt="${esc(named(p.zone))}">`:'<div class="space-unknown" aria-label="Unbekannter Planet">?</div>'}<strong>${esc(p.besiegt?'Besiegt':named(p.status))}</strong><dl><dt>Planetentyp</dt><dd>${esc(known?named(p.zone||'unbekannt'):'Unbekannt')}</dd><dt>Bewohner</dt><dd>${esc(owner)}</dd><dt>Heimatwelt</dt><dd>${protectedHome?'Geschützt':'—'}</dd></dl><p>${known?planetResources(p):'Eine Planetensonde enthüllt Typ, Bewohner und Ressourcen.'}</p><div class="section-actions"><button type="button" data-explore="${esc(p.koord)}" data-system="${!(cache.get(sector)||[]).find(s=>s.system===system)?.bekannt}">${(cache.get(sector)||[]).find(s=>s.system===system)?.bekannt?'Sonde planen':'Systemscan planen'}</button>${known&&p.status==='frei'&&!protectedHome?`<button type="button" class="secondary" data-colonize="${esc(p.koord)}">Kolonie planen</button>`:''}${own(p.koord)?`<button type="button" class="secondary" data-space-own="${esc(p.koord)}">Planet verwalten</button>`:''}</div>`;
+  $g('galaxy-detail').innerHTML=`<span class="eyebrow">PLANET ${p.position} · INFOKARTE</span><h3 id="galaxy-planet-title">${esc(p.koord)}</h3>${known&&p.zone?`<img class="space-planet-art ${p.besiegt?'defeated-planet':''}" src="${esc(planetArt(p))}" alt="${esc(named(p.zone))}">`:'<div class="space-unknown" aria-label="Unbekannter Planet">?</div>'}<strong>${esc(p.besiegt?'Besiegt':named(p.status))}</strong><dl><dt>Planetentyp</dt><dd>${esc(known?named(p.zone||'unbekannt'):'Unbekannt')}</dd><dt>Bewohner</dt><dd>${esc(owner)}</dd><dt>Heimatwelt</dt><dd>${protectedHome?'Geschützt':'—'}</dd></dl><p>${known?planetResources(p):'Eine Planetensonde enthüllt Typ, Bewohner und Ressourcen.'}</p><div class="section-actions"><button type="button" data-explore="${esc(p.koord)}" data-system="${!(cache.get(sector)||[]).find(s=>s.system===system)?.bekannt}">${(cache.get(sector)||[]).find(s=>s.system===system)?.bekannt?'Sonde planen':'Systemscan planen'}</button>${known&&p.status==='frei'&&!protectedHome?`<button type="button" class="secondary" data-colonize="${esc(p.koord)}">Kolonie planen</button>`:''}${own(p.koord)?`<button type="button" class="secondary" data-space-own="${esc(p.koord)}">Planet verwalten</button>`:''}</div>`;
   labels.forEach(l=>{if(l.kind==='planet')l.el.setAttribute('aria-pressed',String(Number(l.key)===selected));});
+  if(!$g('galaxy-infocard').open)$g('galaxy-infocard').showModal();
  }
  function pick(kind,key){if(kind==='sector')void showSector(key);else if(kind==='system')void showSystem(sector,key);else if(kind==='planet'){const data=(cache.get(sector)||[]).find(s=>s.system===system);planetDetail(GalaxyModel.planets(data,sector,profile().plaetze_je_system).find(p=>p.position===Number(key)));}}
  function frame(time){
@@ -138,7 +142,7 @@ window.GalaxyUI=(()=>{
   frameId=requestAnimationFrame(frame);
  }
  function visible(value){
-  active=value;if(!value){cancelAnimationFrame(frameId);frameId=0;last=0;return;}
+  active=value;if(!value){closeDetail();cancelAnimationFrame(frameId);frameId=0;last=0;return;}
   const key=world?.world_id+':'+view?.name;if(key!==stamp){stamp=key;cache.clear();epoch++;init();showGalaxy();}
   if(!host)init();resize();dirty=true;if(renderer&&!frameId)frameId=requestAnimationFrame(frame);
  }

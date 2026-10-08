@@ -4,7 +4,7 @@
 .space-header h2{margin:0;font-size:25px}.space-header p{margin:5px 0 0;color:#a0b3c5}
 .space-toolbar{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:10px 16px;border-block:1px solid #283952;background:#0b1627}
 .space-toolbar button{font-size:11px;padding:7px 10px}.space-toolbar .spacer{flex:1}
-#galaxy-viewport{display:grid;grid-template-columns:minmax(0,1fr) 225px}#galaxy-viewport:has(#galaxy-detail[hidden]){grid-template-columns:1fr}
+#galaxy-viewport{min-width:0}
 #galaxy-space{position:relative;min-width:0;height:clamp(440px,65vh,630px);isolation:isolate;background:#030813;overflow:hidden}
 #galaxy-canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}#galaxy-canvas:active{cursor:grabbing}
 #galaxy-labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
@@ -12,11 +12,15 @@
 .game-client .space-label.sector{padding:12px 18px;letter-spacing:2px;color:#e7d7bf;font-size:12px;border-color:#798bab77;background:#101a2ccc;min-height:44px}
 .game-client .space-label.planet{color:#d4dfed;min-width:30px;min-height:30px;top:13px}
 .game-client .space-label[aria-pressed=true]{border-color:#edc48d;color:#ffe3bc;background:#503c20cc;box-shadow:0 0 14px #ba824633}
-#galaxy-detail{background:linear-gradient(145deg,#14243a,#080f1e);border-left:1px solid #3c536d;padding:16px;font-size:11px;overflow-wrap:anywhere}
-#galaxy-detail h3{margin:4px 0;font-size:21px;color:#f0d3a4}#galaxy-detail dl{display:grid;grid-template-columns:auto 1fr;gap:5px;font-size:10px}#galaxy-detail dd{margin:0;text-align:right;color:#c7d9e9}#galaxy-detail dt{color:#8ca3ba}#galaxy-detail p{color:#aabacd;overflow-wrap:anywhere}
-#galaxy-detail .section-actions{display:grid;gap:6px}#galaxy-detail button{font-size:11px;min-height:34px}
-.space-planet-art{display:block;width:85px;height:85px;object-fit:cover;border-radius:50%;margin:10px auto}
-.space-unknown{width:65px;height:65px;margin:14px auto;border-radius:50%;background:radial-gradient(circle at 30% 25%,#607288,#172131 65%,#050811);box-shadow:0 0 24px #a8c5e322;text-align:center;line-height:65px;font-size:26px;color:#8195ab}
+#galaxy-infocard{position:fixed;width:420px;max-width:calc(100vw - 32px);max-height:calc(100dvh - 32px);padding:0;border:1px solid #536984;border-radius:16px;background:linear-gradient(145deg,#172c46,#080f1e);color:#e8edf6;box-shadow:0 24px 90px #000b;overflow:auto;overscroll-behavior:contain}
+#galaxy-infocard::backdrop{background:#020713bb}
+#galaxy-detail-close{position:absolute;top:12px;right:12px;min-width:36px;min-height:36px;padding:0;font-size:24px;line-height:1;z-index:1}
+#galaxy-detail{padding:26px;font-size:13px;overflow-wrap:anywhere}
+#galaxy-detail>.eyebrow,#galaxy-detail h3{padding-right:38px}#galaxy-detail h3{margin:6px 0;font-size:28px;color:#f0d3a4}#galaxy-detail>strong{display:block;text-align:center;color:#e3d1b4}
+#galaxy-detail dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 18px;margin:20px 0;padding:16px 0;border-block:1px solid #344a62}#galaxy-detail dd{margin:0;text-align:right;color:#d9e5ef}#galaxy-detail dt{color:#9db1c7}#galaxy-detail p{color:#b4c5d8;overflow-wrap:anywhere}
+#galaxy-detail .section-actions{display:grid;gap:8px;margin-top:20px}#galaxy-detail button{font-size:13px;min-height:42px}
+.space-planet-art{display:block;width:120px;height:120px;object-fit:cover;border-radius:50%;margin:20px auto;box-shadow:0 0 35px #7aadd52b}
+.space-unknown{width:100px;height:100px;margin:20px auto;border-radius:50%;background:radial-gradient(circle at 30% 25%,#607288,#172131 65%,#050811);box-shadow:0 0 24px #a8c5e322;text-align:center;line-height:100px;font-size:38px;color:#a1b4cc}
 .space-instructions{position:absolute;bottom:14px;left:16px;color:#7c94b2;font-size:10px;letter-spacing:.3px;pointer-events:none;text-shadow:0 1px 3px #000}
 #galaxy-loading,#galaxy-fallback{position:absolute;top:15px;left:15px;max-width:65%;padding:10px 14px;background:#10223cec;border:1px solid #3a526b;border-radius:6px;font-size:12px}
 .space-bottom{padding:16px 20px;background:#0d1827;border-top:1px solid #263a52}.space-bottom details{margin:10px 0}.space-bottom summary{color:#c2cfdf;cursor:pointer}.space-bottom>p{font-size:10px;color:#7c93aa}
@@ -24,7 +28,6 @@
 #map-form{padding:10px 0;gap:8px}#map-form input{width:80px}#map-form label{min-width:90px;font-size:11px}
 #galaxy-table .card{padding:10px;margin:7px 0;background:#102032}#galaxy-table td,#galaxy-table th{font-size:10px;padding:7px 4px}
 @media(hover:hover) and (pointer:fine){.game-client .space-label:hover{border-color:#e3bf90;color:#fff1d3;background:#253347}}
-@media(max-width:1400px){#galaxy-viewport{grid-template-columns:1fr}#galaxy-detail{border-left:0;border-top:1px solid #3c536d;display:grid;grid-template-columns:115px minmax(0,1fr) 150px;gap:8px 16px;align-items:start}#galaxy-detail>.eyebrow,#galaxy-detail>h3,#galaxy-detail>strong{grid-column:1}#galaxy-detail>.space-planet-art,#galaxy-detail>.space-unknown{grid-column:1;grid-row:4 / span 2;margin:4px auto}#galaxy-detail>dl{grid-column:2;grid-row:1 / span 3;margin:0}#galaxy-detail>p{grid-column:2;grid-row:4 / span 2;margin:0}#galaxy-detail>.section-actions{grid-column:3;grid-row:1 / span 5}#galaxy-detail h3{font-size:18px}}
 @media(max-width:850px){#galaxy-space{height:520px}.space-header{padding:16px}.space-header h2{font-size:21px}}
-@media(max-width:580px){#galaxy-space{height:430px}#galaxy-detail{grid-template-columns:90px minmax(0,1fr);gap:8px 12px;padding:12px;font-size:10px}#galaxy-detail .space-planet-art{width:55px;height:55px}#galaxy-detail h3{font-size:17px}#galaxy-detail>.section-actions{grid-column:1 / -1;grid-row:6;grid-template-columns:1fr 1fr}#galaxy-detail dl{display:block}#galaxy-detail dd{text-align:left;margin-bottom:4px}.space-toolbar{padding:8px}.space-toolbar button{font-size:10px;padding:7px}.space-header p{font-size:11px}.space-instructions{font-size:9px;max-width:85%}.space-bottom{padding:12px}}
+@media(max-width:580px){#galaxy-space{height:430px}#galaxy-detail{padding:22px 18px}#galaxy-detail h3{font-size:24px}.space-toolbar{padding:8px}.space-toolbar button{font-size:10px;padding:7px}.space-header p{font-size:11px}.space-instructions{font-size:9px;max-width:85%}.space-bottom{padding:12px}}
 @media(prefers-reduced-motion:reduce){.space-label{transition:none}}
