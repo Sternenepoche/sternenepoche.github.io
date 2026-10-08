@@ -269,6 +269,8 @@ def build() -> None:
     document = document.replace('</body>', DIALOG + '<!-- SITE_MOTION --></body>')
     document = document.replace('<div class="brand">','<a class="brand" href="index.html" style="text-decoration:none">',1)
     document = document.replace('        Sternenepoche\n      </div>', '        Sternenepoche\n      </a>',1)
+    document = re.sub(r'(<a class="brand"[^>]*>)\s*<svg.*?</svg>', lambda m: m[1] + '<span class="brand-symbol" aria-hidden="true"><img src="logo://sternenepoche-mark.png" alt="" width="256" height="256"><span class="brand-glint"></span></span>', document, count=1, flags=re.S)
+    document = document.replace('</head>','<link rel="icon" type="image/png" href="docs/branding/favicon.png"></head>')
     document = decorate(finish(document), "KI-Hinweis.html")
     DESTINATION.write_text(document, encoding="utf-8")
     print(f"Erstellt: {DESTINATION}")

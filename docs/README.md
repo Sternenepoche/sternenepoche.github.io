@@ -49,6 +49,13 @@ gleichgesetzt werden. Das Labor hält die Welt während Modellentscheidungen an;
 Spielguide und Handbuch gestalterisch. **python tools/build_website.py** erzeugt alle drei Seiten
 und die maschinenlesbaren Fassungen gemeinsam. Die bestehenden Spielgrafiken werden eingebettet;
 es gibt keine fremden Schrift-, Skript- oder Bilddienste.
+Beim Pages-Packschritt werden die eingebetteten Motive in gemeinsam gecachte Dateien
+unter **site-art/** ausgelagert. So bleiben die lokalen Fassungen offline lesbar und die
+veröffentlichten Seiten laden Bilder erst bei Bedarf. WebP-Motive haben JPEG-Rückfallbilder,
+transparente Markenbilder behalten PNG. Das hochauflösende GIF wird nur als Download angeboten;
+die kleine Logoanimation startet erst im sichtbaren Bereich und beachtet die Bewegungseinstellung.
+Pillow 12.2.0 wird für das Pages-Bildpaket benötigt. **llms.txt**, **docs/spielguide.json**,
+**docs/spielguide.txt** und **sitemap.xml** bieten zusätzliche maschinenlesbare Zugänge.
 
 Die 17 aktuellen Browseransichten liegen unter **docs/bilder/online/**. Sie zeigen eine isolierte,
 pausierte Rust-Beispielwelt vom 8. Oktober 2026, keine Live-Spielerdaten. Bildunterschriften und
@@ -104,3 +111,30 @@ Alle Dokumente, Quelltexte, das Regelwerk, der Inhaltskatalog und die Einträge 
 
 Lesend als HTTP-API (`serve`, Port 8197, nur 127.0.0.1) oder als MCP-Server (`mcp`). Einzelheiten in
 BETRIEB, Abschnitt 9.
+
+
+Das Sternentor liegt unter **docs/branding/**. Das echte 1280-Pixel-GIF zeigt Puls, Öffnen der vier
+Segmente, drei Signalwege durch sieben vollständig verbundene neuronale Schichten, Schließen,
+einen grünen Kantenlauf und die Rückkehr in die Ausgangsstellung. **python tools/animate_brand.py**
+reproduziert die 18-Sekunden-Schleife mit dem vorhandenen Chrome, Playwright und FFmpeg.
+**tools/brand_animation.js** beschreibt die zeitliche Choreografie, **animation.json** die Ausgabedaten.
+Der Prompt des ursprünglichen ImageGen-Motivs und die Herleitung stehen in **DESIGN.txt**.
+
+
+Der gemeinsame große Ladebildschirm wird aus **docs/loading-screen.html** sowie
+**web-client/loading-screen.css** und **web-client/loading-screen.js** gebaut.
+Er erscheint auf den öffentlichen Seiten und beim Start, Anmelden oder Beitreten im Spiel.
+Der Browser verwendet die 768-Pixel-WebP-Animation und bei Bedarf das GIF; bei reduzierter
+Bewegung das kleine JPEG-Standbild. Spielregeln und der tatsächliche Weltabruf bestimmen
+das Ladeende. Ein Fehler lässt die Verbindungseinstellungen zugänglich. Es gibt keinen
+erfundenen Prozentstand und keine Pflicht, die ganze Logoanimation abzuwarten.
+**tools/build_web_art.py --manifest-only** nimmt nur diese ausdrücklichen öffentlichen
+Dateien in den Rust-Client auf. **tools/verify_loading_screen.py** prüft Desktop/Handy,
+künstlich verzögerte echte Weltabfragen, Serverfehler, reduzierte Bewegung und Lesen ohne JavaScript.
+
+
+Die großen GIF-Exporte werden aus Originalmotiv und Choreografie erzeugt, statt sie
+als große Binärdateien in Git zu speichern. Vor einem frischen Server-Build zunächst
+**python tools/animate_brand.py** ausführen (Playwright, Chrome bzw. Chromium und FFmpeg).
+GitHub Actions rendert diese Exporte vor den Rust-Prüfungen und übergibt sie an Pages.
+Die kleinen WebP-Dateien und die 384-Pixel-GIF-Vorschau sind direkt versioniert.

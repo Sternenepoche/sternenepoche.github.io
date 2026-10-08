@@ -1,0 +1,25 @@
+Sternenepoche – Sternentor, 8. Oktober 2026
+Erstellt mit dem eingebauten ImageGen-Werkzeug. Kein Buchstabe, keine Ziffer.
+Vier getrennte facettierte Metallsegmente bilden eine stellare Öffnung.
+Titan, Graphit, champagnergoldene Fasen und ein kühler cyanfarbener Kern.
+Die Originaldatei besitzt einen transparenten Hintergrund.
+Animation: Puls, Öffnen der vier Teile, sieben neuronale Schichten mit drei Impulsdurchläufen,
+Schließen, grüner Kantenlauf, Eintauchen in die Mitte, nahtloser Neustart.
+Web: kleine transparente PNG-Datei, Bewegung durch CSS. Die hochauflösende GIF-Datei
+ist eine gesonderte Exportdatei und wird im Seitenkopf nicht automatisch geladen.
+
+Finaler Generierungsprompt:
+Create one completely new premium emblem for the mature space strategy game Sternenepoche. SYMBOL ONLY, absolutely no letters, no numerals, no monograms. Concept: a stellar aperture, an engineered star gate made of FOUR clearly separated tapered faceted metal segments arranged with exact four-fold rotational symmetry around a luminous tiny diamond-shaped negative-space center. The four segments together create a confident, unique four-point celestial compass silhouette, like folded spacecraft hull plates opening a passage through spacetime. Long vertical points and slightly shorter horizontal points, purposeful clean angular geometry, beautifully balanced and compact. Each individual segment has only two or three broad machined faces, no fussy little ornaments. Brushed titanium and dark graphite faces with fine champagne-gold chamfered edges; a controlled icy-cyan glow from the small central aperture. Restrained realistic dimensional depth, near frontal view, iconic and readable as a silhouette at 32 pixels, sophisticated timeless sci-fi visual identity. The emblem should feel like expensive industrial space navigation hardware rather than an esports badge. Symmetric upright emblem, filling 72 percent of a square canvas with ample clear space. No S, no 2, no other letter or number, no intertwined snakes, no curved ribbons, no orbit ring, no planet, no enclosing circle, no shield, no wings, no rockets, no cartoon, no text, no mockup, no scenery, no watermark. Absolutely clean finished edges: no colored segmentation fringes, no red or green outlines, no debris. TRUE transparent background, including all gaps between the four metallic segments. One polished finished emblem, high-resolution production asset.
+
+
+Finale Erweiterung auf Benutzerwunsch: 18-Sekunden-Choreografie, 25 fps, 1280 x 1280.
+Vier separate Metallsegmente öffnen sich mit räumlicher Kippung. Im Inneren liegt
+ein Feedforward-Netz mit sieben Schichten (4 / 6 / 8 / 8 / 6 / 4 / 3 Knoten) und
+vollständigen Verbindungen zwischen benachbarten Schichten. Drei Signalwellen laufen
+vom Eingang zum Ausgang. Die Segmente schließen; ein grüner Lichtpunkt folgt der
+Metallkontur, taucht in die Mitte und kehrt zum Ausgangsbild zurück.
+Das neuronale Netz ist eine animierte Visualisierung, keine laufende Spiel-KI.
+Die Bewegungsframes entstehen deterministisch mit Canvas aus dem unveränderten
+transparenten Original. FFmpeg codiert ein echtes endlos wiederholtes GIF.
+1280 px als Download, 384 px WebP plus GIF-Rückfall für die Website, PNG bei
+reduzierter oder pausierter Bewegung. Kein automatisches Laden der großen GIF-Datei.

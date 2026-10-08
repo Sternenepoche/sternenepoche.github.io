@@ -403,6 +403,12 @@ pub fn get(path:&str)->Option<(&'static [u8],&'static str)>{
         "/assets/missions.kampfkolonisieren.webp" => Some((include_bytes!("../../../web-client/assets/missions.kampfkolonisieren.webp").as_slice(), "image/webp")),
         "/assets/missiles.abfang.webp" => Some((include_bytes!("../../../web-client/assets/missiles.abfang.webp").as_slice(), "image/webp")),
         "/assets/missiles.interplanetar.webp" => Some((include_bytes!("../../../web-client/assets/missiles.interplanetar.webp").as_slice(), "image/webp")),
+        "/loading-screen.js" => Some((include_bytes!("../../../web-client/loading-screen.js").as_slice(), "text/javascript; charset=utf-8")),
+        "/loading-screen.css" => Some((include_bytes!("../../../web-client/loading-screen.css").as_slice(), "text/css; charset=utf-8")),
+        "/loading-no-js.css" => Some((include_bytes!("../../../web-client/loading-no-js.css").as_slice(), "text/css; charset=utf-8")),
+        "/brand/neuralstern-768.webp" => Some((include_bytes!("../../../web-client/brand/neuralstern-768.webp").as_slice(), "image/webp")),
+        "/brand/neuralstern-768.gif" => Some((include_bytes!("../../../web-client/brand/neuralstern-768.gif").as_slice(), "image/gif")),
+        "/brand/neuralstern-poster.jpg" => Some((include_bytes!("../../../web-client/brand/neuralstern-poster.jpg").as_slice(), "image/jpeg")),
         _=>None,
     }
 }

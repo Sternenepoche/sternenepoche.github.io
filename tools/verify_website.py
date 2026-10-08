@@ -1,6 +1,7 @@
 """Browser checks for actual images, responsive layout and guide interactions."""
 from pathlib import Path
 import json
+import argparse
 from playwright.sync_api import sync_playwright
 from playwright.sync_api import expect
 
@@ -19,8 +20,9 @@ def main():
                 page.on('pageerror',lambda e:errors.append(str(e)))
                 page.on('response',lambda r:bad_responses.append(r.url) if r.status>=400 else None)
                 page.goto(BASE+'/'+path,wait_until='networkidle')
+                if page.locator('#sternen-loader').count(): page.locator('#sternen-loader').wait_for(state='hidden')
                 page.evaluate('document.querySelectorAll("img").forEach(i => i.loading="eager")')
-                page.wait_for_function('Array.from(document.images).filter(i=>i.hasAttribute("src")).every(i=>i.complete)')
+                page.wait_for_function('() => Array.from(document.images).filter(i=>i.hasAttribute("src")).every(i=>i.complete)')
                 issues=page.evaluate('''() => ({
                   overflow:document.documentElement.scrollWidth>innerWidth,
                   brokenImages:[...document.images].filter(i=>i.hasAttribute('src')&&!i.naturalWidth).map(i=>i.alt),
@@ -61,6 +63,31 @@ def main():
                 assert not bad_responses,(path,bad_responses)
                 report.append({'page':path,'width':width,**issues,'errors':errors})
                 page.close()
+        # A browser that does not accept WebP uses the actual JPEG/PNG fallbacks.
+        for path in ['index.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html']:
+            page=browser.new_page(reduced_motion='reduce')
+            page.goto(BASE+'/'+path,wait_until='networkidle')
+            page.evaluate('''() => {
+              document.querySelectorAll('picture source').forEach(s=>s.type='image/x-unsupported');
+              document.querySelectorAll('img').forEach(i=>i.loading='eager');
+            }''')
+            page.wait_for_function('() => [...document.images].filter(i=>i.hasAttribute("src")).every(i=>i.complete&&i.naturalWidth)')
+            assert page.locator('picture').count()>0 or '/site-art/' not in page.content()
+            assert not page.evaluate('() => [...document.querySelectorAll("picture img")].some(i=>i.currentSrc.endsWith(".webp"))')
+            page.close()
+        # Animated branding loads only in view; WebP decode failure falls back to GIF.
+        page=browser.new_page()
+        requests=[];page.on('request',lambda r:requests.append(r.url))
+        page.route('**/sternenepoche-neuralstern-384.webp',lambda route:route.abort())
+        page.goto(BASE+'/index.html',wait_until='networkidle')
+        assert not any('neuralstern-384' in u for u in requests),'logo animation loaded outside viewport'
+        logo=page.locator('[data-animated-logo]');logo.scroll_into_view_if_needed()
+        expect(logo).to_have_attribute('src','docs/branding/sternenepoche-neuralstern-384.gif')
+        page.wait_for_function('() => document.querySelector("[data-animated-logo]").naturalWidth===384')
+        page.locator('#space-toggle').click()
+        assert logo.get_attribute('src')==logo.get_attribute('data-still')
+        assert not any('1280.gif' in u for u in requests),'high-resolution GIF downloaded automatically'
+        page.close()
         # Content and navigation survive when scripting is disabled.
         page = browser.new_page(java_script_enabled=False,viewport={'width':390,'height':844})
         page.goto(BASE+'/Sternenepoche-Start.html')
@@ -68,6 +95,10 @@ def main():
         assert page.locator('.guide-chapter').count()==22
         browser.close()
     (OUT/'verification.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
-    print('PASS: 3 pages x desktop/mobile; images, anchors, layout, search, area selection, faction selection, screenshot zoom, reduced motion, no-JS reading and CSP/script errors.')
+    print('PASS: 3 pages x desktop/mobile; images, anchors, search, navigation, zoom, reduced motion, no-JS reading, JPEG/PNG fallbacks and lazy animated logo with GIF fallback; no automatic HD GIF download.')
 
-if __name__=='__main__': main()
+if __name__=='__main__':
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--base',default=BASE)
+    BASE=parser.parse_args().base.rstrip('/')
+    main()

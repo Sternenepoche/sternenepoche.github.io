@@ -1,0 +1,32 @@
+{
+  "size": [
+    1280,
+    1280
+  ],
+  "fps": 25,
+  "frames": 450,
+  "duration_seconds": 18,
+  "loop": "infinite",
+  "file": "sternenepoche-neuralstern-1280.gif",
+  "bytes": 27381304,
+  "layers": [
+    4,
+    6,
+    8,
+    8,
+    6,
+    4,
+    3
+  ],
+  "signal_passes": 3,
+  "sequence": [
+    "pulse",
+    "four panels open",
+    "seven-layer neural core transmits three times",
+    "panels close",
+    "green signal follows star edge",
+    "signal enters core",
+    "rest pose"
+  ],
+  "source": "Preserved ImageGen stellar aperture; deterministic Canvas choreography"
+}

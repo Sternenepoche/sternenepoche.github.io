@@ -2,6 +2,19 @@
   'use strict';
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const toggle = document.getElementById('space-toggle');
+  const logoImages = [...document.querySelectorAll('[data-animated-logo]')];
+  logoImages.forEach(img => { img.dataset.still = img.src; img.dataset.visible = 'false'; });
+  function updateLogos() {
+    logoImages.forEach(img => {
+      const moving = !paused && !document.hidden && img.dataset.visible === 'true';
+      const next = moving ? (img.dataset.gifOnly ? img.dataset.animationGif : img.dataset.animationWebp) : img.dataset.still;
+      if (img.getAttribute('src') !== next) img.src = next;
+    });
+  }
+  logoImages.forEach(img => img.addEventListener('error', () => {
+    if (img.src === img.dataset.still || img.dataset.gifOnly) return;
+    img.dataset.gifOnly = 'true'; updateLogos();
+  }));
   let paused = reduced.matches;
   try { paused = reduced.matches || localStorage.getItem('sternenepoche-site-motion') === 'paused'; } catch {}
   function update() {
@@ -12,6 +25,7 @@
       toggle.setAttribute('aria-pressed', String(paused));
     }
     document.dispatchEvent(new Event('space-motion'));
+    updateLogos();
   }
   toggle?.addEventListener('click', () => {
     paused = !paused;
@@ -19,7 +33,14 @@
     update();
   });
   reduced.addEventListener('change', e => { paused = e.matches; update(); });
-  document.addEventListener('visibilitychange', () => { document.body.dataset.pageHidden = String(document.hidden); });
+  document.addEventListener('visibilitychange', () => { document.body.dataset.pageHidden = String(document.hidden); updateLogos(); });
+  if ('IntersectionObserver' in window) {
+    const logoObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => { entry.target.dataset.visible = String(entry.isIntersecting); });
+      updateLogos();
+    });
+    logoImages.forEach(img => logoObserver.observe(img));
+  } else logoImages.forEach(img => { img.dataset.visible = 'true'; });
   document.querySelectorAll('.mobile-guide-menu a').forEach(a => a.addEventListener('click', () => { a.closest('details').open = false; }));
   update();
 

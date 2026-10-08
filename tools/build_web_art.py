@@ -22,6 +22,10 @@ def build():
                 im.save(dst,'WEBP',quality=83,method=6)
         images['|'.join([a['category'],a['key'],a.get('faction') or ''])]={'url':'assets/'+name+'?v='+p['sha256'][:12],'label':a['label']}
         embeds.append(f'        "/assets/{name}" => Some((include_bytes!("../../../web-client/assets/{name}").as_slice(), "image/webp")),')
+    # Explicit additional public brand files; no directory scanning or runtime files.
+    for name,mime in [('loading-screen.js','text/javascript; charset=utf-8'),('loading-screen.css','text/css; charset=utf-8'),('loading-no-js.css','text/css; charset=utf-8'),('brand/neuralstern-768.webp','image/webp'),('brand/neuralstern-768.gif','image/gif'),('brand/neuralstern-poster.jpg','image/jpeg')]:
+        if not (ROOT/'web-client'/name).is_file(): raise ValueError('Missing loading-screen asset: '+name)
+        embeds.append(f'        "/{name}" => Some((include_bytes!("../../../web-client/{name}").as_slice(), "{mime}")),')
     name_source=(ROOT/'crates/spieler/src/ansicht/namen.rs').read_text(encoding='utf-8').split('pub fn gut(')[0]
     names=dict(re.findall(r'"([^"\n]+)" => "([^"\n]+)"',name_source))
     (ROOT/'web-client/art.js').write_text('window.STERNEN_ART='+json.dumps({'images':images,'names':names},ensure_ascii=False,separators=(',',':'))+';\n',encoding='utf-8')

@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-DEyMZE+sP4+8RbEUUU2+KHiGN7nxxJ5wFNiPbkKRYTs=&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;; img-src &#x27;self&#x27; data:; font-src &#x27;self&#x27;; connect-src &#x27;self&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;self&#x27;">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/docs/branding/favicon.png" type="image/png">
 <title>{{ page.title }} · Sternenepoche</title>
 <style>
   :root{ --bg:#0b0e14; --panel:#131826; --line:#232a3d; --text:#dfe6f3; --muted:#8b96ad; --accent:#6ea8ff; --gold:#e8c37a; }
@@ -36,6 +37,9 @@
   body{background:radial-gradient(ellipse at 90% 10%,#44356e33,transparent 45%),radial-gradient(ellipse at 5% 55%,#12576528,transparent 50%),#050b14;color:#dae5f1}
   header{background:#071321ed;backdrop-filter:blur(14px)}
   .bar{max-width:1200px;min-height:76px;padding:16px 28px}.brand{color:#efc88b;font-size:16px}
+  .brand{display:inline-flex;align-items:center;gap:12px}.brand img{width:42px;height:42px;border:0;border-radius:0;animation:brand-pulse 7s ease-in-out infinite}
+  @keyframes brand-pulse{50%{transform:perspective(180px) rotateY(12deg) translateY(-2px)}}
+  @media(prefers-reduced-motion:reduce){.brand img{animation:none}}
   main{max-width:1080px;padding:55px 28px 90px}main>h1{font-size:clamp(32px,5vw,49px);letter-spacing:-.035em;line-height:1.15}
   main>h2{font-size:27px;margin-top:2.1em}h3{color:#8be0dc}a{color:#8be0dc}strong{color:#f3f6fa}
   nav a{font-size:13px}footer{max-width:1080px;padding-inline:28px}th{color:#efc88b}
@@ -50,11 +54,27 @@
 .ai-image-label[hidden]{display:none!important}
 .ai-background-label{right:3px;bottom:3px;transform:none}
 .ai-page-label{position:fixed}</style>
-</head>
-<body>
+<link rel="stylesheet" href="/web-client/loading-screen.css"><script defer src="/web-client/loading-screen.js"></script></head>
+<body><div class="sternen-loader" id="sternen-loader" data-kind="website" aria-label="Sternenepoche lädt">
+  <div class="sternen-loader-inner">
+    <div class="sternen-loader-wordmark">STERNENEPOCHE</div>
+    <picture class="sternen-loader-art">
+      <source data-loader-motion type="image/webp" media="(prefers-reduced-motion: no-preference)" srcset="/web-client/brand/neuralstern-768.webp">
+      <source data-loader-motion type="image/gif" media="(prefers-reduced-motion: no-preference)" srcset="/web-client/brand/neuralstern-768.gif">
+      <img src="/web-client/brand/neuralstern-poster.jpg" alt="Vier Metallsegmente öffnen sich um einen pulsierenden neuronalen Kern mit sieben Schichten." width="768" height="768" fetchpriority="high" decoding="async">
+    </picture>
+    <p class="sternen-loader-status" data-loader-status role="status" aria-live="polite">Deine Reise wird vorbereitet …</p>
+    <div class="sternen-loader-track" role="progressbar" aria-label="Ladevorgang"><span></span></div>
+    <div class="sternen-loader-controls"><button type="button" data-loader-pause>Animation pausieren</button><button type="button" data-loader-skip>Schon umschauen <span aria-hidden="true">↗</span></button></div>
+    <small class="sternen-loader-credit">Bild, Ton und Text sind KI-generiert</small>
+  </div>
+</div>
+<noscript><link rel="stylesheet" href="/web-client/loading-no-js.css"></noscript>
+
+
 <div class="site-ai-notice" data-ai-disclosure="true" role="note" aria-label="KI-Kennzeichnung"><span class="site-ai-tag">KI</span><span class="site-ai-description">Bild, Ton und Text sind KI-generiert</span><a href="/KI-Hinweis.html">KI-Hinweis</a></div>
 <header><div class="bar">
-  <a class="brand" href="/">✶ STERNENEPOCHE</a>
+  <a class="brand" href="/"><img src="/docs/branding/sternenepoche-mark.png" alt="" width="256" height="256">STERNENEPOCHE</a>
   <nav>
     <a href="/">Start</a>
     <a href="/web-client/">Spielen</a>

@@ -1,0 +1,15 @@
+<div class="sternen-loader" id="sternen-loader" data-kind="{{KIND}}" aria-label="Sternenepoche lädt">
+  <div class="sternen-loader-inner">
+    <div class="sternen-loader-wordmark">STERNENEPOCHE</div>
+    <picture class="sternen-loader-art">
+      <source data-loader-motion type="image/webp" media="(prefers-reduced-motion: no-preference)" srcset="{{BASE}}brand/neuralstern-768.webp">
+      <source data-loader-motion type="image/gif" media="(prefers-reduced-motion: no-preference)" srcset="{{BASE}}brand/neuralstern-768.gif">
+      <img src="{{BASE}}brand/neuralstern-poster.jpg" alt="Vier Metallsegmente öffnen sich um einen pulsierenden neuronalen Kern mit sieben Schichten." width="768" height="768" fetchpriority="high" decoding="async">
+    </picture>
+    <p class="sternen-loader-status" data-loader-status role="status" aria-live="polite">{{STATUS}}</p>
+    <div class="sternen-loader-track" role="progressbar" aria-label="Ladevorgang"><span></span></div>
+    <div class="sternen-loader-controls"><button type="button" data-loader-pause>Animation pausieren</button><button type="button" data-loader-skip>Schon umschauen <span aria-hidden="true">↗</span></button></div>
+    <small class="sternen-loader-credit">Bild, Ton und Text sind KI-generiert</small>
+  </div>
+</div>
+<noscript><link rel="stylesheet" href="{{BASE}}loading-no-js.css"></noscript>

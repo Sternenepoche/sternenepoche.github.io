@@ -1,9 +1,45 @@
 """Prepare only deliberately public Jekyll sources. Never package the checkout."""
 from pathlib import Path
-import argparse, shutil, json, re, subprocess
+import argparse, shutil, json, re, subprocess, base64, hashlib
+from io import BytesIO
+from PIL import Image
 from site_policy import decorate
 ROOT=Path(__file__).resolve().parents[1]
-EXT={'.html','.md','.css','.js','.svg','.png','.jpg','.jpeg','.webp','.ico'}
+EXT={'.html','.md','.css','.js','.svg','.png','.jpg','.jpeg','.webp','.ico','.gif'}
+
+def externalize_art(document:str,out:Path)->str:
+    """Keep local pages standalone; publish each repeated bitmap once for browser caching."""
+    def image(match):
+        mime,encoded=match.groups()
+        data=base64.b64decode(encoded,validate=True)
+        stem=hashlib.sha256(data).hexdigest()[:32]
+        name=stem+'.'+mime
+        target=out/'site-art'/name
+        target.parent.mkdir(exist_ok=True)
+        if not target.exists():
+            target.write_bytes(data)
+            with Image.open(BytesIO(data)) as im:
+                if mime=='webp':
+                    im.convert('RGB').save(target.with_suffix('.jpg'),'JPEG',quality=82,optimize=True,progressive=True)
+                else:
+                    im.save(target.with_suffix('.webp'),'WEBP',quality=86,method=6)
+        return '/site-art/'+name
+    document=re.sub(r'data:image/(webp|png);base64,([A-Za-z0-9+/]+={0,2})',image,document)
+    # CSS backgrounds and SVG image elements use small, universally decoded JPEGs.
+    document=re.sub(r'(url\(["\']?)(/site-art/[a-f0-9]+)\.webp',r'\1\2.jpg',document)
+    document=re.sub(r'(<image\b[^>]*\bhref=")(/site-art/[a-f0-9]+)\.webp',r'\1\2.jpg',document)
+    document=re.sub(r'(image: ")(/site-art/[a-f0-9]+)\.webp',r'\1\2.jpg',document)
+    def picture(match):
+        tag=match[0]
+        src=re.search(r'\bsrc="(/site-art/[a-f0-9]+\.(webp|png))"',tag)
+        if not src:return tag
+        url,kind=src.groups()
+        if 'data-animated-logo' in tag:return tag
+        if 'id="planet-image"' in tag:return tag.replace(url,url.removesuffix('.webp')+'.jpg')
+        modern=url.removesuffix('.png')+'.webp' if kind=='png' else url
+        fallback=url.removesuffix('.webp')+'.jpg' if kind=='webp' else url
+        return '<picture><source type="image/webp" srcset="'+modern+'">'+tag.replace(url,fallback)+'</picture>'
+    return re.sub(r'<img\b[^>]*>',picture,document)
 def prepare(out:Path):
     out=out.resolve()
     if not out.is_relative_to(ROOT/'.pages-artifact'):
@@ -11,11 +47,11 @@ def prepare(out:Path):
     out.mkdir(parents=True,exist_ok=False)
     approved=[]
     tracked=set(subprocess.check_output(['git','ls-files','-z'],cwd=ROOT).decode('utf-8').split('\0'))
-    for name in ['index.html','Bestandsaufnahme.html','KI-Hinweis.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html','_config.yml','llms.txt','robots.txt','sitemap.xml','docs/spielguide.json','docs/spielguide.txt']:
+    for name in ['index.html','Bestandsaufnahme.html','KI-Hinweis.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html','_config.yml','llms.txt','robots.txt','sitemap.xml','docs/spielguide.json','docs/spielguide.txt','docs/branding/animation.json','docs/branding/DESIGN.txt','docs/branding/sternenepoche-neuralstern-1280.gif']:
         file=ROOT/name
         if file.is_file(): approved.append(file)
     # Deliberate file list: the sibling admin directory must never be packaged.
-    for name in ['index.html','app.js','presentation.js','style.css','config.js','game-ui.js','game.css','art.js','three.min.js','galaxy.js','galaxy.css','ai-labels.js']:
+    for name in ['index.html','app.js','presentation.js','style.css','config.js','game-ui.js','game.css','art.js','three.min.js','galaxy.js','galaxy.css','ai-labels.js','loading-screen.css','loading-screen.js','loading-no-js.css','brand/neuralstern-768.webp','brand/neuralstern-768.gif','brand/neuralstern-poster.jpg']:
         file=ROOT/'web-client'/name
         if file.is_file(): approved.append(file)
     # Exact reviewed image manifest, never the whole web-client directory.
@@ -32,7 +68,7 @@ def prepare(out:Path):
     for folder in ['_layouts','docs','betrachter']:
         approved.extend(p for p in (ROOT/folder).rglob('*') if p.is_file() and p.suffix.lower() in EXT
                         and p.relative_to(ROOT).as_posix() in tracked
-                        and p.relative_to(ROOT).as_posix() not in {'docs/startseite.html','docs/landingpage.html','docs/site-theme.css','docs/site-motion.js'}
+                        and p.relative_to(ROOT).as_posix() not in {'docs/startseite.html','docs/landingpage.html','docs/loading-screen.html','docs/site-theme.css','docs/site-motion.js'}
                         and not p.is_symlink() and not any(s in {'data','saves','keys','geheimnisse'} for s in p.parts))
     for file in approved:
         # Resolve before reading to reject links/junctions into runtime data.
@@ -48,7 +84,7 @@ def prepare(out:Path):
             target.write_text(body,encoding='utf-8')
         elif file.suffix.lower()=='.html':
             name=file.relative_to(ROOT).as_posix()
-            body=decorate(file.read_text(encoding='utf-8-sig'),
+            body=decorate(externalize_art(file.read_text(encoding='utf-8-sig'),out),
                           models=name=='web-client/index.html',
                           handlers=name=='betrachter/index.html')
             body=re.sub(r'href="(?!https?://)([^"#]+)\.md(#[^"]*)?"',
