@@ -1,12 +1,12 @@
 """Capture the real current client in an isolated local demonstration world on D:."""
 from pathlib import Path
-import functools, http.server, json, subprocess, threading, time, urllib.request
+import functools, hashlib, http.server, json, subprocess, threading, time, urllib.request, uuid
 from PIL import Image
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'docs/bilder/online'
-DATA = ROOT / 'laeufe/website-2026-10-08/demo-world'
+DATA = ROOT / 'laeufe/website-2026-10-08' / ('screenshots-' + uuid.uuid4().hex[:8])
 API = 'http://127.0.0.1:18994'
 ADMIN = 'http://127.0.0.1:18995'
 WEB = 'http://127.0.0.1:18888'
@@ -52,17 +52,30 @@ def main():
             page.add_init_script('sessionStorage.setItem("sternenepoche-session",'+json.dumps(json.dumps({'server':API,**auth}))+');')
             page.goto(WEB+'/web-client/',wait_until='networkidle')
             page.locator('#game').wait_for(state='visible')
+            page.locator('#sternen-loader').wait_for(state='hidden')
             for screen in SCREENS:
                 page.locator('[data-tab="'+screen+'"]').click()
-                page.wait_for_timeout(400)
+                page.locator('#'+screen).wait_for(state='visible')
                 page.evaluate('window.scrollTo(0,0)')
+                page.evaluate('''async () => {
+                    await document.fonts.ready;
+                    await Promise.all([...document.images].filter(img => {
+                        const r=img.getBoundingClientRect();
+                        return r.width && r.height && r.top<innerHeight && r.bottom>0;
+                    }).map(img => img.decode()));
+                }''')
+                page.wait_for_timeout(400)
+                assert page.locator('.resource-value').count()==6, 'Current resource instruments missing'
                 page.screenshot(path=str(OUT/(screen+'.png')))
                 with Image.open(OUT/(screen+'.png')) as im: im.save(OUT/(screen+'.webp'),'WEBP',quality=85,method=6)
                 (OUT/(screen+'.png')).unlink()
             browser.close()
         provenance={'captured':'2026-10-08','source':'web-client in isolated real Rust test world',
             'viewport':[1440,1000],'state':'Paused initial Aurelianer world; no live accounts or secrets',
-            'screens':SCREENS,'page_errors':errors}
+            'screens':SCREENS,'page_errors':errors,
+            'client_sha256':{name:hashlib.sha256((ROOT/'web-client'/name).read_bytes()).hexdigest()
+                             for name in ['game-ui.js','game.css']},
+            'image_sha256':{name:hashlib.sha256((OUT/(name+'.webp')).read_bytes()).hexdigest() for name in SCREENS}}
         (OUT/'capture.json').write_text(json.dumps(provenance,ensure_ascii=False,indent=2),encoding='utf-8')
         print(json.dumps({'screenshots':len(SCREENS),'errors':errors,'bytes':sum(x.stat().st_size for x in OUT.glob('*.webp'))}))
         if errors: raise RuntimeError('Client errors during screenshot capture')

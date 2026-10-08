@@ -80,7 +80,7 @@ function renderShell(){
  for(const id of ['volk-preview','volk-choice'])if($(id).dataset.stamp!==stamp){factionCards(id,id==='volk-choice'&&claimed);$(id).dataset.stamp=stamp;}
  $('resource-bar').hidden=!claimed;$('event-bar').hidden=!claimed;
  if(window.GalaxyUI)GalaxyUI.visible(claimed&&document.querySelector('[data-tab="karte"]')?.getAttribute('aria-selected')==='true');
- if(!claimed){$('planet-sidebar').innerHTML='';return;}
+ if(!claimed){$('planet-sidebar').innerHTML='';ResourceDisplay.reset();return;}
  $('claim').elements.volk.value=chosenRace;
 }
 function queueCard(title,category,job,rest=[],destination='gebaeude'){
@@ -95,13 +95,13 @@ function renderView(){
  $('empire-summary').innerHTML=stat(view.stufe,'Zivilisationsstufe')+stat(fmt(view.punkte.gesamt),'Imperiumspunkte')+stat(`${view.flottenplaetze.belegt} / ${view.flottenplaetze.gesamt}`,'Flottenslots')+stat(`${view.kolonien.anzahl} / ${view.kolonien.erlaubt}`,'Kolonien');
  $('warnings').innerHTML=reichNotice()+view.warnungen.map(w=>`<div class="warning">${esc(w)}</div>`).join('');
  const energy=p.energie.erzeugung-p.energie.verbrauch;
- $('resource-bar').innerHTML=['erz','kristall','deuterium','nahrung','energie','credits'].map(g=>{const n=g==='energie'?energy:g==='credits'?view.credits:p.bestand[g];return `<div class="resource">${imageTag('resources',g,'')}<small>${esc(named(g))}</small><strong ${n<0?'class="short"':''}>${fmt(n)}</strong><span class="resource-rate">${g==='energie'?fmt(p.energie.erzeugung)+' / '+fmt(p.energie.verbrauch):g==='credits'?'Imperium':(p.rate[g]>=0?'+':'')+fmt(p.rate[g])+' / Spielstunde'}</span></div>`;}).join('');
+ ResourceDisplay.render(p,view,world);
  $('event-bar').classList.toggle('attack',view.angriffe.length>0||view.reich_status?.status==='kritisch');
  $('event-bar').innerHTML=`<span>${esc(p.koord)} · ${p.heimat?'Heimatplanet':'Kolonie'}</span><span>Eigene Flotten: ${view.flotten.length}</span><span>${view.angriffe.length?'⚠ '+view.angriffe.length+' erkannte Angriffe':'Keine erkannten Angriffe'}</span><span>${world.beendet?'Epoche beendet':world.paused?'Welt pausiert':world.tempo+'× Spieltempo'}</span>${view.reich_status?.status==='besiegt'?'<strong>BESIEGT · Nur noch zuschauen</strong>':view.reich_status?.status==='kritisch'?'<strong>⚠ Existenzielle Krise</strong><span>Rettungsfrist: <span data-arrival="'+Math.min(...view.reich_status.rettungsfristen.map(k=>k.frist))+'"></span> Spielzeit</span>':''}${view.anfaengerschutz_bis?'<span>Anfängerschutz: '+esc(view.anfaengerschutz_bis)+'</span>':''}`;
  $('planet-sidebar').innerHTML='<h3>DEINE PLANETEN</h3>'+view.planeten.map(x=>`<button type="button" class="planet-pick" data-planet-pick="${esc(x.koord)}" aria-pressed="${x.koord===p.koord}"><img src="${esc(planetArt(x))}" alt="${esc(named(x.zone))}" loading="lazy"><strong>${esc(x.koord)}</strong><small>${x.heimat?'Heimatwelt':named(x.zone)}</small></button>`).join('');
  // Preserve choices and typing in the actual fleet, market and manufacturing forms.
  document.querySelectorAll('.own-planets').forEach(s=>{const val=s.value,markup=view.planeten.map(x=>`<option>${esc(x.koord)}</option>`).join('');if(s.innerHTML!==markup){s.innerHTML=markup;if(view.planeten.some(x=>x.koord===val))s.value=val;}});
- $('planets').innerHTML=`<div class="hero-planet"><img class="hero-orb" src="${esc(planetArt(p))}" alt="${esc(named(p.zone))} · ${esc(p.koord)}"><div class="hero-info"><span class="eyebrow">${p.heimat?'DEINE HEIMAT ZWISCHEN DEN STERNEN':'KOLONIE DEINES IMPERIUMS'}</span><h3>${esc(p.koord)}</h3><span>${esc(named(p.zone))} · ${esc(named(view.volk))}</span><dl><dt>Baufelder</dt><dd>${p.felder.belegt} / ${p.felder.gesamt}</dd><dt>Bevölkerung</dt><dd>${fmt(p.bevoelkerung)}</dd><dt>Wohnraum</dt><dd>${fmt(p.wohnraum)}</dd><dt>Stabilität</dt><dd>${p.stabilitaet} %</dd><dt>Energiebilanz</dt><dd>${fmt(energy)}</dd><dt>Arbeitskräfte</dt><dd>${fmt(p.arbeit.verfuegbar)} / ${fmt(p.arbeit.bedarf)}</dd><dt>Fachkräfte</dt><dd>${fmt(p.fachkraefte.verfuegbar)} / ${fmt(p.fachkraefte.bedarf)}</dd><dt>Blockade</dt><dd>${p.blockade?esc(p.blockade.durch):'Keine'}</dd></dl></div></div><div class="queue-grid">${queueCard('BAUSCHLEIFE','buildings',p.bauschleife[0],p.bauschleife.slice(1),'gebaeude')}${queueCard('FORSCHUNG','research',view.forschung.aktiv,view.forschung.schlange,'forschen')}${queueCard('SCHIFFSWERFT','ships',p.fertigung.find(f=>f.schleife==='werft'),p.fertigung.filter(f=>f.schleife==='werft').slice(1),'werft')}</div><div class="section-actions"><button data-go="gebaeude">Gebäude ausbauen</button><button class="secondary" data-go="flotten">Flotten verwalten</button><button class="secondary" data-go="berichte">Neue Berichte</button></div>`;
+ $('planets').innerHTML=`<div class="hero-planet" data-ai-image><img class="hero-orb" src="${esc(planetArt(p))}" alt="${esc(named(p.zone))} · ${esc(p.koord)}"><div class="hero-info"><span class="eyebrow">${p.heimat?'DEINE HEIMAT ZWISCHEN DEN STERNEN':'KOLONIE DEINES IMPERIUMS'}</span><h3>${esc(p.koord)}</h3><span>${esc(named(p.zone))} · ${esc(named(view.volk))}</span><dl><dt>Baufelder</dt><dd>${p.felder.belegt} / ${p.felder.gesamt}</dd><dt>Bevölkerung</dt><dd>${fmt(p.bevoelkerung)}</dd><dt>Wohnraum</dt><dd>${fmt(p.wohnraum)}</dd><dt>Stabilität</dt><dd>${p.stabilitaet} %</dd><dt>Energiebilanz</dt><dd>${fmt(energy)}</dd><dt>Arbeitskräfte</dt><dd>${fmt(p.arbeit.verfuegbar)} / ${fmt(p.arbeit.bedarf)}</dd><dt>Fachkräfte</dt><dd>${fmt(p.fachkraefte.verfuegbar)} / ${fmt(p.fachkraefte.bedarf)}</dd><dt>Blockade</dt><dd>${p.blockade?esc(p.blockade.durch):'Keine'}</dd></dl></div></div><div class="queue-grid">${queueCard('BAUSCHLEIFE','buildings',p.bauschleife[0],p.bauschleife.slice(1),'gebaeude')}${queueCard('FORSCHUNG','research',view.forschung.aktiv,view.forschung.schlange,'forschen')}${queueCard('SCHIFFSWERFT','ships',p.fertigung.find(f=>f.schleife==='werft'),p.fertigung.filter(f=>f.schleife==='werft').slice(1),'werft')}</div><div class="section-actions"><button data-go="gebaeude">Gebäude ausbauen</button><button class="secondary" data-go="flotten">Flotten verwalten</button><button class="secondary" data-go="berichte">Neue Berichte</button></div>`;
  renderCatalog('buildings','gebaeude-content');renderCatalog('research','research');renderCatalog('ships','ship-gallery');renderCatalog('defenses','verteidigung-content');
  renderFleetStock();renderEconomy(p);renderFleets();renderColonies(p);renderCombat();renderEmpire();renderUnlocks();renderProfile();
  // Existing account, agent, market and diplomacy controls keep their authoritative handlers.
@@ -209,3 +209,62 @@ document.addEventListener('click',guard(async e=>{
 document.addEventListener('click',guard(async e=>{const b=e.target.closest('[data-confirm-repair]');if(b)await command([{typ:'reparieren',planet:currentPlanet().koord,gebaeude:b.dataset.confirmRepair}]);}));
 document.addEventListener('submit',guard(async e=>{if(e.target.id==='priority-form'){const list=e.target.elements.reihenfolge.value.split(',').map(s=>s.trim()).filter(Boolean);await command([{typ:'prioritaeten',planet:currentPlanet().koord,reihenfolge:list}]);}if(e.target.id==='combat-form')await command([{typ:'verband_beitreten',flotte:Number(e.target.elements.flotte.value),fuehrung:Number(e.target.elements.fuehrung.value)}]);}));
 setInterval(tickGame,250);
+
+// Persistent resource instruments: animate only differences between confirmed snapshots.
+// Planet/account/world changes establish a fresh baseline and never simulate income.
+const ResourceDisplay={
+ keys:['erz','kristall','deuterium','nahrung','energie','credits'],
+ producers:{erz:['erzmine'],kristall:['kristallmine'],deuterium:['deuteriumsynthesizer'],nahrung:['farm'],energie:['solarkraftwerk','fusionskraftwerk']},
+ state:new Map(),identity:'',motion:matchMedia('(prefers-reduced-motion: reduce)'),
+ quiet(){return this.motion.matches||document.body.dataset.progressMotion==='still'||document.hidden;},
+ format(n){return Math.abs(n)>=1e6?new Intl.NumberFormat('de-DE',{notation:'compact',maximumFractionDigits:1}).format(n):fmt(n);},
+ reset(){for(const s of this.state.values()){cancelAnimationFrame(s.frame);clearTimeout(s.timer);}this.state.clear();this.identity='';},
+ settle(){for(const s of this.state.values()){cancelAnimationFrame(s.frame);clearTimeout(s.timer);s.display=s.value;s.node.querySelector('.resource-value').textContent=this.format(s.value);s.node.classList.remove('resource-changed','resource-burst');}},
+ effect(g){
+  if(g==='energie')return '<svg class="resource-lightning" viewBox="0 0 120 100"><path d="M76 0 48 35 69 35 32 90 45 49 24 49 48 0"/><path class="bolt-branch" d="m93 22-13 25 15-2-25 37 8-29-12 2"/></svg>';
+  return '<span class="resource-ring"></span>'+Array.from({length:6},(_,i)=>`<i class="resource-particle" style="--i:${i};--dx:${(i-2.5)*15}px;--dy:${-20-(i%3)*13}px;--rotate:${i*47}deg"></i>`).join('');
+ },
+ render(p,v,w){
+  const bar=$('resource-bar'),identity=JSON.stringify([w.world_id,session?.spieler,v.name,p.koord]);
+  if(this.identity!==identity||!bar.querySelector('.resource-value')){
+   this.reset();this.identity=identity;
+   bar.setAttribute('aria-label','Ressourcen des ausgewählten Planeten und Imperium-Credits');
+   bar.innerHTML=this.keys.map(g=>`<article class="resource" data-resource="${g}" aria-label="${esc(named(g))}"><div class="resource-icon">${imageTag('resources',g,'')}<span class="resource-effect" aria-hidden="true">${this.effect(g)}</span></div><small class="resource-name">${esc(named(g))}</small><strong class="resource-value"></strong><span class="resource-delta" aria-hidden="true"></span><span class="resource-rate"></span><span class="resource-meter" aria-hidden="true"><i></i></span><span class="resource-detail"></span></article>`).join('');
+  }
+  for(const g of this.keys){
+   const node=bar.querySelector(`[data-resource="${g}"]`),value=Number(g==='energie'?p.energie.erzeugung-p.energie.verbrauch:g==='credits'?v.credits:p.bestand[g])||0;
+   const levels=Object.fromEntries((this.producers[g]||[]).map(k=>[k,p.gebaeude?.[k]||0]));
+   let s=this.state.get(g);const fresh=!s;
+   if(fresh){s={node,value,display:value,levels,frame:0,timer:0};this.state.set(g,s);}
+   const delta=value-s.value,completed=Object.keys(levels).some(k=>levels[k]>(s.levels[k]||0));
+   const rate=Number(p.rate?.[g])||0,cap=Number(p.lager?.[g])||0,energy=g==='energie';
+   const deficit=energy?value<0:g!=='credits'&&rate<0;
+   node.classList.toggle('resource-deficit',deficit);node.classList.toggle('resource-full',!energy&&cap>0&&value>=cap);node.classList.toggle('resource-large',Math.abs(value)>=10000);
+   node.dataset.direction=delta<0?'down':'up';
+   node.querySelector('.resource-rate').textContent=energy?`${fmt(p.energie.erzeugung)} erzeugt · ${fmt(p.energie.verbrauch)} Bedarf`:g==='credits'?'Imperiumskasse':`${rate>=0?'+':''}${fmt(rate)} / Spielstunde`;
+   node.querySelector('.resource-detail').textContent=energy?(deficit?'⚠ Energiedefizit':'Versorgung gesichert'):g==='credits'?'Reichsweit verfügbar':cap>0?`${fmt(Math.min(100,Math.max(0,value/cap*100)))} % Lager${deficit?' · Verbrauch':value>=cap?' · voll':''}`:'Kein Lagerlimit';
+   const fill=energy?(p.energie.verbrauch>0?Math.min(1,p.energie.erzeugung/p.energie.verbrauch):1):cap>0?Math.min(1,Math.max(0,value/cap)):0;
+   node.querySelector('.resource-meter').hidden=g==='credits'||(!energy&&!cap);
+   node.querySelector('.resource-meter i').style.transform=`scaleX(${fill})`;
+   node.title=`${named(g)}: ${fmt(value)}. ${node.querySelector('.resource-rate').textContent}. ${energy?(deficit?'Energie fehlt.':'Energie reicht aus.'):cap>0?'Lagerkapazität: '+fmt(cap):'Gilt für dein gesamtes Imperium.'}`;
+   node.setAttribute('aria-label',node.title);
+   s.value=value;s.levels=levels;
+   if(fresh||this.quiet()){cancelAnimationFrame(s.frame);clearTimeout(s.timer);s.display=value;node.querySelector('.resource-value').textContent=this.format(value);node.classList.remove('resource-changed','resource-burst');continue;}
+   if(!delta&&!completed)continue;
+   cancelAnimationFrame(s.frame);clearTimeout(s.timer);
+   const from=s.display,start=performance.now();
+   const count=stamp=>{const t=Math.min(1,(stamp-start)/650);s.display=from+(value-from)*(1-(1-t)**3);node.querySelector('.resource-value').textContent=this.format(s.display);if(t<1)s.frame=requestAnimationFrame(count);else{s.display=value;node.querySelector('.resource-value').textContent=this.format(value);}};
+   s.frame=requestAnimationFrame(count);
+   node.querySelector('.resource-delta').textContent=completed?'↑ Ausbau fertig':`${delta>0?'+':''}${fmt(delta)}`;
+   node.classList.remove('resource-changed','resource-burst');
+   // Restart one bounded, decorative effect; unchanged polling keeps its DOM intact.
+   void node.offsetWidth;
+   node.classList.add('resource-changed');
+   if(completed||(delta>0&&g!=='energie'))node.classList.add('resource-burst');
+   s.timer=setTimeout(()=>node.classList.remove('resource-changed','resource-burst'),2200);
+  }
+ }
+};
+ResourceDisplay.motion.addEventListener('change',()=>{if(ResourceDisplay.quiet())ResourceDisplay.settle();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)ResourceDisplay.settle();});
+document.addEventListener('change',e=>{if(e.target.id==='progress-motion'&&ResourceDisplay.quiet())ResourceDisplay.settle();});
