@@ -276,6 +276,9 @@ fn waehle_bau(welt: &Welt, sid: SpielerId, pid: usize, typ: Bottyp) -> Option<Ge
 /// Was ein Planet für sein nächstes Ausbauziel und, auf der Heimatwelt, für den nächsten
 /// Aufstieg zurückhält. Schiffe und Verteidigung werden nur aus dem Rest gekauft.
 fn ruecklage(welt: &Welt, sid: SpielerId, pid: usize, typ: Bottyp) -> [i64; GUETER] {
+    if let Some(g) = reparaturziel(welt, sid, pid) {
+        if let Ok(kosten) = welt.reparaturkosten(pid, g) { return kosten; }
+    }
     let r = &welt.regeln;
     let p = &welt.planeten[pid];
     let sp = &welt.spieler[sid as usize];
@@ -312,7 +315,40 @@ fn verfuegbar(welt: &Welt, sid: SpielerId, pid: usize, typ: Bottyp) -> [i64; GUE
     v
 }
 
+/// Repair existing productive capacity before buying more ships or new building levels.
+/// Survival comes first; skip an unaffordable repair if another damaged building can be restored.
+fn reparaturziel(welt: &Welt, sid: SpielerId, pid: usize) -> Option<Gebaeude> {
+    if !welt.kolonisation.aktiv { return None; }
+    let p = &welt.planeten[pid];
+    let mut priorities = Vec::new();
+    if !welt.regeln.volk(welt.spieler[sid as usize].volk).ohne_nahrung
+        && (p.nahrung_deckung < 1000 || p.rate[Gut::Nahrung.idx()] < 0) {
+        priorities.push(Gebaeude::Farm);
+    }
+    priorities.extend([Gebaeude::Solarkraftwerk, Gebaeude::Farm, Gebaeude::Erzmine,
+        Gebaeude::Kristallmine, Gebaeude::Deuteriumsynthesizer, Gebaeude::Lager,
+        Gebaeude::Konsumgueterwerk, Gebaeude::Wohnblock, Gebaeude::Raumhafen]);
+    priorities.extend(Gebaeude::ALLE);
+    let damaged = |g: &Gebaeude| p.gebaeude[g.idx()] > 0 && welt.integritaet(pid, *g) < 1000;
+    let bestand = welt.bestand_jetzt(pid);
+    priorities.iter().copied().filter(damaged)
+        .find(|g| welt.reparaturkosten(pid, *g).is_ok_and(|k| bezahlbar(&bestand, &k)))
+        .or_else(|| priorities.into_iter().find(damaged))
+}
+
 fn bauen(welt: &mut Welt, sid: SpielerId, pid: usize, typ: Bottyp) {
+    if welt.kolonisation.reparaturen.keys().any(|(planet, _)| *planet as usize == pid) {
+        return;
+    }
+    if let Some(g) = reparaturziel(welt, sid, pid) {
+        // Construction and repairs share one site. Let existing orders finish first.
+        if !welt.planeten[pid].bauschleife.is_empty() { return; }
+        let kosten = welt.reparaturkosten(pid, g).unwrap();
+        if bezahlbar(&welt.bestand_jetzt(pid), &kosten) {
+            tu(welt, sid, json!({"typ":"reparieren","planet":welt.planeten[pid].koord.to_string(),"gebaeude":g.name()}));
+            return;
+        }
+    }
     let p = &welt.planeten[pid];
     if p.gebaeude[Gebaeude::Xenoextraktor.idx()] > 0 && p.prioritaeten.first() != Some(&Gebaeude::Xenoextraktor) {
         let k = p.koord.to_string();
@@ -612,7 +648,9 @@ fn angriff_schaetzen(welt: &Welt, sid: SpielerId, b: &Spionagebericht, ang: &[i6
     }
     let tech = |f: Forschung| 1.0 + r.kampf.tech_je_stufe * b.forschung.as_ref().map(|t| t[f.idx()]).unwrap_or(sp.forschung[f.idx()]) as f64;
     let a = Gruppe::neu(r, sp, *ang);
-    let v = Gruppe::mit_werten(r, b.besitzer, vert, tech(Forschung::Waffentechnik), tech(Forschung::Schildtechnik), tech(Forschung::Panzerung));
+    let defender = r.volk(welt.spieler[b.besitzer as usize].volk);
+    let v = Gruppe::mit_werten(r, b.besitzer, vert, tech(Forschung::Waffentechnik) * defender.waffen,
+        tech(Forschung::Schildtechnik), tech(Forschung::Panzerung) * defender.panzerung);
     const LAEUFE: u64 = 8;
     let (mut siege, mut verlust) = (0i64, 0i64);
     for i in 0..LAEUFE {
@@ -1187,6 +1225,43 @@ pub fn zug(welt: &mut Welt, sid: SpielerId, bot: &mut Bot) {
 #[cfg(test)]
 mod interactive_colony_tests {
     use super::*;
+    #[test]
+    fn raid_estimate_uses_the_defenders_faction() {
+        let mut rules = kern::Regelwerk::laden(include_str!("../../../regeln/online-v1.ron")).unwrap();
+        rules.voelker.get_mut(&Volk::Krath).unwrap().waffen = 1000.0;
+        rules.voelker.get_mut(&Volk::Krath).unwrap().panzerung = 1000.0;
+        let mut w = Welt::neu(rules, 43, 2).unwrap();
+        w.spieler[0].volk = Volk::Aurelianer;
+        w.spieler[1].volk = Volk::Krath;
+        let mut ships = vec![0; SCHIFFE];
+        ships[Einheit::LeichterJaeger.idx()] = 5;
+        let report = Spionagebericht { zeit:0, ziel:w.planeten[w.spieler[1].heimat as usize].koord, besitzer:1,
+            bestand:vec![0; GUETER], schiffe:Some(ships), verteidigung:Some(vec![0; EINHEITEN-SCHIFFE]), gebaeude:None, forschung:None };
+        let mut attackers = [0; EINHEITEN];
+        attackers[Einheit::LeichterJaeger.idx()] = 1000;
+        assert_eq!(angriff_schaetzen(&w, 0, &report, &attackers).unwrap().0, 0);
+        w.spieler[1].volk = Volk::Aurelianer;
+        assert_eq!(angriff_schaetzen(&w, 0, &report, &attackers).unwrap().0, 100);
+    }
+
+    #[test]
+    fn bots_repair_bombarded_food_production_before_upgrading() {
+        for typ in Bottyp::ALLE {
+            let rules = kern::Regelwerk::laden(include_str!("../../../regeln/online-v1.ron")).unwrap();
+            let mut w = Welt::neu(rules, 42, 2).unwrap();
+            let pid = w.spieler[0].heimat as usize;
+            w.spieler[0].volk = Volk::Aurelianer;
+            w.planeten[pid].bestand.fill(100_000 * M);
+            w.kolonisation.integritaet.insert((pid as PlanetId, Gebaeude::Farm), 0);
+            w.raten_neu(pid);
+            bauen(&mut w, 0, pid, typ);
+            assert!(w.kolonisation.reparaturen.contains_key(&(pid as PlanetId, Gebaeude::Farm)), "{typ:?} did not repair destroyed farm");
+            assert!(w.planeten[pid].bauschleife.is_empty());
+            let done = w.kolonisation.reparaturen[&(pid as PlanetId, Gebaeude::Farm)].fertig;
+            while w.zeit <= done { w.schritt(); }
+            assert_eq!(w.integritaet(pid, Gebaeude::Farm), 1000);
+        }
+    }
     #[test]
     fn modern_bot_scouts_then_sends_escort_and_required_cargo() {
         let rules = kern::Regelwerk::laden(include_str!("../../../regeln/regelwerk.ron")).unwrap();

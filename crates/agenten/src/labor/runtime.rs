@@ -758,10 +758,14 @@ fn window(
             serde_json::from_value(m.meta("harness")?).map_err(|e| e.to_string())?;
         gateway::validate_harness_contract(&harness, c, *sid)?;
         let mut view = w.sicht(*sid, Rolle::Alle);
+        // Browser construction cards grow independently of the model context budget.
+        // Quotes remain available through world_query/own_state for every protocol version.
+        if let Some(planets) = view["planeten"].as_array_mut() {
+            for p in planets { p.as_object_mut().unwrap().remove("baubar"); }
+        }
         if c.version >= 3 {
             if let Some(planets) = view["planeten"].as_array_mut() {
                 for p in planets {
-                    p.as_object_mut().unwrap().remove("baubar");
                     if c.version >= 4 {
                         // Every colony remains represented; full inventories/queues stay behind own_state.
                         let keep = [

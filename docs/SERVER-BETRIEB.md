@@ -239,6 +239,38 @@ Die Verwaltungsansicht zeigt Versorgungsprobleme als Hinweise; fallende Nahrung 
 eines Ausbaus ist kein Beweis für einen defekten Bot. Fehler sind mit Befehlsverlauf,
 Beständen und nächstem Zug zusammen zu beurteilen.
 
+Für vollständige Online-Epochen mit dem produktiven Sekundentakt:
+
+```powershell
+cargo run -p sternenepoche-server --example epoch_soak --release --locked --target-dir target/epoch-qa -- laeufe/meine-neue-epochenpruefung 365 3
+```
+
+Das Werkzeug verweigert vorhandene Verzeichnisse. Es verwendet 30 Skriptbots,
+vier Strategien und unterschiedliche Weltstarts. Die optionalen Argumente sind
+Spieltage (Standard 365), Epochenzahl (3) und Startindex der Seedliste (0).
+Mit `365 1 0`, `365 1 1` und `365 1 2` können drei getrennte Welten parallel
+geprüft werden. Keine dieser Welten darf auf `data/online` zeigen.
+
+Die Prüfung kontrolliert täglich Bestände, Bevölkerung, Einheiten, Besitzlisten,
+Koordinaten, geschützte Heimatwelten, reservierte Plätze und stillgelegte Reiche.
+An Tag 90, 180, 270 und am Ende wird die Datenbank geschlossen und neu geladen;
+Welt-Hash und Botlaufzeitstatus müssen identisch bleiben. Ein abgeschlossener Lauf
+prüft außerdem den Stillstand am Epochenende und einen echten Verwaltungsreset:
+neue Weltkennung, neue Botzähler, freie Plätze, erhaltene Zuschauerkonten und
+ungültige alte Sitzungen/Befehle. Der Reset legt vorher ein Datenbankbackup an.
+
+Monatsdiagnosen und `summary.json` liegen im gewählten Verzeichnis. Zähler enthalten
+alle Botaktionen; Ablehnungsbeispiele stammen aus dem begrenzten Befehlsverlauf des
+Monitors und sind daher keine lückenlose Aktionsdatei. Beschleunigte Spieljahre
+ersetzen weder einen Dauertest über echte Tage noch Modellqualitätstests.
+
+Skriptbots berücksichtigen beim Angriffsvergleich die Volksboni des Verteidigers.
+Nach Bombardierungen reparieren sie beschädigte Gebäude, priorisieren Versorgung
+und reservieren Reparaturrohstoffe vor dem Kauf weiterer Schiffe. Reparaturen warten
+auf eine freie planetare Baustelle. Im Labor bleiben vollständige Baukarten über
+Werkzeuge abrufbar; sie werden auch im älteren Protokoll nicht mehr ungefragt dem
+anfänglichen Lagebild hinzugefügt und blockieren dadurch keinen ersten Modellaufruf.
+
 ### Ausscheiden und Epochenwechsel
 
 Im Dashboard sind zwei Rettungsfristen von 1 bis 720 **Spielstunden** einstellbar.

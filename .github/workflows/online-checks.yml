@@ -14,7 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Test game rules and authoritative server
-        run: cargo test --release --locked -p kern -p sternenepoche-server
+        run: cargo test --release --locked -p kern -p lauf -p sternenepoche-server
+      - name: Verify model agent scheduling, restart and replay
+        run: cargo test --release --locked -p sternenepoche-agenten --test labor_runtime
       - name: Build Linux service
         run: cargo build --release --locked -p sternenepoche-server
       - name: Verify HTTP, restart, privacy and resets
