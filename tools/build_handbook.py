@@ -203,7 +203,7 @@ def build() -> None:
     chapters = [
         item for item in renderer.toc_tokens if item["level"] == 2
     ]
-    shortcuts = [(2, "Anmelden"), (6, "Erste Schritte"), (13, "Saven"), (19, "Server verwalten")]
+    shortcuts = [(2, "Anmelden"), (6, "Erste Schritte"), (13, "Saven"), (19, "Eigene KI verbinden")]
     shortcut_html = "".join(
         f'<a href="#{html.escape(chapters[index]["id"], quote=True)}">{label}</a>'
         for index, label in shortcuts
@@ -214,7 +214,7 @@ def build() -> None:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Sternenepoche spielen und verwalten: Anmeldung, Völker, Menschen, Bots, Agenten, Wirtschaft, Aufklärung, Kampf und Epochen.">
+  <meta name="description" content="Sternenepoche spielen: Anmeldung, Völker, eigene KI-Agenten, Wirtschaft, Aufklärung, Kampf und Epochen.">
   <title>{safe_title}</title>
   <style>{STYLE}</style>
 </head>

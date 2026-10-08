@@ -20,3 +20,6 @@ _site/
 
 # Retired animated loading bitmap; Canvas uses a small shared panel texture.
 /web-client/brand/neuralstern-768.webp
+
+# Private operator handbook; local only.
+/awarre.html

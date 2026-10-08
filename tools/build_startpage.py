@@ -95,12 +95,12 @@ def guide_parts() -> tuple[dict[str, str], int]:
             content = 'Die ausführliche erste Spielsitzung mit acht praktischen Schritten steht [weiter oben auf dieser Seite](#erste-sitzung). Du kannst sie direkt im Spiel abarbeiten.'
         elif number == 8:
             content = 'Der [Oberflächen-Wegweiser](#oberflaeche) erklärt alle 17 Bereiche: wo du etwas findest, welche Knöpfe du benutzt, was danach passiert und welche Fehler du prüfen solltest.\n\n' + chapters[8][1].split('### ', 1)[0]
-        label = f'{number:02d} · {title}' + (' · Betreiber' if number == 20 else '')
+        label = f'{number:02d} · {title}'
         toc.append(f'<li><a href="#{target}">{html.escape(label)}</a></li>')
         chapter = render(heading + content)
         chapter = re.sub(r'(</h3>)', lambda m: m[1] + chapter_visual(number), chapter, count=1)
         articles.append(f'<section class="guide-chapter" aria-labelledby="{target}" data-search-title="{html.escape(title, quote=True)}">{chapter}<a class="chapter-back" href="#spielguide">↑ Zur Kapitelauswahl</a></section>')
-    book = '<div class="guide-layout"><aside class="guide-index"><details open><summary>22 Kapitel zum Nachschlagen</summary><nav aria-label="Spielguide-Kapitel"><ol>' + ''.join(toc) + '</ol></nav></details><p>Kapitel 20 erklärt die private Serververwaltung. Alle anderen Kapitel helfen beim Spielen.</p></aside><div class="guide-reading">' + ''.join(articles) + '</div></div>'
+    book = '<div class="guide-layout"><aside class="guide-index"><details open><summary>22 Kapitel zum Nachschlagen</summary><nav aria-label="Spielguide-Kapitel"><ol>' + ''.join(toc) + '</ol></nav></details><p>Kapitel 20 hilft dir, eigene OpenRouter- oder Ollama-Modelle für dein Reich einzurichten.</p></aside><div class="guide-reading">' + ''.join(articles) + '</div></div>'
     return {"ERSTE_SITZUNG": first_html, "OBERFLAECHE": screens_html, "SPIELGUIDE": book}, len(source.split())
 
 

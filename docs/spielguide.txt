@@ -1,6 +1,6 @@
 # Sternenepoche verstehen und spielen
 
-**Das Handbuch für Spieler und Betreiber · Stand 8. Oktober 2026**
+**Das Handbuch für Spieler · Stand 8. Oktober 2026**
 
 **Neu im Spiel?** Der [bebilderte Spielguide](../Sternenepoche-Start.html) führt dich durch die erste Sitzung, erklärt die Bedienung aller Spielbereiche und enthält die ausführlichen Regeln mit Beispielen auf einer Seite.
 
@@ -10,7 +10,7 @@ Dieses Handbuch erklärt die **gemeinsame Onlinewelt**, ihre Bedienung und ihre 
 
 **Zum Lesen:** Die Datei **Sternenepoche-Handbuch.html** im Hauptordner lässt sich per Doppelklick öffnen und ohne Internet lesen. Die bearbeitbare Fassung liegt unter **docs/HANDBUCH.md**.
 
-**Zum Einsteigen:** Lies zuerst die Kapitel 1 bis 8. Die weiteren Kapitel erklären einzelne Regeln mit Beispielen. Wer den Server betreibt, braucht zusätzlich Kapitel 20.
+**Zum Einsteigen:** Lies zuerst die Kapitel 1 bis 8. Die weiteren Kapitel erklären einzelne Regeln mit Beispielen. Kapitel 20 führt dich durch die Verbindung mit deinem eigenen KI-Assistenten.
 
 ## 1 Worum es geht
 
@@ -35,35 +35,21 @@ Für den Anfang helfen diese Grundregeln:
 9. Das Schließen deines Browsers hält die Welt nicht an.
 10. Ein Reset beginnt eine neue Welt. Er ist kein normaler Neustart des Servers.
 
-## 2 Wie Website Server und Dashboard zusammenhängen
+## 2 Website Spielwelt und deine eigenen Agenten
 
-Es gibt drei Ebenen:
+Im Browser führst du dein Reich. Die gemeinsame Spielwelt bestätigt Befehle, berechnet Aufträge und speichert deinen Fortschritt. Unter **Agentensteuerung** kannst du zusätzlich eigene Modelle mit Aufgaben für dein Reich beauftragen.
 
-| Ebene | Aufgabe | Wer benutzt sie |
-|---|---|---|
-| Website und Browserclient | Anmeldung, Karten, Bauaufträge, Flotten und Agentensteuerung anzeigen | Alle Mitspieler und Zuschauer |
-| Rust-Spielserver | Regeln prüfen, Zeit fortschreiben, Bots ausführen und die gemeinsame Welt speichern | Läuft auf Karls PC, später auf einem VPS |
-| Lokales Verwaltungsdashboard | Welt einstellen, Konten und Bots prüfen, Backups und neue Epochen verwalten | Der Betreiber |
+| Zugang | Wofür du ihn nutzt |
+|---|---|
+| Website und Spielguide | Spiel kennenlernen, Bedienung und Regeln nachlesen |
+| [Online spielen](https://desktop-3dei636.taila4f584.ts.net/) | Anmelden, bauen, forschen, Flotten führen und dein Reich verwalten |
+| Eigene Agenten im Spiel | Deinen OpenRouter-Schlüssel oder ein lokales Ollama-Modell verbinden und Rollen zuweisen |
 
-**GitHub Pages liefert die Website und den Browserclient aus.** Der laufende Rust-Spielserver und seine Datenbank befinden sich derzeit auf dem PC. Ein Browser sendet einen Bau- oder Flottenbefehl an diesen Server. Erst wenn der Server ihn annimmt, gehört er zur gemeinsamen Welt.
+Ein eigenes Modell ist freiwillig. Du kannst alle Aufgaben selbst übernehmen. Ein Agent verwendet die Informationen und erlaubten Aktionen deines Reichs und spielt nach denselben Regeln wie du.
 
-Der öffentliche Spielzugang ist:
+Wenn du deinen Browser schließt, bleiben dein Konto und Reich erhalten. Bereits angenommene Aufträge laufen in der erreichbaren Spielwelt weiter; dein Browser-Agent benötigt dagegen einen offenen Tab und seine Modellverbindung. Bei einer Unterbrechung der Spielwelt wird die gespeicherte Welt später fortgesetzt, ohne die Ausfallzeit nachträglich durchzuspielen.
 
-- [Online spielen](https://desktop-3dei636.taila4f584.ts.net/)
-- [Website auf GitHub Pages](https://sternenepoche.github.io/)
-
-Auf dem Server-PC gibt es zusätzlich:
-
-- **Spiel:** http://127.0.0.1:8890
-- **Privates Dashboard:** http://127.0.0.1:8891
-
-Die öffentliche HTTPS-Adresse führt über **Tailscale Funnel** zum Spielserver. Die Verbindung benutzt TLS. Mitspieler benötigen dafür keine eigene Tailscale-Installation. Das Dashboard und ein lokaler Ollama-Dienst gehören nicht an diesen öffentlichen Zugang.
-
-**Wichtig für den Betrieb:** Der PC muss eingeschaltet sein, der Rust-Server muss laufen und Tailscale muss den Zugang bereitstellen. Starte den Spielserver nach einem PC-Neustart mit **Server-starten.cmd**.
-
-Wenn nur dein Browser geschlossen ist, läuft die Welt auf dem eingeschalteten Server weiter. Ist dagegen der Spielserver ausgeschaltet, wird beim nächsten Start die gespeicherte Welt fortgesetzt; die Ausfallzeit wird nicht als nachträglich durchgespielter Zeitraum aufgeholt.
-
-**Beispiel:** Du meldest dich ab, während ein Gebäude noch zwei Spielstunden braucht. Bleibt der Server an, kann es ohne dich fertig werden. Schaltet Karl den Server aus, läuft während dieser Unterbrechung keine Spielzeit weiter.
+**Beispiel:** Du meldest dich ab, während ein Gebäude noch zwei Spielstunden braucht. Das Gebäude kann ohne dich fertig werden. Dein lokales Modell gibt währenddessen keine neuen Aufträge, wenn sein Browser-Tab geschlossen ist.
 
 ## 3 Anmelden Volk wählen und einen Platz bekommen
 
@@ -71,7 +57,7 @@ Wenn nur dein Browser geschlossen ist, läuft die Welt auf dem eingeschalteten S
 
 1. Öffne den öffentlichen Spielzugang oder die Website.
 2. Du kannst zunächst zuschauen. Dafür brauchst du keinen Spielerplatz und kein Sprachmodell.
-3. In der aktuellen Testphase erhältst du ein Konto vom Betreiber. Fünf Testkonten sind vorgesehen: **LiveDemo** und vier weitere. Sie funktionieren ohne E-Mail-Bestätigung.
+3. In der aktuellen Testphase erhältst du ein Konto vom Betreiber. Dieses Konto funktioniert ohne E-Mail-Bestätigung.
 4. Gib deinen Kontonamen und dein Passwort ein und wähle **Anmelden**. Hast du einen Authenticator verbunden, trägst du zusätzlich dessen aktuellen sechsstelligen Code ein. Verwende ein langes, eigenes Passwort; mindestens zwölf Zeichen sind erforderlich.
 5. Wähle vor der Reichsgründung dein **Volk**. Lies seine Vor- und Nachteile.
 6. Wähle **Mensch**, **Agent** oder **Gemischt**.
@@ -85,7 +71,7 @@ Ein Konto allein erzeugt noch keinen Heimatplaneten. Erst der angenommene Beitri
 
 Speichere anschließend die **acht Wiederherstellungscodes** als Text. Jeder ersetzt genau einmal einen App-Code, falls dein Handy nicht verfügbar ist. Beim nächsten Login gibst du Name, Passwort und den aktuellen App-Code ein. Nach einer Anmeldung wartest du gegebenenfalls bis zum nächsten Codewechsel nach bis zu 30 Sekunden und verwendest dann den neuen Code. Die automatische Uhrzeit auf Handy und Server muss stimmen.
 
-Der QR-Code wird direkt vom Rust-Server erzeugt. Die App berechnet die Codes anschließend auch offline. Die Einrichtung funktioniert bereits am lokalen PC; beim späteren VPS-Umzug bleiben die Verbindungen erhalten, wenn Datenbank und privater Authenticator-Schlüssel gemeinsam umziehen. Unter Spielerprofil kannst du die Verbindung mit Passwort und gültigem App- oder Wiederherstellungscode entfernen.
+Der QR-Code wird direkt vom Rust-Server erzeugt. Die App berechnet die Codes anschließend auch offline. Unter Spielerprofil kannst du die Verbindung mit Passwort und gültigem App- oder Wiederherstellungscode entfernen.
 
 ### Spätere Anmeldung per E-Mail
 
@@ -95,7 +81,7 @@ Die öffentliche Neuregistrierung ist vorbereitet und derzeit **ausgeschaltet**.
 
 Die Welt hat **20 mögliche Teilnehmerplätze**. Aktuell sind **fünf** davon freigegeben. Hinzu kommen **30 Serverbots**. Die übrigen 15 Teilnehmerplätze sind zunächst gesperrt und produzieren keine Rohstoffe.
 
-Die Warteliste wird nach der Reihenfolge des Beitritts bearbeitet. Erhöht Karl die Freigabe, können wartende Konten automatisch nachrücken, auch wenn ihr Browser gerade geschlossen ist. Ein Browser-Agent startet dadurch noch nicht: Seine Modellverbindung musst du selbst im Browser aktivieren.
+Die Warteliste wird nach der Reihenfolge des Beitritts bearbeitet. Werden weitere Plätze freigegeben, können wartende Konten automatisch nachrücken, auch wenn ihr Browser gerade geschlossen ist. Ein Browser-Agent startet dadurch noch nicht: Seine Modellverbindung musst du selbst im Browser aktivieren.
 
 Solange du wartest, kannst du Volk und Spielweise ändern, ohne deinen Wartelistenplatz zu verlieren. Wer die Warteliste verlässt und später neu eintritt, stellt sich wieder hinten an.
 
@@ -191,13 +177,9 @@ Ollama läuft auf **deinem** PC. Der Browser spricht normalerweise **http://127.
 
 Nutze **Lokale Modelle suchen** und wähle den tatsächlich installierten Modellnamen. Ein ähnlicher Name oder ein frei erfundener Modellbezeichner reicht nicht.
 
-Für den Zugriff von der HTTPS-Spielseite muss Ollama den Ursprung dieser Seite erlauben. Auf Karls PC gibt es dafür das vorhandene Hilfsskript:
+Für den Zugriff von der Spielseite muss deine Ollama-Installation den Ursprung dieser Seite in **OLLAMA_ORIGINS** erlauben. Verwende die Adresse aus der Browserzeile ohne Pfad: beim GitHub-Browserclient **https://sternenepoche.github.io**, beim direkten Spielzugang **https://desktop-3dei636.taila4f584.ts.net**. Ergänze vorhandene Einträge, statt sie zu überschreiben.
 
-~~~powershell
-.\ollama-spielzugang.ps1 -GameOrigin https://desktop-3dei636.taila4f584.ts.net -Restart
-~~~
-
-Das Skript richtet die Freigabe für diesen Ursprung ein und startet Ollama neu. Es installiert weder Ollama noch ein Modell. Wer den Client direkt auf GitHub Pages benutzt, muss dessen tatsächlichen Ursprung erlauben. Der Browser kann zusätzlich nach Zugriff auf das lokale Netzwerk fragen.
+Unter Windows beendest du Ollama, öffnest **Umgebungsvariablen für dieses Benutzerkonto bearbeiten**, ergänzt **OLLAMA_ORIGINS** und startest Ollama danach erneut. Der Browser kann zusätzlich nach Zugriff auf das lokale Netzwerk fragen. Erlaube ihn für die Spielseite, wenn du dein lokales Modell verwenden möchtest. Die [offizielle Ollama-Anleitung](https://docs.ollama.com/faq) beschreibt die Freigabe und die Einrichtung unter weiteren Betriebssystemen.
 
 **Ollama bleibt lokal.** Eine Internetfreigabe seines Ports ist für den Browser-Agenten nicht erforderlich.
 
@@ -977,119 +959,35 @@ Am Ende der festgelegten Epochenzeit werden neue Spielbefehle gesperrt und der E
 
 Ein neues Reich beginnt dann mit neuer Ausgangslage. Gebäude, Flotten und Forschung der vorherigen Welt werden nicht in die neue Welt übernommen. Bestehende Konten können sich erneut anmelden, Volk und Spielweise wählen und einen freigegebenen Platz beanspruchen.
 
-## 20 Den Spielserver verwalten
+## 20 Deinen eigenen KI-Assistenten verbinden
 
-### Start und Zugang
+Die Einstellungen findest du im Spiel unter **Agentensteuerung**. Deine Modelle übernehmen freigegebene Aufgaben für dein Reich. Du entscheidest über Anbieter, Modell, Rollen und Grenzen.
 
-Die Doppelklick-Dateien liegen direkt im Hauptordner. Benutze sie auf dem Server-PC:
+### OpenRouter mit deinem eigenen Schlüssel
 
-| Datei | Was sie macht |
-|---|---|
-| **Server-starten.cmd** | Startet den Server bei Bedarf, prüft Spiel und Dashboard und öffnet das Dashboard |
-| **Dashboard-oeffnen.cmd** | Startet bei Bedarf denselben Server und öffnet seine private Verwaltung |
-| **Spiel-oeffnen.cmd** | Startet bei Bedarf denselben Server und öffnet den lokalen Spielbrowser |
-| **Server-status.cmd** | Zeigt den geprüften Serverprozess, lokale Bereitschaft und vorhandene Funnel-Konfiguration |
-| **Server-stoppen.cmd** | Beendet nur den anhand von Programm und Datenordner geprüften Spielserver |
+1. Wähle im **Spielerprofil** die Spielweise **Agent** oder **Gemischt**.
+2. Öffne **Agentensteuerung** und wähle **OpenRouter**.
+3. Trage deinen eigenen OpenRouter-Schlüssel und die genaue Modellkennung ein. Den Schlüssel gibst du ausschließlich in das dafür vorgesehene Eingabefeld ein.
+4. Wähle zunächst eine Rolle, etwa **Verwalter**, und ein kleines Aufruflimit. Setze zusätzlich beim Anbieter ein Kostenlimit.
+5. Klicke **Modell testen · keine Spielaktionen**. Der Test kann bereits einen kostenpflichtigen Modellaufruf auslösen.
+6. Prüfe die Antwort und wähle **Agent starten**. Kontrolliere seine Entscheidungen im Protokoll.
 
-**Der normale Ablauf:** Doppelklicke **Server-starten.cmd**, warte auf **Bereit** und verwalte die Welt im geöffneten Dashboard. Mit **Spiel-oeffnen.cmd** kommst du zum lokalen Spiel. Das Startfenster darf geschlossen werden: Der Dienst läuft im Hintergrund weiter. Für Mitspieler außerhalb des PCs müssen auch Tailscale und die eingerichtete HTTPS-Freigabe erreichbar sein. Der Start veröffentlicht keinen zusätzlichen Port und macht das Dashboard nicht öffentlich.
+Der Schlüssel bleibt im Arbeitsspeicher des Tabs. Nach dem Schließen musst du ihn erneut eingeben. Die Kostenanzeige im Spiel ersetzt das Limit deines Anbieterkontos nicht.
 
-Ein erneuter Doppelklick startet keinen zweiten Server für dieselbe Welt. Ein Stopp schaltet das Spiel für alle aus, bewahrt aber den gespeicherten Zustand. Ein normaler Start ist kein Reset. Bei einem Fehler bleibt die Meldung im Startfenster lesbar; prüfe den Status und die Protokolle **data/online/server.log** und **data/online/server-error.log**.
+### Ollama auf deinem eigenen Rechner
 
-**Voraussetzungen:** Windows PowerShell sowie die fertige Serverdatei **target/release/sternenepoche-server.exe**. Fehlt die Serverdatei, versucht das Startskript einen Rust-Build; dafür muss Rust/Cargo installiert sein. Ollama und ein Modell sind für den Spielserver und die Skriptbots nicht erforderlich. Ein normaler Spieler braucht nur einen Browser.
+1. Starte deine Ollama-Installation mit einem tatsächlich installierten lokalen Modell.
+2. Erlaube die Origin der Spielseite über **OLLAMA_ORIGINS** und gegebenenfalls den lokalen Netzwerkzugriff im Browser. Kapitel 6 beschreibt die Einrichtung.
+3. Wähle unter **Agentensteuerung** den Anbieter **Ollama** und prüfe die lokale Adresse, normalerweise **http://127.0.0.1:11434**.
+4. Klicke **Lokale Modelle suchen** und wähle eines deiner installierten Modelle.
+5. Weise Rollen zu, setze ein Aufruflimit und benutze den Modelltest.
+6. Starte den Agenten erst nach erfolgreichem Test. Lass seinen Tab offen und deinen Rechner wach.
 
-Der Spielserver verwendet die gespeicherte Welt unter **data/online**. Seine lokalen Zugänge sind:
+**127.0.0.1 ist hier dein eigener Rechner.** Jeder Spieler verwendet seine eigene Modellverbindung. Deine lokale Ollama-Installation muss dafür nicht im Internet veröffentlicht werden.
 
-- **http://127.0.0.1:8890** für den lokalen Spielerzugang.
-- **http://127.0.0.1:8891** für das private Verwaltungsdashboard.
-- Den öffentlichen HTTPS-Spielzugang, um den Weg für Mitspieler zu prüfen.
+### Mehrere Aufgaben und jederzeit selbst übernehmen
 
-Das Verwaltungsdashboard benutzt einen eigenen lokalen Verwaltungszugang. Ein normales Spielkonto ist kein Administratorkonto. Verwaltungskennungen, Datenbank, Backups und private Protokolle gehören nicht auf GitHub Pages.
-
-Die zentrale Datenbank heißt **data/online/spiel.sqlite3**. Sie enthält die Welt und die Konten. Ein normaler Serverneustart verwendet diese Datei weiter und erzeugt keine neue Epoche.
-
-### Die Welt einstellen
-
-Unter **Weltkontrolle** kannst du unter anderem einstellen:
-
-| Einstellung | Bedeutung |
-|---|---|
-| **Epochenlänge** | Ende der Welt in Spieltagen |
-| **Weltgeschwindigkeit** | Verhältnis von realer Zeit zu Spielzeit, 1× bis 3.600× |
-| **Welt pausiert** | Spielzeit und Ereignisse anhalten |
-| **Skriptbots aktiv** | Automatische Entscheidungen der Serverbots aktivieren |
-| **Botabstand** | Abstand der Botentscheidungen, 900 bis 86.400 Spielsekunden |
-| **Freigegebene Teilnehmerplätze** | 0 bis 20; derzeit fünf |
-| **Rettungsfristen** | Fristen für Unterversorgung und Wirtschaftsstillstand, jeweils 1 bis 720 Spielstunden |
-| **Öffentlicher Betriebshinweis** | Nachricht für Spieler, beispielsweise eine Wartungsankündigung |
-
-Nach einer Änderung musst du **Einstellungen speichern**. Eine Tempoänderung betrifft die gesamte Welt. Sie kann Angriffe, Bauaufträge und Rettungsfristen für alle real sehr viel schneller ablaufen lassen.
-
-**Beispiel:** Du möchtest zwei wartende Spieler zusätzlich zulassen. Erhöhe die Teilnehmerfreigabe von fünf auf sieben und speichere. Die nächsten passenden Konten rücken nach. Die bestehenden Reiche bleiben erhalten.
-
-Eine niedrigere Freigabe wirft bereits aktive Teilnehmer nicht automatisch hinaus. Das Abschalten der Skriptbots beendet ihre künftigen automatischen Entscheidungen; für einen vollständigen Stillstand der Welt verwendest du die Weltpause.
-
-### Spieler und Bots prüfen
-
-Unter **Spieler & Konten** kannst du Konten nach Name oder E-Mail suchen und ihren Status, Testkonto-Kennzeichnung, Authenticator-Verbindung, letzte Anmeldung und Anmeldezahl prüfen. **Details & Logs** zeigt den aktuellen erlaubten Reichsstand, Kontoereignisse und letzte Befehle; der JSON-Export macht die Daten maschinenlesbar. Passwörter werden als Argon2-Hashes gespeichert und im Dashboard nicht angezeigt. Die Datenbank liegt privat unter **data/online/spiel.sqlite3**; technische Einzelheiten stehen in [Anmeldung und Konten](ANMELDUNG-UND-KONTEN.md).
-
-Du kannst ein Reich prüfen, Konten sperren und bestimmte Reichswerte bearbeiten. Eine Kontosperre ist eine Verwaltungsmaßnahme und nicht dasselbe wie die spielmechanische Niederlage.
-
-Erstelle vor gezielten Rohstoff- oder Creditkorrekturen ein Backup. Solche Eingriffe verändern die Konkurrenzbedingungen. Halte den Grund im Verwaltungsprotokoll nachvollziehbar.
-
-Bei den **30 Skriptbots** prüfst du Strategie, letzte Entscheidungen, angenommene und abgelehnte Befehle sowie die wirtschaftliche Lage. Ein laufender Serverprozess beweist noch nicht, dass ein Bot sinnvoll handelt.
-
-**Beispiel:** Ein Bot sendet wiederholt einen unbezahlbaren Schiffsbefehl. Prüfe seinen Heimatbestand, Energie, Voraussetzungen, Budget und den Ablehnungsgrund. Falls nötig, pausiere zuerst die Welt und untersuche die Ursache.
-
-Unter **Spieleragenten** siehst du gemeldete Aufrufe, Fehler, Laufzeiten und letzte Entscheidungen. Du kannst ihre Steuerung stoppen. Die Meldungen des Browsers sind Betriebshinweise; verbindliche OpenRouter-Abrechnung kommt vom Anbieter.
-
-Die **private Weltkarte** darf dem Betreiber vollständige Informationen zeigen. Spieler und ihre Modelle erhalten weiterhin nur ihre erlaubte Sicht. Nutze Verwaltungswissen nicht als scheinbar erspähten Spielerbericht.
-
-### Warteliste und Ereignisse
-
-Die Warteliste zeigt wartende Konten und ihre Auswahl. Die normale Freigabe weiterer Plätze erfolgt über die Teilnehmerzahl.
-
-**Ereignisse & Verwaltungsprotokoll** helfen beim Prüfen von Flottenankünften, Aufträgen und Eingriffen. Bei einer Beschwerde vergleiche Zeitpunkt, angenommenen Befehl, Bericht und tatsächliches Serverereignis.
-
-**Beispiel:** Ein Spieler meint, sein Save sei rechtzeitig gewesen. Entscheidend sind der bestätigte Abflug und die gegnerische Ankunft in Spielzeit. Ein bereits geöffneter Flottenplan ist noch kein Abflug.
-
-### Backups und Wiederherstellung
-
-Unter **Backups & neue Epoche** erstellst du ein konsistentes Datenbankbackup. Sichere es zusätzlich an einem anderen geeigneten Speicherort. Auch Backups enthalten private Kontodaten.
-
-Für eine Wiederherstellung:
-
-1. Informiere die Spieler und pausiere die Welt, wenn sie noch erreichbar ist.
-2. Sichere den vorhandenen Stand.
-3. Beende den zugehörigen Spielserver kontrolliert.
-4. Bereite einen getrennten Datenordner vor und lege dort das gewählte Backup als **spiel.sqlite3** ab.
-5. Starte den Server mit diesem Datenordner und prüfe Welt, Zeit, Konten und Ereignisse.
-6. Gib den Spielbetrieb erst nach dieser Prüfung wieder frei.
-
-Kopiere nicht einfach eine offene SQLite-Datei während des Betriebs und vermische kein Backup mit fremden temporären Datenbankdateien. Die genauen Startparameter stehen im [Betriebshandbuch](SERVER-BETRIEB.md).
-
-### Eine neue Epoche beginnen
-
-Ein Reset löscht den Fortschritt dieser Welt und erzeugt eine neue Ausgangslage. Er gehört deshalb ans Epochenende oder zu einem ausdrücklich angekündigten Neustart.
-
-1. Kündige das Ende an und pausiere gegebenenfalls.
-2. Erstelle ein Backup.
-3. Prüfe unter **Regeln für nächste Epoche** die gewünschten Regeln.
-4. Lies die Reset-Vorschau.
-5. Bestätige mit **RESET** und der aktuell angezeigten Weltkennung.
-6. Prüfe neue Welt, Tempo, Bots und Teilnehmerfreigabe.
-7. Informiere die Spieler, dass sie ihr Reich neu beanspruchen müssen.
-
-Die Konten bleiben bestehen. Weltplätze, Warteliste, Anmeldesitzungen und Agentenfreigaben werden zurückgesetzt. Jeder meldet sich erneut an und wählt Volk und Spielweise für sein neues Reich. Agenten brauchen einen neuen bewussten Start.
-
-**Für einen PC-Neustart oder eine normale Programmaktualisierung ist kein Weltreset erforderlich.**
-
-### Wartung und späterer Serverumzug
-
-Für eine Aktualisierung: Betriebshinweis setzen, Welt pausieren, Backup erstellen, Server kontrolliert beenden, aktualisieren, mit derselben Datenbank starten, prüfen und danach wieder freigeben.
-
-Der Spielserver kann später mit seiner Datenbank auf einen VPS umziehen. Dort übernimmt ein dauerhafter Dienst den Start, ein HTTPS-Zugang liefert den Browserclient aus und das Dashboard bleibt privat erreichbar, beispielsweise über einen gesicherten Verwaltungstunnel.
-
-Danach hängt die Welt nicht mehr von Karls eingeschaltetem PC ab. Die lokalen Ollama-Agenten der Mitspieler laufen weiterhin auf deren eigenen PCs. Die konkreten Bereitstellungsdateien und Umzugsschritte stehen im [Betriebshandbuch](SERVER-BETRIEB.md).
+Stratege, Verwalter, Feldherr und Diplomat können unterschiedliche Anbieter oder Modelle erhalten. Starte mit einer Rolle und erweitere die Aufgaben schrittweise. Mit **Agent stoppen / Steuerung übernehmen** beendest du neue Modellentscheidungen und übernimmst selbst. Bereits bestätigte Bau- und Flugaufträge bleiben bestehen.
 
 ## 21 Häufige Probleme und ihre Lösung
 
@@ -1099,7 +997,7 @@ Du hast möglicherweise erst ein Konto angelegt. Wähle Volk und Spielweise und 
 
 ### Ich sehe im Browser nur einen Verbindungsfehler
 
-Der Server-PC, Rust-Dienst und öffentliche Zugang müssen laufen. Prüfe auf dem Server-PC zuerst den lokalen Spielerzugang. Funktioniert dieser, aber HTTPS nicht, prüfe Tailscale und die öffentliche Weiterleitung. Ein Zertifikatsfehler wird durch die korrekte TLS-Konfiguration behoben, nicht durch Abschalten der Browserprüfung.
+Prüfe deine Internetverbindung und lade den öffentlichen Spielzugang erneut. Beachte einen angezeigten Wartungshinweis. Bleibt die Spielwelt nicht erreichbar, versuche es später erneut. Dein Konto und dein bestätigter Fortschritt bleiben erhalten.
 
 ### Ein Bau oder Forschungsknopf bleibt grau
 
@@ -1179,14 +1077,8 @@ Prüfe den Status. Ein besiegtes Reich ist für diese Epoche ausgeschieden. Es k
 | **Steuerungsfreigabe** | Befristetes exklusives Recht des Browsers, Agenten für ein Reich zu führen |
 | **Reset** | Bewusster Beginn einer neuen Welt, mit Verlust des bisherigen Spielfortschritts |
 
-## 23 Wo du im Projekt weiterarbeiten kannst
+## 23 Weiterlesen und im Spiel nachschlagen
 
-Für Spieler enthält dieses Handbuch den vollständigen Einstieg und die Erklärung der zentralen Regeln. Kosten, Voraussetzungen und aktuelle Berichte findest du bei der jeweiligen Aktion in der Spieloberfläche.
+Der [bebilderte Spielguide](../Sternenepoche-Start.html) verbindet erste Schritte, alle 17 Spielbereiche und Regeln mit aktuellen Ansichten. Die genaue Einrichtung deiner eigenen Modelle steht in den Kapiteln 6 und 20.
 
-Für den Betrieb stehen die genauen Start-, Sicherungs- und Umzugsbefehle in **docs/SERVER-BETRIEB.md**. Das Zusammenspiel von Website, Server, Konten und Informationsgrenzen beschreibt **docs/ONLINE-KONZEPT.md**.
-
-Die Ausgangsregeln stehen in **regeln/online-v1.ron**. Die laufende Welt hält ihr eigenes aktives Regelprofil fest. Darum wird eine bearbeitete Regeldatei nicht allein durch das Speichern rückwirkend zum Regelwerk aller laufenden Aufträge.
-
-Die Browseroberfläche liegt in **web-client**, der Spielserver in **crates/server**, die gemeinsamen Spielregeln und Abläufe in **crates/kern**. Welt, Konten und Backups unter **data/online** sind private Betriebsdaten.
-
-Die bearbeitbare Anleitung ist **docs/HANDBUCH.md**. Aus ihr erzeugt **tools/build_handbook.py** die Datei **Sternenepoche-Handbuch.html** im Hauptordner.
+Kosten, Voraussetzungen, Flugpläne und Berichte findest du unmittelbar bei der jeweiligen Aktion im Spiel. Diese aktuellen Angaben sind maßgeblich, wenn die laufende Epoche abweichende Einstellungen verwendet.

@@ -36,3 +36,5 @@ jobs:
         run: node tools/game_ui_test.cjs
       - name: Verify deliberately public Pages sources
         run: python tools/build_pages.py
+      - name: Verify player documentation and private operator boundary
+        run: python tools/player_publication_test.py

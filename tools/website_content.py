@@ -29,10 +29,10 @@ CAPTIONS = {
 
 CHAPTER_SCREENS = {1:'reich',3:'profil',6:'agent',7:'gebaeude',8:'reich',9:'gebaeude',10:'kolonie',11:'freischaltungen',12:'karte',13:'berichte',14:'flotten',15:'kampf',16:'kolonien',17:'aktionen',18:'kolonie',19:'imperium',21:'regeln'}
 CHAPTER_ART = {
- 2:('backgrounds.command.webp','Eine gemeinsame Welt, drei Zugänge','Du bedienst dein Reich im Browser. Der Rust-Server speichert die Welt. Das private Dashboard dient dem Betreiber.'),
+ 2:('backgrounds.command.webp','Dein Reich, deine Entscheidungen','Du spielst im Browser. Eigene Modelle können über OpenRouter oder dein lokales Ollama freigegebene Aufgaben übernehmen.'),
  4:('portraits.veyari.veyari.webp','Dein Volk verändert deine Planung','Volksboni verschieben Stärken und Schwächen. Wähle bewusst: Das Volk bleibt für diese Epoche festgelegt.'),
  5:('role_portraits.stratege.aurelianer.webp','Vier Aufgaben für eine Regierung','Stratege, Verwalter, Feldherr und Diplomat können menschlich oder von einem Modell geführt werden. Serverbots sind eigenständige Reiche.'),
- 20:('backgrounds.archive.webp','Der Betreiber bewahrt die Welt','Ein Neustart setzt den gespeicherten Stand fort. Eine neue Epoche ist ein ausdrücklicher Reset; sichere vorher ein Backup.'),
+ 20:('role_portraits.verwalter.aurelianer.webp','Deine Modelle arbeiten für dein Reich','Verbinde deinen eigenen Anbieter, wähle Modelle und Rollen, teste die Verbindung und behalte die Entscheidungen im Blick.'),
  22:('ships.spionagesonde.aurelianer.webp','Von der Sonde zum Saven','Die Begriffe gehören zusammen: Aufklärung liefert Wissen, Flüge kosten Zeit und Treibstoff, Versorgung hält dein Reich handlungsfähig.'),
 }
 

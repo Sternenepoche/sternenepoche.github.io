@@ -51,7 +51,7 @@ def prepare(out:Path):
     out.mkdir(parents=True,exist_ok=False)
     approved=[]
     tracked=set(subprocess.check_output(['git','ls-files','-z'],cwd=ROOT).decode('utf-8').split('\0'))
-    for name in ['index.html','Bestandsaufnahme.html','KI-Hinweis.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html','_config.yml','llms.txt','robots.txt','sitemap.xml','docs/spielguide.json','docs/spielguide.txt','docs/branding/animation.json','docs/branding/DESIGN.txt','docs/branding/sternenepoche-neuralstern-512.gif']:
+    for name in ['index.html','KI-Hinweis.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html','_config.yml','llms.txt','robots.txt','sitemap.xml','docs/HANDBUCH.md','docs/spielguide.json','docs/spielguide.txt','docs/branding/sternenepoche-neuralstern-512.gif']:
         file=ROOT/name
         if file.is_file(): approved.append(file)
     # Deliberate file list: the sibling admin directory must never be packaged.
@@ -69,10 +69,12 @@ def prepare(out:Path):
             image=ROOT/'web-client'/name
             if image.relative_to(ROOT).as_posix() not in tracked: raise ValueError('Untracked public image')
             approved.append(image)
-    for folder in ['_layouts','docs','betrachter']:
+    # Only player-facing documentation and explicitly public artwork are shipped.
+    # In particular: no recursive docs export, historical viewer, inventories or awarre.html.
+    for folder in ['_layouts','docs/bilder/online','docs/branding','docs/artwork']:
         approved.extend(p for p in (ROOT/folder).rglob('*') if p.is_file() and p.suffix.lower() in EXT
+                        and (folder=='_layouts' or p.suffix.lower() in {'.svg','.png','.jpg','.jpeg','.webp','.ico','.gif'})
                         and p.relative_to(ROOT).as_posix() in tracked
-                        and p.relative_to(ROOT).as_posix() not in {'docs/startseite.html','docs/landingpage.html','docs/loading-screen.html','docs/site-theme.css','docs/site-motion.js'}
                         and not p.is_symlink() and not any(s in {'data','saves','keys','geheimnisse'} for s in p.parts))
     for file in approved:
         # Resolve before reading to reject links/junctions into runtime data.
@@ -104,7 +106,18 @@ def prepare(out:Path):
     if compact.is_file() and compact.stat().st_size>1100000: raise ValueError('Public GIF exceeds 1.1 MB')
     if compact.is_file():
         shutil.copyfile(compact,compact.with_name('sternenepoche-neuralstern-1280.gif'))
+    verify_player_publication(out)
     return len(approved)
+
+def verify_player_publication(out:Path):
+    """Fail closed if operator instructions leak into any public text representation."""
+    forbidden=re.compile(r'8891|Dashboard-oeffnen|Server-starten\.cmd|Server-stoppen\.cmd|Server-status\.cmd|SERVER-BETRIEB|ONLINE-KONZEPT|ANMELDUNG-UND-KONTEN|awarre\.html|Verwaltungsdashboard|privates? Dashboard|Karls PC|Für Karl|data/online|[A-Za-z]:[\\/]projekte_ki',re.I)
+    for file in out.rglob('*'):
+        if file.is_file() and file.suffix.lower() in {'.html','.md','.txt','.json','.xml'}:
+            match=forbidden.search(file.read_text(encoding='utf-8-sig'))
+            if match: raise ValueError(f'Operator content in public file {file.relative_to(out)}: {match.group()}')
+    for name in ['awarre.html','web-client/admin','docs/SERVER-BETRIEB.md','docs/ONLINE-KONZEPT.md','betrachter','Bestandsaufnahme.html']:
+        if (out/name).exists(): raise ValueError('Private/retired document packaged: '+name)
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--out',type=Path,default=ROOT/'.pages-artifact/source')
     args=parser.parse_args();print(f'{prepare(args.out)} public files prepared; no runtime data or admin UI.')

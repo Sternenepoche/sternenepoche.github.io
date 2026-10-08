@@ -142,9 +142,9 @@ strong{font-weight:650}
 .screen-panel .screenshot{margin-top:22px}
 .screen-panel h3{margin-bottom:20px}
 .screen-select{display:none}
-.section[id="server-start"]{padding-block:70px;background:#0a1420aa}
-.section[id="server-start"] .section-heading{margin-bottom:25px}
-.section[id="server-start"] h2{font-size:36px}
+.section[id="agent-setup"]{padding-block:70px;background:#0a1420aa}
+.section[id="agent-setup"] .section-heading{margin-bottom:25px}
+.section[id="agent-setup"] h2{font-size:36px}
 .final-cta{position:relative;isolation:isolate;text-align:center;padding-block:110px;overflow:hidden;background:radial-gradient(ellipse at 50% 70%,#164e5b40,transparent 70%)}
 .final-cta::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(#050b1480,#050b14c0),url("asset://backgrounds.command.webp") center/cover;opacity:.7}
 .final-cta h2{font-size:clamp(36px,5vw,64px)}
