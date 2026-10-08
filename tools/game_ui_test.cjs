@@ -19,7 +19,8 @@ assert.equal(c.duration(3601),'01:00:01');
 let html=fs.readFileSync('web-client/index.html','utf8');let ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
 assert.equal(ids.length,new Set(ids).size,'duplicate IDs make live forms ambiguous');
 for(const tab of [...html.matchAll(/data-tab="([^"]+)"/g)])assert(ids.includes(tab[1]),'navigation target missing: '+tab[1]);
-assert.equal([...html.matchAll(/data-tab="/g)].length,17);
+const navTargets=new Set([...html.matchAll(/data-tab="([^"]+)"/g)].map(m=>m[1]));
+for(const tab of ['reich','gebaeude','kolonie','forschen','werft','verteidigung','flotten','karte','kolonien','kampf','aktionen','berichte','imperium','freischaltungen','agent','profil','regeln','briefkasten','allianzbereich','allianzpost'])assert(navTargets.has(tab),'required navigation missing: '+tab);
 assert(html.includes('minlength="12"'),'registration password policy regressed');
 const art=vm.createContext({window:{}});vm.runInContext(fs.readFileSync('web-client/art.js','utf8'),art);
 assert.equal(Object.keys(art.window.STERNEN_ART.images).length,402);
@@ -33,7 +34,7 @@ for(let n=1;n<=12;n++){const a=m.orbit(n,0),b=m.orbit(n,30);assert(Math.abs(Math
 const redacted=m.planets({system:2,plaetze:[{position:1,bekannt:false,zone:'leben',spieler:'SECRET',bestand:{erz:999}}]},1,12);
 assert.equal(redacted.length,12);assert(!JSON.stringify(redacted).includes('SECRET'));assert(!JSON.stringify(redacted).includes('erz'));assert(!redacted[0].zone);
 const known=m.planets({system:2,plaetze:[{position:1,bekannt:true,zone:'frost',status:'frei'}]},1,12);assert.equal(known[0].zone,'frost');assert.equal(known[0].koord,'1:2:1');
-const owners=new Map();for(const file of ['app.js','presentation.js','game-ui.js'])for(const match of fs.readFileSync('web-client/'+file,'utf8').matchAll(/^function (\w+)\(/gm)){assert(!owners.has(match[1]),'ambiguous renderer owner '+match[1]);owners.set(match[1],file);}
+const owners=new Map();for(const file of ['app.js','presentation.js','game-ui.js','communication.js'])for(const match of fs.readFileSync('web-client/'+file,'utf8').matchAll(/^function (\w+)\(/gm)){assert(!owners.has(match[1]),'ambiguous renderer owner '+match[1]);owners.set(match[1],file);}
 for(const file of ['three.min.js','galaxy.js','galaxy.css'])assert(html.includes(file));
-console.log('PASS: authoritative timer interpolation, pause, disconnect, stale cap, unrest, queue, 17 navigation targets, unique HTML IDs, 402 packaged assets and reduced motion.');
+console.log('PASS: authoritative timer interpolation, pause, disconnect, stale cap, unrest, queue, required navigation including communication, unique HTML IDs, 402 packaged assets and reduced motion.');
 console.log('PASS: 120 distinct 3D system positions, 12 moving circular orbits, unknown-planet redaction and single renderer ownership.');

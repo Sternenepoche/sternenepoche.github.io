@@ -45,6 +45,7 @@ impl Welt {
             v["spieler"]=json!(self.spieler[sid as usize].name);
             v["felder"]=json!(p.felder); v["zone"]=json!(p.zone.name());
             v["heimat"]=json!(p.heimat);v["besiegt"]=json!(self.ist_besiegt(sid));
+            v["beziehung"]=self.beziehung(sid,sid);
             return v;
         }
         if let Some(s) = self.scans.get(&(sid,k)) {
@@ -65,6 +66,7 @@ impl Welt {
             v["felder"]=json!(e.felder); v["alter_stunden"]=json!((self.zeit-e.zeit)/STUNDE);
             v["ertrag_promille"]=json!({"erz":intervall(e.reich_erz,800),"kristall":intervall(e.reich_kristall,800)});
         }
+        if let Some(name)=v["spieler"].as_str(){if let Ok(owner)=self.spieler_nach_name(name){v["beziehung"]=self.beziehung(sid,owner);}}
         v
     }
 }

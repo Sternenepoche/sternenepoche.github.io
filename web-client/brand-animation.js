@@ -61,3 +61,64 @@ function edgeSignal(t){
 function draw(t){const open=smooth((t-1.6)/1.9)*(1-smooth((t-10.4)/2.15)),opacity=smooth((t-2.9)/1)*(1-smooth((t-10.35)/1.3));ctx.setTransform(SIZE/1280,0,0,SIZE/1280,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';background(t,open);network(t,opacity);emblem(t,open);edgeSignal(t);}
 return {ready,draw,duration:DURATION,layers:counts};
 };
+
+// One complete visible cycle, then a quiet interval measured from its end.
+// Dependencies are injectable so the 60-minute boundary can be tested without waiting an hour.
+window.createNeuralStarSchedule=function({draw,duration,now=()=>performance.now(),random=Math.random,
+  later=setTimeout,cancel=clearTimeout,request=requestAnimationFrame,cancelFrame=cancelAnimationFrame}){
+ const delay=(min,max)=>min+Math.min(1,Math.max(0,random()))*(max-min);
+ let due=Math.max(now(),delay(0,30000)),phase='waiting',active=false,elapsed=0,started=0,timer=0,frame=0,lastDraw=-Infinity,disposed=false;
+ function clear(){cancel(timer);cancelFrame(frame);timer=frame=0;}
+ function plan(){if(active&&!disposed&&phase==='waiting')timer=later(begin,Math.max(0,due-now()));}
+ function begin(){timer=0;if(!active||disposed)return;phase='playing';elapsed=0;started=now();lastDraw=-Infinity;draw(0);frame=request(tick);}
+ function tick(){
+  frame=0;if(!active||disposed)return;
+  const time=now(),seconds=(elapsed+time-started)/1000;
+  if(seconds>=duration){draw(duration);phase='waiting';elapsed=0;due=time+delay(300000,3600000);plan();return;}
+  if(time-lastDraw>=1000/30){draw(seconds);lastDraw=time;}
+  frame=request(tick);
+ }
+ return {
+  setActive(value){
+   if(disposed||active===value)return;
+   if(active&&phase==='playing')elapsed+=now()-started;
+   active=value;clear();
+   if(active){if(phase==='playing'){started=now();frame=request(tick);}else plan();}
+  },
+  destroy(){clear();active=false;disposed=true;},
+  get state(){return {phase,active,due,elapsed};}
+ };
+};
+
+(() => {
+ const mark=document.querySelector('[data-sidebar-logo]');if(!mark)return;
+ const canvas=mark.querySelector('canvas'),poster=mark.querySelector('img');
+ const motion=matchMedia('(prefers-reduced-motion: reduce)');
+ let renderer,visible=false,requested=false,stopped=false;
+ const schedule=window.createNeuralStarSchedule({duration:18,draw:time=>{
+  renderer.draw(time);canvas.hidden=false;poster.hidden=true;
+ }});
+ async function prepare(){
+  requested=true;
+  try{
+   const texture=new Image();texture.src=canvas.dataset.neuralSource;
+   try{await texture.decode();}catch{texture.src=canvas.dataset.neuralFallback;await texture.decode();}
+   const prepared=window.createNeuralStar(canvas,texture,Math.min(512,Math.max(192,Math.ceil(mark.clientWidth*(window.devicePixelRatio||1)))));
+   await prepared.ready;if(stopped)return;renderer=prepared;
+   renderer.draw(0);sync();
+  }catch{renderer=null;canvas.hidden=true;poster.hidden=false;}
+ }
+ function sync(){
+  const active=visible&&!document.hidden&&!motion.matches&&!stopped;
+  if(active&&!requested)prepare();
+  schedule.setActive(active&&!!renderer);
+  // A reduced-motion preference also replaces a partially opened emblem with its still image.
+  if(motion.matches){canvas.hidden=true;poster.hidden=false;}
+ }
+ const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync();});
+ observer.observe(mark);
+ document.addEventListener('visibilitychange',sync);
+ motion.addEventListener('change',sync);
+ window.addEventListener('pagehide',event=>{schedule.setActive(false);if(!event.persisted){stopped=true;schedule.destroy();observer.disconnect();}});
+ window.addEventListener('pageshow',sync);
+})();

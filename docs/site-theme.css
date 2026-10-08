@@ -360,3 +360,5 @@ picture{display:contents}
 body[data-motion="paused"] .brand-symbol,body[data-motion="paused"] .brand-glint::after,body[data-page-hidden="true"] .brand-symbol,body[data-page-hidden="true"] .brand-glint::after{animation-play-state:paused}
 @media(prefers-reduced-motion:reduce){.brand-symbol,.brand-glint::after{animation:none!important}}
 @media(max-width:480px){.brand-symbol{width:36px;height:36px;flex-basis:36px}}
+.team-guide-figure{margin:28px 0;padding:16px;border:1px solid #749bbb55;border-radius:12px;background:#17283718}.team-guide-figure img{display:block;max-width:100%;max-height:880px;width:auto;height:auto;margin:0 auto;border-radius:8px}.team-guide-figure figcaption{line-height:1.7;margin-top:14px;font-size:.95rem}.team-guide-figure a{display:block}
+#agent-setup .guide-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}#agent-setup .operator-box{min-width:0}@media(max-width:900px){#agent-setup .guide-grid{grid-template-columns:1fr}}

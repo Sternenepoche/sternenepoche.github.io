@@ -55,7 +55,7 @@ def prepare(out:Path):
         file=ROOT/name
         if file.is_file(): approved.append(file)
     # Deliberate file list: the sibling admin directory must never be packaged.
-    for name in ['index.html','app.js','identity-ui.js','identity-ui.css','presentation.js','style.css','config.js','game-ui.js','game.css','art.js','three.min.js','galaxy.js','galaxy.css','ai-labels.js','loading-screen.css','loading-screen.js','brand-animation.js','loading-no-js.css','brand/neuralstern-panels.webp','brand/neuralstern-panels.png','brand/neuralstern-poster.jpg']:
+    for name in ['index.html','app.js','identity-ui.js','identity-ui.css','presentation.js','style.css','config.js','game-ui.js','communication.js','agent-team.js','agent-team.css','agenten-hilfe.html','guide/team-01-modelle.webp','guide/team-02-ollama.webp','guide/team-03-openrouter.webp','guide/team-04-rollen.webp','guide/team-05-browserfreigabe.webp','guide/team-06-pinwaende.webp','guide/anfragen.webp','guide/gruenden.webp','guide/schreiben.webp','guide/chat.webp','guide/briefkasten.webp','guide/allianz.webp','guide/wirtschaft.webp','guide/hilfe.webp','guide/allianzpost.webp','game.css','art.js','three.min.js','galaxy.js','galaxy.css','ai-labels.js','loading-screen.css','loading-screen.js','brand-animation.js','loading-no-js.css','brand/neuralstern-panels.webp','brand/neuralstern-panels.png','brand/neuralstern-poster.jpg']:
         file=ROOT/'web-client'/name
         if file.is_file(): approved.append(file)
     # Exact reviewed image manifest, never the whole web-client directory.
@@ -71,7 +71,7 @@ def prepare(out:Path):
             approved.append(image)
     # Only player-facing documentation and explicitly public artwork are shipped.
     # In particular: no recursive docs export, historical viewer, inventories or awarre.html.
-    for folder in ['_layouts','docs/bilder/online','docs/branding','docs/artwork']:
+    for folder in ['_layouts','docs/bilder/online','docs/bilder/kommunikation','docs/bilder/team','docs/branding','docs/artwork']:
         approved.extend(p for p in (ROOT/folder).rglob('*') if p.is_file() and p.suffix.lower() in EXT
                         and (folder=='_layouts' or p.suffix.lower() in {'.svg','.png','.jpg','.jpeg','.webp','.ico','.gif'})
                         and p.relative_to(ROOT).as_posix() in tracked

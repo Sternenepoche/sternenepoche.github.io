@@ -325,6 +325,7 @@ pub enum EreignisArt {
     // Append only: historical bincode enum discriminants remain unchanged.
     MarktlieferungGebunden { planet: PlanetId, empfaenger: SpielerId, gut: Gut, menge: i64 },
     SensorKontakt { flotte: FlottenId },
+    InterneLieferung { angebot: u64 },
 }
 
 /// Ereignis in der Prioritätswarteschlange. Der Schlüssel aus Zeit, Priorität und
@@ -496,6 +497,8 @@ pub struct Tageswerte {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Welt {
     #[serde(skip)]
+    pub kommunikation: crate::kommunikation::Kommunikation,
+    #[serde(skip)]
     pub ausscheiden: crate::ausscheiden::AusscheidenZustand,
     #[serde(skip)]
     pub aufklaerung: crate::aufklaerung::Aufklaerungszustand,
@@ -630,6 +633,7 @@ impl Welt {
         mischen(&mut rng, &mut voelker);
 
         let mut welt = Welt {
+            kommunikation: Default::default(),
             ausscheiden: Default::default(),
             aufklaerung: crate::aufklaerung::Aufklaerungszustand::neu(regeln.gebaeude.contains_key(&Gebaeude::Geheimdienst)),
             kolonisation: Default::default(),
@@ -820,6 +824,7 @@ impl Welt {
     pub fn plane(&mut self, zeit: SimZeit, art: EreignisArt) {
         let prio = match art {
             EreignisArt::SensorKontakt { .. } => 0,
+            EreignisArt::InterneLieferung { .. } => 4,
             EreignisArt::BauFertig { .. } => 1,
             EreignisArt::FertigungFertig { .. } | EreignisArt::RaketenFertig { .. } => 2,
             EreignisArt::FlotteRueckkehr { .. } => 3,

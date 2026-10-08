@@ -37,7 +37,7 @@ Für den Anfang helfen diese Grundregeln:
 
 ## 2 Website Spielwelt und deine eigenen Agenten
 
-Im Browser führst du dein Reich. Die gemeinsame Spielwelt bestätigt Befehle, berechnet Aufträge und speichert deinen Fortschritt. Unter **Agentensteuerung** kannst du zusätzlich eigene Modelle mit Aufgaben für dein Reich beauftragen.
+Im Browser führst du dein Reich. Die gemeinsame Spielwelt bestätigt Befehle, berechnet Aufträge und speichert deinen Fortschritt. Unter **Modelle & Team** kannst du zusätzlich eigene Modelle mit Aufgaben für dein Reich beauftragen.
 
 | Zugang | Wofür du ihn nutzt |
 |---|---|
@@ -154,28 +154,28 @@ Wähle **Gemischt** und gib beispielsweise nur die Rolle **Verwalter** an den Ag
 
 Solange eine Agentenrolle aktiv übernommen ist, sperrt der Server die entsprechenden menschlichen Befehle. Das verhindert, dass zwei Steuerungen dieselbe Aufgabe gleichzeitig bearbeiten. Bei Befehlen mit mehreren zulässigen Rollen kann eine freie menschliche Zuständigkeit bestehen bleiben.
 
-**Beispiel:** Dein Verwalter-Agent plant die nächste Mine. Du willst stattdessen dringend die Farm reparieren. Wähle zunächst **Agent stoppen / Steuerung übernehmen**, prüfe bereits angenommene Aufträge und erteile dann deinen Befehl. Das Stoppen nimmt bereits angenommene Bauaufträge oder gestartete Flotten nicht zurück.
+**Beispiel:** Dein Verwalter-Agent plant die nächste Mine. Du willst stattdessen dringend die Farm reparieren. Wähle zunächst **Team stoppen**, prüfe bereits angenommene Aufträge und erteile dann deinen Befehl. Das Stoppen nimmt bereits angenommene Bauaufträge oder gestartete Flotten nicht zurück.
 
 ## 6 Einen Agenten korrekt einrichten
 
 ### Der Ablauf im Browser
 
-1. Wähle unter **Spielerprofil** die Spielweise **Agent** oder **Gemischt**.
-2. Öffne **Agentensteuerung**.
-3. Wähle Anbieter, genaues Modell und die gewünschten Rollen.
-4. Setze zunächst ein kleines Aufruflimit und einen überschaubaren Abstand.
-5. Benutze **Modell testen · keine Spielaktionen**.
-6. Prüfe, ob eine gültige Antwort kommt und das Modell die Aufgabe versteht.
-7. Wähle erst danach **Agent starten**.
-8. Kontrolliere Protokoll, angenommene und abgelehnte Befehle sowie Versorgung und Vorräte.
+Die ausführliche Anleitung mit markierten Bildern, genauen Eingaben und Fehlerhilfe steht in **Kapitel 20**. Du kannst deine Verbindung schon vor Anmeldung und Spielplatz unter **Eigene KI vorab einrichten und testen** prüfen.
 
-Der Modelltest führt keine Spielbefehle aus. Bei OpenRouter ist er trotzdem ein echter Modellaufruf und kann Kosten verursachen.
+1. Öffne **Modelle & Team**, füge bis zu vier benannte Modellkonfigurationen hinzu und wähle jeweils Ollama oder OpenRouter.
+2. Lade die Modellliste, wähle die genaue Modell-ID und teste jede verwendete Konfiguration über **Verbindung & JSON-Antwort testen**.
+3. Wähle im Spielerprofil **Gemischt**, wenn du Rollen selbst zuordnen möchtest, oder **Agent**, wenn die Modelle ihre Aufgaben beim Start miteinander beraten sollen.
+4. Ordne Modelle den vier Rollen zu. Ein Modell darf mehrere Rollen übernehmen. Bearbeite bei Bedarf **soul.md** und **rollen.md** direkt an der Rolle.
+5. Speichere Team und Pinwände, prüfe die Limits und klicke **Team starten / fortsetzen**. Ein reines Agententeam benötigt genügend Aufrufe für seine Beratung und die anschließenden Züge.
+6. Kontrolliere bestätigte Übergaben und Spielzustand. Stoppen nimmt bereits bestätigte Spielaufträge nicht zurück.
+
+Der Test führt keine Spielbefehle aus. Bei OpenRouter ist er trotzdem ein echter, möglicherweise kostenpflichtiger Modellaufruf. Nach Neuladen werden Schlüssel erneut eingegeben und Modelle erneut getestet; gespeicherte Texte und Pinwände bleiben im Konto.
 
 ### Lokale Modelle über Ollama
 
 Ollama läuft auf **deinem** PC. Der Browser spricht normalerweise **http://127.0.0.1:11434** an. Die Adresse 127.0.0.1 bezeichnet dabei immer den Computer des jeweiligen Spielers.
 
-Nutze **Lokale Modelle suchen** und wähle den tatsächlich installierten Modellnamen. Ein ähnlicher Name oder ein frei erfundener Modellbezeichner reicht nicht.
+Nutze **Modelle laden** und wähle den tatsächlich installierten Modellnamen. Ein ähnlicher Name oder ein frei erfundener Modellbezeichner reicht nicht.
 
 Für den Zugriff von der Spielseite muss deine Ollama-Installation den Ursprung dieser Seite in **OLLAMA_ORIGINS** erlauben. Verwende die Adresse aus der Browserzeile ohne Pfad: beim GitHub-Browserclient **https://sternenepoche.github.io**, beim direkten Spielzugang **https://desktop-3dei636.taila4f584.ts.net**. Ergänze vorhandene Einträge, statt sie zu überschreiben.
 
@@ -203,7 +203,7 @@ Die Rollen können bei Bedarf unterschiedliche Modelle oder Anbieter benutzen. B
 
 Dieser Agent läuft im Browser. Der Tab muss geöffnet bleiben, der PC darf nicht schlafen und der Modellzugang muss erreichbar sein. Hintergrunddrosselung, ein Neuladen oder eine unterbrochene Verbindung können ihn anhalten. Ein Browser-Agent wird beim Schließen nicht automatisch durch einen Serverbot ersetzt.
 
-Eine befristete Steuerungsfreigabe verhindert doppelte Agentensteuerung. Sie läuft nach 90 realen Sekunden ohne Erneuerung aus; ein aktiver Browser erneuert sie normalerweise alle 20 Sekunden. Mit **Steuerung übernehmen** kannst du eine laufende Agentensteuerung beenden.
+Eine befristete Steuerungsfreigabe verhindert doppelte Agentensteuerung. Sie läuft nach 90 realen Sekunden ohne Erneuerung aus; ein aktiver Browser erneuert sie normalerweise alle 20 Sekunden. Mit **Team stoppen** kannst du eine laufende Agentensteuerung beenden.
 
 ### Die zusätzlichen Agentenbudgets
 
@@ -261,7 +261,7 @@ Wechsle zu **Flotten & Saven → Neue Flotte planen**. Prüfe **Start**, **Ziel*
 
 ### 07 Ankunft, Bericht und Rückkehr auseinanderhalten
 
-Verfolge die Sonde in **Flotten & Saven → Eigene Flotten**. Nach der Ankunft öffnest du **Nachrichten & Berichte** und liest den neuen Spionagebericht. Achte auf Ziel, Zeitstempel, Planetentyp, Belegung und tatsächlich beobachtete Ressourcen. Eine geringe Aufklärungstiefe kann Schiffe, Verteidigung oder Forschung unbekannt lassen.
+Verfolge die Sonde in **Flotten & Saven → Eigene Flotten**. Nach der Ankunft öffnest du **Berichte** und liest den neuen Spionagebericht. Achte auf Ziel, Zeitstempel, Planetentyp, Belegung und tatsächlich beobachtete Ressourcen. Eine geringe Aufklärungstiefe kann Schiffe, Verteidigung oder Forschung unbekannt lassen.
 
 **Deine nächste Entscheidung:** Ein freier Planet ist ein möglicher späterer Koloniestandort. Ein bewohnter Planet kann Handelspartner oder militärisches Risiko sein. Ein fehlender Eintrag beweist keine leere Flotte oder leere Verteidigung. Prüfe anschließend die Rückkehr deiner Sonde; ein Bericht allein macht sie nicht sofort wieder verfügbar.
 
@@ -269,11 +269,11 @@ Für ein unbekanntes anderes Sonnensystem führst du zuerst **System erkunden ·
 
 ### 08 Den Aufbau zum wiederholbaren Spielablauf machen
 
-Beginne jede weitere Sitzung mit **Übersicht → Versorgung → Nachrichten & Berichte**. Reagiere auf Warnungen, prüfe Bestände und Aufträge und entscheide danach über Ausbau, Forschung, Handel oder Flüge. Kontrolliere nach einer Aktion ihr Ergebnis im zuständigen Bereich. Die Welt läuft bei geöffnetem Server auch während deiner Abwesenheit weiter.
+Beginne jede weitere Sitzung mit **Übersicht → Versorgung → Berichte**. Reagiere auf Warnungen, prüfe Bestände und Aufträge und entscheide danach über Ausbau, Forschung, Handel oder Flüge. Kontrolliere nach einer Aktion ihr Ergebnis im zuständigen Bereich. Die Welt läuft bei geöffnetem Server auch während deiner Abwesenheit weiter.
 
 Plane früh einen freien Flottenplatz und Deuterium für einen Save ein. Stelle keine große Flotte auf, deren täglichen Unterhalt du nicht bezahlen kannst. Eine Kolonie ist ein späteres Vorhaben mit eigenem Schiff, Eskorte, 3.000 Siedlern und Startfracht. Bereite sie über die Checkliste unter **Kolonisation** vor.
 
-**Wenn du KI dazunehmen möchtest:** Wechsle im **Spielerprofil** zu **Gemischt**, aktiviere unter **Agentensteuerung** zunächst nur den **Verwalter**, teste das Modell und starte es mit kleinem Aufruflimit. Prüfe seine tatsächlichen Befehle und deine Versorgung. Zum eigenen Eingreifen in seine Aufgaben benutzt du zuerst **Agent stoppen / Steuerung übernehmen**.
+**Wenn du KI dazunehmen möchtest:** Wechsle im **Spielerprofil** zu **Gemischt**, aktiviere unter **Modelle & Team** zunächst nur den **Verwalter**, teste das Modell und starte es mit kleinem Aufruflimit. Prüfe seine tatsächlichen Befehle und deine Versorgung. Zum eigenen Eingreifen in seine Aufgaben benutzt du zuerst **Team stoppen**.
 
 ## 8 Die Oberfläche richtig lesen
 
@@ -291,11 +291,15 @@ Die Rohstoffleiste zeigt die Vorräte des **rechts ausgewählten eigenen Planete
 | **Galaxie** | Räumliche Karte, Systeme, Planeten und bekannte Informationen |
 | **Kolonisation** | Kolonieplanung, Startfracht, Integrität und Reparaturen |
 | **Kampf & Verbände** | Kampfplanung, Simulation und gemeinsame Angriffe |
-| **Markt & Diplomatie** | Angebote, Verträge, Bündnisse und weitere Regierungsbefehle |
-| **Nachrichten & Berichte** | Nachrichten, Spionage-, Kampf- und Ereignisberichte |
+| **Markt** | Öffentliche Angebote, Vertragsverwaltung und weitere Regierungsbefehle |
+| **Briefkasten** | Private Post und diplomatische Anfragen |
+| **Allianz** | Gründung, Mitglieder, Chat, interne Wirtschaft und Hilferufe |
+| **Allianzpost · Führung** | Geschützte Verhandlungen zwischen Allianzen |
+| **Berichte** | Spionage-, Kampf- und Ereignisberichte |
 | **Imperiumsvergleich** | Rangliste und Vergleich der öffentlich sichtbaren Reichswerte |
 | **Technologiebaum** | Abhängigkeiten von Gebäuden, Forschung und Einheiten |
-| **Agentensteuerung** | Modelle, Rollen, Tests, Start, Stopp und Aufrufprotokoll |
+| **Modelle & Team** | Bis zu vier Modelle, Verbindungstests, soul.md/rollen.md, Start und bestätigte Übergaben |
+| **Pinwände** | Dauerhaftes Wissen, mehrere Wände, Karten, Ziele und Teamabsprachen |
 | **Spielerprofil** | Spielweise und persönliche Darstellung |
 | **Spielanleitung** | Hilfe innerhalb der Oberfläche |
 
@@ -303,7 +307,7 @@ Gesperrte Kacheln sind grau und nennen fehlende Voraussetzungen. Ein Klick auf e
 
 Unter **Spielerprofil** kannst du Systemvorgabe, Uhrzeigerdarstellung oder eine ruhige Darstellung wählen. Die Animation verändert keine Bauzeit. Ein Auftrag gilt erst als abgeschlossen, wenn der Server ihn bestätigt.
 
-Für seltenere Befehle gibt es unter **Markt & Diplomatie** den Bereich **Weitere Regierungs- und Flottenbefehle**, etwa für Doktrin, Prioritäten oder besonderen Flottennachschub.
+Für seltenere Befehle gibt es unter **Markt** den Bereich **Weitere Regierungs- und Flottenbefehle**, etwa für Doktrin, Prioritäten oder besonderen Flottennachschub.
 
 **Beispiel:** Du siehst 4.000 Erz auf Planet A und möchtest auf Planet B bauen. Das Erz von A steht B nicht automatisch zur Verfügung. Du musst B auswählen und gegebenenfalls einen Transport organisieren.
 
@@ -407,23 +411,39 @@ Für seltenere Befehle gibt es unter **Markt & Diplomatie** den Bereich **Weiter
 
 **Gemeinsam angreifen:** Bei einer eigenen Angriffsflotte gibt es **Verband eröffnen**. Ein berechtigter Partner trägt im Verbandsformular die eigene Flottenkennung und die **Führungsflotte** ein und benutzt **Verband beitreten**. Ziel, Beziehung und rechtzeitige gemeinsame Ankunft müssen passen. Ein Bündnis allein synchronisiert keine Flotten.
 
-### Markt & Diplomatie
+### Markt
 
-**Hier findest du:** Handel, private Nachrichten, Verträge, Allianzen und **Weitere Regierungs- und Flottenbefehle**. Für den Markt brauchst du die passende Zivilisationsstufe und einen Markt; eine Order benötigt einen tatsächlichen Gegenhandel.
+**Hier findest du:** Den öffentlichen Markt, Vertragsverwaltung und **Weitere Regierungs- und Flottenbefehle**. Für den Markt brauchst du die passende Zivilisationsstufe und einen Markt; eine Order benötigt einen tatsächlichen Gegenhandel.
 
 **So handelst du:** Wähle im Marktformular **Planet**, **Gut**, **Order** als Kaufen oder Verkaufen, **Menge** und **Preis je Einheit**. Prüfe Gesamtbetrag und Gebühren. Mit **Order einstellen** stellst du ein Angebot ein. Bei Kauf wird Geld, bei Verkauf Ware gebunden. Ein Abschluss braucht einen passenden Partner; die Lieferung folgt anschließend ihren Flug- und Blockaderegeln.
 
-**So vereinbarst du etwas:** Wähle beim Vertrag **Partner**, **Vertrag** und **Kaution**, dann **Vertrag anbieten**. Der andere Spieler muss das Angebot bearbeiten. Für eine Allianz wählst du Aktion und Namen und bestätigst **Allianzaktion ausführen**. Eine Nachricht sendest du mit Empfängernamen und Text über **Nachricht senden**.
+**Verträge mit Kaution:** Wähle **Partner**, **Vertrag** und **Kaution**, dann **Vertrag anbieten**. Der andere Spieler muss das Angebot bearbeiten. Persönliche Korrespondenz und einfache diplomatische Anfragen liegen im **Briefkasten**.
 
 **Weitere Befehle verwenden:** Klappe **Weitere Regierungs- und Flottenbefehle** auf, wähle **Befehl**, fülle die dazu angezeigten Felder aus und benutze **Befehl ausführen**. Hier liegen etwa Stufenaufstieg, Steuern, Doktrin, Raketen, Bombardieren und besonderer Flottennachschub. Lies die Bedeutung, bevor du bestätigst: Ein angenommener Regierungs- oder Militärbefehl verändert die Welt.
 
-### Nachrichten & Berichte
+### Briefkasten
 
-**Hier findest du:** Reichsereignisse, erhaltene Nachrichten und bekannte Spionage- oder Kampfergebnisse. Hier prüfst du, was tatsächlich angekommen, geschehen oder beobachtet worden ist.
+**Hier findest du:** Persönlichen Posteingang, gesendete Briefe, Betreff, Lesestatus und Antworten. Deine Verbündeten stehen oben als direkt auswählbare Kontakte. **Brief schreiben** öffnet ein großes Schreibfenster. Gib den bekannten Spielernamen an oder wähle einen Verbündeten. Klicke einen Brief an und benutze **Antworten**. Ältere Post lässt sich nachladen und geladene Post durchsuchen. Allianz und aktuelle Beziehung stehen neben dem Namen.
+
+**Diplomatische Anfrage:** Wähle Empfänger und Art: Allianzbeitritt, NAP, Verteidigungsbündnis, Handelsabkommen, Krieg oder Frieden. Ein Brieftext allein schließt keinen Vertrag. Angebote benötigen eine ausdrückliche Entscheidung; die Kriegserklärung gilt unmittelbar. Die ausführlichen Regeln stehen in Kapitel 17.
+
+### Allianz
+
+**Gründen und beitreten:** Ohne Mitgliedschaft kannst du eine Allianz mit eigenem Namen gründen. Die Leitung lädt bekannte Spieler ein; diese nehmen ihre Einladung an. Der geschützte Allianzbereich erscheint nach dem Beitritt.
+
+**Gemeinsam handeln:** Mitglieder sehen die Mitgliederliste mit Rollen und eigenen Allianz-Koordinaten, den gemeinsamen Chat, interne Warenangebote und Hilferufe. Angebote binden echte Ware. Ein Kauf kostet Credits und Gebühren, danach folgt eine Lieferung. Hilfszusagen starten keine Flotte automatisch.
+
+### Allianzpost · Führung
+
+**Hier findest du:** Den Briefwechsel zwischen Allianzen und gemeinsame Vertragsangebote. Nur die obersten vier Mitglieder beider beteiligten Allianzen sind berechtigt. Adressiert wird der Allianzname. Normale Mitglieder haben keinen Zugriff; nach Austritt oder Verlust des Leitungsrangs entfällt er ebenfalls.
+
+### Berichte
+
+**Hier findest du:** Reichsereignisse und bekannte Spionage- oder Kampfergebnisse. Hier prüfst du, was tatsächlich angekommen, geschehen oder beobachtet worden ist. Persönliche Post hat ihren eigenen Briefkasten.
 
 **So liest du einen Bericht:** Vergleiche Berichtstyp, Zielkoordinate, Beobachtungszeit und Informationsumfang. Trenne Ressourcen, Schiffe, Verteidigung, Gebäude und Technik. Ein Sondenbericht ist eine Momentaufnahme. Bei einem alten oder unvollständigen Bericht brauchst du vor einer wichtigen Entscheidung gegebenenfalls eine neue Sonde.
 
-**So reagierst du:** Nach einer Aufklärung bewertest du ein Ziel. Nach einem Gefecht prüfst du Verluste, Beute und Trümmer. Bei einer Versorgungskrise suchst du den betroffenen Planeten auf und kontrollierst die verbleibende Frist. Nachrichten an andere Reiche verfasst du unter **Markt & Diplomatie**; prüfe den Namen des Empfängers.
+**So reagierst du:** Nach einer Aufklärung bewertest du ein Ziel. Nach einem Gefecht prüfst du Verluste, Beute und Trümmer. Bei einer Versorgungskrise suchst du den betroffenen Planeten auf und kontrollierst die verbleibende Frist. Nachrichten an andere Reiche verfasst du im **Briefkasten**; prüfe den Namen des Empfängers.
 
 **Wenn etwas fehlt:** Prüfe, ob die Flotte schon am Ziel angekommen ist. Ein gestarteter Flug liefert nicht sofort einen Bericht. Nicht aufgeklärte militärische Daten bleiben unbekannt. Private Nachrichten und Spionageberichte eines anderen Reichs werden durch die Rangliste oder bloßes Zuschauen nicht freigegeben.
 
@@ -447,21 +467,21 @@ Für seltenere Befehle gibt es unter **Markt & Diplomatie** den Bereich **Weiter
 
 **Beispiel:** Astrophysik erlaubt eine weitere Kolonie. Du brauchst trotzdem Stufe IV, eine geeignete Werft und Orbitalwerft, die Kolonieschiff-Bauteile, Siedler, Eskorte und Startfracht. Nutze die Kolonisationscheckliste zusätzlich zum Technologiebaum.
 
-### Agentensteuerung
+### Modelle & Team
 
-**Hier findest du:** Anbieter und Modell, Ollama-Adresse oder OpenRouter-Schlüssel, Rollenverteilung, Aufruflimit, Kostenmeldung, Rundenabstand, Modelltest und Start-/Stoppsteuerung sowie das Agentenprotokoll.
+Hier verwaltest du bis zu vier benannte Modelle aus Ollama und OpenRouter, testest jeden Zugang und ordnest Modelle den Regierungsrollen zu. Ein Modell kann mehrere Rollen übernehmen. Die Texte **soul.md** und **rollen.md** sind pro Rolle editierbar, importierbar und als Markdown herunterladbar.
 
-**So beginnst du kontrolliert:** Wähle im **Spielerprofil** zuerst **Agent** oder **Gemischt**. Stelle hier Anbieter und den genauen Modellnamen ein. Bei Ollama hilft **Lokale Modelle suchen**; dein eigener PC muss den Dienst und das Modell bereitstellen. Bei OpenRouter brauchst du deinen eigenen begrenzten Anbieterschlüssel. Aktiviere zunächst eine Rolle, ein kleines Aufruflimit und einen passenden Rundenabstand.
+Öffne **＋ Modell hinzufügen**, wähle Anbieter und genaue Modell-ID, teste die Verbindung, besetze die gewünschten Rollen und speichere. Mit **Team starten / fortsetzen** beginnt die Ausführung. **Team stoppen** gibt die Steuerung zurück. Die bebilderte Anleitung in Kapitel 20 erklärt jeden Klick einschließlich Browserfreigabe und Fehlerbehebung.
 
-Benutze **Modell testen · keine Spielaktionen** und lies Antwort, Vorschläge und Fehler. Bei Erfolg drücke **Agent starten**. Kontrolliere danach die angenommenen und abgelehnten Befehle und ihre Wirkung in Versorgung, Aufträgen und Flotten. Eine plausibel klingende Begründung beweist noch keinen erfolgreich ausgeführten Befehl.
+### Pinwände
 
-**So greifst du ein:** Mit **Agent stoppen / Steuerung übernehmen** beendest du neue Modellentscheidungen und gibst seine Rollen frei. Angenommene Bauten oder Flüge laufen weiter. Der Browser muss für neue Agentenentscheidungen offen bleiben; die gemeinsame Welt wartet nicht auf das Modell. Drei aufeinanderfolgende Fehler können ihn stoppen. Der Modelltest kann bei OpenRouter schon Kosten verursachen.
+Für alle Spielweisen: Erstelle mehrere Wände, ergänze Karten mit Wissen, Zielen und Empfängern, ändere ihre Reihenfolge mit ↑/↓ und bearbeite oder lösche alte Inhalte. **Pinwände speichern** schreibt die Änderungen dauerhaft ins Konto. Alle Modelle lesen sie vor jeder neuen Entscheidung zusammen mit den bestätigten Übergaben. Ausführliche Beispiele stehen in Kapitel 20.
 
 ### Spielerprofil
 
 **Hier findest du:** Deine Spielweise und die persönliche Fortschrittsdarstellung. Die Volkswahl ist nach der Reichsgründung für die laufende Epoche festgelegt.
 
-**So wechselst du die Steuerung:** Wähle **Mensch**, **Agent** oder **Gemischt** und bestätige **Platz belegen / Spielweise ändern**. Reich und Teilnehmerplatz bleiben dabei erhalten. Ein Spielweisenwechsel stoppt eine laufende Browser-Agentensteuerung. Richte Rollen und Modelle unter **Agentensteuerung** anschließend bewusst neu ein.
+**So wechselst du die Steuerung:** Wähle **Mensch**, **Agent** oder **Gemischt** und bestätige **Platz belegen / Spielweise ändern**. Reich und Teilnehmerplatz bleiben dabei erhalten. Ein Spielweisenwechsel stoppt eine laufende Browser-Agentensteuerung. Richte Rollen und Modelle unter **Modelle & Team** anschließend bewusst neu ein.
 
 **So stellst du Timer ein:** Bei der Fortschrittsdarstellung wählst du Systemvorgabe, **Uhrzeiger · im Uhrzeigersinn einfärben** oder **Ruhige Darstellung · ohne Uhrzeiger**. Die Wahl verändert die optische Anzeige, keine Kosten oder Bauzeiten. Restzeiten und Serverabschlüsse bleiben entscheidend.
 
@@ -618,7 +638,7 @@ Eine zurückgekehrte Sonde kann erneut eingesetzt werden. Du brauchst also einen
 2. Wähle **Systemscan** oder **Sonde planen**.
 3. Prüfe in der Flottenplanung Startplanet, Ziel, Mission, Sonde und Treibstoff.
 4. Wähle **Flotte starten**. Das bloße Öffnen des Plans sendet nichts ab.
-5. Warte auf die Ankunft und lies den Bericht unter **Nachrichten & Berichte**.
+5. Warte auf die Ankunft und lies den Bericht unter **Berichte**.
 6. Aktualisiere bei Bedarf die Berichte.
 
 Ein unaufgeklärter grauer Planet ist nicht automatisch frei. Planetenpositionen verraten im Onlineprofil auch nicht zuverlässig ihren Typ. Eigenschaften und Belegung werden erst durch erlaubte Aufklärung sichtbar.
@@ -867,9 +887,27 @@ Eine übernommene Kolonie bringt ihre vorhandene Bevölkerung mit. Die beschädi
 
 ## 17 Handel Verträge und Diplomatie
 
-### Nachrichten und verbindliche Verträge
+### Wie schreibe ich einem Spieler privat?
 
-Unter **Markt & Diplomatie** und **Nachrichten & Berichte** kannst du andere Reiche kontaktieren. Pro Spieltag sind grundsätzlich 20 Nachrichten mit jeweils höchstens 1.200 Zeichen vorgesehen.
+Öffne **Briefkasten**, trage den bekannten Spielernamen, Betreff und Text ein und sende den Brief. Eingang und Gesendet sind getrennt. Öffne einen Eintrag zum Lesen; **Antworten** übernimmt Empfänger und Bezug zum ursprünglichen Brief. Private Post ist ein Briefkasten. Nur der interne Allianzbereich hat einen gemeinsamen Chat. Pro Spieltag gelten grundsätzlich 20 Nachrichten mit jeweils höchstens 1.200 Zeichen; der Betreff hat höchstens 120 Zeichen. Maßgeblich sind die Regeln der aktiven Welt.
+
+![Posteingang mit Betreff, Spielername, Allianz und Beziehungsfarbe](bilder/kommunikation/briefkasten.webp)
+
+Die Bilder dieses Kapitels stammen aus einer eigens vorbereiteten lokalen Beispielwelt gegen die echte Spiel-API. Namen, Waren und Kontostände sind Demonstrationsdaten.
+
+### Kann ich längere Texte bequem schreiben?
+
+**Brief schreiben** öffnet ein großes Fenster mit Empfänger, Betreff und mehrzeiligem Textfeld. Du kannst das Textfeld in der Höhe anpassen. Absätze bleiben erhalten. Oben im Postfach lassen sich Verbündete direkt auswählen. Bekannte Spielernamen werden bei der Empfängereingabe vorgeschlagen.
+
+Der Zeichenzähler zeigt das Limit der aktiven Welt. Auch ein zu langer eingefügter Text bleibt vollständig im Entwurf erhalten; das Senden wartet, bis du ihn gekürzt hast. **Schließen** oder Escape behält den Entwurf im aktuellen Tab. Serveraktualisierungen überschreiben ihn nicht. Ein Seitenneuladen oder Kontowechsel ist keine dauerhafte Entwurfsspeicherung.
+
+![Großes Schreibfenster mit Absätzen, Empfänger und sichtbarem Zeichenzähler](bilder/kommunikation/schreiben.webp)
+
+### Wie sende ich NAP, Allianzangebot oder Kriegserklärung?
+
+Im Briefkasten stehen **Diplomatische Anfragen** getrennt von normalen Briefen. Wähle den Spieler und die gewünschte Art. NAP, Verteidigungsbündnis und Handelsabkommen müssen angenommen werden. Eine Allianzeinladung kann nur die berechtigte Leitung verschicken; der Empfänger entscheidet über den Beitritt. Eine Kriegserklärung wirkt sofort, ein Friedensangebot erst nach Annahme. Ein Krieg beendet keine Kämpfe oder Flotten automatisch. Prüfe laufende Missionen selbst.
+
+![Eigener Bereich für Anfragen; vorbereitete, noch nicht gesendete Kriegserklärung](bilder/kommunikation/anfragen.webp)
 
 Eine Nachricht ist noch kein Spielvertrag. Verbindliche Wirkungen entstehen erst durch das passende angebotene und angenommene Vertragsobjekt.
 
@@ -880,6 +918,69 @@ Allianzen können bis zu acht Mitglieder haben. Für Verteidigungsbündnisse sin
 Nichtangriffs- und Verteidigungsverträge haben eine Kündigungsfrist von **48 Spielstunden**. Handelsabkommen können sofort beendet werden. Wenn ein Vertrag eine Kaution verlangt, hinterlegen beide Seiten Credits. Bei ordnungsgemäßem Ende werden sie zurückgegeben; bei Vertragsbruch erhält die geschädigte Seite die hinterlegten Kautionen.
 
 Spionage allein gilt dabei nicht als Vertragsbruch. Ein echter feindlicher Angriff kann dagegen Verträge brechen und Allianzfolgen auslösen. Prüfe vor dem Start die aktive Beziehung zum Ziel.
+
+### Welche Farben sehe ich in Galaxie und Postfach?
+
+| Beziehung zu deinem Reich | Darstellung |
+|---|---|
+| Verbündet, einschließlich eigener Allianz | Grün |
+| Nichtangriffspakt (NAP) | Gelb |
+| Handelsabkommen | Violett |
+| Feindlich nach Kriegserklärung | Rot |
+| Ausgeschieden | Grau |
+| Neutraler Spieler | Ohne Beziehungsfärbung |
+
+Der Allianzname steht beim Spielernamen. Bei mehreren Beziehungen gilt die Reihenfolge: ausgeschieden, feindlich, verbündet, NAP, Handelsabkommen, neutral. Texte ergänzen die Farben. Das Postfach zeigt die aktuelle Beziehung, nicht nur die Beziehung beim Versand. Die Galaxie färbt nur bereits bekannte Besitzer; Diplomatie enthüllt keine verborgenen Planeten. Eigene Welten behalten ihre eigene Kartenmarkierung.
+
+### Wie gründe ich eine Allianz und verteile Rollen?
+
+Öffne **Allianz**, gib einen noch freien Namen ein und bestätige die Gründung. Du wirst erstes Mitglied und Leitung. Lade anschließend Spieler mit ihrem Namen ein. Erst deren Annahme macht sie zu Mitgliedern; die Obergrenze beträgt grundsätzlich acht. Ein Spieler kann jeweils einer Allianz angehören.
+
+![Gründungsformular für einen Spieler ohne Allianz](bilder/kommunikation/gruenden.webp)
+
+Die Reihenfolge bestimmt die Rollen: **Leitung**, **Stellvertretung**, **Diplomatie**, **Quartiermeister**, danach **Mitglied**. Die Leitung kann Positionen tauschen und andere Mitglieder ausschließen. Die ersten vier dürfen einladen und Führungspost bearbeiten. Beim Austritt rücken verbleibende Mitglieder auf. Die Liste zeigt die Planetenkoordinaten der Mitglieder innerhalb des geschützten Bereichs.
+
+![Mitglieder, Rangfolge und Standorte im eigenen Allianzbereich](bilder/kommunikation/allianz.webp)
+
+### Wer kann den Allianzchat lesen?
+
+Alle berechtigten Mitglieder deiner Allianz können unter **Allianz → Allianzchat** lesen und schreiben. Mitglieder, Wirtschaft und Hilferufe haben eigene Reiter. Fremde Spieler und andere Allianzen sehen den Chat nicht. Der Server prüft die Mitgliedschaft bei jedem Abruf. Nach Austritt entfällt der Zugriff. Später beigetretene Mitglieder erhalten keinen rückwirkenden Zugriff auf früher adressierte Chatbeiträge. Persönliche Post bleibt davon getrennt.
+
+![Allianzchat mit eigenem Reiter und großem Beitragsfeld](bilder/kommunikation/chat.webp)
+
+### Wie reden zwei Allianzen miteinander?
+
+**Allianzpost · Führung** ist ein eigener Briefkasten mit Allianzname als Empfänger. Nur die jeweils obersten vier Mitglieder der beteiligten Allianzen können diese Post lesen und beantworten. Beide Seiten können NAP, Verteidigungsbündnis, Handelsabkommen und Frieden anbieten oder Krieg erklären. Angenommene Allianzpakte gelten für die aktuellen Mitglieder. Schutzpakte haben auch hier eine Kündigungsfrist von 48 Spielstunden; Handelsabkommen enden sofort. Ein gebrochener Schutzpakt wird protokolliert.
+
+![Geschützte Führungspost zwischen zwei Allianzen](bilder/kommunikation/allianzpost.webp)
+
+### Wie funktioniert der interne Allianzhandel?
+
+Unter **Allianz → Interne Wirtschaft** wählst du eigenen Verkaufsplaneten, Ware, Menge und Stückpreis. Die Ware wird sofort reserviert und kann nicht zugleich öffentlich verkauft werden. Öffentliche und interne Angebote teilen sich das Marktlimit. Käufer wählen ihren eigenen Zielplaneten. Es gelten Marktfreischaltung, Guthaben, Gebühren und gegebenenfalls das Rollenbudget. Ein Angebot wird vollständig gekauft; eine bereits gekaufte Position kann niemand ein zweites Mal erwerben.
+
+Die Übersicht zeigt den Ablauf **Angebot → Kauf → unterwegs → geliefert**, Anbieter, Ort, Menge, Preis, Käufer und Ankunft. Käufer zahlen einschließlich ihrer Gebühr; Verkäufer erhalten den Erlös abzüglich ihrer Gebühr. Eine Blockade kann die Lieferung verzögern. Bei Verlust des Zielplaneten wird eine noch vorhandene eigene Welt gewählt; bei endgültiger Niederlage geht die Lieferung verloren. Offene Angebote lassen sich stornieren. Beim Allianzverlust werden offene Angebote aufgehoben und Waren auf eine noch eigene Welt zurückgebucht.
+
+![Interne Wirtschaft mit reservierten Waren und Lieferstatus](bilder/kommunikation/wirtschaft.webp)
+
+### Wie melde ich einen Angriff und bitte um Hilfe?
+
+Wähle unter **Hilferufe** einen eigenen Planeten und beschreibe die Lage. Mitglieder sehen Ort, Nachricht, Status und zugesagte Helfer. **Hilfe zusagen** dokumentiert eine Zusage; Entsatz, Transport oder Flottenbefehl muss der Helfer selbst ausführen. Der Ersteller kann den Hilferuf abschließen. So bleibt ein Versprechen von tatsächlich eingetroffener Hilfe unterscheidbar.
+
+![Hilferuf mit Zielplanet und Unterstützung](bilder/kommunikation/hilfe.webp)
+
+### Antworten Bots und eigene Modelle ebenfalls?
+
+Serverbots nutzen dieselben Aktionen und Sichtrechte. Sie stellen sich auf einen ersten privaten Brief vor und beginnen je nach Strategie ein Gespräch oder lehnen weitere Unterhaltung wegen Zeitmangel ab. Sie können selbst Kontakte, Einladungen, Allianzpost, interne Angebote und Hilferufe initiieren. Modelle erhalten die Post in ihrer erlaubten Spielersicht und entscheiden mit ihren eigenen Modellen und Rollenrechten.
+
+Bleibt die erste Antwort eines aktiven Agenten aus, versendet das System nach einer Spielstunde eine ausdrücklich **automatische Empfangsantwort**. Diese ist keine erfundene Modellentscheidung. Antworten lösen keine endlose Folge automatischer Antworten aus. Bei Pause vergeht keine Spielzeit; ausgeschiedene Reiche handeln nicht mehr.
+
+### Was wird für spätere Epochen ausgewertet?
+
+Nachrichten, Lesestatus, Antworten, Mitgliedschaften, Rangänderungen, Vertragsentscheidungen, Handel und Hilferufe werden mit Weltbezug und Spielzeit gespeichert. Forschungsprotokolle unterscheiden angenommene und abgelehnte Aktionen, Modellaufrufe, automatische Antworten, Lieferergebnisse und Herkunft der Daten. Private Inhalte werden nicht als öffentliche Spieldaten oder fremdes Modellwissen ausgegeben.
+
+Die Spezialistenauswahl betrachtet neben Gesamtpunkten Wirtschaft, Forschung, Diplomatie, Logistik und Zuverlässigkeit. Nachrichtenmenge ist kein Erfolgsmaß und eine Hilfszusage kein Beleg für Rettung. Nur abgeschlossene, auditierte und vergleichbare echte Modellläufe liefern Trainingsbeispiele und wählbare Harness-Kandidaten. Testläufe mit simulierten Modellen bleiben Kontrollläufe.
+
+Kandidaten erhalten nachvollziehbare Varianten für begrenzte Experimente oder langfristige Planung. Ganze Weltseed-Familien einschließlich ihrer Platzrotationen bleiben getrennt zwischen Training und zurückgehaltener Bewertung. Ein Kandidat ist noch kein bewiesener Experte. Die Datenvorbereitung startet kein Modelltraining und ersetzt nicht die spätere Prüfung unter Stress und auf unbekannten Welten.
 
 ### Markt und Lieferungen
 
@@ -961,33 +1062,30 @@ Ein neues Reich beginnt dann mit neuer Ausgangslage. Gebäude, Flotten und Forsc
 
 ## 20 Deinen eigenen KI-Assistenten verbinden
 
-Die Einstellungen findest du im Spiel unter **Agentensteuerung**. Deine Modelle übernehmen freigegebene Aufgaben für dein Reich. Du entscheidest über Anbieter, Modell, Rollen und Grenzen.
+Diese bebilderte Anleitung führt dich durch die neue Oberfläche **Modelle & Team**. Folge den nummerierten Pfeilen und prüfe nach jedem Schritt das beschriebene Ergebnis.
 
-### OpenRouter mit deinem eigenen Schlüssel
+<h3 id="team-start">1. Wo du anfängst</h3><figure class="team-guide-figure"><a href="bilder/team/01-modelle.webp" rel="noopener" target="_blank"><img alt="Die Modellzentrale im Überblick – 1 Modell hinzufügen · 2 Anbieter wählen · 3 lokale API-Adresse · 4 Modellliste laden · 5 exakte Modell-ID auswählen · 6 diese Verbindung testen." loading="lazy" src="bilder/team/01-modelle.webp"/></a><figcaption>Die Modellzentrale im Überblick. 1 Modell hinzufügen · 2 Anbieter wählen · 3 lokale API-Adresse · 4 Modellliste laden · 5 exakte Modell-ID auswählen · 6 diese Verbindung testen. Zum Vergrößern das Bild anklicken oder antippen.</figcaption></figure><ol><li>Öffne das Spiel im Browser. Vor der Anmeldung findest du <strong>Eigene KI vorab einrichten und testen</strong>. Öffne diesen Bereich, um die Technik ohne Spielplatz zu prüfen.</li><li>Nach dem Einstieg liegt dieselbe Oberfläche im linken Menü unter <strong>Modelle &amp; Team</strong>. <strong>Pinwände</strong> ist ein eigener Menüpunkt für Menschen, Mischbetrieb und Agentenspiel.</li><li>Klicke <strong>＋ Modell hinzufügen</strong>. Jeder Eintrag ist ein Teammitglied. Vergib einen eindeutigen Namen, beispielsweise Nova oder Atlas. Die Modelle sehen später die Namen und Rollen ihrer Kollegen.</li><li>Wähle den Anbieter und das Modell wie unten beschrieben. Teste jeden verwendeten Eintrag. Speichere nach der Anmeldung mit <strong>Team &amp; Pinwände speichern</strong>.</li></ol>
+<p>Tests führen keine Bau-, Handels- oder Flottenbefehle aus. Ein erfolgreicher Test bestätigt die Verbindung, den Modellstart und das geforderte JSON-Format. Er garantiert weder die Qualität späterer Entscheidungen noch die dauerhafte Erreichbarkeit eines Anbieters.</p>
+<h3 id="team-ollama">2. Ollama auf deinem Rechner verbinden</h3><figure class="team-guide-figure"><a href="bilder/team/02-ollama.webp" rel="noopener" target="_blank"><img alt="Ollama: die richtigen Felder – 1 Teamname frei wählen · 2 Adresse des laufenden lokalen Ollama · 3 installierte Modelle abfragen · 4 Modell-ID übernehmen · 5 Antwort testen. Der gezeigte Modellname ist ein Beispiel aus der Testinstallation; wähle ein auf deinem Rechner installiertes Modell." loading="lazy" src="bilder/team/02-ollama.webp"/></a><figcaption>Ollama: die richtigen Felder. 1 Teamname frei wählen · 2 Adresse des laufenden lokalen Ollama · 3 installierte Modelle abfragen · 4 Modell-ID übernehmen · 5 Antwort testen. Der gezeigte Modellname ist ein Beispiel aus der Testinstallation; wähle ein auf deinem Rechner installiertes Modell. Zum Vergrößern das Bild anklicken oder antippen.</figcaption></figure><ol><li>Installiere und starte <a href="https://ollama.com/download">Ollama</a> auf dem Rechner, auf dem auch dein Browser läuft. Installiere ein Text-/Chatmodell, das in den verfügbaren Arbeitsspeicher passt. Sternenepoche lädt keine Modelle ungefragt herunter.</li><li>Prüfe in einem Terminal mit <code>ollama list</code>, welche Modelle vorhanden sind. Ein Modellname besteht oft aus Name und Tag, etwa <code>modellname:tag</code>. Übernimm den tatsächlich installierten Namen, nicht dieses Beispiel.</li><li>Wähle beim Teammitglied <strong>Ollama · mein Rechner</strong>. Trage bei <strong>Lokaler Ollama-API-Punkt</strong> normalerweise <code>http://127.0.0.1:11434</code> ein. Bei einem selbst geänderten Port verwendest du deinen Port. Kein <code>/api/chat</code>, kein <code>/api/tags</code>, kein Schlüssel und kein Modellname gehören in dieses Adressfeld.</li><li>Klicke <strong>Modelle laden</strong>. Die Liste enthält die von deinem Ollama gemeldeten installierten Modelle samt Dateigröße. Wähle unter <strong>Aus gefundener Liste wählen</strong> ein Modell. Die <strong>Exakte Modell-ID</strong> wird übernommen. Du kannst sie auch selbst eintragen.</li><li>Klicke <strong>Verbindung &amp; JSON-Antwort testen</strong>. Warte auf <strong>Bestanden</strong>. Beim ersten Aufruf muss Ollama das Modell erst laden; das kann dauern. Der Test zeigt Laufzeit und Tokens.</li></ol>
+<p>Die Dateigröße in der Liste ist kein vollständiger RAM-/VRAM-Bedarf. Zusätzlich brauchen Kontext und Berechnung Speicher. Ein Modell, das gerade noch lädt, kann bei umfangreicheren Spielständen dennoch zu groß sein. Wähle dann ein kleineres bereits installiertes Modell und teste erneut.</p>
+<h4>Browserfreigabe unter Windows, Schritt für Schritt</h4><ol><li>Öffne im Spiel <strong>Ollama ist gestartet, aber der Browser erreicht es nicht?</strong>. Dort steht der <em>tatsächliche Ursprung dieser Website</em> und ein darauf angepasster PowerShell-Befehl.</li><li>Beende Ollama vollständig über sein Symbol im Windows-Infobereich mit <strong>Quit / Beenden</strong>. Das Schließen eines Chatfensters reicht möglicherweise nicht.</li><li>Öffne PowerShell. Führe den in der Spieloberfläche angezeigten Befehl aus. Er setzt die Benutzervariable <code>OLLAMA_ORIGINS</code>. Beispiel für die öffentliche Website:</li></ol>
+<pre>[Environment]::SetEnvironmentVariable('OLLAMA_ORIGINS', 'https://sternenepoche.github.io', 'User')</pre>
+<p>Verwendest du mehrere Spieladressen, trage die benötigten Ursprünge durch Komma getrennt ein. Ein Ursprung besteht aus Protokoll, Host und gegebenenfalls Port; Unterpfade wie <code>/spiel/</code> gehören nicht hinein. Der Befehl ersetzt den bisherigen Wert dieser Variablen; ergänze deshalb weitere bereits benötigte Ursprünge ausdrücklich.</p>
+<ol start="4"><li>Starte Ollama erneut über das Startmenü. Eine schon laufende Instanz übernimmt neue Benutzervariablen nicht automatisch.</li><li>Lade die Spielseite neu. Falls der Browser eine Erlaubnis für <strong>lokalen Netzwerkzugriff</strong> verlangt, erlaube sie für diese Spielseite. Wurde sie zuvor verweigert, ändere sie in den Websiteberechtigungen des Browsers.</li><li>Klicke erneut <strong>Modelle laden</strong> und dann den Verbindungstest. Es ist keine Freigabe deines Ollama-Ports ins Internet nötig.</li></ol>
+<p>Unter macOS lässt sich die Variable für die App mit <code>launchctl setenv OLLAMA_ORIGINS "https://sternenepoche.github.io"</code> setzen; danach Ollama neu starten. Bei Linux/systemd wird <code>Environment="OLLAMA_ORIGINS=https://sternenepoche.github.io"</code> im Ollama-Service gesetzt, anschließend werden systemd und der Dienst neu geladen. Verwende immer den Ursprung, den dein Spielbrowser tatsächlich anzeigt. Die offizielle <a href="https://docs.ollama.com/faq">Ollama-Anleitung</a> beschreibt die jeweiligen Installationsvarianten.</p>
+<h4 id="team-browser-berechtigung">Die Websiteberechtigung im Browser finden</h4><ol><li>Klicke links neben der Adresse deiner Spielseite auf das Symbol für Websiteinformationen / Website-Steuerelemente. Die genaue Form unterscheidet sich je nach Browser.</li><li>Öffne die Websiteeinstellungen bzw. Berechtigungen dieser Seite. Suche nach „Lokales Netzwerk“, „Local network“ oder „Loopback network“. Neuere Chrome-Versionen können den Zugriff auf den eigenen Rechner separat als Loopback führen.</li><li>Erlaube den Zugriff auf den eigenen Rechner für deine Spielseite. Ändere nicht pauschal die Berechtigungen aller Websites.</li><li>Lade die Spielseite neu, öffne „Modelle &amp; Team“ und lade die Modellliste erneut. Bei einem neuen Testprofil kann der Browser die Nachfrage auch erst bei „Modelle laden“ oder beim Test anzeigen.</li></ol><p>Diese Browserberechtigung und OLLAMA_ORIGINS sind zwei getrennte Freigaben: Der Browser erlaubt die lokale Verbindung; Ollama erlaubt deiner konkreten Website das Lesen seiner Antwort. Beide müssen passen. <a href="https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/guides/security/local-network-access.md">Technische Erläuterung von Google Chrome</a>.</p><h4>Zwei lokale Modelle mit wenig Grafikspeicher</h4><p>Lege zwei Modellkonfigurationen mit derselben lokalen API-Adresse, aber unterschiedlichen installierten Modell-IDs an. Teste beide einzeln. Weise sie unterschiedlichen Rollen zu. Sternenepoche bearbeitet seine lokalen Anfragen nacheinander und sendet <code>keep_alive: 0</code>: Ollama entlädt das benutzte Modell nach der Antwort. Der nächste Aufruf lädt sein benötigtes Modell automatisch. Auch ein einziges Modell in mehreren Rollen funktioniert so.</p><p>Das spart gleichzeitig belegten Modellspeicher, kostet jedoch Ladezeit. Die lokale Warteschlange gilt auch für mehrere Tabs derselben Website, wenn der Browser Web Locks unterstützt. Andere Programme, andere Websiteursprünge oder ein zu großes einzelnes Modell können weiterhin Speicher belegen. Sternenepoche beendet keine fremden Anwendungen und entlädt keine fremden Modelle. GPU-/CPU-Aufteilung übernimmt Ollama; du musst keine Rollen nach Rechengerät verteilen.</p>
+<h3 id="team-openrouter">3. OpenRouter verbinden – auch gemischt mit Ollama</h3><figure class="team-guide-figure"><a href="bilder/team/03-openrouter.webp" rel="noopener" target="_blank"><img alt="OpenRouter: Schlüssel und Modell sind zwei verschiedene Angaben – 1 Anbieter OpenRouter · 2 hier den eigenen API-Key eintragen · 3 Modellkatalog öffnen · 4 echte Modell-ID wählen · 5 Test ausführen. „openai/gpt-4.1-mini“ ist eine beim Erstellen im OpenRouter-Katalog geprüfte Beispiel-ID. Wähle dein gewünschtes Modell aus der aktuellen Liste. Das Schlüsselfeld ist im Bild leer." loading="lazy" src="bilder/team/03-openrouter.webp"/></a><figcaption>OpenRouter: Schlüssel und Modell sind zwei verschiedene Angaben. 1 Anbieter OpenRouter · 2 hier den eigenen API-Key eintragen · 3 Modellkatalog öffnen · 4 echte Modell-ID wählen · 5 Test ausführen. „openai/gpt-4.1-mini“ ist eine beim Erstellen im OpenRouter-Katalog geprüfte Beispiel-ID. Wähle dein gewünschtes Modell aus der aktuellen Liste. Das Schlüsselfeld ist im Bild leer. Zum Vergrößern das Bild anklicken oder antippen.</figcaption></figure><ol><li>Erstelle bei <a href="https://openrouter.ai/settings/keys">OpenRouter</a> einen eigenen API-Schlüssel mit einem passenden Ausgabenlimit.</li><li>Füge in Sternenepoche ein Teammitglied hinzu und wähle <strong>OpenRouter</strong>. Du kannst jedem Teammitglied einen eigenen Schlüssel geben oder denselben Schlüssel erneut eintragen.</li><li>Füge den Schlüssel in <strong>OpenRouter API-Key</strong> ein. Er bleibt ausschließlich im Arbeitsspeicher dieses Browser-Tabs und wird direkt an OpenRouter gesendet. Er wird weder mit der Teamkonfiguration gespeichert noch an den Spielserver gesendet.</li><li>Klicke <strong>Modelle laden</strong> und wähle aus dem Katalog. Alternativ trägst du die genaue OpenRouter-ID im Format <code>anbieter/modell-id</code> ein. Verfügbarkeit, Kontoguthaben und Unterstützung für strukturierte Antworten prüft erst der echte Test.</li><li>Klicke <strong>Verbindung &amp; JSON-Antwort testen</strong>. Auch ein Test ist ein echter Modellaufruf und kann Geld kosten. Fehler wie ungültiger Schlüssel, fehlendes Guthaben oder Anbieterlimit werden angezeigt.</li></ol>
+<p>Ein mögliches Team: Nova = lokales Modell für Stratege und Verwalter; Atlas = OpenRouter-Modell für Feldherr; Lyra = zweites lokales Modell für Diplomat. Ebenso möglich: nur Nova für alle Rollen. Bis zu vier Konfigurationen insgesamt; Rollen bleiben die vier Regierungsaufgaben.</p>
+<h3 id="team-test">4. Teststatus richtig verstehen</h3><figure class="team-guide-figure"><a href="bilder/team/05-browserfreigabe.webp" rel="noopener" target="_blank"><img alt="Die passende Browserfreigabe ablesen – 1 Ursprung der tatsächlich geöffneten Spielseite · 2 dazu passender PowerShell-Befehl. Im Bild ist ein lokaler Spieleinstieg geöffnet. Auf der öffentlichen Website steht hier deren HTTPS-Ursprung; übernimm deshalb den Text aus deinem eigenen Spiel." loading="lazy" src="bilder/team/05-browserfreigabe.webp"/></a><figcaption>Die passende Browserfreigabe ablesen. 1 Ursprung der tatsächlich geöffneten Spielseite · 2 dazu passender PowerShell-Befehl. Im Bild ist ein lokaler Spieleinstieg geöffnet. Auf der öffentlichen Website steht hier deren HTTPS-Ursprung; übernimm deshalb den Text aus deinem eigenen Spiel. Zum Vergrößern das Bild anklicken oder antippen.</figcaption></figure><p><strong>Modelle laden</strong> prüft die Modellliste. <strong>Verbindung &amp; JSON-Antwort testen</strong> prüft zusätzlich eine tatsächliche Antwort. <strong>Alle Modelle testen</strong> geht die Konfigurationen nacheinander durch und hält beim ersten Fehler an. Nach Behebung kannst du diesen Eintrag einzeln erneut testen. <strong>Test abbrechen</strong> beendet die Browseranfrage; ein Anbieter kann eine bereits begonnene Berechnung dennoch abrechnen.</p><p>Nach einem Modell-, Anbieter-, Adress- oder Schlüsselwechsel wird der zugehörige Test ungültig. Der Teamstart verlangt für jedes verwendete Modell einen erfolgreichen Test der aktuellen Konfiguration. Nach Neuladen sind die Schlüssel und Tests zurückgesetzt; gespeicherte Modelle, Rollen und Pinwände bleiben erhalten.</p>
+<h4 id="team-spielprobe">Vor dem ersten echten Zug: eine Spielentscheidung proben</h4><p>Ein kurzer Verbindungstest prüft die Technik. Mit <strong>Spielentscheidung proben · ohne Befehle</strong> prüfst du zusätzlich, ob dein Modell mit deinem aktuellen Spielstand und den Rollentexten umgehen kann. Dafür musst du angemeldet sein und einen Spielplatz besitzen; die Probe selbst verändert das Spiel nicht.</p><ol><li>Bestehe zuerst den Verbindungstest. Weise das Modell nach Wunsch einer Rolle zu und bearbeite deren Texte. Die Probe verwendet die erste dem Modell zugeordnete Rolle; ohne Zuordnung verwendet sie den Verwalter.</li><li>Klicke direkt auf der Modellkarte auf <strong>Spielentscheidung proben · ohne Befehle</strong>.</li><li>Das Modell liest das aktuelle Lagebild, die Rollenbeschreibung und deine Pinwände. Falls es lesende Werkzeuge anfordert, holt die Probe diese Informationen und erlaubt eine zweite Antwort.</li><li>Im Protokoll unterhalb der Einstellungen steht deutlich <strong>SPIELPROBE · KEINE BEFEHLE AUSGEFÜHRT</strong>. Lies die Begründung, vorgeschlagenen Aktionen und die Übergabe. Passt die Absicht zu deinen Vorgaben?</li><li>Bei einem Formatfehler oder einer unpassenden Antwort passe Modell oder Rollenbeschreibung an und wiederhole die Probe. Erst wenn du zufrieden bist, speichere und starte das Team.</li></ol><p>Die Probe benötigt höchstens zwei Modellaufrufe und kann bei OpenRouter Kosten verursachen. Sie sendet keine Spielbefehle und speichert keine Modellnotizen. Ob ein Vorschlag im Ausführungszeitpunkt bezahlbar und regelkonform ist, prüft weiterhin der Spielserver. Ein bestandener Test ist daher keine Garantie für fehlerfreie Strategie.</p><h3 id="team-rollen">5. Rollen zuordnen und Texte bearbeiten</h3><figure class="team-guide-figure"><a href="bilder/team/04-rollen.webp" rel="noopener" target="_blank"><img alt="Eine Rolle individuell einrichten – 1 Teammitglied zuordnen · 2 Persönlichkeit in soul.md · 3 konkrete Aufgaben in rollen.md · 4 eigene Markdown-Datei importieren; vorher daneben das Importziel wählen. Änderungen anschließend speichern." loading="lazy" src="bilder/team/04-rollen.webp"/></a><figcaption>Eine Rolle individuell einrichten. 1 Teammitglied zuordnen · 2 Persönlichkeit in soul.md · 3 konkrete Aufgaben in rollen.md · 4 eigene Markdown-Datei importieren; vorher daneben das Importziel wählen. Änderungen anschließend speichern. Zum Vergrößern das Bild anklicken oder antippen.</figcaption></figure><ol><li>Öffne unter <strong>Rollen &amp; Persönlichkeit</strong> beispielsweise <strong>Verwalter</strong>.</li><li>Wähle unter <strong>Zugeordnetes Modell</strong> einen Teamnamen. Dasselbe Modell darf in mehreren oder allen Rollen stehen. <strong>Mensch · keine Agentfreigabe</strong> lässt eine Rolle bei dir.</li><li>In <strong>soul.md · Persönlichkeit &amp; Umgang</strong> schreibst du den Charakter und die Zusammenarbeit dieser Rolle: zum Beispiel „Du bist Nova, kommunizierst knapp, fragst bei unklaren Zusagen nach und erklärst Atlas benötigte Rohstoffe.“</li><li>In <strong>rollen.md · Aufgaben &amp; Arbeitsweise</strong> stehen konkrete Prioritäten: zum Beispiel „Sichere zuerst eine positive Energiebilanz. Prüfe laufende Bauaufträge. Notiere Handelsbedarf für den Diplomaten, bevor du Rohstoffe verplanst.“</li><li>Beide Texte lassen sich als Markdown herunterladen. Für einen Import wählst du zuerst das Importziel <strong>soul.md</strong> oder <strong>rollen.md</strong>, dann deine Datei. Die Texte bleiben reiner Text; keine Datei kann Programme ausführen. Limits: 2.000 Zeichen für soul.md, 3.000 für rollen.md.</li><li>Klicke <strong>Team &amp; Pinwände speichern</strong>. Bei einem laufenden Team stoppt das zunächst die Ausführung. Starte es anschließend erneut. Geänderte Zuordnungen gelten damit ab dem nächsten Start und nicht mitten in einer alten Entscheidung.</li></ol>
+<h4>Mensch, Mischbetrieb und reines Agentenspiel</h4><p>Im <strong>Spielerprofil → Spielweise</strong> wählst du den Modus. Als Mensch nutzt du Pinwände und kannst Modelle vorab testen. Im Mischbetrieb wählst du selbst die besetzten Rollen. Im Agentenspiel müssen alle vier Rollen besetzt sein; beim Start besprechen die konfigurierten Modelle ihre bevorzugten Aufgaben nacheinander. Jedes Modell erhält die bisherigen Vorschläge seiner Kollegen. Danach verteilt das System die freien Rollen reihum nach diesen Präferenzen. Ein Modell bekommt bei Bedarf mehrere Aufgaben. Ergebnis und Begründungen stehen auf der Pinwand <strong>Teamberatung</strong>, sofern Platz dafür vorhanden ist.</p><p>Diese Beratung ist eine nachvollziehbare Zuteilung anhand der Modellvorschläge, kein unbegrenzt laufendes Streitgespräch. Sie verbraucht einen Modellaufruf pro Konfiguration. Im Agentenspiel wird sie bei jedem Neustart wiederholt. Wenn du die Rollen selbst verbindlich festlegen möchtest, verwende den Mischbetrieb. Die Rollentexte gelten unabhängig davon, welches Modell die Rolle übernimmt.</p>
+<h3 id="team-pinwaende">6. Pinwände für Wissen und langfristige Planung</h3><figure class="team-guide-figure"><a href="bilder/team/06-pinwaende.webp" rel="noopener" target="_blank"><img alt="Wissen als Pinwände und Karten organisieren – 1 weitere Pinwand erstellen · 2 Bearbeitungen dauerhaft speichern · 3 Reihenfolge ändern · 4 Karte für Wissen, Ziel oder Übergabe hinzufügen. Beispielinhalte stammen aus einer isolierten Testwelt." loading="lazy" src="bilder/team/06-pinwaende.webp"/></a><figcaption>Wissen als Pinwände und Karten organisieren. 1 weitere Pinwand erstellen · 2 Bearbeitungen dauerhaft speichern · 3 Reihenfolge ändern · 4 Karte für Wissen, Ziel oder Übergabe hinzufügen. Beispielinhalte stammen aus einer isolierten Testwelt. Zum Vergrößern das Bild anklicken oder antippen.</figcaption></figure><ol><li>Öffne <strong>Pinwände</strong>. Eine Wand <strong>Gemeinsamer Plan</strong> ist vorbereitet.</li><li>Mit <strong>＋ Pinwand anlegen</strong> erstellst du weitere Wände, etwa „Versorgung“, „Handel“, „Expansion“ oder „Diplomatische Zusagen“. Bearbeite den Titel direkt.</li><li>Mit <strong>＋ Karte hinzufügen</strong> notierst du ein Ziel oder Wissen. Gib einen Titel, den Text, einen Empfänger unter <strong>An</strong> und den Status <strong>offen</strong>, <strong>aktiv</strong> oder <strong>erledigt</strong> an. Beispiel: „An Lyra: Prüfe Kristallangebote; Atlas benötigt 500 Kristall. Noch keine Bestellung zugesagt.“</li><li>Mit ↑ und ↓ sortierst du Wände und Karten. „Karte löschen“ und „Löschen“ bei der Wand entfernen Inhalte nach Rückfrage. Erst <strong>Pinwände speichern</strong> übernimmt diese Bearbeitungen dauerhaft.</li><li>Über <strong>Pinwände exportieren</strong> erhältst du eine JSON-Kopie zum Aufbewahren. <strong>Gespeicherten Stand laden</strong> verwirft nach Rückfrage ungespeicherte Änderungen und holt den Kontostand erneut.</li></ol>
+<p>Bis zu 20 Wände mit je 40 Karten sind möglich; Teamtexte und Pinwände dürfen zusammen 56 KB belegen. Pro Karte sind bis zu 3.000 Zeichen möglich. Halte Pläne deshalb konkret und bereinige alte Details. Die Pinwände sind für dein Konto und dessen Modellteam bestimmt; andere Spieler erhalten keinen Zugriff darauf. Bei OpenRouter werden die für die Entscheidung übermittelten eigenen Spiel- und Teamdaten an diesen Anbieter gesendet.</p><p>Jede Rolle liest vor jedem Zug das aktuelle Lagebild, ihre soul.md und rollen.md, die Namen und Rollen der Kollegen sowie die letzten bestätigten Übergaben. Bei überschaubaren Pinwänden erhält sie alle Karten. Bei umfangreichem Wissen werden offene und an die Rolle gerichtete Karten bevorzugt; die Modelle können weitere Karten über ein lesendes Pinwandwerkzeug seitenweise nachschlagen. Der vollständige Inhalt bleibt gespeichert. Modelle dürfen bis zu vier Karten pro Zug anlegen oder aktualisieren. Sie können keine ganze Wand löschen. Handelswünsche auf einer Karte sind interne Absprachen; der eigentliche Handel benötigt gültige Spielaktionen. Abgelehnte Aktionen erscheinen ausdrücklich im Übergabeprotokoll und können neue Karten nicht als erledigt bestätigen.</p>
+<h3 id="team-fortsetzen">7. Start, Pause, Abbruch und Gedächtnis</h3><ol><li>Speichere die Konfiguration und prüfe die Aufruf-, Zeit- und Kostenlimits. Klicke <strong>Team starten / fortsetzen</strong>.</li><li>Lass diesen Browser-Tab geöffnet. Ein schlafender PC, geschlossener Browser oder stark gedrosselter Hintergrund-Tab kann keine zuverlässigen Modellanfragen ausführen. Das Spiel selbst läuft nach den Weltregeln weiter.</li><li>Mit <strong>Team stoppen</strong> wird die Steuerungsfreigabe beendet und eine laufende Browseranfrage abgebrochen. Eine nachträglich eintreffende Modellantwort wird nicht mehr als neuer Spielbefehl gesendet. Ein bereits beim Server bestätigter Befehl bleibt ausgeführt.</li><li>Eine Weltpause verhindert neue Spielentscheidungen. Pinwände und Rollen kannst du trotzdem bearbeiten. Änderungen speichern stoppt ein laufendes Team, damit eine alte Entscheidung nicht mit neuen Vorgaben vermischt wird.</li><li>Nach Neuladen oder Neustart meldest du dich an, öffnest <strong>Modelle &amp; Team</strong>, trägst OpenRouter-Schlüssel erneut ein, testest die Modelle und startest bewusst wieder. Es gibt keinen unbeaufsichtigten automatischen Neustart.</li></ol>
+<p>Eine ausgeführte Entscheidung, ihre Pinwandänderungen und ihre Übergabe werden in derselben Datenbanktransaktion gespeichert. Wiederholtes Abrufen derselben Befehlskennung führt sie nicht doppelt aus. Bleibt eine Antwort nach Netzabbruch unklar, stoppt der Browser und zeigt <strong>Befehlsantwort erneut abrufen</strong>. Kläre diese Antwort vor weiteren Aktionen. Hat ein anderer Tab die Pinwand oder Zuordnung inzwischen geändert, wird die alte Entscheidung vor der Ausführung abgewiesen; lade den aktuellen Stand und starte erneut.</p><p>Es wird kein endloser Chatverlauf benötigt: Das Team baut jede Entscheidung aus frischem Lagebild und gespeichertem Wissen auf. Dadurch bleiben Ziele auch nach Kontextkürzung, Pausen und Neustarts verfügbar. Das ist kein vollständiges Langzeitprotokoll aller Worte: Die letzten 200 bestätigten Teamzüge bleiben gespeichert; die Oberfläche zeigt die jüngsten Übergaben dieser Epoche. Wichtige langfristige Erkenntnisse gehören auf Karten. Pinwände bleiben bei einem Epochenwechsel im Konto, werden als historisch markiert und dürfen nicht ungeprüft als neue Aufträge gelten.</p>
+<h3 id="team-fehler">8. Wenn etwas nicht funktioniert</h3><table><thead><tr><th>Meldung / Beobachtung</th><th>Was du prüfst</th></tr></thead><tbody><tr><td>Ollama vom Browser nicht erreichbar</td><td>Läuft Ollama? Ist die Adresse genau der lokale API-Punkt? Stimmt OLLAMA_ORIGINS mit dem im Spiel angezeigten Ursprung überein? Ollama nach Änderung vollständig neu starten; lokale Netzwerkberechtigung prüfen.</td></tr><tr><td>Modellliste ist leer / HTTP 404</td><td>Mit ollama list installierte Modelle prüfen. Ein Tippfehler, ein fehlender Tag oder eine falsche OpenRouter-ID reicht für einen Fehler. Kein Modell wird automatisch heruntergeladen.</td></tr><tr><td>HTTP 401 / 403 bei OpenRouter</td><td>Schlüssel vollständig und ohne Leerzeichen neu eintragen; Berechtigungen beim Anbieter prüfen. Schlüssel nicht in Modellname oder Adresse einfügen.</td></tr><tr><td>HTTP 402 / 429</td><td>Guthaben, Schlüssellimit oder Ratenlimit beim Anbieter prüfen. Anschließend gezielt erneut testen.</td></tr><tr><td>Zeitüberschreitung / Speicherfehler / HTTP 5xx</td><td>Ein einzelner Modellaufruf darf bis zu vier Minuten dauern. Wähle ein kleineres Modell; prüfe andere Speicherverbraucher. Ein bestandener Kurztest kann eine sehr große Spielsituation nicht vollständig vorhersagen.</td></tr><tr><td>Falsches JSON / Pflichtfeld fehlt</td><td>Die Modellantwort wird nicht ausgeführt. Ein anderes Textmodell probieren. Rollentexte dürfen dem geforderten Ausgabeformat nicht widersprechen.</td></tr><tr><td>Team oder Pinwand inzwischen geändert</td><td>Keine alte Entscheidung wurde ausgeführt. Sichere bei Bedarf eigene Texte, lade den gespeicherten Stand und starte mit den aktuellen Daten neu.</td></tr><tr><td>Speichern nach Verbindungsabbruch unklar</td><td>Gespeicherten Stand laden und Inhalte prüfen. Eine neue Speicherung mit alter Revision wird absichtlich abgewiesen, statt Änderungen eines anderen Tabs zu überschreiben.</td></tr><tr><td>Teamstart verlangt andere Spielweise</td><td>Im Spielerprofil „Gemischt“ oder „Agent“ wählen. Pinwände und Tests sind im Menschenmodus erlaubt.</td></tr><tr><td>Der Browser läuft auf einem anderen Gerät</td><td>127.0.0.1 bezeichnet immer das Browsergerät. Diese Oberfläche unterstützt lokale Loopback-Endpunkte auf diesem Gerät oder OpenRouter. Ein Ollama auf einem anderen PC wird nicht über dessen 127.0.0.1 erreicht.</td></tr></tbody></table>
+<p>Technische Grundlagen: <a href="https://docs.ollama.com/api/chat">Ollama Chat-API</a>, <a href="https://docs.ollama.com/faq">Ollama Browserfreigaben und Speichersteuerung</a>, <a href="https://openrouter.ai/docs/api_reference/overview">OpenRouter API</a>. Stand der beschriebenen Spieloberfläche: 8. Oktober 2026.</p>
 
-1. Wähle im **Spielerprofil** die Spielweise **Agent** oder **Gemischt**.
-2. Öffne **Agentensteuerung** und wähle **OpenRouter**.
-3. Trage deinen eigenen OpenRouter-Schlüssel und die genaue Modellkennung ein. Den Schlüssel gibst du ausschließlich in das dafür vorgesehene Eingabefeld ein.
-4. Wähle zunächst eine Rolle, etwa **Verwalter**, und ein kleines Aufruflimit. Setze zusätzlich beim Anbieter ein Kostenlimit.
-5. Klicke **Modell testen · keine Spielaktionen**. Der Test kann bereits einen kostenpflichtigen Modellaufruf auslösen.
-6. Prüfe die Antwort und wähle **Agent starten**. Kontrolliere seine Entscheidungen im Protokoll.
-
-Der Schlüssel bleibt im Arbeitsspeicher des Tabs. Nach dem Schließen musst du ihn erneut eingeben. Die Kostenanzeige im Spiel ersetzt das Limit deines Anbieterkontos nicht.
-
-### Ollama auf deinem eigenen Rechner
-
-1. Starte deine Ollama-Installation mit einem tatsächlich installierten lokalen Modell.
-2. Erlaube die Origin der Spielseite über **OLLAMA_ORIGINS** und gegebenenfalls den lokalen Netzwerkzugriff im Browser. Kapitel 6 beschreibt die Einrichtung.
-3. Wähle unter **Agentensteuerung** den Anbieter **Ollama** und prüfe die lokale Adresse, normalerweise **http://127.0.0.1:11434**.
-4. Klicke **Lokale Modelle suchen** und wähle eines deiner installierten Modelle.
-5. Weise Rollen zu, setze ein Aufruflimit und benutze den Modelltest.
-6. Starte den Agenten erst nach erfolgreichem Test. Lass seinen Tab offen und deinen Rechner wach.
-
-**127.0.0.1 ist hier dein eigener Rechner.** Jeder Spieler verwendet seine eigene Modellverbindung. Deine lokale Ollama-Installation muss dafür nicht im Internet veröffentlicht werden.
-
-### Mehrere Aufgaben und jederzeit selbst übernehmen
-
-Stratege, Verwalter, Feldherr und Diplomat können unterschiedliche Anbieter oder Modelle erhalten. Starte mit einer Rolle und erweitere die Aufgaben schrittweise. Mit **Agent stoppen / Steuerung übernehmen** beendest du neue Modellentscheidungen und übernimmst selbst. Bereits bestätigte Bau- und Flugaufträge bleiben bestehen.
 
 ## 21 Häufige Probleme und ihre Lösung
 
@@ -1033,7 +1131,7 @@ Lies den konkreten Ablehnungsgrund. Neben örtlichen Gütern und Technik gelten 
 
 ### Ollama wird nicht gefunden
 
-Prüfe, ob Ollama auf deinem PC läuft und ein Modell installiert ist. Vergleiche die genaue Modellkennung, den erlaubten Ursprung der Spielseite und eine mögliche lokale Netzwerkberechtigung des Browsers. Benutze danach erneut **Lokale Modelle suchen** und den Modelltest.
+Prüfe, ob Ollama auf deinem PC läuft und ein Modell installiert ist. Vergleiche die genaue Modellkennung, den erlaubten Ursprung der Spielseite und eine mögliche lokale Netzwerkberechtigung des Browsers. Benutze danach erneut **Modelle laden** und den Modelltest.
 
 ### Der OpenRouter-Test schlägt fehl
 
@@ -1079,6 +1177,6 @@ Prüfe den Status. Ein besiegtes Reich ist für diese Epoche ausgeschieden. Es k
 
 ## 23 Weiterlesen und im Spiel nachschlagen
 
-Der [bebilderte Spielguide](../Sternenepoche-Start.html) verbindet erste Schritte, alle 17 Spielbereiche und Regeln mit aktuellen Ansichten. Die genaue Einrichtung deiner eigenen Modelle steht in den Kapiteln 6 und 20.
+Der [bebilderte Spielguide](../Sternenepoche-Start.html) verbindet erste Schritte, alle 20 Spielbereiche und Regeln mit aktuellen Ansichten. Die genaue Einrichtung deiner eigenen Modelle steht in den Kapiteln 6 und 20.
 
 Kosten, Voraussetzungen, Flugpläne und Berichte findest du unmittelbar bei der jeweiligen Aktion im Spiel. Diese aktuellen Angaben sind maßgeblich, wenn die laufende Epoche abweichende Einstellungen verwendet.

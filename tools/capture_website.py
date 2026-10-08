@@ -1,6 +1,6 @@
 """Capture the real current client in an isolated local demonstration world on D:."""
 from pathlib import Path
-import functools, hashlib, http.server, json, subprocess, threading, time, urllib.request, uuid
+import functools, hashlib, http.server, json, subprocess, threading, time, urllib.request, uuid, os
 from PIL import Image
 from playwright.sync_api import sync_playwright
 
@@ -12,7 +12,7 @@ ADMIN = 'http://127.0.0.1:18995'
 WEB = 'http://127.0.0.1:18888'
 SCREENS = ['reich','gebaeude','kolonie','forschen','werft','verteidigung','flotten',
            'karte','kolonien','kampf','aktionen','berichte','imperium','freischaltungen',
-           'agent','profil','regeln']
+           'agent','pinwaende','profil','regeln']
 
 def request(path, body=None, token=None, admin=False):
     headers = {'Content-Type':'application/json'}
@@ -27,7 +27,7 @@ class Quiet(http.server.SimpleHTTPRequestHandler):
 def main():
     OUT.mkdir(parents=True,exist_ok=True)
     DATA.mkdir(parents=True,exist_ok=True)
-    server = subprocess.Popen([str(ROOT/'target/release/sternenepoche-server.exe'),
+    server = subprocess.Popen([os.environ.get('STERN_SCREENSHOT_BINARY',str(ROOT/'target/release/sternenepoche-server.exe')),
         '--data',str(DATA),'--bind','127.0.0.1:18994','--admin-bind','127.0.0.1:18995',
         '--origin',WEB],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,
         creationflags=subprocess.CREATE_NO_WINDOW)
@@ -53,6 +53,18 @@ def main():
             page.goto(WEB+'/web-client/',wait_until='networkidle')
             page.locator('#game').wait_for(state='visible')
             page.locator('#sternen-loader').wait_for(state='hidden')
+            page.locator('[data-tab="agent"]').click()
+            page.locator('[data-team="add-model"]').click()
+            page.locator('[data-model="model"]').fill('qwen2.5-coder:1.5b')
+            page.locator('[data-role-id="verwalter"] summary').click()
+            model_id=page.locator('.team-model').get_attribute('data-model-id')
+            page.locator('[data-role-id="verwalter"] [data-role="model"]').select_option(model_id)
+            page.locator('#team-workbench [data-team="save"]').click()
+            page.locator('[data-tab="pinwaende"]').click()
+            page.locator('[data-team="add-note"]').click()
+            page.locator('[data-note="title"]').fill('Versorgung vor Expansion')
+            page.locator('[data-note="text"]').fill('Nova prüft Energie und Nahrung. Danach planen wir Forschung und die nächste Kolonie. Offene Handelsfragen hier festhalten.')
+            page.locator('#pinboard-content [data-team="save"]').click()
             for screen in SCREENS:
                 page.locator('[data-tab="'+screen+'"]').click()
                 page.locator('#'+screen).wait_for(state='visible')

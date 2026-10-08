@@ -10,6 +10,7 @@ pub mod ausscheiden;
 pub mod aufklaerung;
 mod snapshot_layout;
 pub mod diplomatie;
+pub mod kommunikation;
 pub mod erweiterung;
 pub mod flotte;
 pub mod kampf;

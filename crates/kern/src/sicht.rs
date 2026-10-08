@@ -546,17 +546,7 @@ impl Welt {
             .collect();
 
         let grenze = jetzt - r.agenten.chronik_tage * TAG;
-        let nachrichten: Vec<Value> = self
-            .nachrichten
-            .iter()
-            .filter(|n| n.zeit >= grenze && (n.von == sid || n.an.contains(&sid)))
-            .rev()
-            .take(30)
-            .map(|n| {
-                json!({"zeit": zeittext(n.zeit), "von": name(n.von), "an": n.an.iter().map(|x| name(*x)).collect::<Vec<_>>(),
-                    "allianz": n.allianz, "neu": n.zeit >= seit && n.von != sid, "text": n.text})
-            })
-            .collect();
+        let nachrichten: Vec<Value> = self.briefkasten(sid).into_iter().filter(|n|n["sekunden"].as_i64().unwrap_or(0)>=grenze).take(30).map(|mut n|{n["neu"]=json!(n["gelesen"]==false && n["gesendet"]==false);n}).collect();
 
         let ereignisse: Vec<Value> = sp
             .vorfaelle
@@ -761,6 +751,7 @@ impl Welt {
             "einladungen": einladungen,
             "register": register,
             "nachrichten": nachrichten,
+            "kommunikation": self.kommunikation_sicht(sid),
             "ereignisse": ereignisse,
             "chronik": chronik,
             "markt": {"preise": markt, "orders": orders},
@@ -821,6 +812,13 @@ impl Welt {
             Ok(s)
         };
         match text("typ").unwrap_or("") {
+            "briefarchiv" => {
+                let before=abfrage["vor_id"].as_u64().unwrap_or(u64::MAX);
+                let limit=abfrage["limit"].as_u64().unwrap_or(50).clamp(1,100) as usize;
+                let channel=abfrage["kanal"].as_str().unwrap_or("alle");
+                let letters=self.briefkasten_seite(sid,before,limit,channel);
+                Ok(json!({"briefe":letters,"naechste_vor_id":letters.last().and_then(|n|n["id"].as_u64())}))
+            },
             "kolonieplan" => self.kolonieplan(sid, abfrage),
             "kosten" => {
                 let pid = match text("planet") {

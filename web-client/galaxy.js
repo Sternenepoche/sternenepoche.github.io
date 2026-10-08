@@ -22,6 +22,7 @@ const GalaxyModel={
 // Browser scene. Loaded once; renderer and resources are disposed on world change.
 window.GalaxyUI=(()=>{
  let host,canvas,renderer,scene,camera,group,raycaster,glow,observer,frameId=0,active=false,dirty=true;
+ let relationStamp='';
  let stage='galaxy',sector=1,system=1,selected=0,clock=0,last=0,stamp='',epoch=0,paused=false,motionOverride=false;
  let cache=new Map(),targets=[],labels=[],planets=[],orbits=[],yaw=.15,pitch=.72,distance=600,drag=null;
  const $g=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)');
@@ -78,7 +79,7 @@ window.GalaxyUI=(()=>{
  }
  function motionState(){if($g('galaxy-motion')){$g('galaxy-motion').textContent=reduced.matches&&!motionOverride?'Umläufe aktivieren':paused?'Umläufe fortsetzen':'Umläufe pausieren';$g('galaxy-motion').title=reduced.matches&&!motionOverride?'Deine Systemeinstellung reduziert Bewegung. Du kannst Umläufe hier ausdrücklich aktivieren.':'';}}
  function header(title,sub){closeDetail();$g('galaxy-title').textContent=title;$g('galaxy-subtitle').textContent=sub;$g('galaxy-back').hidden=stage==='galaxy';$g('galaxy-motion').hidden=stage!=='system';motionState();}
- function index(items){$g('galaxy-index').innerHTML=items.map(i=>`<button type="button" data-space-kind="${i.kind}" data-space-key="${i.key}" class="${i.own?'space-own':''}" aria-label="${esc(i.text)} öffnen">${esc(i.text)}${i.known?' <small>kartiert</small>':''}</button>`).join('');}
+ function index(items){$g('galaxy-index').innerHTML=items.map(i=>`<button type="button" data-space-kind="${i.kind}" data-space-key="${i.key}" class="${i.own?'space-own':''}" aria-label="${esc(i.text)} öffnen">${esc(i.text)}${i.owner?' '+relationHtml(i.owner,i.relation):i.known?' <small>kartiert</small>':''}</button>`).join('');}
  function showGalaxy(){
   stage='galaxy';selected=0;epoch++;if(renderer)resetScene();$g('galaxy-loading').hidden=true;header('Die Galaxie','Sektor wählen · Sterne öffnen die Sonnensysteme');
   const w=profile(),items=[];
@@ -111,10 +112,10 @@ window.GalaxyUI=(()=>{
  async function showSystem(s,n){
   sector=Number(s);system=Number(n);stage='system';selected=0;const request=++epoch;if(renderer)resetScene();index([]);$g('galaxy-table').innerHTML='';header('System '+sector+':'+system,'Sonne, Umlaufbahnen und deine Sondenberichte');$g('galaxy-loading').hidden=false;
   try{const systems=await fetchSector(sector,request);if(!systems||request!==epoch)return;const data=systems.find(s=>s.system===system);if(!data)throw Error('System nicht vorhanden');const ps=GalaxyModel.planets(data,sector,profile().plaetze_je_system);if(renderer)resetScene();
-   index(ps.map(p=>({kind:'planet',key:p.position,text:p.koord,known:p.bekannt,own:own(p.koord)})));
+   index(ps.map(p=>({kind:'planet',key:p.position,text:p.koord,known:p.bekannt,own:own(p.koord),owner:p.spieler,relation:p.beziehung})));
    if(renderer){const sun=new THREE.Mesh(new THREE.SphereGeometry(14,48,32),new THREE.MeshBasicMaterial({map:planetTexture('sun',system*.6),toneMapped:false}));group.add(sun);group.add(sprite('#ffa34b',115,.9));group.add(sprite('#fff5c0',58,.85));const light=new THREE.PointLight(0xffe2ae,3.5,0,0);light.position.set(0,0,0);group.add(light);
     for(const p of ps){const isOwn=own(p.koord),radius=p.bekannt?4.3+p.position%3*.5:3.4,zone=p.bekannt?p.zone:null;
-     const mesh=new THREE.Mesh(new THREE.SphereGeometry(radius,32,24),new THREE.MeshPhongMaterial({map:planetTexture(zone||'unknown',p.position+system),color:p.besiegt?'#8e9096':'#ffffff',shininess:zone==='leben'?28:8}));mesh.userData={kind:'planet',key:p.position,data:p};group.add(mesh);targets.push(mesh);planets.push(mesh);orbits.push(ring(GalaxyModel.orbit(p.position,0).radius,isOwn?'#d6b277':p.bekannt?'#769ca4':'#657b98',isOwn?.7:.4));label(String(p.position),mesh,p.position,'planet');
+     const mesh=new THREE.Mesh(new THREE.SphereGeometry(radius,32,24),new THREE.MeshPhongMaterial({map:planetTexture(zone||'unknown',p.position+system),color:RELATION_COLORS[relationFor(p.spieler,p.beziehung)?.status]||'#ffffff',shininess:zone==='leben'?28:8}));mesh.userData={kind:'planet',key:p.position,data:p};group.add(mesh);targets.push(mesh);planets.push(mesh);orbits.push(ring(GalaxyModel.orbit(p.position,0).radius,RELATION_COLORS[relationFor(p.spieler,p.beziehung)?.status]||(isOwn?'#d6b277':p.bekannt?'#769ca4':'#657b98'),isOwn?.7:.4));label(String(p.position),mesh,p.position,'planet');
      if(zone==='leben'){const atmosphere=new THREE.Mesh(new THREE.SphereGeometry(radius*1.035,24,16),new THREE.MeshBasicMaterial({color:0x6ea8c9,transparent:true,opacity:.12,side:THREE.BackSide}));mesh.add(atmosphere);}
     }
     pitch=.8;fitView(330);dirty=true;
@@ -125,7 +126,7 @@ window.GalaxyUI=(()=>{
  function planetDetail(p){
   if(!p)return;selected=p.position;dirty=true;
   const known=!!p.bekannt,protectedHome=!!p.heimat,owner=known?(p.spieler??(p.status==='frei'?'Unbewohnt':'Unbekannt')):'Unbekannt';
-  $g('galaxy-detail').innerHTML=`<span class="eyebrow">PLANET ${p.position} · INFOKARTE</span><h3 id="galaxy-planet-title">${esc(p.koord)}</h3>${known&&p.zone?`<img class="space-planet-art ${p.besiegt?'defeated-planet':''}" src="${esc(planetArt(p))}" alt="${esc(named(p.zone))}">`:'<div class="space-unknown" aria-label="Unbekannter Planet">?</div>'}<strong>${esc(p.besiegt?'Besiegt':named(p.status))}</strong><dl><dt>Planetentyp</dt><dd>${esc(known?named(p.zone||'unbekannt'):'Unbekannt')}</dd><dt>Bewohner</dt><dd>${esc(owner)}</dd><dt>Heimatwelt</dt><dd>${protectedHome?'Geschützt':'—'}</dd></dl><p>${known?planetResources(p):'Eine Planetensonde enthüllt Typ, Bewohner und Ressourcen.'}</p><div class="section-actions"><button type="button" data-explore="${esc(p.koord)}" data-system="${!(cache.get(sector)||[]).find(s=>s.system===system)?.bekannt}">${(cache.get(sector)||[]).find(s=>s.system===system)?.bekannt?'Sonde planen':'Systemscan planen'}</button>${known&&p.status==='frei'&&!protectedHome?`<button type="button" class="secondary" data-colonize="${esc(p.koord)}">Kolonie planen</button>`:''}${own(p.koord)?`<button type="button" class="secondary" data-space-own="${esc(p.koord)}">Planet verwalten</button>`:''}</div>`;
+  $g('galaxy-detail').innerHTML=`<span class="eyebrow">PLANET ${p.position} · INFOKARTE</span><h3 id="galaxy-planet-title">${esc(p.koord)}</h3>${known&&p.zone?`<img class="space-planet-art ${p.besiegt?'defeated-planet':''}" src="${esc(planetArt(p))}" alt="${esc(named(p.zone))}">`:'<div class="space-unknown" aria-label="Unbekannter Planet">?</div>'}<strong>${esc(p.besiegt?'Besiegt':named(p.status))}</strong><dl><dt>Planetentyp</dt><dd>${esc(known?named(p.zone||'unbekannt'):'Unbekannt')}</dd><dt>Bewohner</dt><dd>${known&&p.spieler?relationHtml(owner,p.beziehung):esc(owner)}</dd><dt>Heimatwelt</dt><dd>${protectedHome?'Geschützt':'—'}</dd></dl><p>${known?planetResources(p):'Eine Planetensonde enthüllt Typ, Bewohner und Ressourcen.'}</p><div class="section-actions"><button type="button" data-explore="${esc(p.koord)}" data-system="${!(cache.get(sector)||[]).find(s=>s.system===system)?.bekannt}">${(cache.get(sector)||[]).find(s=>s.system===system)?.bekannt?'Sonde planen':'Systemscan planen'}</button>${known&&p.status==='frei'&&!protectedHome?`<button type="button" class="secondary" data-colonize="${esc(p.koord)}">Kolonie planen</button>`:''}${own(p.koord)?`<button type="button" class="secondary" data-space-own="${esc(p.koord)}">Planet verwalten</button>`:''}</div>`;
   labels.forEach(l=>{if(l.kind==='planet')l.el.setAttribute('aria-pressed',String(Number(l.key)===selected));});
   if(!$g('galaxy-infocard').open)$g('galaxy-infocard').showModal();
  }
@@ -149,5 +150,6 @@ window.GalaxyUI=(()=>{
  function update(data){const systems=Array.isArray(data)?data:data.systeme||[];const s=Number($('map-form').elements.sektor.value);cache.delete(s);if(systems.length===1)void showSystem(s,systems[0].system);else void showSector(s);}
  document.addEventListener('click',e=>{const b=e.target.closest('[data-space-kind],[data-space-own]');if(!b)return;if(b.dataset.spaceOwn){selectedPlanet=b.dataset.spaceOwn;renderView();navigateGame('reich');}else pick(b.dataset.spaceKind,b.dataset.spaceKey);});
  document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(frameId);frameId=0;last=0;}else if(active&&renderer&&!frameId)frameId=requestAnimationFrame(frame);});
- return {visible,update};
+ function relations(){const next=JSON.stringify(view?.kommunikation?.kontakte||[]);if(next===relationStamp)return;relationStamp=next;if(active){if(stage==='system')void showSystem(sector,system);else if(stage==='sector')void showSector(sector);}}
+ return {visible,update,relations};
 })();

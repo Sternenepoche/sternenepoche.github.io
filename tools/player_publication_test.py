@@ -14,7 +14,7 @@ def main():
         assert not (OUT/name).exists(), name
     guide=(OUT/'Sternenepoche-Start.html').read_text(encoding='utf-8')
     assert 'id="agent-setup"' in guide and 'id="server-start"' not in guide
-    for term in ['OpenRouter','OLLAMA_ORIGINS','Lokale Modelle suchen','127.0.0.1:11434']:
+    for term in ['OpenRouter','OLLAMA_ORIGINS','Modelle laden','Pinwände','soul.md','rollen.md','127.0.0.1:11434']:
         assert term in guide, 'Player model setup lost: '+term
     structured=json.loads((OUT/'docs/spielguide.json').read_text(encoding='utf-8'))
     assert next(c for c in structured['chapters'] if c['number']==20)['title']=='Deinen eigenen KI-Assistenten verbinden'

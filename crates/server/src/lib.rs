@@ -8,6 +8,8 @@ use argon2::{
     password_hash::{PasswordHash, PasswordHasher, PasswordVerifier, SaltString},
     Argon2,
 };
+mod communication;
+mod workspace;
 use kern::{aktion::Aktion, regeln::Regelwerk, typen::*, Welt};
 use lauf::bots::{Bot, Bottyp};
 use rand::{rngs::OsRng, RngCore};
@@ -201,6 +203,8 @@ impl Game {
         } else {
             fresh(seed, include_str!("../../../regeln/online-v1.ron"))?
         };
+        communication::setup(&db)?;
+        workspace::setup(&db)?;
         let email_code_key=identity::setup(&db,root)?;
         authenticator::setup(&db)?;
         mail::MailConfig::initialize(root)?;
@@ -220,6 +224,7 @@ impl Game {
         Ok(g)
     }
     fn save(&mut self) -> Result<(), (u16, String)> {
+        self.save_communication()?;
         self.snapshot_players()?;
         let w = self.world.zu_bytes();
         let r = serde_json::to_vec(&self.runtime)
@@ -296,6 +301,10 @@ impl Game {
                     }
                 }
                 let logs=g.world.log_abholen();g.record_player_events(logs)?;
+                if g.world.zeit % 60 == 0 {
+                    let ids=g.runtime.bots.keys().chain(g.runtime.leases.keys()).copied().collect::<std::collections::BTreeSet<_>>();
+                    for sid in ids {for id in g.world.offene_antworten(sid) {g.world.empfang_bei_zeitmangel(sid,id);}}
+                }
                 if g.world.zeit % STUNDE == 0 {g.record_public_history();}
             }
             g.runtime.leases.retain(|sid, l| l.until > now() && g.world.spieler_aktiv(*sid));
@@ -529,6 +538,7 @@ impl Game {
             Rolle::Alle
         };
         self.transaction(|g| {
+            g.check_team_turn(a,v)?;
             let result:Vec<Value>=actions.iter().map(|action| {let (ok,text)=g.world.handeln(sid,role,action);json!({"ok":ok,"text":text})}).collect();
             if role!=Rolle::Alle {
                 let notes=v["notiz"].as_str();
@@ -536,6 +546,7 @@ impl Game {
                 let hints=result.iter().filter(|v|v["ok"]==false).filter_map(|v|v["text"].as_str().map(str::to_string)).collect::<Vec<_>>();
                 g.world.aufruf_ende(sid,role,notes,wake,&hints);
             }
+            g.finish_team_turn(a,v,&result)?;
             let response=json!({"ergebnisse":result,"world_id":g.runtime.world_id,"revision":g.runtime.revision+1});
             g.db.execute("INSERT INTO commands VALUES(?1,?2,?3,?4,?5,?6)",params![a.id,g.runtime.world_id,request,body_hash,response.to_string(),now()]).map_err(|_|err(503,"Befehl konnte nicht gespeichert werden"))?;
             g.db.execute("INSERT INTO audit(time,account,kind,result) VALUES(?1,?2,'spiel',?3)",params![now(),a.id,response.to_string()]).map_err(|_|err(503,"Protokoll nicht gespeichert"))?;

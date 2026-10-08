@@ -65,6 +65,7 @@ impl Welt {
         if self.beendet() {
             self.punkte_neu();
         }
+        self.kommunikation_tick();
         self.fenster_vorbereiten();
         true
     }
@@ -72,6 +73,7 @@ impl Welt {
     fn ausfuehren(&mut self, art: EreignisArt) {
         match art {
             EreignisArt::SensorKontakt { flotte } => self.sensor_kontakt(flotte),
+            EreignisArt::InterneLieferung { angebot } => self.intern_liefern(angebot),
             EreignisArt::Tick => {
                 self.tick();
                 self.plane(self.zeit + STUNDE, EreignisArt::Tick);
@@ -236,11 +238,22 @@ impl Welt {
             h.update(b"ausscheiden-v1");
             h.update(bincode::serialize(&self.ausscheiden).expect("Ausscheidestatus"));
         }
+        if !self.kommunikation.ereignisse.is_empty() {
+            h.update(b"kommunikation-v1");
+            h.update(serde_json::to_vec(&self.kommunikation).expect("Kommunikation"));
+        }
         h.finalize().iter().map(|b| format!("{b:02x}")).collect()
     }
 
     /// Vollständiger Schnappschuss als Bytes.
     pub fn zu_bytes(&self) -> Vec<u8> {
+        let base=self.zu_bytes_v8();
+        if self.kommunikation.ereignisse.is_empty() {return base;}
+        let mut out=b"STERNEP9".to_vec();
+        out.extend_from_slice(&(base.len() as u64).to_le_bytes());out.extend(base);
+        out.extend(serde_json::to_vec(&self.kommunikation).expect("Kommunikation"));out
+    }
+    fn zu_bytes_v8(&self) -> Vec<u8> {
         let base=self.zu_bytes_v7();
         if !self.ausscheiden.erweitert() {return base;}
         let mut out=b"STERNEP8".to_vec();
@@ -302,6 +315,15 @@ impl Welt {
     }
 
     pub fn aus_bytes(b: &[u8]) -> Result<Welt, String> {
+        if b.starts_with(b"STERNEP9") {
+            let len=u64::from_le_bytes(b.get(8..16).ok_or("Snapshotkopf fehlt")?.try_into().unwrap()) as usize;
+            let end=16usize.checked_add(len).filter(|n|*n<=b.len()).ok_or("Snapshotlänge ungültig")?;
+            if b[16..end].starts_with(b"STERNEP9") {return Err("Verschachtelter V9-Snapshot".into());}
+            let mut w=Self::aus_bytes(&b[16..end])?;
+            w.kommunikation=serde_json::from_slice(&b[end..]).map_err(|e|e.to_string())?;
+            if w.kommunikation.briefe.keys().any(|id|*id==0||*id>w.nachrichten.len() as u64) {return Err("Ungültige Briefreferenz".into());}
+            return Ok(w);
+        }
         if b.starts_with(b"STERNEP8") {
             let len=u64::from_le_bytes(b.get(8..16).ok_or("Snapshotkopf fehlt")?.try_into().unwrap()) as usize;
             let end=16usize.checked_add(len).filter(|n|*n<=b.len()).ok_or("Snapshotlänge ungültig")?;

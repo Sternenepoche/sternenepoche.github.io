@@ -24,9 +24,10 @@ SCREENS = [
     ("werft", "Schiffswerft", 11), ("verteidigung", "Verteidigung", 15),
     ("flotten", "Flotten & Saven", 14), ("karte", "Galaxie", 12),
     ("kolonien", "Kolonisation", 16), ("kampf", "Kampf & Verbände", 15),
-    ("aktionen", "Markt & Diplomatie", 17), ("berichte", "Nachrichten & Berichte", 12),
+    ("briefkasten", "Briefkasten", 17), ("allianzbereich", "Allianz", 17), ("allianzpost", "Allianzpost · Führung", 17),
+    ("aktionen", "Markt", 17), ("berichte", "Berichte", 12),
     ("imperium", "Imperiumsvergleich", 19), ("freischaltungen", "Technologiebaum", 11),
-    ("agent", "Agentensteuerung", 6), ("profil", "Spielerprofil", 5),
+    ("agent", "Modelle & Team", 20), ("pinwaende", "Pinwände", 20), ("profil", "Spielerprofil", 5),
     ("regeln", "Spielanleitung", 21),
 ]
 
@@ -83,7 +84,7 @@ def guide_parts() -> tuple[dict[str, str], int]:
         'Rechts: Deine Planeten. Warnungen: zuerst lesen.</p></div>'
         '<label class="screen-select" hidden>Spielbereich auswählen<select id="screen-select">'
         + ''.join(options) + '</select></label><div class="screen-layout">'
-        '<nav class="screen-nav" aria-label="Die 17 Bereiche der Spieloberfläche">'
+        '<nav class="screen-nav" aria-label="Die 21 Bereiche der Spieloberfläche">'
         + ''.join(screen_links) + '</nav><div class="screen-content">' + ''.join(panels) + '</div></div>'
         '<p id="screen-status" class="sr-only" role="status"></p></div>')
     toc, articles = [], []
@@ -94,7 +95,7 @@ def guide_parts() -> tuple[dict[str, str], int]:
         if number == 7:
             content = 'Die ausführliche erste Spielsitzung mit acht praktischen Schritten steht [weiter oben auf dieser Seite](#erste-sitzung). Du kannst sie direkt im Spiel abarbeiten.'
         elif number == 8:
-            content = 'Der [Oberflächen-Wegweiser](#oberflaeche) erklärt alle 17 Bereiche: wo du etwas findest, welche Knöpfe du benutzt, was danach passiert und welche Fehler du prüfen solltest.\n\n' + chapters[8][1].split('### ', 1)[0]
+            content = 'Der [Oberflächen-Wegweiser](#oberflaeche) erklärt alle 21 Bereiche: wo du etwas findest, welche Knöpfe du benutzt, was danach passiert und welche Fehler du prüfen solltest.\n\n' + chapters[8][1].split('### ', 1)[0]
         label = f'{number:02d} · {title}'
         toc.append(f'<li><a href="#{target}">{html.escape(label)}</a></li>')
         chapter = render(heading + content)
@@ -117,7 +118,7 @@ def build() -> None:
     DESTINATION.write_text(document, encoding="utf-8")
     print(f"Erstellt: {DESTINATION}")
     print(f"Aktuelle Screenshots und Spielmotive eingebettet, {DESTINATION.stat().st_size:,} Bytes")
-    print(f"17 Bedienwege, 8 Einstiegsschritte, 22 Kapitel; Handbuchquelle: {words:,} Wörter")
+    print(f"20 Bedienwege, 8 Einstiegsschritte, 22 Kapitel; Handbuchquelle: {words:,} Wörter")
 
 
 if __name__ == "__main__":

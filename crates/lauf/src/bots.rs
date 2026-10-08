@@ -864,6 +864,8 @@ fn haendler(welt: &mut Welt, sid: SpielerId) {
 
 /// Bietet Nachbarn Nichtangriffspakte an und nimmt Angebote an. Räuber schließen keine Pakte.
 fn diplomatie(welt: &mut Welt, sid: SpielerId, typ: Bottyp) {
+    kommunizieren(welt,sid,typ);
+
     let offen: Vec<u32> = welt
         .vertraege
         .iter()
@@ -1382,5 +1384,58 @@ mod interactive_colony_tests {
         assert!(colony.schiffe[Einheit::LeichterJaeger.idx()] > 0);
         let required = w.koloniefracht(0);
         for g in Gut::ALLE { assert!(colony.ladung[g.idx()] >= required[g.idx()]); }
+    }
+}
+
+/// Baseline policies are explicitly script decisions, never presented as LLM reasoning.
+fn kommunizieren(w:&mut Welt,sid:SpielerId,typ:Bottyp) {
+    let names=w.spieler.iter().map(|s|s.name.clone()).collect::<Vec<_>>();
+    for id in w.offene_antworten(sid).into_iter().take(4) {
+        let n=w.nachrichten[id as usize-1].clone();
+        let style=match typ {Bottyp::Raeuber=>"Meine Flottenplanung lässt mir gerade keine Zeit für weitere Gespräche.",Bottyp::Igel=>"Ich sichere mein Reich. Über gegenseitige Hilfe und einen Nichtangriffspakt können wir sprechen.",Bottyp::Haendler=>"Ich suche verlässliche Handelspartner. Welche Waren brauchst du oder kannst du anbieten?",_=>"Ich baue eine langfristige Wirtschaft auf. Welche Zusammenarbeit stellst du dir vor?"};
+        tu(w,sid,json!({"typ":"brief_senden","kanal":"privat","an":names[n.von as usize],"betreff":"Antwort","text":format!("Ich bin {}. {style}",names[sid as usize]),"antwort_auf":id}));
+    }
+    let requests=w.kommunikation.anfragen.iter().filter(|a|a.zielallianz.is_none()&&a.an==sid&&a.status=="offen"&&a.vertrag.is_none_or(|id|w.vertraege.iter().any(|v|v.id==id&&v.status==Vertragsstatus::Angeboten))).map(|a|(a.id,a.art.clone())).take(4).collect::<Vec<_>>();
+    for (id,art) in requests {
+        let accept=typ!=Bottyp::Raeuber && (art!="allianz"||w.spieler[sid as usize].allianz.is_none());
+        tu(w,sid,json!({"typ":"diplomatie_entscheiden","anfrage":id,"annehmen":accept}));
+    }
+    let council=w.kommunikation.anfragen.iter().filter(|a|a.status=="offen"&&a.zielallianz.is_some_and(|id|w.allianz_leitung(sid,id))).take(4).map(|a|a.id).collect::<Vec<_>>();
+    for id in council {tu(w,sid,json!({"typ":"diplomatie_entscheiden","anfrage":id,"annehmen":typ!=Bottyp::Raeuber}));}
+    // One initiative per day and seat; no reply chains and no hidden enemy knowledge.
+    if w.zeit % TAG >= TAKT || w.zeit<TAG {return;}
+    let already=w.kommunikation.ereignisse.iter().rev().take_while(|e|e["time"].as_i64().unwrap_or(0)>=w.zeit-w.zeit%TAG).any(|e|e["player_id"]==sid && e["event_type"]=="communication.sent");
+    if already {return;}
+    if w.spieler[sid as usize].allianz.is_none() && typ!=Bottyp::Raeuber {
+        let invitation=w.allianzen.iter().find(|a|a.eingeladen.contains(&sid)).map(|a|a.name.clone());
+        if let Some(name)=invitation {tu(w,sid,json!({"typ":"allianz_beitreten","allianz":name}));}
+        else if typ==Bottyp::Haendler {tu(w,sid,json!({"typ":"allianz_gruenden","name":format!("Bund {}",names[sid as usize])}));}
+    }
+    let partner=(0..w.spieler.len() as u16).cycle().skip(sid as usize+1).take(w.spieler.len()-1).find(|s|w.spieler_aktiv(*s));
+    if let Some(p)=partner {
+        if let Some(aid)=w.spieler[sid as usize].allianz {
+            if w.allianz_leitung(sid,aid) && w.spieler[p as usize].allianz.is_none() {tu(w,sid,json!({"typ":"allianz_einladen","spieler":names[p as usize]}));}
+            if w.spieler[p as usize].allianz.is_some_and(|a|a!=aid) && w.allianz_leitung(sid,aid) {
+                let name=w.allianzen.iter().find(|a|Some(a.id)==w.spieler[p as usize].allianz).unwrap().name.clone();
+                tu(w,sid,json!({"typ":"brief_senden","kanal":"diplomatie","an":name,"betreff":"Handelsbeziehungen","text":"Unsere Allianz möchte über sichere Handelswege und gegenseitige Hilfe sprechen.","antwort_auf":null}));
+                let target=w.spieler[p as usize].allianz;
+                if typ==Bottyp::Haendler&&!w.kommunikation.anfragen.iter().any(|a|a.art=="handelsabkommen"&&["offen","angenommen"].contains(&a.status.as_str())&&((a.allianz==Some(aid)&&a.zielallianz==target)||(a.allianz==target&&a.zielallianz==Some(aid)))) {
+                    tu(w,sid,json!({"typ":"allianz_anfrage","allianz":name,"art":"handelsabkommen","text":"Wir bieten ein verbindliches Handelsabkommen für unsere Allianzen an."}));
+                }
+            }
+            let k=w.planeten[w.spieler[sid as usize].heimat as usize].koord;
+            let view=w.sicht(sid,Rolle::Alle);
+            tu(w,sid,json!({"typ":"brief_senden","kanal":"allianz","an":"","betreff":"Lagebericht","text":format!("{} ist erreichbar. Bitte meldet Versorgungsbedarf über den internen Markt und Angriffe als Hilferuf.",names[sid as usize]),"antwort_auf":null}));
+            if view["angriffe"].as_array().is_some_and(|a|!a.is_empty()) && !w.kommunikation.hilfe.iter().any(|h|h.von==sid&&h.status=="offen") {tu(w,sid,json!({"typ":"allianz_hilfe","planet":k,"text":"Sensoren melden einen Angriff. Bitte Entsatz prüfen."}));}
+            let help=w.kommunikation.hilfe.iter().find(|h|h.allianz==aid&&h.von!=sid&&h.status=="offen"&&!h.helfer.contains(&sid)).map(|h|h.id);
+            if let Some(id)=help {tu(w,sid,json!({"typ":"allianz_hilfe_status","hilfe":id,"erledigt":false}));}
+            let pid=w.spieler[sid as usize].heimat as usize;
+            if typ==Bottyp::Haendler && w.planeten[pid].gebaeude[Gebaeude::Markt.idx()]>0 && w.bestand_jetzt(pid)[Gut::Erz.idx()]>5000*M && !w.kommunikation.angebote.iter().any(|o|o.von==sid&&o.status=="offen") {tu(w,sid,json!({"typ":"intern_anbieten","planet":k,"gut":"erz","menge":100,"preis":1}));}
+            let offer=w.kommunikation.angebote.iter().find(|o|o.allianz==aid&&o.von!=sid&&o.status=="offen"&&o.preis<=M&&o.menge<=1000*M).map(|o|o.id);
+            if typ!=Bottyp::Raeuber && w.spieler[sid as usize].credits>2000*M {if let Some(id)=offer {tu(w,sid,json!({"typ":"intern_kaufen","angebot":id,"planet":k}));}}
+        }
+        if !w.kommunikation.briefe.iter().any(|(id,b)|b.kanal=="privat"&&w.nachrichten[*id as usize-1].von==sid&&w.nachrichten[*id as usize-1].an.contains(&p)) {
+            tu(w,sid,json!({"typ":"brief_senden","kanal":"privat","an":names[p as usize],"betreff":"Erster Kontakt","text":format!("Ich bin {}. Welche langfristigen Interessen hat dein Reich?",names[sid as usize]),"antwort_auf":null}));
+        }
     }
 }

@@ -70,6 +70,7 @@ pub struct EmailChallenge {pub id:String,pub email:String,pub code:String}
 impl Game {
     pub(crate) fn record_player_events(&self,logs:Vec<kern::welt::Logeintrag>)->Result<(),(u16,String)> {
         for event in logs {
+            self.db.execute("INSERT INTO game_actions(world_id,simulation_seconds,actor,role,accepted,action_json,result) VALUES(?1,?2,?3,?4,?5,?6,?7)",params![self.runtime.world_id,event.zeit,event.spieler,event.rolle.to_string(),event.ok,event.aktion,event.text]).map_err(|_|err(503,"Spielaktionsarchiv konnte nicht gespeichert werden"))?;
             let account=self.db.query_row("SELECT id FROM accounts WHERE sid=?1",[event.spieler],|r|r.get::<_,i64>(0)).optional().map_err(|_|err(503,"Spielerkonto nicht lesbar"))?;
             if let Some(id)=account{self.identity_event(Some(id),"game_event",serde_json::to_value(event).map_err(|_|err(503,"Spielprotokoll ungültig"))?)?;}
         }

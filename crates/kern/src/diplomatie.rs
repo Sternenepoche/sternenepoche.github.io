@@ -12,7 +12,7 @@ impl Welt {
     }
 
     pub fn vertrag_zwischen(&self, a: SpielerId, b: SpielerId, art: Vertragsart) -> bool {
-        self.vertraege
+        self.allianzvertrag_zwischen(a,b,art) || self.vertraege
             .iter()
             .any(|v| v.art == art && Self::in_kraft(v) && ((v.a == a && v.b == b) || (v.a == b && v.b == a)))
     }
@@ -39,42 +39,18 @@ impl Welt {
     }
 
     pub fn nachricht(&mut self, sid: SpielerId, an: &[String], allianz: bool, text: &str) -> Result<String, String> {
-        let r = self.regeln.clone();
-        let text = text.trim();
-        if text.is_empty() {
-            return Err("Nachricht ist leer".into());
-        }
-        if text.chars().count() > r.agenten.nachricht_zeichen {
-            return Err(format!("Nachricht ist länger als {} Zeichen", r.agenten.nachricht_zeichen));
-        }
-        if self.spieler[sid as usize].nachrichten_heute >= r.agenten.nachrichten_je_tag {
-            return Err(format!("Tageslimit von {} Nachrichten erreicht", r.agenten.nachrichten_je_tag));
-        }
-        let mut empfaenger: Vec<SpielerId> = Vec::new();
         if allianz {
-            let Some(aid) = self.spieler[sid as usize].allianz else {
-                return Err("du bist in keiner Allianz".into());
-            };
-            if let Some(al) = self.allianzen.iter().find(|a| a.id == aid) {
-                empfaenger.extend(al.mitglieder.iter().filter(|m| **m != sid));
-            }
+            if !an.is_empty() {return Err("Allianzchat erlaubt keine externen Empfänger".into());}
+            return self.brief_senden(sid,"allianz","","Allianzchat",text,None);
         }
-        for name in an {
-            let e = self.spieler_nach_name(name)?;
-            if e != sid && !empfaenger.contains(&e) {
-                empfaenger.push(e);
-            }
-        }
-        if empfaenger.is_empty() {
-            return Err("kein Empfänger angegeben".into());
-        }
-        let von = self.spieler[sid as usize].name.clone();
-        self.spieler[sid as usize].nachrichten_heute += 1;
-        self.nachrichten.push(Nachricht { zeit: self.zeit, von: sid, an: empfaenger.clone(), allianz, text: text.to_string() });
-        for e in &empfaenger {
-            self.wecke(*e, Rolle::Diplomat, &format!("Nachricht von {von}"), false);
-        }
-        Ok(format!("Nachricht an {} Empfänger zugestellt", empfaenger.len()))
+        // Validate the complete recipient set before delivering any copy.
+        let mut ids=Vec::new();
+        for name in an {let id=self.spieler_nach_name(name)?;if id!=sid&&!ids.contains(&id){ids.push(id);}}
+        if ids.is_empty() {return Err("Kein Empfänger angegeben".into());}
+        if ids.iter().any(|id|!self.spieler_aktiv(*id)) {return Err("Empfänger ist nicht aktiv".into());}
+        if ids.len()+self.spieler[sid as usize].nachrichten_heute as usize>self.regeln.agenten.nachrichten_je_tag as usize {return Err("Nachrichten-Tageslimit erreicht".into());}
+        for id in ids {let name=self.spieler[id as usize].name.clone();self.brief_senden(sid,"privat",&name,"Nachricht",text,None)?;}
+        Ok("Nachrichten zugestellt".into())
     }
 
     #[allow(clippy::too_many_arguments)]
@@ -263,6 +239,7 @@ impl Welt {
 
     /// Ein Angriff auf einen Vertragspartner bricht Pakt und Bündnis und wird öffentlich.
     pub fn bruch_pruefen(&mut self, angreifer: SpielerId, opfer: SpielerId) {
+        self.allianzbruch(angreifer,opfer);
         for i in 0..self.vertraege.len() {
             let v = &self.vertraege[i];
             let betrifft = (v.a == angreifer && v.b == opfer) || (v.a == opfer && v.b == angreifer);
@@ -371,6 +348,7 @@ impl Welt {
         let id = self.allianzen.len() as u32 + 1;
         self.allianzen.push(Allianz { id, name: name.to_string(), mitglieder: vec![sid], eingeladen: Vec::new() });
         self.spieler[sid as usize].allianz = Some(id);
+        self.kommunikationsereignis(sid,"alliance.membership",serde_json::json!({"alliance":id,"joined":true}));
         self.registrieren(0, "allianz", sid, sid, &format!("Allianz '{name}' gegründet"));
         Ok(format!("Allianz '{name}' gegründet"))
     }
@@ -381,6 +359,7 @@ impl Welt {
         let Some(aid) = self.spieler[sid as usize].allianz else {
             return Err("du bist in keiner Allianz".into());
         };
+        if !self.allianz_leitung(sid,aid) {return Err("Nur die obersten vier Mitglieder dürfen einladen".into());}
         if self.spieler[b as usize].allianz.is_some() {
             return Err(format!("{} ist schon in einer Allianz", self.spieler[b as usize].name));
         }
@@ -419,6 +398,7 @@ impl Welt {
         al.mitglieder.push(sid);
         let (id, aname, erster) = (al.id, al.name.clone(), al.mitglieder[0]);
         self.spieler[sid as usize].allianz = Some(id);
+        self.kommunikationsereignis(sid,"alliance.membership",serde_json::json!({"alliance":id,"joined":true}));
         self.registrieren(0, "allianz", sid, erster, &format!("Beitritt zur Allianz '{aname}'"));
         Ok(format!("der Allianz '{aname}' beigetreten"))
     }
@@ -427,7 +407,10 @@ impl Welt {
         if let Some(aid) = self.spieler[sid as usize].allianz.take() {
             if let Some(al) = self.allianzen.iter_mut().find(|a| a.id == aid) {
                 al.mitglieder.retain(|x| *x != sid);
+                if al.mitglieder.is_empty() {al.eingeladen.clear();}
             }
+            self.kommunikationsereignis(sid,"alliance.membership",serde_json::json!({"alliance":aid,"joined":false}));
+            self.kommunikation_tick();
         }
     }
 

@@ -134,6 +134,7 @@ impl Welt {
             .iter()
             .filter(|o| o.spieler == sid && o.planet == planet_id)
             .count();
+        let offen=offen+self.kommunikation.angebote.iter().filter(|o|o.von==sid&&o.planet==planet_id&&o.status=="offen").count();
         if offen >= markt * r.markt.orders_je_marktstufe {
             return Err(format!(
                 "auf {k} sind höchstens {} offene Orders erlaubt",

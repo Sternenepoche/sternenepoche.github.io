@@ -2,7 +2,7 @@
 use kern::Regelwerk;
 use serde_json::{json, Value};
 pub fn catalog(r: &Regelwerk) -> Value {
-    json!({"version":r.version,"voelker":r.voelker,"wirtschaft":{
+    json!({"version":r.version,"agenten":{"nachricht_zeichen":r.agenten.nachricht_zeichen,"nachrichten_je_tag":r.agenten.nachrichten_je_tag},"voelker":r.voelker,"wirtschaft":{
         "energie_je_1000_syntheten":r.wirtschaft.energie_je_1000_syntheten,
         "unruhen_unter":r.stabilitaet.unruhen_unter,
         "forschung_warteschlange":r.wirtschaft.forschung_warteschlange,

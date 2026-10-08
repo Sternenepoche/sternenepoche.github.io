@@ -56,8 +56,7 @@ function renderDiplomacy(){
  const m=view.markt||{};
  $('market-state').innerHTML=table(['Gut','Angebot ab','Nachfrage bis'],Object.entries(m.preise||{}).map(([k,v])=>[esc(label(k)),v.verkauf_ab??'Kein Angebot',v.kauf_bis??'Keine Nachfrage']))+`<h3>Eigene Orders</h3>`+(m.orders?.length?table(['Nr.','Planet','Gut','Seite','Menge','Preis',''],m.orders.map(o=>[o.order,esc(o.planet),esc(label(o.gut)),esc(label(o.seite)),fmt(o.menge),o.preis,`<button data-cancel-order="${o.order}" class="secondary">Stornieren</button>`])):empty('Keine offenen Marktorders.'));
  $('contracts').innerHTML=(view.vertraege?.length?view.vertraege.map(v=>`<article class="card"><h3>${esc(label(v.art))}</h3><p>${esc(readable(v))}</p><div class="row">${v.status==='angebot an dich'?`<button data-contract="${v.vertrag}" data-contract-action="vertrag_annehmen">Annehmen</button><button class="secondary" data-contract="${v.vertrag}" data-contract-action="vertrag_ablehnen">Ablehnen</button>`:v.status==='aktiv'?`<button class="secondary" data-contract="${v.vertrag}" data-contract-action="vertrag_kuendigen">Kündigen</button>`:''}</div></article>`).join(''):empty('Keine Verträge.'));
- $('alliance-state').innerHTML=recordCards(view.allianz?[view.allianz]:[],'Deine Allianz')+recordCards((view.einladungen||[]).map(name=>({name})),'Einladung');
- $('messages').innerHTML=recordCards(view.nachrichten,'Nachricht');
+ if(typeof renderCommunication==='function')renderCommunication();
 }
 function navigateGame(id){if(window.GalaxyUI)GalaxyUI.visible(id==='karte');document.querySelectorAll('#game > section').forEach(s=>s.hidden=s.id!==id);document.querySelectorAll('[data-tab]').forEach(t=>t.setAttribute('aria-selected',String(t.dataset.tab===id)));}
 function pickFleet(target,mission){navigateGame('flotten');if($('fleet-planner'))$('fleet-planner').open=true;const form=$('fleet');form.elements.ziel.value=target;form.elements.mission.value=mission;for(const id of ['ship-inputs','cargo-inputs'])$(id).querySelectorAll('input').forEach(i=>i.value='0');if(['spionage','system_erkunden'].includes(mission))$('ship-inputs').querySelector('[data-map="spionagesonde"]').value='1';$('fleet').scrollIntoView?.({block:'start'});}
@@ -75,7 +74,7 @@ async function fillSaveCargo(){
  $('cargo-inputs').querySelectorAll('input').forEach(i=>{const n=Math.max(0,Math.min(capacity,Math.floor(available[i.dataset.map]||0)));i.value=n;capacity-=n;});flightSummary(q,fleetData());
 }
 function compactView(v){
- const c={...v};for(const key of ['berichte','flottenberichte','kampfberichte','ereignisse','chronik','meldungen','nachrichten','erkundet'])if(Array.isArray(c[key]))c[key]=c[key].slice(0,5);
+ const c={...v};if(c.kommunikation)c.kommunikation={...c.kommunikation,briefkasten:(c.kommunikation.briefkasten||[]).slice(0,12)};for(const key of ['berichte','flottenberichte','kampfberichte','ereignisse','chronik','meldungen','nachrichten','erkundet'])if(Array.isArray(c[key]))c[key]=c[key].slice(0,5);
  c.planeten=(c.planeten||[]).map(p=>Object.fromEntries(['koord','gebaeude','bestand','rate','lager','energie','bevoelkerung','wohnraum','stabilitaet','schiffe','verteidigung','bauschleife','bauschleife_plaetze','blockade','fertigung','fachkraefte','arbeit','vorrat_reicht_sekunden'].map(k=>[k,p[k]]).concat([['baubar',p.baubar.filter(b=>!(b.fehlt||[]).length&&requirementsMet(p,b.braucht)).slice(0,12)]])));
  c.flotten=(c.flotten||[]).slice(0,12);return c;
 }

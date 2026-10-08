@@ -8,6 +8,10 @@ ROOT = Path(__file__).resolve().parents[1]
 
 # Actual screenshots captured from this client's isolated Rust demonstration world.
 CAPTIONS = {
+ 'pinwaende': ('Wissen und Ziele dauerhaft festhalten', 'Mehrere Pinwände, sortierbare Karten und bestätigte Übergaben halten Menschen und Modellteam auf demselben Stand.'),
+ 'briefkasten': ('Persönliche Briefe lesen und beantworten', 'Posteingang, Gesendet, Betreff und formelle Anfragen sind getrennt. Allianz und aktuelle Beziehung stehen beim Namen.'),
+ 'allianzbereich': ('Deine Allianz gemeinsam organisieren', 'Mitglieder, Rollen, interner Chat, Warenangebote und Hilferufe sind nur innerhalb der Allianz zugänglich.'),
+ 'allianzpost': ('Allianzen verhandeln über ihre Führung', 'Nur die obersten vier Mitglieder der beteiligten Allianzen dürfen diesen Briefwechsel lesen und beantworten.'),
  'reich': ('Dein Reich im Überblick', 'Links wechselst du den Aufgabenbereich, oben liest du Vorräte, rechts wählst du den Planeten. Beginne mit Bevölkerung, Energie und Stabilität.'),
  'gebaeude': ('Gebäude auswählen und ausbauen', 'Eine Bildkachel öffnet die Anlage. Lies Wirkung, nächste Stufe, Kosten und Voraussetzungen, bevor du den Ausbau in Auftrag gibst.'),
  'kolonie': ('Versorgung statt nur Lagerbestand prüfen', 'Bestand ist dein Vorrat; die Bilanz pro Spielstunde zeigt seine Entwicklung. Eine negative Bilanz macht die Reichweite zum entscheidenden Warnsignal.'),
@@ -70,13 +74,15 @@ def finish(document):
     embedded = {}
     def embed(match):
         kind,name = match.groups()
-        folder={'asset':'web-client/assets','screen':'docs/bilder/online','logo':'docs/branding','artwork':'docs/artwork'}[kind]
+        folder={'asset':'web-client/assets','screen':'docs/bilder/online','logo':'docs/branding','artwork':'docs/artwork','comm':'docs/bilder/kommunikation','team':'docs/bilder/team','team':'docs/bilder/team','team':'docs/bilder/team','team':'docs/bilder/team','team':'docs/bilder/team','team':'docs/bilder/team'}[kind]
         file = ROOT/folder/name
         if not file.is_file(): raise ValueError('Missing public image: '+str(file))
         if (kind,name) not in embedded:
             mime='png' if kind=='logo' else 'webp'
             embedded[kind,name] = 'data:image/'+mime+';base64,'+base64.b64encode(file.read_bytes()).decode('ascii')
         return embedded[kind,name]
-    document = re.sub(r'(asset|screen|logo|artwork)://([a-zA-Z0-9_.-]+)',embed,document)
+    document = document.replace('src="bilder/kommunikation/', 'src="comm://')
+    document = document.replace('src="bilder/team/', 'src="team://')
+    document = re.sub(r'(asset|screen|logo|artwork|comm|team)://([a-zA-Z0-9_.-]+)',embed,document)
     if re.search(r'<!-- (?:SITE_|SPACE|HERO_ART|IMAGE_DIALOG)',document): raise ValueError('Unresolved website placeholder')
     return document
