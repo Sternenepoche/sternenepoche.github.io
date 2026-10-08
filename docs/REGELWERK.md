@@ -1,8 +1,3 @@
----
-layout: default
-title: "Regelwerk – Referenz"
----
-
 <!-- Erzeugt mit `sternenepoche doku` aus regeln/regelwerk.ron. Nicht von Hand ändern: der Test doku_passt_zum_regelwerk vergleicht diese Datei mit dem Regelwerk. -->
 
 # Regelwerk – Referenz
@@ -369,6 +364,6 @@ Welche Rolle welche Aktion senden darf (Antwortschema der Engine, `kern::aktion`
 |---|---|
 | stratege | `doktrin`, `meldung`, `stufenaufstieg` |
 | verwalter | `abreissen`, `bauen`, `fertigen`, `flotte_senden`, `flotte_versorgen`, `flotte_zurueckrufen`, `forschen`, `markt_order`, `markt_storno`, `meldung`, `prioritaeten`, `raketen_bauen`, `reparieren`, `schleife_leeren`, `steuersatz`, `stufenaufstieg` |
-| feldherr | `fertigen`, `flotte_senden`, `flotte_versorgen`, `flotte_zurueckrufen`, `meldung`, `raketen_bauen`, `raketen_starten`, `verband_beitreten`, `verband_oeffnen` |
+| feldherr | `fertigen`, `flotte_ausspaehen`, `flotte_senden`, `flotte_versorgen`, `flotte_zurueckrufen`, `meldung`, `raketen_bauen`, `raketen_starten`, `verband_beitreten`, `verband_oeffnen` |
 | diplomat | `allianz_beitreten`, `allianz_einladen`, `allianz_gruenden`, `allianz_verlassen`, `meldung`, `nachricht`, `schenken`, `vertrag_ablehnen`, `vertrag_anbieten`, `vertrag_annehmen`, `vertrag_kuendigen` |
-| alle | `abreissen`, `allianz_beitreten`, `allianz_einladen`, `allianz_gruenden`, `allianz_verlassen`, `bauen`, `doktrin`, `fertigen`, `flotte_senden`, `flotte_versorgen`, `flotte_zurueckrufen`, `forschen`, `markt_order`, `markt_storno`, `meldung`, `nachricht`, `prioritaeten`, `raketen_bauen`, `raketen_starten`, `reparieren`, `schenken`, `schleife_leeren`, `steuersatz`, `stufenaufstieg`, `verband_beitreten`, `verband_oeffnen`, `vertrag_ablehnen`, `vertrag_anbieten`, `vertrag_annehmen`, `vertrag_kuendigen` |
+| alle | `abreissen`, `allianz_beitreten`, `allianz_einladen`, `allianz_gruenden`, `allianz_verlassen`, `bauen`, `doktrin`, `fertigen`, `flotte_ausspaehen`, `flotte_senden`, `flotte_versorgen`, `flotte_zurueckrufen`, `forschen`, `markt_order`, `markt_storno`, `meldung`, `nachricht`, `prioritaeten`, `raketen_bauen`, `raketen_starten`, `reparieren`, `schenken`, `schleife_leeren`, `steuersatz`, `stufenaufstieg`, `verband_beitreten`, `verband_oeffnen`, `vertrag_ablehnen`, `vertrag_anbieten`, `vertrag_annehmen`, `vertrag_kuendigen` |

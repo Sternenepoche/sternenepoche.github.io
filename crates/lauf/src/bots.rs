@@ -1263,6 +1263,28 @@ mod interactive_colony_tests {
         }
     }
     #[test]
+    fn repairs_reserve_resources_and_do_not_spawn_duplicate_orders() {
+        let rules = kern::Regelwerk::laden(include_str!("../../../regeln/online-v1.ron")).unwrap();
+        let mut w = Welt::neu(rules, 42, 2).unwrap();
+        let pid = w.spieler[0].heimat as usize;
+        w.spieler[0].volk = Volk::Syntheten;
+        w.planeten[pid].bestand.fill(100_000 * M);
+        w.kolonisation.integritaet.insert((pid as PlanetId, Gebaeude::Solarkraftwerk), 0);
+        w.raten_neu(pid);
+        let costs = w.reparaturkosten(pid, Gebaeude::Solarkraftwerk).unwrap();
+        assert!(costs.iter().any(|n| *n > 0));
+        assert_eq!(ruecklage(&w, 0, pid, Bottyp::Raeuber), costs);
+        bauen(&mut w, 0, pid, Bottyp::Raeuber);
+        assert!(w.kolonisation.reparaturen.contains_key(&(pid as PlanetId, Gebaeude::Solarkraftwerk)));
+        let stock = w.bestand_jetzt(pid);
+        let actions = w.spieler[0].statistik.aktionen;
+        bauen(&mut w, 0, pid, Bottyp::Raeuber);
+        assert_eq!(w.bestand_jetzt(pid), stock);
+        assert_eq!(w.spieler[0].statistik.aktionen, actions);
+        assert_eq!(w.spieler[0].statistik.abgelehnt, 0);
+        assert!(w.planeten[pid].bauschleife.is_empty());
+    }
+    #[test]
     fn modern_bot_scouts_then_sends_escort_and_required_cargo() {
         let rules = kern::Regelwerk::laden(include_str!("../../../regeln/regelwerk.ron")).unwrap();
         let mut w = Welt::neu(rules, 42, 6).unwrap();
