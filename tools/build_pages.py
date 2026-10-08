@@ -1,6 +1,7 @@
 """Prepare only deliberately public Jekyll sources. Never package the checkout."""
 from pathlib import Path
 import argparse, shutil, json, re, subprocess
+from site_policy import decorate
 ROOT=Path(__file__).resolve().parents[1]
 EXT={'.html','.md','.css','.js','.svg','.png','.jpg','.jpeg','.webp','.ico'}
 def prepare(out:Path):
@@ -10,7 +11,7 @@ def prepare(out:Path):
     out.mkdir(parents=True,exist_ok=False)
     approved=[]
     tracked=set(subprocess.check_output(['git','ls-files','-z'],cwd=ROOT).decode('utf-8').split('\0'))
-    for name in ['index.html','Bestandsaufnahme.html','_config.yml']:
+    for name in ['index.html','Bestandsaufnahme.html','KI-Hinweis.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html','_config.yml']:
         file=ROOT/name
         if file.is_file(): approved.append(file)
     # Deliberate file list: the sibling admin directory must never be packaged.
@@ -31,6 +32,7 @@ def prepare(out:Path):
     for folder in ['_layouts','docs','betrachter']:
         approved.extend(p for p in (ROOT/folder).rglob('*') if p.is_file() and p.suffix.lower() in EXT
                         and p.relative_to(ROOT).as_posix() in tracked
+                        and p.relative_to(ROOT).as_posix() != 'docs/startseite.html'
                         and not p.is_symlink() and not any(s in {'data','saves','keys','geheimnisse'} for s in p.parts))
     for file in approved:
         # Resolve before reading to reject links/junctions into runtime data.
@@ -43,6 +45,14 @@ def prepare(out:Path):
                 body='---\nlayout: default\ntitle: '+json.dumps(title,ensure_ascii=False)+'\n---\n\n'+body
             # Repository Markdown keeps .md links; the built website uses .html.
             body=re.sub(r'\]\((?!https?://)([^)\s]+)\.md(#[^)]*)?\)',lambda m:']('+m[1]+'.html'+(m[2] or '')+')',body)
+            target.write_text(body,encoding='utf-8')
+        elif file.suffix.lower()=='.html':
+            name=file.relative_to(ROOT).as_posix()
+            body=decorate(file.read_text(encoding='utf-8-sig'),
+                          models=name=='web-client/index.html',
+                          handlers=name=='betrachter/index.html')
+            body=re.sub(r'href="(?!https?://)([^"#]+)\.md(#[^"]*)?"',
+                        lambda m:'href="'+m[1]+'.html'+(m[2] or '')+'"',body)
             target.write_text(body,encoding='utf-8')
         else:
             shutil.copyfile(file,target)

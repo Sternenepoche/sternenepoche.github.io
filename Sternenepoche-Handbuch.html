@@ -1,0 +1,1412 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; script-src &#x27;self&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;; img-src &#x27;self&#x27; data:; font-src &#x27;self&#x27;; connect-src &#x27;self&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;self&#x27;">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sternenepoche spielen und verwalten: Anmeldung, Völker, Menschen, Bots, Agenten, Wirtschaft, Aufklärung, Kampf und Epochen.">
+  <title>Sternenepoche verstehen und spielen</title>
+  <style>
+:root {
+  color-scheme: light;
+  --ink: #243345;
+  --muted: #526377;
+  --line: #dce4ed;
+  --nav: #101e30;
+  --accent: #137a83;
+}
+* { box-sizing: border-box; }
+html { scroll-padding-top: 28px; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: #eef2f6;
+  font: 17px/1.72 "Segoe UI", system-ui, sans-serif;
+}
+a { color: #086e81; text-underline-offset: 3px; overflow-wrap: anywhere; }
+a:hover { color: #004d60; }
+a:focus-visible, summary:focus-visible {
+  outline: 3px solid #d89f39;
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+.skip {
+  position: fixed; left: 16px; top: -100px; padding: 12px 18px;
+  z-index: 10; background: white; color: var(--ink);
+}
+.skip:focus { top: 16px; }
+.layout {
+  display: grid; grid-template-columns: 304px minmax(0, 940px);
+  max-width: 1244px; margin: 0 auto;
+}
+.sidebar {
+  position: sticky; top: 0; height: 100vh; height: 100dvh; overflow-y: auto;
+  background: var(--nav); color: #d1dfed; padding: 30px 22px 26px;
+  scrollbar-color: #455c78 var(--nav);
+}
+.brand {
+  display: flex; gap: 12px; align-items: center; color: #f8fbff;
+  font-size: 20px; font-weight: 650; letter-spacing: .02em;
+}
+.brand svg { flex-shrink: 0; color: #8bdbd4; }
+.edition {
+  margin: 9px 0 26px; color: #9cb2c8; font-size: 13px;
+}
+.sidebar summary { cursor: pointer; color: #f0f5fb; font-weight: 650; }
+.sidebar .toc ul { padding: 0; list-style: none; margin: 14px 0 24px; }
+.sidebar .toc li { margin: 3px 0; }
+.sidebar .toc a {
+  display: block; text-decoration: none; color: #c1d3e6;
+  font-size: 14px; line-height: 1.45; padding: 8px 10px;
+  border-radius: 6px;
+}
+.sidebar .toc a:hover { background: #21364e; color: white; }
+.sidebar-note { color: #9cb2c8; font-size: 12px; line-height: 1.6; }
+main { min-width: 0; background: white; box-shadow: 8px 0 40px #1b32400a; }
+.hero {
+  padding: 48px 52px 40px;
+  color: #f3f8ff;
+  background:
+    radial-gradient(ellipse at 100% 0, #26657770, transparent 65%),
+    radial-gradient(ellipse at 20% 110%, #435c8640, transparent 70%),
+    #182b43;
+}
+.eyebrow { font-size: 12px; font-weight: 650; letter-spacing: .12em; color: #8fdfd6; }
+.hero h1 {
+  margin: 14px 0 16px; max-width: 660px;
+  font-size: clamp(30px, 3.3vw, 43px); line-height: 1.18; letter-spacing: -.025em;
+}
+.hero p { margin: 0; max-width: 640px; color: #c6d7e9; font-size: 17px; }
+.chapter-links { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 25px; }
+.chapter-links a {
+  padding: 6px 12px; color: #e7f9f7; border: 1px solid #76bbbc70;
+  border-radius: 6px; font-size: 13px; text-decoration: none;
+}
+.chapter-links a:hover { background: #32617280; }
+article { padding: 30px 52px 65px; }
+article > :first-child { margin-top: 0; }
+h2 {
+  margin: 64px 0 23px; padding-top: 25px; border-top: 2px solid var(--line);
+  font-size: 27px; line-height: 1.3; color: #17354b; letter-spacing: -.015em;
+  break-after: avoid;
+}
+h3 {
+  margin: 32px 0 12px; color: #1e5265;
+  font-size: 20px; line-height: 1.4; break-after: avoid;
+}
+p { margin: 0 0 19px; }
+ul, ol { padding-left: 26px; margin: 16px 0 23px; }
+li { padding-left: 3px; margin: 7px 0; }
+strong { color: #152e43; font-weight: 650; }
+.example {
+  background: #eef7f7; border-left: 3px solid #419da0;
+  padding: 15px 19px; border-radius: 0 7px 7px 0;
+}
+.table-wrap { overflow-x: auto; margin: 23px 0 28px; border: 1px solid var(--line); border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.58; }
+th { text-align: left; background: #ecf2f7; color: #1c3e56; font-weight: 650; }
+td, th { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+tbody tr:nth-child(even) { background: #f8fafc; }
+td:first-child { min-width: 115px; }
+pre {
+  overflow-x: auto; padding: 20px; border-radius: 8px;
+  background: #14283c; color: #e9f5ff; font-size: 13px; line-height: 1.6;
+}
+code { font-family: Consolas, "Courier New", monospace; }
+.foot {
+  padding: 25px 52px; background: #f4f7fa;
+  border-top: 1px solid var(--line); color: var(--muted); font-size: 13px;
+}
+@media (max-width: 960px) {
+  .layout { grid-template-columns: 245px minmax(0, 1fr); }
+  .sidebar { padding: 25px 15px; }
+  .hero { padding: 38px 30px 32px; }
+  article { padding: 26px 30px 48px; }
+  .foot { padding: 22px 30px; }
+}
+@media (max-width: 720px) {
+  body { font-size: 16px; }
+  .layout { display: block; }
+  .sidebar { position: static; height: auto; padding: 20px 22px; }
+  .edition { margin-bottom: 16px; }
+  .sidebar .toc { max-height: 280px; overflow-y: auto; }
+  .sidebar-note { margin-bottom: 0; }
+  .hero { padding: 30px 23px; }
+  article { padding: 25px 23px 45px; }
+  h2 { margin-top: 48px; font-size: 24px; }
+  table { font-size: 14px; }
+  td, th { padding: 10px; }
+  .foot { padding: 22px 23px; }
+}
+@media print {
+  @page { size: A4; margin: 17mm; }
+  body { background: white; color: black; font-size: 10.5pt; line-height: 1.5; }
+  .layout { display: block; max-width: none; }
+  .sidebar, .skip, .chapter-links, .eyebrow { display: none; }
+  main { box-shadow: none; }
+  .hero { color: black; background: white; padding: 0 0 22px; border-bottom: 2px solid #aaa; }
+  .hero h1 { font-size: 25pt; }
+  .hero p { color: #333; font-size: 11pt; }
+  article { padding: 22px 0; }
+  h2 { margin-top: 28px; padding-top: 15px; font-size: 17pt; }
+  h3 { font-size: 13pt; }
+  .table-wrap { overflow: visible; border: 0; border-radius: 0; }
+  table { font-size: 9pt; }
+  td, th { padding: 6px 8px; }
+  thead { display: table-header-group; }
+  tr, .example { break-inside: avoid; }
+  pre { white-space: pre-wrap; background: #f0f0f0; color: black; }
+  a { color: inherit; }
+  .foot { padding: 15px 0 0; background: white; }
+}
+</style>
+<style id="site-ai-notice-style">.site-ai-notice{box-sizing:border-box;position:relative;z-index:6;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 12px;margin:0;padding:8px 16px;background:#10212d;color:#d3e3e8;border-bottom:1px solid #38515d;font:12px/1.6 system-ui,'Segoe UI',sans-serif;letter-spacing:0;text-align:center}
+.site-ai-notice .site-ai-tag{display:inline-block;padding:0 7px;border:1px solid #729e9c;border-radius:4px;color:#bce9de;font-weight:700;letter-spacing:.05em}
+.site-ai-notice a{display:inline-flex;align-items:center;min-height:28px;color:#f2d3a2;text-decoration:underline;text-underline-offset:3px;font:inherit;white-space:nowrap}
+.site-ai-notice a:focus-visible{outline:2px solid #f2d3a2;outline-offset:3px}
+@media(max-width:480px){.site-ai-notice{font-size:11px;padding:7px 12px;gap:2px 8px}.site-ai-notice .site-ai-description{flex-basis:calc(100% - 50px);text-align:left}}</style>
+</head>
+<body>
+<div class="site-ai-notice" data-ai-disclosure="true" role="note" aria-label="KI-Kennzeichnung"><span class="site-ai-tag">KI</span><span class="site-ai-description">Mit KI-Unterstützung entwickelt · Spielgrafiken mit KI erstellt</span><a href="KI-Hinweis.html">KI-Hinweis</a></div>
+  <a class="skip" href="#inhalt">Zum Handbuch</a>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Handbuchnavigation">
+      <div class="brand">
+        <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+          <circle cx="15" cy="15" r="4" fill="currentColor"/>
+          <ellipse cx="15" cy="15" rx="14" ry="7" transform="rotate(-32 15 15)" fill="none" stroke="currentColor"/>
+          <circle cx="25" cy="8" r="2.5" fill="#f4c875"/>
+        </svg>
+        Sternenepoche
+      </div>
+      <p class="edition">Das Spielhandbuch · 8. Oktober 2026</p>
+      <details open>
+        <summary>Alle 23 Kapitel</summary>
+        <nav aria-label="Kapitel"><div class="toc">
+<ul>
+<li><a href="#1-worum-es-geht">1 Worum es geht</a></li>
+<li><a href="#2-wie-website-server-und-dashboard-zusammenhangen">2 Wie Website Server und Dashboard zusammenhängen</a></li>
+<li><a href="#3-anmelden-volk-wahlen-und-einen-platz-bekommen">3 Anmelden Volk wählen und einen Platz bekommen</a></li>
+<li><a href="#4-die-vier-volker">4 Die vier Völker</a></li>
+<li><a href="#5-mensch-bot-agent-und-gemeinsames-steuern">5 Mensch Bot Agent und gemeinsames Steuern</a></li>
+<li><a href="#6-einen-agenten-korrekt-einrichten">6 Einen Agenten korrekt einrichten</a></li>
+<li><a href="#7-deine-ersten-schritte-im-spiel">7 Deine ersten Schritte im Spiel</a></li>
+<li><a href="#8-die-oberflache-richtig-lesen">8 Die Oberfläche richtig lesen</a></li>
+<li><a href="#9-spielzeit-bauzeit-und-pausen">9 Spielzeit Bauzeit und Pausen</a></li>
+<li><a href="#10-wirtschaft-versorgung-und-bevolkerung">10 Wirtschaft Versorgung und Bevölkerung</a></li>
+<li><a href="#11-bauen-forschen-und-zivilisationsstufen">11 Bauen Forschen und Zivilisationsstufen</a></li>
+<li><a href="#12-die-galaxie-erkunden-und-planeten-ausspahen">12 Die Galaxie erkunden und Planeten ausspähen</a></li>
+<li><a href="#13-angriffe-erkennen-und-anfliegende-flotten-untersuchen">13 Angriffe erkennen und anfliegende Flotten untersuchen</a></li>
+<li><a href="#14-flotten-verschicken-und-richtig-saven">14 Flotten verschicken und richtig saven</a></li>
+<li><a href="#15-kampf-verteidigung-und-gemeinsame-angriffe">15 Kampf Verteidigung und gemeinsame Angriffe</a></li>
+<li><a href="#16-kolonisieren-erobern-und-reparieren">16 Kolonisieren Erobern und Reparieren</a></li>
+<li><a href="#17-handel-vertrage-und-diplomatie">17 Handel Verträge und Diplomatie</a></li>
+<li><a href="#18-versorgungskrisen-und-endgultige-niederlage">18 Versorgungskrisen und endgültige Niederlage</a></li>
+<li><a href="#19-punkte-rangliste-und-epochenende">19 Punkte Rangliste und Epochenende</a></li>
+<li><a href="#20-den-spielserver-verwalten">20 Den Spielserver verwalten</a></li>
+<li><a href="#21-haufige-probleme-und-ihre-losung">21 Häufige Probleme und ihre Lösung</a></li>
+<li><a href="#22-die-wichtigsten-begriffe">22 Die wichtigsten Begriffe</a></li>
+<li><a href="#23-wo-du-im-projekt-weiterarbeiten-kannst">23 Wo du im Projekt weiterarbeiten kannst</a></li>
+</ul>
+</div>
+</nav>
+      </details>
+      <p class="sidebar-note">Offline lesbar. Über die Druckfunktion des Browsers kannst du das Handbuch ausdrucken oder als PDF speichern.</p>
+    </aside>
+    <main id="inhalt">
+      <header class="hero">
+        <div class="eyebrow">SPIELEN UND VERWALTEN</div>
+        <h1>Sternenepoche verstehen und spielen</h1>
+        <p>Vom ersten Login bis zur nächsten Epoche. Klare Regeln, konkrete Beispiele und Hilfe für Menschen, Bots und Agenten.</p>
+        <div class="chapter-links" aria-label="Schnelleinstieg"><a href="#3-anmelden-volk-wahlen-und-einen-platz-bekommen">Anmelden</a><a href="#7-deine-ersten-schritte-im-spiel">Erste Schritte</a><a href="#14-flotten-verschicken-und-richtig-saven">Saven</a><a href="#20-den-spielserver-verwalten">Server verwalten</a></div>
+      </header>
+      <article><p><strong>Das Handbuch für Spieler und Betreiber · Stand 8. Oktober 2026</strong></p>
+<p><strong>Neu im Spiel?</strong> Der <a href="docs/../Sternenepoche-Start.html">bebilderte Spielguide</a> führt dich durch die erste Sitzung, erklärt die Bedienung aller Spielbereiche und enthält die ausführlichen Regeln mit Beispielen auf einer Seite.</p>
+<p>Sternenepoche ist ein Weltraumstrategiespiel mit einer gemeinsamen, dauerhaft gespeicherten Spielwelt. Du führst ein Reich: Du versorgst seine Bevölkerung, baust eine Wirtschaft auf, erforschst Technologien, erkundest fremde Planeten und entscheidest über Handel, Bündnisse und Krieg. Andere Reiche werden von Menschen, Sprachmodellen oder eingebauten Bots geführt.</p>
+<p>Dieses Handbuch erklärt die <strong>gemeinsame Onlinewelt</strong>, ihre Bedienung und ihre geltenden Regeln. Der Betreiber kann Welttempo, Teilnehmerfreigabe und weitere Einstellungen verändern. Die im Spiel angezeigten Voraussetzungen und Flugpläne sind deshalb beim konkreten Befehl entscheidend.</p>
+<p><strong>Zum Lesen:</strong> Die Datei <strong>Sternenepoche-Handbuch.html</strong> im Hauptordner lässt sich per Doppelklick öffnen und ohne Internet lesen. Die bearbeitbare Fassung liegt unter <strong>docs/HANDBUCH.md</strong>.</p>
+<p><strong>Zum Einsteigen:</strong> Lies zuerst die Kapitel 1 bis 8. Die weiteren Kapitel erklären einzelne Regeln mit Beispielen. Wer den Server betreibt, braucht zusätzlich Kapitel 20.</p>
+<h2 id="1-worum-es-geht">1 Worum es geht</h2>
+<p>Du beginnst mit einem Heimatplaneten, einer kleinen Bevölkerung und begrenzten Vorräten. Daraus soll ein überlebensfähiges und möglichst erfolgreiches Reich werden. Ein großer Rohstoffhaufen allein gewinnt keine Epoche: Punkte entstehen vor allem durch Gebäude, Forschung, vorhandene Streitkräfte, Bevölkerung und Zivilisationsstufe.</p>
+<p>Die aktuelle Epoche dauert <strong>365 Spieltage</strong>, gerechnet ab ihrer Erzeugung. Alle spielen in derselben Zeitlinie. Wenn du später beitrittst, beginnt für dich kein neues Spieljahr. Am Epochenende entscheidet die Rangliste. Du musst dafür nicht jedes andere Reich vernichten.</p>
+<p>Du kannst aber vorzeitig <strong>besiegt</strong> werden. Wenn dein Reich seine Bevölkerung dauerhaft nicht mehr versorgen kann oder wirtschaftlich ohne erreichbaren Ausweg feststeckt, scheidet es aus. Ein besiegtes Reich ist ausgegraut und kann in dieser Epoche nicht weiterregiert werden. Sein ursprünglicher Heimatplanet bleibt vor Kolonisation geschützt.</p>
+<p class="example"><strong>Beispiel:</strong> Reich A sammelt sehr viele Rohstoffe, investiert aber kaum. Reich B hat eine funktionierende Versorgung, mehrere ausgebaute Planeten, Forschung und eine bezahlbare Flotte. B kann in der Rangliste vor A stehen, obwohl sein Lager kleiner ist.</p>
+<p>Für den Anfang helfen diese Grundregeln:</p>
+<ol>
+<li>Sichere Nahrung und Energie, bevor du die Wirtschaft stark vergrößerst.</li>
+<li>Lies bei einem gesperrten Bauvorhaben zuerst seine Voraussetzungen.</li>
+<li>Schicke Sonden los, bevor du fremde Planeten bewertest oder kolonisieren willst.</li>
+<li>Reserviere Deuterium und einen Flottenplatz für Notfälle.</li>
+<li>Prüfe bei Flügen Hinweg, Wartezeit, Rückkehr und Fracht.</li>
+<li>Verwechsle einen Kampfgewinn nicht mit der Übernahme eines Planeten.</li>
+<li>Behalte laufende Kosten, Versorgung und Berichte im Blick.</li>
+<li>Ein Agent ist eine Hilfe mit Fehlerpotenzial. Kontrolliere seine Entscheidungen.</li>
+<li>Das Schließen deines Browsers hält die Welt nicht an.</li>
+<li>Ein Reset beginnt eine neue Welt. Er ist kein normaler Neustart des Servers.</li>
+</ol>
+<h2 id="2-wie-website-server-und-dashboard-zusammenhangen">2 Wie Website Server und Dashboard zusammenhängen</h2>
+<p>Es gibt drei Ebenen:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Ebene</th>
+<th>Aufgabe</th>
+<th>Wer benutzt sie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Website und Browserclient</td>
+<td>Anmeldung, Karten, Bauaufträge, Flotten und Agentensteuerung anzeigen</td>
+<td>Alle Mitspieler und Zuschauer</td>
+</tr>
+<tr>
+<td>Rust-Spielserver</td>
+<td>Regeln prüfen, Zeit fortschreiben, Bots ausführen und die gemeinsame Welt speichern</td>
+<td>Läuft auf Karls PC, später auf einem VPS</td>
+</tr>
+<tr>
+<td>Lokales Verwaltungsdashboard</td>
+<td>Welt einstellen, Konten und Bots prüfen, Backups und neue Epochen verwalten</td>
+<td>Der Betreiber</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>GitHub Pages liefert die Website und den Browserclient aus.</strong> Der laufende Rust-Spielserver und seine Datenbank befinden sich derzeit auf dem PC. Ein Browser sendet einen Bau- oder Flottenbefehl an diesen Server. Erst wenn der Server ihn annimmt, gehört er zur gemeinsamen Welt.</p>
+<p>Der öffentliche Spielzugang ist:</p>
+<ul>
+<li><a href="https://desktop-3dei636.taila4f584.ts.net/">Online spielen</a></li>
+<li><a href="https://sternenepoche.github.io/">Website auf GitHub Pages</a></li>
+</ul>
+<p>Auf dem Server-PC gibt es zusätzlich:</p>
+<ul>
+<li><strong>Spiel:</strong> http://127.0.0.1:8890</li>
+<li><strong>Privates Dashboard:</strong> http://127.0.0.1:8891</li>
+</ul>
+<p>Die öffentliche HTTPS-Adresse führt über <strong>Tailscale Funnel</strong> zum Spielserver. Die Verbindung benutzt TLS. Mitspieler benötigen dafür keine eigene Tailscale-Installation. Das Dashboard und ein lokaler Ollama-Dienst gehören nicht an diesen öffentlichen Zugang.</p>
+<p><strong>Wichtig für den Betrieb:</strong> Der PC muss eingeschaltet sein, der Rust-Server muss laufen und Tailscale muss den Zugang bereitstellen. Starte den Spielserver nach einem PC-Neustart mit <strong>Server-starten.cmd</strong>.</p>
+<p>Wenn nur dein Browser geschlossen ist, läuft die Welt auf dem eingeschalteten Server weiter. Ist dagegen der Spielserver ausgeschaltet, wird beim nächsten Start die gespeicherte Welt fortgesetzt; die Ausfallzeit wird nicht als nachträglich durchgespielter Zeitraum aufgeholt.</p>
+<p class="example"><strong>Beispiel:</strong> Du meldest dich ab, während ein Gebäude noch zwei Spielstunden braucht. Bleibt der Server an, kann es ohne dich fertig werden. Schaltet Karl den Server aus, läuft während dieser Unterbrechung keine Spielzeit weiter.</p>
+<h2 id="3-anmelden-volk-wahlen-und-einen-platz-bekommen">3 Anmelden Volk wählen und einen Platz bekommen</h2>
+<h3 id="der-erste-einstieg">Der erste Einstieg</h3>
+<ol>
+<li>Öffne den öffentlichen Spielzugang oder die Website.</li>
+<li>Du kannst zunächst zuschauen. Dafür brauchst du keinen Spielerplatz und kein Sprachmodell.</li>
+<li>Für ein eigenes Reich gibst du einen Namen und ein Passwort ein und wählst <strong>Konto anlegen</strong>. Verwende ein langes, eigenes Passwort; mindestens zwölf Zeichen sind erforderlich.</li>
+<li>Mit einem vorhandenen Konto wählst du <strong>Anmelden</strong>.</li>
+<li>Wähle vor der Reichsgründung dein <strong>Volk</strong>. Lies seine Vor- und Nachteile.</li>
+<li>Wähle <strong>Mensch</strong>, <strong>Agent</strong> oder <strong>Gemischt</strong>.</li>
+<li>Wähle <strong>Platz belegen</strong>, wenn ein freigegebener Platz verfügbar ist. Andernfalls trittst du der Warteliste bei.</li>
+</ol>
+<p>Ein Konto allein erzeugt noch keinen Heimatplaneten. Erst der angenommene Beitritt ordnet dir ein Reich und einen automatisch vergebenen Heimatplatz zu.</p>
+<h3 id="drei-freigegebene-platze-und-die-warteliste">Drei freigegebene Plätze und die Warteliste</h3>
+<p>Die Welt hat <strong>20 mögliche Teilnehmerplätze</strong>. Aktuell sind <strong>drei</strong> davon freigegeben. Hinzu kommen <strong>30 Serverbots</strong>. Die übrigen 17 Teilnehmerplätze sind zunächst gesperrt und produzieren keine Rohstoffe.</p>
+<p>Die Warteliste wird nach der Reihenfolge des Beitritts bearbeitet. Erhöht Karl die Freigabe, können wartende Konten automatisch nachrücken, auch wenn ihr Browser gerade geschlossen ist. Ein Browser-Agent startet dadurch noch nicht: Seine Modellverbindung musst du selbst im Browser aktivieren.</p>
+<p>Solange du wartest, kannst du Volk und Spielweise ändern, ohne deinen Wartelistenplatz zu verlieren. Wer die Warteliste verlässt und später neu eintritt, stellt sich wieder hinten an.</p>
+<h3 id="was-nach-dem-beitritt-gilt">Was nach dem Beitritt gilt</h3>
+<ul>
+<li>Ein Konto belegt in einer Welt einen Teilnehmerplatz.</li>
+<li>Mensch und Agent können dasselbe Reich führen; das verbraucht zusammen nur einen Platz.</li>
+<li>Das <strong>Volk bleibt für die Epoche festgelegt</strong>.</li>
+<li>Die <strong>Spielweise</strong> kannst du später unter <strong>Spielerprofil</strong> ändern. Ein laufender Agent wird bei einem Wechsel gestoppt.</li>
+<li>Abmelden oder Browser schließen gibt deinen Platz nicht frei.</li>
+<li>Ein besiegtes oder gesperrtes Reich gibt seinen Platz in dieser Epoche ebenfalls nicht automatisch frei.</li>
+</ul>
+<p class="example"><strong>Beispiel:</strong> Du gründest als Aurelianer ein menschlich geführtes Reich. Später lässt du den Verwalter durch Ollama steuern. Du behältst deinen Planeten, dein Volk und deinen bisherigen Fortschritt. Es entsteht kein zweites Reich.</p>
+<h2 id="4-die-vier-volker">4 Die vier Völker</h2>
+<p>Die Völker verändern bestimmte Spielwerte. Sie ersetzen keine Versorgung, Forschung oder Aufklärung.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Volk</th>
+<th>Vorteile</th>
+<th>Nachteile und Bedingungen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Aurelianer</strong></td>
+<td>20 % mehr Frachtraum, halbierte Marktgebühren, 10 % mehr Steuereinnahmen</td>
+<td>10 % geringere Waffenstärke</td>
+</tr>
+<tr>
+<td><strong>Krath</strong></td>
+<td>15 % mehr Waffenstärke, 15 % kürzere Fertigungszeiten, 50 % Plünderquote</td>
+<td>15 % geringere Forschungsleistung</td>
+</tr>
+<tr>
+<td><strong>Veyari</strong></td>
+<td>10 % mehr Bevölkerungswachstum, 25 % mehr Nahrung, 25 % günstigere Kolonieschiffe</td>
+<td>15 % geringere Strukturfestigkeit; der Bonus bei aktiver Flottenaufklärung braucht erforschte Spionagetechnik</td>
+</tr>
+<tr>
+<td><strong>Syntheten</strong></td>
+<td>15 % mehr Forschungsleistung, 10 % mehr Energie, kein Nahrungsbedarf der Bevölkerung</td>
+<td>15 % weniger Bevölkerungswachstum; zusätzlich 25 Energie je 1.000 Einwohner; der Sensorbonus braucht alle vier Sensorbestandteile</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Aurelianer</strong> passen zu Handel und Transport. Ein Frachtraum von normalerweise 5.000 wird durch ihren Volksbonus zu 6.000, bevor weitere Technik wirkt. Ihre schwächeren Waffen bleiben bei einer Schlacht ein Nachteil.</p>
+<p><strong>Krath</strong> können militärisch und bei der Fertigung schneller vorankommen. Forschungsziele brauchen dafür mehr Geduld. Ihre Plünderquote von 50 % statt normalerweise 40 % hilft nur, wenn sie tatsächlich gewinnen und genug freien Frachtraum haben.</p>
+<p><strong>Veyari</strong> können Bevölkerung und Versorgung leichter ausbauen. Ihre Schiffe halten strukturell weniger aus. Ihre Spionagefähigkeit zeigt dir keine fremden Planeten automatisch: Auch sie benötigen echte Sondenmissionen.</p>
+<p><strong>Syntheten</strong> brauchen für ihre Bevölkerung keine Nahrung, müssen aber genügend Energie bereitstellen. Sie brauchen weiterhin Arbeiter, Forschungseinrichtungen, Credits, Treibstoff und Produktionsmaterialien. Ein Zusammenbruch der Energieversorgung ist für sie eine Lebensversorgungskrise.</p>
+<p>Wähle das Volk nach deinem gewünschten Spielstil. Kein Vorteil garantiert einen Sieg.</p>
+<h2 id="5-mensch-bot-agent-und-gemeinsames-steuern">5 Mensch Bot Agent und gemeinsames Steuern</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Spielweise</th>
+<th>Wer entscheidet</th>
+<th>Was dafür laufen muss</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Zuschauer</strong></td>
+<td>Niemand für ein eigenes Reich</td>
+<td>Browser und erreichbarer Server</td>
+</tr>
+<tr>
+<td><strong>Mensch</strong></td>
+<td>Du gibst die Befehle</td>
+<td>Browser für deine Eingaben; der Server führt angenommene Aufträge weiter aus</td>
+</tr>
+<tr>
+<td><strong>Serverbot</strong></td>
+<td>Eingebaute Strategie im Rust-Server</td>
+<td>Spielserver</td>
+</tr>
+<tr>
+<td><strong>Agent</strong></td>
+<td>Ein Sprachmodell schlägt Befehle für dein Reich vor</td>
+<td>Dein Browser, Modellzugang und Spielserver</td>
+</tr>
+<tr>
+<td><strong>Gemischt</strong></td>
+<td>Du und ausgewählte Agentenrollen teilen euch ein Reich</td>
+<td>Für die Agenten zusätzlich der offene Browser und Modellzugang</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="was-ein-serverbot-ist">Was ein Serverbot ist</h3>
+<p>Die 30 Serverbots benutzen eingebaute Strategien: <strong>Ökonom</strong>, <strong>Räuber</strong>, <strong>Igel</strong> oder <strong>Händler</strong>. Sie benötigen keinen Ollama-Dienst und keinen OpenRouter-Schlüssel. Im aktuellen Betriebsstand handeln sie in versetzten Abständen von grundsätzlich zwei Spielstunden.</p>
+<p>Sie unterliegen ebenfalls Ressourcen, Technik, Versorgung, Flügen und Aufklärung. Sie können verlieren und ausscheiden. Ein Bot ist deshalb weder ein zusätzlicher menschlicher Account noch automatisch ein Sprachmodell.</p>
+<h3 id="was-ein-browser-agent-ist">Was ein Browser-Agent ist</h3>
+<p>Ein Browser-Agent lässt ein Sprachmodell die erlaubten Informationen deines Reiches auswerten. Das Modell kann Aktionen vorschlagen. Der Rust-Server prüft jede davon auf Besitz, Rolle, Kosten, Technologie und aktuellen Weltzustand. Ein Modell kann keinen kostenlosen Bau erzwingen oder geheime gegnerische Daten freischalten.</p>
+<p>Die vier Rollen teilen Aufgaben:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Rolle</th>
+<th>Typische Aufgaben</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Stratege</strong></td>
+<td>Ziele, Doktrin, Budgetverteilung und Zivilisationsaufstieg</td>
+</tr>
+<tr>
+<td><strong>Verwalter</strong></td>
+<td>Bauen, Reparieren, Versorgung, Forschung, Steuern und Markt</td>
+</tr>
+<tr>
+<td><strong>Feldherr</strong></td>
+<td>Aufklärung, Flotten, Kampf, Verbände und Saven</td>
+</tr>
+<tr>
+<td><strong>Diplomat</strong></td>
+<td>Nachrichten, Verträge, Bündnisse und Geschenke</td>
+</tr>
+</tbody>
+</table></div>
+<p>Einige Befehle sind mehreren Rollen erlaubt. Die Tabelle beschreibt die hauptsächliche Zuständigkeit.</p>
+<h3 id="mensch-und-agent-in-einem-reich">Mensch und Agent in einem Reich</h3>
+<p>Wähle <strong>Gemischt</strong> und gib beispielsweise nur die Rolle <strong>Verwalter</strong> an den Agenten ab. Er kümmert sich dann um Wirtschaft und Forschung. Du entscheidest selbst über Flotten, Diplomatie und die übrigen freien Aufgaben.</p>
+<p>Solange eine Agentenrolle aktiv übernommen ist, sperrt der Server die entsprechenden menschlichen Befehle. Das verhindert, dass zwei Steuerungen dieselbe Aufgabe gleichzeitig bearbeiten. Bei Befehlen mit mehreren zulässigen Rollen kann eine freie menschliche Zuständigkeit bestehen bleiben.</p>
+<p class="example"><strong>Beispiel:</strong> Dein Verwalter-Agent plant die nächste Mine. Du willst stattdessen dringend die Farm reparieren. Wähle zunächst <strong>Agent stoppen / Steuerung übernehmen</strong>, prüfe bereits angenommene Aufträge und erteile dann deinen Befehl. Das Stoppen nimmt bereits angenommene Bauaufträge oder gestartete Flotten nicht zurück.</p>
+<h2 id="6-einen-agenten-korrekt-einrichten">6 Einen Agenten korrekt einrichten</h2>
+<h3 id="der-ablauf-im-browser">Der Ablauf im Browser</h3>
+<ol>
+<li>Wähle unter <strong>Spielerprofil</strong> die Spielweise <strong>Agent</strong> oder <strong>Gemischt</strong>.</li>
+<li>Öffne <strong>Agentensteuerung</strong>.</li>
+<li>Wähle Anbieter, genaues Modell und die gewünschten Rollen.</li>
+<li>Setze zunächst ein kleines Aufruflimit und einen überschaubaren Abstand.</li>
+<li>Benutze <strong>Modell testen · keine Spielaktionen</strong>.</li>
+<li>Prüfe, ob eine gültige Antwort kommt und das Modell die Aufgabe versteht.</li>
+<li>Wähle erst danach <strong>Agent starten</strong>.</li>
+<li>Kontrolliere Protokoll, angenommene und abgelehnte Befehle sowie Versorgung und Vorräte.</li>
+</ol>
+<p>Der Modelltest führt keine Spielbefehle aus. Bei OpenRouter ist er trotzdem ein echter Modellaufruf und kann Kosten verursachen.</p>
+<h3 id="lokale-modelle-uber-ollama">Lokale Modelle über Ollama</h3>
+<p>Ollama läuft auf <strong>deinem</strong> PC. Der Browser spricht normalerweise <strong>http://127.0.0.1:11434</strong> an. Die Adresse 127.0.0.1 bezeichnet dabei immer den Computer des jeweiligen Spielers.</p>
+<p>Nutze <strong>Lokale Modelle suchen</strong> und wähle den tatsächlich installierten Modellnamen. Ein ähnlicher Name oder ein frei erfundener Modellbezeichner reicht nicht.</p>
+<p>Für den Zugriff von der HTTPS-Spielseite muss Ollama den Ursprung dieser Seite erlauben. Auf Karls PC gibt es dafür das vorhandene Hilfsskript:</p>
+<pre><code class="language-powershell">.\ollama-spielzugang.ps1 -GameOrigin https://desktop-3dei636.taila4f584.ts.net -Restart
+</code></pre>
+<p>Das Skript richtet die Freigabe für diesen Ursprung ein und startet Ollama neu. Es installiert weder Ollama noch ein Modell. Wer den Client direkt auf GitHub Pages benutzt, muss dessen tatsächlichen Ursprung erlauben. Der Browser kann zusätzlich nach Zugriff auf das lokale Netzwerk fragen.</p>
+<p><strong>Ollama bleibt lokal.</strong> Eine Internetfreigabe seines Ports ist für den Browser-Agenten nicht erforderlich.</p>
+<h3 id="modelle-uber-openrouter">Modelle über OpenRouter</h3>
+<p>Wähle OpenRouter, trage deinen eigenen Schlüssel und die genaue Modellkennung ein. Die Modellanfragen gehen direkt aus dem Browser an den Anbieter. Der Schlüssel bleibt im Arbeitsspeicher des Tabs und wird nicht als Spielkonto-Schlüssel in der Serverdatenbank oder im lokalen Browserspeicher abgelegt.</p>
+<p>Der Anbieter erhält die Informationen, die der Agent für seine Aufgabe übermittelt bekommt, beispielsweise deinen Reichszustand und ausgewählte Nachrichten. Setze bei deinem Anbieterschlüssel ein Kostenlimit. Die im Browser gezeigten Kosten und Aufruflimits ersetzen keine verbindliche Abrechnungsgrenze beim Anbieter.</p>
+<h3 id="aufruflimit-zeit-und-fehler">Aufruflimit Zeit und Fehler</h3>
+<p>Das Aufruflimit zählt <strong>Modellanfragen über alle aktivierten Rollen</strong>. Wenn ein Modell zunächst Informationen abfragt und danach eine zweite Antwort erzeugt, können für eine Rolle zwei Anfragen entstehen.</p>
+<p class="example"><strong>Beispiel:</strong> Vier Rollen und zehn erlaubte Anfragen bedeuten nicht zehn vollständige Regierungsrunden. Eine Runde mit jeweils zwei Anfragen verbraucht bereits acht.</p>
+<p>Der Standardabstand zwischen vollständigen Agentenrunden beträgt 60 reale Sekunden. Die Welt wartet während der Modellantwort nicht. Eine inzwischen unpassende oder unbezahlbare Aktion kann daher abgelehnt werden. Nach drei aufeinanderfolgenden Fehlern stoppt der Agent. Bei einer Weltpause überspringt er neue Modellaufrufe.</p>
+<p>Die Rollen können bei Bedarf unterschiedliche Modelle oder Anbieter benutzen. Beginne trotzdem mit einer Rolle und einem Modell, bis du Verhalten und Kosten einschätzen kannst.</p>
+<h3 id="warum-der-browser-offen-bleiben-muss">Warum der Browser offen bleiben muss</h3>
+<p>Dieser Agent läuft im Browser. Der Tab muss geöffnet bleiben, der PC darf nicht schlafen und der Modellzugang muss erreichbar sein. Hintergrunddrosselung, ein Neuladen oder eine unterbrochene Verbindung können ihn anhalten. Ein Browser-Agent wird beim Schließen nicht automatisch durch einen Serverbot ersetzt.</p>
+<p>Eine befristete Steuerungsfreigabe verhindert doppelte Agentensteuerung. Sie läuft nach 90 realen Sekunden ohne Erneuerung aus; ein aktiver Browser erneuert sie normalerweise alle 20 Sekunden. Mit <strong>Steuerung übernehmen</strong> kannst du eine laufende Agentensteuerung beenden.</p>
+<h3 id="die-zusatzlichen-agentenbudgets">Die zusätzlichen Agentenbudgets</h3>
+<p>Agenten müssen neben echten Rohstoffen auch die ihrer Rolle zugeteilten Budgettöpfe beachten. Anfangs sind 60 % für Wirtschaft, 10 % für Militär, 15 % für Forschung und 15 % als Reserve vorgesehen. Die Doktrin des Strategen steuert diese Verteilung.</p>
+<p class="example"><strong>Beispiel:</strong> Es liegen genug Erz und Kristall im Lager, aber der Militärtopf ist ausgeschöpft. Ein weiterer Schiffsbefehl des Feldherrn kann deshalb scheitern. Prüfe Budget und Doktrin, statt wiederholt denselben Befehl zu senden. Manuelle Befehle benötigen weiterhin echte Rohstoffe und Voraussetzungen, werden aber nicht über diese Agentenrollentöpfe begrenzt.</p>
+<h2 id="7-deine-ersten-schritte-im-spiel">7 Deine ersten Schritte im Spiel</h2>
+<p>Spiele die erste Sitzung als Aufbauphase. Diese Schritte beschreiben die Reihenfolge bis zum ersten eigenen Sondenbericht. Du kannst sie über mehrere Sitzungen verteilen: Bau, Forschung und Flüge brauchen Spielzeit. Die genaue Dauer hängt von Volk, Weltalter, Versorgung und Welttempo ab.</p>
+<h3 id="01-anmelden-und-das-reich-wirklich-grunden">01 Anmelden und das Reich wirklich gründen</h3>
+<p>Öffne den öffentlichen Spielzugang. Gib <strong>Name</strong> und <strong>Passwort</strong> ein und wähle <strong>Konto anlegen</strong>, beim nächsten Besuch <strong>Anmelden</strong>. Das Passwort braucht mindestens zwölf Zeichen. Wähle dann dein <strong>Volk</strong> und zunächst die Spielweise <strong>Mensch</strong>, wenn du die Bedienung selbst kennenlernen möchtest. Mit <strong>Platz belegen / Spielweise ändern</strong> beantragst du dein Reich.</p>
+<p><strong>Das erkennst du danach:</strong> Bei erfolgreicher Zuteilung erscheinen dein eigener Heimatplanet und die Spielbereiche. Bei belegten freigegebenen Plätzen siehst du stattdessen deinen Wartestatus. Ein angelegtes Konto oder ein Wartelisteneintrag besitzt noch keinen bebaubaren Planeten. Drei Plätze sind freigegeben; das bedeutet nicht, dass gerade drei Plätze frei sind.</p>
+<h3 id="02-den-heimatplaneten-und-seine-versorgung-lesen">02 Den Heimatplaneten und seine Versorgung lesen</h3>
+<p>Wähle rechts unter <strong>Deine Planeten</strong> deine Heimatwelt. Öffne links <strong>Übersicht</strong>. Lies Bevölkerung, Wohnraum, Stabilität und Energie. Wechsle zu <strong>Versorgung</strong> und suche Nahrung, Erz, Kristall und Deuterium in der Tabelle. <strong>Bestand</strong> ist vorhanden; <strong>Pro Spielstunde</strong> beschreibt die laufende Nettobilanz; <strong>Reichweite</strong> hilft bei schwindenden Vorräten.</p>
+<p><strong>Deine erste Entscheidung:</strong> Ist die Lebensversorgung knapp, hat sie Vorrang vor zusätzlicher Industrie. Bei Nahrungsvölkern prüfst du Farm und Energie, bei Syntheten besonders die Energiedeckung. Prüfe zusätzlich Arbeitskräfte: Ein Gebäude liefert seine gewünschte Leistung nicht allein dadurch, dass es existiert.</p>
+<p class="example"><strong>Beispiel:</strong> Du hast 500 Nahrung und −25 Nahrung je Spielstunde. Bei unveränderten Bedingungen bleiben etwa 20 Spielstunden. Das ist dein Zeitfenster für Ausbau oder Versorgung, kein freier Vorrat für weitere Bevölkerung.</p>
+<h3 id="03-einen-sinnvollen-bauauftrag-erteilen">03 Einen sinnvollen Bauauftrag erteilen</h3>
+<p>Öffne <strong>Gebäude</strong>, klicke die benötigte Anlage an und lies im Detailfeld <strong>Wirkung</strong>, <strong>Kosten</strong>, <strong>Bauzeit</strong> und <strong>Benötigt</strong>. Prüfe noch einmal die dort gezeigte Planetenkoordinate. Für den nächsten Ausbau benutzt du <strong>Stufe N ausbauen</strong>; die Zahl nennt die tatsächlich folgende Stufe. Fehlende Materialien oder Voraussetzungen werden angezeigt.</p>
+<p><strong>Das passiert danach:</strong> Der angenommene Auftrag erscheint in der Bauschlange. Ist die Baustelle frei, werden beim Start die Rohstoffe bezahlt. Sonst wartet der Auftrag hinter dem laufenden Bau. Eine Kachel zeigt Fortschritt und Restzeit; mit der Uhrzeigerdarstellung wird sie zunehmend farbig. Erst der bestätigte Abschluss erhöht die Gebäudestufe.</p>
+<p><strong>Dein Kontrollpunkt:</strong> Kehre danach zu <strong>Versorgung</strong> zurück. Reicht die Energie auch für den neuen Verbraucher? Sind genug Arbeiter vorhanden? Sichere zuerst Energie und Nahrung, dann Wohnraum, Erz und Kristall. Plane Deuterium für Weiterverarbeitung und Flüge ein. Bestelle nicht fünf teure Ausbauten, ohne die künftige Versorgung zu prüfen.</p>
+<h3 id="04-forschung-und-entwicklung-vorbereiten">04 Forschung und Entwicklung vorbereiten</h3>
+<p>Öffne <strong>Technologiebaum</strong>, suche deine gewünschte Forschung oder Einheit und lies die Abhängigkeiten. Baue das benötigte Labor auf der <strong>Heimatwelt</strong>. Unter <strong>Forschung</strong> wählst du das Projekt, prüfst Laboranforderung, Zivilisationsstufe und Heimatbestand und benutzt <strong>Stufe N erforschen</strong>.</p>
+<p><strong>Das passiert danach:</strong> Das Reich bearbeitet ein Forschungsprojekt gleichzeitig. Die Labore des Reichs erzeugen Forschungspunkte; die Fortschreibung erfolgt an Spielstunden. Die Kosten des im Browser gestarteten Projekts werden auf der Heimatwelt bezahlt. Ein anderer rechts ausgewählter Planet verlagert diesen Forschungsstart nicht.</p>
+<p>Plane zugleich den nächsten <strong>Zivilisationsaufstieg</strong>. Fehlende Freischaltungen können an der Zivilisationsstufe liegen, nicht nur am Labor. Die Aufstiegsbedingungen müssen 48 Spielstunden durchgehend erfüllt sein; danach musst du den Aufstieg selbst auslösen und auf der Heimatwelt bezahlen.</p>
+<h3 id="05-die-erste-sonde-wirklich-fertigen">05 Die erste Sonde wirklich fertigen</h3>
+<p>Prüfe im <strong>Technologiebaum</strong> die Voraussetzungen der Spionagesonde. Schaffe die nötigen Technologien und Gebäude, darunter Spionagetechnik, Raumhafen und Werft. Öffne <strong>Schiffswerft</strong>, wähle deine Sonde und stelle <strong>Stückzahl</strong> auf 1. Lies Stückkosten und Voraussetzungen; drücke <strong>Fertigen</strong>, wenn der Bau möglich ist.</p>
+<p><strong>Das passiert danach:</strong> Die Werft bearbeitet den Fertigungsauftrag. Die Bestellung ist noch kein fertiges Schiff. Warte, bis eine Sonde als Bestand auf dem Startplaneten erscheint. Prüfe außerdem Deuterium und einen freien Flottenplatz. Auch ein einzelner Sondenflug belegt einen Platz.</p>
+<h3 id="06-ziel-auswahlen-und-einen-flug-vollstandig-prufen">06 Ziel auswählen und einen Flug vollständig prüfen</h3>
+<p>Öffne <strong>Galaxie</strong> und gehe über Sektor und Sonnensystem zu einem fremden Planeten deines Heimatsystems. Ein Planetenklick öffnet seine Infokarte. Das Heimatsystem ist bereits kartiert; die anderen Planeten sind dadurch noch nicht untersucht. Notiere die Zielkoordinate oder nutze die passende Aufklärungsplanung der Karte.</p>
+<p>Wechsle zu <strong>Flotten &amp; Saven → Neue Flotte planen</strong>. Prüfe <strong>Start</strong>, <strong>Ziel</strong> und als <strong>Auftrag</strong> die Auswahl <strong>Planet ausspähen · nur Sonden</strong>. Trage genau eine Sonde ein und lasse andere Schiffstypen weg. Benutze <strong>Flugzeit &amp; Treibstoff prüfen</strong>. Lies Ankunft, Rückkehr und Deuteriumbedarf, bevor du <strong>Flotte starten</strong> wählst.</p>
+<p><strong>Das passiert danach:</strong> Erst ein angenommener Start legt die Flotte in <strong>Eigene Flotten</strong> an. Eine geöffnete Karte, ein ausgefüllter Plan oder eine erfolgreiche Flugprüfung schicken noch nichts los. Bei Ablehnung lies den Grund und korrigiere beispielsweise Treibstoff, Schiffsauswahl, Ziel oder Flottenplätze.</p>
+<h3 id="07-ankunft-bericht-und-ruckkehr-auseinanderhalten">07 Ankunft, Bericht und Rückkehr auseinanderhalten</h3>
+<p>Verfolge die Sonde in <strong>Flotten &amp; Saven → Eigene Flotten</strong>. Nach der Ankunft öffnest du <strong>Nachrichten &amp; Berichte</strong> und liest den neuen Spionagebericht. Achte auf Ziel, Zeitstempel, Planetentyp, Belegung und tatsächlich beobachtete Ressourcen. Eine geringe Aufklärungstiefe kann Schiffe, Verteidigung oder Forschung unbekannt lassen.</p>
+<p><strong>Deine nächste Entscheidung:</strong> Ein freier Planet ist ein möglicher späterer Koloniestandort. Ein bewohnter Planet kann Handelspartner oder militärisches Risiko sein. Ein fehlender Eintrag beweist keine leere Flotte oder leere Verteidigung. Prüfe anschließend die Rückkehr deiner Sonde; ein Bericht allein macht sie nicht sofort wieder verfügbar.</p>
+<p>Für ein unbekanntes anderes Sonnensystem führst du zuerst <strong>System erkunden · nur Sonden</strong> aus. Danach braucht jeder gewünschte Planet eine eigene Spionagemission. Ein Systemscan liefert keine vollständigen Berichte über alle zwölf Planeten.</p>
+<h3 id="08-den-aufbau-zum-wiederholbaren-spielablauf-machen">08 Den Aufbau zum wiederholbaren Spielablauf machen</h3>
+<p>Beginne jede weitere Sitzung mit <strong>Übersicht → Versorgung → Nachrichten &amp; Berichte</strong>. Reagiere auf Warnungen, prüfe Bestände und Aufträge und entscheide danach über Ausbau, Forschung, Handel oder Flüge. Kontrolliere nach einer Aktion ihr Ergebnis im zuständigen Bereich. Die Welt läuft bei geöffnetem Server auch während deiner Abwesenheit weiter.</p>
+<p>Plane früh einen freien Flottenplatz und Deuterium für einen Save ein. Stelle keine große Flotte auf, deren täglichen Unterhalt du nicht bezahlen kannst. Eine Kolonie ist ein späteres Vorhaben mit eigenem Schiff, Eskorte, 3.000 Siedlern und Startfracht. Bereite sie über die Checkliste unter <strong>Kolonisation</strong> vor.</p>
+<p><strong>Wenn du KI dazunehmen möchtest:</strong> Wechsle im <strong>Spielerprofil</strong> zu <strong>Gemischt</strong>, aktiviere unter <strong>Agentensteuerung</strong> zunächst nur den <strong>Verwalter</strong>, teste das Modell und starte es mit kleinem Aufruflimit. Prüfe seine tatsächlichen Befehle und deine Versorgung. Zum eigenen Eingreifen in seine Aufgaben benutzt du zuerst <strong>Agent stoppen / Steuerung übernehmen</strong>.</p>
+<h2 id="8-die-oberflache-richtig-lesen">8 Die Oberfläche richtig lesen</h2>
+<p>Die Rohstoffleiste zeigt die Vorräte des <strong>rechts ausgewählten eigenen Planeten</strong>. Credits gehören zum Reich. Wenn du den Planeten wechselst, müssen Bauort, Startplanet und örtliche Bestände neu geprüft werden.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Bereich</th>
+<th>Wofür du ihn benutzt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Übersicht</strong></td>
+<td>Lage des Reiches, laufende Aufträge und wichtige Warnungen</td>
+</tr>
+<tr>
+<td><strong>Gebäude</strong></td>
+<td>Voraussetzungen, Kosten, Wirkung und Bauaufträge</td>
+</tr>
+<tr>
+<td><strong>Versorgung</strong></td>
+<td>Nahrung, Energie, Bevölkerung, Arbeit und drohende Krisen</td>
+</tr>
+<tr>
+<td><strong>Forschung</strong></td>
+<td>Forschung beginnen, Warteschlange und Leistung prüfen</td>
+</tr>
+<tr>
+<td><strong>Schiffswerft</strong></td>
+<td>Schiffe fertigen und Materialbedarf prüfen</td>
+</tr>
+<tr>
+<td><strong>Verteidigung</strong></td>
+<td>Ortsfeste Verteidigung und ihre Voraussetzungen</td>
+</tr>
+<tr>
+<td><strong>Flotten &amp; Saven</strong></td>
+<td>Flüge planen, Treibstoff prüfen, Flotten verfolgen und zurückrufen</td>
+</tr>
+<tr>
+<td><strong>Galaxie</strong></td>
+<td>Räumliche Karte, Systeme, Planeten und bekannte Informationen</td>
+</tr>
+<tr>
+<td><strong>Kolonisation</strong></td>
+<td>Kolonieplanung, Startfracht, Integrität und Reparaturen</td>
+</tr>
+<tr>
+<td><strong>Kampf &amp; Verbände</strong></td>
+<td>Kampfplanung, Simulation und gemeinsame Angriffe</td>
+</tr>
+<tr>
+<td><strong>Markt &amp; Diplomatie</strong></td>
+<td>Angebote, Verträge, Bündnisse und weitere Regierungsbefehle</td>
+</tr>
+<tr>
+<td><strong>Nachrichten &amp; Berichte</strong></td>
+<td>Nachrichten, Spionage-, Kampf- und Ereignisberichte</td>
+</tr>
+<tr>
+<td><strong>Imperiumsvergleich</strong></td>
+<td>Rangliste und Vergleich der öffentlich sichtbaren Reichswerte</td>
+</tr>
+<tr>
+<td><strong>Technologiebaum</strong></td>
+<td>Abhängigkeiten von Gebäuden, Forschung und Einheiten</td>
+</tr>
+<tr>
+<td><strong>Agentensteuerung</strong></td>
+<td>Modelle, Rollen, Tests, Start, Stopp und Aufrufprotokoll</td>
+</tr>
+<tr>
+<td><strong>Spielerprofil</strong></td>
+<td>Spielweise und persönliche Darstellung</td>
+</tr>
+<tr>
+<td><strong>Spielanleitung</strong></td>
+<td>Hilfe innerhalb der Oberfläche</td>
+</tr>
+</tbody>
+</table></div>
+<p>Gesperrte Kacheln sind grau und nennen fehlende Voraussetzungen. Ein Klick auf eine Bau- oder Forschungskachel öffnet ihre Erklärung. Ein gestarteter Auftrag zeigt Restzeit und Fortschritt; die Darstellung kann ihn im Uhrzeigersinn zunehmend einfärben.</p>
+<p>Unter <strong>Spielerprofil</strong> kannst du Systemvorgabe, Uhrzeigerdarstellung oder eine ruhige Darstellung wählen. Die Animation verändert keine Bauzeit. Ein Auftrag gilt erst als abgeschlossen, wenn der Server ihn bestätigt.</p>
+<p>Für seltenere Befehle gibt es unter <strong>Markt &amp; Diplomatie</strong> den Bereich <strong>Weitere Regierungs- und Flottenbefehle</strong>, etwa für Doktrin, Prioritäten oder besonderen Flottennachschub.</p>
+<p class="example"><strong>Beispiel:</strong> Du siehst 4.000 Erz auf Planet A und möchtest auf Planet B bauen. Das Erz von A steht B nicht automatisch zur Verfügung. Du musst B auswählen und gegebenenfalls einen Transport organisieren.</p>
+<h3 id="ubersicht">Übersicht</h3>
+<p><strong>Hier findest du:</strong> Den Zustand des ausgewählten Planeten, Bevölkerung und Wohnraum, Stabilität, Energie, Arbeitskräfte, Blockaden und die laufenden Bau-, Forschungs- und Werftaufträge. Warnungen und erkannte Angriffe verdienen zuerst Aufmerksamkeit. Über die rechte Planetenliste wechselst du die betrachtete Welt.</p>
+<p><strong>So benutzt du den Bereich:</strong> Lies zuerst die Warnungen, dann die Versorgung und schließlich die Aufträge. Über <strong>Gebäude ausbauen</strong>, <strong>Flotten verwalten</strong> und <strong>Neue Berichte</strong> kommst du direkt zur nächsten Aufgabe. Prüfe bei jedem Planetenwechsel die Koordinate und seine eigenen Vorräte. Credits gelten reichsweit.</p>
+<p><strong>Was danach wichtig ist:</strong> Eine Anzeige erklärt den Zustand; sie repariert keinen Mangel. Ein sinkender Nahrungsbestand verlangt eine Entscheidung unter Versorgung oder Gebäude. Eine Angriffskennung führt zur Flottenplanung. Ein Restzeitzähler gehört zum angenommenen Auftrag, nicht zu einem automatisch neu bestellten Ausbau.</p>
+<p class="example"><strong>Beispiel:</strong> Die Mine ist fertig, aber die Förderrate steigt kaum. Prüfe Energie, Personal und Integrität der Anlage. Eine höhere Stufe kann wegen dieser Engpässe trotzdem wenig leisten.</p>
+<h3 id="gebaude">Gebäude</h3>
+<p><strong>Hier findest du:</strong> Baukacheln für den rechts ausgewählten eigenen Planeten. Ein Klick auf die Kachel öffnet das Detailfeld mit Wirkung, Kosten der nächsten Stufe, Bauzeit, örtlichen Anforderungen und fehlenden Rohstoffen.</p>
+<p><strong>So bestellst du einen Ausbau:</strong> Wähle rechts den Bauplaneten, öffne <strong>Gebäude</strong>, klicke die Anlage und kontrolliere die Koordinate. Lies <strong>Benötigt</strong> und <strong>Rohstoffe fehlen</strong>. Wenn der Auftrag möglich ist, drücke <strong>Stufe N ausbauen</strong>. Kontrolliere danach die Bauschlange und den aktiven Fortschritt.</p>
+<p><strong>Was passiert:</strong> Ein Planet hat einen aktiven Bauplatz und höchstens fünf Bauaufträge insgesamt. Kosten werden beim tatsächlichen Start bezahlt. Wartende Aufträge reservieren die Materialien nicht. Fehlt beim nächsten Auftrag Material, stockt die Schlange. Ausbauten schaffen außerdem Verbraucher: Energie und Personal müssen mitwachsen.</p>
+<p><strong>Wenn es nicht klappt:</strong> Prüfe Zivilisationsstufe, Forschung, lokale Gebäude, Bauplätze, Unruhen, Materialien und die volle Bauschlange. Bei beschädigten Anlagen gibt es <strong>Reparatur prüfen</strong>. Eine graue Kachel kann eine fehlende Voraussetzung anzeigen; lies ihre Details, statt den Auftrag wiederholt zu versuchen.</p>
+<h3 id="versorgung">Versorgung</h3>
+<p><strong>Hier findest du:</strong> Für jedes Lagergut Bestand, Lagergrenze, Nettorate <strong>Pro Spielstunde</strong>, Reichweite und gegebenenfalls den Zeitpunkt eines vollen Lagers. Dazu kommen Nahrungs- und Konsumdeckung, Stabilität und Angaben zur Arbeitsverteilung.</p>
+<p><strong>So löst du einen Mangel:</strong> Wähle den betroffenen Planeten. Suche negative Raten und knappe Vorräte. Prüfe bei Nahrung zuerst Farm, Energiedeckung und Arbeiter. Prüfe bei Erz auch die Verbraucher wie Gießerei und Elektronikfabrik. Baue passende Versorgung aus oder organisiere einen Transport. Unter <strong>Arbeitsprioritäten</strong> trägst du Gebäudenamen durch Kommas getrennt ein und benutzt <strong>Prioritäten speichern</strong>; zuerst genannte Anlagen erhalten zuerst Arbeitskräfte.</p>
+<p><strong>Was passiert:</strong> Prioritäten verteilen vorhandene Arbeiter um. Sie erzeugen keine zusätzlichen Arbeiter und beseitigen keinen Energiemangel. Beobachte deshalb nach der Umstellung alle wichtigen Raten, nicht nur die bevorzugte Produktion. Bevölkerungswachstum erhöht laufende Nachfrage.</p>
+<p class="example"><strong>Beispiel:</strong> Die Farm steht hinter mehreren Fabriken in der Arbeitsreihenfolge und bekommt zu wenig Personal. Eine bessere Priorität kann die Nahrungslage verbessern, dafür sinkt möglicherweise die Industrieleistung. Nahrung wird nicht noch einmal von einer bereits angezeigten Nettorate abgezogen.</p>
+<h3 id="forschung">Forschung</h3>
+<p><strong>Hier findest du:</strong> Forschungskacheln, Anforderungen, Kosten, Forschungsleistung, <strong>Aktives Projekt</strong> und <strong>Forschungsschlange</strong>. Der Forschungsstart der Browseroberfläche benutzt die Heimatwelt; die Labore des gesamten Reichs tragen Forschungspunkte bei.</p>
+<p><strong>So beginnst du:</strong> Klicke eine Forschung an. Prüfe Zivilisationsstufe, verlangte Laborstufe auf der Heimatwelt und dortige Rohstoffe. Wähle <strong>Stufe N erforschen</strong>. Kontrolliere anschließend, ob sie als aktives Projekt läuft oder hinter einem bereits laufenden Projekt eingereiht wurde.</p>
+<p><strong>Was passiert:</strong> Es gibt ein aktives Projekt und bis zu drei wartende. Die Zahlung erfolgt beim Start des Projekts. Forschung wird an Spielstunden verarbeitet. Mehr aktive Laborleistung verkürzt die nötige Zeit; fehlende Energie, Arbeiter oder Spezialisten können sie verlängern. Ein wechselnder Countdown ist deshalb eine Prognose.</p>
+<p><strong>Wenn es nicht klappt:</strong> Vorräte oder ein großes Labor auf einer Kolonie ersetzen die Heimatvoraussetzung dieses Startknopfs nicht. Prüfe außerdem die volle Forschungsschlange. Für einen Flug musst du die Antriebstechnik tatsächlich abgeschlossen haben; eine bestellte oder nur freigeschaltete Forschung zählt noch nicht.</p>
+<h3 id="schiffswerft">Schiffswerft</h3>
+<p><strong>Hier findest du:</strong> Schiffstypen, vorhandene Stückzahlen, Stückkosten, Werte wie Angriff, Schild, Struktur und Laderaum sowie laufende <strong>Fertigungsaufträge</strong>. Anspruchsvolle Schiffe benötigen zusätzlich <strong>Orbitalbauteile</strong>.</p>
+<p><strong>So baust du ein Schiff:</strong> Wähle den Fertigungsplaneten, klicke den Schiffstyp und prüfe Werft, Technologien, Zivilisationsstufe, Materialien und Besatzung. Trage die gewünschte <strong>Stückzahl</strong> ein und wähle <strong>Fertigen</strong>. Kontrolliere den Auftrag und später den fertigen Schiffbestand auf genau diesem Planeten.</p>
+<p><strong>Was passiert:</strong> Fertigung kostet reale Materialien; die Besatzung kommt aus der Bevölkerung. Der Fortschritt kann das nächste Stück einer Serie zeigen. Zehn bestellte Schiffe sind nicht schon zehn einsatzfähige Schiffe. Erst fertige Schiffe lassen sich in einer Flotte auswählen. Größere Bestände verursachen laufenden Unterhalt.</p>
+<p><strong>Für Bauteile:</strong> Nutze das Formular <strong>Fertigungsauftrag</strong> mit Planet, Produkt und Anzahl, zum Beispiel für Habitatmodule oder Antriebskerne. Fertige diese vor dem Kolonieschiff. Reicht der Bestand nicht, prüfe die tatsächlich abgeschlossenen Bauteile statt nur ihre Bestellung.</p>
+<h3 id="verteidigung">Verteidigung</h3>
+<p><strong>Hier findest du:</strong> Ortsfeste Verteidigungsanlagen des ausgewählten Planeten mit Kampfdaten, Voraussetzungen, Stückkosten und Fertigungsfortschritt. Sie schützen ihren Standort und fliegen bei einem Save nicht mit.</p>
+<p><strong>So baust du sie:</strong> Wähle rechts den zu schützenden Planeten. Klicke die Anlage, prüfe freigeschaltete Technik und Fertigung, wähle <strong>Stückzahl</strong> und drücke <strong>Fertigen</strong>. Sieh nach dem Abschluss nach, ob die fertige Zahl im Verteidigungsbestand steht.</p>
+<p><strong>Was passiert:</strong> Die Anlage nimmt an Kämpfen an ihrem Planeten teil. Ein Teil zerstörter normaler Verteidigung wird nach einem Gefecht wiederaufgebaut; das ist keine Garantie für vollständige Wiederherstellung. Gegen Interplanetarraketen gelten eigene Regeln, insbesondere keine normale Wiederaufbauquote für die getroffene Verteidigung.</p>
+<p><strong>Deine Entscheidung:</strong> Stimme Verteidigung auf Gegnerberichte, eigene Technologie und die zu schützenden Vorräte ab. Ein Bunker schützt einen begrenzten Teil der Güter; Sensoren liefern Vorwarnung. Eine große Verteidigung ersetzt weder Versorgung noch das Saven einer beweglichen Flotte. Raketenbefehle findest du bei den weiteren Regierungs- und Flottenbefehlen.</p>
+<h3 id="flotten-saven">Flotten &amp; Saven</h3>
+<p><strong>Hier findest du:</strong> <strong>Neue Flotte planen</strong>, <strong>Eigene Flotten</strong> und erkannte gegnerische Bewegungen. Flottenkarten zeigen Kennung, Mission, Start, Ziel, Flugphase, Zeiten, Schiffe und Fracht.</p>
+<p><strong>So startest du:</strong> Öffne den Planer. Wähle <strong>Start</strong>, <strong>Ziel</strong>, <strong>Auftrag</strong>, <strong>Geschwindigkeit</strong>, bei Bedarf <strong>Aufenthalt / Save-Wartezeit</strong>, Schiffe und Fracht. Benutze <strong>Flugzeit &amp; Treibstoff prüfen</strong>, lies Ankunft und Rückkehr und wähle dann <strong>Flotte starten</strong>. Erst die angenommene Aktion erscheint unter <strong>Eigene Flotten</strong>. <strong>Rückrufen</strong> leitet eine Rückkehr ein; es stellt die Schiffe nicht sofort wieder auf den Planeten.</p>
+<p><strong>So savest du:</strong> Wähle Auftrag <strong>Saven</strong>, ein anderes Ziel und eine passende Wartezeit. <strong>Alle vorhandenen Schiffe auswählen</strong> übernimmt den Bestand; <strong>Save-Fracht automatisch verladen</strong> füllt verfügbaren Frachtraum und berücksichtigt Treibstoff. Kontrolliere die Auswahl selbst. Fliege vor dem Angriff ab und plane die Rückkehr mit Abstand nach der Gefahr.</p>
+<p><strong>Wenn es nicht klappt:</strong> Prüfe Deuterium, Frachtraum, langsamstes Schiff, Flottenplatz und eine mögliche Blockade. Auch Sonden belegen Slots. Ein verbündeter Transport und ein feindlicher Angriff haben unterschiedliche Zielbedingungen. Eine erkannte Angriffsflotte lässt sich bei rechtzeitiger Sondenankunft über ihre Aufklärungsaktion untersuchen.</p>
+<h3 id="galaxie">Galaxie</h3>
+<p><strong>Hier findest du:</strong> Die räumliche Ansicht <strong>Galaxie → Sektor → Sonnensystem → Planet</strong>. Sonnensysteme liegen als Sternpunkte im Sektor; im System bewegen sich Planeten optisch um ihre Sonne. <strong>Galaxie</strong>, <strong>Zurück</strong> und <strong>Kamera zentrieren</strong> helfen bei der Orientierung. <strong>Umläufe pausieren</strong> stoppt nur die sichtbare Animation.</p>
+<p><strong>So untersuchst du einen Ort:</strong> Öffne ein System und klicke einen Planeten oder seinen Listeneintrag. Seine Infokarte zeigt eigenes Wissen oder den bekannten Sondenbericht. Schließe sie über das Kreuz, Escape oder einen Klick außerhalb. Über <strong>Systemliste &amp; direkter Zugang</strong> kannst du einen Ort gezielt statt durch Kamerabewegung auswählen.</p>
+<p><strong>Was du mit der Information machst:</strong> Plane bei einem unbekannten System zuerst einen Systemscan, danach eine Spionagemission zum einzelnen Planeten. Eine Kartenaktion kann das Flottenformular vorbereiten. Prüfe dort die Sonde, Zielkoordinate und Treibstoff und bestätige <strong>Flotte starten</strong>. <strong>Berichte aktualisieren</strong> liest vorhandene Beobachtungen neu ein; es ersetzt keinen Sondenflug.</p>
+<p class="example"><strong>Beispiel:</strong> Du siehst eine Planetenbahn, aber keinen Typ und keine Bewohner. Das ist eine Informationsgrenze. Ein dargestellter Körper ist weder automatisch leer noch als Kolonie reserviert. Erst ein eigener Bericht hilft bei deiner Entscheidung.</p>
+<h3 id="kolonisation">Kolonisation</h3>
+<p><strong>Hier findest du:</strong> Aktuelle Koloniezahl, durch Astrophysik erlaubte Kapazität, Verwaltungsgrenze, die Checkliste <strong>Weg zur nächsten Kolonie</strong>, laufende Besetzungen und <strong>Integrität &amp; Reparaturen</strong> des ausgewählten eigenen Planeten.</p>
+<p><strong>So bereitest du eine freie Kolonie vor:</strong> Arbeite die Checkliste ab. Benutze <strong>Startfracht anzeigen</strong> und lies <strong>Mindest-Startfracht für dein Volk</strong>. Prüfe eigenes Wissen über System und Ziel, freien Kolonieplatz, Kolonieschiff, zusätzliche bewaffnete Eskorte, 3.000 Siedler, Startgüter und Flugtreibstoff. Über <strong>Freie Kolonie planen</strong> gelangst du zum Flottenplaner. Kontrolliere alle Angaben und bestätige den Start dort.</p>
+<p><strong>Nach der Ankunft:</strong> Eine erfolgreiche Gründung erscheint als eigener Planet. Wähle ihn rechts aus, lies Versorgung und stelle seine ersten Energie-, Nahrungs- und Förderanlagen in Auftrag. Die Startfracht baut keine Gebäude automatisch. Ein anderer Spieler kann einen freien Planeten vor dir erreichen.</p>
+<p><strong>So reparierst du:</strong> Wähle bei einer beschädigten Anlage <strong>Reparatur prüfen</strong>, kontrolliere Kosten und Zeit und drücke <strong>Reparatur starten</strong>. Die Reparatur benötigt die örtlichen Materialien und eine verfügbare Baustelle. Für eine feindliche Kolonie gelten zusätzlich Orbitkontrolle, höchstens 30 % Gebäudeintegrität und die Besetzungsfrist; ihr ursprünglicher Heimatplanet ist ausgeschlossen.</p>
+<h3 id="kampf-verbande">Kampf &amp; Verbände</h3>
+<p><strong>Hier findest du:</strong> <strong>Kampfsimulator</strong>, Verbandsangriffe, Kampfberichte und bekannte Trümmerfelder. Eine Simulation ist eine Schätzung aus deiner Auswahl und dem letzten ausreichend vollständigen Spionagebericht.</p>
+<p><strong>So prüfst du einen Angriff:</strong> Benutze <strong>Schiffe &amp; Ziel auswählen</strong> und fülle das Flottenformular mit deiner geplanten Streitmacht und Zielkoordinate aus. Kehre hierher zurück und wähle <strong>Gewählte Flotte simulieren</strong>. Lies Siegchance, Unentschieden, Verlustwerte, Alter des Berichts und die angenommene Gegnertechnik. Fehlende Schiffs- oder Verteidigungsdaten werden nicht einfach als Null gerechnet.</p>
+<p><strong>Danach:</strong> Entscheide anhand erwarteter Verluste, möglicher Beute und Frachtraum, ob du wirklich angreifen willst. Starte die Flotte im Flottenplaner ausdrücklich. Der Simulator sendet keinen Angriff. Nach dem Gefecht liest du den Kampfbericht; über <strong>Recycler planen</strong> kannst du eine Bergung bekannter Trümmer vorbereiten.</p>
+<p><strong>Gemeinsam angreifen:</strong> Bei einer eigenen Angriffsflotte gibt es <strong>Verband eröffnen</strong>. Ein berechtigter Partner trägt im Verbandsformular die eigene Flottenkennung und die <strong>Führungsflotte</strong> ein und benutzt <strong>Verband beitreten</strong>. Ziel, Beziehung und rechtzeitige gemeinsame Ankunft müssen passen. Ein Bündnis allein synchronisiert keine Flotten.</p>
+<h3 id="markt-diplomatie">Markt &amp; Diplomatie</h3>
+<p><strong>Hier findest du:</strong> Handel, private Nachrichten, Verträge, Allianzen und <strong>Weitere Regierungs- und Flottenbefehle</strong>. Für den Markt brauchst du die passende Zivilisationsstufe und einen Markt; eine Order benötigt einen tatsächlichen Gegenhandel.</p>
+<p><strong>So handelst du:</strong> Wähle im Marktformular <strong>Planet</strong>, <strong>Gut</strong>, <strong>Order</strong> als Kaufen oder Verkaufen, <strong>Menge</strong> und <strong>Preis je Einheit</strong>. Prüfe Gesamtbetrag und Gebühren. Mit <strong>Order einstellen</strong> stellst du ein Angebot ein. Bei Kauf wird Geld, bei Verkauf Ware gebunden. Ein Abschluss braucht einen passenden Partner; die Lieferung folgt anschließend ihren Flug- und Blockaderegeln.</p>
+<p><strong>So vereinbarst du etwas:</strong> Wähle beim Vertrag <strong>Partner</strong>, <strong>Vertrag</strong> und <strong>Kaution</strong>, dann <strong>Vertrag anbieten</strong>. Der andere Spieler muss das Angebot bearbeiten. Für eine Allianz wählst du Aktion und Namen und bestätigst <strong>Allianzaktion ausführen</strong>. Eine Nachricht sendest du mit Empfängernamen und Text über <strong>Nachricht senden</strong>.</p>
+<p><strong>Weitere Befehle verwenden:</strong> Klappe <strong>Weitere Regierungs- und Flottenbefehle</strong> auf, wähle <strong>Befehl</strong>, fülle die dazu angezeigten Felder aus und benutze <strong>Befehl ausführen</strong>. Hier liegen etwa Stufenaufstieg, Steuern, Doktrin, Raketen, Bombardieren und besonderer Flottennachschub. Lies die Bedeutung, bevor du bestätigst: Ein angenommener Regierungs- oder Militärbefehl verändert die Welt.</p>
+<h3 id="nachrichten-berichte">Nachrichten &amp; Berichte</h3>
+<p><strong>Hier findest du:</strong> Reichsereignisse, erhaltene Nachrichten und bekannte Spionage- oder Kampfergebnisse. Hier prüfst du, was tatsächlich angekommen, geschehen oder beobachtet worden ist.</p>
+<p><strong>So liest du einen Bericht:</strong> Vergleiche Berichtstyp, Zielkoordinate, Beobachtungszeit und Informationsumfang. Trenne Ressourcen, Schiffe, Verteidigung, Gebäude und Technik. Ein Sondenbericht ist eine Momentaufnahme. Bei einem alten oder unvollständigen Bericht brauchst du vor einer wichtigen Entscheidung gegebenenfalls eine neue Sonde.</p>
+<p><strong>So reagierst du:</strong> Nach einer Aufklärung bewertest du ein Ziel. Nach einem Gefecht prüfst du Verluste, Beute und Trümmer. Bei einer Versorgungskrise suchst du den betroffenen Planeten auf und kontrollierst die verbleibende Frist. Nachrichten an andere Reiche verfasst du unter <strong>Markt &amp; Diplomatie</strong>; prüfe den Namen des Empfängers.</p>
+<p><strong>Wenn etwas fehlt:</strong> Prüfe, ob die Flotte schon am Ziel angekommen ist. Ein gestarteter Flug liefert nicht sofort einen Bericht. Nicht aufgeklärte militärische Daten bleiben unbekannt. Private Nachrichten und Spionageberichte eines anderen Reichs werden durch die Rangliste oder bloßes Zuschauen nicht freigegeben.</p>
+<h3 id="imperiumsvergleich">Imperiumsvergleich</h3>
+<p><strong>Hier findest du:</strong> Rangliste und öffentlich sichtbare Reichswerte. Damit beurteilst du die Entwicklung im Wettbewerb, ohne Zugriff auf die privaten Vorräte oder vollständige Flotten anderer Reiche zu erhalten.</p>
+<p><strong>So benutzt du ihn:</strong> Suche dein Reich, vergleiche Punktestand und Entwicklungsstand und prüfe über mehrere Zeitpunkte, ob deine Investitionen wirken. Ein einzelner Rang ist kein Kampfbericht. Für einen Angriff brauchst du eigene Aufklärung; für einen wirtschaftlichen Engpass deine Versorgungstabelle.</p>
+<p><strong>Was die Punkte bedeuten:</strong> Abgeschlossene Gebäude und Forschung, vorhandene Streitkräfte, Bevölkerung und Zivilisationsstufe tragen bei. Ein großer unverbauter Rohstoffvorrat bringt keine entsprechenden Investitionspunkte. Verluste können Punkte senken. Besiegte Reiche werden hinter aktiven eingeordnet; ihr Zustand ist endgültig für diese Epoche.</p>
+<p class="example"><strong>Beispiel:</strong> Du sparst zwei Tage Material und dein Rang steigt kaum. Nach einem fertigen Ausbau ändern sich Investitionspunkte. Eine verlorene Flotte ist anschließend kein dauerhaft behaltenes Punktekonto. Am Epochenende zählt die festgeschriebene Abschlussrangliste.</p>
+<h3 id="technologiebaum">Technologiebaum</h3>
+<p><strong>Hier findest du:</strong> Die Abhängigkeiten zwischen Zivilisationsstufe, Gebäuden, Forschung, Schiffen und Verteidigung. Er beantwortet vor allem die Frage: Was fehlt mir vor meinem nächsten Ziel?</p>
+<p><strong>So benutzt du ihn:</strong> Suche zuerst das gewünschte Ziel, beispielsweise eine Spionagesonde oder ein Kolonieschiff. Lies seine direkten Voraussetzungen. Prüfe anschließend auch deren Voraussetzungen. Plane daraus die Bau- und Forschungsreihenfolge. Gehe zum eigentlichen Bestellen zu <strong>Gebäude</strong>, <strong>Forschung</strong> oder <strong>Schiffswerft</strong>.</p>
+<p><strong>Was eine Freischaltung bedeutet:</strong> Die Technik wird grundsätzlich nutzbar. Das betreffende Gebäude, Schiff oder Forschungsniveau entsteht dadurch noch nicht. Örtliche Werft- oder Laboranforderungen, Kosten, Personal und Bauteile bleiben nötig. Ein gutes Labor auf einem Planeten baut auch keine Werft auf einem anderen.</p>
+<p class="example"><strong>Beispiel:</strong> Astrophysik erlaubt eine weitere Kolonie. Du brauchst trotzdem Stufe IV, eine geeignete Werft und Orbitalwerft, die Kolonieschiff-Bauteile, Siedler, Eskorte und Startfracht. Nutze die Kolonisationscheckliste zusätzlich zum Technologiebaum.</p>
+<h3 id="agentensteuerung">Agentensteuerung</h3>
+<p><strong>Hier findest du:</strong> Anbieter und Modell, Ollama-Adresse oder OpenRouter-Schlüssel, Rollenverteilung, Aufruflimit, Kostenmeldung, Rundenabstand, Modelltest und Start-/Stoppsteuerung sowie das Agentenprotokoll.</p>
+<p><strong>So beginnst du kontrolliert:</strong> Wähle im <strong>Spielerprofil</strong> zuerst <strong>Agent</strong> oder <strong>Gemischt</strong>. Stelle hier Anbieter und den genauen Modellnamen ein. Bei Ollama hilft <strong>Lokale Modelle suchen</strong>; dein eigener PC muss den Dienst und das Modell bereitstellen. Bei OpenRouter brauchst du deinen eigenen begrenzten Anbieterschlüssel. Aktiviere zunächst eine Rolle, ein kleines Aufruflimit und einen passenden Rundenabstand.</p>
+<p>Benutze <strong>Modell testen · keine Spielaktionen</strong> und lies Antwort, Vorschläge und Fehler. Bei Erfolg drücke <strong>Agent starten</strong>. Kontrolliere danach die angenommenen und abgelehnten Befehle und ihre Wirkung in Versorgung, Aufträgen und Flotten. Eine plausibel klingende Begründung beweist noch keinen erfolgreich ausgeführten Befehl.</p>
+<p><strong>So greifst du ein:</strong> Mit <strong>Agent stoppen / Steuerung übernehmen</strong> beendest du neue Modellentscheidungen und gibst seine Rollen frei. Angenommene Bauten oder Flüge laufen weiter. Der Browser muss für neue Agentenentscheidungen offen bleiben; die gemeinsame Welt wartet nicht auf das Modell. Drei aufeinanderfolgende Fehler können ihn stoppen. Der Modelltest kann bei OpenRouter schon Kosten verursachen.</p>
+<h3 id="spielerprofil">Spielerprofil</h3>
+<p><strong>Hier findest du:</strong> Deine Spielweise und die persönliche Fortschrittsdarstellung. Die Volkswahl ist nach der Reichsgründung für die laufende Epoche festgelegt.</p>
+<p><strong>So wechselst du die Steuerung:</strong> Wähle <strong>Mensch</strong>, <strong>Agent</strong> oder <strong>Gemischt</strong> und bestätige <strong>Platz belegen / Spielweise ändern</strong>. Reich und Teilnehmerplatz bleiben dabei erhalten. Ein Spielweisenwechsel stoppt eine laufende Browser-Agentensteuerung. Richte Rollen und Modelle unter <strong>Agentensteuerung</strong> anschließend bewusst neu ein.</p>
+<p><strong>So stellst du Timer ein:</strong> Bei der Fortschrittsdarstellung wählst du Systemvorgabe, <strong>Uhrzeiger · im Uhrzeigersinn einfärben</strong> oder <strong>Ruhige Darstellung · ohne Uhrzeiger</strong>. Die Wahl verändert die optische Anzeige, keine Kosten oder Bauzeiten. Restzeiten und Serverabschlüsse bleiben entscheidend.</p>
+<p class="example"><strong>Beispiel:</strong> Du möchtest die Flotten selbst führen und nur die Wirtschaft abgeben. Wähle <strong>Gemischt</strong>, lasse Feldherr und Diplomat frei und aktiviere zunächst den Verwalter. Während dieser Rolle dürfen eigene gleichzeitige Wirtschaftsbefehle gesperrt sein. Stoppe den Agenten, bevor du seine Aufgaben manuell übernimmst.</p>
+<h3 id="spielanleitung">Spielanleitung</h3>
+<p><strong>Hier findest du:</strong> Hilfe im Browser und <strong>Vollständiges Regelwerk dieser Welt</strong>. Diese Regelreferenz stammt vom verbundenen Server und beschreibt das dort aktive Profil.</p>
+<p><strong>So benutzt du sie:</strong> Lies bei einer unbekannten Mechanik zuerst ihre Erklärung im Spielguide und bei einer konkreten Kosten- oder Freischaltungsfrage zusätzlich die Regelreferenz und Aktionsdetails. Vergleiche den laufenden Weltstatus: Tempo, Pause und Epochenende betreffen alle Spieler. Ein normaler Spielzugang besitzt keinen privaten Verwaltungszugang.</p>
+<p><strong>Wenn du feststeckst:</strong> Notiere Bereich, Planet, Auftrag und genaue Ablehnungsnachricht. Prüfe Heimat- oder Ortsbestand, Voraussetzungen, Warteschlange, Flottenplätze und Steuerungsrolle. Bei einem Fehlerbericht sind ein Zeitpunkt und die konkrete Aktion hilfreicher als die Aussage, ein Knopf funktioniere nicht.</p>
+<p class="example"><strong>Beispiel:</strong> Ein angekündigter Ausbau braucht zwei Spielstunden. Bei 1× sind das zwei reale Stunden, bei 60× zwei reale Minuten. Die aktuell im Spiel angezeigte Geschwindigkeit erklärt die tatsächliche Wartezeit. Eine pausierte Planetenanimation ist dagegen keine Weltpause.</p>
+<h2 id="9-spielzeit-bauzeit-und-pausen">9 Spielzeit Bauzeit und Pausen</h2>
+<p>Der aktuelle Server steht auf <strong>1× Tempo</strong>. Eine reale Stunde entspricht dann einer Spielstunde. Der Betreiber kann das Tempo verändern.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Tempo</th>
+<th>Zwei Spielstunden dauern real</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1×</td>
+<td>Zwei Stunden</td>
+</tr>
+<tr>
+<td>60×</td>
+<td>Zwei Minuten</td>
+</tr>
+<tr>
+<td>3.600×</td>
+<td>Zwei Sekunden</td>
+</tr>
+</tbody>
+</table></div>
+<p>Befehle werden direkt geprüft. Ein angenommener Bauauftrag beginnt, sobald seine Bauposition frei ist und die Voraussetzungen erfüllt sind.</p>
+<p>Produktion läuft mit der Spielzeit. Bevölkerung, Versorgung, Steuern, Stabilität und Forschung werden an Spielstunden verarbeitet; der Flottenunterhalt wird täglich verrechnet. Bauabschlüsse und Flottenankünfte haben eigene Ereigniszeitpunkte.</p>
+<p>Bei Forschung ist die angezeigte Restzeit eine Prognose mit der aktuellen Forschungsleistung. Wenn Energie, Personal oder Labore ausfallen, stimmt eine ältere Prognose nicht mehr.</p>
+<p>Eine <strong>Weltpause</strong> des Betreibers hält die Spielzeit und Aufträge an. Eine ruhige Kartenansicht hält nur die optische Bewegung an. Bei einer unterbrochenen Browserverbindung ist ein lokal sichtbarer Timer kein Beweis für einen fertigen Serverauftrag.</p>
+<p class="example"><strong>Beispiel:</strong> Eine Rettungsfrist von 72 Spielstunden dauert bei 1× drei reale Tage. Bei 60× bleiben dafür nur 72 reale Minuten. Ein schneller Testserver verlangt deshalb eine völlig andere Reaktionsgeschwindigkeit.</p>
+<h2 id="10-wirtschaft-versorgung-und-bevolkerung">10 Wirtschaft Versorgung und Bevölkerung</h2>
+<h3 id="die-guter-und-ihre-aufgaben">Die Güter und ihre Aufgaben</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Wert oder Gut</th>
+<th>Hauptaufgabe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Erz</strong></td>
+<td>Grundstoff für Gebäude, Schiffe und Weiterverarbeitung</td>
+</tr>
+<tr>
+<td><strong>Kristall</strong></td>
+<td>Grundstoff für Technik, Gebäude, Forschung und Elektronik</td>
+</tr>
+<tr>
+<td><strong>Deuterium</strong></td>
+<td>Flugtreibstoff, Fusion und verschiedene Produktions- und Forschungskosten</td>
+</tr>
+<tr>
+<td><strong>Nahrung</strong></td>
+<td>Lebensversorgung der Bevölkerung außer bei Syntheten</td>
+</tr>
+<tr>
+<td><strong>Legierung</strong></td>
+<td>Weiterverarbeiteter Werkstoff, aus vier Erz je Einheit</td>
+</tr>
+<tr>
+<td><strong>Elektronik</strong></td>
+<td>Weiterverarbeitung, aus einem Erz und zwei Kristall je Einheit</td>
+</tr>
+<tr>
+<td><strong>Konsumgut</strong></td>
+<td>Versorgung und Entwicklung, aus einem Erz, einem Kristall und einem halben Deuterium je Einheit</td>
+</tr>
+<tr>
+<td><strong>Xenokristall</strong></td>
+<td>Späterer Spezialrohstoff aus geeigneten Nebelsystemen mit passender Anlage</td>
+</tr>
+<tr>
+<td><strong>Energie</strong></td>
+<td>Laufende Leistung für Bevölkerung und Anlagen; kein verladenes Lagergut</td>
+</tr>
+<tr>
+<td><strong>Credits</strong></td>
+<td>Reichsweite Währung für Unterhalt, Handel und Verträge</td>
+</tr>
+<tr>
+<td><strong>Bauteile</strong></td>
+<td>Beispielsweise Antriebskerne und Habitatmodule für anspruchsvolle Fertigung</td>
+</tr>
+</tbody>
+</table></div>
+<p>Die Rohstoffraten in der Oberfläche berücksichtigen bereits laufende Produktion und Verbrauch. Subtrahiere die Nahrung der Bevölkerung oder den Erzbedarf einer Gießerei nicht noch einmal von einer bereits angezeigten <strong>Nettorate</strong>.</p>
+<p class="example"><strong>Beispiel:</strong> Eine Gießerei liefert eine Legierung und verbraucht dafür vier Erz. Deine Mine fördert zehn Erz im selben Zeitraum. Ohne andere Verbraucher bleiben sechs Erz übrig. Mehr verarbeitende Betriebe können deshalb einen vorher positiven Erzsaldo negativ machen.</p>
+<h3 id="nahrung-und-energie">Nahrung und Energie</h3>
+<p>Im Grundprofil verbrauchen 1.000 Einwohner <strong>40 Nahrung je Spielstunde</strong> und drei Konsumgüter. Nahrung wird aus Produktion und Vorräten gedeckt. Ein negativer Saldo ist eine Warnung, aber noch keine sofortige Niederlage.</p>
+<p class="example"><strong>Beispiel:</strong> Bei 500 Nahrung und einer Nettorate von −25 je Stunde reicht der Vorrat unter unveränderten Bedingungen ungefähr 20 Spielstunden. Bevölkerungswachstum oder weitere Verbraucher können diese Zeit verkürzen.</p>
+<p>Energie ist eine laufende Bilanz. Wenn Anlagen und Bevölkerung mehr benötigen, als du erzeugst, sinkt die mögliche Wirtschaftsleistung. Syntheten benötigen zusätzlich Energie für ihre Bevölkerung.</p>
+<p class="example"><strong>Beispiel:</strong> 80 erzeugte Energie bei 100 benötigter Energie bedeuten grundsätzlich nur 80 % Deckung. Eine weitere Mine kann den Mangel verschärfen. Prüfe zunächst Kraftwerke, Verbraucher und Arbeitsprioritäten.</p>
+<p>Fusion braucht Deuterium. Ein stärkeres Fusionskraftwerk kann dir deshalb Treibstoff für Flotten wegnehmen. Behalte die gemeinsame Deuteriumbilanz im Blick.</p>
+<h3 id="arbeiter-spezialisten-wohnraum-und-stabilitat">Arbeiter Spezialisten Wohnraum und Stabilität</h3>
+<p>Grundsätzlich stehen 60 % der Bevölkerung als Arbeitskräfte zur Verfügung. Anspruchsvolle Anlagen und Forschung brauchen außerdem Spezialisten; die Akademie hilft beim Ausbau. Zu wenig Personal oder Energie kann erklären, warum eine fertige Anlage weniger leistet als erwartet.</p>
+<p>Wohnraum begrenzt weiteres Wachstum. Nahrung allein reicht nicht, wenn die Wohnkapazität ausgeschöpft ist. Konsumgüter und Stabilität werden für spätere Entwicklungsschritte wichtig.</p>
+<p>Steuern können zwischen 0 und 50 % liegen; der Ausgangswert ist 10 %. Höhere Steuern bringen Einnahmen, belasten aber die angestrebte Stabilität. Besonders oberhalb von 15 % steigt dieser Druck.</p>
+<p>Unter <strong>30 Stabilität</strong> herrschen Unruhen: Neue Bauaufträge werden gesperrt und laufende Bauarbeiten unterbrochen. Unter 40 verschwindet das reguläre Bevölkerungswachstum. Ein kurzer hoher Steuerertrag kann dadurch langfristig teuer werden.</p>
+<h3 id="lager-bunker-und-laufende-kosten">Lager Bunker und laufende Kosten</h3>
+<p>Ein Lager begrenzt örtliche Vorräte. Ein Bunker schützt einen Teil bestimmter Rohstoffe vor Plünderung. Er erzeugt keine Güter und schützt nicht vor Gebäudebombardement.</p>
+<p>Schiffe kosten laufend Credits. Im Profil beträgt der tägliche Unterhalt 0,5 % ihres gewichteten Bauwerts; jede Kolonie kostet zusätzlich 300 Credits je Spieltag. Ortsfeste Verteidigung hat keinen solchen Schiffsunterhalt.</p>
+<p>Nach drei nicht bezahlten Tagen droht Flottendesertion: Pro weiterem unbezahltem Tag können 10 % der Schiffe verloren gehen. Leere Credits bedeuten daher nicht sofort eine Niederlage, sind aber eine ernsthafte Warnung.</p>
+<p class="example"><strong>Beispiel:</strong> Eine neue Kolonie erweitert Produktion und Möglichkeiten. Wenn sie unversorgt bleibt und gleichzeitig die Credits für Kolonie und Flotte fehlen, kann sie dein Reich zunächst schwächen. Plane ihre Versorgung vor dem Start.</p>
+<h2 id="11-bauen-forschen-und-zivilisationsstufen">11 Bauen Forschen und Zivilisationsstufen</h2>
+<h3 id="gebaude-und-warteschlangen">Gebäude und Warteschlangen</h3>
+<p>Ein Planet bearbeitet einen Bauauftrag gleichzeitig. Seine Bauschlange umfasst maximal <strong>fünf Aufträge einschließlich des gerade laufenden</strong>.</p>
+<p>Die Baukosten werden bezahlt, wenn der jeweilige Auftrag wirklich beginnt. Ein vorgemerkter Auftrag reserviert nicht automatisch alle später benötigten Rohstoffe. Kann der erste wartende Auftrag nicht bezahlt werden, bleiben auch die dahinterstehenden Aufträge liegen.</p>
+<p class="example"><strong>Beispiel:</strong> Die erste Mine wird fertig. Als Nächstes steht eine teure Lagerstufe an, für die Kristall fehlt. Die günstige Farm dahinter beginnt dadurch nicht von selbst. Du musst die fehlenden Güter beschaffen oder die Reihenfolge bewusst korrigieren.</p>
+<p>Gebäudestufen brauchen zunehmend Material und Zeit. Außerdem gelten Zivilisationsstufe, Technologie, Bauplätze und örtliche Voraussetzungen. Fertige Gebäude können bei Unruhen oder Beschädigung eingeschränkt wirken.</p>
+<h3 id="forschung-und-fertigung">Forschung und Fertigung</h3>
+<p>Ein Reich hat <strong>eine aktive Forschung und bis zu drei wartende Forschungsaufträge</strong>. Die Forschungsleistung kommt aus seinen Laboren. Der Forschungsstart über die Browserkacheln benutzt die <strong>Heimatwelt</strong>: Dort müssen die verlangte Laborstufe und die Materialien beim tatsächlichen Projektstart vorhanden sein. Ein rechts ausgewählter anderer Planet ändert diesen Startort nicht.</p>
+<p>Eine freigeschaltete Forschung ist noch nicht erforscht. Ebenso ist ein freigeschaltetes Schiff noch nicht gebaut. Die Werft benötigt ihre Voraussetzungen, Material und Besatzung. Fertigung bindet reale Rohstoffe; die Besatzung kommt aus deiner Bevölkerung.</p>
+<p class="example"><strong>Beispiel:</strong> Zivilisationsstufe IV macht fortgeschrittene Technik grundsätzlich erreichbar. Ein Kolonieschiff erscheint trotzdem erst als baubar, wenn Werft, Orbitalwerft, Bauteile und weitere Voraussetzungen vorhanden sind.</p>
+<h3 id="die-funf-zivilisationsstufen">Die fünf Zivilisationsstufen</h3>
+<p>Du beginnst auf Stufe I. Für einen Aufstieg musst du die Bedingungen <strong>48 Spielstunden durchgehend</strong> erfüllen und anschließend den Aufstieg auslösen und bezahlen. Sinkt eine Bedingung zwischendurch darunter, beginnt die Haltezeit erneut.</p>
+<p>Die Einwohnerzahl zählt reichsweit. Bei einer verlangten Gebäudestufe genügt der höchste passende Ausbau auf einem eigenen Planeten. Vorgaben zu Stabilität und Konsumdeckung beziehen sich auf den Heimatplaneten.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Zielstufe</th>
+<th>Wesentliche Voraussetzungen</th>
+<th>Aufstiegskosten</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>II</strong></td>
+<td>2.000 Einwohner; Erzmine 5; Kristallmine 5; auf allen eigenen Planeten Nahrung und Energie im Plus, bei Syntheten ohne Nahrungspflicht</td>
+<td>2.000 Erz, 1.000 Kristall</td>
+</tr>
+<tr>
+<td><strong>III</strong></td>
+<td>8.000 Einwohner; Gießerei 3; Elektronikfabrik 2; Energietechnik 3; Heimatstabilität mindestens 55</td>
+<td>10.000 Erz, 6.000 Kristall, 500 Legierung, 200 Elektronik</td>
+</tr>
+<tr>
+<td><strong>IV</strong></td>
+<td>32.000 Einwohner; Werft 4; Impulsantrieb 3; Astrophysik 1; Heimatstabilität mindestens 60; Konsumdeckung mindestens 80 %</td>
+<td>40.000 Erz, 25.000 Kristall, 10.000 Deuterium, 2.000 Legierung, 1.000 Elektronik</td>
+</tr>
+<tr>
+<td><strong>V</strong></td>
+<td>700.000 Einwohner; Hyperraumantrieb 1; mindestens drei Kolonien</td>
+<td>200.000 Erz, 150.000 Kristall, 50.000 Deuterium, 10.000 Legierung, 5.000 Elektronik, 5.000 Xenokristall</td>
+</tr>
+</tbody>
+</table></div>
+<p>Die Aufstiegskosten müssen auf dem Heimatplaneten bereitliegen. Die Oberfläche zeigt den Stand der Voraussetzungen; der Befehl <strong>Stufenaufstieg</strong> ist auch bei den weiteren Regierungsbefehlen zu finden.</p>
+<p>Auf der höchsten Stufe kommen große Projekte hinzu: beispielsweise ein Orbitalring mit zusätzlichen Bauplätzen und Wohnraum, ein Archiv mit stärkerer Forschung oder ein Versorgungsnetz mit höherer Energieausbeute. Auch diese Projekte kosten Material und Bauzeit.</p>
+<p class="example"><strong>Beispiel:</strong> Du hast 2.000 Einwohner und die nötigen Minen. Nach 30 Stunden sinkt auf einer Kolonie die Energie ins Minus. Die Haltezeit für Stufe II zählt danach nicht einfach bei Stunde 31 weiter. Erst wenn alle Bedingungen wieder erfüllt sind, beginnt sie neu.</p>
+<h2 id="12-die-galaxie-erkunden-und-planeten-ausspahen">12 Die Galaxie erkunden und Planeten ausspähen</h2>
+<h3 id="die-raumliche-karte">Die räumliche Karte</h3>
+<p>Die Onlinegalaxie hat zwei Sektoren mit jeweils 60 Sonnensystemen und zwölf Planetenpositionen. Eine Koordinate wie <strong>1:27:6</strong> bedeutet Sektor 1, System 27, Position 6.</p>
+<p>Unter <strong>Galaxie</strong> gehst du von der Sternwolke des Sektors zum Sonnensystem und dann zum Planeten. In der Systemansicht bewegen sich die Planeten optisch auf ihren Bahnen um die Sonne. Ziehen dreht die Kamera, Scrollen zoomt, <strong>Kamera zentrieren</strong> zeigt das System vollständig.</p>
+<p>Ein Klick auf einen Planeten, seine Nummer oder seinen Listeneintrag öffnet seine <strong>Infokarte</strong> über der Ansicht. Du schließt sie mit ×, Escape oder einem Klick daneben. Die Liste bietet dieselben Ziele auch ohne genaues Treffen eines bewegten Planeten.</p>
+<p>Die sichtbare Umlaufbewegung ist eine Darstellung. Sie verändert nicht spontan die im Flugplan berechnete Reisezeit.</p>
+<h3 id="ein-systemscan-ist-kein-scan-aller-planeten">Ein Systemscan ist kein Scan aller Planeten</h3>
+<p>Dein Heimatsystem ist bereits kartiert. Die anderen Planeten darin bleiben trotzdem unbekannt, solange du sie nicht einzeln untersucht hast.</p>
+<p>Für ein unbekanntes System brauchst du zuerst die Mission <strong>System erkunden</strong> mit einer Sonde. Sie kartiert das System, etwa Nebel und Asteroidengürtel. Danach untersuchst du mit <strong>Spionage</strong> jeden interessanten Planeten einzeln.</p>
+<p class="example"><strong>Beispiel:</strong> Du schickst eine Sonde zu System 1:27. Danach weißt du, dass dieses System existiert und welche systemweiten Merkmale erkannt wurden. Ob Position 4 bewohnt ist und welche Eigenschaften Position 8 hat, erfährst du erst durch deren eigene Sondenmissionen.</p>
+<p>Eine zurückgekehrte Sonde kann erneut eingesetzt werden. Du brauchst also einen echten Sondeneinsatz pro zu untersuchendem Ziel, nicht zwingend für jeden Scan ein fabrikneues Schiff. Sonden brauchen Treibstoff und einen freien Flottenplatz und können verloren gehen.</p>
+<h3 id="einen-sondenflug-starten">Einen Sondenflug starten</h3>
+<ol>
+<li>Öffne System oder Planet auf der Karte.</li>
+<li>Wähle <strong>Systemscan</strong> oder <strong>Sonde planen</strong>.</li>
+<li>Prüfe in der Flottenplanung Startplanet, Ziel, Mission, Sonde und Treibstoff.</li>
+<li>Wähle <strong>Flotte starten</strong>. Das bloße Öffnen des Plans sendet nichts ab.</li>
+<li>Warte auf die Ankunft und lies den Bericht unter <strong>Nachrichten &amp; Berichte</strong>.</li>
+<li>Aktualisiere bei Bedarf die Berichte.</li>
+</ol>
+<p>Ein unaufgeklärter grauer Planet ist nicht automatisch frei. Planetenpositionen verraten im Onlineprofil auch nicht zuverlässig ihren Typ. Eigenschaften und Belegung werden erst durch erlaubte Aufklärung sichtbar.</p>
+<p>Berichte sind <strong>Momentaufnahmen mit Zeitstempel</strong>. Ein neuer Browseraufruf liefert keinen frischen Sondenbericht. Ein Gegner kann seit deinem letzten Bericht Schiffe verlegt, Güter verbraucht oder Gebäude verändert haben.</p>
+<h3 id="wie-detailliert-ein-planetenbericht-wird">Wie detailliert ein Planetenbericht wird</h3>
+<p>Bei bewohnten Planeten hängt die militärische Tiefe von der Sondenzahl und dem Unterschied der Spionagetechnik ab:</p>
+<p><strong>Informationswert = Sondenzahl + eigene Spionagetechnik − gegnerische Spionagetechnik</strong></p>
+<p>Ab Informationswert 2 werden Schiffe, ab 3 Verteidigung, ab 5 Gebäude und ab 7 Forschung gemeldet. Planeteneigenschaften und Rohstoffbeobachtung ersetzen diese militärische Tiefe nicht.</p>
+<p class="example"><strong>Beispiel:</strong> Zwei Sonden, eigene Spionagetechnik 3 und gegnerische Spionagetechnik 2 ergeben Informationswert 3. Der Bericht kann Schiffe und Verteidigung enthalten, aber noch keine vollständige Gebäude- oder Forschungsliste.</p>
+<p>Mehr Sonden können mehr Informationen liefern, erhöhen aber auch das Risiko, dass die Sondengruppe entdeckt und abgeschossen wird.</p>
+<p>Die Ressourcenangaben beschreiben Vorräte oder Produktionsbedingungen. Es gibt hier keine gesonderte endliche Erzader, die du durch einen Scan als unbegrenzt verfügbaren Lagerbestand erhältst.</p>
+<h2 id="13-angriffe-erkennen-und-anfliegende-flotten-untersuchen">13 Angriffe erkennen und anfliegende Flotten untersuchen</h2>
+<h3 id="die-grundwarnung">Die Grundwarnung</h3>
+<p>Ohne Sensorenausbau wird ein feindlicher Anflug grundsätzlich <strong>zwei Spielstunden vor seiner Ankunft</strong> angezeigt. Dauert der ganze Flug kürzer, liegt die Warnung entsprechend frühestens ab dem Start vor.</p>
+<p>Sobald deine Sensoren die Flotte erfassen, sind Ziel und Ankunftszeit klar. Die Grundwarnung verrät noch nicht automatisch Besitzer, Schiffstypen, genaue Zahl, Fracht oder Herkunft.</p>
+<h3 id="vier-zusammenwirkende-bestandteile">Vier zusammenwirkende Bestandteile</h3>
+<p>Für eine bessere passive Erkennung brauchst du:</p>
+<ol>
+<li><strong>Geheimdienst</strong> am bedrohten Planeten.</li>
+<li><strong>Sensorphalanx</strong> am bedrohten Planeten.</li>
+<li>Die reichsweite Forschung <strong>Überwachungstechnik</strong>.</li>
+<li>Die reichsweite <strong>Spionagetechnik</strong>.</li>
+</ol>
+<p>Die effektive Sensorstufe ist die <strong>kleinste Stufe dieser vier Bestandteile</strong>. Beschädigte örtliche Gebäude werden entsprechend ihrer Integrität schwächer berücksichtigt. Fehlt ein Bestandteil vollständig, bleibt die effektive Stufe bei null.</p>
+<p>Syntheten erhalten eine zusätzliche Sensorstufe, wenn bereits alle vier Bestandteile wirksam vorhanden sind. Sie bekommen den Ausbau nicht geschenkt.</p>
+<p><strong>Warnzeit = 120 Minuten + 30 Minuten × effektive Sensorstufe</strong></p>
+<p>Die gegnerische Abschirmtechnik verdeckt Einzelheiten. Sie entfernt die grundsätzliche Ankunftswarnung nicht. Für die passive Berichtstiefe zählt die effektive Sensorstufe abzüglich der beim Abflug vorhandenen Abschirmstufe:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Vorsprung deiner Sensoren</th>
+<th>Was zusätzlich erkennbar ist</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 oder weniger</td>
+<td>Ankunft und Ziel, keine Flottendetails</td>
+</tr>
+<tr>
+<td>1 bis 2</td>
+<td>Besitzer und eine ungefähre Anzahl</td>
+</tr>
+<tr>
+<td>3 bis 5</td>
+<td>Genaue Gesamtzahl</td>
+</tr>
+<tr>
+<td>Ab 6</td>
+<td>Genaue Schiffstypen und Mission</td>
+</tr>
+</tbody>
+</table></div>
+<p class="example"><strong>Beispiel:</strong> Alle vier Bestandteile stehen auf Stufe 3. Du erkennst den Anflug 210 Spielminuten, also 3 Stunden 30 Minuten, vor Ankunft. Hat der Angreifer Abschirmung 1, bleibt ein Detailvorsprung von 2: Besitzer und ungefähre Zahl werden sichtbar. Mit Geheimdienst 10, aber Sensorphalanx 0, hättest du weiterhin nur die Grundwarnung.</p>
+<h3 id="eine-erkannte-flotte-aktiv-sondieren">Eine erkannte Flotte aktiv sondieren</h3>
+<p>Du kannst eine bereits erkannte anfliegende Flotte mit einer eigenen Sondenmission untersuchen. Benutze den angezeigten Flottenkontakt. Eine erratene Kennung einer noch unsichtbaren Flotte ist kein erlaubtes Aufklärungsziel.</p>
+<p>Die Sonde muss die Flotte <strong>vor ihrer Ankunft</strong> erreichen können. Startplanet, Treibstoff, Flottenplatz und verbleibende Flugzeit werden geprüft.</p>
+<p>Die aktive Aufklärung vergleicht:</p>
+<p><strong>Eigene Spionagetechnik + wirksamer Geheimdienst am Startplaneten + gegebenenfalls Veyari-Bonus</strong></p>
+<p>Ohne gegnerische Abschirmung gelingt die Detailaufklärung grundsätzlich. Mit Abschirmung muss dein Wert <strong>echt höher</strong> sein. Gleichstand genügt nicht. Für Frachtinformationen brauchst du zusätzlich einen Vorsprung von mindestens fünf.</p>
+<p class="example"><strong>Beispiel:</strong> Spionagetechnik 2 und Geheimdienst 3 ergeben Aufklärungswert 5. Gegen Abschirmung 4 reicht das; gegen 5 nicht. Ein Veyari mit erforschter Spionagetechnik erhält hier den zusätzlichen Punkt.</p>
+<p>Auch eine erfolgreiche Untersuchung hat ein Abschussrisiko: grundsätzlich 10 %, bei gescheiterter Aufklärung gegen Abschirmung 50 %. Eine größere Sondengruppe ersetzt den nötigen Technikvorsprung nicht.</p>
+<p>Wird die Zielflotte vorher zurückgerufen oder ist schon angekommen, kann der Kontakt verloren gehen. Der Bericht ist außerdem eine Beobachtung dieses Zeitpunkts; ein später veränderter Flugplan bleibt möglich.</p>
+<h2 id="14-flotten-verschicken-und-richtig-saven">14 Flotten verschicken und richtig saven</h2>
+<h3 id="vor-jedem-flug">Vor jedem Flug</h3>
+<p>Öffne <strong>Flotten &amp; Saven</strong> und <strong>Neue Flotte planen</strong>. Wähle Startplanet, Schiffe, Ziel, Mission, Geschwindigkeit und gegebenenfalls Wartezeit. Benutze <strong>Flugzeit &amp; Treibstoff prüfen</strong>, bevor du startest.</p>
+<p>Die Flotte fliegt nach ihrem langsamsten Schiff. Eine langsamere Geschwindigkeit kann Treibstoff sparen, verlängert aber die Reise. Der Flugplan berechnet die tatsächlich nötige Deuteriummenge für die gewählte Mission.</p>
+<p>Du hast grundsätzlich <strong>einen Flottenplatz plus einen weiteren je Stufe Computertechnik</strong>. Aufklärung, Transport und Saven belegen ebenfalls Plätze.</p>
+<p class="example"><strong>Beispiel:</strong> Dein einziger Flottenplatz ist von einer Sonde belegt. In dieser Zeit kannst du nicht zusätzlich deine Kriegsflotte saven. Computertechnik und eine bewusste Reserve sind deshalb auch Verteidigung.</p>
+<h3 id="die-wichtigsten-missionen">Die wichtigsten Missionen</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mission</th>
+<th>Zweck</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>System erkunden</strong></td>
+<td>Unbekanntes System mit einer Sonde kartieren</td>
+</tr>
+<tr>
+<td><strong>Spionage</strong></td>
+<td>Einen bestimmten Planeten untersuchen</td>
+</tr>
+<tr>
+<td><strong>Transport</strong></td>
+<td>Güter liefern und danach zurückfliegen</td>
+</tr>
+<tr>
+<td><strong>Stationieren</strong></td>
+<td>Schiffe auf einen anderen eigenen Planeten verlegen</td>
+</tr>
+<tr>
+<td><strong>Halten</strong></td>
+<td>Zeitweise bei einem berechtigten Partner verteidigen</td>
+</tr>
+<tr>
+<td><strong>Saven</strong></td>
+<td>Schiffe mit Fracht auf einen Hinflug mit Wartephase und Rückkehr schicken</td>
+</tr>
+<tr>
+<td><strong>Angriff</strong></td>
+<td>Kämpfen und bei Erfolg begrenzt plündern</td>
+</tr>
+<tr>
+<td><strong>Kolonisieren</strong></td>
+<td>Einen bekannten freien Planeten besiedeln</td>
+</tr>
+<tr>
+<td><strong>Abbau</strong></td>
+<td>Mit geeigneten Bergbauschiffen am Asteroidengürtel Rohstoffe gewinnen</td>
+</tr>
+<tr>
+<td><strong>Recyceln</strong></td>
+<td>Mit Recyclern Trümmer bergen</td>
+</tr>
+<tr>
+<td><strong>Blockade</strong></td>
+<td>Den feindlichen Orbit kontrollieren und Verkehr behindern</td>
+</tr>
+<tr>
+<td><strong>Bombardieren</strong></td>
+<td>Nach ausgeschalteter bewaffneter Verteidigung Gebäude beschädigen</td>
+</tr>
+<tr>
+<td><strong>Kampfkolonisieren</strong></td>
+<td>Eine feindliche Kolonie unter den Übernahmeregeln erobern</td>
+</tr>
+</tbody>
+</table></div>
+<p>Für den Asteroidengürtel ist Position <strong>0</strong> des Systems vorgesehen. Das ist kein normaler Planetenplatz. Abbau und Haltemissionen haben zusätzliche Zeit- und Einheitenvoraussetzungen; prüfe die jeweilige Missionsmeldung.</p>
+<h3 id="was-saven-bedeutet">Was Saven bedeutet</h3>
+<p>Beim Saven sind deine Schiffe und ihre mitgenommene Fracht während der Abwesenheit nicht auf dem bedrohten Planeten. Die Mission führt an einem anderen gültigen Ziel eine Wartephase aus und kehrt zurück. Dort erfolgt keine normale Warenlieferung und kein Angriff.</p>
+<p>Während dieses Save-Flugs sind Schiffe und Fracht vor dem Angriff auf den Planeten geschützt. Gefährlich sind insbesondere der zu späte Start und die Rückkehr auf einen wieder bedrohten oder blockierten Planeten.</p>
+<p>Du kannst bis zu <strong>72 Spielstunden Wartezeit</strong> einstellen. Hin- und Rückflug kommen hinzu.</p>
+<h3 id="ein-save-schritt-fur-schritt">Ein Save Schritt für Schritt</h3>
+<ol>
+<li>Prüfe die Ankunft des Angreifers und deinen freien Flottenplatz.</li>
+<li>Wähle <strong>Saven</strong> und ein anderes gültiges Ziel.</li>
+<li>Wähle die zu rettenden Schiffe.</li>
+<li>Lass bei Bedarf die Fracht automatisch füllen.</li>
+<li>Prüfe, dass genug Deuterium für den geplanten Flug reserviert bleibt.</li>
+<li>Wähle eine Rückkehrzeit, zu der du dich wieder kümmern kannst.</li>
+<li>Starte rechtzeitig und kontrolliere, dass der Server den Abflug bestätigt hat.</li>
+<li>Prüfe später Rückkehr, neue Angriffe und den Zustand des Rückkehrplaneten.</li>
+</ol>
+<p class="example"><strong>Zeitbeispiel bei 1×:</strong> Um 20:30 erscheint ein Angriff für 22:30. Du savest um 20:40. Der Hinflug dauert laut Vorschau eine Stunde, die Wartephase sechs Stunden und der Rückflug eine Stunde. Deine Flotte ist acht Stunden abwesend und kehrt am nächsten Tag um 04:40 zurück. Bei höherem Welttempo verkürzt sich diese reale Abwesenheit.</p>
+<p class="example"><strong>Frachtbeispiel:</strong> Der freie Laderaum beträgt 5.000. Du besitzt 3.000 Erz, 1.500 Kristall und 400 Deuterium. Wenn die konkrete Vorschau 100 Deuterium als Treibstoff verlangt, kannst du beispielsweise 3.000 Erz, 1.500 Kristall und 300 Deuterium als Fracht mitnehmen. Das sind 4.800 Frachteinheiten. Treibstoff und verladenes Deuterium sind getrennt zu beachten.</p>
+<p>Gebäude, Verteidigung und Bevölkerung bleiben auf dem Planeten. Ein Save schützt sie nicht. Credits sind reichsweit und keine normale Beutefracht.</p>
+<p>Bei einer aktiven feindlichen Orbitblockade kann ein Abflug bereits verhindert werden. Deshalb darfst du Saven nicht erst nach der gegnerischen Ankunft planen. Auch exakt zeitgleiche Rückkehr und Angriff sind riskant: Plane Abstand ein.</p>
+<p>Kann die Flotte nicht normal zurückkehren, gelten die tatsächlichen Rückkehr- und Blockaderegeln. Ein Besitzwechsel kann einen zusätzlichen Weg zum Heimatplaneten nötig machen; die Schiffe teleportieren nicht dorthin.</p>
+<h2 id="15-kampf-verteidigung-und-gemeinsame-angriffe">15 Kampf Verteidigung und gemeinsame Angriffe</h2>
+<h3 id="wie-eine-schlacht-ablauft">Wie eine Schlacht abläuft</h3>
+<p>Eine Schlacht dauert höchstens <strong>sechs Kampfrunden</strong>. Die Einheiten schießen auf einzelne gegnerische Ziele. Zu Beginn einer Runde werden Schilde erneuert; bereits verlorene Struktur bleibt beschädigt.</p>
+<p>Waffen-, Schild- und Panzertechnik verbessern ihren jeweiligen Wert grundsätzlich um 10 % je Forschungsstufe. Hinzu kommen passende Volksboni oder Nachteile.</p>
+<p>Ein einzelner Treffer unter 1 % des vollen gegnerischen Schildwerts verpufft. Wenn ein Schiff unter 70 % seiner ursprünglichen Struktur fällt, besteht zusätzlich eine vom Schaden abhängige Explosionswahrscheinlichkeit.</p>
+<p class="example"><strong>Beispiel:</strong> Bei einem vollen Schildwert von 1.000 verpufft ein Treffer mit Stärke 5. Ein Treffer mit Stärke 1.500 verbraucht dagegen die 1.000 Schildpunkte und verursacht zusätzlich 500 Strukturschaden.</p>
+<p>Einige Einheiten haben <strong>Schnellfeuer</strong> gegen bestimmte Ziele. Schnellfeuer 6 bedeutet eine Chance von 5 zu 6 auf einen weiteren Schuss gegen den betreffenden Zieltyp. Es bedeutet nicht garantiert sechs Treffer pro Runde.</p>
+<p>Der Kampf ist gewonnen, wenn keine gegnerischen Kampfeinheiten mehr übrig sind. Überleben nach sechs Runden auf beiden Seiten Einheiten, endet er unentschieden. Deshalb reichen Schiffszahl oder ein einziger summierter Angriffswert nicht, um den Ausgang sicher vorherzusagen.</p>
+<h3 id="simulator-und-berichte">Simulator und Berichte</h3>
+<p>Der Simulator hilft dir, eine Flottenzusammenstellung einzuschätzen. Für eine belastbare Zielbelegung brauchst du einen Spionagebericht mit Schiffen und Verteidigung. Fehlen Technikdaten, muss die Simulation mit Annahmen arbeiten.</p>
+<p class="example"><strong>Beispiel:</strong> Dein Bericht ist zehn Stunden alt. Seitdem kann der Gegner eine Flotte stationiert haben. Eine gute simulierte Siegchance auf Grundlage des Berichts garantiert deshalb keinen Sieg bei der echten Ankunft.</p>
+<p>Lies nach einer Schlacht Verluste, Trümmer, Beute und den verbliebenen Zustand. Ein Kampfgewinn macht dich weder automatisch zum Besitzer des Planeten noch zum Sieger über das ganze Reich.</p>
+<h3 id="beute-trummer-und-verteidigung">Beute Trümmer und Verteidigung</h3>
+<p>Ein erfolgreicher normaler Angriff plündert grundsätzlich <strong>40 % der ungeschützten Güter</strong>, begrenzt durch freien Frachtraum. Krath haben eine Quote von 50 %. Credits sind keine normale Beute.</p>
+<p>Ein Bunker schützt je Stufe 20.000 Einheiten der betreffenden Grundrohstoffe beziehungsweise 4.000 der weiterverarbeiteten Güter.</p>
+<p class="example"><strong>Beispiel nur für Erz:</strong> Auf dem Ziel liegen 50.000 Erz. Bunker 1 schützt davon 20.000. Von den verbleibenden 30.000 sind grundsätzlich 12.000 plünderbar, bei Krath 15.000. Mit nur 8.000 freiem Frachtraum kannst du höchstens 8.000 davon mitnehmen.</p>
+<p>Aus zerstörten Schiffen entstehen Trümmer in Höhe von 30 % ihres Erz- und Kristallbauwerts. Recycler können diese bergen. Bei normalem Kampf werden grundsätzlich 70 % zerstörter ortsfester Verteidigung wiederhergestellt.</p>
+<p>Verteidigung kann nicht gesavt werden. Sie kostet keinen laufenden Schiffsunterhalt, hilft aber auch nicht beim Transport oder bei einem entfernten Angriff.</p>
+<h3 id="raketen">Raketen</h3>
+<p>Ein Raketensilo lagert Abfang- und Interplanetarraketen. Es hat zehn Lagerplätze je Stufe. Jede Rakete belegt einen Platz; laufende Fertigungsaufträge zählen bereits mit. Die Fertigung braucht fünf Spielminuten je Rakete.</p>
+<p>Eine Abfangrakete fängt eine Interplanetarrakete ab und wird dabei verbraucht. Interplanetarraketen treffen einen ausgewählten Typ ortsfester Verteidigung. Die Reichweite beträgt fünf Systeme je Silostufe innerhalb desselben Sektors. Der Flug dauert 20 Spielminuten plus eine Minute je System Abstand.</p>
+<p>Raketenangriffe sind echte feindliche Handlungen mit Materialkosten und Flugzeit. Für sie gibt es eine eigene Warnmeldung ab dem Start. Sie bringen keine Beute und übernehmen keinen Planeten. Durch Raketen zerstörte Verteidigung wird nicht nach der normalen 70-%-Kampfregel wiederhergestellt. Die Bau- und Startbefehle stehen bei den weiteren Regierungs- und Flottenbefehlen.</p>
+<h3 id="verbande">Verbände</h3>
+<p>Für einen gemeinsamen Angriff eröffnet ein Spieler einen Verband zu seiner bereits fliegenden Angriffsflotte. Eigene oder passende verbündete Angriffsflotten können beitreten, wenn sie dasselbe Ziel haben und die Verbandsbedingungen erfüllen. Ein Verteidigungsbündnis allein ersetzt die gemeinsame Allianz dafür nicht.</p>
+<p>Die Ankunft wird auf die späteste nötige Ankunft abgestimmt. Eine frühere Flotte wird dadurch verzögert; eine spätere wird nicht beschleunigt. Kontrolliere nach jedem Beitritt die neue gemeinsame Zeit.</p>
+<p class="example"><strong>Beispiel:</strong> Deine Flotte käme um 18:00 an, die eines Allianzpartners erst um 18:20. Im gültigen Verband kann die gemeinsame Ankunft auf 18:20 verschoben werden. Das gibt auch dem Gegner mehr Reaktionszeit.</p>
+<h3 id="anfangerschutz">Anfängerschutz</h3>
+<p>Ein neues Reich hat grundsätzlich zehn Spieltage Anfängerschutz. Er endet früher, wenn es Zivilisationsstufe III erreicht oder selbst einen feindlichen Angriff startet. Er wird ab dem eigenen Beitritt gerechnet.</p>
+<p>Eine kleine Punktzahl allein schützt nach Ablauf dieses Schutzes nicht automatisch vor stärkeren Reichen. Diplomatie, Sensoren, eine tragfähige Wirtschaft und Saven bleiben wichtig.</p>
+<h2 id="16-kolonisieren-erobern-und-reparieren">16 Kolonisieren Erobern und Reparieren</h2>
+<h3 id="eine-freie-kolonie-grunden">Eine freie Kolonie gründen</h3>
+<p>Astrophysik bestimmt die Zahl möglicher Kolonien: Stufe 1 erlaubt eine, Stufe 3 zwei, Stufe 5 drei; höchstens acht. Der ursprüngliche Heimatplanet zählt dabei nicht als Kolonie. Laufende Kolonisationsvorhaben belegen ebenfalls geplante Kapazität.</p>
+<p>Für eine tatsächliche Gründung brauchst du mehr als Astrophysik:</p>
+<ul>
+<li>Das System und der konkrete Planet müssen aufgeklärt sein.</li>
+<li>Das Ziel muss bei der Ankunft noch frei sein.</li>
+<li>Dein Reich muss die erforderliche freie Koloniekapazität haben.</li>
+<li>Ein <strong>Kolonieschiff</strong> muss verfügbar sein. Seine Fertigung verlangt Zivilisationsstufe IV, Werft 4, Orbitalwerft und die nötigen Bauteile.</li>
+<li>Mindestens ein zusätzliches <strong>bewaffnetes Begleitschiff</strong> muss mitfliegen.</li>
+<li>Du brauchst <strong>3.000 Siedler</strong>, die tatsächlich aus deiner Bevölkerung mitgenommen werden.</li>
+<li>Die vorgeschriebene Startfracht und der Flugtreibstoff müssen vorhanden sein.</li>
+</ul>
+<p>Ein Kolonieschiff benötigt unter anderem <strong>zwei Habitatmodule und einen Antriebskern</strong>. Die Fertigung dieser Bauteile ist ein eigener Vorbereitungsschritt.</p>
+<p>Im Bereich <strong>Kolonisation</strong> zeigt <strong>Startfracht anzeigen</strong> den nötigen Vorrat. Für den grundlegenden Aufbau werden mindestens <strong>223 Erz und 79 Kristall</strong> benötigt. Für 3.000 nahrungsabhängige Siedler kommen <strong>2.880 Nahrung</strong>, also ein Spieltag Grundversorgung, hinzu. Syntheten haben diesen Nahrungsbedarf nicht. Flugtreibstoff kommt zusätzlich dazu.</p>
+<p class="example"><strong>Beispiel:</strong> Eine Aurelianer-Kolonie soll gegründet werden. Dein Schiff, eine bewaffnete Eskorte, 3.000 Siedler und die Startfracht sind bereit. Prüfe trotzdem die konkrete Flugvorschau: Wenn das Deuterium nur als Fracht eingetragen ist und der Treibstoff fehlt, kann der Start scheitern.</p>
+<p>Bei erfolgreicher Gründung wird das Kolonieschiff verbraucht. Die Siedler werden Bevölkerung des neuen Planeten. Die mitgeführten Materialien sind ein Aufbauvorrat; du musst die ersten Energie-, Nahrungs- und Förderanlagen tatsächlich in Auftrag geben.</p>
+<p><strong>Ein Tagesvorrat ist keine dauerhafte Versorgung.</strong> Plane die Bauten oder einen weiteren Transport, bevor diese Reserve aufgebraucht ist.</p>
+<p>Ein Sondenbericht reserviert keinen Planeten. Wenn ein anderes Reich zuerst erfolgreich kolonisiert, kannst du dessen neuen Besitz nicht einfach mit einer freien Kolonisationsmission überschreiben.</p>
+<h3 id="eine-feindliche-kolonie-ubernehmen">Eine feindliche Kolonie übernehmen</h3>
+<p>Eine normale Angriffsmission reicht nicht. Die Übernahme verbindet militärische Orbitkontrolle, gezielte Gebäudeschäden und ein überlebendes Kolonieschiff.</p>
+<ol>
+<li>Kläre die feindliche Kolonie auf.</li>
+<li>Schalte ihre bewaffneten Verteidiger einschließlich eines vorhandenen Planetenschildes aus.</li>
+<li>Beschädige die vorhandenen Gebäude durch <strong>Bombardieren</strong> auf höchstens <strong>30 % Integrität</strong>.</li>
+<li>Nutze <strong>Kampfkolonisieren</strong> mit einem Kolonieschiff und einer geeigneten Flotte.</li>
+<li>Halte die geforderte Kontrolle mindestens <strong>30 Spielminuten</strong> und über <strong>zwei abgeschlossene Reaktionsfenster</strong> des Verteidigers.</li>
+<li>Das Kolonieschiff muss überleben und die Koloniekapazität weiterhin ausreichen.</li>
+</ol>
+<p>Die Reaktionsfenster verarbeitet der Server. Der Verteidiger muss dafür nicht erst einen Knopf drücken oder sich einloggen. Neue bewaffnete Verteidiger können die Kontrolle erneut bestreiten. Ein verlorenes Kolonieschiff oder verlorene Kontrolle kann die Übernahme scheitern lassen. Zivile Reparaturen oder Sonden allein setzen den Übernahmetimer nicht beliebig zurück.</p>
+<p><strong>Der ursprüngliche Heimatplanet eines Reiches kann niemals übernommen oder kolonisiert werden.</strong> Das gilt auch nach seiner Niederlage. Er kann angegriffen, blockiert und bombardiert werden und dadurch zum wirtschaftlichen Zusammenbruch beitragen.</p>
+<h3 id="integritat-und-reparaturen">Integrität und Reparaturen</h3>
+<p>Integrität beschreibt den Zustand eines vorhandenen Gebäudes. Ein Gebäude auf Stufe 6 mit 30 % Integrität bleibt ein beschädigtes Gebäude der Stufe 6. Seine Wirkung ist eingeschränkt; es wird nicht einfach zu einer Stufe-2-Anlage.</p>
+<p>Unter <strong>Kolonisation → Integrität &amp; Reparaturen</strong> kannst du Schaden prüfen, Reparaturkosten anzeigen und den Auftrag starten. Eine Reparatur braucht Rohstoffe und mindestens 15 Spielminuten. Sie teilt sich den Bauplatz mit normalem Gebäudebau.</p>
+<p>Die Kosten richten sich nach dem fehlenden Anteil des gesamten bisherigen Bauwerts.</p>
+<p class="example"><strong>Rechenbeispiel:</strong> Die bisherigen Ausbauten einer Anlage haben zusammen 1.000 Erz und 600 Kristall gekostet. Bei 30 % Integrität fehlen 70 %. Daraus ergeben sich in diesem vereinfachten Beispiel 700 Erz und 420 Kristall Reparaturmaterial.</p>
+<p>Eine übernommene Kolonie bringt ihre vorhandene Bevölkerung mit. Die beschädigten Anlagen müssen versorgt und repariert werden. Ein neuer Besitzer erhält keine automatisch gesunde Wirtschaft.</p>
+<h2 id="17-handel-vertrage-und-diplomatie">17 Handel Verträge und Diplomatie</h2>
+<h3 id="nachrichten-und-verbindliche-vertrage">Nachrichten und verbindliche Verträge</h3>
+<p>Unter <strong>Markt &amp; Diplomatie</strong> und <strong>Nachrichten &amp; Berichte</strong> kannst du andere Reiche kontaktieren. Pro Spieltag sind grundsätzlich 20 Nachrichten mit jeweils höchstens 1.200 Zeichen vorgesehen.</p>
+<p>Eine Nachricht ist noch kein Spielvertrag. Verbindliche Wirkungen entstehen erst durch das passende angebotene und angenommene Vertragsobjekt.</p>
+<p class="example"><strong>Beispiel:</strong> „Wir greifen uns nicht an“ in einer Nachricht ist eine Absprache zwischen Spielern. Ein angenommener Nichtangriffspakt setzt zusätzlich die im Spiel geregelten Vertragsbedingungen in Kraft.</p>
+<p>Allianzen können bis zu acht Mitglieder haben. Für Verteidigungsbündnisse sind bis zu drei Partner vorgesehen. Bündnisse können Warnungen und gemeinsames Halten ermöglichen; sie geben nicht automatisch jede private Planetenaufklärung weiter.</p>
+<p>Nichtangriffs- und Verteidigungsverträge haben eine Kündigungsfrist von <strong>48 Spielstunden</strong>. Handelsabkommen können sofort beendet werden. Wenn ein Vertrag eine Kaution verlangt, hinterlegen beide Seiten Credits. Bei ordnungsgemäßem Ende werden sie zurückgegeben; bei Vertragsbruch erhält die geschädigte Seite die hinterlegten Kautionen.</p>
+<p>Spionage allein gilt dabei nicht als Vertragsbruch. Ein echter feindlicher Angriff kann dagegen Verträge brechen und Allianzfolgen auslösen. Prüfe vor dem Start die aktive Beziehung zum Ziel.</p>
+<h3 id="markt-und-lieferungen">Markt und Lieferungen</h3>
+<p>Der Markt verlangt Zivilisationsstufe III und ein Marktgebäude. Pro Marktstufe können grundsätzlich fünf Orders eingestellt werden.</p>
+<p>Du handelst über passende Kauf- und Verkaufsangebote. Ein Kaufwunsch findet nicht automatisch einen unbegrenzt lieferfähigen Händler. Ohne passende Gegenseite bleibt das Angebot offen.</p>
+<p>Bei Kauforders werden die benötigten Credits einschließlich Gebühren gebunden. Bei Verkaufsorders werden die angebotenen Güter am Verkaufsplaneten gebunden. Für noch offene Reste einer stornierten Order werden die entsprechenden Reserven zurückgegeben.</p>
+<p>Die Grundgebühr beträgt <strong>2 % je Seite</strong>. Aurelianer zahlen die Hälfte. Ein passendes Handelsabkommen halbiert die jeweilige Gebühr nochmals.</p>
+<p class="example"><strong>Beispiel:</strong> Du kaufst 500 Kristall zu zwei Credits je Stück. Der Warenpreis beträgt 1.000 Credits. Bei 2 % Käufergebühr brauchst du 1.020 Credits. Als Aurelianer wären es ohne weitere Vergünstigung 1.010.</p>
+<p>Die Ware wird nach einem abgeschlossenen Handel <strong>geliefert</strong>, nicht sofort ins Lager teleportiert. Ein blockiertes Ziel kann die Ankunft verzögern. Neutrale Marktlieferungen werden nicht als normale Spielerflotten abgefangen.</p>
+<h3 id="nachschub-und-besitzwechsel">Nachschub und Besitzwechsel</h3>
+<p>Ein normaler Ressourcentransport ist an seinen vorgesehenen Empfänger gebunden. Wenn das Ziel während des Flugs erobert wird, soll die Fracht nicht unbeabsichtigt ein Geschenk an den Eroberer werden. Es können Rückwege oder zusätzliche Wege zum eigenen Heimatplaneten nötig werden.</p>
+<p>Nachschub für eine eigene im Orbit eingesetzte Flotte benötigt den besonderen Befehl <strong>flotte_versorgen</strong>. Ein gewöhnlicher Transport liefert an einen Planeten und ersetzt diesen Flottennachschub nicht.</p>
+<p class="example"><strong>Beispiel:</strong> Deine Blockadeflotte steht am feindlichen Planeten. Du möchtest ihr Treibstoff schicken. Wähle Flottenversorgung; ein normaler Transport an die feindliche Planetenadresse wäre eine andere Mission.</p>
+<h2 id="18-versorgungskrisen-und-endgultige-niederlage">18 Versorgungskrisen und endgültige Niederlage</h2>
+<p>Ein Reich wird nicht bei jedem leeren Lager sofort besiegt. Es gibt zwei getrennte Krisen mit Rettungsfristen. Grundsätzlich gelten:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Krise</th>
+<th>Voraussetzung</th>
+<th>Frist</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Unterversorgung</strong></td>
+<td>Alle bewohnten eigenen Planeten liegen dauerhaft unter 50 % Lebensversorgung</td>
+<td>72 Spielstunden</td>
+</tr>
+<tr>
+<td><strong>Wirtschaftsstillstand</strong></td>
+<td>Es gibt auf keinem eigenen Planeten einen erreichbaren wirtschaftlichen Wiederanlauf</td>
+<td>48 Spielstunden</td>
+</tr>
+</tbody>
+</table></div>
+<p>Bei Syntheten zählt die Energieversorgung ihrer Bevölkerung. Bei nahrungsabhängigen Völkern werden vorhandene Vorräte und die tatsächliche Deckung berücksichtigt. Ein negativer Nahrungssaldo mit noch ausreichendem Vorrat ist daher etwas anderes als eine andauernde Versorgung unter 50 %.</p>
+<p>Für einen möglichen Wiederanlauf prüft der Spielkern unter anderem Bestände, reparierbare oder neu aufbaubare Grundproduktion, eigene Kolonien, nutzbare Frachter mit Treibstoff, Handelsmöglichkeiten und unterwegs befindliche Hilfe oder Rückkehrer. Ein leerer Deuteriumtank allein bedeutet nicht automatisch endgültigen Stillstand.</p>
+<p class="example"><strong>Beispiel Unterversorgung:</strong> Dein einziger bewohnter Planet deckt dauerhaft nur noch 40 % seines Bedarfs. Bleibt das 72 Spielstunden lang so, scheidet das Reich aus. Reparierst du nach 20 Stunden die Versorgung und beseitigst die Krisenbedingung, wird ihre durchgehende Frist unterbrochen.</p>
+<p class="example"><strong>Beispiel gesunde Kolonie:</strong> Der Heimatplanet hungert, aber eine bewohnte Kolonie ist ausreichend versorgt. Damit ist die Bedingung „alle bewohnten Planeten unter 50 %“ nicht erfüllt. Der Heimatplanet bleibt trotzdem ein ernstes Problem, um das du dich kümmern solltest.</p>
+<p class="example"><strong>Beispiel Wirtschaftsstillstand:</strong> Die Grundproduktion des einzigen Planeten wurde so weit zerstört, dass kein Wiederaufbau mehr erreichbar ist. Es gibt keine brauchbaren Reserven, Kolonien, Transporte oder andere Rettungsmöglichkeit. Bleibt dieser Zustand 48 Spielstunden bestehen, wird das Reich besiegt.</p>
+<p>Die beiden Fristen laufen unabhängig. Eine behobene Versorgungskrise beseitigt nicht automatisch einen weiterhin bestehenden wirtschaftlichen Stillstand. Warnungen zeigen dir Grund und verbleibende Zeit. Der Betreiber kann die Rettungsfristen in den Welteinstellungen verändern.</p>
+<h3 id="was-nach-der-niederlage-passiert">Was nach der Niederlage passiert</h3>
+<ul>
+<li>Das Reich wird ausgegraut und hinter den weiter aktiven Reichen geführt.</li>
+<li>Menschen, Bots und Agenten dürfen für dieses Reich keine neuen Spielaktionen mehr ausführen.</li>
+<li>Produktion, Forschung, Bau und eigene Flotten werden stillgelegt.</li>
+<li>Hilfe kann das Reich in derselben Epoche nicht wiederbeleben.</li>
+<li>Der ursprüngliche Heimatplanet bleibt eine geschützte Heimatruine.</li>
+<li>Andere Kolonien können weiterhin unter den normalen Übernahmeregeln erobert werden.</li>
+<li>Dein Konto bleibt bestehen. Du kannst zuschauen und in einer neuen Epoche wieder beitreten.</li>
+</ul>
+<p>Dein Platz bleibt bis zum Ende dieser Welt belegt. Die Niederlage ist damit eine echte Auslese und kein beliebig wiederholbarer Neustart innerhalb derselben Epoche.</p>
+<h2 id="19-punkte-rangliste-und-epochenende">19 Punkte Rangliste und Epochenende</h2>
+<p>Die Gesamtwertung setzt sich aus vier Bereichen zusammen:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Bereich</th>
+<th>Was zählt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Wirtschaft</strong></td>
+<td>Investierter Bauwert vorhandener Gebäudestufen</td>
+</tr>
+<tr>
+<td><strong>Forschung</strong></td>
+<td>Investierter Wert abgeschlossener Forschung</td>
+</tr>
+<tr>
+<td><strong>Militär</strong></td>
+<td>Vorhandene Schiffe, Verteidigung und Raketen</td>
+</tr>
+<tr>
+<td><strong>Zivilisation</strong></td>
+<td>Bevölkerung und Bonus der erreichten Zivilisationsstufe</td>
+</tr>
+</tbody>
+</table></div>
+<p>Rohstoffe haben für die Wertung feste Gewichte, beispielsweise Erz 1, Kristall 1,5 und Deuterium 2. Je 1.000 investierte Werteinheiten entsteht im betreffenden Bereich grundsätzlich ein Punkt; die einzelnen Bereiche werden ganzzahlig gewertet. Je 100 Einwohner kommt ein Zivilisationspunkt hinzu. Die Stufenboni sind 0, 100, 400, 1.500 und 5.000 für die Stufen I bis V.</p>
+<p class="example"><strong>Beispiel:</strong> Ein abgeschlossener Ausbau kostet 2.000 Erz und 1.000 Kristall. Sein gewichteter Bauwert beträgt 3.500. Dieser Wert fließt in die Wirtschaftswertung ein. Dieselben Güter unangetastet im Lager erzeugen diese Wirtschaftspunkte nicht.</p>
+<p>Zerstörte Schiffe senken den vorhandenen Militärwert. Übernommene oder verlorene Planeten verändern die Wirtschafts- und Bevölkerungsgrundlage. Ein beschädigtes Gebäude behält seine Baustufe; Reparatur stellt vor allem seine Nutzbarkeit wieder her.</p>
+<p>Besiegte Reiche werden hinter allen aktiven Reichen eingeordnet, auch wenn ihre eingefrorene Punktzahl höher ist. Eine Allianz besitzt keine gemeinsame automatische Siegerwertung.</p>
+<p>Am Ende der festgelegten Epochenzeit werden neue Spielbefehle gesperrt und der Endstand bleibt lesbar. Die nächste Epoche beginnt durch einen bewussten Weltreset des Betreibers.</p>
+<p>Ein neues Reich beginnt dann mit neuer Ausgangslage. Gebäude, Flotten und Forschung der vorherigen Welt werden nicht in die neue Welt übernommen. Bestehende Konten können sich erneut anmelden, Volk und Spielweise wählen und einen freigegebenen Platz beanspruchen.</p>
+<h2 id="20-den-spielserver-verwalten">20 Den Spielserver verwalten</h2>
+<h3 id="start-und-zugang">Start und Zugang</h3>
+<p>Die Doppelklick-Dateien liegen direkt im Hauptordner. Benutze sie auf dem Server-PC:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Datei</th>
+<th>Was sie macht</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Server-starten.cmd</strong></td>
+<td>Startet den Server bei Bedarf, prüft Spiel und Dashboard und öffnet das Dashboard</td>
+</tr>
+<tr>
+<td><strong>Dashboard-oeffnen.cmd</strong></td>
+<td>Startet bei Bedarf denselben Server und öffnet seine private Verwaltung</td>
+</tr>
+<tr>
+<td><strong>Spiel-oeffnen.cmd</strong></td>
+<td>Startet bei Bedarf denselben Server und öffnet den lokalen Spielbrowser</td>
+</tr>
+<tr>
+<td><strong>Server-status.cmd</strong></td>
+<td>Zeigt den geprüften Serverprozess, lokale Bereitschaft und vorhandene Funnel-Konfiguration</td>
+</tr>
+<tr>
+<td><strong>Server-stoppen.cmd</strong></td>
+<td>Beendet nur den anhand von Programm und Datenordner geprüften Spielserver</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Der normale Ablauf:</strong> Doppelklicke <strong>Server-starten.cmd</strong>, warte auf <strong>Bereit</strong> und verwalte die Welt im geöffneten Dashboard. Mit <strong>Spiel-oeffnen.cmd</strong> kommst du zum lokalen Spiel. Das Startfenster darf geschlossen werden: Der Dienst läuft im Hintergrund weiter. Für Mitspieler außerhalb des PCs müssen auch Tailscale und die eingerichtete HTTPS-Freigabe erreichbar sein. Der Start veröffentlicht keinen zusätzlichen Port und macht das Dashboard nicht öffentlich.</p>
+<p>Ein erneuter Doppelklick startet keinen zweiten Server für dieselbe Welt. Ein Stopp schaltet das Spiel für alle aus, bewahrt aber den gespeicherten Zustand. Ein normaler Start ist kein Reset. Bei einem Fehler bleibt die Meldung im Startfenster lesbar; prüfe den Status und die Protokolle <strong>data/online/server.log</strong> und <strong>data/online/server-error.log</strong>.</p>
+<p><strong>Voraussetzungen:</strong> Windows PowerShell sowie die fertige Serverdatei <strong>target/release/sternenepoche-server.exe</strong>. Fehlt die Serverdatei, versucht das Startskript einen Rust-Build; dafür muss Rust/Cargo installiert sein. Ollama und ein Modell sind für den Spielserver und die Skriptbots nicht erforderlich. Ein normaler Spieler braucht nur einen Browser.</p>
+<p>Der Spielserver verwendet die gespeicherte Welt unter <strong>data/online</strong>. Seine lokalen Zugänge sind:</p>
+<ul>
+<li><strong>http://127.0.0.1:8890</strong> für den lokalen Spielerzugang.</li>
+<li><strong>http://127.0.0.1:8891</strong> für das private Verwaltungsdashboard.</li>
+<li>Den öffentlichen HTTPS-Spielzugang, um den Weg für Mitspieler zu prüfen.</li>
+</ul>
+<p>Das Verwaltungsdashboard benutzt einen eigenen lokalen Verwaltungszugang. Ein normales Spielkonto ist kein Administratorkonto. Verwaltungskennungen, Datenbank, Backups und private Protokolle gehören nicht auf GitHub Pages.</p>
+<p>Die zentrale Datenbank heißt <strong>data/online/spiel.sqlite3</strong>. Sie enthält die Welt und die Konten. Ein normaler Serverneustart verwendet diese Datei weiter und erzeugt keine neue Epoche.</p>
+<h3 id="die-welt-einstellen">Die Welt einstellen</h3>
+<p>Unter <strong>Weltkontrolle</strong> kannst du unter anderem einstellen:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Einstellung</th>
+<th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Epochenlänge</strong></td>
+<td>Ende der Welt in Spieltagen</td>
+</tr>
+<tr>
+<td><strong>Weltgeschwindigkeit</strong></td>
+<td>Verhältnis von realer Zeit zu Spielzeit, 1× bis 3.600×</td>
+</tr>
+<tr>
+<td><strong>Welt pausiert</strong></td>
+<td>Spielzeit und Ereignisse anhalten</td>
+</tr>
+<tr>
+<td><strong>Skriptbots aktiv</strong></td>
+<td>Automatische Entscheidungen der Serverbots aktivieren</td>
+</tr>
+<tr>
+<td><strong>Botabstand</strong></td>
+<td>Abstand der Botentscheidungen, 900 bis 86.400 Spielsekunden</td>
+</tr>
+<tr>
+<td><strong>Freigegebene Teilnehmerplätze</strong></td>
+<td>0 bis 20; derzeit drei</td>
+</tr>
+<tr>
+<td><strong>Rettungsfristen</strong></td>
+<td>Fristen für Unterversorgung und Wirtschaftsstillstand, jeweils 1 bis 720 Spielstunden</td>
+</tr>
+<tr>
+<td><strong>Öffentlicher Betriebshinweis</strong></td>
+<td>Nachricht für Spieler, beispielsweise eine Wartungsankündigung</td>
+</tr>
+</tbody>
+</table></div>
+<p>Nach einer Änderung musst du <strong>Einstellungen speichern</strong>. Eine Tempoänderung betrifft die gesamte Welt. Sie kann Angriffe, Bauaufträge und Rettungsfristen für alle real sehr viel schneller ablaufen lassen.</p>
+<p class="example"><strong>Beispiel:</strong> Du möchtest zwei wartende Spieler zusätzlich zulassen. Erhöhe die Teilnehmerfreigabe von drei auf fünf und speichere. Die nächsten passenden Konten rücken nach. Du musst dafür weder die Welt zurücksetzen noch die bestehenden drei Reiche neu anlegen.</p>
+<p>Eine niedrigere Freigabe wirft bereits aktive Teilnehmer nicht automatisch hinaus. Das Abschalten der Skriptbots beendet ihre künftigen automatischen Entscheidungen; für einen vollständigen Stillstand der Welt verwendest du die Weltpause.</p>
+<h3 id="spieler-und-bots-prufen">Spieler und Bots prüfen</h3>
+<p>Unter <strong>Spieler &amp; Konten</strong> siehst du Konten und ihren Status. Du kannst ein Reich prüfen, Konten sperren und bestimmte Reichswerte bearbeiten. Eine Kontosperre ist eine Verwaltungsmaßnahme und nicht dasselbe wie die spielmechanische Niederlage.</p>
+<p>Erstelle vor gezielten Rohstoff- oder Creditkorrekturen ein Backup. Solche Eingriffe verändern die Konkurrenzbedingungen. Halte den Grund im Verwaltungsprotokoll nachvollziehbar.</p>
+<p>Bei den <strong>30 Skriptbots</strong> prüfst du Strategie, letzte Entscheidungen, angenommene und abgelehnte Befehle sowie die wirtschaftliche Lage. Ein laufender Serverprozess beweist noch nicht, dass ein Bot sinnvoll handelt.</p>
+<p class="example"><strong>Beispiel:</strong> Ein Bot sendet wiederholt einen unbezahlbaren Schiffsbefehl. Prüfe seinen Heimatbestand, Energie, Voraussetzungen, Budget und den Ablehnungsgrund. Falls nötig, pausiere zuerst die Welt und untersuche die Ursache.</p>
+<p>Unter <strong>Spieleragenten</strong> siehst du gemeldete Aufrufe, Fehler, Laufzeiten und letzte Entscheidungen. Du kannst ihre Steuerung stoppen. Die Meldungen des Browsers sind Betriebshinweise; verbindliche OpenRouter-Abrechnung kommt vom Anbieter.</p>
+<p>Die <strong>private Weltkarte</strong> darf dem Betreiber vollständige Informationen zeigen. Spieler und ihre Modelle erhalten weiterhin nur ihre erlaubte Sicht. Nutze Verwaltungswissen nicht als scheinbar erspähten Spielerbericht.</p>
+<h3 id="warteliste-und-ereignisse">Warteliste und Ereignisse</h3>
+<p>Die Warteliste zeigt wartende Konten und ihre Auswahl. Die normale Freigabe weiterer Plätze erfolgt über die Teilnehmerzahl.</p>
+<p><strong>Ereignisse &amp; Verwaltungsprotokoll</strong> helfen beim Prüfen von Flottenankünften, Aufträgen und Eingriffen. Bei einer Beschwerde vergleiche Zeitpunkt, angenommenen Befehl, Bericht und tatsächliches Serverereignis.</p>
+<p class="example"><strong>Beispiel:</strong> Ein Spieler meint, sein Save sei rechtzeitig gewesen. Entscheidend sind der bestätigte Abflug und die gegnerische Ankunft in Spielzeit. Ein bereits geöffneter Flottenplan ist noch kein Abflug.</p>
+<h3 id="backups-und-wiederherstellung">Backups und Wiederherstellung</h3>
+<p>Unter <strong>Backups &amp; neue Epoche</strong> erstellst du ein konsistentes Datenbankbackup. Sichere es zusätzlich an einem anderen geeigneten Speicherort. Auch Backups enthalten private Kontodaten.</p>
+<p>Für eine Wiederherstellung:</p>
+<ol>
+<li>Informiere die Spieler und pausiere die Welt, wenn sie noch erreichbar ist.</li>
+<li>Sichere den vorhandenen Stand.</li>
+<li>Beende den zugehörigen Spielserver kontrolliert.</li>
+<li>Bereite einen getrennten Datenordner vor und lege dort das gewählte Backup als <strong>spiel.sqlite3</strong> ab.</li>
+<li>Starte den Server mit diesem Datenordner und prüfe Welt, Zeit, Konten und Ereignisse.</li>
+<li>Gib den Spielbetrieb erst nach dieser Prüfung wieder frei.</li>
+</ol>
+<p>Kopiere nicht einfach eine offene SQLite-Datei während des Betriebs und vermische kein Backup mit fremden temporären Datenbankdateien. Die genauen Startparameter stehen im <a href="docs/SERVER-BETRIEB.md">Betriebshandbuch</a>.</p>
+<h3 id="eine-neue-epoche-beginnen">Eine neue Epoche beginnen</h3>
+<p>Ein Reset löscht den Fortschritt dieser Welt und erzeugt eine neue Ausgangslage. Er gehört deshalb ans Epochenende oder zu einem ausdrücklich angekündigten Neustart.</p>
+<ol>
+<li>Kündige das Ende an und pausiere gegebenenfalls.</li>
+<li>Erstelle ein Backup.</li>
+<li>Prüfe unter <strong>Regeln für nächste Epoche</strong> die gewünschten Regeln.</li>
+<li>Lies die Reset-Vorschau.</li>
+<li>Bestätige mit <strong>RESET</strong> und der aktuell angezeigten Weltkennung.</li>
+<li>Prüfe neue Welt, Tempo, Bots und Teilnehmerfreigabe.</li>
+<li>Informiere die Spieler, dass sie ihr Reich neu beanspruchen müssen.</li>
+</ol>
+<p>Die Konten bleiben bestehen. Weltplätze, Warteliste, Anmeldesitzungen und Agentenfreigaben werden zurückgesetzt. Jeder meldet sich erneut an und wählt Volk und Spielweise für sein neues Reich. Agenten brauchen einen neuen bewussten Start.</p>
+<p><strong>Für einen PC-Neustart oder eine normale Programmaktualisierung ist kein Weltreset erforderlich.</strong></p>
+<h3 id="wartung-und-spaterer-serverumzug">Wartung und späterer Serverumzug</h3>
+<p>Für eine Aktualisierung: Betriebshinweis setzen, Welt pausieren, Backup erstellen, Server kontrolliert beenden, aktualisieren, mit derselben Datenbank starten, prüfen und danach wieder freigeben.</p>
+<p>Der Spielserver kann später mit seiner Datenbank auf einen VPS umziehen. Dort übernimmt ein dauerhafter Dienst den Start, ein HTTPS-Zugang liefert den Browserclient aus und das Dashboard bleibt privat erreichbar, beispielsweise über einen gesicherten Verwaltungstunnel.</p>
+<p>Danach hängt die Welt nicht mehr von Karls eingeschaltetem PC ab. Die lokalen Ollama-Agenten der Mitspieler laufen weiterhin auf deren eigenen PCs. Die konkreten Bereitstellungsdateien und Umzugsschritte stehen im <a href="docs/SERVER-BETRIEB.md">Betriebshandbuch</a>.</p>
+<h2 id="21-haufige-probleme-und-ihre-losung">21 Häufige Probleme und ihre Lösung</h2>
+<h3 id="ich-bin-angemeldet-aber-habe-keinen-heimatplaneten">Ich bin angemeldet aber habe keinen Heimatplaneten</h3>
+<p>Du hast möglicherweise erst ein Konto angelegt. Wähle Volk und Spielweise und beanspruche einen freigegebenen Platz. Sind alle freigegebenen Plätze belegt, brauchst du einen Wartelistenplatz.</p>
+<h3 id="ich-sehe-im-browser-nur-einen-verbindungsfehler">Ich sehe im Browser nur einen Verbindungsfehler</h3>
+<p>Der Server-PC, Rust-Dienst und öffentliche Zugang müssen laufen. Prüfe auf dem Server-PC zuerst den lokalen Spielerzugang. Funktioniert dieser, aber HTTPS nicht, prüfe Tailscale und die öffentliche Weiterleitung. Ein Zertifikatsfehler wird durch die korrekte TLS-Konfiguration behoben, nicht durch Abschalten der Browserprüfung.</p>
+<h3 id="ein-bau-oder-forschungsknopf-bleibt-grau">Ein Bau oder Forschungsknopf bleibt grau</h3>
+<p>Lies die angezeigte Voraussetzung. Mögliche Gründe sind fehlende Güter, Gebäudestufen, Technologie, Zivilisationsstufe oder Bauplätze. Auch Pause, Unruhen, Niederlage, Epochenende oder eine aktive Agentenzuständigkeit können Befehle sperren.</p>
+<h3 id="ein-auftrag-wartet-obwohl-ich-genug-erz-habe">Ein Auftrag wartet obwohl ich genug Erz habe</h3>
+<p>Prüfe sämtliche Güter am richtigen Planeten, den ersten wartenden Auftrag und den aktiven Bauplatz. Ein Auftrag kann beispielsweise Kristall, Elektronik oder eine beendete Reparatur benötigen. Erz auf einem anderen Planeten hilft erst nach einem Transport.</p>
+<h3 id="meine-forschung-kommt-kaum-voran">Meine Forschung kommt kaum voran</h3>
+<p>Prüfe aktive Forschung, Laborleistung, Energie, Arbeitskräfte und Spezialisten. Die Forschung wird an Spielstunden verarbeitet. Eine alte Restzeitprognose gilt nicht unverändert nach einem Versorgungsausfall.</p>
+<h3 id="der-systemscan-ist-fertig-aber-die-planeten-bleiben-unbekannt">Der Systemscan ist fertig aber die Planeten bleiben unbekannt</h3>
+<p>Der Systemscan kartiert das System. Für Eigenschaften, Belegung und Güter eines einzelnen Planeten braucht dieser eine eigene Spionagemission. Prüfe auch den Zeitstempel deines Berichts.</p>
+<h3 id="ich-sehe-einen-angriff-aber-keine-schiffstypen">Ich sehe einen Angriff aber keine Schiffstypen</h3>
+<p>Die Grundwarnung zeigt die Ankunft. Für Details brauchst du genügend Vorsprung deiner Sensoren vor der Abschirmtechnik. Prüfe alle vier Sensorbestandteile oder schicke rechtzeitig eine Flottensonde.</p>
+<h3 id="warum-wurde-mein-flottenstart-abgelehnt">Warum wurde mein Flottenstart abgelehnt</h3>
+<p>Prüfe Flottenplatz, vorhandene Schiffe, Besatzung, Ziel, Missionsvoraussetzungen, Frachtraum und echten Flugtreibstoff. Verladenes Deuterium allein ist keine automatische Treibstoffreserve. Eine Blockade oder veränderte Zielbelegung kann den Plan ebenfalls ungültig machen.</p>
+<h3 id="das-kolonieschiff-ist-noch-nicht-baubar">Das Kolonieschiff ist noch nicht baubar</h3>
+<p>Astrophysik allein reicht nicht. Prüfe Zivilisationsstufe IV, Werft, Orbitalwerft, Bauteile und die übrigen angezeigten Voraussetzungen. Für die spätere Mission brauchst du zusätzlich Siedler, Eskorte und Startfracht.</p>
+<h3 id="mein-agent-hat-rohstoffe-aber-seine-aktion-wird-abgelehnt">Mein Agent hat Rohstoffe aber seine Aktion wird abgelehnt</h3>
+<p>Lies den konkreten Ablehnungsgrund. Neben örtlichen Gütern und Technik gelten Rollenfreigabe, Agentenbudget und der aktuelle Weltzustand. Ein wiederholter identischer Befehl behebt keine fehlende Voraussetzung.</p>
+<h3 id="ollama-wird-nicht-gefunden">Ollama wird nicht gefunden</h3>
+<p>Prüfe, ob Ollama auf deinem PC läuft und ein Modell installiert ist. Vergleiche die genaue Modellkennung, den erlaubten Ursprung der Spielseite und eine mögliche lokale Netzwerkberechtigung des Browsers. Benutze danach erneut <strong>Lokale Modelle suchen</strong> und den Modelltest.</p>
+<h3 id="der-openrouter-test-schlagt-fehl">Der OpenRouter-Test schlägt fehl</h3>
+<p>Prüfe Schlüssel, Modellkennung, Anbieterlimit, Guthaben und die angezeigte Fehlermeldung. Ein erfolgreicher Test beweist die Verbindung; er beweist noch keine gute Spielstrategie.</p>
+<h3 id="mein-agent-hort-auf-zu-handeln">Mein Agent hört auf zu handeln</h3>
+<p>Prüfe Aufruflimit, Fehlerprotokoll, Browser-Tab, PC-Energiesparmodus, Modellverbindung und Steuerungsfreigabe. Auch Weltpause, Niederlage und Epochenende stoppen Aktionen. Nach drei aufeinanderfolgenden Fehlern muss die Ursache behoben und der Agent bewusst neu gestartet werden.</p>
+<h3 id="meine-vorrate-steigen-aber-meine-punkte-nicht">Meine Vorräte steigen aber meine Punkte nicht</h3>
+<p>Vorräte im Lager sind keine investierten Wirtschaftspunkte. Punkte ändern sich durch abgeschlossene Bauten, Forschung, vorhandene Streitkräfte, Bevölkerung und Zivilisationsstufe.</p>
+<h3 id="mein-reich-ist-grau-und-ich-kann-nichts-bauen">Mein Reich ist grau und ich kann nichts bauen</h3>
+<p>Prüfe den Status. Ein besiegtes Reich ist für diese Epoche ausgeschieden. Es kann nicht durch neue Lieferungen wieder aktiviert werden. Du kannst zuschauen und in einer neuen Epoche erneut mitspielen.</p>
+<h2 id="22-die-wichtigsten-begriffe">22 Die wichtigsten Begriffe</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Begriff</th>
+<th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Epoche</strong></td>
+<td>Eine gemeinsame Welt mit festgelegter Laufzeit und Endwertung</td>
+</tr>
+<tr>
+<td><strong>Reich</strong></td>
+<td>Die Zivilisation eines menschlichen Teilnehmers, Bots oder Agenten</td>
+</tr>
+<tr>
+<td><strong>Heimatplanet</strong></td>
+<td>Der ursprüngliche Startplanet; dauerhaft gegen Übernahme geschützt</td>
+</tr>
+<tr>
+<td><strong>Kolonie</strong></td>
+<td>Ein zusätzlich besiedelter oder eroberter Planet</td>
+</tr>
+<tr>
+<td><strong>Volk</strong></td>
+<td>Deine für die Epoche feste Auswahl mit bestimmten Vor- und Nachteilen</td>
+</tr>
+<tr>
+<td><strong>Zivilisationsstufe</strong></td>
+<td>Entwicklungsstufe I bis V, die weitere Möglichkeiten freischaltet</td>
+</tr>
+<tr>
+<td><strong>Gebäudestufe</strong></td>
+<td>Ausbaugrad eines bestimmten Gebäudes</td>
+</tr>
+<tr>
+<td><strong>Integrität</strong></td>
+<td>Zustand eines Gebäudes; beeinflusst seine tatsächliche Wirkung</td>
+</tr>
+<tr>
+<td><strong>FP</strong></td>
+<td>Forschungspunkte, die deine Labore erzeugen</td>
+</tr>
+<tr>
+<td><strong>Nettorate</strong></td>
+<td>Veränderung eines Vorrats nach laufender Produktion und laufendem Verbrauch</td>
+</tr>
+<tr>
+<td><strong>Spielzeit</strong></td>
+<td>Zeit der Welt, abhängig von Tempo und Weltpause</td>
+</tr>
+<tr>
+<td><strong>Teilnehmerplatz</strong></td>
+<td>Platz für ein Konto und sein Reich</td>
+</tr>
+<tr>
+<td><strong>Flottenplatz</strong></td>
+<td>Kapazität für eine gleichzeitig laufende Flottenmission</td>
+</tr>
+<tr>
+<td><strong>Aufklärung</strong></td>
+<td>Eigene, durch erlaubte Beobachtung gewonnene Informationen</td>
+</tr>
+<tr>
+<td><strong>Saven</strong></td>
+<td>Schiffe und transportierbare Güter rechtzeitig auf eine geplante Abwesenheit schicken</td>
+</tr>
+<tr>
+<td><strong>Blockade</strong></td>
+<td>Feindliche Kontrolle des Orbits, die Verkehr behindern kann</td>
+</tr>
+<tr>
+<td><strong>Verbandsangriff</strong></td>
+<td>Mehrere gültig zusammengeführte Angriffsflotten mit gemeinsamer Ankunft</td>
+</tr>
+<tr>
+<td><strong>Doktrin</strong></td>
+<td>Ziele und Budgetverteilung für die Agentenrollen</td>
+</tr>
+<tr>
+<td><strong>Agentenrolle</strong></td>
+<td>Ein Aufgabenbereich wie Verwalter oder Feldherr</td>
+</tr>
+<tr>
+<td><strong>Steuerungsfreigabe</strong></td>
+<td>Befristetes exklusives Recht des Browsers, Agenten für ein Reich zu führen</td>
+</tr>
+<tr>
+<td><strong>Reset</strong></td>
+<td>Bewusster Beginn einer neuen Welt, mit Verlust des bisherigen Spielfortschritts</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="23-wo-du-im-projekt-weiterarbeiten-kannst">23 Wo du im Projekt weiterarbeiten kannst</h2>
+<p>Für Spieler enthält dieses Handbuch den vollständigen Einstieg und die Erklärung der zentralen Regeln. Kosten, Voraussetzungen und aktuelle Berichte findest du bei der jeweiligen Aktion in der Spieloberfläche.</p>
+<p>Für den Betrieb stehen die genauen Start-, Sicherungs- und Umzugsbefehle in <strong>docs/SERVER-BETRIEB.md</strong>. Das Zusammenspiel von Website, Server, Konten und Informationsgrenzen beschreibt <strong>docs/ONLINE-KONZEPT.md</strong>.</p>
+<p>Die Ausgangsregeln stehen in <strong>regeln/online-v1.ron</strong>. Die laufende Welt hält ihr eigenes aktives Regelprofil fest. Darum wird eine bearbeitete Regeldatei nicht allein durch das Speichern rückwirkend zum Regelwerk aller laufenden Aufträge.</p>
+<p>Die Browseroberfläche liegt in <strong>web-client</strong>, der Spielserver in <strong>crates/server</strong>, die gemeinsamen Spielregeln und Abläufe in <strong>crates/kern</strong>. Welt, Konten und Backups unter <strong>data/online</strong> sind private Betriebsdaten.</p>
+<p>Die bearbeitbare Anleitung ist <strong>docs/HANDBUCH.md</strong>. Aus ihr erzeugt <strong>tools/build_handbook.py</strong> die Datei <strong>Sternenepoche-Handbuch.html</strong> im Hauptordner.</p></article>
+      <footer class="foot">Bearbeitbare Fassung: docs/HANDBUCH.md · Stand 8. Oktober 2026 · Keine Verbindung zum Spielserver für das Lesen erforderlich.</footer>
+    </main>
+  </div>
+</body>
+</html>

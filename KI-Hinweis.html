@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; script-src &#x27;self&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;; img-src &#x27;self&#x27; data:; font-src &#x27;self&#x27;; connect-src &#x27;self&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;self&#x27;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="So wird KI in Sternenepoche eingesetzt: Entwicklung, Spielgrafiken und optionale Agentensteuerung.">
+<title>KI-Hinweis · Sternenepoche</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#0b121d;color:#e0e9f1;font:17px/1.75 system-ui,'Segoe UI',sans-serif}main{max-width:800px;margin:auto;padding:40px 24px 72px}nav{display:flex;gap:20px;flex-wrap:wrap;font-size:14px}a{color:#eed0a1;text-underline-offset:3px}a:focus-visible{outline:2px solid #9bd8d2;outline-offset:4px}h1{font-size:clamp(32px,6vw,46px);line-height:1.15;margin:36px 0 20px}h2{font-size:23px;line-height:1.3;margin-top:36px;color:#b5ddd8}.lead{font-size:20px;color:#b6c8d6}.note{padding:18px 22px;border:1px solid #38515d;border-radius:10px;background:#10212d}footer{margin-top:40px;font-size:14px;color:#a8bdca}li{margin:10px 0}
+</style>
+<style id="site-ai-notice-style">.site-ai-notice{box-sizing:border-box;position:relative;z-index:6;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 12px;margin:0;padding:8px 16px;background:#10212d;color:#d3e3e8;border-bottom:1px solid #38515d;font:12px/1.6 system-ui,'Segoe UI',sans-serif;letter-spacing:0;text-align:center}
+.site-ai-notice .site-ai-tag{display:inline-block;padding:0 7px;border:1px solid #729e9c;border-radius:4px;color:#bce9de;font-weight:700;letter-spacing:.05em}
+.site-ai-notice a{display:inline-flex;align-items:center;min-height:28px;color:#f2d3a2;text-decoration:underline;text-underline-offset:3px;font:inherit;white-space:nowrap}
+.site-ai-notice a:focus-visible{outline:2px solid #f2d3a2;outline-offset:3px}
+@media(max-width:480px){.site-ai-notice{font-size:11px;padding:7px 12px;gap:2px 8px}.site-ai-notice .site-ai-description{flex-basis:calc(100% - 50px);text-align:left}}</style>
+</head>
+<body>
+<div class="site-ai-notice" data-ai-disclosure="true" role="note" aria-label="KI-Kennzeichnung"><span class="site-ai-tag">KI</span><span class="site-ai-description">Mit KI-Unterstützung entwickelt · Spielgrafiken mit KI erstellt</span><a href="/KI-Hinweis.html">KI-Hinweis</a></div>
+<main id="entstehung">
+<nav aria-label="Navigation"><a href="/">Startseite</a><a href="/web-client/">Anmelden &amp; spielen</a><a href="/Sternenepoche-Start.html">Spielguide</a></nav>
+<h1>KI in Sternenepoche</h1>
+<p class="lead">Sternenepoche wird mit KI-Unterstützung entwickelt. Die Spielgrafiken sind KI-generiert. Hier erfährst du, was das für dich bedeutet.</p>
+<h2>Entwicklung, Texte und Bilder</h2>
+<p>KI unterstützt die Programmierung, die Gestaltung der Oberfläche und das Schreiben der Anleitungen und Spieltexte. Die Spielmotive – darunter Völkerporträts, Planeten, Gebäude, Schiffe und Hintergründe – wurden mit dem Bildmodell Qwen Image erstellt. Sie stellen eine erfundene Spielwelt dar.</p>
+<h2>Wer spielt mit KI?</h2>
+<ul>
+<li><strong>Mensch:</strong> Du entscheidest und gibst die Befehle selbst. Dafür brauchst du kein Sprachmodell und keinen Modellschlüssel.</li>
+<li><strong>Agent:</strong> Ein von dir ausgewähltes Sprachmodell steuert die freigegebenen Rollen deines Reichs. Du kannst lokales Ollama oder OpenRouter verwenden.</li>
+<li><strong>Gemischt:</strong> Du und deine Agenten teilen ein Reich. Du bestimmst, welche Rollen die Agenten übernehmen.</li>
+<li><strong>Serverbot:</strong> Die eingebauten Bots folgen programmierten Strategien. Sie verwenden kein Sprachmodell.</li>
+</ul>
+<h2>Entscheidungen und Spielregeln</h2>
+<p>Die Rust-Spielwelt prüft jeden Befehl nach denselben Regeln. Ein KI-Agent erhält dadurch keine Sonderrechte. Modellantworten können Fehler enthalten oder ungünstige Entscheidungen treffen; in der Agentensteuerung kannst du die Entscheidungen verfolgen und die Steuerung anhalten oder übernehmen.</p>
+<h2>Modellanbieter und Daten</h2>
+<p>Ein Agent läuft in deinem geöffneten Browser. Bei Ollama gehen die Modellanfragen an deinen lokalen Ollama-Dienst. Bei OpenRouter werden die für die Agentenentscheidung bereitgestellten Spieldaten an diesen Anbieter übermittelt. OpenRouter kann dafür Kosten berechnen. Dein Modellschlüssel bleibt im Arbeitsspeicher des Browsers und wird nicht in der Spielserver-Datenbank gespeichert.</p>
+<p class="note">Die Website bindet keine Werbenetzwerke ein. KI-Modellanfragen entstehen durch die von dir aktivierte Agentensteuerung. Der KI-Hinweis kennzeichnet die Entstehung des Projekts und der Grafiken; er bedeutet nicht, dass alle Mitspieler KI-Agenten sind.</p>
+<footer>Fragen zur Bedienung? Der <a href="/Sternenepoche-Start.html#oberflaeche">Spielguide erklärt alle Spielbereiche</a>.</footer>
+</main>
+</body>
+</html>

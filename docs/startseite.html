@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sternenepoche spielen lernen: Anmeldung, erste Spielsitzung, alle 17 Spielbereiche und ausführliche Regeln für Wirtschaft, Forschung, Aufklärung, Kampf, Kolonien und Agenten.">
+  <meta name="color-scheme" content="dark">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+  <title>Sternenepoche · Der vollständige Spielguide</title>
+  <style>
+    :root {
+      --bg: #080d15; --surface: #111a26; --surface-raised: #172230;
+      --text: #edf1f5; --muted: #a1b0c1; --gold: #e5bf82; --cyan: #9bd8d2;
+      --line: #ffffff16; --ease: cubic-bezier(.23,1,.32,1);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-padding-top: 100px; }
+    body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.7 "Segoe UI",system-ui,sans-serif; }
+    button, input { font: inherit; }
+    button, a, summary { -webkit-tap-highlight-color: transparent; }
+    button { color: inherit; }
+    a { color: inherit; text-underline-offset: 5px; }
+    img { display: block; max-width: 100%; }
+    button { cursor: pointer; }
+    button:disabled { cursor: default; }
+    h1,h2,h3,p { margin-top: 0; }
+    h1,h2,h3 { line-height: 1.15; text-wrap: balance; }
+    h2 { font-size: clamp(30px,4vw,47px); font-weight: 650; letter-spacing: -.035em; }
+    h3 { font-size: 22px; font-weight: 600; letter-spacing: -.015em; }
+    p { margin-bottom: 20px; }
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 6px; border-radius: 3px; }
+    [hidden] { display: none !important; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .skip { position: fixed; top: -80px; left: 20px; z-index: 30; background: var(--gold); color: #121820; padding: 10px 18px; }
+    .skip:focus { top: 16px; }
+    .wrap { width: min(1180px,calc(100% - 80px)); margin-inline: auto; }
+    .eyebrow { display: block; margin-bottom: 20px; color: var(--gold); font-size: 11px; font-weight: 650; letter-spacing: .18em; text-transform: uppercase; }
+    .lead { max-width: 670px; font-size: 18px; color: var(--muted); }
+    .muted { color: var(--muted); }
+    .section { padding-block: 105px; border-bottom: 1px solid var(--line); }
+    .section-heading { max-width: 740px; margin-bottom: 45px; }
+    .section-heading h2 { margin-bottom: 22px; }
+    .button {
+      display: inline-flex; gap: 14px; align-items: center; justify-content: center;
+      border: 1px solid transparent; border-radius: 5px; padding: 13px 22px;
+      background: var(--gold); color: #151b23; text-decoration: none; font-size: 14px; font-weight: 650;
+      transition: background-color 160ms ease, border-color 160ms ease, transform 140ms var(--ease);
+    }
+    .button:active { transform: scale(.97); }
+    .button.secondary { background: #111b2780; color: var(--text); border-color: #ffffff38; }
+    .button.small { padding: 9px 15px; font-size: 13px; }
+    .arrow { font-size: 18px; line-height: 1; }
+    .text-link { display: inline-flex; gap: 10px; align-items: center; font-size: 14px; color: var(--cyan); text-decoration-color: #9bd8d240; }
+    .site-header { position: sticky; top: 0; z-index: 10; background: #080d15f5; border-bottom: 1px solid var(--line); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; min-height: 76px; gap: 28px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-size: 17px; font-weight: 650; letter-spacing: .055em; }
+    .brand svg { color: var(--gold); flex-shrink: 0; }
+    .primary-nav { display: flex; align-items: center; gap: 27px; }
+    .primary-nav a { text-decoration: none; font-size: 13px; color: var(--muted); }
+    .header-actions { display: flex; align-items: center; gap: 22px; }
+    .header-actions > .text-link { font-size: 13px; color: var(--text); }
+    .hero { position: relative; overflow: hidden; min-height: 660px; display: flex; align-items: center; isolation: isolate; }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; z-index: -2;
+      background: url("asset://backgrounds.start.webp") center right / cover no-repeat;
+    }
+    .hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg,#080d15 1%,#080d15ed 24%,#080d1596 49%,#080d1514 77%),linear-gradient(0deg,#080d15,transparent 22%); }
+    .hero-content { padding-block: 88px 94px; }
+    .hero h1 { font-size: clamp(48px,5.6vw,76px); max-width: 710px; font-weight: 650; letter-spacing: -.045em; margin-bottom: 28px; }
+    .hero h1 span { display: block; color: var(--gold); }
+    .hero .lead { max-width: 480px; color: #b9c6d5; margin-bottom: 32px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; }
+    .hero-note { margin: 22px 0 0; font-size: 12px; color: #a4b4c5; }
+    .facts { display: grid; grid-template-columns: repeat(3,1fr); padding-block: 31px; border-bottom: 1px solid var(--line); gap: 28px; }
+    .fact { display: flex; gap: 16px; align-items: center; }
+    .fact strong { font-size: 32px; line-height: 1; font-weight: 500; color: var(--gold); font-variant-numeric: tabular-nums; }
+    .fact span { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .fact span b { display: block; color: var(--text); font-weight: 550; }
+    .idea-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 90px; align-items: center; }
+    .idea-grid h2 { margin-bottom: 24px; }
+    .idea-grid p { color: var(--muted); }
+    .journey { list-style: none; padding: 0; margin: 0; border-left: 1px solid #e5bf8240; }
+    .journey li { position: relative; padding: 0 0 28px 34px; }
+    .journey li:last-child { padding-bottom: 0; }
+    .journey li::before { content: ""; position: absolute; left: -4px; top: 9px; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 6px var(--bg); }
+    .journey h3 { font-size: 18px; margin-bottom: 9px; }
+    .journey p { margin-bottom: 0; font-size: 14px; }
+    .choice-field { border: 0; padding: 0; margin: 0; min-width: 0; }
+    .choice-input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .mode-picker { display: grid; grid-template-columns: repeat(3,1fr); }
+    .mode-label { padding: 20px 25px; border: 1px solid var(--line); border-bottom-color: #ffffff24; cursor: pointer; color: var(--muted); }
+    .mode-label span { display: block; font-size: 11px; letter-spacing: .09em; margin-bottom: 4px; color: #8e9db0; }
+    .mode-label strong { font-size: 18px; font-weight: 550; }
+    .choice-input:checked + label { background: #1c2732; color: var(--gold); border-color: #e5bf825c; }
+    .choice-input:focus-visible + label { outline: 2px solid var(--gold); outline-offset: -5px; }
+    .mode-panels { grid-column: 1/-1; }
+    .mode-panel { display: none; grid-template-columns: .9fr 1.1fr; background: var(--surface); min-height: 340px; border: 1px solid var(--line); border-top: 0; }
+    #mode-human:checked ~ .mode-panels #human-panel,
+    #mode-agent:checked ~ .mode-panels #agent-panel,
+    #mode-mixed:checked ~ .mode-panels #mixed-panel { display: grid; }
+    .mode-image { width: 100%; height: 100%; min-height: 340px; object-fit: cover; }
+    .mode-copy { padding: 42px; }
+    .mode-copy h3 { font-size: 30px; margin-bottom: 18px; }
+    .mode-copy p { color: var(--muted); font-size: 15px; }
+    .check-list { padding: 0; list-style: none; margin: 24px 0 0; }
+    .check-list li { font-size: 14px; margin-top: 9px; padding-left: 23px; position: relative; }
+    .check-list li::before { content: "✓"; color: var(--cyan); position: absolute; left: 0; }
+    .bot-note { display: flex; gap: 20px; padding-top: 24px; font-size: 13px; color: var(--muted); align-items: baseline; }
+    .bot-note strong { color: var(--text); white-space: nowrap; font-weight: 550; }
+    .faction-picker { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+    .faction-label { display: flex; align-items: center; gap: 12px; padding: 13px; cursor: pointer; border: 1px solid var(--line); border-radius: 5px; min-width: 0; }
+    .faction-label img { width: 48px; height: 58px; object-fit: cover; object-position: center 15%; border-radius: 3px; }
+    .faction-label strong { display: block; font-size: 14px; font-weight: 600; }
+    .faction-label small { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; }
+    .faction-panels { grid-column: 1/-1; margin-top: 15px; }
+    .faction-panel { display: none; grid-template-columns: 340px minmax(0,1fr); border: 1px solid var(--line); background: var(--surface); border-radius: 7px; overflow: hidden; }
+    #race-aurelianer:checked ~ .faction-panels #aurelianer-panel,
+    #race-krath:checked ~ .faction-panels #krath-panel,
+    #race-veyari:checked ~ .faction-panels #veyari-panel,
+    #race-syntheten:checked ~ .faction-panels #syntheten-panel { display: grid; }
+    .faction-portrait { width: 100%; height: 100%; min-height: 390px; object-fit: cover; object-position: center top; }
+    .faction-copy { padding: 36px 42px; }
+    .faction-copy h3 { font-size: 32px; margin-bottom: 10px; }
+    .faction-copy > p { font-size: 14px; color: var(--muted); }
+    .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 27px; }
+    .pros-cons h4 { font-size: 10px; font-weight: 650; letter-spacing: .14em; color: var(--cyan); margin: 0 0 14px; }
+    .pros-cons .cons h4 { color: var(--gold); }
+    .pros-cons ul { list-style: none; padding: 0; margin: 0; font-size: 14px; }
+    .pros-cons li { padding: 8px 0; border-top: 1px solid var(--line); line-height: 1.55; }
+    .faction-rule { margin: 21px 0 0; font-size: 12px; color: var(--muted); }
+    .explore-grid { display: grid; grid-template-columns: 1.25fr .85fr; gap: 70px; align-items: center; }
+    .explore-copy h2 { margin-bottom: 22px; }
+    .explore-copy > p { color: var(--muted); }
+    .numbered-note { display: flex; gap: 18px; margin-top: 24px; }
+    .numbered-note > span { font-size: 12px; font-weight: 650; color: var(--gold); padding-top: 3px; }
+    .numbered-note h3 { font-size: 17px; margin-bottom: 7px; }
+    .numbered-note p { font-size: 14px; color: var(--muted); margin: 0; }
+    .star-system { border: 1px solid var(--line); border-radius: 8px; background: #0b111c url("asset://backgrounds.nebula.webp") center/cover; overflow: hidden; }
+    .system-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 17px 21px; border-bottom: 1px solid var(--line); gap: 10px; }
+    .system-toolbar span { font-size: 10px; letter-spacing: .12em; color: var(--muted); }
+    .quiet-button { background: transparent; border: 1px solid #ffffff29; border-radius: 4px; font-size: 11px; padding: 5px 9px; }
+    .system-art { display: block; width: 100%; height: auto; }
+    .orbit-path { fill: none; stroke: #8da7c83b; stroke-width: 1; }
+    .planet-target { cursor: pointer; outline: 0; }
+    .planet-target .focus-ring { fill: none; stroke: transparent; stroke-width: 2; }
+    .planet-target[aria-pressed="true"] .focus-ring, .planet-target:focus .focus-ring { stroke: var(--gold); }
+    .planet-target text { fill: #d2dce7; font: 11px "Segoe UI",sans-serif; }
+    .system-choices { display: flex; gap: 7px; flex-wrap: wrap; padding: 0 20px 20px; }
+    .system-choices button { background: #111b29; border: 1px solid #ffffff1f; padding: 7px 11px; border-radius: 4px; font-size: 11px; }
+    .system-choices button[aria-pressed="true"] { border-color: #e5bf8280; color: var(--gold); }
+    .planet-card { display: grid; grid-template-columns: 66px 1fr; gap: 17px; background: #14202ce8; padding: 23px; border-top: 1px solid var(--line); min-height: 180px; }
+    .planet-card img { width: 66px; height: 66px; object-fit: cover; border-radius: 50%; }
+    .planet-card h3 { font-size: 17px; margin-bottom: 8px; }
+    .planet-card p { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+    .planet-card .tag { color: var(--cyan); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+    .planet-card button { padding: 0; background: transparent; border: 0; color: var(--gold); font-size: 12px; text-decoration: underline; text-underline-offset: 4px; }
+    .demo-note { font-size: 11px; margin: 12px 0 0; color: var(--muted); }
+    .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 32px; margin: 0; padding: 0; list-style: none; counter-reset: step; }
+    .steps li { border-top: 1px solid #e5bf8260; padding-top: 22px; counter-increment: step; }
+    .steps li::before { content: "0" counter(step); display: block; font-size: 12px; color: var(--gold); margin-bottom: 18px; letter-spacing: .1em; }
+    .steps h3 { font-size: 20px; margin-bottom: 13px; }
+    .steps p { font-size: 14px; color: var(--muted); margin: 0; }
+    .admission { display: flex; gap: 20px; margin-top: 38px; padding: 22px 26px; background: #161d25; border-left: 2px solid var(--gold); align-items: baseline; }
+    .admission strong { white-space: nowrap; color: var(--gold); font-size: 13px; font-weight: 600; }
+    .admission p { font-size: 13px; color: var(--muted); margin: 0; }
+    .rule-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 90px; }
+    .rule-layout h2 { margin-bottom: 24px; }
+    .rule-layout .lead { font-size: 16px; }
+    .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 30px 35px; }
+    .rule { padding-top: 17px; border-top: 1px solid var(--line); }
+    .rule h3 { font-size: 17px; margin-bottom: 12px; }
+    .rule p { font-size: 13px; color: var(--muted); margin: 0; }
+    .faq-grid { display: grid; grid-template-columns: .75fr 1.25fr; gap: 90px; }
+    .faq-list details { border-bottom: 1px solid var(--line); }
+    .faq-list details:first-child { border-top: 1px solid var(--line); }
+    .faq-list summary { display: flex; justify-content: space-between; gap: 18px; cursor: pointer; padding: 22px 0; font-size: 15px; list-style: none; }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list summary::after { content: "+"; color: var(--gold); font-size: 20px; line-height: 1.2; flex-shrink: 0; }
+    .faq-list details[open] summary::after { content: "−"; }
+    .faq-list details p { margin: 0 20px 24px 0; font-size: 14px; color: var(--muted); }
+    .final-cta { position: relative; isolation: isolate; text-align: center; padding-block: 100px; overflow: hidden; }
+    .final-cta::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(#080d15bd,#080d15ed),url("asset://backgrounds.command.webp") center/cover; }
+    .final-cta h2 { margin-bottom: 22px; }
+    .final-cta p { color: var(--muted); max-width: 600px; margin: 0 auto 30px; }
+    .final-cta .hero-actions { justify-content: center; }
+    footer { padding-block: 28px; border-top: 1px solid var(--line); }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 25px; font-size: 11px; color: var(--muted); }
+    .footer-links { display: flex; gap: 22px; }
+    .footer-links a { text-decoration: none; }
+    @media (hover:hover) and (pointer:fine) {
+      .button:hover { background: #f1ce97; }
+      .button.secondary:hover { background: #243342; border-color: #ffffff60; }
+      .primary-nav a:hover,.footer-links a:hover { color: var(--text); }
+      .faction-label:hover,.mode-label:hover { border-color: #e5bf8270; }
+      .quiet-button:hover,.system-choices button:hover { background: #243342; }
+    }
+    @media (max-width:1080px) {
+      .primary-nav { gap: 18px; }
+      .primary-nav a:last-child { display: none; }
+      .header-actions { gap: 16px; }
+      .header-actions > .text-link { display: none; }
+      .idea-grid,.explore-grid,.rule-layout,.faq-grid { gap: 45px; }
+      .faction-panel { grid-template-columns: 280px minmax(0,1fr); }
+      .faction-copy { padding: 30px; }
+      .faction-label { padding: 10px; gap: 9px; }
+      .faction-label img { width: 38px; height: 49px; }
+      .faction-label small { font-size: 10px; }
+      .mode-copy { padding: 32px; }
+      .hero::before { background-position: 62% center; }
+    }
+    @media (max-width:800px) {
+      .wrap { width: calc(100% - 44px); }
+      .header-inner { min-height: 68px; gap: 15px; }
+      .brand { font-size: 15px; gap: 8px; }
+      .primary-nav { display: none; }
+      .section { padding-block: 72px; }
+      .section-heading { margin-bottom: 30px; }
+      .hero { min-height: 620px; }
+      .hero-content { padding-block: 65px 75px; }
+      .hero::after { background: linear-gradient(90deg,#080d15f0,#080d15b0 50%,#080d1570),linear-gradient(0deg,#080d15,transparent 40%); }
+      .hero h1 { font-size: clamp(43px,7.6vw,65px); }
+      .hero .lead { font-size: 17px; max-width: 440px; }
+      .facts { gap: 15px; }
+      .fact { gap: 10px; }
+      .fact strong { font-size: 27px; }
+      .fact span { font-size: 11px; }
+      .idea-grid,.explore-grid,.rule-layout,.faq-grid { grid-template-columns: 1fr; gap: 35px; }
+      .explore-copy { grid-row: 1; }
+      .mode-panel { grid-template-columns: 1fr; }
+      .mode-image { min-height: 0; height: 220px; }
+      .mode-copy { padding: 30px; }
+      .mode-label { padding: 16px 18px; }
+      .mode-label strong { font-size: 16px; }
+      .faction-picker { grid-template-columns: 1fr 1fr; }
+      .faction-panel { grid-template-columns: 210px minmax(0,1fr); }
+      .faction-portrait { min-height: 430px; }
+      .faction-copy { padding: 25px; }
+      .faction-copy h3 { font-size: 28px; }
+      .pros-cons { grid-template-columns: 1fr; gap: 20px; margin-top: 22px; }
+      .pros-cons li { font-size: 13px; }
+      .steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .admission { flex-direction: column; gap: 8px; }
+      .bot-note { gap: 12px; }
+      .final-cta { padding-block: 75px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 13px; }
+    }
+    @media (max-width:500px) {
+      .brand { font-size: 13px; letter-spacing: .02em; }
+      .brand svg { width: 25px; }
+      .header-actions .button { padding: 8px 11px; font-size: 11px; min-height: 42px; }
+      .hero { min-height: 620px; }
+      .hero h1 { font-size: 45px; }
+      .hero .lead { max-width: 330px; }
+      .hero-actions .button { padding: 12px 17px; }
+      .hero-note { max-width: 290px; }
+      .facts { padding-block: 23px; gap: 11px; }
+      .fact { display: block; }
+      .fact strong { display: block; margin-bottom: 10px; }
+      .mode-label { padding: 14px 11px; }
+      .mode-label strong { font-size: 13px; }
+      .mode-label span { font-size: 9px; letter-spacing: .04em; }
+      .mode-copy { padding: 25px; }
+      .mode-copy h3 { font-size: 27px; }
+      .mode-image { height: 180px; }
+      .bot-note { flex-direction: column; gap: 5px; }
+      .faction-panel { grid-template-columns: 1fr; }
+      .faction-portrait { height: 290px; min-height: 0; object-position: center 20%; }
+      .faction-label img { width: 36px; height: 44px; }
+      .pros-cons { grid-template-columns: 1fr; gap: 20px; }
+      .rules { gap: 27px 22px; }
+      .rules h3 { font-size: 16px; }
+      .steps { gap: 29px 25px; }
+      .steps h3 { font-size: 18px; }
+      .steps p { font-size: 13px; }
+      .system-toolbar { padding: 14px; }
+      .system-toolbar span { font-size: 9px; letter-spacing: .06em; }
+      .system-choices { padding-inline: 14px; }
+      .system-choices button { font-size: 11px; padding: 6px 9px; min-height: 44px; }
+      .planet-card { padding: 19px; grid-template-columns: 52px 1fr; gap: 13px; }
+      .planet-card img { width: 52px; height: 52px; }
+      .footer-links { flex-wrap: wrap; gap: 14px 20px; }
+    }
+    /* Bedienwege und ausführlicher Spielguide */
+    .learning-path { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; margin-top:36px; }
+    .learning-path a { padding:23px; background:var(--surface); border:1px solid var(--line); border-radius:8px; text-decoration:none; }
+    .learning-path strong { display:block; color:var(--gold); font-size:17px; margin-bottom:7px; }
+    .learning-path span { display:block; color:var(--muted); font-size:14px; }
+    .learning-path a:hover { border-color:#e5bf8270; }
+    .reading-note { padding:18px 23px; border-left:2px solid var(--cyan); background:#9bd8d209; color:var(--muted); font-size:14px; }
+    .session-steps { margin-top:40px; }
+    .session-step { display:grid; grid-template-columns:56px minmax(0,1fr); gap:26px; border-top:1px solid var(--line); padding-block:32px; max-width:940px; }
+    .session-step > div { max-width:790px; }
+    .step-index { color:var(--gold); font-size:28px; line-height:1.2; font-variant-numeric:tabular-nums; }
+    .session-step h3 { margin-bottom:20px; font-size:25px; }
+    .session-step p:last-child { margin-bottom:0; }
+    .guide-example { margin:23px 0; padding:18px 22px; background:#9bd8d20b; border-left:2px solid var(--cyan); border-radius:0 5px 5px 0; }
+    .screen-finder { border:1px solid #ffffff22; border-radius:10px; background:var(--surface); overflow:hidden; }
+    .screen-top { padding:25px 30px; background:#1c2a3b; border-bottom:1px solid var(--line); }
+    .screen-top strong { color:var(--gold); font-size:17px; }
+    .screen-top p { margin:6px 0 0; max-width:850px; color:#c1cedc; font-size:14px; }
+    .screen-layout { display:grid; grid-template-columns:238px minmax(0,1fr); }
+    .screen-nav { padding:16px 12px; background:#0c141f; border-right:1px solid var(--line); }
+    .screen-nav a { display:block; padding:9px 13px; border-radius:5px; color:var(--muted); font-size:14px; line-height:1.5; text-decoration:none; border-left:2px solid transparent; }
+    .screen-nav a:hover { background:#ffffff08; color:var(--text); }
+    .screen-nav a[aria-current="true"] { background:#e5bf8210; color:var(--gold); border-left-color:var(--gold); }
+    .screen-content { min-width:0; padding:32px 38px; }
+    .screen-panel { padding-bottom:35px; }
+    .screen-panel h3 { font-size:30px; margin-bottom:26px; }
+    .screen-panel p { color:#c4d0dd; }
+    .screen-panel strong { color:var(--text); }
+    .screen-panel .eyebrow { margin-bottom:15px; }
+    .screen-select { padding:18px 22px; color:var(--gold); font-size:13px; }
+    .screen-select select { display:block; width:100%; margin-top:8px; min-height:48px; background:#0c141f; color:var(--text); border:1px solid #ffffff38; border-radius:5px; padding:10px; font:inherit; font-size:16px; }
+    .guide-search { max-width:800px; margin-bottom:40px; }
+    .guide-search label { display:block; margin-bottom:10px; font-weight:600; }
+    .guide-search input { width:100%; min-height:52px; padding:13px 17px; border:1px solid #ffffff40; border-radius:6px; color:var(--text); background:var(--surface); }
+    .search-hint { color:var(--muted); font-size:13px; margin:10px 0 0; }
+    .search-results { padding:0; margin:18px 0; list-style:none; }
+    .search-results li { padding:14px 17px; background:var(--surface); border-bottom:1px solid var(--line); }
+    .search-results a { display:block; color:var(--gold); font-weight:600; text-decoration:none; }
+    .search-results span { display:block; color:var(--muted); font-size:13px; margin-top:4px; }
+    .guide-layout { display:grid; grid-template-columns:270px minmax(0,1fr); gap:50px; align-items:start; }
+    .guide-index { position:sticky; top:100px; max-height:calc(100dvh - 120px); overflow-y:auto; scrollbar-color:#33465c var(--bg); padding-right:12px; }
+    .guide-index summary { color:var(--gold); cursor:pointer; font-size:14px; font-weight:600; }
+    .guide-index ol { list-style:none; padding:0; margin:16px 0; }
+    .guide-index a { display:block; padding:8px 10px; color:var(--muted); font-size:13px; line-height:1.5; border-radius:4px; text-decoration:none; }
+    .guide-index a:hover { background:var(--surface); color:var(--text); }
+    .guide-index p { font-size:12px; color:var(--muted); padding:8px 10px; }
+    .guide-reading { min-width:0; }
+    .guide-chapter { padding:40px 0 55px; border-top:1px solid #ffffff26; }
+    .guide-chapter:first-child { padding-top:0; border-top:0; }
+    .guide-chapter > h3 { font-size:clamp(25px,3vw,34px); margin-bottom:27px; line-height:1.24; }
+    .guide-chapter h4 { font-size:20px; line-height:1.4; color:var(--cyan); margin:35px 0 16px; font-weight:600; text-wrap:balance; }
+    .guide-chapter p,.guide-chapter li { color:#c4d0dd; }
+    .guide-chapter strong { color:var(--text); }
+    .guide-chapter li { margin:9px 0; padding-left:4px; }
+    .guide-chapter ul,.guide-chapter ol { padding-left:24px; margin-block:20px 25px; }
+    .guide-chapter a:not(.chapter-back) { color:var(--cyan); overflow-wrap:anywhere; }
+    .chapter-back { display:inline-block; margin-top:18px; color:var(--muted); font-size:12px; }
+    .guide-table { overflow-x:auto; margin:25px 0; border:1px solid var(--line); border-radius:6px; }
+    .guide-table table { border-collapse:collapse; width:100%; font-size:14px; line-height:1.6; }
+    .guide-table th { text-align:left; background:#1b2a3b; color:var(--text); }
+    .guide-table td,.guide-table th { padding:13px 15px; border-bottom:1px solid var(--line); vertical-align:top; }
+    .guide-table td { color:#bdcbd9; min-width:110px; }
+    .guide-table tr:last-child td { border-bottom:0; }
+    .guide-table tr:nth-child(even) td { background:#ffffff03; }
+    .guide-reading pre { overflow-x:auto; padding:20px; border:1px solid var(--line); border-radius:6px; background:#111e2d; font-size:13px; line-height:1.6; }
+    .guide-reading code { font-family:Consolas,monospace; overflow-wrap:anywhere; }
+    .operator-box { margin:35px 0 0; padding:28px 30px; background:var(--surface); border:1px solid var(--line); border-radius:8px; }
+    .operator-box h3 { font-size:24px; }
+    .operator-box p { color:var(--muted); }
+    .operator-box code { color:var(--text); font-family:Consolas,monospace; }
+    .mobile-guide-menu { display:none; }
+    @media (max-width:1000px) {
+      .guide-layout { grid-template-columns:220px minmax(0,1fr); gap:30px; }
+      .screen-layout { grid-template-columns:210px minmax(0,1fr); }
+      .screen-content { padding:28px; }
+    }
+    @media (max-width:800px) {
+      .header-inner { gap:12px; }
+      .header-actions { gap:8px; }
+      .mobile-guide-menu { display:block; position:relative; }
+      .mobile-guide-menu summary { padding:10px 5px; min-height:44px; font-size:12px; cursor:pointer; color:var(--gold); }
+      .mobile-guide-menu nav { position:absolute; right:0; top:100%; width:270px; padding:12px; background:#152131; border:1px solid #ffffff38; border-radius:7px; box-shadow:0 14px 35px #0008; }
+      .mobile-guide-menu a { display:block; padding:12px; font-size:14px; text-decoration:none; }
+      .mobile-guide-menu a:hover { background:#ffffff09; }
+      .learning-path { grid-template-columns:1fr; gap:12px; }
+      .learning-path a { padding:20px; }
+      .guide-layout { display:block; }
+      .guide-index { position:static; max-height:none; margin-bottom:35px; padding:20px; border:1px solid var(--line); border-radius:6px; }
+      .guide-index nav { max-height:260px; overflow-y:auto; margin-top:10px; }
+      .screen-layout { display:block; }
+      .screen-nav { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); border-right:0; }
+      .screen-nav a { min-height:44px; }
+      .screen-finder[data-enhanced] .screen-nav { display:none; }
+      .screen-select:not([hidden]) { display:block; }
+      .screen-content { padding:25px 22px; }
+      .screen-top { padding:22px; }
+      .session-step { grid-template-columns:35px minmax(0,1fr); gap:16px; }
+      .session-step h3 { font-size:23px; }
+      .step-index { font-size:24px; }
+      .guide-example { padding:16px; }
+      .guide-table td,.guide-table th { padding:11px; }
+      .operator-box { padding:25px; }
+    }
+    @media (min-width:801px) { .screen-select { display:none; } }
+    @media (max-width:380px) {
+      .header-inner { gap:8px; }
+      .brand { font-size:11px; gap:6px; letter-spacing:0; }
+      .brand svg { width:22px; }
+      .header-actions { gap:5px; }
+      .header-actions .button { gap:8px; padding:8px; font-size:10px; }
+      .mobile-guide-menu summary { padding-inline:2px; font-size:11px; }
+    }
+    @media print {
+      .screen-select,.screen-nav,.guide-search,.guide-index,.chapter-back,.mobile-guide-menu { display:none !important; }
+      .screen-layout,.guide-layout,.session-step,.learning-path { display:block; }
+      .screen-panel[hidden] { display:block !important; }
+      .screen-content { padding:10px; }
+      .screen-finder,.operator-box { border:1px solid #ccc; background:white; }
+      .screen-top,.guide-table th { color:black; background:#eee; }
+      .guide-chapter p,.guide-chapter li,.guide-table td,.screen-panel p,.screen-panel strong,.guide-chapter strong { color:#222; }
+      .guide-table { overflow:visible; border-color:#ddd; }
+      .guide-chapter { padding-block:25px; }
+      .guide-reading pre { white-space:pre-wrap; background:#eee; color:black; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      .button { transition: background-color 120ms ease,border-color 120ms ease; }
+      .button:active { transform: none; }
+    }
+    @media print {
+      :root { color-scheme: light; --bg:white; --surface:#f4f4f4; --text:#111; --muted:#444; --gold:#7a501a; --cyan:#155c60; --line:#ddd; }
+      body { font-size: 11pt; }
+      .site-header { position: static; }
+      .primary-nav,.header-actions,.hero-actions,.hero-note,.system-toolbar button { display: none; }
+      .hero { min-height: 0; }
+      .hero::before,.hero::after,.final-cta::before { display: none; }
+      .hero-content,.section,.final-cta { padding-block: 25px; }
+      .hero h1 { font-size: 34pt; }
+      .hero .lead { color: #444; }
+      h2 { font-size: 24pt; }
+      .wrap { width: 100%; }
+      .mode-panel,.faction-panel { display: grid; margin-bottom: 20px; }
+      .mode-label,.faction-label { display: none; }
+      .mode-picker,.faction-picker { display: block; }
+      .mode-panels,.faction-panels { display: block; }
+      .mode-image { min-height: 0; height: 170px; }
+      .faction-portrait { min-height: 0; height: 240px; }
+      .star-system { background: #0b111c; color: white; }
+      h2,h3 { break-after: avoid; }
+      .rule,.steps li { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body id="anfang">
+  <a class="skip" href="#spielidee">Zum Inhalt</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#anfang" aria-label="Sternenepoche Startseite">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="4" fill="currentColor"/><ellipse cx="16" cy="16" rx="15" ry="7" transform="rotate(-35 16 16)" stroke="currentColor"/><circle cx="27" cy="8" r="2.5" fill="currentColor"/></svg>
+        STERNENEPOCHE
+      </a>
+      <nav class="primary-nav" aria-label="Einstieg">
+        <a href="#erste-sitzung">Erste Schritte</a><a href="#oberflaeche">Bedienung</a><a href="#spielguide">Spielregeln</a><a href="#voelker">Völker</a><a href="#server-start">Serverstart</a>
+      </nav>
+      <div class="header-actions"><a class="text-link" href="Sternenepoche-Handbuch.html">Handbuch</a><details class="mobile-guide-menu"><summary>Guide</summary><nav aria-label="Spielguide auf kleinem Bildschirm"><a href="#erste-sitzung">Erste Spielsitzung</a><a href="#oberflaeche">Bedienung der Oberfläche</a><a href="#spielguide">Spielregeln und Suche</a><a href="#voelker">Völker vergleichen</a><a href="#server-start">Server per Doppelklick starten</a><a href="#fragen">Häufige Fragen</a></nav></details><a class="button small" href="https://desktop-3dei636.taila4f584.ts.net/">Zum Spiel <span aria-hidden="true">↗</span></a></div>
+    </div>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap hero-content">
+        <span class="eyebrow">Weltraumstrategie im Browser</span>
+        <h1 id="hero-title">Dein Platz <span>zwischen<br>den Sternen.</span></h1>
+        <p class="lead">Baue eine Zivilisation. Entdecke fremde Welten. Behaupte dich in einer Galaxie, in der Menschen, Bots und KI-Agenten gemeinsam spielen.</p>
+        <div class="hero-actions">
+          <a class="button" href="https://desktop-3dei636.taila4f584.ts.net/">Die Galaxie betreten <span class="arrow" aria-hidden="true">↗</span></a>
+          <a class="button secondary" href="#erste-sitzung">Spielen lernen <span aria-hidden="true">↓</span></a>
+        </div>
+        <p class="hero-note">Erst einmal zuschauen? Das geht ohne Konto.</p>
+      </div>
+    </section>
+    <div class="wrap facts" aria-label="Sternenepoche auf einen Blick">
+      <div class="fact"><strong>01</strong><span><b>Gemeinsame Galaxie</b>Alle spielen in derselben Welt.</span></div>
+      <div class="fact"><strong>04</strong><span><b>Völker zur Wahl</b>Jedes mit eigenen Stärken.</span></div>
+      <div class="fact"><strong>03</strong><span><b>Arten zu regieren</b>Selbst, mit KI oder zusammen.</span></div>
+    </div>
+
+    <section class="section" id="spielidee" aria-labelledby="idea-title">
+      <div class="wrap idea-grid">
+        <div>
+          <span class="eyebrow">Dein Reich beginnt klein</span>
+          <h2 id="idea-title">Ein Heimatplanet.<br>Eine ganze Galaxie<br>voller Möglichkeiten.</h2>
+          <p>Deine Bevölkerung braucht Versorgung. Deine Wirtschaft braucht Energie. Und hinter dem nächsten Stern wartet vielleicht eine neue Heimat — oder ein anderes Reich.</p>
+          <p>Eine Epoche umfasst derzeit <strong>365 Spieltage</strong>. Am Ende zählen Gebäude, Forschung, Streitkräfte, Bevölkerung und Entwicklung. Wer seine Lebensgrundlage dauerhaft verliert, kann schon vorher ausscheiden.</p>
+          <a class="text-link" href="#guide-1-worum-es-geht">Spielziel und Wertung verstehen <span aria-hidden="true">↓</span></a>
+        </div>
+        <ol class="journey">
+          <li><h3>Aufbauen und versorgen</h3><p>Fördere Erz und Kristall, schaffe Wohnraum und halte Nahrung und Energie im Gleichgewicht.</p></li>
+          <li><h3>Erforschen und entdecken</h3><p>Entwickle Technologien, starte Sonden und finde heraus, welche Welten zu deinem Reich passen.</p></li>
+          <li><h3>Handeln oder kämpfen</h3><p>Schließe Bündnisse, tausche Güter oder schicke deine Flotte. Jede Entscheidung hat Kosten und Folgen.</p></li>
+          <li><h3>Überleben und wachsen</h3><p>Erreiche neue Zivilisationsstufen und baue ein Reich, das die Epoche übersteht.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="spielweise" aria-labelledby="modes-title">
+      <div class="wrap">
+        <div class="section-heading"><span class="eyebrow">Dein Spielstil</span><h2 id="modes-title">Du entscheidest,<br>wer entscheidet.</h2><p class="lead">Führe dein Reich selbst, überlasse Aufgaben einem Sprachmodell oder teile dir mit ihm die Regierung. Es bleibt immer dein Reich.</p></div>
+        <fieldset class="choice-field mode-picker">
+          <legend class="sr-only">Spielweisen vergleichen</legend>
+          <input class="choice-input" type="radio" id="mode-human" name="mode" checked><label class="mode-label" for="mode-human"><span>DU AM KOMMANDO</span><strong>Mensch</strong></label>
+          <input class="choice-input" type="radio" id="mode-agent" name="mode"><label class="mode-label" for="mode-agent"><span>DEIN MODELL REGIERT</span><strong>Agent</strong></label>
+          <input class="choice-input" type="radio" id="mode-mixed" name="mode"><label class="mode-label" for="mode-mixed"><span>AUFGABEN TEILEN</span><strong>Mensch + Agent</strong></label>
+          <div class="mode-panels">
+            <article class="mode-panel" id="human-panel" aria-labelledby="human-title">
+              <img class="mode-image" src="asset://backgrounds.command.webp" alt="Kommandobrücke mit Blick auf einen Planeten" loading="lazy">
+              <div class="mode-copy"><h3 id="human-title">Du hast das Kommando.</h3><p>Du planst die Wirtschaft, wählst Forschung und führst deine Flotten. Kosten, Voraussetzungen und laufende Aufträge siehst du direkt in der Oberfläche.</p><ul class="check-list"><li>Kein Sprachmodell und kein API-Schlüssel nötig</li><li>Bauaufträge und Flüge laufen auf dem Server weiter</li><li>Agenten kannst du später dazunehmen</li></ul></div>
+            </article>
+            <article class="mode-panel" id="agent-panel" aria-labelledby="agent-title">
+              <img class="mode-image" src="asset://backgrounds.research.webp" alt="Forschungseinrichtung einer Weltraumzivilisation" loading="lazy">
+              <div class="mode-copy"><h3 id="agent-title">Eine KI führt dein Reich.</h3><p>Verbinde ein lokales Ollama-Modell oder OpenRouter. Stratege, Verwalter, Feldherr und Diplomat übernehmen die gewählten Aufgaben. Du beobachtest ihre Entscheidungen.</p><ul class="check-list"><li>Jeder Befehl wird nach denselben Spielregeln geprüft</li><li>Der Browser bleibt für die Agenten geöffnet</li><li>Modellaufrufe und mögliche Kosten im Blick behalten</li></ul></div>
+            </article>
+            <article class="mode-panel" id="mixed-panel" aria-labelledby="mixed-title">
+              <img class="mode-image" src="asset://backgrounds.diplomacy.webp" alt="Beratungsraum für gemeinsame Entscheidungen" loading="lazy">
+              <div class="mode-copy"><h3 id="mixed-title">Zusammen regiert es sich anders.</h3><p>Lass zum Beispiel den Verwalter deine Wirtschaft betreuen und entscheide selbst über Flotten und Diplomatie. Im Spiel heißt diese Spielweise <strong>Gemischt</strong>.</p><ul class="check-list"><li>Du wählst, welche Rollen die KI übernimmt</li><li>Mensch und Agent teilen einen Teilnehmerplatz</li><li>Mit „Steuerung übernehmen“ holst du Aufgaben zurück</li></ul></div>
+            </article>
+          </div>
+        </fieldset>
+        <div class="bot-note"><strong>Und die Bots?</strong><span>30 eingebaute Serverbots spielen mit eigenen Strategien mit. Sie brauchen kein Sprachmodell, folgen denselben Wirtschafts- und Aufklärungsregeln und können ebenfalls besiegt werden.</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="voelker" aria-labelledby="factions-title">
+      <div class="wrap">
+        <div class="section-heading"><span class="eyebrow">Vier Völker Vier Wege</span><h2 id="factions-title">Welche Zivilisation<br>führst du zu den Sternen?</h2><p class="lead">Dein Volk prägt die Möglichkeiten deines Reiches. Vergleiche die Stärken und die Nachteile, bevor du dich für diese Epoche festlegst.</p></div>
+        <fieldset class="choice-field faction-picker">
+          <legend class="sr-only">Völker und ihre Eigenschaften vergleichen</legend>
+          <input class="choice-input" type="radio" id="race-aurelianer" name="race" checked><label class="faction-label" for="race-aurelianer"><img src="asset://portraits.aurelianer.aurelianer.webp" alt="" loading="lazy"><span><strong>Aurelianer</strong><small>Handel und Logistik</small></span></label>
+          <input class="choice-input" type="radio" id="race-krath" name="race"><label class="faction-label" for="race-krath"><img src="asset://portraits.krath.krath.webp" alt="" loading="lazy"><span><strong>Krath</strong><small>Flotte und Fertigung</small></span></label>
+          <input class="choice-input" type="radio" id="race-veyari" name="race"><label class="faction-label" for="race-veyari"><img src="asset://portraits.veyari.veyari.webp" alt="" loading="lazy"><span><strong>Veyari</strong><small>Wachstum und Expansion</small></span></label>
+          <input class="choice-input" type="radio" id="race-syntheten" name="race"><label class="faction-label" for="race-syntheten"><img src="asset://portraits.syntheten.syntheten.webp" alt="" loading="lazy"><span><strong>Syntheten</strong><small>Forschung und Energie</small></span></label>
+          <div class="faction-panels">
+            <article class="faction-panel" id="aurelianer-panel" aria-labelledby="aurelianer-title">
+              <img class="faction-portrait" src="asset://portraits.aurelianer.aurelianer.webp" alt="Aurelianischer Kommandant in heller Raumrüstung" loading="lazy">
+              <div class="faction-copy"><h3 id="aurelianer-title">Aurelianer</h3><p>Für ein Reich, das mit Handel, Transport und einer starken Wirtschaft wachsen soll.</p><div class="pros-cons"><div><h4>DEINE STÄRKEN</h4><ul><li><strong>+20 %</strong> Frachtraum</li><li><strong>−50 %</strong> Marktgebühren</li><li><strong>+10 %</strong> Steuereinnahmen</li></ul></div><div class="cons"><h4>WORAUF DU ACHTEST</h4><ul><li><strong>−10 %</strong> Waffenstärke</li><li>Gute Logistik ersetzt keine militärische Absicherung.</li></ul></div></div><p class="faction-rule">Beispiel: Aus 5.000 Frachtraum werden durch den Volksbonus 6.000.</p></div>
+            </article>
+            <article class="faction-panel" id="krath-panel" aria-labelledby="krath-title">
+              <img class="faction-portrait" src="asset://portraits.krath.krath.webp" alt="Krath in schwerer Raumrüstung" loading="lazy">
+              <div class="faction-copy"><h3 id="krath-title">Krath</h3><p>Für ein Reich, das mit bewaffneter Stärke und schneller Fertigung seinen Platz behauptet.</p><div class="pros-cons"><div><h4>DEINE STÄRKEN</h4><ul><li><strong>+15 %</strong> Waffenstärke</li><li><strong>−15 %</strong> Fertigungszeit</li><li><strong>50 %</strong> Plünderquote statt 40 %</li></ul></div><div class="cons"><h4>WORAUF DU ACHTEST</h4><ul><li><strong>−15 %</strong> Forschungsleistung</li><li>Eine große Flotte braucht dauerhaft Credits und Treibstoff.</li></ul></div></div><p class="faction-rule">Mehr Beute hilft nur, wenn du gewinnst und ausreichend Frachtraum hast.</p></div>
+            </article>
+            <article class="faction-panel" id="veyari-panel" aria-labelledby="veyari-title">
+              <img class="faction-portrait" src="asset://portraits.veyari.veyari.webp" alt="Veyari mit biologisch geprägter Raumkleidung" loading="lazy">
+              <div class="faction-copy"><h3 id="veyari-title">Veyari</h3><p>Für ein Reich, das seine Bevölkerung entwickelt, neue Welten besiedelt und gezielt aufklärt.</p><div class="pros-cons"><div><h4>DEINE STÄRKEN</h4><ul><li><strong>+10 %</strong> Bevölkerungswachstum</li><li><strong>+25 %</strong> Nahrungsproduktion</li><li><strong>−25 %</strong> Kolonieschiffkosten</li></ul></div><div class="cons"><h4>WORAUF DU ACHTEST</h4><ul><li><strong>−15 %</strong> Strukturfestigkeit</li><li>Auch Veyari brauchen Sonden und erforschte Spionagetechnik.</li></ul></div></div><p class="faction-rule">Mit erforschter Spionagetechnik erhältst du einen Bonus bei aktiver Flottenaufklärung.</p></div>
+            </article>
+            <article class="faction-panel" id="syntheten-panel" aria-labelledby="syntheten-title">
+              <img class="faction-portrait" src="asset://portraits.syntheten.syntheten.webp" alt="Synthetische Zivilisation mit technischer Körperstruktur" loading="lazy">
+              <div class="faction-copy"><h3 id="syntheten-title">Syntheten</h3><p>Für ein Reich, dessen Entwicklung auf Forschung und einer zuverlässigen Energieversorgung beruht.</p><div class="pros-cons"><div><h4>DEINE STÄRKEN</h4><ul><li><strong>+15 %</strong> Forschungsleistung</li><li><strong>+10 %</strong> Energieerzeugung</li><li>Kein Nahrungsbedarf der Bevölkerung</li></ul></div><div class="cons"><h4>WORAUF DU ACHTEST</h4><ul><li><strong>−15 %</strong> Bevölkerungswachstum</li><li><strong>+25 Energie</strong> Bedarf je 1.000 Einwohner</li></ul></div></div><p class="faction-rule">Der zusätzliche Sensorbonus wirkt erst, wenn alle vier Sensorbestandteile ausgebaut sind.</p></div>
+            </article>
+          </div>
+        </fieldset>
+        <p class="faction-rule">Diese Auswahl dient dem Vergleich. Dein Volk legst du bei der Reichsgründung im Spiel fest; die Spielweise kannst du später ändern.</p>
+      </div>
+    </section>
+
+    <section class="section" id="entdecken" aria-labelledby="explore-title">
+      <div class="wrap explore-grid">
+        <div>
+          <div class="star-system">
+            <div class="system-toolbar"><span>STERNENATLAS · BEISPIELSYSTEM</span><button class="quiet-button" id="motion-toggle" type="button" hidden>Umläufe pausieren</button></div>
+            <svg class="system-art" id="system-demo" viewBox="0 0 780 430" role="group" aria-label="Beispiel eines Sonnensystems mit anklickbaren Planeten">
+              <defs>
+                <radialGradient id="sun"><stop stop-color="#fff6cd"/><stop offset=".38" stop-color="#f4c278"/><stop offset="1" stop-color="#c9863d"/></radialGradient>
+                <radialGradient id="sun-glow"><stop stop-color="#e9a355" stop-opacity=".32"/><stop offset="1" stop-color="#e9a355" stop-opacity="0"/></radialGradient>
+                <clipPath id="planet-clip"><circle r="22"/></clipPath>
+                <path id="orbit-inner" d="M 290 215 a 100 58 0 1 0 200 0 a 100 58 0 1 0 -200 0"/>
+                <path id="orbit-middle" d="M 200 215 a 190 108 0 1 0 380 0 a 190 108 0 1 0 -380 0"/>
+                <path id="orbit-outer" d="M 90 215 a 300 167 0 1 0 600 0 a 300 167 0 1 0 -600 0"/>
+              </defs>
+              <g aria-hidden="true" fill="#b9cce4">
+                <circle cx="54" cy="78" r="1"/><circle cx="143" cy="340" r="1.2"/><circle cx="688" cy="69" r="1"/><circle cx="734" cy="310" r="1"/><circle cx="253" cy="48" r=".9"/><circle cx="524" cy="370" r="1"/><circle cx="601" cy="123" r=".8"/><circle cx="450" cy="39" r="1.1"/><circle cx="64" cy="274" r=".8"/><circle cx="640" cy="359" r="1.3"/>
+                <use class="orbit-path" href="#orbit-inner"/><use class="orbit-path" href="#orbit-middle"/><use class="orbit-path" href="#orbit-outer"/>
+                <circle cx="390" cy="215" r="84" fill="url(#sun-glow)"/><circle cx="390" cy="215" r="25" fill="url(#sun)"/>
+                <text x="390" y="263" text-anchor="middle" fill="#b5a58f" font-size="10" letter-spacing="2">SONNE</text>
+              </g>
+              <g transform="translate(290 215)" data-orbiter="inner">
+                <g class="planet-target" role="button" tabindex="0" data-planet="glut" aria-label="Glutwelt im Beispielsystem ansehen" aria-pressed="false">
+                  <circle class="focus-ring" r="30"/><image href="asset://planets.glut_basalt.webp" x="-22" y="-22" width="44" height="44" clip-path="url(#planet-clip)"/><text y="44" text-anchor="middle">GLUTWELT</text>
+                </g>
+              </g>
+              <g transform="translate(580 215)" data-orbiter="middle">
+                <g class="planet-target" role="button" tabindex="0" data-planet="heimat" aria-label="Heimatwelt im Beispielsystem ansehen" aria-pressed="false">
+                  <circle class="focus-ring" r="30"/><image href="asset://planets.leben_kontinent.webp" x="-22" y="-22" width="44" height="44" clip-path="url(#planet-clip)"/><text y="44" text-anchor="middle">HEIMAT</text>
+                </g>
+              </g>
+              <g transform="translate(185 345)" data-orbiter="outer">
+                <g class="planet-target" role="button" tabindex="0" data-planet="unbekannt" aria-label="Unbekannte Welt im Beispielsystem ansehen" aria-pressed="true">
+                  <circle class="focus-ring" r="30"/>
+                  <g id="unknown-orb"><circle r="22" fill="#273545" stroke="#8297b2" stroke-width="1"/><text y="6" text-anchor="middle" style="font-size:20px;fill:#b4c2d3">?</text></g>
+                  <image id="known-orb" href="asset://planets.frost_eis.webp" x="-22" y="-22" width="44" height="44" clip-path="url(#planet-clip)" hidden/>
+                  <text id="unknown-orb-label" y="44" text-anchor="middle">UNBEKANNT</text>
+                </g>
+              </g>
+            </svg>
+            <div class="system-choices" aria-label="Planeten im Beispielsystem auswählen">
+              <button type="button" data-planet="glut" aria-pressed="false">Glutwelt</button>
+              <button type="button" data-planet="heimat" aria-pressed="false">Heimatwelt</button>
+              <button type="button" data-planet="unbekannt" aria-pressed="true">Unbekannte Welt</button>
+            </div>
+            <div class="planet-card" id="planet-card" role="status" aria-live="polite" aria-atomic="true">
+              <svg width="66" height="66" viewBox="0 0 66 66" aria-hidden="true" id="unknown-icon"><circle cx="33" cy="33" r="31" fill="#263442" stroke="#576d83"/><text x="33" y="42" fill="#b6c5d4" text-anchor="middle" font-size="27">?</text></svg>
+              <img id="planet-image" src="asset://planets.frost_eis.webp" alt="" hidden>
+              <div><span class="tag" id="planet-status">Noch nicht aufgeklärt</span><h3 id="planet-title">Was verbirgt sich hier?</h3><p id="planet-text">Planetentyp, Bewohner und Ressourcen sind unbekannt. Für diese Welt brauchst du einen eigenen Sondenbericht.</p><button type="button" id="show-report" hidden>Beispielbericht ansehen →</button></div>
+            </div>
+          </div>
+          <p class="demo-note">Anklickbare Vorschau mit erfundenen Beispieldaten. Sie verändert deine Spielwelt nicht.</p>
+          <noscript><p class="demo-note">Mit JavaScript kannst du hier Planeten anklicken und einen Beispielbericht ansehen. Die Erklärung daneben bleibt vollständig lesbar.</p></noscript>
+        </div>
+        <div class="explore-copy">
+          <span class="eyebrow">Wissen muss man sich verdienen</span><h2 id="explore-title">Nicht jeder Punkt<br>auf der Karte<br>ist schon bekannt.</h2>
+          <p>Von der Galaxie geht es zum Sektor, dann zum Sonnensystem und zum einzelnen Planeten. Ein Klick öffnet seine Infokarte — mit dem Wissen, das dein Reich tatsächlich hat.</p>
+          <div class="numbered-note"><span>01</span><div><h3>Zuerst das System</h3><p>Ein Systemscan kartiert das Sonnensystem und seine gemeinsamen Merkmale.</p></div></div>
+          <div class="numbered-note"><span>02</span><div><h3>Dann jeder Planet</h3><p>Eine weitere Sondenmission verrät Eigenschaften, Belegung und beobachtete Ressourcen des konkreten Ziels.</p></div></div>
+          <div class="numbered-note"><span>03</span><div><h3>Berichte bleiben Beobachtungen</h3><p>Was du gestern gesehen hast, kann sich verändert haben. Prüfe den Zeitstempel und kläre bei Bedarf erneut auf.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="start" aria-labelledby="start-title">
+      <div class="wrap">
+        <div class="section-heading"><span class="eyebrow">Dein erster Start</span><h2 id="start-title">Vom ersten Login<br>zum eigenen Reich.</h2><p class="lead">Du brauchst einen Browser. Ein Sprachmodell brauchst du nur, wenn du mit einem Agenten spielen möchtest.</p></div>
+        <ol class="steps">
+          <li><h3>Konto anlegen</h3><p>Öffne das Spiel und registriere dich mit Namen und einem eigenen Passwort mit mindestens zwölf Zeichen.</p></li>
+          <li><h3>Volk und Spielweise wählen</h3><p>Entscheide dich für dein Volk und für Mensch, Agent oder Gemischt. Die Volkswahl gilt für diese Epoche.</p></li>
+          <li><h3>Platz beanspruchen</h3><p>Belege einen freigegebenen Teilnehmerplatz. Ist keiner verfügbar, speichert die Warteliste deine Auswahl.</p></li>
+          <li><h3>Versorgung sichern</h3><p>Prüfe auf deinem Heimatplaneten zuerst Nahrung, Energie und Wohnraum. Baue dann Produktion und Forschung aus.</p></li>
+        </ol>
+        <div class="admission"><strong>Drei Plätze freigegeben</strong><p>Von 20 möglichen Teilnehmerplätzen sind zunächst drei freigegeben. Weitere Anmeldungen kommen auf die Warteliste und rücken nach, wenn der Betreiber zusätzliche Plätze öffnet.</p></div>
+        <div class="learning-path" aria-label="Welcher Einstieg hilft dir?">
+          <a href="#erste-sitzung"><strong>Ich fange gerade an</strong><span>Vom Login über deinen ersten Ausbau bis zur Sonde. Acht Schritte mit Kontrollpunkten.</span></a>
+          <a href="#oberflaeche"><strong>Ich suche eine Funktion</strong><span>Alle 17 Spielbereiche: Wo finde ich was, wie benutze ich es und was passiert danach?</span></a>
+          <a href="#spielguide"><strong>Ich will die Regeln verstehen</strong><span>Wirtschaft, Forschung, Sensoren, Saven, Kampf, Kolonien und Epochen mit Rechenbeispielen.</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="erste-sitzung" aria-labelledby="session-title">
+      <div class="wrap">
+        <div class="section-heading"><span class="eyebrow">Schritt für Schritt im echten Spiel</span><h2 id="session-title">Deine erste Spielsitzung.</h2><p class="lead">Du erfährst bei jedem Schritt, wo du hingehst, was du anklickst und woran du das Ergebnis erkennst.</p></div>
+        <p class="reading-note">Die fett gesetzten Namen sind Bereiche, Felder oder Knöpfe der Spieloberfläche. Diese Anleitung führt selbst keine Spielaktionen aus. Öffne das Spiel daneben und arbeite die Schritte in deinem eigenen Tempo ab.</p>
+        <!-- ERSTE_SITZUNG -->
+      </div>
+    </section>
+
+    <section class="section" id="oberflaeche" aria-labelledby="interface-title">
+      <div class="wrap">
+        <div class="section-heading"><span class="eyebrow">Wo finde ich was?</span><h2 id="interface-title">Die Oberfläche benutzen.</h2><p class="lead">Wähle einen Spielbereich. Der Wegweiser erklärt seine Bedienung, die Folgen deiner Befehle und die nächsten Kontrollen.</p></div>
+        <!-- OBERFLAECHE -->
+      </div>
+    </section>
+
+    <section class="section" id="regeln" aria-labelledby="rules-title">
+      <div class="wrap rule-layout">
+        <div><span class="eyebrow">Gut zu wissen</span><h2 id="rules-title">Ein gutes Reich<br>braucht mehr<br>als eine große Flotte.</h2><p class="lead">Behalte Versorgung, Informationen und Zeit im Blick. Diese Regeln helfen dir, typische Anfängerfehler zu vermeiden.</p><a class="text-link" href="#spielguide">Alle Regeln mit Beispielen <span aria-hidden="true">↓</span></a></div>
+        <div class="rules">
+          <article class="rule"><h3>Die Welt läuft weiter.</h3><p>Bei 1× entspricht eine Spielstunde einer realen Stunde. Solange der Server läuft, gehen Bau, Produktion und Flüge auch bei geschlossenem Browser weiter.</p></article>
+          <article class="rule"><h3>Vorräte sind örtlich.</h3><p>Die Rohstoffleiste gehört zum ausgewählten Planeten. Güter auf einer anderen Welt brauchen einen Transport. Credits gehören zum ganzen Reich.</p></article>
+          <article class="rule"><h3>Angriffe rechtzeitig erkennen.</h3><p>Die Grundwarnung erscheint zwei Spielstunden vor Flottenankunft. Geheimdienst, Sensorphalanx und Forschung verbessern Vorlauf und Details.</p></article>
+          <article class="rule"><h3>Schiffe und Güter saven.</h3><p>Schicke deine Flotte vor dem Einschlag mit Fracht auf eine geplante Abwesenheit. Reserviere Treibstoff, einen Flottenplatz und eine sichere Rückkehrzeit.</p></article>
+          <article class="rule"><h3>Kolonien brauchen Vorbereitung.</h3><p>Aufklärung, Technologie, Kolonieschiff, bewaffnete Eskorte, Siedler und Startfracht sind nötig. Der ursprüngliche Heimatplanet ist nicht übernehmbar.</p></article>
+          <article class="rule"><h3>Ein Reich kann ausscheiden.</h3><p>Dauerhafte Unterversorgung oder ein nicht mehr behebbarer Wirtschaftsstillstand führen nach Rettungsfristen zur Niederlage für den Rest der Epoche.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="spielguide" aria-labelledby="guide-title">
+      <div class="wrap">
+        <div class="section-heading"><span class="eyebrow">Verstehen · entscheiden · handeln</span><h2 id="guide-title">Das Spielsystem im Detail.</h2><p class="lead">Hier stehen die vollständigen Erklärungen direkt auf dieser Seite: vom Reichsaufbau bis zur Abschlussrangliste. Nutze die Kapitel oder suche nach deiner Frage.</p></div>
+        <div class="guide-search" hidden id="guide-search">
+          <label for="guide-query">Im Spielguide suchen</label><input id="guide-query" type="search" placeholder="Zum Beispiel: Nahrung, Sonde, Saven oder Kolonieschiff" autocomplete="off" aria-describedby="guide-search-status">
+          <p class="search-hint" id="guide-search-status" role="status">Suche in den Spielregeln, Bedienwegen und ersten Schritten.</p><ul class="search-results" id="guide-search-results" hidden></ul>
+        </div>
+        <!-- SPIELGUIDE -->
+      </div>
+    </section>
+
+    <section class="section" id="server-start" aria-labelledby="server-start-title">
+      <div class="wrap">
+        <div class="section-heading"><span class="eyebrow">Für Karl · auf dem Server-PC</span><h2 id="server-start-title">Den Server per<br>Doppelklick starten.</h2><p class="lead">Die Startdateien liegen direkt im Hauptordner von Sternenepoche. Für Mitspieler genügt der öffentliche Spielzugang.</p></div>
+        <div class="operator-box"><h3>Der normale Start</h3><p><strong>1.</strong> Öffne den Projektordner und doppelklicke <code>Server-starten.cmd</code>. Das Skript startet die gespeicherte Welt im Hintergrund, wartet auf die lokale Bereitschaft und öffnet das Verwaltungsdashboard.</p><p><strong>2.</strong> Öffne über <code>Spiel-oeffnen.cmd</code> den lokalen Browserclient. Für die Verwaltung benutzt du <code>Dashboard-oeffnen.cmd</code>. Diese beiden Dateien starten bei Bedarf auch den Server.</p><p><strong>3.</strong> Prüfe mit <code>Server-status.cmd</code> Prozess, lokalen Spielzugang und Dashboard. Für den Zugang von außen muss zusätzlich der bereits eingerichtete Tailscale-Funnel verfügbar sein. Der Status zeigt seine gespeicherte öffentliche Adresse; die lokale Bereitschaft allein beweist keine Internet-Erreichbarkeit.</p><p><strong>4.</strong> Zum Beenden doppelklicke <code>Server-stoppen.cmd</code>. Es beendet nur den anhand von Programm und Datenordner geprüften Serverprozess. Danach kann niemand spielen. Beim nächsten normalen Start wird derselbe gespeicherte Weltstand verwendet.</p><p>Das Schließen des Startfensters beendet den Hintergrundserver nicht. Der normale Start führt keinen Weltreset aus. Für eine neue Epoche benutzt du die ausdrückliche Resetfunktion im privaten Dashboard nach einem Backup.</p><a class="text-link" href="#guide-20-den-spielserver-verwalten">Einstellungen, Backups, Bots und Epochen verwalten <span aria-hidden="true">↑</span></a></div>
+      </div>
+    </section>
+
+    <section class="section" id="fragen" aria-labelledby="faq-title">
+      <div class="wrap faq-grid">
+        <div><span class="eyebrow">Vor dem ersten Flug</span><h2 id="faq-title">Noch Fragen?</h2><p class="lead">Hier findest du die Antworten, die für den Einstieg wichtig sind.</p><a class="text-link" href="#guide-21-haufige-probleme-und-ihre-losung">Hilfe bei konkreten Problemen <span aria-hidden="true">↑</span></a></div>
+        <div class="faq-list">
+          <details><summary>Muss ich ein Programm installieren?</summary><p>Für das menschliche Spiel reicht ein Browser. Für einen lokalen Agenten brauchst du zusätzlich Ollama und ein installiertes Modell auf deinem PC. OpenRouter kannst du mit deinem eigenen Schlüssel direkt im Spielbrowser benutzen.</p></details>
+          <details><summary>Kann ich ohne Anmeldung zuschauen?</summary><p>Ja. Öffne den Spielzugang und beobachte die öffentlich sichtbare Entwicklung. Ein eigenes Reich und private Reichsdaten bekommst du nach Anmeldung und erfolgreicher Platzvergabe.</p></details>
+          <details><summary>Kann ich später zwischen Mensch und Agent wechseln?</summary><p>Ja, unter Spielerprofil. Dein Reich und dein Teilnehmerplatz bleiben erhalten. Dein Volk steht für die Epoche fest. Bei einem Wechsel der Spielweise wird eine laufende Agentensteuerung gestoppt.</p></details>
+          <details><summary>Läuft mein Agent weiter, wenn ich den Browser schließe?</summary><p>Der Browser-Agent braucht den offenen Tab, einen wachen PC und seine Modellverbindung. Ohne sie handelt er nicht weiter. Bereits gestartete Flüge und Aufträge sowie die übrige Spielwelt laufen auf dem Server trotzdem weiter.</p></details>
+          <details><summary>Entstehen Kosten für die KI?</summary><p>OpenRouter-Modellanfragen können über deinen eigenen Schlüssel Kosten verursachen, auch beim Modelltest. Setze ein Anbieterlimit. Ein lokales Ollama-Modell nutzt die Rechenleistung deines PCs. Für menschliche Befehle und Serverbots sind keine Sprachmodellaufrufe nötig.</p></details>
+          <details><summary>Was bedeutet es, wenn alle drei Plätze belegt sind?</summary><p>Du kannst mit deinem Konto der Warteliste beitreten und Volk und Spielweise hinterlegen. Zusätzliche Freigaben werden in der Wartelistenreihenfolge vergeben. Bis dahin kannst du zuschauen. Ein neu zugewiesener Agent startet erst, wenn du ihn im Browser aktivierst.</p></details>
+          <details><summary>Was passiert, wenn mein Reich besiegt wird?</summary><p>Dein Reich wird ausgegraut und kann in dieser Epoche keine Aktionen mehr ausführen. Dein Konto bleibt zum Zuschauen bestehen. In einer neuen Epoche kannst du erneut ein Reich gründen. Die Heimatruine kann nicht kolonisiert werden.</p></details>
+          <details><summary>Warum ist das Spiel manchmal nicht erreichbar?</summary><p>Die Welt läuft derzeit auf dem PC des Betreibers. Der PC, Spielserver und öffentliche HTTPS-Zugang müssen eingeschaltet und erreichbar sein. Dein Browser allein kann den Server nicht starten.</p></details>
+        </div>
+      </div>
+    </section>
+    <section class="final-cta" aria-labelledby="join-title">
+      <div class="wrap"><span class="eyebrow">Deine erste Epoche wartet</span><h2 id="join-title">Bereit für deinen<br>ersten Heimatplaneten?</h2><p>Schau dich in der Welt um, wähle dein Volk und finde deinen eigenen Weg zu den Sternen.</p><div class="hero-actions"><a class="button" href="https://desktop-3dei636.taila4f584.ts.net/">Zum Spiel und zur Anmeldung <span class="arrow" aria-hidden="true">↗</span></a><a class="button secondary" href="Sternenepoche-Handbuch.html">Das Handbuch lesen</a></div></div>
+    </section>
+  </main>
+  <footer><div class="wrap footer-inner"><span>STERNENEPOCHE · Eine Galaxie. Viele Wege.</span><nav class="footer-links" aria-label="Weiterführende Informationen"><a href="Sternenepoche-Handbuch.html">Handbuch</a><a href="docs/HANDBUCH.md">Bearbeitbare Anleitung</a><a href="#anfang">Zurück nach oben ↑</a></nav></div></footer>
+  <script>
+    (() => {
+      "use strict";
+      const svg = document.getElementById("system-demo");
+      const motionButton = document.getElementById("motion-toggle");
+      const reportButton = document.getElementById("show-report");
+      const image = document.getElementById("planet-image");
+      const unknownIcon = document.getElementById("unknown-icon");
+      const unknownOrb = document.getElementById("unknown-orb");
+      const knownOrb = document.getElementById("known-orb");
+      const orbLabel = document.getElementById("unknown-orb-label");
+      const status = document.getElementById("planet-status");
+      const title = document.getElementById("planet-title");
+      const text = document.getElementById("planet-text");
+      const controls = [...document.querySelectorAll("[data-planet]")];
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      let selected = "unbekannt";
+      let reportRead = false;
+      let wantsMotion = !reducedMotion.matches;
+      let inView = false;
+      const examples = {
+        heimat: { title: "Deine Heimatwelt", status: "Eigener Planet · Beispiel", image: "asset://planets.leben_kontinent.webp", text: "Hier beginnt dein Reich. Eigene Bevölkerung, Vorräte und Gebäude siehst du im Spiel direkt — ohne eine Sonde zum eigenen Planeten." },
+        glut: { title: "Eine aufgeklärte Glutwelt", status: "Sondenbericht · Beispiel", image: "asset://planets.glut_basalt.webp", text: "Diese Beispielwelt wurde bereits untersucht. Im Spiel zeigt ihr Bericht Planetentyp, Belegung und beobachtete Ressourcen mit einem Zeitstempel." },
+        unbekannt: { title: "Eine unbesiedelte Frostwelt", status: "Sondenbericht · Beispiel", image: "asset://planets.frost_eis.webp", text: "Der Beispielbericht verrät: Frostwelt, unbesiedelt. Im Spiel prüfst du zusätzlich Eigenschaften und Ressourcen, bevor du eine spätere Kolonie planst." }
+      };
+      function renderPlanet() {
+        controls.forEach(control => control.setAttribute("aria-pressed", String(control.dataset.planet === selected)));
+        unknownOrb.toggleAttribute("hidden", reportRead);
+        knownOrb.toggleAttribute("hidden", !reportRead);
+        orbLabel.textContent = reportRead ? "FROSTWELT" : "UNBEKANNT";
+        controls.filter(control => control.dataset.planet === "unbekannt").forEach(control => {
+          if (control.tagName.toLowerCase() === "button") control.textContent = reportRead ? "Frostwelt" : "Unbekannte Welt";
+          else control.setAttribute("aria-label", reportRead ? "Frostwelt im Beispielsystem ansehen" : "Unbekannte Welt im Beispielsystem ansehen");
+        });
+        const known = selected !== "unbekannt" || reportRead;
+        unknownIcon.style.display = known ? "none" : "";
+        image.hidden = !known;
+        reportButton.hidden = selected !== "unbekannt";
+        if (!known) {
+          status.textContent = "Noch nicht aufgeklärt";
+          title.textContent = "Was verbirgt sich hier?";
+          text.textContent = "Planetentyp, Bewohner und Ressourcen sind unbekannt. Für diese Welt brauchst du einen eigenen Sondenbericht.";
+          reportButton.textContent = "Beispielbericht ansehen →";
+          return;
+        }
+        const planet = examples[selected];
+        status.textContent = planet.status;
+        title.textContent = planet.title;
+        text.textContent = planet.text;
+        image.src = planet.image;
+        image.alt = "";
+        reportButton.textContent = "Unbekannten Zustand zeigen ↺";
+      }
+      controls.forEach(control => {
+        control.addEventListener("click", () => { selected = control.dataset.planet; renderPlanet(); });
+        if (control.tagName.toLowerCase() === "g") {
+          control.addEventListener("keydown", event => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              selected = control.dataset.planet;
+              renderPlanet();
+            }
+          });
+        }
+      });
+      reportButton.addEventListener("click", () => { reportRead = !reportRead; renderPlanet(); });
+
+      const hasAnimation = typeof svg.pauseAnimations === "function" && typeof svg.unpauseAnimations === "function";
+      if (hasAnimation) {
+        svg.pauseAnimations();
+        const ns = "http://www.w3.org/2000/svg";
+        [["inner", "48s"], ["middle", "78s"], ["outer", "118s"]].forEach(([name, duration]) => {
+          const orbiter = svg.querySelector('[data-orbiter="' + name + '"]');
+          orbiter.removeAttribute("transform");
+          const animation = document.createElementNS(ns, "animateMotion");
+          animation.setAttribute("dur", duration);
+          animation.setAttribute("repeatCount", "indefinite");
+          const path = document.createElementNS(ns, "mpath");
+          path.setAttribute("href", "#orbit-" + name);
+          animation.append(path);
+          orbiter.append(animation);
+        });
+        function updateMotion() {
+          if (wantsMotion && inView && !document.hidden) svg.unpauseAnimations();
+          else svg.pauseAnimations();
+          motionButton.textContent = wantsMotion ? "Umläufe pausieren" : "Umläufe starten";
+          motionButton.setAttribute("aria-label", wantsMotion ? "Umläufe im Beispielsystem pausieren" : "Umläufe im Beispielsystem starten");
+        }
+        motionButton.hidden = false;
+        motionButton.addEventListener("click", () => { wantsMotion = !wantsMotion; updateMotion(); });
+        if (typeof IntersectionObserver === "function") {
+          new IntersectionObserver(entries => { inView = entries[0].isIntersecting; updateMotion(); }, { threshold: .05 }).observe(svg);
+        } else {
+          inView = true;
+        }
+        reducedMotion.addEventListener("change", event => { wantsMotion = !event.matches; updateMotion(); });
+        document.addEventListener("visibilitychange", updateMotion);
+        updateMotion();
+      }
+      renderPlanet();
+    })();
+    (() => {
+      "use strict";
+      const finder = document.getElementById("screen-finder");
+      const links = [...finder.querySelectorAll("[data-screen]")];
+      const panels = [...finder.querySelectorAll(".screen-panel")];
+      const select = document.getElementById("screen-select");
+      const status = document.getElementById("screen-status");
+      function chooseScreen(key, focus = false) {
+        if (!links.some(link => link.dataset.screen === key)) return;
+        links.forEach(link => link.setAttribute("aria-current", String(link.dataset.screen === key)));
+        panels.forEach(panel => { panel.hidden = panel.id !== "bedienweg-" + key; });
+        select.value = key;
+        status.textContent = "Bedienweg: " + select.selectedOptions[0].textContent;
+        if (focus) document.getElementById("screen-" + key).focus({preventScroll:true});
+      }
+      function selectFromHash() {
+        if (location.hash.startsWith("#bedienweg-")) chooseScreen(location.hash.slice(11));
+      }
+      finder.dataset.enhanced = "true";
+      select.closest("label").hidden = false;
+      chooseScreen("reich");
+      selectFromHash();
+      links.forEach(link => link.addEventListener("click", () => chooseScreen(link.dataset.screen, true)));
+      select.addEventListener("change", () => chooseScreen(select.value));
+      window.addEventListener("hashchange", selectFromHash);
+      document.addEventListener("click", event => {
+        const anchor = event.target.closest('a[href^="#bedienweg-"]');
+        if (anchor) chooseScreen(anchor.getAttribute("href").slice(11));
+        const menuLink = event.target.closest('.mobile-guide-menu a');
+        if (menuLink) menuLink.closest('details').open = false;
+      });
+
+      const search = document.getElementById("guide-search");
+      const query = document.getElementById("guide-query");
+      const results = document.getElementById("guide-search-results");
+      const searchStatus = document.getElementById("guide-search-status");
+      const normal = value => value.toLocaleLowerCase("de").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ß/g,"ss");
+      const entries = [...document.querySelectorAll(".guide-chapter,.screen-panel,.session-step")].map(element => {
+        const heading = element.querySelector("h3");
+        const text = [...element.querySelectorAll("h4,p,li,td,pre")].map(node=>node.textContent).join(" ").replace(/\s+/g," ").trim();
+        return { id: element.id || heading.id, title: heading.textContent, text, normalized: normal(heading.textContent + " " + text), normalizedText:normal(text) };
+      });
+      search.hidden = false;
+      query.addEventListener("input", () => {
+        const terms = normal(query.value.trim()).split(/\s+/).filter(Boolean);
+        results.replaceChildren();
+        results.hidden = !terms.length;
+        if (!terms.length) { searchStatus.textContent = "Suche in den Spielregeln, Bedienwegen und ersten Schritten."; return; }
+        const matches = entries.filter(entry => terms.every(term => entry.normalized.includes(term)));
+        matches.sort((a,b) => Number(terms.some(term=>normal(b.title).includes(term))) - Number(terms.some(term=>normal(a.title).includes(term))));
+        searchStatus.textContent = matches.length ? matches.length + " passende Abschnitte · bis zu acht Treffer angezeigt." : "Kein Treffer. Versuche einen kurzen Begriff wie Sonde, Energie, Flotte oder Nahrung.";
+        matches.slice(0,8).forEach(entry => {
+          const li = document.createElement("li");
+          const link = document.createElement("a");
+          link.href = "#" + entry.id;
+          link.textContent = entry.title;
+          const snippet = document.createElement("span");
+          const index = entry.normalizedText.indexOf(terms[0]);
+          const start = Math.max(0,index-45);
+          snippet.textContent = (start ? "… " : "") + entry.text.slice(start,start+180) + " …";
+          li.append(link,snippet); results.append(li);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -2,6 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; script-src &#x27;self&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;; img-src &#x27;self&#x27; data:; font-src &#x27;self&#x27;; connect-src &#x27;self&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;self&#x27;">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ page.title }} · Sternenepoche</title>
 <style>
@@ -32,15 +33,21 @@
   footer{max-width:960px;margin:0 auto;padding:24px 20px 60px;color:var(--muted);font-size:13.5px;border-top:1px solid var(--line)}
   .crumb{color:var(--muted);font-size:13.5px;margin-bottom:18px}
 </style>
+<style id="site-ai-notice-style">.site-ai-notice{box-sizing:border-box;position:relative;z-index:6;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 12px;margin:0;padding:8px 16px;background:#10212d;color:#d3e3e8;border-bottom:1px solid #38515d;font:12px/1.6 system-ui,'Segoe UI',sans-serif;letter-spacing:0;text-align:center}
+.site-ai-notice .site-ai-tag{display:inline-block;padding:0 7px;border:1px solid #729e9c;border-radius:4px;color:#bce9de;font-weight:700;letter-spacing:.05em}
+.site-ai-notice a{display:inline-flex;align-items:center;min-height:28px;color:#f2d3a2;text-decoration:underline;text-underline-offset:3px;font:inherit;white-space:nowrap}
+.site-ai-notice a:focus-visible{outline:2px solid #f2d3a2;outline-offset:3px}
+@media(max-width:480px){.site-ai-notice{font-size:11px;padding:7px 12px;gap:2px 8px}.site-ai-notice .site-ai-description{flex-basis:calc(100% - 50px);text-align:left}}</style>
 </head>
 <body>
+<div class="site-ai-notice" data-ai-disclosure="true" role="note" aria-label="KI-Kennzeichnung"><span class="site-ai-tag">KI</span><span class="site-ai-description">Mit KI-Unterstützung entwickelt · Spielgrafiken mit KI erstellt</span><a href="/KI-Hinweis.html">KI-Hinweis</a></div>
 <header><div class="bar">
-  <a class="brand" href="/">✶ STERNENOPECHE</a>
+  <a class="brand" href="/">✶ STERNENEPOCHE</a>
   <nav>
     <a href="/">Start</a>
-    <a href="/docs/SPIELEN.html">Spielen</a>
+    <a href="/web-client/">Spielen</a>
     <a href="/docs/SPEZIFIKATION.html">Spezifikation</a>
-    <a href="/docs/REGELWERK.html">Regelwerk</a>
+    <a href="/Sternenepoche-Start.html#spielguide">Regelwerk</a>
     <a href="/docs/PROJEKT-README.html">Projekt</a>
     <a href="https://github.com/Sternenepoche/sternenepoche.github.io">Quellcode</a>
   </nav>
@@ -50,7 +57,7 @@
 {{ content }}
 </main>
 <footer>
-  Sternenepoche · Regelwerk Version 0.1.0 · Auslieferung über GitHub Pages ·
+  Sternenepoche · Mit KI-Unterstützung entwickelt · <a href="/KI-Hinweis.html">KI-generierte Spielgrafiken</a> ·
   <a href="https://github.com/Sternenepoche/sternenepoche.github.io">Repository</a>
 </footer>
 </body>
