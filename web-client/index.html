@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 
 <html lang="de"><head><meta charset="utf-8"/>
-<meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; script-src &#x27;self&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;; img-src &#x27;self&#x27; data:; font-src &#x27;self&#x27;; connect-src &#x27;self&#x27; https: http://127.0.0.1:* http://localhost:*; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;self&#x27;"><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Sternenepoche · Gemeinsame Welt</title><link href="style.css" rel="stylesheet"/><script defer="" src="config.js"></script><script defer="" src="presentation.js"></script><script defer="" src="app.js"></script><link href="game.css" rel="stylesheet"/><script defer="" src="art.js"></script><script defer="" src="game-ui.js"></script><link href="galaxy.css" rel="stylesheet"/><script defer="" src="three.min.js"></script><script defer="" src="galaxy.js"></script><link rel="stylesheet" href="loading-screen.css"><script defer src="loading-screen.js"></script></head>
+<meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; script-src &#x27;self&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;; img-src &#x27;self&#x27; data:; font-src &#x27;self&#x27;; connect-src &#x27;self&#x27; https: http://127.0.0.1:* http://localhost:*; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;self&#x27;"><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Sternenepoche · Gemeinsame Welt</title><link href="style.css" rel="stylesheet"/><script defer="" src="config.js"></script><script defer="" src="presentation.js"></script><script defer="" src="app.js"></script><link href="game.css" rel="stylesheet"/><script defer="" src="art.js"></script><script defer="" src="game-ui.js"></script><link href="galaxy.css" rel="stylesheet"/><script defer="" src="three.min.js"></script><script defer="" src="galaxy.js"></script><link rel="stylesheet" href="loading-screen.css"><script defer src="brand-animation.js"></script><script defer src="loading-screen.js"></script></head>
 <body class="game-client"><div class="sternen-loader" id="sternen-loader" data-kind="game" aria-label="Sternenepoche lädt">
   <div class="sternen-loader-inner">
     <div class="sternen-loader-wordmark">STERNENEPOCHE</div>
-    <picture class="sternen-loader-art">
-      <source data-loader-motion type="image/webp" media="(prefers-reduced-motion: no-preference)" srcset="brand/neuralstern-768.webp">
-      <source data-loader-motion type="image/gif" media="(prefers-reduced-motion: no-preference)" srcset="brand/neuralstern-768.gif">
+    <div class="sternen-loader-art">
       <img src="brand/neuralstern-poster.jpg" alt="Vier Metallsegmente öffnen sich um einen pulsierenden neuronalen Kern mit sieben Schichten." width="768" height="768" fetchpriority="high" decoding="async">
-    </picture>
-    <p class="sternen-loader-status" data-loader-status role="status" aria-live="polite">Verbindung zur Spielwelt herstellen …</p>
+      <canvas data-neural-source="brand/neuralstern-panels.webp" data-neural-fallback="brand/neuralstern-panels.png" width="1280" height="1280" aria-hidden="true" hidden></canvas>
+    </div>
+    <p class="sternen-loader-status" data-loader-status role="status" aria-live="polite">Verbindung zur gemeinsamen Welt …</p>
     <div class="sternen-loader-track" role="progressbar" aria-label="Ladevorgang"><span></span></div>
     <div class="sternen-loader-controls"><button type="button" data-loader-pause>Animation pausieren</button><button type="button" data-loader-skip>Schon umschauen <span aria-hidden="true">↗</span></button></div>
     <small class="sternen-loader-credit">Bild, Ton und Text sind KI-generiert</small>

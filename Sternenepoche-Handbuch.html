@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-c0wR+MdjmNCvBc0bMQSWm3c38ojNAsXEmiiXeRXh8Ws=&#x27; &#x27;sha256-GKb1Lx7q5cgeQD3z6FhSj5zmn/1fds7yw/AQWyQNCb8=&#x27; &#x27;sha256-DEyMZE+sP4+8RbEUUU2+KHiGN7nxxJ5wFNiPbkKRYTs=&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;; img-src &#x27;self&#x27; data:; font-src &#x27;self&#x27;; connect-src &#x27;self&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;self&#x27;">
+<meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-c0wR+MdjmNCvBc0bMQSWm3c38ojNAsXEmiiXeRXh8Ws=&#x27; &#x27;sha256-+WxWal7kWOjFZKD603/qDqhVRDcq/oKd1NtJyqka6Ro=&#x27; &#x27;sha256-DEyMZE+sP4+8RbEUUU2+KHiGN7nxxJ5wFNiPbkKRYTs=&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;; img-src &#x27;self&#x27; data:; font-src &#x27;self&#x27;; connect-src &#x27;self&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;self&#x27;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Sternenepoche spielen und verwalten: Anmeldung, Völker, Menschen, Bots, Agenten, Wirtschaft, Aufklärung, Kampf und Epochen.">
   <title>Sternenepoche verstehen und spielen</title>
@@ -546,8 +546,11 @@ body[data-motion="paused"] .brand-symbol,body[data-motion="paused"] .brand-glint
 .sternen-loader.is-leaving{opacity:0;pointer-events:none}
 .sternen-loader-inner{width:min(100%,760px);padding:26px 20px 22px;text-align:center;display:flex;flex-direction:column;align-items:center}
 .sternen-loader-wordmark{font-size:clamp(14px,2vw,19px);font-weight:650;letter-spacing:.23em;color:#efc88b}
-.sternen-loader-art{display:block!important;width:min(64vh,70vw,590px);aspect-ratio:1;margin:8px auto -4px;background-image:url("web-client/brand/neuralstern-poster.jpg");background-size:contain;background-position:center;background-repeat:no-repeat}
+.sternen-loader-art{position:relative;display:block!important;width:min(64vh,70vw,590px);aspect-ratio:1;margin:8px auto -4px}
 .sternen-loader-art img{display:block;width:100%;height:100%;max-width:100%;border:0;border-radius:0;object-fit:contain}
+.sternen-loader-art canvas{position:absolute;inset:0;width:100%;height:100%}
+.sternen-loader-art [hidden]{display:none!important}
+.sternen-loader.is-still .sternen-loader-track span{animation:none;transform:none;width:100%;opacity:.6}
 .sternen-loader-status{margin:0 0 18px!important;min-height:22px;color:#c2d3df;font-size:14px;font-weight:400;letter-spacing:.02em}
 .sternen-loader-track{width:min(260px,70vw);height:2px;background:#4c8d9d33;overflow:hidden}
 .sternen-loader-track span{display:block;width:35%;height:100%;background:linear-gradient(90deg,transparent,#8be0dc,#efc88b);animation:sternen-loading-track 1.8s ease-in-out infinite}
@@ -574,11 +577,10 @@ body[data-motion="paused"] .brand-symbol,body[data-motion="paused"] .brand-glint
 <div class="site-ai-notice" data-ai-disclosure="true" role="note" aria-label="KI-Kennzeichnung"><span class="site-ai-tag">KI</span><span class="site-ai-description">Bild, Ton und Text sind KI-generiert</span><a href="KI-Hinweis.html">KI-Hinweis</a></div><div class="sternen-loader" id="sternen-loader" data-kind="website" aria-label="Sternenepoche lädt">
   <div class="sternen-loader-inner">
     <div class="sternen-loader-wordmark">STERNENEPOCHE</div>
-    <picture class="sternen-loader-art">
-      <source data-loader-motion type="image/webp" media="(prefers-reduced-motion: no-preference)" srcset="web-client/brand/neuralstern-768.webp">
-      <source data-loader-motion type="image/gif" media="(prefers-reduced-motion: no-preference)" srcset="web-client/brand/neuralstern-768.gif">
+    <div class="sternen-loader-art">
       <img src="web-client/brand/neuralstern-poster.jpg" alt="Vier Metallsegmente öffnen sich um einen pulsierenden neuronalen Kern mit sieben Schichten." width="768" height="768" fetchpriority="high" decoding="async">
-    </picture>
+      <canvas data-neural-source="web-client/brand/neuralstern-panels.webp" data-neural-fallback="web-client/brand/neuralstern-panels.png" width="1280" height="1280" aria-hidden="true" hidden></canvas>
+    </div>
     <p class="sternen-loader-status" data-loader-status role="status" aria-live="polite">Deine Reise wird vorbereitet …</p>
     <div class="sternen-loader-track" role="progressbar" aria-label="Ladevorgang"><span></span></div>
     <div class="sternen-loader-controls"><button type="button" data-loader-pause>Animation pausieren</button><button type="button" data-loader-skip>Schon umschauen <span aria-hidden="true">↗</span></button></div>
@@ -1892,40 +1894,62 @@ body[data-motion="paused"] .brand-symbol,body[data-motion="paused"] .brand-glint
     document.querySelectorAll('.guide-chapter').forEach(chapter => observer.observe(chapter));
   }
 })();
-</script><script>// Actual readiness drives the screen. No invented percentage or forced animation cycle.
+</script><script src="web-client/brand-animation.js"></script><script>// Actual readiness drives the screen. No invented percentage or forced animation cycle.
 (() => {
   'use strict';
   const screen=document.getElementById('sternen-loader');if(!screen)return;
   const status=screen.querySelector('[data-loader-status]'),pause=screen.querySelector('[data-loader-pause]');
-  const image=screen.querySelector('img'),sources=[...screen.querySelectorAll('[data-loader-motion]')];
+  const image=screen.querySelector('img'),canvas=screen.querySelector('canvas');
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
-  let still=reduced.matches,started=performance.now(),finishTimer,deadline,finished=false;
+  let still=reduced.matches,started=performance.now(),finishTimer,fadeTimer,deadline,finished=false;
   try{still=still||localStorage.getItem('sternenepoche-loading-motion')==='paused';}catch{}
   let restore=[];
+  let renderer,requested=false,frame=0,playedAt=0,elapsed=0,lastTick=0;
+  function stopMotion(){
+    cancelAnimationFrame(frame);frame=0;
+    if(playedAt){elapsed+=performance.now()-playedAt;playedAt=0;}
+  }
+  function tick(now){
+    if(now-lastTick>=1000/30){renderer.draw(((elapsed+now-playedAt)/1000)%renderer.duration);lastTick=now;}
+    frame=requestAnimationFrame(tick);
+  }
+  async function prepareMotion(){
+    requested=true;
+    try{
+      const texture=new Image();texture.src=canvas.dataset.neuralSource;
+      try{await texture.decode();}catch{texture.src=canvas.dataset.neuralFallback;await texture.decode();}
+      const size=Math.min(1280,Math.max(512,Math.ceil(canvas.parentElement.clientWidth*(window.devicePixelRatio||1))));
+      renderer=window.createNeuralStar(canvas,texture,size);await renderer.ready;
+      renderer.draw(0);updateMotion();
+    }catch{ /* The small JPEG remains usable if Canvas or either texture fails. */ }
+  }
   function updateMotion(){
-    sources.forEach(s=>s.media=still||document.hidden?'not all':'(prefers-reduced-motion: no-preference)');
+    const running=!still&&!document.hidden&&!finished&&!screen.hidden;
+    screen.classList.toggle('is-still',still);
+    if(running&&renderer){
+      canvas.hidden=false;image.hidden=true;
+      if(!frame){playedAt=performance.now();frame=requestAnimationFrame(tick);}
+    }else stopMotion();
+    if(running&&!requested&&window.createNeuralStar)prepareMotion();
     pause.textContent=still?'Animation starten':'Animation pausieren';pause.setAttribute('aria-pressed',String(still));
   }
   pause.addEventListener('click',()=>{still=!still;try{localStorage.setItem('sternenepoche-loading-motion',still?'paused':'running');}catch{}updateMotion();});
   reduced.addEventListener('change',e=>{still=e.matches;updateMotion();});
   document.addEventListener('visibilitychange',updateMotion);
-  image.addEventListener('error',()=>{
-    const webp=sources.find(s=>s.type==='image/webp');
-    if(webp&&webp.media!=='not all'){webp.remove();sources.splice(sources.indexOf(webp),1);return;}
-    sources.forEach(s=>s.remove());sources.length=0;
-  });
   function release(){restore.forEach(([node,inert])=>{node.inert=inert;node.removeAttribute('aria-busy');});restore=[];}
   function hide(){
     if(finished)return;finished=true;clearTimeout(deadline);clearTimeout(finishTimer);
-    sources.forEach(s=>s.media='not all');
+    stopMotion();
     release();screen.classList.add('is-leaving');
     if(screen.contains(document.activeElement)){const main=document.querySelector('main');if(main){main.tabIndex=-1;main.focus({preventScroll:true});}}
-    setTimeout(()=>{screen.hidden=true;screen.classList.remove('is-leaving');},reduced.matches?0:400);
+    fadeTimer=setTimeout(()=>{screen.hidden=true;screen.classList.remove('is-leaving');},reduced.matches?0:400);
   }
-  function ready(){clearTimeout(finishTimer);finishTimer=setTimeout(hide,Math.max(0,900-(performance.now()-started)));}
+  function ready(){clearTimeout(finishTimer);finishTimer=setTimeout(hide,0);}
   function start(message){
-    clearTimeout(finishTimer);clearTimeout(deadline);started=performance.now();finished=false;
+    clearTimeout(finishTimer);clearTimeout(fadeTimer);clearTimeout(deadline);started=performance.now();finished=false;
+    stopMotion();
     screen.hidden=false;screen.classList.remove('is-leaving');if(message)status.textContent=message;
+    elapsed=0;playedAt=0;if(renderer)renderer.draw(0);
     if(!restore.length)restore=[...document.querySelectorAll('main,header,footer')].map(node=>{const previous=node.inert;node.inert=true;node.setAttribute('aria-busy','true');return [node,previous];});
     updateMotion();deadline=setTimeout(hide,18000);
   }

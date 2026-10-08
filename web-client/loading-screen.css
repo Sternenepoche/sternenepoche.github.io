@@ -4,8 +4,11 @@
 .sternen-loader.is-leaving{opacity:0;pointer-events:none}
 .sternen-loader-inner{width:min(100%,760px);padding:26px 20px 22px;text-align:center;display:flex;flex-direction:column;align-items:center}
 .sternen-loader-wordmark{font-size:clamp(14px,2vw,19px);font-weight:650;letter-spacing:.23em;color:#efc88b}
-.sternen-loader-art{display:block!important;width:min(64vh,70vw,590px);aspect-ratio:1;margin:8px auto -4px;background-image:url("brand/neuralstern-poster.jpg");background-size:contain;background-position:center;background-repeat:no-repeat}
+.sternen-loader-art{position:relative;display:block!important;width:min(64vh,70vw,590px);aspect-ratio:1;margin:8px auto -4px}
 .sternen-loader-art img{display:block;width:100%;height:100%;max-width:100%;border:0;border-radius:0;object-fit:contain}
+.sternen-loader-art canvas{position:absolute;inset:0;width:100%;height:100%}
+.sternen-loader-art [hidden]{display:none!important}
+.sternen-loader.is-still .sternen-loader-track span{animation:none;transform:none;width:100%;opacity:.6}
 .sternen-loader-status{margin:0 0 18px!important;min-height:22px;color:#c2d3df;font-size:14px;font-weight:400;letter-spacing:.02em}
 .sternen-loader-track{width:min(260px,70vw);height:2px;background:#4c8d9d33;overflow:hidden}
 .sternen-loader-track span{display:block;width:35%;height:100%;background:linear-gradient(90deg,transparent,#8be0dc,#efc88b);animation:sternen-loading-track 1.8s ease-in-out infinite}

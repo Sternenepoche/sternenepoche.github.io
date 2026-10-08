@@ -17,3 +17,6 @@ _site/
 /docs/branding/sternenepoche-neuralstern-1280.gif
 
 /web-client/brand/neuralstern-768.gif
+
+# Retired animated loading bitmap; Canvas uses a small shared panel texture.
+/web-client/brand/neuralstern-768.webp

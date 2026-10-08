@@ -406,8 +406,9 @@ pub fn get(path:&str)->Option<(&'static [u8],&'static str)>{
         "/loading-screen.js" => Some((include_bytes!("../../../web-client/loading-screen.js").as_slice(), "text/javascript; charset=utf-8")),
         "/loading-screen.css" => Some((include_bytes!("../../../web-client/loading-screen.css").as_slice(), "text/css; charset=utf-8")),
         "/loading-no-js.css" => Some((include_bytes!("../../../web-client/loading-no-js.css").as_slice(), "text/css; charset=utf-8")),
-        "/brand/neuralstern-768.webp" => Some((include_bytes!("../../../web-client/brand/neuralstern-768.webp").as_slice(), "image/webp")),
-        "/brand/neuralstern-768.gif" => Some((include_bytes!("../../../web-client/brand/neuralstern-768.gif").as_slice(), "image/gif")),
+        "/brand-animation.js" => Some((include_bytes!("../../../web-client/brand-animation.js").as_slice(), "text/javascript; charset=utf-8")),
+        "/brand/neuralstern-panels.webp" => Some((include_bytes!("../../../web-client/brand/neuralstern-panels.webp").as_slice(), "image/webp")),
+        "/brand/neuralstern-panels.png" => Some((include_bytes!("../../../web-client/brand/neuralstern-panels.png").as_slice(), "image/png")),
         "/brand/neuralstern-poster.jpg" => Some((include_bytes!("../../../web-client/brand/neuralstern-poster.jpg").as_slice(), "image/jpeg")),
         _=>None,
     }

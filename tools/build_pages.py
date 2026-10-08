@@ -47,11 +47,11 @@ def prepare(out:Path):
     out.mkdir(parents=True,exist_ok=False)
     approved=[]
     tracked=set(subprocess.check_output(['git','ls-files','-z'],cwd=ROOT).decode('utf-8').split('\0'))
-    for name in ['index.html','Bestandsaufnahme.html','KI-Hinweis.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html','_config.yml','llms.txt','robots.txt','sitemap.xml','docs/spielguide.json','docs/spielguide.txt','docs/branding/animation.json','docs/branding/DESIGN.txt','docs/branding/sternenepoche-neuralstern-1280.gif']:
+    for name in ['index.html','Bestandsaufnahme.html','KI-Hinweis.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html','_config.yml','llms.txt','robots.txt','sitemap.xml','docs/spielguide.json','docs/spielguide.txt','docs/branding/animation.json','docs/branding/DESIGN.txt','docs/branding/sternenepoche-neuralstern-512.gif']:
         file=ROOT/name
         if file.is_file(): approved.append(file)
     # Deliberate file list: the sibling admin directory must never be packaged.
-    for name in ['index.html','app.js','presentation.js','style.css','config.js','game-ui.js','game.css','art.js','three.min.js','galaxy.js','galaxy.css','ai-labels.js','loading-screen.css','loading-screen.js','loading-no-js.css','brand/neuralstern-768.webp','brand/neuralstern-768.gif','brand/neuralstern-poster.jpg']:
+    for name in ['index.html','app.js','presentation.js','style.css','config.js','game-ui.js','game.css','art.js','three.min.js','galaxy.js','galaxy.css','ai-labels.js','loading-screen.css','loading-screen.js','brand-animation.js','loading-no-js.css','brand/neuralstern-panels.webp','brand/neuralstern-panels.png','brand/neuralstern-poster.jpg']:
         file=ROOT/'web-client'/name
         if file.is_file(): approved.append(file)
     # Exact reviewed image manifest, never the whole web-client directory.
@@ -92,6 +92,14 @@ def prepare(out:Path):
             target.write_text(body,encoding='utf-8')
         else:
             shutil.copyfile(file,target)
+    loading_files=['brand-animation.js','loading-screen.js','loading-screen.css','brand/neuralstern-panels.webp','brand/neuralstern-poster.jpg']
+    if sum((ROOT/'web-client'/name).stat().st_size for name in loading_files)>110000:
+        raise ValueError('Default loader exceeds its 110 KB transfer budget')
+    # Preserve old shared links, but never publish the 27 MB production master.
+    compact=out/'docs/branding/sternenepoche-neuralstern-512.gif'
+    if compact.is_file() and compact.stat().st_size>1100000: raise ValueError('Public GIF exceeds 1.1 MB')
+    if compact.is_file():
+        shutil.copyfile(compact,compact.with_name('sternenepoche-neuralstern-1280.gif'))
     return len(approved)
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--out',type=Path,default=ROOT/'.pages-artifact/source')

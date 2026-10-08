@@ -15,12 +15,13 @@ def main():
             try:urllib.request.urlopen(API+'/api/lobby',timeout=1).close();break
             except OSError:time.sleep(.1)
         else:raise RuntimeError('Isolated test server did not start')
-        for path,mime in [('loading-screen.js','text/javascript'),('loading-screen.css','text/css'),('brand/neuralstern-768.webp','image/webp'),('brand/neuralstern-768.gif','image/gif'),('brand/neuralstern-poster.jpg','image/jpeg')]:
+        for path,mime in [('loading-screen.js','text/javascript'),('loading-screen.css','text/css'),('brand-animation.js','text/javascript'),('brand/neuralstern-panels.webp','image/webp'),('brand/neuralstern-panels.png','image/png'),('brand/neuralstern-poster.jpg','image/jpeg')]:
             with urllib.request.urlopen(API+'/'+path) as response:assert response.status==200 and mime in response.headers['Content-Type']
         with sync_playwright() as p:
             browser=p.chromium.launch(channel='chrome',headless=True)
             for width,height in [(1440,1000),(390,844)]:
-                page=browser.new_page(viewport={'width':width,'height':height});errors=[];held=[]
+                page=browser.new_page(viewport={'width':width,'height':height});errors=[];held=[];requests=[]
+                page.on('request',lambda r:requests.append(r.url))
                 page.on('pageerror',lambda e:errors.append(str(e)))
                 page.route('**/config.js',lambda r:r.fulfill(content_type='text/javascript',body='window.STERNENEPOCHE={api:'+json.dumps(API)+'};'))
                 page.route('**/api/rules',lambda r:held.append(r))
@@ -29,9 +30,19 @@ def main():
                 expect(page.locator('[data-loader-status]')).to_have_text('Regeln der Welt laden …')
                 assert page.locator('main').evaluate('(node)=>node.inert')
                 expect(loader.locator('img')).to_have_js_property('naturalWidth',768)
-                assert loader.locator('img').bounding_box()['width']>250
+                expect(loader.locator('canvas')).to_be_visible()
+                assert loader.locator('canvas').bounding_box()['width']>250
                 page.wait_for_timeout(4600)
                 page.screenshot(path=str(RUN/f'loading-game-{width}.png'))
+                # Pause really stops rendering; no animated bitmap is fetched.
+                page.locator('[data-loader-pause]').click()
+                snapshot=loader.locator('canvas').evaluate('(c)=>c.toDataURL()')
+                page.wait_for_timeout(150)
+                assert snapshot==loader.locator('canvas').evaluate('(c)=>c.toDataURL()')
+                page.locator('[data-loader-pause]').click()
+                page.wait_for_timeout(150)
+                assert snapshot!=loader.locator('canvas').evaluate('(c)=>c.toDataURL()')
+                assert not any(u.endswith('.gif') or 'neuralstern-768.webp' in u for u in requests)
                 response=held[0].fetch();held[0].fulfill(response=response)
                 expect(loader).to_be_hidden();expect(page.locator('#ranking table')).to_be_visible()
                 assert not page.locator('main').evaluate('(node)=>node.inert')
@@ -42,12 +53,23 @@ def main():
             page.route('**/config.js',lambda r:r.fulfill(content_type='text/javascript',body='window.STERNENEPOCHE={api:'+json.dumps(API)+'};'))
             page.route('**/api/rules',lambda r:r.abort())
             page.goto(API,wait_until='domcontentloaded');expect(page.locator('#sternen-loader')).to_be_hidden()
-            assert not any('768.webp' in u or '768.gif' in u for u in requests)
+            assert not any('neuralstern-panels.' in u or '.gif' in u for u in requests)
             expect(page.locator('#server')).to_be_visible();expect(page.locator('#message')).to_be_visible();page.close()
+            # A failed WebP decode retries the alpha-preserving PNG.
+            page=browser.new_page();held=[];requests=[]
+            page.on('request',lambda r:requests.append(r.url))
+            page.route('**/config.js',lambda r:r.fulfill(content_type='text/javascript',body='window.STERNENEPOCHE={api:'+json.dumps(API)+'};'))
+            page.route('**/api/rules',lambda r:held.append(r))
+            page.route('**/neuralstern-panels.webp',lambda r:r.abort())
+            page.goto(API,wait_until='domcontentloaded')
+            expect(page.locator('#sternen-loader canvas')).to_be_visible()
+            assert any('neuralstern-panels.png' in u for u in requests)
+            page.locator('[data-loader-skip]').click();expect(page.locator('#sternen-loader')).to_be_hidden()
+            response=held[0].fetch();held[0].fulfill(response=response);page.close()
             page=browser.new_page(java_script_enabled=False);page.goto(API);expect(page.locator('#sternen-loader')).to_be_hidden();page.close()
             browser.close()
         (RUN/'loading-verification.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
-        print('PASS: large desktop/mobile loader, real delayed world data, Rust asset routes, reduced motion, server error, accessible page after readiness and no-JS fallback.')
+        print('PASS: desktop/mobile Canvas loader, real delayed world data, pause/resume, no GIF downloads, PNG fallback, reduced motion, server error, readiness and no-JS fallback.')
     finally:process.terminate();process.wait(timeout=15)
 
 if __name__=='__main__':main()

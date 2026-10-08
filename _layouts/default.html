@@ -54,15 +54,14 @@
 .ai-image-label[hidden]{display:none!important}
 .ai-background-label{right:3px;bottom:3px;transform:none}
 .ai-page-label{position:fixed}</style>
-<link rel="stylesheet" href="/web-client/loading-screen.css"><script defer src="/web-client/loading-screen.js"></script></head>
+<link rel="stylesheet" href="/web-client/loading-screen.css"><script defer src="/web-client/brand-animation.js"></script><script defer src="/web-client/loading-screen.js"></script></head>
 <body><div class="sternen-loader" id="sternen-loader" data-kind="website" aria-label="Sternenepoche lädt">
   <div class="sternen-loader-inner">
     <div class="sternen-loader-wordmark">STERNENEPOCHE</div>
-    <picture class="sternen-loader-art">
-      <source data-loader-motion type="image/webp" media="(prefers-reduced-motion: no-preference)" srcset="/web-client/brand/neuralstern-768.webp">
-      <source data-loader-motion type="image/gif" media="(prefers-reduced-motion: no-preference)" srcset="/web-client/brand/neuralstern-768.gif">
+    <div class="sternen-loader-art">
       <img src="/web-client/brand/neuralstern-poster.jpg" alt="Vier Metallsegmente öffnen sich um einen pulsierenden neuronalen Kern mit sieben Schichten." width="768" height="768" fetchpriority="high" decoding="async">
-    </picture>
+      <canvas data-neural-source="/web-client/brand/neuralstern-panels.webp" data-neural-fallback="/web-client/brand/neuralstern-panels.png" width="1280" height="1280" aria-hidden="true" hidden></canvas>
+    </div>
     <p class="sternen-loader-status" data-loader-status role="status" aria-live="polite">Deine Reise wird vorbereitet …</p>
     <div class="sternen-loader-track" role="progressbar" aria-label="Ladevorgang"><span></span></div>
     <div class="sternen-loader-controls"><button type="button" data-loader-pause>Animation pausieren</button><button type="button" data-loader-skip>Schon umschauen <span aria-hidden="true">↗</span></button></div>

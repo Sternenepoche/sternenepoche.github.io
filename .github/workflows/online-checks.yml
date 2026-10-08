@@ -16,12 +16,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - name: Render large animated brand exports from their source
-        run: |
-          python -m pip install Pillow==12.2.0 playwright
-          python -m playwright install --with-deps chromium
-          sudo apt-get install -y ffmpeg
-          python tools/animate_brand.py
+      - name: Install public image encoder
+        run: python -m pip install Pillow==12.2.0
       - name: Test game rules and authoritative server
         run: cargo test --release --locked -p kern -p lauf -p sternenepoche-server
       - name: Verify model agent scheduling, restart and replay
@@ -38,11 +34,3 @@ jobs:
         run: node tools/game_ui_test.cjs
       - name: Verify deliberately public Pages sources
         run: python tools/build_pages.py
-      - name: Preserve generated GIF exports for Pages
-        uses: actions/upload-artifact@v4
-        with:
-          name: neural-brand-${{ github.run_id }}-${{ github.run_attempt }}
-          retention-days: 1
-          path: |
-            docs/branding/sternenepoche-neuralstern-1280.gif
-            web-client/brand/neuralstern-768.gif

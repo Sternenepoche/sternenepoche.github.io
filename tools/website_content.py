@@ -66,7 +66,7 @@ def finish(document):
     loader_css=(ROOT/'web-client/loading-screen.css').read_text(encoding='utf-8').replace('url("brand/','url("web-client/brand/')
     document = document.replace('</head>','<style id="sternen-loader-style">'+loader_css+'</style></head>',1)
     document = re.sub(r'(<body\b[^>]*>)',lambda m:m[1]+loading_screen(),document,count=1)
-    document = document.replace('</body>','<script>'+(ROOT/'web-client/loading-screen.js').read_text(encoding='utf-8')+'</script></body>',1)
+    document = document.replace('</body>','<script src="web-client/brand-animation.js"></script><script>'+(ROOT/'web-client/loading-screen.js').read_text(encoding='utf-8')+'</script></body>',1)
     embedded = {}
     def embed(match):
         kind,name = match.groups()

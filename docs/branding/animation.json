@@ -1,14 +1,14 @@
 {
   "size": [
-    1280,
-    1280
+    512,
+    512
   ],
-  "fps": 25,
-  "frames": 450,
+  "fps": 12,
+  "frames": 194,
   "duration_seconds": 18,
   "loop": "infinite",
-  "file": "sternenepoche-neuralstern-1280.gif",
-  "bytes": 27381304,
+  "file": "sternenepoche-neuralstern-512.gif",
+  "bytes": 1051176,
   "layers": [
     4,
     6,
@@ -28,5 +28,10 @@
     "signal enters core",
     "rest pose"
   ],
-  "source": "Preserved ImageGen stellar aperture; deterministic Canvas choreography"
+  "source": "Preserved ImageGen stellar aperture; deterministic Canvas choreography",
+  "legacy_url": "sternenepoche-neuralstern-1280.gif",
+  "legacy_url_serves": "same compact 512px GIF; original master is no longer published",
+  "web_loading": "Canvas up to 1280px; 49978-byte WebP texture, PNG fallback, static JPEG for reduced motion",
+  "rendered_frames": 216,
+  "web_loading_bytes": 102047
 }

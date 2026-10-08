@@ -23,3 +23,7 @@ Die Bewegungsframes entstehen deterministisch mit Canvas aus dem unveränderten
 transparenten Original. FFmpeg codiert ein echtes endlos wiederholtes GIF.
 1280 px als Download, 384 px WebP plus GIF-Rückfall für die Website, PNG bei
 reduzierter oder pausierter Bewegung. Kein automatisches Laden der großen GIF-Datei.
+
+
+Web delivery, 08.10.2026: the website and game now calculate the animation on Canvas (up to 1280 px), using one 49,978-byte 768px WebP panel texture with a lossless PNG fallback. The 37,904-byte JPEG is used for reduced motion and before rendering. There are no animated bitmap downloads during startup and no forced minimum loading delay. Canvas stops while paused, hidden or dismissed.
+The downloadable GIF is a 512px, 12 fps, 18-second infinite loop, optimized to 1,051,176 bytes. The historical URL ending in -1280.gif serves the same compact GIF for link compatibility; the large original master is no longer published. Run tools/animate_brand.py to reproduce the compact exports (Playwright, FFmpeg and Gifsicle). The optional --size and --fps arguments can create local higher-resolution masters.
