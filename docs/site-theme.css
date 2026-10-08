@@ -53,8 +53,8 @@ strong{font-weight:650}
 .hero-art{position:absolute;right:max(0px,calc((100vw - 1460px)/2));top:5%;width:58%;height:95%;pointer-events:none;z-index:1}
 .hero-orbit{position:absolute;width:88%;aspect-ratio:1;right:0;top:3%;border:1px solid #8be0dc25;border-radius:50%;transform:rotate(-28deg) scaleY(.64)}
 .hero-orbit::after{content:"";position:absolute;inset:-52px;border:1px solid #8be0dc12;border-radius:50%}
-.hero-planet{position:absolute;top:10%;right:0;width:79%;mix-blend-mode:screen;filter:drop-shadow(-18px 10px 60px #268aa826);animation:planet-float 24s ease-in-out infinite}
-.hero-ship{position:absolute;right:28%;bottom:2%;width:64%;mix-blend-mode:screen;filter:drop-shadow(0 20px 25px #0008);animation:ship-float 18s ease-in-out infinite}
+.hero-planet{position:absolute;top:9%;right:3%;width:77%;filter:drop-shadow(-12px 8px 32px #268aa819);animation:planet-float 24s ease-in-out infinite}
+.hero-ship{position:absolute;right:25%;bottom:18%;width:50%;filter:drop-shadow(0 14px 18px #02060c90);animation:ship-float 18s ease-in-out infinite}
 .coordinate{position:absolute;right:11%;bottom:17%;border-left:1px solid var(--cyan);padding-left:17px;color:#bde8ec;font:10px/1.9 Consolas,monospace;letter-spacing:.16em}
 .hero .coordinate{z-index:2}
 .coordinate b{display:block;font-weight:400;color:#fff;font-size:12px;letter-spacing:.12em}
@@ -215,7 +215,7 @@ body[data-motion="paused"] .hero-planet,body[data-motion="paused"] .hero-ship,bo
 .hero .lead{max-width:490px;font-size:16px}
 .hero-art{width:76%;height:440px;top:auto;bottom:-30px;right:-3%;opacity:.9}
 .hero-planet{width:65%;top:-1%;right:0}
-.hero-ship{width:55%;right:36%;bottom:5%}
+.hero-ship{width:48%;right:27%;bottom:13%}
 .hero-orbit{width:65%;right:0;top:0}
 .coordinate{right:6%;bottom:13%;font-size:8px}
 .coordinate b{font-size:10px}
@@ -267,7 +267,7 @@ body[data-motion="paused"] .hero-planet,body[data-motion="paused"] .hero-ship,bo
 .hero .lead{font-size:15px;max-width:340px}
 .hero-art{width:100%;bottom:-15px;height:355px;right:-8%}
 .hero-planet{width:67%}
-.hero-ship{width:65%;right:30%;bottom:2%}
+.hero-ship{width:54%;right:24%;bottom:11%}
 .coordinate{bottom:12%;right:13%}
 .hero-orbit{top:0}
 .hero-actions{gap:10px}
@@ -324,15 +324,10 @@ body{background:white;color:#142638}
 }
 
 
-/* Let artwork blend with the nebula itself, rather than an isolated child layer. */
-.hero-art{z-index:auto}
-.hero-planet{mask-image:radial-gradient(circle at 50% 50%,#000 60%,transparent 71%)}
+/* Native transparent artwork keeps the planet's night side and dark hull opaque. */
 
 .hero::before{background:radial-gradient(ellipse at 76% 46%,#19808d47,transparent 50%),radial-gradient(ellipse at 90% 16%,#724db85c,transparent 53%),url("asset://backgrounds.nebula.webp") center/cover}
 
-
-/* In-browser luminance cutout of the dark studio backdrop; original assets stay intact. */
-.hero-ship{mix-blend-mode:normal;filter:url(#asset-cutout) drop-shadow(0 12px 22px #0006)}
 
 .space-rock{mix-blend-mode:normal;filter:url(#asset-cutout)}
 

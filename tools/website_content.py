@@ -53,7 +53,7 @@ def chapter_visual(number):
 
 SPACE = '''<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><filter id="asset-cutout" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  3 3 3 0 -.3"/></filter></defs></svg><div class="space-backdrop" aria-hidden="true" data-ai-image><div class="starfield"></div><img class="space-rock" src="asset://planets.asteroid.webp" alt="" width="82" height="82"><img class="space-rock second" src="asset://planets.asteroid.webp" alt="" width="36" height="36"><img class="space-rock third" src="asset://planets.asteroid.webp" alt="" width="132" height="132"></div>
 <button class="motion-control" id="space-toggle" type="button" aria-pressed="false" hidden>Weltraumbewegung pausieren</button>'''
-HERO_ART = '''<div class="hero-art" aria-hidden="true"><div class="hero-orbit"></div><img class="hero-planet" src="asset://planets.leben_ozean.webp" alt="" width="480" height="480"><img class="hero-ship" src="asset://ships.kreuzer.aurelianer.webp" alt="" width="480" height="288"></div><div class="coordinate" aria-hidden="true"><b>DEIN NÄCHSTES KAPITEL</b>HEIMATWELT / ORBIT ERREICHT<br>AUFBAU · FORSCHUNG · ENTDECKUNG</div>'''
+HERO_ART = '''<div class="hero-art" aria-hidden="true"><div class="hero-orbit"></div><img class="hero-planet" src="artwork://hero-ocean-v2.webp" alt="" width="960" height="960" decoding="async"><img class="hero-ship" src="artwork://hero-cruiser-v2.webp" alt="" width="960" height="576" decoding="async"></div><div class="coordinate" aria-hidden="true"><b>DEIN NÄCHSTES KAPITEL</b>HEIMATWELT / ORBIT ERREICHT<br>AUFBAU · FORSCHUNG · ENTDECKUNG</div>'''
 DIALOG = '''<dialog class="image-dialog" id="image-dialog" aria-labelledby="image-dialog-title"><div class="dialog-toolbar"><span id="image-dialog-title">Spielansicht</span><button type="button" aria-label="Vergrößerten Screenshot schließen">✕</button></div><img alt=""></dialog>'''
 
 def loading_screen(base='web-client/',kind='website',status='Deine Reise wird vorbereitet …'):
@@ -70,13 +70,13 @@ def finish(document):
     embedded = {}
     def embed(match):
         kind,name = match.groups()
-        folder={'asset':'web-client/assets','screen':'docs/bilder/online','logo':'docs/branding'}[kind]
+        folder={'asset':'web-client/assets','screen':'docs/bilder/online','logo':'docs/branding','artwork':'docs/artwork'}[kind]
         file = ROOT/folder/name
         if not file.is_file(): raise ValueError('Missing public image: '+str(file))
         if (kind,name) not in embedded:
             mime='png' if kind=='logo' else 'webp'
             embedded[kind,name] = 'data:image/'+mime+';base64,'+base64.b64encode(file.read_bytes()).decode('ascii')
         return embedded[kind,name]
-    document = re.sub(r'(asset|screen|logo)://([a-zA-Z0-9_.-]+)',embed,document)
+    document = re.sub(r'(asset|screen|logo|artwork)://([a-zA-Z0-9_.-]+)',embed,document)
     if re.search(r'<!-- (?:SITE_|SPACE|HERO_ART|IMAGE_DIALOG)',document): raise ValueError('Unresolved website placeholder')
     return document

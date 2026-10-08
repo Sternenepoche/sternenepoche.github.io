@@ -20,7 +20,11 @@ def externalize_art(document:str,out:Path)->str:
             target.write_bytes(data)
             with Image.open(BytesIO(data)) as im:
                 if mime=='webp':
-                    im.convert('RGB').save(target.with_suffix('.jpg'),'JPEG',quality=82,optimize=True,progressive=True)
+                    if 'A' in im.getbands() and im.getchannel('A').getextrema()[0]<255:
+                        # Preserve cutout alpha; JPEG would restore a rectangular matte.
+                        im.save(target.with_suffix('.png'),'PNG',optimize=True)
+                    else:
+                        im.convert('RGB').save(target.with_suffix('.jpg'),'JPEG',quality=82,optimize=True,progressive=True)
                 else:
                     im.save(target.with_suffix('.webp'),'WEBP',quality=86,method=6)
         return '/site-art/'+name
@@ -37,7 +41,7 @@ def externalize_art(document:str,out:Path)->str:
         if 'data-animated-logo' in tag:return tag
         if 'id="planet-image"' in tag:return tag.replace(url,url.removesuffix('.webp')+'.jpg')
         modern=url.removesuffix('.png')+'.webp' if kind=='png' else url
-        fallback=url.removesuffix('.webp')+'.jpg' if kind=='webp' else url
+        fallback=(url.removesuffix('.webp')+('.png' if (out/url.removeprefix('/')).with_suffix('.png').exists() else '.jpg')) if kind=='webp' else url
         return '<picture><source type="image/webp" srcset="'+modern+'">'+tag.replace(url,fallback)+'</picture>'
     return re.sub(r'<img\b[^>]*>',picture,document)
 def prepare(out:Path):

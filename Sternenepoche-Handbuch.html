@@ -216,8 +216,8 @@ strong{font-weight:650}
 .hero-art{position:absolute;right:max(0px,calc((100vw - 1460px)/2));top:5%;width:58%;height:95%;pointer-events:none;z-index:1}
 .hero-orbit{position:absolute;width:88%;aspect-ratio:1;right:0;top:3%;border:1px solid #8be0dc25;border-radius:50%;transform:rotate(-28deg) scaleY(.64)}
 .hero-orbit::after{content:"";position:absolute;inset:-52px;border:1px solid #8be0dc12;border-radius:50%}
-.hero-planet{position:absolute;top:10%;right:0;width:79%;mix-blend-mode:screen;filter:drop-shadow(-18px 10px 60px #268aa826);animation:planet-float 24s ease-in-out infinite}
-.hero-ship{position:absolute;right:28%;bottom:2%;width:64%;mix-blend-mode:screen;filter:drop-shadow(0 20px 25px #0008);animation:ship-float 18s ease-in-out infinite}
+.hero-planet{position:absolute;top:9%;right:3%;width:77%;filter:drop-shadow(-12px 8px 32px #268aa819);animation:planet-float 24s ease-in-out infinite}
+.hero-ship{position:absolute;right:25%;bottom:18%;width:50%;filter:drop-shadow(0 14px 18px #02060c90);animation:ship-float 18s ease-in-out infinite}
 .coordinate{position:absolute;right:11%;bottom:17%;border-left:1px solid var(--cyan);padding-left:17px;color:#bde8ec;font:10px/1.9 Consolas,monospace;letter-spacing:.16em}
 .hero .coordinate{z-index:2}
 .coordinate b{display:block;font-weight:400;color:#fff;font-size:12px;letter-spacing:.12em}
@@ -378,7 +378,7 @@ body[data-motion="paused"] .hero-planet,body[data-motion="paused"] .hero-ship,bo
 .hero .lead{max-width:490px;font-size:16px}
 .hero-art{width:76%;height:440px;top:auto;bottom:-30px;right:-3%;opacity:.9}
 .hero-planet{width:65%;top:-1%;right:0}
-.hero-ship{width:55%;right:36%;bottom:5%}
+.hero-ship{width:48%;right:27%;bottom:13%}
 .hero-orbit{width:65%;right:0;top:0}
 .coordinate{right:6%;bottom:13%;font-size:8px}
 .coordinate b{font-size:10px}
@@ -430,7 +430,7 @@ body[data-motion="paused"] .hero-planet,body[data-motion="paused"] .hero-ship,bo
 .hero .lead{font-size:15px;max-width:340px}
 .hero-art{width:100%;bottom:-15px;height:355px;right:-8%}
 .hero-planet{width:67%}
-.hero-ship{width:65%;right:30%;bottom:2%}
+.hero-ship{width:54%;right:24%;bottom:11%}
 .coordinate{bottom:12%;right:13%}
 .hero-orbit{top:0}
 .hero-actions{gap:10px}
@@ -487,15 +487,10 @@ body{background:white;color:#142638}
 }
 
 
-/* Let artwork blend with the nebula itself, rather than an isolated child layer. */
-.hero-art{z-index:auto}
-.hero-planet{mask-image:radial-gradient(circle at 50% 50%,#000 60%,transparent 71%)}
+/* Native transparent artwork keeps the planet's night side and dark hull opaque. */
 
 .hero::before{background:radial-gradient(ellipse at 76% 46%,#19808d47,transparent 50%),radial-gradient(ellipse at 90% 16%,#724db85c,transparent 53%),url("data:image/webp;base64,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") center/cover}
 
-
-/* In-browser luminance cutout of the dark studio backdrop; original assets stay intact. */
-.hero-ship{mix-blend-mode:normal;filter:url(#asset-cutout) drop-shadow(0 12px 22px #0006)}
 
 .space-rock{mix-blend-mode:normal;filter:url(#asset-cutout)}
 
