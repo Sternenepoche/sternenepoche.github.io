@@ -13,3 +13,7 @@ _site/
 /.pages-artifact/
 .env
 *.key
+
+/docs/branding/sternenepoche-neuralstern-1280.gif
+
+/web-client/brand/neuralstern-768.gif
