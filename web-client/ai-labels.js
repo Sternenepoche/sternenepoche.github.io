@@ -37,7 +37,7 @@
       resize.observe(source);
     }
     for (const [source, label] of labels) {
-      label.hidden = !source.getClientRects().length || !source.offsetWidth || !source.offsetHeight
+      label.hidden = Math.min(source.offsetWidth, source.offsetHeight) < 64 || !source.getClientRects().length || !source.offsetWidth || !source.offsetHeight
         || (source.tagName === 'IMG' && (!source.complete || !source.naturalWidth));
       if (source.hasAttribute('data-ai-image')) continue;
       // Sibling overlays preserve existing grid, flex and absolute image layouts.

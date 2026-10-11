@@ -49,10 +49,11 @@ def screenshot(key, compact=False):
 
 def cockpit_bild(name, title, caption, stand='11.10.2026'):
     """Echtes Bildschirmfoto des Harness-Cockpits (docs/bilder/cockpit/<name>.webp), zum Vergrößern."""
+    source = 'Echte lokale Spieloberfläche' if name in {'lokal-galaxie', 'lokal-sektor', 'lokal-system', 'lokal-allianz'} else 'Echtes Harness-Cockpit'
     return (f'<figure class="screenshot"><button type="button" class="zoom" aria-label="Bildschirmfoto vergrößern: {html.escape(title)}">'
-            f'<img src="cockpit://{name}.webp" alt="Harness-Cockpit: {html.escape(title)}" width="1600" height="956" loading="lazy" decoding="async">'
+            f'<img src="cockpit://{name}.webp" alt="{source}: {html.escape(title)}" width="1600" height="956" loading="lazy" decoding="async">'
             '<span class="zoom-label" aria-hidden="true">Vergrößern ↗</span></button>'
-            f'<figcaption><b>Echtes Harness-Cockpit · Testwelt · {stand}</b>{html.escape(caption)}</figcaption></figure>')
+            f'<figcaption><b>{source} · Testwelt · {stand}</b>{html.escape(caption)}</figcaption></figure>')
 
 def illustration(name, title, caption):
     return (f'<figure class="illustration"><img src="asset://{name}" alt="{html.escape(title)} – Spielillustration" loading="lazy" width="480" height="360">'

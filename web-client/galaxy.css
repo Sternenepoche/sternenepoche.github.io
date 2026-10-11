@@ -10,7 +10,8 @@
 #galaxy-labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .game-client .space-label{position:absolute;top:0;left:0;pointer-events:auto;background:#080f1dbb;color:#a5bbd4;border:1px solid #435b7544;border-radius:20px;min-width:27px;min-height:27px;font:10px/1.1 system-ui;padding:5px;box-shadow:0 0 12px #080f1d99;will-change:transform}
 .game-client .space-label.sector{padding:12px 18px;letter-spacing:2px;color:#e7d7bf;font-size:12px;border-color:#798bab77;background:#101a2ccc;min-height:44px}
-.game-client .space-label.planet{color:#d4dfed;min-width:30px;min-height:30px;top:13px}
+.game-client .space-label.system,.game-client .space-label.planet{opacity:0;pointer-events:none;top:18px;min-height:22px;padding:5px 8px;border-radius:5px;background:#080f1de8;color:#dce8f6}
+.game-client .space-label.is-highlighted,.game-client .space-label:focus-visible{opacity:1;pointer-events:auto}
 .game-client .space-label[aria-pressed=true]{border-color:#edc48d;color:#ffe3bc;background:#503c20cc;box-shadow:0 0 14px #ba824633}
 #galaxy-infocard{position:fixed;width:420px;max-width:calc(100vw - 32px);max-height:calc(100dvh - 32px);padding:0;border:1px solid #536984;border-radius:16px;background:linear-gradient(145deg,#172c46,#080f1e);color:#e8edf6;box-shadow:0 24px 90px #000b;overflow:auto;overscroll-behavior:contain}
 #galaxy-infocard::backdrop{background:#020713bb}
@@ -31,3 +32,19 @@
 @media(max-width:850px){#galaxy-space{height:520px}.space-header{padding:16px}.space-header h2{font-size:21px}}
 @media(max-width:580px){#galaxy-space{height:430px}#galaxy-detail{padding:22px 18px}#galaxy-detail h3{font-size:24px}.space-toolbar{padding:8px}.space-toolbar button{font-size:10px;padding:7px}.space-header p{font-size:11px}.space-instructions{font-size:9px;max-width:85%}.space-bottom{padding:12px}}
 @media(prefers-reduced-motion:reduce){.space-label{transition:none}}
+#galaxy-space.space-fallback #galaxy-canvas,#galaxy-space.space-fallback .space-instructions { display:none; }
+#local-galaxy{position:absolute;inset:0;background:radial-gradient(ellipse at 55% 45%,#152039,#030812 75%);overflow:hidden;contain:layout paint}
+#local-galaxy>svg{width:100%;height:100%;position:absolute;inset:0}
+.game-client .local-star{position:absolute;transform:translate(-50%,-50%);padding:2px 4px;border:none;background:#071125c9;color:#c8d8ed;font-size:10px;min-height:18px;line-height:1.2;z-index:2}
+.game-client .local-star.galaxy{font-size:15px;padding:8px 12px;border:1px solid #7588a9;border-radius:20px;background:#14213a}
+.game-client .local-star.sector{width:8px;height:8px;min-height:8px;padding:0;font-size:0;border-radius:50%;background:#b4c6eb}
+.game-client .local-star.sector.own{background:#f2c482}
+.game-client .local-star.system{border-radius:50%;background:#172139}.game-client .local-star.own{color:#ffe4b6;border-color:#dbb877}
+.game-client .local-star:hover,.game-client .local-star:focus-visible{background:#31445d;color:white;outline:1px solid #ddc189;z-index:3}
+.game-client #local-galaxy .local-star:active:not(:disabled){transform:translate(-50%,-50%) scale(.97)}
+.local-ships{position:absolute;inset:0;pointer-events:none;overflow:hidden}.local-ship{position:absolute;top:var(--lane);width:38px;opacity:.65;animation:local-fly var(--duration) linear var(--delay) infinite;will-change:transform}.local-ship:nth-child(2n){animation-direction:reverse;width:26px;opacity:.45}.local-ship svg{width:100%;filter:drop-shadow(-5px 0 3px #3da9db)}
+@keyframes local-fly{from{transform:translateX(-500px)}to{transform:translateX(500px)}}
+@keyframes local-arrive{from{opacity:.5}to{opacity:1}}#local-galaxy.arrive{animation:local-arrive 180ms ease-out}
+.local-motion-paused .local-ship{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){.local-ship,#local-galaxy.arrive{animation:none}.local-ship{left:50%;opacity:.25}}
+@media(prefers-reduced-motion:reduce){.local-motion-enabled .local-ship{animation:local-fly var(--duration) linear var(--delay) infinite;opacity:.65}.local-motion-enabled .local-ship:nth-child(2n){animation-direction:reverse;opacity:.45}}

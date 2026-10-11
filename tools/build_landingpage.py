@@ -10,7 +10,7 @@ def build():
     document = document.replace('<!-- SCREEN_COCKPIT -->',cockpit_bild('01-bruecke','Die Brücke','Lage deines Reiches, der Rat mit Status und letzter Begründung, Planeten aus der Inventur, Befunde der Analyse und der Live-Strom aller Ereignisse.'))
     data = {'@context':'https://schema.org','@type':'VideoGame','name':'Sternenepoche',
         'url':'https://sternenepoche.github.io/','inLanguage':'de','genre':['Strategy','Space strategy'],
-        'gamePlatform':'Web browser','playMode':'MultiPlayer',
+        'gamePlatform':['Web browser','Windows'],'playMode':['SinglePlayer','MultiPlayer'],
         'description':'Gemeinsame Weltraumstrategie mit Reichsaufbau, Forschung, Sondenaufklärung, Handel, Kolonisation und Flotten. Menschen, Serverbots und KI-Agenten spielen nach denselben Regeln.',
         'dateModified':'2026-10-11','image':'https://sternenepoche.github.io/web-client/assets/backgrounds.start.webp',
         'subjectOf':{'@type':'Article','name':'Bebilderter Sternenepoche-Spielguide','url':'https://sternenepoche.github.io/Sternenepoche-Start.html'}}

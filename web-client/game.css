@@ -19,6 +19,7 @@
 .game-client[data-progress-motion="still"] .clock-hand{display:none}.game-client[data-progress-motion="still"] .art-color{mask-image:none;-webkit-mask-image:none;opacity:var(--progress,0)}
 .game-client[data-progress-motion="clock"] .clock-hand{display:block}.game-client[data-progress-motion="clock"] .art-color{opacity:1;mask-image:conic-gradient(#000 0deg var(--angle),transparent var(--angle) 360deg);-webkit-mask-image:conic-gradient(#000 0deg var(--angle),transparent var(--angle) 360deg)}
 .trait-heading{display:block;font-size:9px;letter-spacing:1px;color:#91a9bb;margin:7px 0 2px}
+@media(min-width:581px){#game>#tabs{max-height:calc(100dvh - 24px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}#game>#tabs button,#game>#tabs .nav-group{flex-shrink:0}}
 
 .fleet-stock{color:#cbb483;font-size:10px}.map-observation{display:block;color:#829aad;font-size:10px;line-height:1.5;margin-top:5px}
 

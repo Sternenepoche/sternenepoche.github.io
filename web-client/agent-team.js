@@ -3,7 +3,7 @@
 window.AgentTeam=(()=>{
  const roles=['stratege','verwalter','feldherr','diplomat'], keys=new Map(), probes=new Map(), catalogs=new Map();
  let data=null, revision=0, journal=[], owner='', dirty=false, syncing=false, testing=false, testAbort=null, busy=false, fresh=null;
- const uid=()=>crypto.randomUUID(), clone=x=>JSON.parse(JSON.stringify(x));
+ const uid=()=>requestId(), clone=x=>JSON.parse(JSON.stringify(x));
  const duties={stratege:'Formuliere langfristige Ziele und konkrete nächste Schritte. Koordiniere die anderen Rollen, prüfe Versorgung vor Expansion.',verwalter:'Sichere Energie, Nahrung, Lager und Wirtschaft. Stimme Ressourcenbedarf mit dem Feldherrn und Handelsbedarf mit dem Diplomaten ab.',feldherr:'Schütze das Reich und plane Flotten vorsichtig. Fordere fehlende Ressourcen beim Verwalter an. Beachte Treibstoff und Rückkehr.',diplomat:'Pflege Kontakte, beantworte offene Briefe und koordiniere Handel. Prüfe Angebote und Zusagen mit dem Verwalter; behaupte nie einen unbestätigten Abschluss.'};
  function defaults(){return {models:[],roles:Object.fromEntries(roles.map(r=>[r,{model:'',soul:'Du bist ein zuverlässiges Teammitglied. Sprich Kollegen mit ihrem Namen an, unterscheide Fakten, Pläne und Vermutungen und halte Zusagen auf der Pinwand fest.',instructions:duties[r]}])),boards:[{id:uid(),title:'Gemeinsamer Plan',world_id:world?.world_id||'',notes:[]}],delay:60,limit:100,cost_limit:1};}
  const state=()=>data||(data=defaults());

@@ -61,6 +61,7 @@ def build():
     if "<!-- BILD" in document or "<!-- COCKPIT_" in document:
         raise ValueError("Ungelöster Platzhalter in der Cockpit-Seite")
     document = decorate(finish(document), "KI-Hinweis.html")
+    document = "\n".join(line.rstrip() for line in document.splitlines()) + "\n"
     ZIEL.write_text(document, encoding="utf-8")
     print("Cockpit page built:", len(document.encode("utf-8")), "bytes")
 

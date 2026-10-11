@@ -55,10 +55,15 @@ def prepare(out:Path):
         file=ROOT/name
         if file.is_file(): approved.append(file)
     # Deliberate file list: the sibling admin directory must never be packaged.
-    for name in ['index.html','app.js','identity-ui.js','identity-ui.css','presentation.js','style.css','config.js','game-ui.js','communication.js','agent-team.js','agent-team.css','agenten-hilfe.html','guide/team-01-modelle.webp','guide/team-02-ollama.webp','guide/team-03-openrouter.webp','guide/team-04-rollen.webp','guide/team-05-browserfreigabe.webp','guide/team-06-pinwaende.webp','guide/anfragen.webp','guide/gruenden.webp','guide/schreiben.webp','guide/chat.webp','guide/briefkasten.webp','guide/allianz.webp','guide/wirtschaft.webp','guide/hilfe.webp','guide/allianzpost.webp','game.css','art.js','three.min.js','galaxy.js','galaxy.css','cockpit-look.css','fairplay-ui.js','harness-regeln.html','ai-labels.js','loading-screen.css','loading-screen.js','brand-animation.js','loading-no-js.css','brand/neuralstern-panels.webp','brand/neuralstern-panels.png','brand/neuralstern-poster.jpg']:
+    for name in ['index.html','app.js','identity-ui.js','identity-ui.css','presentation.js','style.css','config.js','game-ui.js','communication.js','local-play.js','local-galaxy.js','agent-team.js','agent-team.css','agenten-hilfe.html','guide/team-01-modelle.webp','guide/team-02-ollama.webp','guide/team-03-openrouter.webp','guide/team-04-rollen.webp','guide/team-05-browserfreigabe.webp','guide/team-06-pinwaende.webp','guide/anfragen.webp','guide/gruenden.webp','guide/schreiben.webp','guide/chat.webp','guide/briefkasten.webp','guide/allianz.webp','guide/wirtschaft.webp','guide/hilfe.webp','guide/allianzpost.webp','game.css','art.js','three.min.js','galaxy.js','galaxy.css','cockpit-look.css','fairplay-ui.js','harness-regeln.html','ai-labels.js','loading-screen.css','loading-screen.js','brand-animation.js','loading-no-js.css','brand/neuralstern-panels.webp','brand/neuralstern-panels.png','brand/neuralstern-poster.jpg']:
         file=ROOT/'web-client'/name
         if file.is_file(): approved.append(file)
     # Exact reviewed image manifest, never the whole web-client directory.
+    for name in ['oekonom.ogg','haendler.ogg','igel.ogg','raeuber.ogg','texte.json']:
+        file=ROOT/'web-client'/'audio'/'bots'/name
+        if file.is_file(): approved.append(file)
+    local_guide=ROOT/'docs/SINGLEPLAYER-LOKAL.md'
+    if local_guide.is_file(): approved.append(local_guide)
     manifest=ROOT/'web-client/art.js'
     if manifest.exists():
         raw=manifest.read_text(encoding='utf-8').removeprefix('window.STERNEN_ART=').strip().removesuffix(';')
