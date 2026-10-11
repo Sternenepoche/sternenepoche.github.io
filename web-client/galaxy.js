@@ -57,7 +57,7 @@ window.GalaxyUI=(()=>{
   x.putImageData(image,0,0);const map=new THREE.CanvasTexture(c);map.colorSpace=THREE.SRGBColorSpace;return map;
  }
  function ring(radius,color,opacity=.25){const points=[];for(let i=0;i<=180;i++){const a=i/180*Math.PI*2;points.push(new THREE.Vector3(Math.cos(a)*radius,0,Math.sin(a)*radius));}const m=new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(points),new THREE.LineBasicMaterial({color,transparent:true,opacity}));group.add(m);return m;}
- function label(text,obj,key,kind,fromSector=sector){const b=document.createElement('button');b.type='button';b.className='space-label '+kind;b.textContent=text;b.setAttribute('aria-label',kind==='planet'?'Planet '+text:kind==='sector'?'Sektor '+key+' öffnen':'System '+fromSector+':'+key+' öffnen');b.onclick=()=>pick(kind,key,fromSector);$g('galaxy-labels').append(b);labels.push({el:b,obj,kind,key,sektor:fromSector});}
+ function label(text,obj,key,kind,fromSector=sector){const b=document.createElement('button');b.type='button';b.className='space-label '+kind;b.textContent=kind==='system'||kind==='planet'?String(key):text;b.title=text;b.setAttribute('aria-label',kind==='planet'?'Planet '+text:kind==='sector'?'Sektor '+key+' öffnen':'System '+fromSector+':'+key+' öffnen');b.onclick=()=>pick(kind,key,fromSector);$g('galaxy-labels').append(b);labels.push({el:b,obj,kind,key,sektor:fromSector});}
  function resetScene(){if(group){scene.remove(group);disposeTree(group);}group=new THREE.Group();scene.add(group);targets=[];labels=[];planets=[];orbits=[];hovered='';$g('galaxy-labels').replaceChildren();dirty=true;}
  function hitAt(e){const r=canvas.getBoundingClientRect();raycaster.setFromCamera(new THREE.Vector2((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1),camera);return raycaster.intersectObjects(targets,false)[0];}
  function highlight(hit){const d=hit?.object.userData,next=d?.kind==='system'?'system:'+d.sektor+':'+d.key:d?.kind==='planet'?'planet:'+d.key:'';canvas.style.cursor=hit?'pointer':'grab';if(next===hovered)return;hovered=next;for(const l of labels)if(l.kind==='system'||l.kind==='planet')l.el.classList.toggle('is-highlighted',(l.kind==='system'?'system:'+l.sektor+':'+l.key:'planet:'+l.key)===hovered);}
@@ -87,7 +87,7 @@ window.GalaxyUI=(()=>{
   reduced.addEventListener('change',()=>{motionState();dirty=true;});resize();
  }
  function motionState(){if($g('galaxy-motion')){$g('galaxy-motion').textContent=reduced.matches&&!motionOverride?'Umläufe aktivieren':paused?'Umläufe fortsetzen':'Umläufe pausieren';$g('galaxy-motion').title=reduced.matches&&!motionOverride?'Deine Systemeinstellung reduziert Bewegung. Du kannst Umläufe hier ausdrücklich aktivieren.':'';}}
- function header(title,sub){closeDetail();$g('galaxy-title').textContent=title;$g('galaxy-subtitle').textContent=sub;$g('galaxy-back').hidden=stage==='galaxy';$g('galaxy-motion').hidden=stage!=='system';motionState();}
+ function header(title,sub){closeDetail();host.dataset.stage=stage;$g('galaxy-title').textContent=title;$g('galaxy-subtitle').textContent=sub;$g('galaxy-back').hidden=stage==='galaxy';$g('galaxy-motion').hidden=stage!=='system';motionState();}
  function index(items){$g('galaxy-index').innerHTML=items.map(i=>`<button type="button" data-space-kind="${esc(i.kind)}" data-space-key="${esc(i.key)}" class="${i.own?'space-own':''}" aria-label="${esc(i.text)} öffnen">${esc(i.text)}${i.owner?' '+relationHtml(i.owner,i.relation):i.known?' <small>kartiert</small>':''}</button>`).join('');if(window.STERNENEPOCHE?.local&&items.length)document.dispatchEvent(new CustomEvent('local-galaxy-view',{detail:{stage,sektor:sector,system,items}}));}
  function showGalaxy(){
   stage='galaxy';selected=0;epoch++;if(renderer)resetScene();$g('galaxy-loading').hidden=true;header('Die Galaxie','Sektor wählen · Sterne öffnen die Sonnensysteme');
@@ -147,7 +147,7 @@ window.GalaxyUI=(()=>{
   if(stage==='system'&&!paused&&(!reduced.matches||motionOverride)&&!world?.paused&&!world?.beendet&&GameTime.anchor.connected){clock+=delta;dirty=true;}
   if(dirty){for(const p of planets){const q=GalaxyModel.orbit(p.userData.data.position,clock);p.position.set(q.x,q.y,q.z);p.rotation.y=clock*.05;}
    renderer.render(scene,camera);const w=canvas.clientWidth,h=canvas.clientHeight,v=new THREE.Vector3();
-   for(const l of labels){l.obj.getWorldPosition(v);v.project(camera);l.el.hidden=Math.abs(v.x)>1.04||Math.abs(v.y)>1.04||v.z>1;l.el.style.transform=`translate(${(v.x+1)*w/2}px,${(-v.y+1)*h/2}px) translate(-50%,-50%)`;}
+   for(const l of labels){l.obj.getWorldPosition(v);if(l.kind==='planet'){const depth=-v.clone().applyMatrix4(camera.matrixWorldInverse).z,radius=l.obj.geometry.parameters.radius;const pixels=radius*camera.projectionMatrix.elements[5]*h/(2*Math.max(.1,depth));l.el.style.left=Math.ceil(pixels+8)+'px';}v.project(camera);l.el.hidden=Math.abs(v.x)>1.04||Math.abs(v.y)>1.04||v.z>1;l.el.style.transform=`translate(${(v.x+1)*w/2}px,${(-v.y+1)*h/2}px) translate(-50%,-50%)`;}
    dirty=false;
   }
   frameId=requestAnimationFrame(frame);

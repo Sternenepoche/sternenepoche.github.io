@@ -50,7 +50,8 @@ def build():
             if art == "BILD_OPTIONAL":
                 return ""
             raise ValueError(f"Cockpit-Bild fehlt: {name}.webp (tools/cockpit_bilder.py)")
-        return cockpit_bild(name, titel, text)
+        stand = '12.10.2026' if name in {'lokal-galaxie','lokal-sektor','lokal-system'} else '11.10.2026'
+        return cockpit_bild(name, titel, text, stand)
 
     document = re.sub(r"<!-- (BILD|BILD_OPTIONAL) ([^|]+)\|([^|]+)\|(.*?) -->", bild, document)
     document = document.replace("<!-- COCKPIT_HERO -->", cockpit_bild(

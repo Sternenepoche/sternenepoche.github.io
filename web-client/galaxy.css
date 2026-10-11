@@ -9,9 +9,12 @@
 #galaxy-canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}#galaxy-canvas:active{cursor:grabbing}
 #galaxy-labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .game-client .space-label{position:absolute;top:0;left:0;pointer-events:auto;background:#080f1dbb;color:#a5bbd4;border:1px solid #435b7544;border-radius:20px;min-width:27px;min-height:27px;font:10px/1.1 system-ui;padding:5px;box-shadow:0 0 12px #080f1d99;will-change:transform}
-.game-client .space-label.sector{padding:12px 18px;letter-spacing:2px;color:#e7d7bf;font-size:12px;border-color:#798bab77;background:#101a2ccc;min-height:44px}
-.game-client .space-label.system,.game-client .space-label.planet{opacity:0;pointer-events:none;top:18px;min-height:22px;padding:5px 8px;border-radius:5px;background:#080f1de8;color:#dce8f6}
-.game-client .space-label.is-highlighted,.game-client .space-label:focus-visible{opacity:1;pointer-events:auto}
+#galaxy-labels button.space-label.sector{min-width:44px;min-height:36px;padding:8px 6px;border:0;border-radius:0;background:none;box-shadow:none;color:#fff;font:500 12px/1.2 system-ui;letter-spacing:1px;text-shadow:none;filter:none;appearance:none;white-space:nowrap}
+#galaxy-labels button.space-label.sector:hover{background:none;color:#fff;text-decoration:underline;text-underline-offset:4px}
+#galaxy-labels button.space-label.sector:focus-visible{background:none;color:#fff;outline:1px solid #fff;outline-offset:2px}
+#galaxy-labels button.space-label.system,#galaxy-labels button.space-label.planet{opacity:1;pointer-events:auto;top:-7px;left:10px;min-width:0;min-height:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;color:#fff;font:10px/1 system-ui;text-shadow:none;filter:none;appearance:none;white-space:nowrap}
+#galaxy-labels button.space-label.planet{top:-2px;left:20px}
+#galaxy-space[data-stage=galaxy] .space-label.system:not(.is-highlighted):not(:focus-visible){opacity:0;pointer-events:none}
 .game-client .space-label[aria-pressed=true]{border-color:#edc48d;color:#ffe3bc;background:#503c20cc;box-shadow:0 0 14px #ba824633}
 #galaxy-infocard{position:fixed;width:420px;max-width:calc(100vw - 32px);max-height:calc(100dvh - 32px);padding:0;border:1px solid #536984;border-radius:16px;background:linear-gradient(145deg,#172c46,#080f1e);color:#e8edf6;box-shadow:0 24px 90px #000b;overflow:auto;overscroll-behavior:contain}
 #galaxy-infocard::backdrop{background:#020713bb}
@@ -36,7 +39,9 @@
 #local-galaxy{position:absolute;inset:0;background:radial-gradient(ellipse at 55% 45%,#152039,#030812 75%);overflow:hidden;contain:layout paint}
 #local-galaxy>svg{width:100%;height:100%;position:absolute;inset:0}
 .game-client .local-star{position:absolute;transform:translate(-50%,-50%);padding:2px 4px;border:none;background:#071125c9;color:#c8d8ed;font-size:10px;min-height:18px;line-height:1.2;z-index:2}
-.game-client .local-star.galaxy{font-size:15px;padding:8px 12px;border:1px solid #7588a9;border-radius:20px;background:#14213a}
+#local-galaxy button.local-star.galaxy{font:500 12px/1.2 system-ui;letter-spacing:1px;min-width:44px;min-height:36px;padding:8px 6px;border:0;border-radius:0;background:none;box-shadow:none;color:#fff;text-shadow:none;filter:none;appearance:none}
+#local-galaxy button.local-star.galaxy:hover{background:none;color:#fff;text-decoration:underline;text-underline-offset:4px}
+#local-galaxy button.local-star.galaxy:focus-visible{background:none;color:#fff;outline:1px solid #fff;outline-offset:2px}
 .game-client .local-star.sector{width:8px;height:8px;min-height:8px;padding:0;font-size:0;border-radius:50%;background:#b4c6eb}
 .game-client .local-star.sector.own{background:#f2c482}
 .game-client .local-star.system{border-radius:50%;background:#172139}.game-client .local-star.own{color:#ffe4b6;border-color:#dbb877}

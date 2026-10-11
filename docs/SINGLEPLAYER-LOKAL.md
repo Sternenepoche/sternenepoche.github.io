@@ -113,3 +113,7 @@ Unter **Lokale Sitzung** (vor dem Start) und **Werkstatt → Konto** sind die f�
 ## Credits und Darstellung
 
 Auch kleine Ressourcen-, Energie- und Credits-Symbole sind KI-generiert. Ihre Herkunft steht gemeinsam in den Credits; kleine Symbole tragen keine überlagernde Einzelmarkierung. Große Spielbilder bleiben gekennzeichnet. Ratsfiguren stehen fest auf ihrem Platz und können in der 3D-Ansicht sanft gedreht werden; im Sparmodus bleiben sie als ruhiges Bild sichtbar.
+
+Die 3D-Galaxie zeigt Sektoren als transparente weiße Schrift. Sterne und Planeten tragen kleine weiße Zahlen ohne Flächen oder Rahmen. Ein Klick öffnet den Sektor, das Sonnensystem oder die Planetenkarte; die Systemliste bietet dieselben Ziele per Tastatur. Ohne WebGL verwendet der Client die leichte Ersatzkarte.
+
+Die Abnahme vom 11. Oktober umfasst fünf beschleunigte Jahreswelten mit 30, 51, 101, 201 und 400 Bots, jeweils mit Host, zwei simulierten Mitspielern und einem Agentenspieler. Alle fünf erreichen 365 Spieltage. Die Stufen I–V sind zusätzlich gezielt geprüft. Modellantworten im Jahreslauf sind reproduzierbare Testantworten über die echten Schnittstellen; installierte CPU-Modelle sind separat geprüft. Der Starttest des Pakets 0.2.2 vom 12. Oktober prüft zusätzlich die Installation, Offline-Start bei unerreichbarem Online-Server, Speichern und reguläres Beenden.
