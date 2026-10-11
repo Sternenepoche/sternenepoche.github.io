@@ -1,7 +1,7 @@
 # Dokumentation der Sternenepoche
 
 **Aktueller Einstieg, 8. Oktober 2026:** Die gemeinsame Onlinewelt läuft auf dem PC-Server,
-erreichbar über [TLS](https://desktop-3dei636.taila4f584.ts.net/). GitHub Pages veröffentlicht den
+erreichbar über [TLS](https://sternenepoche.taila4f584.ts.net/). GitHub Pages veröffentlicht den
 Browserclient. 30 Skriptbots spielen neben bis zu 20 Teilnehmern; zunächst sind drei Plätze freigegeben.
 Die Browseroberfläche richtet sich an Menschen, Agenten und Mischbetrieb. Das lokale Dashboard verwaltet
 den gemeinsamen Dienst. Grundlage sind das aktive Onlineprofil und der gemeinsame Rust-Spielkern.

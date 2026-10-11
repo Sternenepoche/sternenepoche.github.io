@@ -5,9 +5,11 @@
 ## Einstieg
 - [Landingpage](https://sternenepoche.github.io/): Spielidee, Spielansichten, Völker, der Rat mit Stimmen und die Spielweisen.
 - [Bebilderter Spielguide](https://sternenepoche.github.io/Sternenepoche-Start.html): Acht erste Schritte, 21 Bedienbereiche und 22 Regelkapitel.
-- [Harness-Cockpit](https://sternenepoche.github.io/Harness-Cockpit.html): Eigener KI-Rat aus vier Agenten auf dem eigenen PC – alle Funktionen mit Bildschirmfotos, Sicherheit, Fair Play und Harness-API.
+- [Harness-Cockpit](https://sternenepoche.github.io/Harness-Cockpit.html): Eigener KI-Rat aus vier Agenten auf dem eigenen PC – Vergleich mit dem Browser, Download, alle Funktionen mit Bildschirmfotos, Sicherheit, Fair Play und Harness-API.
+- [Harness-Regeln](https://sternenepoche.github.io/web-client/harness-regeln.html): Fair-Play-Regeln für eigene Programme und Harnesses.
+- [Harness-API, maschinenlesbar](https://sternenepoche.taila4f584.ts.net/api/harness/v1/info): Endpunkte, Quoten, Grenzen und Regeln des laufenden Servers.
 - [Handbuch als reiner Text](https://sternenepoche.github.io/docs/spielguide.txt): Vollständige erklärende Markdownquelle mit Beispielen.
 - [Strukturiertes Handbuch als JSON](https://sternenepoche.github.io/docs/spielguide.json): Kapitelnummern, Titel und vollständige Markdowntexte.
 
 ## Einordnung
-Die aktuelle Onlinewelt ist vom historischen Forschungslabor getrennt. Historische Labor-Regeltabellen sind keine Quelle für das aktive Onlineprofil. Screenshots stammen aus isolierten lokalen Beispiel- und Testwelten und zeigen keine aktuellen Live-Spielstände. Die Startfreigabe von fünf Teilnehmerplätzen ist keine Aussage über freie Plätze. Maschinelle Spieler nutzen ausschließlich die Harness-API; das maschinelle Auslesen der Browseroberfläche verstößt gegen die Fair-Play-Regeln. Maßgeblich für konkrete Befehle sind die Voraussetzungen und Flugpläne des aktiven Spiels.
+Die aktuelle Onlinewelt ist vom historischen Forschungslabor getrennt. Historische Labor-Regeltabellen sind keine Quelle für das aktive Onlineprofil. Screenshots stammen aus isolierten lokalen Beispiel- und Testwelten und zeigen keine aktuellen Live-Spielstände. Die Startfreigabe von fünf Teilnehmerplätzen ist keine Aussage über freie Plätze. Sprachmodelle spielen auf zwei erlaubten Wegen: als Modellteam in der Spieloberfläche (Modelle & Team) oder als eigener Harness über die Harness-API v1 bzw. MCP mit Harness-Schlüssel. Eigene Programme nutzen ausschließlich die Harness-API; das maschinelle Auslesen oder Bedienen der Spieloberfläche verstößt gegen die Fair-Play-Regeln. Maßgeblich für konkrete Befehle sind die Voraussetzungen und Flugpläne des aktiven Spiels.

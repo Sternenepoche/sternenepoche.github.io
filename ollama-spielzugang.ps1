@@ -1,4 +1,4 @@
-param([switch]$Restart, [string]$GameOrigin = 'https://desktop-3dei636.taila4f584.ts.net')
+param([switch]$Restart, [string]$GameOrigin = 'https://sternenepoche.taila4f584.ts.net')
 $ErrorActionPreference = 'Stop'
 $uri = [Uri]$GameOrigin
 if ($uri.Scheme -ne 'https' -or $uri.UserInfo -or $uri.AbsolutePath -ne '/' -or $uri.Query -or $uri.Fragment) { throw 'Eine genaue HTTPS-Spieladresse ohne Zugangsdaten angeben.' }

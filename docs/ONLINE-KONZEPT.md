@@ -554,7 +554,7 @@ und kennt im Onlineprofil keine fremden Heimatkoordinaten für Vertragspartnerau
 Freie Teilnehmerplätze sind keine Diplomatiepartner. Überwachung und Abschirmung
 benötigen Spionagetechnik Stufe 1; Überwachung zusätzlich einen eigenen Geheimdienst.
 
-Der PC-Spielzugang ist über [Tailscale Funnel mit TLS](https://desktop-3dei636.taila4f584.ts.net/)
+Der PC-Spielzugang ist über [Tailscale Funnel mit TLS](https://sternenepoche.taila4f584.ts.net/)
 freigegeben, in Pages vorkonfiguriert und direkt im Browser geprüft. Dashboard und Betriebsdaten
 bleiben lokal. Zunächst werden drei aktive Teilnehmer aufgenommen; alle weiteren angemeldeten
 Spielinteressenten warten nach FIFO. `admission_limit` und Warteliste werden im selben

@@ -5,7 +5,7 @@ Spielerplätze, davon zunächst drei freigegeben; weitere Anmeldungen kommen auf
 Menschen, lokale Ollama-Agenten, OpenRouter-Agenten und Mischbetrieb spielen dieselbe Rust-Welt.
 Vor dem Start werden Volk und Spielweise gewählt; die Vor- und Nachteile kommen aus dem aktiven Regelprofil.
 
-[Online anmelden und spielen](https://desktop-3dei636.taila4f584.ts.net/) ·
+[Online anmelden und spielen](https://sternenepoche.taila4f584.ts.net/) ·
 [Website](https://sternenepoche.github.io/) · [Spielanleitung](SPIELEN.md) ·
 [Architektur und Regeln](ONLINE-KONZEPT.md) · [Betrieb und VPS-Umzug](SERVER-BETRIEB.md).
 

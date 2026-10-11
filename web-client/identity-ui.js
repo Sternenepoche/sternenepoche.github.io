@@ -48,8 +48,8 @@
       await api('/api/authenticator/disable',fields);clearPrivate();await refresh();show('Authenticator entfernt.');
     }else{
       const result=await api('/api/authenticator/setup',{password:fields.password});
-      clearPrivate();reauth=fields.password;$('authenticator-qr').src=result.qr_image;
-      $('authenticator-link').href=result.otpauth_uri;$('authenticator-manual').textContent=result.manual_key;
+      clearPrivate();reauth=fields.password;$('authenticator-qr').src=/^data:image\/png;base64,[A-Za-z0-9+/=]+$/.test(String(result.qr_image))?result.qr_image:'';
+      $('authenticator-link').href=/^otpauth:\/\//i.test(String(result.otpauth_uri))?result.otpauth_uri:'#';$('authenticator-manual').textContent=result.manual_key;
       $('authenticator-setup').hidden=false;expiry=setTimeout(()=>{clearPrivate();show('Einrichtung abgelaufen. Erzeuge bei Bedarf einen neuen QR-Code.');},result.expires_in*1000);
       $('authenticator-confirm').elements.code.focus();
     }

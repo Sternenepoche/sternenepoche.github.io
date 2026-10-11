@@ -3,7 +3,7 @@
 ## PC-Spielzugang und Warteliste (7. Oktober 2026)
 
 Karl hat Tailscale mit TLS und zunächst drei aktive Teilnehmer verlangt. Funnel läuft
-auf https://desktop-3dei636.taila4f584.ts.net ausschließlich zum öffentlichen Port 8890.
+auf https://sternenepoche.taila4f584.ts.net ausschließlich zum öffentlichen Port 8890.
 Admin 8891 bleibt lokal. Pages enthält diesen API-Endpunkt und verlinkt den direkten
 HTTPS-Spielclient. Die bestehende Welt wurde ohne Reset auf Freigabe 3/20 eingestellt.
 Persistente FIFO-Warteliste: eigene Position/Präferenzen, Rückzug, private Adminliste,

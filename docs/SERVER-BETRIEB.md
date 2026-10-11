@@ -38,7 +38,7 @@ GitHub Pages liefert den Browser, führt aber keine laufende Welt aus.
 [GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages)
 
 Der PC ist über **Tailscale Funnel mit gültigem TLS** erreichbar:
-[Online spielen und anmelden](https://desktop-3dei636.taila4f584.ts.net/).
+[Online spielen und anmelden](https://sternenepoche.taila4f584.ts.net/).
 Die [GitHub-Website](https://sternenepoche.github.io/) verlinkt diesen Zugang; ihr eigener
 Browserclient hat dieselbe HTTPS-API-Adresse vorkonfiguriert. Mitspieler brauchen keine
 Tailscale-Installation. Der öffentlich freigegebene Listener ist ausschließlich 8890;
@@ -140,7 +140,7 @@ Der idle Ollama-Server wurde dafür neu gestartet, die Ollama-App blieb geöffne
 Für andere Windows-Mitspieler oder nach Änderung der Spieladresse:
 
 ```powershell
-.\ollama-spielzugang.ps1 -GameOrigin https://desktop-3dei636.taila4f584.ts.net -Restart
+.\ollama-spielzugang.ps1 -GameOrigin https://sternenepoche.taila4f584.ts.net -Restart
 ```
 
 Das Script ergänzt genaue Origins, sichert die vorige Benutzereinstellung und stoppt

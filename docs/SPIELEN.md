@@ -1,6 +1,6 @@
 # Selbst spielen: das Handbuch
 
-**Online-Oberfläche, 8. Oktober 2026:** Der [öffentliche Spielzugang](https://desktop-3dei636.taila4f584.ts.net/)
+**Online-Oberfläche, 8. Oktober 2026:** Der [öffentliche Spielzugang](https://sternenepoche.taila4f584.ts.net/)
 verwendet jetzt die eigenen Völker-, Gebäude-, Forschungs-, Schiffs- und Planetenmotive.
 Vor der Reichsgründung zeigen vier Völkerkarten die Vorteile und Nachteile aus dem aktiven Serverprofil.
 Die Volkswahl gilt für die Epoche; Mensch, Agent oder Mischbetrieb können später gewechselt werden.

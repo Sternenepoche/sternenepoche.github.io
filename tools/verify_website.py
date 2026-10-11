@@ -12,8 +12,9 @@ BASE = 'http://127.0.0.1:18888'
 def main():
     report = []
     with sync_playwright() as p:
-        browser = p.chromium.launch(channel='chrome',headless=True)
-        for path in ['index.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html']:
+        # SwiftShader: WebGL (Ratsbühne) läuft auf der CPU und stört keine GPU-Aufträge.
+        browser = p.chromium.launch(channel='chrome',headless=True,args=['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--disable-gpu'])
+        for path in ['index.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html','Harness-Cockpit.html']:
             for width,height in [(1440,1000),(390,844)]:
                 page = browser.new_page(viewport={'width':width,'height':height})
                 errors=[];bad_responses=[]
@@ -64,7 +65,7 @@ def main():
                 report.append({'page':path,'width':width,**issues,'errors':errors})
                 page.close()
         # A browser that does not accept WebP uses the actual JPEG/PNG fallbacks.
-        for path in ['index.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html']:
+        for path in ['index.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html','Harness-Cockpit.html']:
             page=browser.new_page(reduced_motion='reduce')
             page.goto(BASE+'/'+path,wait_until='networkidle')
             page.evaluate('''() => {
@@ -95,7 +96,7 @@ def main():
         assert page.locator('.guide-chapter').count()==22
         browser.close()
     (OUT/'verification.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
-    print('PASS: 3 pages x desktop/mobile; images, anchors, search, navigation, zoom, reduced motion, no-JS reading, JPEG/PNG fallbacks and lazy animated logo with GIF fallback; no automatic HD GIF download.')
+    print('PASS: 4 pages x desktop/mobile; images, anchors, search, navigation, zoom, reduced motion, no-JS reading, JPEG/PNG fallbacks and lazy animated logo with GIF fallback; no automatic HD GIF download.')
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser()

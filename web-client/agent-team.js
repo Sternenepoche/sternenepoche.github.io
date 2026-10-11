@@ -2,7 +2,7 @@
 // Credentials and successful probes deliberately live only in this tab's memory.
 window.AgentTeam=(()=>{
  const roles=['stratege','verwalter','feldherr','diplomat'], keys=new Map(), probes=new Map(), catalogs=new Map();
- let data=null, revision=0, journal=[], owner='', dirty=false, syncing=false, testing=false, testAbort=null, busy=false;
+ let data=null, revision=0, journal=[], owner='', dirty=false, syncing=false, testing=false, testAbort=null, busy=false, fresh=null;
  const uid=()=>crypto.randomUUID(), clone=x=>JSON.parse(JSON.stringify(x));
  const duties={stratege:'Formuliere langfristige Ziele und konkrete nächste Schritte. Koordiniere die anderen Rollen, prüfe Versorgung vor Expansion.',verwalter:'Sichere Energie, Nahrung, Lager und Wirtschaft. Stimme Ressourcenbedarf mit dem Feldherrn und Handelsbedarf mit dem Diplomaten ab.',feldherr:'Schütze das Reich und plane Flotten vorsichtig. Fordere fehlende Ressourcen beim Verwalter an. Beachte Treibstoff und Rückkehr.',diplomat:'Pflege Kontakte, beantworte offene Briefe und koordiniere Handel. Prüfe Angebote und Zusagen mit dem Verwalter; behaupte nie einen unbestätigten Abschluss.'};
  function defaults(){return {models:[],roles:Object.fromEntries(roles.map(r=>[r,{model:'',soul:'Du bist ein zuverlässiges Teammitglied. Sprich Kollegen mit ihrem Namen an, unterscheide Fakten, Pläne und Vermutungen und halte Zusagen auf der Pinwand fest.',instructions:duties[r]}])),boards:[{id:uid(),title:'Gemeinsamer Plan',world_id:world?.world_id||'',notes:[]}],delay:60,limit:100,cost_limit:1};}
@@ -94,11 +94,11 @@ window.AgentTeam=(()=>{
   $('agent-status').textContent='Team startet · Steuerungsfreigabe wird angefordert …';
   // Council runs under a lease too, preventing a second tab from starting another crew.
   const lease=await api('/api/lease',{world_id:a.world_id,action:'start',roles:picked});a.lease=lease.lease;agent=a;$('agent-start').disabled=true;
-  a.heartbeat=setInterval(async()=>{if(agent!==a)return;try{await api('/api/lease',{world_id:a.world_id,action:'heartbeat',lease:a.lease});}catch(e){await stopAgent(e.message);}},20000);
+  a.heartbeat=setInterval(async()=>{if(agent!==a)return;try{await api('/api/lease',{world_id:a.world_id,action:'heartbeat',lease:a.lease});}catch(e){if(leaseLost(e))await stopAgent(e.message);}},20000);
   try{if(session.mode==='agent')await council(a);if(agent!==a||a.controller.signal.aborted)return;status('Team aktiv · bestätigte Übergaben werden dauerhaft gespeichert.');void agentLoop(a);}catch(e){await stopAgent('Teamstart abgebrochen: '+e.message);throw e;}
  }
  async function council(a){
-  const s=clone(state()),w=await api('/api/workspace');if(w.revision!==revision)throw Error('Team wurde anderswo geändert. Gespeicherten Stand laden.');
+  const s=clone(state()),w=await withQuota(a,()=>api('/api/workspace'));if(w.revision!==revision)throw Error('Team wurde anderswo geändert. Gespeicherten Stand laden.');
   const roster=s.models.map(m=>({id:m.id,name:m.name,model:m.model})),votes=[];
   const schema=clone(probeSchema);schema.required.push('rollenwahl');schema.properties.rollenwahl={type:'array',minItems:4,maxItems:4,items:{enum:roles}};
   for(const m of s.models){if(agent!==a)throw Error('Team gestoppt');a.currentRole=roles[0];a.roleSettings[a.currentRole]=config(m);const answer=await modelCall(a,[{role:'system',content:'Du bist '+m.name+'. Beratet als Team die Rollenverteilung. Sprich Kollegen mit Namen an. Gib in rollenwahl alle vier Rollen in deiner bevorzugten Reihenfolge an, jede genau einmal. Keine Aktionen, Abfragen oder Pins. Begründe deine Wahl anhand der Aufgaben und bisherigen Vorschläge. JSON-Schema: '+JSON.stringify(schema)},{role:'user',content:JSON.stringify({team:roster,rollen:s.roles,bisherige_vorschlaege:votes})}],schema);if(!Array.isArray(answer.rollenwahl)||new Set(answer.rollenwahl).size!==4||answer.rollenwahl.some(r=>!roles.includes(r))||answer.aktionen.length||answer.abfragen.length)throw Error(m.name+': Ungültige Rollenberatung; keine Spielaktion ausgeführt.');votes.push({id:m.id,name:m.name,bevorzugt:answer.rollenwahl,begruendung:String(answer.begruendung).slice(0,400)});}
@@ -110,7 +110,10 @@ window.AgentTeam=(()=>{
  }
  async function prepare(a,role,context){
   if(!a.team)return null;
-  const w=await api('/api/workspace');if(dirty)throw Error('Ungespeicherte Änderungen: Team stoppen, speichern und fortsetzen.');if(!w.state)throw Error('Teamkonfiguration fehlt.');
+  // Der Stand vom Ende des letzten Rollenzugs gilt für die nächste Rolle (spart eine Abfrage je Zug).
+  // Nur gültig für dasselbe Team und dieselbe Revision; jedes Speichern (Beratung, Pinwand) erzwingt neues Lesen.
+  const reuse=fresh&&fresh.a===a&&fresh.w.revision===revision&&Date.now()-fresh.at<10000;
+  const w=reuse?fresh.w:await withQuota(a,()=>api('/api/workspace'));fresh=null;if(dirty)throw Error('Ungespeicherte Änderungen: Team stoppen, speichern und fortsetzen.');if(!w.state)throw Error('Teamkonfiguration fehlt.');
   data=w.state;revision=w.revision;journal=w.journal;const r=data.roles[role],m=data.models.find(m=>m.id===r.model);if(!m||!checked(m))throw Error('Rollenmodell geändert oder nicht getestet. Bitte erneut testen und starten.');a.roleSettings[role]=config(m);a.teamTurn={revision,model_id:m.id};
   a.memorySnapshot=clone(data.boards);
   context.schema.properties.team_pins=pinSchema;
@@ -172,5 +175,5 @@ window.AgentTeam=(()=>{
   if(Array.isArray(value)){if(value.length>(schema.maxItems??Infinity)||value.length<(schema.minItems??0))throw Error(path+': falsche Anzahl Einträge.');if(schema.items)value.forEach((v,i)=>validateAnswer(v,schema.items,path+'['+i+']'));}
   else if(value&&typeof value==='object'){for(const k of schema.required||[])if(!(k in value))throw Error(path+': Pflichtfeld '+k+' fehlt.');for(const [k,v] of Object.entries(value)){if(schema.properties?.[k])validateAnswer(v,schema.properties[k],path+'.'+k);else if(schema.additionalProperties===false)throw Error(path+': unbekanntes Feld '+k);}}
  }
- return {sync,prepare,memoryPayload,readTool,localURL,validateAnswer,afterTurn:async a=>{if(!a.team)return;const w=await api('/api/workspace');if(!dirty){data=w.state;revision=w.revision;renderBoards();}journal=w.journal;renderJournal();},inspect:()=>({revision,dirty,models:state().models.length})};
+ return {sync,prepare,memoryPayload,readTool,localURL,validateAnswer,afterTurn:async a=>{if(!a.team)return;const w=await withQuota(a,()=>api('/api/workspace'));fresh={a,w,at:Date.now()};if(!dirty){data=w.state;revision=w.revision;renderBoards();}journal=w.journal;renderJournal();},inspect:()=>({revision,dirty,models:state().models.length})};
 })();

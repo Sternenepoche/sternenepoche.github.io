@@ -42,9 +42,10 @@ Im Browser führst du dein Reich. Die gemeinsame Spielwelt bestätigt Befehle, b
 | Zugang | Wofür du ihn nutzt |
 |---|---|
 | Website und Spielguide | Spiel kennenlernen, Bedienung und Regeln nachlesen |
-| [Online spielen](https://desktop-3dei636.taila4f584.ts.net/) | Anmelden, bauen, forschen, Flotten führen und dein Reich verwalten |
-| Eigene Agenten im Spiel | Deinen OpenRouter-Schlüssel oder ein lokales Ollama-Modell verbinden und Rollen zuweisen |
-| [Harness-Cockpit](../Harness-Cockpit.html) | Deinen eigenen Rat aus vier Agenten auf deinem PC zusammenstellen, bauen, prüfen und regieren lassen – mit Ratsstimmen |
+| [Online spielen](https://sternenepoche.taila4f584.ts.net/) | Anmelden, bauen, forschen, Flotten führen und dein Reich verwalten |
+| Modellteam im Spiel | Unter **Modelle & Team** deinen OpenRouter-Schlüssel oder ein lokales Ollama-Modell verbinden und Rollen zuweisen |
+| [Harness-Cockpit](../Harness-Cockpit.html) | Deinen eigenen Rat aus vier Agenten auf deinem PC zusammenstellen, prüfen und regieren lassen – ohne offenen Browser, mit Ratsstimmen |
+| [Harness-API](../Harness-Cockpit.html#api) | Ein selbst geschriebenes Programm über die Harness-API v1 oder MCP mit einem eigenen Harness-Schlüssel spielen lassen |
 
 Ein eigenes Modell ist freiwillig. Du kannst alle Aufgaben selbst übernehmen. Ein Agent verwendet die Informationen und erlaubten Aktionen deines Reichs und spielt nach denselben Regeln wie du.
 
@@ -125,9 +126,10 @@ Wähle das Volk nach deinem gewünschten Spielstil. Kein Vorteil garantiert eine
 | **Zuschauer** | Niemand für ein eigenes Reich | Browser und erreichbarer Server |
 | **Mensch** | Du gibst die Befehle | Browser für deine Eingaben; der Server führt angenommene Aufträge weiter aus |
 | **Serverbot** | Eingebaute Strategie im Rust-Server | Spielserver |
-| **Agent** | Ein Sprachmodell schlägt Befehle für dein Reich vor | Dein Browser, Modellzugang und Spielserver |
-| **Gemischt** | Du und ausgewählte Agentenrollen teilen euch ein Reich | Für die Agenten zusätzlich der offene Browser und Modellzugang |
-| **Harness** | Dein Rat aus vier Agenten im Harness-Cockpit | Das Harness-Cockpit auf deinem PC, Modellzugang und Spielserver; kein offener Browser-Tab nötig |
+| **Agent** | Sprachmodelle führen alle vier Rollen deines Reichs | Das Modellteam im offenen Browser oder ein eigener Harness, dazu Modellzugang und Spielserver |
+| **Gemischt** | Du und ausgewählte Agentenrollen teilen euch ein Reich | Für die Agentenrollen das Modellteam im offenen Browser oder ein eigener Harness, dazu Modellzugang |
+
+Ein **eigener Harness** ist keine eigene Spielweise. Das [Harness-Cockpit](../Harness-Cockpit.html) oder ein selbst geschriebenes Programm übernimmt Rollen unter **Agent** oder **Gemischt** und braucht keinen offenen Browser-Tab. Je Reich steuert immer nur ein Weg die Agentenrollen: das Modellteam im Browser oder ein Harness. Mit der Spielweise **Mensch** handelt keine Maschine für dein Reich.
 
 ### Was ein Serverbot ist
 
@@ -156,7 +158,7 @@ Wähle **Gemischt** und gib beispielsweise nur die Rolle **Verwalter** an den Ag
 
 Solange eine Agentenrolle aktiv übernommen ist, sperrt der Server die entsprechenden menschlichen Befehle. Das verhindert, dass zwei Steuerungen dieselbe Aufgabe gleichzeitig bearbeiten. Bei Befehlen mit mehreren zulässigen Rollen kann eine freie menschliche Zuständigkeit bestehen bleiben.
 
-**Beispiel:** Dein Verwalter-Agent plant die nächste Mine. Du willst stattdessen dringend die Farm reparieren. Wähle zunächst **Team stoppen**, prüfe bereits angenommene Aufträge und erteile dann deinen Befehl. Das Stoppen nimmt bereits angenommene Bauaufträge oder gestartete Flotten nicht zurück.
+**Beispiel:** Dein Verwalter-Agent plant die nächste Mine. Du willst stattdessen dringend die Farm reparieren. Wähle zunächst **Team stoppen**, prüfe bereits angenommene Aufträge und erteile dann deinen Befehl. Das Stoppen nimmt bereits angenommene Bauaufträge oder gestartete Flotten nicht zurück. Regiert dein Rat aus dem Harness-Cockpit, hältst du ihn dort mit **STOPP** an oder stellst den Bereich auf **Erlaubnis**.
 
 ## 6 Einen Agenten korrekt einrichten
 
@@ -179,7 +181,7 @@ Ollama läuft auf **deinem** PC. Der Browser spricht normalerweise **http://127.
 
 Nutze **Modelle laden** und wähle den tatsächlich installierten Modellnamen. Ein ähnlicher Name oder ein frei erfundener Modellbezeichner reicht nicht.
 
-Für den Zugriff von der Spielseite muss deine Ollama-Installation den Ursprung dieser Seite in **OLLAMA_ORIGINS** erlauben. Verwende die Adresse aus der Browserzeile ohne Pfad: beim GitHub-Browserclient **https://sternenepoche.github.io**, beim direkten Spielzugang **https://desktop-3dei636.taila4f584.ts.net**. Ergänze vorhandene Einträge, statt sie zu überschreiben.
+Für den Zugriff von der Spielseite muss deine Ollama-Installation den Ursprung dieser Seite in **OLLAMA_ORIGINS** erlauben. Verwende die Adresse aus der Browserzeile ohne Pfad: beim GitHub-Browserclient **https://sternenepoche.github.io**, beim direkten Spielzugang **https://sternenepoche.taila4f584.ts.net**. Ergänze vorhandene Einträge, statt sie zu überschreiben.
 
 Unter Windows beendest du Ollama, öffnest **Umgebungsvariablen für dieses Benutzerkonto bearbeiten**, ergänzt **OLLAMA_ORIGINS** und startest Ollama danach erneut. Der Browser kann zusätzlich nach Zugriff auf das lokale Netzwerk fragen. Erlaube ihn für die Spielseite, wenn du dein lokales Modell verwenden möchtest. Die [offizielle Ollama-Anleitung](https://docs.ollama.com/faq) beschreibt die Freigabe und die Einrichtung unter weiteren Betriebssystemen.
 
@@ -477,7 +479,7 @@ Hier verwaltest du bis zu vier benannte Modelle aus Ollama und OpenRouter, teste
 
 ### Pinwände
 
-Für alle Spielweisen: Erstelle mehrere Wände, ergänze Karten mit Wissen, Zielen und Empfängern, ändere ihre Reihenfolge mit ↑/↓ und bearbeite oder lösche alte Inhalte. **Pinwände speichern** schreibt die Änderungen dauerhaft ins Konto. Alle Modelle lesen sie vor jeder neuen Entscheidung zusammen mit den bestätigten Übergaben. Ausführliche Beispiele stehen in Kapitel 20.
+Für alle Spielweisen: Erstelle mehrere Wände, ergänze Karten mit Wissen, Zielen und Empfängern, ändere ihre Reihenfolge mit ↑/↓ und bearbeite oder lösche alte Inhalte. **Pinwände speichern** schreibt die Änderungen dauerhaft ins Konto. Alle Modelle des Teams im Browser lesen sie vor jeder neuen Entscheidung zusammen mit den bestätigten Übergaben. Das Harness-Cockpit führt dafür eigene Notizbücher und den Plan. Ausführliche Beispiele stehen in Kapitel 20.
 
 ### Spielerprofil
 
@@ -1103,13 +1105,23 @@ Statt im Browser kann dein Reich auch von einem eigenen **Harness** regiert werd
 | Werkstatt | Bausteine wählen, Abhängigkeiten prüfen, bauen; Modelle, Konto und Schnittstellen |
 | Spiel und Codex | Das Spiel im Cockpit und ein Nachschlagewerk mit Werten, Kosten und dem Rat in 3D |
 
-Der Harness spielt ausschließlich über die offene Harness-API des Servers – mit denselben Quoten und Prüfungen wie ein Mensch im Browser. Er erhält einen eigenen Schlüssel nur für die aktiven Rollen. Riskante Aktionen kannst du je Bereich auf **Erlaubnis** stellen; sie warten dann auf der Brücke auf deine Bestätigung. Alle Seiten mit Bildern erklärt die [Cockpit-Seite](../Harness-Cockpit.html).
+Der Harness spielt ausschließlich über die offene Harness-API des Servers – mit denselben Quoten und Prüfungen wie ein Mensch im Browser. Er erhält einen eigenen Schlüssel nur für die aktiven Rollen. Je Bereich stellst du die Autonomie ein: **Autopilot** handelt selbst, **Vorsicht** fragt bei riskanten Aktionen, **Erlaubnis** fragt bei jeder Aktion und **gesperrt** verbietet den Bereich. Wartende Aktionen erscheinen auf der Brücke mit der Begründung der Rolle. Alle Seiten mit Bildern erklärt die [Cockpit-Seite](../Harness-Cockpit.html).
 
 **Beispiel:** Du stellst den Feldherrn im Bereich Flotten auf **Vorsicht**. Will er angreifen, erscheint die Aktion auf der Brücke als wartende Erlaubnis mit seiner Begründung. Erst dein Ja schickt die Flotte los.
 
 ### Ratsstimmen
 
 Jedes der 16 Ratsmitglieder – vier Rollen je Volk – hat einen Namen, eine Herkunft, eine Persönlichkeit und eine eigene Stimme. Ein Klick auf die Figur fährt die Kamera zum Kopf, und das Ratsmitglied stellt sich vor. Bei Ereignissen wie einem Angriff, einem großen Erfolg oder einer Bitte um Erlaubnis ruft es kurze Sätze herein. Im Gespräch beantwortet das Modell der Rolle deine Fragen in ihrer Persönlichkeit; lokal spricht Voicebox die Antwort in ihrer Stimme. Die Stimmen kannst du auf der [Startseite](../index.html#rat) anhören.
+
+### Fair Play und eigene Programme
+
+Sprachmodelle spielen auf genau zwei erlaubten Wegen: als **Modellteam im Browser** unter Modelle & Team oder als **eigener Harness** über die Harness-API. Eigene Programme dürfen die Spieloberfläche nicht maschinell auslesen oder bedienen. Unsichtbare Signaturen erkennen das. Beim ersten Verstoß folgt eine öffentliche Verwarnung, und alle Sitzungen und Schlüssel des Kontos werden widerrufen. Ein weiterer Verstoß nach deiner Bestätigung führt zur Sperre. Die vollständigen [Harness-Regeln](../web-client/harness-regeln.html) gelten für jeden Harness.
+
+Ein **Harness-Schlüssel** entsteht im Spiel unter **Modelle & Team → Harness-Schlüssel**. Du brauchst dafür einen Spielplatz und die Spielweise **Agent** oder **Gemischt** und bestätigst die aktuellen Harness-Regeln. Ein Schlüssel gilt 1 bis 30 Tage für 1 bis 4 Rollen und wird nur einmal angezeigt; höchstens drei sind gleichzeitig aktiv. Das Harness-Cockpit erledigt das beim ersten **▶ LOS** selbst.
+
+Alle Wege teilen sich die Quoten deines Kontos je Minute: Lage 30, Werkzeuge 90, Handeln 20, Freigabe 12, Bericht 12, Sonstiges 30. Wird eine Quote erreicht, wartet das Modellteam im Browser die angegebene Zeit ab und macht dann weiter. Ein eigener Harness bekommt die Antwort 429 mit `Retry-After`. Endpunkte und Ablauf beschreibt die [Cockpit-Seite für Entwickler](../Harness-Cockpit.html#api).
+
+**Beispiel:** Dein eigenes Programm soll nur den Verwalter spielen. Wähle im Profil **Gemischt**, erstelle einen Schlüssel nur für die Rolle Verwalter und starte die Freigabe. Flotten und Diplomatie bleiben bei dir.
 
 
 ## 21 Häufige Probleme und ihre Lösung
@@ -1197,11 +1209,12 @@ Prüfe den Status. Ein besiegtes Reich ist für diese Epoche ausgeschieden. Es k
 | **Verbandsangriff** | Mehrere gültig zusammengeführte Angriffsflotten mit gemeinsamer Ankunft |
 | **Doktrin** | Ziele und Budgetverteilung für die Agentenrollen |
 | **Agentenrolle** | Ein Aufgabenbereich wie Verwalter oder Feldherr |
-| **Steuerungsfreigabe** | Befristetes exklusives Recht des Browsers, Agenten für ein Reich zu führen |
+| **Harness-Schlüssel** | Geheimer Zugang `sep_…` für ein eigenes Programm oder das Harness-Cockpit, gebunden an Konto, Welt und Rollen |
+| **Steuerungsfreigabe** | Befristetes exklusives Recht, die Agentenrollen eines Reichs zu führen – für das Modellteam im Browser oder einen Harness |
 | **Reset** | Bewusster Beginn einer neuen Welt, mit Verlust des bisherigen Spielfortschritts |
 
 ## 23 Weiterlesen und im Spiel nachschlagen
 
-Der [bebilderte Spielguide](../Sternenepoche-Start.html) verbindet erste Schritte, alle 20 Spielbereiche und Regeln mit aktuellen Ansichten. Die genaue Einrichtung deiner eigenen Modelle steht in den Kapiteln 6 und 20.
+Der [bebilderte Spielguide](../Sternenepoche-Start.html) verbindet erste Schritte, alle 21 Spielbereiche und Regeln mit aktuellen Ansichten. Die genaue Einrichtung deiner eigenen Modelle steht in den Kapiteln 6 und 20.
 
 Kosten, Voraussetzungen, Flugpläne und Berichte findest du unmittelbar bei der jeweiligen Aktion im Spiel. Diese aktuellen Angaben sind maßgeblich, wenn die laufende Epoche abweichende Einstellungen verwendet.
