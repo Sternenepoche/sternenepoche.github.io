@@ -293,7 +293,9 @@
   function volkWaehlen(v) {
     volk = v; stopp();
     for (const r of reiter) { const an = r.dataset.ratVolk === v; r.classList.toggle("an", an); r.setAttribute("aria-selected", an ? "true" : "false"); }
-    wurzel.dataset.volk = v; kartenBauen(); volkZeigen();
+    wurzel.dataset.volk = v;
+    if (!daten) return;   // rat.json lädt noch: die Wahl gilt, Karten und Bühne entstehen beim Eintreffen der Daten
+    kartenBauen(); volkZeigen();
   }
   for (const r of reiter) r.addEventListener("click", () => volkWaehlen(r.dataset.ratVolk));
   fetch(BASIS + "rat.json").then((r) => r.json()).then((d) => {
