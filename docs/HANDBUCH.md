@@ -630,9 +630,9 @@ Die sichtbare Umlaufbewegung ist eine Darstellung. Sie verändert nicht spontan 
 
 Dein Heimatsystem ist bereits kartiert. Die anderen Planeten darin bleiben trotzdem unbekannt, solange du sie nicht einzeln untersucht hast.
 
-Für ein unbekanntes System brauchst du zuerst die Mission **System erkunden** mit einer Sonde. Sie kartiert das System, etwa Nebel und Asteroidengürtel. Danach untersuchst du mit **Spionage** jeden interessanten Planeten einzeln.
+Für ein unbekanntes System brauchst du zuerst die Mission **System erkunden** mit einer Sonde. Sie kartiert Nebel und Asteroidengürtel und zeigt die Bewohner mit ihrer Allianz-Zugehörigkeit. In Sonnensystemen deiner eigenen Allianz ist diese Bewohnerliste ohne Sonde sichtbar. Planetentypen, Ressourcen und weitere Details untersuchst du mit **Spionage** für jeden interessanten Planeten einzeln.
 
-**Beispiel:** Du schickst eine Sonde zu System 1:27. Danach weißt du, dass dieses System existiert und welche systemweiten Merkmale erkannt wurden. Ob Position 4 bewohnt ist und welche Eigenschaften Position 8 hat, erfährst du erst durch deren eigene Sondenmissionen.
+**Beispiel:** Du schickst eine Sonde zu System 1:27. Danach weißt du, dass dieses System existiert und welche systemweiten Merkmale erkannt wurden. Ob Position 4 bewohnt ist und zu wem sie gehört, steht im Systembericht. Die Eigenschaften und Ressourcen von Position 8 bleiben bis zu einer eigenen Planetensonde unbekannt.
 
 Eine zurückgekehrte Sonde kann erneut eingesetzt werden. Du brauchst also einen echten Sondeneinsatz pro zu untersuchendem Ziel, nicht zwingend für jeden Scan ein fabrikneues Schiff. Sonden brauchen Treibstoff und einen freien Flottenplatz und können verloren gehen.
 
@@ -923,22 +923,25 @@ Nichtangriffs- und Verteidigungsverträge haben eine Kündigungsfrist von **48 S
 
 Spionage allein gilt dabei nicht als Vertragsbruch. Ein echter feindlicher Angriff kann dagegen Verträge brechen und Allianzfolgen auslösen. Prüfe vor dem Start die aktive Beziehung zum Ziel.
 
-### Welche Farben sehe ich in Galaxie und Postfach?
+### Welche Farben haben die Punkte im Sternenatlas?
 
-| Beziehung zu deinem Reich | Darstellung |
+<!-- ATLAS_LEGEND -->
+
+| Punktfarbe | Bedeutung |
 |---|---|
-| Verbündet, einschließlich eigener Allianz | Grün |
-| Nichtangriffspakt (NAP) | Gelb |
-| Handelsabkommen | Violett |
-| Feindlich nach Kriegserklärung | Rot |
-| Ausgeschieden | Grau |
-| Neutraler Spieler | Ohne Beziehungsfärbung |
+| Hellgrün | Deine Heimat und deine Kolonien |
+| Anderes Grün | Verbündete Spieler und Mitglieder deiner Allianz |
+| Gelb | Nichtangriffspakt (NAP) |
+| Rot | Feinde, Krieg oder eine fremde Allianz ohne Beziehung |
+| Weiß | Neutrale Spieler |
 
-Der Allianzname steht beim Spielernamen. Bei mehreren Beziehungen gilt die Reihenfolge: ausgeschieden, feindlich, verbündet, NAP, Handelsabkommen, neutral. Texte ergänzen die Farben. Das Postfach zeigt die aktuelle Beziehung, nicht nur die Beziehung beim Versand. Die Galaxie färbt nur bereits bekannte Besitzer; Diplomatie enthüllt keine verborgenen Planeten. Eigene Welten behalten ihre eigene Kartenmarkierung.
+Die Zahlen bleiben weiß. Der farbige Punkt zeigt Besitz und Beziehung; Namen und `[TAG]` zeigen den erkannten Bewohner. Bei mehreren Bewohnern in einem System hat die eigene Welt Vorrang, danach Rot, NAP, Verbündete und Neutral. Im Sonnensystem erkennst du jeden bekannten Bewohner einzeln. Die rote Markierung einer fremden Allianz erklärt für sich genommen keinen Krieg.
+
+Im Postfach gelten weiterhin die Diplomatiekennzeichnungen: Bündnis grün, NAP gelb, Handel violett, Krieg rot, ausgeschieden grau. Im Atlas bleiben neutrale Handelspartner weiß.
 
 ### Wie gründe ich eine Allianz und verteile Rollen?
 
-Öffne **Allianz**, gib einen noch freien Namen ein und bestätige die Gründung. Du wirst erstes Mitglied und Leitung. Lade anschließend Spieler mit ihrem Namen ein. Erst deren Annahme macht sie zu Mitgliedern; die Obergrenze beträgt grundsätzlich acht. Ein Spieler kann jeweils einer Allianz angehören.
+Öffne **Allianz**, gib einen noch freien Namen und optional ein eindeutiges Kürzel mit zwei bis sechs Buchstaben/Ziffern ein und bestätige die Gründung. Du wirst erstes Mitglied und Leitung. Lade anschließend Spieler mit ihrem Namen ein. Erst deren Annahme macht sie zu Mitgliedern; die Obergrenze beträgt grundsätzlich acht. Ein Spieler kann jeweils einer Allianz angehören. Mitglieder aller Völker und Häuser können gemeinsam aufgenommen werden. Suche das Kürzel unter **Codex → Allianzen**; im Browser findest du das Verzeichnis unter **Allianz → Codex · Allianzen**.
 
 ![Gründungsformular für einen Spieler ohne Allianz](bilder/kommunikation/gruenden.webp)
 
@@ -1148,7 +1151,7 @@ Prüfe aktive Forschung, Laborleistung, Energie, Arbeitskräfte und Spezialisten
 
 ### Der Systemscan ist fertig aber die Planeten bleiben unbekannt
 
-Der Systemscan kartiert das System. Für Eigenschaften, Belegung und Güter eines einzelnen Planeten braucht dieser eine eigene Spionagemission. Prüfe auch den Zeitstempel deines Berichts.
+Der Systemscan kartiert das System und erkennt die Bewohner und ihre Allianz. Für Planetentyp, Eigenschaften und Güter eines einzelnen Planeten braucht dieser weiterhin eine eigene Spionagemission. Prüfe auch den Zeitstempel deines Berichts.
 
 ### Ich sehe einen Angriff aber keine Schiffstypen
 

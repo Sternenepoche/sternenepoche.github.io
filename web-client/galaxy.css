@@ -14,6 +14,12 @@
 #galaxy-labels button.space-label.sector:focus-visible{background:none;color:#fff;outline:1px solid #fff;outline-offset:2px}
 #galaxy-labels button.space-label.system,#galaxy-labels button.space-label.planet{opacity:1;pointer-events:auto;top:-7px;left:10px;min-width:0;min-height:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;color:#fff;font:10px/1 system-ui;text-shadow:none;filter:none;appearance:none;white-space:nowrap}
 #galaxy-labels button.space-label.planet{top:-2px;left:20px}
+#galaxy-labels .space-resident{display:block;margin-top:3px;max-width:140px;overflow:hidden;text-overflow:ellipsis;font:9px/1.2 system-ui;color:#fff;opacity:.85;text-align:left}
+#galaxy-labels .planet:not([data-relation=unbekannt]) .space-number::before{content:"";display:inline-block;width:7px;height:7px;margin-right:5px;border-radius:50%;background:var(--relation-color);vertical-align:baseline}
+.space-legend{display:flex;flex-wrap:wrap;gap:9px 16px;font:10px/1.4 system-ui;color:#c3cedb}.space-legend span::before{content:"";display:inline-block;width:6px;height:6px;margin-right:5px;border-radius:50%;background:var(--dot)}
+#local-galaxy button.local-star.sector{background:var(--relation-color);border:0;box-shadow:none;color:#fff}
+#local-galaxy button.local-star.system{background:none;border:0;box-shadow:none;color:#fff;padding:0;min-height:0;border-radius:0}
+#local-galaxy button.local-star.system:not([data-relation=unbekannt])::before{content:"";display:inline-block;width:7px;height:7px;margin-right:5px;border-radius:50%;background:var(--relation-color)}
 #galaxy-space[data-stage=galaxy] .space-label.system:not(.is-highlighted):not(:focus-visible){opacity:0;pointer-events:none}
 .game-client .space-label[aria-pressed=true]{border-color:#edc48d;color:#ffe3bc;background:#503c20cc;box-shadow:0 0 14px #ba824633}
 #galaxy-infocard{position:fixed;width:420px;max-width:calc(100vw - 32px);max-height:calc(100dvh - 32px);padding:0;border:1px solid #536984;border-radius:16px;background:linear-gradient(145deg,#172c46,#080f1e);color:#e8edf6;box-shadow:0 24px 90px #000b;overflow:auto;overscroll-behavior:contain}

@@ -71,7 +71,13 @@ DIALOG = '''<dialog class="image-dialog" id="image-dialog" aria-labelledby="imag
 def loading_screen(base='web-client/',kind='website',status='Deine Reise wird vorbereitet …'):
     return (ROOT/'docs/loading-screen.html').read_text(encoding='utf-8').replace('{{BASE}}',base).replace('{{KIND}}',kind).replace('{{STATUS}}',status)
 
+def atlas_legend():
+    entries=[('#4cf58a','Eigene Heimat und Kolonien'),('#48bd9b','Verbündete und eigene Allianz'),('#f3d365','Nichtangriffspakt (NAP)'),('#ff6470','Feinde oder fremde Allianz ohne Beziehung'),('#ffffff','Neutrale Spieler')]
+    dots=''.join(f'<li><span aria-hidden="true" style="display:inline-block;width:9px;height:9px;border-radius:50%;background:{color};margin-right:7px"></span>{text}</li>' for color,text in entries)
+    return '<div class="atlas-legend" id="atlas-legende"><h3>Die Punkte im Sternenatlas</h3><ul style="display:flex;flex-wrap:wrap;gap:10px 22px;list-style:none;padding:0">'+dots+'</ul><p>Farbe und Spielername zeigen die bekannte Zugehörigkeit. [TAG] ist das Allianz-Kürzel zum Nachschlagen im Codex. In Sonnensystemen deiner eigenen Allianz erkennst du ohne Sonde nur die Bewohner und ihre Zugehörigkeit. Fremde Systeme brauchen Aufklärung; Planetentypen, Ressourcen und weitere Details bleiben bis zur Planetensonde verborgen. Allianzen können Mitglieder aller Völker aufnehmen.</p></div>'
+
 def finish(document):
+    document=document.replace('<!-- ATLAS_LEGEND -->',atlas_legend())
     # Grundgestaltung plus Cockpit-Schicht (gleiche Sprache wie das Harness-Cockpit)
     theme = (ROOT/'docs/site-theme.css').read_text(encoding='utf-8') + '\n' + (ROOT/'docs/site-cockpit.css').read_text(encoding='utf-8')
     document = document.replace('<!-- SITE_THEME -->','<style>'+theme+'</style>')
