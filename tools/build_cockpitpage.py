@@ -34,7 +34,7 @@ def download_kasten() -> str:
         raise ValueError("SHA-256 fehlt oder ist ungültig")
     e = lambda k: html.escape(str(d[k]))
     return (f'<div class="download-kasten" id="download"><b>Harness-Cockpit {e("version")} für Windows</b>'
-            f'<p>{e("datei")} · {e("groesse_mb")} MB · Stand {e("stand")}</p>'
+            f'<p>{e("datei")} · {e("groesse_mb").replace(".", ",")} MB · Stand {e("stand")}</p>'
             f'<a class="button" href="{html.escape(url)}" download>Cockpit herunterladen ↓</a>'
             f'<p class="pruefsumme">SHA-256: <code>{e("sha256")}</code></p>'
             '<p>Entpacken, <code>sternenepoche-cockpit.exe</code> starten. Windows kann beim ersten Start warnen, weil das '
