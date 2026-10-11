@@ -1,0 +1,162 @@
+/* Cockpit-Look für die öffentlichen Seiten (Landingpage, Spielguide, Handbuch, Cockpit-Seite):
+   dieselbe Sprache wie das Harness-Cockpit – Nachtblau, Glas mit goldenen Eckmarken, Champagnergold für
+   Führung, Eiscyan für Leben, Rollenfarben für den Rat. Liegt als Schicht über site-theme.css. */
+:root {
+  --bg: #050a12; --surface: rgba(14, 25, 40, .74); --surface-raised: rgba(19, 34, 53, .86);
+  --text: #e4ecf4; --muted: #9fb2c6; --gold: #dab57b; --gold2: #f3d9a6; --cyan: #7fd3ff; --cyan2: #3fa9e0;
+  --line: rgba(120, 160, 200, .16); --line2: rgba(127, 211, 255, .32);
+  --glas: rgba(14, 25, 40, .74); --glas2: rgba(19, 34, 53, .86);
+  --stratege: #ff6b83; --verwalter: #63b1ff; --diplomat: #4fd994; --feldherr: #ffb04a;
+  --r: 14px; --schatten: 0 18px 50px rgba(0, 0, 0, .5);
+  --titel: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+}
+body { background: var(--bg); font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif; }
+::selection { background: rgba(127, 211, 255, .3); }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: rgba(120, 160, 200, .22); border-radius: 10px; border: 2px solid transparent; background-clip: padding-box; }
+.space-backdrop { background: radial-gradient(ellipse at 18% 8%, rgba(63, 169, 224, .12), transparent 45%), radial-gradient(ellipse at 88% 92%, rgba(218, 181, 123, .08), transparent 50%); }
+
+/* ---------- Kopfleiste wie im Cockpit: Glas, goldene Leuchtlinie, gesperrte Marke */
+.site-header { background: linear-gradient(180deg, rgba(8, 15, 27, .96), rgba(8, 15, 27, .82)); border-bottom-color: var(--line); }
+.site-header::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(218, 181, 123, .55), rgba(127, 211, 255, .35), transparent); }
+.brand { font-family: var(--titel); color: var(--gold); letter-spacing: .22em; font-weight: 600; }
+.primary-nav a { color: var(--muted); letter-spacing: .04em; padding: 6px 2px; position: relative; }
+.primary-nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; border-radius: 2px; background: var(--gold); transform: scaleX(0); transition: transform .2s; }
+
+/* ---------- Knöpfe wie die .k-Familie im Cockpit */
+.button { border-radius: 10px; background: linear-gradient(180deg, #f1d39c, #c99a55); color: #1d1406; border-color: #f6dfb0;
+  box-shadow: 0 6px 22px rgba(218, 181, 123, .28), inset 0 1px 0 rgba(255, 255, 255, .5); letter-spacing: .02em; }
+.button.secondary { background: rgba(127, 211, 255, .06); color: var(--text); border-color: var(--line2); box-shadow: none; }
+.text-link { color: var(--cyan); }
+.eyebrow { color: var(--gold); letter-spacing: .22em; font-family: var(--titel); }
+h2, .hero h1 { font-family: var(--titel); }
+.hero h1 span { color: var(--gold2); text-shadow: 0 0 40px rgba(218, 181, 123, .25); }
+
+/* ---------- Glas-Karten mit goldenen Eckmarken (Cockpit .karte) */
+.feature, .faction-card, .role-card, .screenshot, .wide-scene, .topic-card, .illustration, .guide-search, .facts, .team-guide-figure, .cockpit-karte, .weg-karte {
+  position: relative; background: var(--glas); border: 1px solid var(--line); border-radius: var(--r);
+  backdrop-filter: blur(10px); box-shadow: var(--schatten); }
+.feature { padding: 18px 18px 6px; border-top: 1px solid var(--line); }
+.feature::before, .faction-card::before, .role-card::before, .screenshot::before, .wide-scene::before, .cockpit-karte::before, .weg-karte::before,
+.feature::after, .faction-card::after, .role-card::after, .screenshot::after, .wide-scene::after, .cockpit-karte::after, .weg-karte::after {
+  content: ""; position: absolute; width: 14px; height: 14px; border-color: rgba(218, 181, 123, .55); border-style: solid; pointer-events: none; z-index: 2; }
+.feature::before, .faction-card::before, .role-card::before, .screenshot::before, .wide-scene::before, .cockpit-karte::before, .weg-karte::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; border-top-left-radius: var(--r); }
+.feature::after, .faction-card::after, .role-card::after, .screenshot::after, .wide-scene::after, .cockpit-karte::after, .weg-karte::after { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; border-bottom-right-radius: var(--r); }
+.feature-visual { border-radius: 10px; background: radial-gradient(ellipse at 50% 90%, rgba(63, 169, 224, .22), transparent 70%); }
+.feature-number, .quick-steps .step-no, .fact strong { color: var(--gold); }
+.facts { border-radius: var(--r); padding-inline: 26px; margin-top: -40px; position: relative; z-index: 5; }
+.faction-card, .role-card, .screenshot, .topic-card { overflow: hidden; }
+.screenshot .zoom { background: #071120; }
+.screenshot figcaption b { color: var(--gold); }
+.quick-steps li { border-top-color: var(--line); }
+.image-dialog { border-radius: var(--r); border-color: var(--line2); background: #071120; }
+.final-cta::before { opacity: .55; }
+.edition-note { color: #8ea3b8; }
+@media (hover: hover) and (pointer: fine) {
+  .button:hover { background: linear-gradient(180deg, #f6dcab, #d3a764); filter: brightness(1.04); }
+  .button.secondary:hover { background: rgba(127, 211, 255, .14); border-color: var(--cyan); }
+  .primary-nav a:hover { color: var(--gold2); }
+  .primary-nav a:hover::after { transform: scaleX(1); }
+  .faction-card:hover, .role-card:hover, .cockpit-karte:hover { border-color: var(--line2); transform: translateY(-3px); box-shadow: 0 22px 60px rgba(0, 0, 0, .55), 0 0 0 1px rgba(127, 211, 255, .12); }
+  .role-card, .cockpit-karte { transition: transform .18s, border-color .18s, box-shadow .18s; }
+}
+
+/* ---------- Der Rat: Kreisbühne mit vier Figuren, Volk-Reiter, Karten mit Stimme */
+.rat-abschnitt { background: radial-gradient(ellipse at 50% 30%, rgba(63, 169, 224, .10), transparent 60%); }
+.rat-volk { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 18px; }
+.rat-volk button { display: inline-flex; align-items: center; gap: 9px; padding: 7px 14px 7px 7px; border-radius: 22px; border: 1px solid var(--line); background: rgba(255, 255, 255, .035); color: var(--muted); font-size: 13px; transition: .15s; }
+.rat-volk button img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+.rat-volk button.an { color: var(--gold2); border-color: rgba(218, 181, 123, .7); background: linear-gradient(180deg, rgba(218, 181, 123, .16), rgba(218, 181, 123, .04)); }
+.rat-buehne { position: relative; border-radius: 20px; overflow: hidden; border: 1px solid var(--line); height: clamp(380px, 52vw, 600px);
+  background: radial-gradient(ellipse at 50% 92%, rgba(127, 211, 255, .18), transparent 55%), radial-gradient(ellipse at 50% 12%, rgba(218, 181, 123, .08), transparent 60%), #040911;
+  box-shadow: var(--schatten); }
+.rat-buehne.spricht { box-shadow: 0 0 0 1px color-mix(in srgb, var(--rolle, var(--cyan)) 55%, transparent), 0 0 46px color-mix(in srgb, var(--rolle, var(--cyan)) 22%, transparent), var(--schatten); }
+.rat-leinwand { position: absolute; inset: 0; }
+.rat-leinwand canvas { display: block; width: 100%; height: 100%; }
+.rat-hinweis { position: absolute; left: 16px; top: 14px; z-index: 2; color: var(--muted); font-size: 12px; letter-spacing: .04em; pointer-events: none; }
+.rat-untertitel { position: absolute; left: 50%; bottom: 22px; z-index: 3; transform: translate(-50%, 8px); width: min(760px, calc(100% - 32px)); padding: 11px 16px; border-radius: 12px;
+  background: rgba(5, 10, 18, .84); border: 1px solid var(--line2); border-left: 3px solid var(--rolle, var(--gold)); color: var(--text); font-size: 15px; line-height: 1.5;
+  opacity: 0; transition: opacity .25s, transform .25s; pointer-events: none; backdrop-filter: blur(6px); }
+.rat-untertitel.an { opacity: 1; transform: translate(-50%, 0); }
+.rat-buehne.ohne-3d { height: auto; min-height: 0; border: 0; box-shadow: none; background: none; }
+.rat-buehne.ohne-3d .rat-leinwand, .rat-buehne.ohne-3d .rat-hinweis { display: none; }
+.rat-buehne.ohne-3d .rat-untertitel { position: relative; left: 0; bottom: 0; transform: none; width: 100%; margin-bottom: 12px; }
+.rat-karten { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 16px; }
+.rat-karte { position: relative; border-radius: var(--r); border: 1px solid var(--line); background: var(--glas); padding: 12px; backdrop-filter: blur(10px); border-top: 2px solid var(--rolle); transition: .18s; }
+.rat-karte.spricht { border-color: var(--rolle); box-shadow: 0 0 26px color-mix(in srgb, var(--rolle) 25%, transparent); }
+.rat-karte-kopf { display: grid; grid-template-columns: 56px 1fr auto; gap: 11px; align-items: center; width: 100%; padding: 0; border: 0; background: none; text-align: left; color: var(--text); cursor: pointer; }
+.rat-karte-kopf img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; object-position: center 22%; border: 2px solid var(--rolle); }
+.rat-karte-text { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+.rat-karte-text small { color: var(--rolle); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; font-weight: 650; }
+.rat-karte-text b { font: 600 16px/1.25 var(--titel); }
+.rat-karte-text span { color: var(--muted); font-size: 12px; }
+.rat-play { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(180deg, #f1d39c, #c99a55); color: #1d1406; font-size: 12px; }
+.rat-karte.spricht .rat-play { background: var(--rolle); }
+.rat-zurufe { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.rat-chip { padding: 3px 9px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255, 255, 255, .04); color: var(--muted); font-size: 11.5px; line-height: 1.6; }
+.rat-chip:hover { color: var(--text); border-color: var(--rolle); }
+.rat-hinweise { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 22px; }
+.rat-hinweise .weg-karte { padding: 16px 18px; }
+.rat-hinweise b { display: block; color: var(--gold2); font-family: var(--titel); margin-bottom: 4px; }
+.rat-hinweise p { margin: 0; color: var(--muted); font-size: 13.5px; }
+
+/* ---------- Wege zu regieren (4 Karten) und Cockpit-Vorschau */
+.wege { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.weg-karte { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+.weg-karte img { width: 100%; aspect-ratio: 1.9; object-fit: cover; }
+.weg-karte > div { padding: 18px 18px 8px; }
+.weg-karte h3 { font-size: 20px; margin-bottom: 8px; }
+.weg-karte p { font-size: 13.5px; color: var(--muted); }
+.weg-karte .marke-neu { display: inline-block; margin-bottom: 8px; padding: 2px 8px; border-radius: 10px; font-size: 10.5px; letter-spacing: .14em; font-weight: 700; color: #1d1406; background: var(--gold); }
+.cockpit-vorschau { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 26px; align-items: center; }
+.cockpit-liste { list-style: none; margin: 18px 0 24px; padding: 0; display: grid; gap: 10px; }
+.cockpit-liste li { display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: start; color: var(--muted); font-size: 14.5px; }
+.cockpit-liste li b { color: var(--text); }
+.cockpit-liste i { font-style: normal; width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; background: rgba(127, 211, 255, .08); border: 1px solid var(--line2); color: var(--cyan); font-size: 14px; }
+
+/* ---------- Cockpit-Seite: Schiene mit Seiten, je Seite Bild + Erklärung */
+.tour { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 34px; align-items: start; }
+.tour-schiene { position: sticky; top: 104px; display: flex; flex-direction: column; gap: 3px; padding: 12px 10px; border-radius: var(--r); background: var(--glas); border: 1px solid var(--line); }
+.tour-schiene a { display: block; padding: 8px 12px; border-radius: 10px; color: var(--muted); text-decoration: none; font-size: 13.5px; position: relative; }
+.tour-schiene a:hover { color: var(--text); background: rgba(255, 255, 255, .04); }
+.tour-schiene a[aria-current="true"] { color: var(--gold2); background: linear-gradient(90deg, rgba(218, 181, 123, .16), rgba(218, 181, 123, .03)); }
+.tour-schiene a[aria-current="true"]::before { content: ""; position: absolute; left: -10px; top: 9px; bottom: 9px; width: 3px; border-radius: 3px; background: var(--gold); box-shadow: 0 0 12px var(--gold); }
+.tour-schiene small { display: block; padding: 10px 12px 4px; color: var(--gold); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; }
+.tour-abschnitt { padding-block: 26px 40px; border-bottom: 1px solid var(--line); }
+.tour-abschnitt h2 { font-size: clamp(28px, 3vw, 40px); margin-bottom: 10px; }
+.tour-abschnitt > p { color: var(--muted); max-width: 820px; }
+.tour-bild { margin: 18px 0; }
+.funktionen { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 16px 0 6px; }
+.funktion { padding: 14px 16px; border-radius: 12px; background: var(--glas2); border: 1px solid var(--line); }
+.funktion b { display: block; color: var(--gold2); margin-bottom: 3px; font-family: var(--titel); }
+.funktion span { color: var(--muted); font-size: 13.5px; line-height: 1.6; }
+.schaltplan-tafel { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 16px 0; }
+.schaltplan-tafel div { padding: 12px; border-radius: 12px; background: var(--glas2); border: 1px solid var(--line); position: relative; }
+.schaltplan-tafel div::before { counter-increment: stufe; content: counter(stufe, decimal-leading-zero); display: block; color: var(--gold); font: 11px Consolas, monospace; letter-spacing: .12em; }
+.schaltplan-tafel { counter-reset: stufe; }
+.schaltplan-tafel b { display: block; font-size: 14px; }
+.schaltplan-tafel span { color: var(--muted); font-size: 12px; line-height: 1.5; }
+/* Rasterspalten dürfen schmaler werden als ihr längster Codeblock; der scrollt dann in sich. */
+.mission-grid > * { min-width: 0; }
+.befehl { display: block; margin: 10px 0 18px; padding: 12px 16px; border-radius: 10px; background: #040a12; border: 1px solid var(--line); color: #cfe6f5; font: 13px/1.6 Consolas, "Cascadia Code", monospace; overflow-x: auto; white-space: pre; }
+
+@media (max-width: 1100px) {
+  .rat-karten { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wege { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cockpit-vorschau { grid-template-columns: 1fr; }
+  .schaltplan-tafel { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 800px) {
+  .facts { margin-top: 0; }
+  .rat-karten, .wege, .funktionen, .rat-hinweise { grid-template-columns: 1fr; }
+  .tour { grid-template-columns: 1fr; }
+  .tour-schiene { position: static; flex-direction: row; flex-wrap: wrap; }
+  .tour-schiene small { width: 100%; }
+  .rat-buehne { height: 420px; }
+  .rat-untertitel { font-size: 13.5px; bottom: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .rat-untertitel, .rat-karte, .role-card, .cockpit-karte { transition: none; } }
+@media print { .rat-buehne { display: none; } }
+.facts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 800px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

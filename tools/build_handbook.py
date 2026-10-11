@@ -245,7 +245,7 @@ def build() -> None:
         <div class="chapter-links" aria-label="Schnelleinstieg">{shortcut_html}</div>
       </header>
       <article>{body}</article>
-      <footer class="foot">Bearbeitbare Fassung: docs/HANDBUCH.md · Stand 8. Oktober 2026 · Keine Verbindung zum Spielserver für das Lesen erforderlich.</footer>
+      <footer class="foot">Bearbeitbare Fassung: docs/HANDBUCH.md · Stand 11. Oktober 2026 · Keine Verbindung zum Spielserver für das Lesen erforderlich.</footer>
     </main>
   </div>
 </body>

@@ -82,7 +82,7 @@ def main():
                 with Image.open(OUT/(screen+'.png')) as im: im.save(OUT/(screen+'.webp'),'WEBP',quality=85,method=6)
                 (OUT/(screen+'.png')).unlink()
             browser.close()
-        provenance={'captured':'2026-10-08','source':'web-client in isolated real Rust test world',
+        provenance={'captured':'2026-10-11','source':'web-client in isolated real Rust test world',
             'viewport':[1440,1000],'state':'Paused initial Aurelianer world; no live accounts or secrets',
             'screens':SCREENS,'page_errors':errors,
             'client_sha256':{name:hashlib.sha256((ROOT/'web-client'/name).read_bytes()).hexdigest()

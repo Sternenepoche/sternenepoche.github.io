@@ -21,7 +21,7 @@ function details(title,data){return `<details><summary>${esc(title)}</summary>${
 async function refresh(){
  if(refreshBusy||!base)return;refreshBusy=true;
  try{world=await api('/api/lobby',undefined,false);if(typeof uiWorldSync==='function')uiWorldSync();if(world.api_version!==1)throw Error('Browser und Server haben verschiedene API-Versionen');
-   $('connection').textContent=world.beendet?'Epoche beendet':world.paused?'Welt pausiert':'Verbunden · '+new URL(base).host;
+   $('connection').textContent=world.beendet?'Epoche beendet':world.paused?'Welt pausiert':'Verbunden · '+new URL(base).host;$('connection').dataset.stand=world.beendet?'ende':world.paused?'pause':'an';
    $('world-time').textContent=`Tag ${Math.floor(world.sekunden/86400)+1} · ${new Date(world.sekunden*1000).toISOString().slice(11,19)} Spielzeit`;
    $('world-summary').innerHTML=stat(world.freie_zugaenge??world.freie_plaetze,'Spielplätze jetzt frei')+stat(world.freigegebene_plaetze??20,'von 20 freigegeben')+stat(world.wartende??0,'Auf der Warteliste')+stat(world.bots,'Skriptbots insgesamt')+stat(world.aktive_reiche??world.rangliste.length,'Reiche im Spiel')+stat(world.ausgeschiedene?.length||0,'Besiegt')+stat(world.tempo+'×','Weltgeschwindigkeit')+stat(world.beendet?'Beendet':world.paused?'Pause':'Läuft','Status');
    renderPublic();$('ranking').innerHTML=table(['Rang','Reich','Punkte','Stufe'],world.rangliste.map(r=>r.map((v,i)=>i===1?(world.ausgeschiedene||[]).some(d=>d.name===v)?`<span class="defeated-name">${esc(v)} · Besiegt</span>`:esc(v):esc(v))));
@@ -33,7 +33,7 @@ async function refresh(){
      $('lobby').hidden=me.spieler!==null;$('server').hidden=me.spieler!==null;
      if(me.spieler!==null){view=await api('/api/view');if((view.reich_status?.status==='besiegt'||world.beendet)&&agent)await stopAgent(world.beendet?'Epoche beendet':'Reich besiegt');renderView();}
    }
- }catch(e){$('connection').textContent='Verbindung unterbrochen';if(typeof uiConnectionLost==='function')uiConnectionLost();if(e.status===401||e.status===403){await stopAgent('Sitzung beendet');session=null;modeEditing=false;if(typeof resetCommunication==='function')resetCommunication();sessionStorage.removeItem('sternenepoche-session');$('account-panel').hidden=false;$('logout').hidden=true;$('game').hidden=true;$('claim-panel').hidden=true;$('lobby').hidden=false;$('server').hidden=false;}show(e.message,true);}
+ }catch(e){$('connection').textContent='Verbindung unterbrochen';$('connection').dataset.stand='aus';if(typeof uiConnectionLost==='function')uiConnectionLost();if(e.status===401||e.status===403){await stopAgent('Sitzung beendet');session=null;modeEditing=false;if(typeof resetCommunication==='function')resetCommunication();sessionStorage.removeItem('sternenepoche-session');$('account-panel').hidden=false;$('logout').hidden=true;$('game').hidden=true;$('claim-panel').hidden=true;$('lobby').hidden=false;$('server').hidden=false;}show(e.message,true);}
  finally{window.SternenSecurity?.render(session);refreshBusy=false;if(typeof renderShell==='function')renderShell();applyControlState();void window.AgentTeam?.sync();}
 }
 async function postCommand(payload){

@@ -91,7 +91,7 @@ def main():
         # Content and navigation survive when scripting is disabled.
         page = browser.new_page(java_script_enabled=False,viewport={'width':390,'height':844})
         page.goto(BASE+'/Sternenepoche-Start.html')
-        assert page.locator('.screen-panel:visible').count()==17
+        assert page.locator('.screen-panel:visible').count()==21
         assert page.locator('.guide-chapter').count()==22
         browser.close()
     (OUT/'verification.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')

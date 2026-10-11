@@ -240,6 +240,7 @@ fn serve(
             (false,"/galaxy.js")=>Some((include_bytes!("../../../web-client/galaxy.js").as_slice(),"text/javascript; charset=utf-8")),
             (false,"/three.min.js")=>Some((include_bytes!("../../../web-client/three.min.js").as_slice(),"text/javascript; charset=utf-8")),
             (false,"/galaxy.css")=>Some((include_bytes!("../../../web-client/galaxy.css").as_slice(),"text/css; charset=utf-8")),
+            (false,"/cockpit-look.css")=>Some((include_bytes!("../../../web-client/cockpit-look.css").as_slice(),"text/css; charset=utf-8")),
             (false,"/art.js")=>Some((include_bytes!("../../../web-client/art.js").as_slice(),"text/javascript; charset=utf-8")),
             (_, "/identity-ui.css")=>Some((include_bytes!("../../../web-client/identity-ui.css").as_slice(),"text/css; charset=utf-8")),
             (_, "/style.css") => Some((

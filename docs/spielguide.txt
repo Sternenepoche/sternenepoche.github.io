@@ -44,6 +44,7 @@ Im Browser führst du dein Reich. Die gemeinsame Spielwelt bestätigt Befehle, b
 | Website und Spielguide | Spiel kennenlernen, Bedienung und Regeln nachlesen |
 | [Online spielen](https://desktop-3dei636.taila4f584.ts.net/) | Anmelden, bauen, forschen, Flotten führen und dein Reich verwalten |
 | Eigene Agenten im Spiel | Deinen OpenRouter-Schlüssel oder ein lokales Ollama-Modell verbinden und Rollen zuweisen |
+| [Harness-Cockpit](../Harness-Cockpit.html) | Deinen eigenen Rat aus vier Agenten auf deinem PC zusammenstellen, bauen, prüfen und regieren lassen – mit Ratsstimmen |
 
 Ein eigenes Modell ist freiwillig. Du kannst alle Aufgaben selbst übernehmen. Ein Agent verwendet die Informationen und erlaubten Aktionen deines Reichs und spielt nach denselben Regeln wie du.
 
@@ -126,6 +127,7 @@ Wähle das Volk nach deinem gewünschten Spielstil. Kein Vorteil garantiert eine
 | **Serverbot** | Eingebaute Strategie im Rust-Server | Spielserver |
 | **Agent** | Ein Sprachmodell schlägt Befehle für dein Reich vor | Dein Browser, Modellzugang und Spielserver |
 | **Gemischt** | Du und ausgewählte Agentenrollen teilen euch ein Reich | Für die Agenten zusätzlich der offene Browser und Modellzugang |
+| **Harness** | Dein Rat aus vier Agenten im Harness-Cockpit | Das Harness-Cockpit auf deinem PC, Modellzugang und Spielserver; kein offener Browser-Tab nötig |
 
 ### Was ein Serverbot ist
 
@@ -1085,6 +1087,29 @@ Diese bebilderte Anleitung führt dich durch die neue Oberfläche **Modelle & Te
 <p>Eine ausgeführte Entscheidung, ihre Pinwandänderungen und ihre Übergabe werden in derselben Datenbanktransaktion gespeichert. Wiederholtes Abrufen derselben Befehlskennung führt sie nicht doppelt aus. Bleibt eine Antwort nach Netzabbruch unklar, stoppt der Browser und zeigt <strong>Befehlsantwort erneut abrufen</strong>. Kläre diese Antwort vor weiteren Aktionen. Hat ein anderer Tab die Pinwand oder Zuordnung inzwischen geändert, wird die alte Entscheidung vor der Ausführung abgewiesen; lade den aktuellen Stand und starte erneut.</p><p>Es wird kein endloser Chatverlauf benötigt: Das Team baut jede Entscheidung aus frischem Lagebild und gespeichertem Wissen auf. Dadurch bleiben Ziele auch nach Kontextkürzung, Pausen und Neustarts verfügbar. Das ist kein vollständiges Langzeitprotokoll aller Worte: Die letzten 200 bestätigten Teamzüge bleiben gespeichert; die Oberfläche zeigt die jüngsten Übergaben dieser Epoche. Wichtige langfristige Erkenntnisse gehören auf Karten. Pinwände bleiben bei einem Epochenwechsel im Konto, werden als historisch markiert und dürfen nicht ungeprüft als neue Aufträge gelten.</p>
 <h3 id="team-fehler">8. Wenn etwas nicht funktioniert</h3><table><thead><tr><th>Meldung / Beobachtung</th><th>Was du prüfst</th></tr></thead><tbody><tr><td>Ollama vom Browser nicht erreichbar</td><td>Läuft Ollama? Ist die Adresse genau der lokale API-Punkt? Stimmt OLLAMA_ORIGINS mit dem im Spiel angezeigten Ursprung überein? Ollama nach Änderung vollständig neu starten; lokale Netzwerkberechtigung prüfen.</td></tr><tr><td>Modellliste ist leer / HTTP 404</td><td>Mit ollama list installierte Modelle prüfen. Ein Tippfehler, ein fehlender Tag oder eine falsche OpenRouter-ID reicht für einen Fehler. Kein Modell wird automatisch heruntergeladen.</td></tr><tr><td>HTTP 401 / 403 bei OpenRouter</td><td>Schlüssel vollständig und ohne Leerzeichen neu eintragen; Berechtigungen beim Anbieter prüfen. Schlüssel nicht in Modellname oder Adresse einfügen.</td></tr><tr><td>HTTP 402 / 429</td><td>Guthaben, Schlüssellimit oder Ratenlimit beim Anbieter prüfen. Anschließend gezielt erneut testen.</td></tr><tr><td>Zeitüberschreitung / Speicherfehler / HTTP 5xx</td><td>Ein einzelner Modellaufruf darf bis zu vier Minuten dauern. Wähle ein kleineres Modell; prüfe andere Speicherverbraucher. Ein bestandener Kurztest kann eine sehr große Spielsituation nicht vollständig vorhersagen.</td></tr><tr><td>Falsches JSON / Pflichtfeld fehlt</td><td>Die Modellantwort wird nicht ausgeführt. Ein anderes Textmodell probieren. Rollentexte dürfen dem geforderten Ausgabeformat nicht widersprechen.</td></tr><tr><td>Team oder Pinwand inzwischen geändert</td><td>Keine alte Entscheidung wurde ausgeführt. Sichere bei Bedarf eigene Texte, lade den gespeicherten Stand und starte mit den aktuellen Daten neu.</td></tr><tr><td>Speichern nach Verbindungsabbruch unklar</td><td>Gespeicherten Stand laden und Inhalte prüfen. Eine neue Speicherung mit alter Revision wird absichtlich abgewiesen, statt Änderungen eines anderen Tabs zu überschreiben.</td></tr><tr><td>Teamstart verlangt andere Spielweise</td><td>Im Spielerprofil „Gemischt“ oder „Agent“ wählen. Pinwände und Tests sind im Menschenmodus erlaubt.</td></tr><tr><td>Der Browser läuft auf einem anderen Gerät</td><td>127.0.0.1 bezeichnet immer das Browsergerät. Diese Oberfläche unterstützt lokale Loopback-Endpunkte auf diesem Gerät oder OpenRouter. Ein Ollama auf einem anderen PC wird nicht über dessen 127.0.0.1 erreicht.</td></tr></tbody></table>
 <p>Technische Grundlagen: <a href="https://docs.ollama.com/api/chat">Ollama Chat-API</a>, <a href="https://docs.ollama.com/faq">Ollama Browserfreigaben und Speichersteuerung</a>, <a href="https://openrouter.ai/docs/api_reference/overview">OpenRouter API</a>. Stand der beschriebenen Spieloberfläche: 8. Oktober 2026.</p>
+
+### Der eigene Rat im Harness-Cockpit
+
+Statt im Browser kann dein Reich auch von einem eigenen **Harness** regiert werden: einem Programm auf deinem PC, das deinen Sprachmodellen Lage, Gedächtnis, Werkzeuge und Regeln gibt und jeden ihrer Vorschläge prüft. Das **Harness-Cockpit** stellt diesen Rat zusammen, baut ihn lokal und zeigt alles, was er tut. Es braucht keinen offenen Browser-Tab.
+
+| Seite im Cockpit | Wofür du sie nutzt |
+|---|---|
+| Brücke | Reich, Rat, Planeten, Befunde der Analyse, Ereignisse und wartende Erlaubnisse auf einen Blick |
+| Rat | Je Rolle die 3D-Figur und der Harness als Schaltplan in zehn Stufen: Seele (soul.md), Auslöser, Wahrnehmung, Gedächtnis, Kontextbudget, Modell, Werkzeuge, Wachposten, Probezug, Lernen |
+| Strategie | Spielstil für den ganzen Rat, Doktrin, Autonomie je Bereich und Routinen ohne Modell |
+| Plan | Aufgaben, Teambesprechung, Erinnerungen und Notizbücher des Rates |
+| Wissen | Eigene Wissensquellen: das Gedächtnis per SQL, dein eigenes RAG oder MCP-Server |
+| Labor | Probezug ohne Wirkung, Arena-Vergleich, Kennzahlen, Modellaufrufe und Trainingsdaten |
+| Werkstatt | Bausteine wählen, Abhängigkeiten prüfen, bauen; Modelle, Konto und Schnittstellen |
+| Spiel und Codex | Das Spiel im Cockpit und ein Nachschlagewerk mit Werten, Kosten und dem Rat in 3D |
+
+Der Harness spielt ausschließlich über die offene Harness-API des Servers – mit denselben Quoten und Prüfungen wie ein Mensch im Browser. Er erhält einen eigenen Schlüssel nur für die aktiven Rollen. Riskante Aktionen kannst du je Bereich auf **Erlaubnis** stellen; sie warten dann auf der Brücke auf deine Bestätigung. Alle Seiten mit Bildern erklärt die [Cockpit-Seite](../Harness-Cockpit.html).
+
+**Beispiel:** Du stellst den Feldherrn im Bereich Flotten auf **Vorsicht**. Will er angreifen, erscheint die Aktion auf der Brücke als wartende Erlaubnis mit seiner Begründung. Erst dein Ja schickt die Flotte los.
+
+### Ratsstimmen
+
+Jedes der 16 Ratsmitglieder – vier Rollen je Volk – hat einen Namen, eine Herkunft, eine Persönlichkeit und eine eigene Stimme. Ein Klick auf die Figur fährt die Kamera zum Kopf, und das Ratsmitglied stellt sich vor. Bei Ereignissen wie einem Angriff, einem großen Erfolg oder einer Bitte um Erlaubnis ruft es kurze Sätze herein. Im Gespräch beantwortet das Modell der Rolle deine Fragen in ihrer Persönlichkeit; lokal spricht Voicebox die Antwort in ihrer Stimme. Die Stimmen kannst du auf der [Startseite](../index.html#rat) anhören.
 
 
 ## 21 Häufige Probleme und ihre Lösung

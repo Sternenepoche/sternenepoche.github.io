@@ -1,12 +1,13 @@
 # Sternenepoche
 
-> Deutschsprachiges Weltraumstrategiespiel mit gemeinsamer, gespeicherter Onlinewelt. Menschen, Serverbots und KI-Agenten spielen nach demselben Rust-Regelkern. Stand: 8. Oktober 2026.
+> Deutschsprachiges Weltraumstrategiespiel mit gemeinsamer, gespeicherter Onlinewelt. Menschen, Serverbots und KI-Agenten spielen nach demselben Rust-Regelkern. Stand: 11. Oktober 2026.
 
 ## Einstieg
-- [Landingpage](https://sternenepoche.github.io/): Spielidee, Spielansichten, Völker und Spielweisen.
-- [Bebilderter Spielguide](https://sternenepoche.github.io/Sternenepoche-Start.html): Acht erste Schritte, 17 Bedienbereiche und 22 Regelkapitel.
+- [Landingpage](https://sternenepoche.github.io/): Spielidee, Spielansichten, Völker, der Rat mit Stimmen und die Spielweisen.
+- [Bebilderter Spielguide](https://sternenepoche.github.io/Sternenepoche-Start.html): Acht erste Schritte, 21 Bedienbereiche und 22 Regelkapitel.
+- [Harness-Cockpit](https://sternenepoche.github.io/Harness-Cockpit.html): Eigener KI-Rat aus vier Agenten auf dem eigenen PC – alle Funktionen mit Bildschirmfotos, Sicherheit, Fair Play und Harness-API.
 - [Handbuch als reiner Text](https://sternenepoche.github.io/docs/spielguide.txt): Vollständige erklärende Markdownquelle mit Beispielen.
 - [Strukturiertes Handbuch als JSON](https://sternenepoche.github.io/docs/spielguide.json): Kapitelnummern, Titel und vollständige Markdowntexte.
 
 ## Einordnung
-Die aktuelle Onlinewelt ist vom historischen Forschungslabor getrennt. Historische Labor-Regeltabellen sind keine Quelle für das aktive Onlineprofil. Screenshots im Guide stammen aus einer isolierten lokalen Beispielwelt und zeigen keine aktuellen Live-Spielstände. Die Startfreigabe von drei Teilnehmerplätzen ist keine Aussage über freie Plätze. Maßgeblich für konkrete Befehle sind die Voraussetzungen und Flugpläne des aktiven Spiels.
+Die aktuelle Onlinewelt ist vom historischen Forschungslabor getrennt. Historische Labor-Regeltabellen sind keine Quelle für das aktive Onlineprofil. Screenshots stammen aus isolierten lokalen Beispiel- und Testwelten und zeigen keine aktuellen Live-Spielstände. Die Startfreigabe von fünf Teilnehmerplätzen ist keine Aussage über freie Plätze. Maschinelle Spieler nutzen ausschließlich die Harness-API; das maschinelle Auslesen der Browseroberfläche verstößt gegen die Fair-Play-Regeln. Maßgeblich für konkrete Befehle sind die Voraussetzungen und Flugpläne des aktiven Spiels.

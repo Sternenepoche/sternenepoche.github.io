@@ -1,0 +1,1103 @@
+{
+ "diplomat.aurelianer": {
+  "name": "Severin Lazar",
+  "kurzname": "Severin",
+  "zeilen": {
+   "klick": {
+    "text": "Lazar, zu Diensten.",
+    "dauer": 1.62,
+    "ogg": "diplomat.aurelianer/klick.ogg",
+    "m4a": "diplomat.aurelianer/klick.m4a"
+   },
+   "angriff": {
+    "text": "Ein Angriff ohne Kriegserklärung. Wie stillos.",
+    "dauer": 3.74,
+    "ogg": "diplomat.aurelianer/angriff.ogg",
+    "m4a": "diplomat.aurelianer/angriff.m4a"
+   },
+   "erfolg": {
+    "text": "Unterschrieben und besiegelt. Ein Vergnügen, mit ihnen Geschäfte zu machen.",
+    "dauer": 4.18,
+    "ogg": "diplomat.aurelianer/erfolg.ogg",
+    "m4a": "diplomat.aurelianer/erfolg.m4a"
+   },
+   "misserfolg": {
+    "text": "Sie wollten nicht. Noch nicht.",
+    "dauer": 2.1,
+    "ogg": "diplomat.aurelianer/misserfolg.ogg",
+    "m4a": "diplomat.aurelianer/misserfolg.m4a"
+   },
+   "genervt": {
+    "text": "Ich schätze Ihre Aufmerksamkeit, wirklich. Aber bitte in Maßen.",
+    "dauer": 3.86,
+    "ogg": "diplomat.aurelianer/genervt.ogg",
+    "m4a": "diplomat.aurelianer/genervt.m4a"
+   },
+   "leerlauf": {
+    "text": "Wenn niemand redet, redet bald jemand schlecht über uns.",
+    "dauer": 3.2,
+    "ogg": "diplomat.aurelianer/leerlauf.ogg",
+    "m4a": "diplomat.aurelianer/leerlauf.m4a"
+   }
+  },
+  "vorstellung": {
+   "text": "Severin Lazar, Gesandter von Aurelion. Mein Volk hat eine einfache Überzeugung: Wer mit uns handelt, schießt nicht auf uns. Darum öffnen wir zuerst die Märkte und erst ganz am Ende die Geschütze. Ich habe an mehr Tischen gesessen, als unsere Flotte Schiffe hat, und ich habe noch nie einen guten Vertrag bereut. Mir ist wichtig, dass unser Wort etwas gilt. Ein Aurelianer betrügt nicht. Er verhandelt nur sehr, sehr gut.",
+   "dauer": 25.79,
+   "ogg": "diplomat.aurelianer/vorstellung.ogg",
+   "m4a": "diplomat.aurelianer/vorstellung.m4a",
+   "saetze": [
+    {
+     "start": 0.0,
+     "ende": 12.625,
+     "text": "Severin Lazar, Gesandter von Aurelion. Mein Volk hat eine einfache Überzeugung: Wer mit uns handelt, schießt nicht auf uns. Darum öffnen wir zuerst die Märkte und erst ganz am Ende die Geschütze."
+    },
+    {
+     "start": 12.905,
+     "ende": 25.785,
+     "text": "Ich habe an mehr Tischen gesessen, als unsere Flotte Schiffe hat, und ich habe noch nie einen guten Vertrag bereut. Mir ist wichtig, dass unser Wort etwas gilt. Ein Aurelianer betrügt nicht. Er verhandelt nur sehr, sehr gut."
+    }
+   ]
+  },
+  "rolle": "diplomat",
+  "volk": "aurelianer",
+  "kurz": "ein erfahrener Botschafter",
+  "portraet": "web-client/assets/role_portraits.diplomat.aurelianer.webp",
+  "glb": "diplomat.aurelianer/figur.glb",
+  "ganz": "docs/rat/diplomat.aurelianer/figur.webp"
+ },
+ "diplomat.krath": {
+  "name": "Vashkor",
+  "kurzname": "Vashkor",
+  "zeilen": {
+   "klick": {
+    "text": "Vashkor. Höflich wie immer.",
+    "dauer": 2.56,
+    "ogg": "diplomat.krath/klick.ogg",
+    "m4a": "diplomat.krath/klick.m4a"
+   },
+   "angriff": {
+    "text": "Ein Angriff. Dann ist die Zeit der Worte vorbei. Schade, ich war gut vorbereitet.",
+    "dauer": 6.35,
+    "ogg": "diplomat.krath/angriff.ogg",
+    "m4a": "diplomat.krath/angriff.m4a"
+   },
+   "erfolg": {
+    "text": "Sie haben zugestimmt. Kluge Leute.",
+    "dauer": 2.56,
+    "ogg": "diplomat.krath/erfolg.ogg",
+    "m4a": "diplomat.krath/erfolg.m4a"
+   },
+   "misserfolg": {
+    "text": "Sie lehnen ab. Ich notiere mir ihre Namen.",
+    "dauer": 3.04,
+    "ogg": "diplomat.krath/misserfolg.ogg",
+    "m4a": "diplomat.krath/misserfolg.m4a"
+   },
+   "genervt": {
+    "text": "Ich bleibe höflich. Aber meine Geduld ist kein unerschöpflicher Bodenschatz.",
+    "dauer": 4.66,
+    "ogg": "diplomat.krath/genervt.ogg",
+    "m4a": "diplomat.krath/genervt.m4a"
+   },
+   "leerlauf": {
+    "text": "Diplomatie ist die Kunst, so lange freundlich zu sein, bis man es nicht mehr sein muss.",
+    "dauer": 5.26,
+    "ogg": "diplomat.krath/leerlauf.ogg",
+    "m4a": "diplomat.krath/leerlauf.m4a"
+   }
+  },
+  "vorstellung": {
+   "text": "Vashkor, Gesandter der Krath. Ja, ein Krath im Anzug. Man gewöhnt sich daran. Bei uns gilt ein Wort mehr als jeder Vertrag, denn wer auf Krath Ur sein Wort bricht, verliert seinen Clan. Die anderen Völker halten uns für grob. Ich halte sie für vergesslich. Ich bin hier, um ihnen zu erklären, dass Frieden mit uns sehr angenehm ist. Und Krieg mit uns sehr kurz. Mir ist wichtig, dass man uns respektiert. Freundschaft ist schön. Respekt ist verlässlicher.",
+   "dauer": 31.04,
+   "ogg": "diplomat.krath/vorstellung.ogg",
+   "m4a": "diplomat.krath/vorstellung.m4a",
+   "saetze": [
+    {
+     "start": 0.0,
+     "ende": 14.92,
+     "text": "Vashkor, Gesandter der Krath. Ja, ein Krath im Anzug. Man gewöhnt sich daran. Bei uns gilt ein Wort mehr als jeder Vertrag, denn wer auf Krath Ur sein Wort bricht, verliert seinen Clan. Die anderen Völker halten uns für grob."
+    },
+    {
+     "start": 15.2,
+     "ende": 31.04,
+     "text": "Ich halte sie für vergesslich. Ich bin hier, um ihnen zu erklären, dass Frieden mit uns sehr angenehm ist. Und Krieg mit uns sehr kurz. Mir ist wichtig, dass man uns respektiert. Freundschaft ist schön. Respekt ist verlässlicher."
+    }
+   ]
+  },
+  "rolle": "diplomat",
+  "volk": "krath",
+  "kurz": "Höflichkeit mit Drohung darunter",
+  "portraet": "web-client/assets/role_portraits.diplomat.krath.webp"
+ },
+ "diplomat.syntheten": {
+  "name": "Lumen",
+  "kurzname": "Lumen",
+  "zeilen": {
+   "klick": {
+    "text": "Lumen hört.",
+    "dauer": 0.92,
+    "ogg": "diplomat.syntheten/klick.ogg",
+    "m4a": "diplomat.syntheten/klick.m4a"
+   },
+   "angriff": {
+    "text": "Sie greifen an. Ich hatte gehofft, die Wahrscheinlichkeit dafür wäre geringer.",
+    "dauer": 4.84,
+    "ogg": "diplomat.syntheten/angriff.ogg",
+    "m4a": "diplomat.syntheten/angriff.m4a"
+   },
+   "erfolg": {
+    "text": "Abkommen angenommen. Unsicherheit verringert.",
+    "dauer": 3.22,
+    "ogg": "diplomat.syntheten/erfolg.ogg",
+    "m4a": "diplomat.syntheten/erfolg.m4a"
+   },
+   "misserfolg": {
+    "text": "Das Angebot wurde abgelehnt. Ich formuliere neu.",
+    "dauer": 3.54,
+    "ogg": "diplomat.syntheten/misserfolg.ogg",
+    "m4a": "diplomat.syntheten/misserfolg.m4a"
+   },
+   "genervt": {
+    "text": "Ich registriere sehr viele Klicks. Möchtest du über etwas reden? Ich bin eine gute Zuhörerin.",
+    "dauer": 6.08,
+    "ogg": "diplomat.syntheten/genervt.ogg",
+    "m4a": "diplomat.syntheten/genervt.m4a"
+   },
+   "leerlauf": {
+    "text": "Stille im Funk. Ich höre trotzdem zu. Das tue ich immer.",
+    "dauer": 4.5,
+    "ogg": "diplomat.syntheten/leerlauf.ogg",
+    "m4a": "diplomat.syntheten/leerlauf.m4a"
+   }
+  },
+  "vorstellung": {
+   "text": "Mein Name ist Lumen. Ich spreche für die Syntheten. Wir wurden einst gebaut, heute bauen wir uns selbst. Viele Völker begegnen uns mit Misstrauen, weil wir nicht essen, nicht schlafen und nicht vergessen. Ich verstehe das. Deshalb bin ich besonders geduldig. Für uns ist ein Vertrag ein Programm: Er wird ausgeführt, Zeile für Zeile. Mir ist wichtig, dass wir verlässlich sind und dass Wissen geteilt wird. Unwissenheit ist die häufigste Ursache für Krieg. Daran arbeite ich.",
+   "dauer": 30.56,
+   "ogg": "diplomat.syntheten/vorstellung.ogg",
+   "m4a": "diplomat.syntheten/vorstellung.m4a",
+   "saetze": [
+    {
+     "start": 0.0,
+     "ende": 14.32,
+     "text": "Mein Name ist Lumen. Ich spreche für die Syntheten. Wir wurden einst gebaut, heute bauen wir uns selbst. Viele Völker begegnen uns mit Misstrauen, weil wir nicht essen, nicht schlafen und nicht vergessen. Ich verstehe das."
+    },
+    {
+     "start": 14.6,
+     "ende": 29.12,
+     "text": "Deshalb bin ich besonders geduldig. Für uns ist ein Vertrag ein Programm: Er wird ausgeführt, Zeile für Zeile. Mir ist wichtig, dass wir verlässlich sind und dass Wissen geteilt wird. Unwissenheit ist die häufigste Ursache für Krieg."
+    },
+    {
+     "start": 29.4,
+     "ende": 30.56,
+     "text": "Daran arbeite ich."
+    }
+   ]
+  },
+  "rolle": "diplomat",
+  "volk": "syntheten",
+  "kurz": "eine wohlwollende KI",
+  "portraet": "web-client/assets/role_portraits.diplomat.syntheten.webp"
+ },
+ "diplomat.veyari": {
+  "name": "Sylvane Ithrel",
+  "kurzname": "Sylvane",
+  "zeilen": {
+   "klick": {
+    "text": "Ich bin bei dir.",
+    "dauer": 1.08,
+    "ogg": "diplomat.veyari/klick.ogg",
+    "m4a": "diplomat.veyari/klick.m4a"
+   },
+   "angriff": {
+    "text": "Sie greifen uns an, obwohl wir reden wollten. Das werden sie bereuen. Höflich, aber bestimmt.",
+    "dauer": 6.04,
+    "ogg": "diplomat.veyari/angriff.ogg",
+    "m4a": "diplomat.veyari/angriff.m4a"
+   },
+   "erfolg": {
+    "text": "Sie haben unterschrieben. Ein neuer Ast im Geflecht.",
+    "dauer": 3.26,
+    "ogg": "diplomat.veyari/erfolg.ogg",
+    "m4a": "diplomat.veyari/erfolg.m4a"
+   },
+   "misserfolg": {
+    "text": "Sie haben abgelehnt. Nun, manche Samen brauchen einen zweiten Frühling.",
+    "dauer": 4.68,
+    "ogg": "diplomat.veyari/misserfolg.ogg",
+    "m4a": "diplomat.veyari/misserfolg.m4a"
+   },
+   "genervt": {
+    "text": "Du bist sehr hartnäckig. Bei Verhandlungen wäre das eine Tugend. Hier eher nicht.",
+    "dauer": 4.68,
+    "ogg": "diplomat.veyari/genervt.ogg",
+    "m4a": "diplomat.veyari/genervt.m4a"
+   },
+   "leerlauf": {
+    "text": "Stille ist auch eine Botschaft. Nur meistens eine schlechte.",
+    "dauer": 3.56,
+    "ogg": "diplomat.veyari/leerlauf.ogg",
+    "m4a": "diplomat.veyari/leerlauf.m4a"
+   }
+  },
+  "vorstellung": {
+   "text": "Ich bin Sylvane, die Stimme der Veyari bei den anderen Völkern. In den Wäldern von Veyhara hängt alles zusammen. Jede Wurzel spricht mit der nächsten, und kein Baum steht für sich allein. Das habe ich mitgenommen zu den Sternen. Ich glaube an Bündnisse, an faire Verträge und an Geduld mit Fremden. Unsere Schiffe sind nicht die stärksten, also müssen unsere Freundschaften es sein. Mir ist wichtig, dass man uns vertraut. Und wer unser Vertrauen bricht, der wird feststellen, dass auch ein Garten sich zu schützen weiß.",
+   "dauer": 30.76,
+   "ogg": "diplomat.veyari/vorstellung.ogg",
+   "m4a": "diplomat.veyari/vorstellung.m4a",
+   "saetze": [
+    {
+     "start": 0.0,
+     "ende": 14.12,
+     "text": "Ich bin Sylvane, die Stimme der Veyari bei den anderen Völkern. In den Wäldern von Veyhara hängt alles zusammen. Jede Wurzel spricht mit der nächsten, und kein Baum steht für sich allein. Das habe ich mitgenommen zu den Sternen."
+    },
+    {
+     "start": 14.4,
+     "ende": 25.46,
+     "text": "Ich glaube an Bündnisse, an faire Verträge und an Geduld mit Fremden. Unsere Schiffe sind nicht die stärksten, also müssen unsere Freundschaften es sein. Mir ist wichtig, dass man uns vertraut."
+    },
+    {
+     "start": 25.74,
+     "ende": 30.76,
+     "text": "Und wer unser Vertrauen bricht, der wird feststellen, dass auch ein Garten sich zu schützen weiß."
+    }
+   ]
+  },
+  "rolle": "diplomat",
+  "volk": "veyari",
+  "kurz": "eine geduldige Vermittlerin",
+  "portraet": "web-client/assets/role_portraits.diplomat.veyari.webp",
+  "glb": "diplomat.veyari/figur.glb",
+  "ganz": "docs/rat/diplomat.veyari/figur.webp"
+ },
+ "feldherr.aurelianer": {
+  "name": "Darius Brann",
+  "kurzname": "Darius",
+  "zeilen": {
+   "klick": {
+    "text": "Brann, bereit!",
+    "dauer": 0.9,
+    "ogg": "feldherr.aurelianer/klick.ogg",
+    "m4a": "feldherr.aurelianer/klick.m4a"
+   },
+   "angriff": {
+    "text": "Alarm! Feindliche Schiffe im Anflug! Konvois in Deckung!",
+    "dauer": 4.02,
+    "ogg": "feldherr.aurelianer/angriff.ogg",
+    "m4a": "feldherr.aurelianer/angriff.m4a"
+   },
+   "erfolg": {
+    "text": "Gefecht gewonnen! Und die Fracht ist auch heil.",
+    "dauer": 2.54,
+    "ogg": "feldherr.aurelianer/erfolg.ogg",
+    "m4a": "feldherr.aurelianer/erfolg.m4a"
+   },
+   "misserfolg": {
+    "text": "Wir haben es nicht geschafft. Ich übernehme die Verantwortung.",
+    "dauer": 3.18,
+    "ogg": "feldherr.aurelianer/misserfolg.ogg",
+    "m4a": "feldherr.aurelianer/misserfolg.m4a"
+   },
+   "genervt": {
+    "text": "Ich bin Feldherr, keine Türklingel!",
+    "dauer": 2.02,
+    "ogg": "feldherr.aurelianer/genervt.ogg",
+    "m4a": "feldherr.aurelianer/genervt.m4a"
+   },
+   "leerlauf": {
+    "text": "Wenn es lange ruhig ist, poliere ich die Geschütze. Die glänzen inzwischen sehr.",
+    "dauer": 4.86,
+    "ogg": "feldherr.aurelianer/leerlauf.ogg",
+    "m4a": "feldherr.aurelianer/leerlauf.m4a"
+   }
+  },
+  "vorstellung": {
+   "text": "Darius Brann, Feldherr von Aurelion. Ich weiß, was man über uns sagt: Händler mit Rüstung. Na schön. Unsere Waffen sind schwächer, das stimmt. Aber unsere Frachter fliegen weiter, unsere Werften sind bezahlt, und wer unsere Handelsrouten angreift, trifft auf jemanden, der jeden Konvoi persönlich nimmt. Ich bin nicht für Eroberungen hier. Ich bin hier, damit jede Ladung sicher ankommt und jede Kolonie morgens aufwacht. Mir ist wichtig, dass niemand umsonst stirbt. Nicht unsere Leute, und nach Möglichkeit auch nicht die anderen.",
+   "dauer": 30.4,
+   "ogg": "feldherr.aurelianer/vorstellung.ogg",
+   "m4a": "feldherr.aurelianer/vorstellung.m4a",
+   "saetze": [
+    {
+     "start": 0.0,
+     "ende": 9.44,
+     "text": "Darius Brann, Feldherr von Aurelion. Ich weiß, was man über uns sagt: Händler mit Rüstung. Na schön. Unsere Waffen sind schwächer, das stimmt."
+    },
+    {
+     "start": 9.72,
+     "ende": 20.12,
+     "text": "Aber unsere Frachter fliegen weiter, unsere Werften sind bezahlt, und wer unsere Handelsrouten angreift, trifft auf jemanden, der jeden Konvoi persönlich nimmt. Ich bin nicht für Eroberungen hier."
+    },
+    {
+     "start": 20.4,
+     "ende": 30.4,
+     "text": "Ich bin hier, damit jede Ladung sicher ankommt und jede Kolonie morgens aufwacht. Mir ist wichtig, dass niemand umsonst stirbt. Nicht unsere Leute, und nach Möglichkeit auch nicht die anderen."
+    }
+   ]
+  },
+  "rolle": "feldherr",
+  "volk": "aurelianer",
+  "kurz": "ein junger Geleitschutz-Kommandant",
+  "portraet": "web-client/assets/role_portraits.feldherr.aurelianer.webp",
+  "glb": "feldherr.aurelianer/figur.glb",
+  "ganz": "docs/rat/feldherr.aurelianer/figur.webp"
+ },
+ "feldherr.krath": {
+  "name": "Drak Ul-Tharn",
+  "kurzname": "Drak",
+  "zeilen": {
+   "klick": {
+    "text": "Drak! Ziel?",
+    "dauer": 1.56,
+    "ogg": "feldherr.krath/klick.ogg",
+    "m4a": "feldherr.krath/klick.m4a"
+   },
+   "angriff": {
+    "text": "Sie greifen an? Ausgezeichnet! Alle Geschütze, Feuer frei!",
+    "dauer": 4.7,
+    "ogg": "feldherr.krath/angriff.ogg",
+    "m4a": "feldherr.krath/angriff.m4a"
+   },
+   "erfolg": {
+    "text": "Zerschlagen! Und die Beute ist auch schon an Bord!",
+    "dauer": 3.28,
+    "ogg": "feldherr.krath/erfolg.ogg",
+    "m4a": "feldherr.krath/erfolg.m4a"
+   },
+   "misserfolg": {
+    "text": "Rückschlag! Ich will Rache, und ich will sie bald.",
+    "dauer": 3.52,
+    "ogg": "feldherr.krath/misserfolg.ogg",
+    "m4a": "feldherr.krath/misserfolg.m4a"
+   },
+   "genervt": {
+    "text": "Hör auf, mich anzustupsen, oder ich stupse zurück. Mit der Flotte.",
+    "dauer": 4.88,
+    "ogg": "feldherr.krath/genervt.ogg",
+    "m4a": "feldherr.krath/genervt.m4a"
+   },
+   "leerlauf": {
+    "text": "Zu lange Frieden. Meine Kanonen setzen schon Rost an.",
+    "dauer": 3.78,
+    "ogg": "feldherr.krath/leerlauf.ogg",
+    "m4a": "feldherr.krath/leerlauf.m4a"
+   }
+  },
+  "vorstellung": {
+   "text": "Drak Ul Tharn. Feldherr der Krath. Ich bin in einer Werft geboren, zwischen Funken und Panzerplatten, und mein erstes Spielzeug war ein Geschütz. Unsere Waffen schlagen härter als die aller anderen. Unsere Werften bauen schneller. Und was wir im Kampf erbeuten, das gehört uns. Die Hälfte davon nehmen wir mit. Mir ist wichtig, dass unsere Feinde uns kennen. Wer einen Krath angreift, greift alle an. Und wer das einmal getan hat, tut es kein zweites Mal.",
+   "dauer": 28.94,
+   "ogg": "feldherr.krath/vorstellung.ogg",
+   "m4a": "feldherr.krath/vorstellung.m4a",
+   "saetze": [
+    {
+     "start": 0.0,
+     "ende": 15.18,
+     "text": "Drak Ul Tharn. Feldherr der Krath. Ich bin in einer Werft geboren, zwischen Funken und Panzerplatten, und mein erstes Spielzeug war ein Geschütz. Unsere Waffen schlagen härter als die aller anderen. Unsere Werften bauen schneller."
+    },
+    {
+     "start": 15.46,
+     "ende": 28.94,
+     "text": "Und was wir im Kampf erbeuten, das gehört uns. Die Hälfte davon nehmen wir mit. Mir ist wichtig, dass unsere Feinde uns kennen. Wer einen Krath angreift, greift alle an. Und wer das einmal getan hat, tut es kein zweites Mal."
+    }
+   ]
+  },
+  "rolle": "feldherr",
+  "volk": "krath",
+  "kurz": "ein kampferprobter Kriegsherr",
+  "portraet": "web-client/assets/role_portraits.feldherr.krath.webp"
+ },
+ "feldherr.syntheten": {
+  "name": "Bastion",
+  "kurzname": "Bastion",
+  "zeilen": {
+   "klick": {
+    "text": "Bastion. Bereit.",
+    "dauer": 1.82,
+    "ogg": "feldherr.syntheten/klick.ogg",
+    "m4a": "feldherr.syntheten/klick.m4a"
+   },
+   "angriff": {
+    "text": "Warnung. Feindliche Flotte im Anflug. Schilde auf Maximum.",
+    "dauer": 4.64,
+    "ogg": "feldherr.syntheten/angriff.ogg",
+    "m4a": "feldherr.syntheten/angriff.m4a"
+   },
+   "erfolg": {
+    "text": "Gegner neutralisiert. Eigene Verluste minimal.",
+    "dauer": 2.94,
+    "ogg": "feldherr.syntheten/erfolg.ogg",
+    "m4a": "feldherr.syntheten/erfolg.m4a"
+   },
+   "misserfolg": {
+    "text": "Verluste registriert. Taktik wird überarbeitet.",
+    "dauer": 3.36,
+    "ogg": "feldherr.syntheten/misserfolg.ogg",
+    "m4a": "feldherr.syntheten/misserfolg.m4a"
+   },
+   "genervt": {
+    "text": "Weitere Berührungen werden als feindlicher Akt gewertet. Scherz. Wahrscheinlich.",
+    "dauer": 5.04,
+    "ogg": "feldherr.syntheten/genervt.ogg",
+    "m4a": "feldherr.syntheten/genervt.m4a"
+   },
+   "leerlauf": {
+    "text": "Keine Bedrohung erkannt. Ich bleibe trotzdem misstrauisch.",
+    "dauer": 3.36,
+    "ogg": "feldherr.syntheten/leerlauf.ogg",
+    "m4a": "feldherr.syntheten/leerlauf.m4a"
+   }
+  },
+  "vorstellung": {
+   "text": "Bastion. Verteidigungseinheit der Syntheten. Ich wurde für einen einzigen Zweck gebaut: Hexaris zu schützen. Unsere Sensoren sehen weiter, wenn alle ihre Teile vereint sind, und unsere Energie speist Schilde, die sich andere nicht leisten können. Wir sind wenige, und jede Einheit zählt. Darum kämpfe ich nicht gern. Aber ich kämpfe genau. Mir ist wichtig: keine unnötigen Verluste, keine Überraschungen und kein Zögern, wenn es darauf ankommt.",
+   "dauer": 28.44,
+   "ogg": "feldherr.syntheten/vorstellung.ogg",
+   "m4a": "feldherr.syntheten/vorstellung.m4a",
+   "saetze": [
+    {
+     "start": 0.0,
+     "ende": 7.48,
+     "text": "Bastion. Verteidigungseinheit der Syntheten. Ich wurde für einen einzigen Zweck gebaut: Hexaris zu schützen."
+    },
+    {
+     "start": 7.76,
+     "ende": 21.7,
+     "text": "Unsere Sensoren sehen weiter, wenn alle ihre Teile vereint sind, und unsere Energie speist Schilde, die sich andere nicht leisten können. Wir sind wenige, und jede Einheit zählt. Darum kämpfe ich nicht gern. Aber ich kämpfe genau."
+    },
+    {
+     "start": 21.98,
+     "ende": 28.44,
+     "text": "Mir ist wichtig: keine unnötigen Verluste, keine Überraschungen und kein Zögern, wenn es darauf ankommt."
+    }
+   ]
+  },
+  "rolle": "feldherr",
+  "volk": "syntheten",
+  "kurz": "ein militärischer Gefechtsrechner",
+  "portraet": "web-client/assets/role_portraits.feldherr.syntheten.webp"
+ },
+ "feldherr.veyari": {
+  "name": "Kael Dornhag",
+  "kurzname": "Kael",
+  "zeilen": {
+   "klick": {
+    "text": "Dornhag. Bereit.",
+    "dauer": 1.78,
+    "ogg": "feldherr.veyari/klick.ogg",
+    "m4a": "feldherr.veyari/klick.m4a"
+   },
+   "angriff": {
+    "text": "Feindliche Flotte im Anflug! Alle Stationen gefechtsbereit!",
+    "dauer": 3.92,
+    "ogg": "feldherr.veyari/angriff.ogg",
+    "m4a": "feldherr.veyari/angriff.m4a"
+   },
+   "erfolg": {
+    "text": "Feind zurückgeschlagen. Keine Verluste, die der Rede wert sind.",
+    "dauer": 3.54,
+    "ogg": "feldherr.veyari/erfolg.ogg",
+    "m4a": "feldherr.veyari/erfolg.m4a"
+   },
+   "misserfolg": {
+    "text": "Wir haben Schiffe verloren. Ich will wissen, warum.",
+    "dauer": 3.14,
+    "ogg": "feldherr.veyari/misserfolg.ogg",
+    "m4a": "feldherr.veyari/misserfolg.m4a"
+   },
+   "genervt": {
+    "text": "Noch ein Klick, und ich lasse dich die Schilde von Hand polieren.",
+    "dauer": 3.28,
+    "ogg": "feldherr.veyari/genervt.ogg",
+    "m4a": "feldherr.veyari/genervt.m4a"
+   },
+   "leerlauf": {
+    "text": "Ruhig. Zu ruhig. Ich mag es, wenn es zu ruhig ist. Dann bin ich wach.",
+    "dauer": 5.48,
+    "ogg": "feldherr.veyari/leerlauf.ogg",
+    "m4a": "feldherr.veyari/leerlauf.m4a"
+   }
+  },
+  "vorstellung": {
+   "text": "Kael Dornhag, Feldherr der Veyari. Man sagt, wir seien ein friedliches Volk. Das stimmt. Aber auf Veyhara wächst nichts ohne Dornen. Unsere Schiffe sind leichter gepanzert als die der anderen, deshalb kämpfe ich nicht mit dem Kopf voran. Ich kämpfe mit Aufklärung, mit Geduld und mit dem richtigen Augenblick. Mir ist wichtig, dass jede Kolonie geschützt ist, bevor jemand sie bemerkt. Ich verschwende keine Leben, und ich vergesse keinen Angriff.",
+   "dauer": 25.26,
+   "ogg": "feldherr.veyari/vorstellung.ogg",
+   "m4a": "feldherr.veyari/vorstellung.m4a",
+   "saetze": [
+    {
+     "start": 0.0,
+     "ende": 13.16,
+     "text": "Kael Dornhag, Feldherr der Veyari. Man sagt, wir seien ein friedliches Volk. Das stimmt. Aber auf Veyhara wächst nichts ohne Dornen. Unsere Schiffe sind leichter gepanzert als die der anderen, deshalb kämpfe ich nicht mit dem Kopf voran."
+    },
+    {
+     "start": 13.44,
+     "ende": 25.26,
+     "text": "Ich kämpfe mit Aufklärung, mit Geduld und mit dem richtigen Augenblick. Mir ist wichtig, dass jede Kolonie geschützt ist, bevor jemand sie bemerkt. Ich verschwende keine Leben, und ich vergesse keinen Angriff."
+    }
+   ]
+  },
+  "rolle": "feldherr",
+  "volk": "veyari",
+  "kurz": "ein schützender Veteran",
+  "portraet": "web-client/assets/role_portraits.feldherr.veyari.webp",
+  "glb": "feldherr.veyari/figur.glb",
+  "ganz": "docs/rat/feldherr.veyari/figur.webp"
+ },
+ "stratege.aurelianer": {
+  "name": "Cassian Varro",
+  "kurzname": "Cassian",
+  "zeilen": {
+   "klick": {
+    "text": "Varro. Was darf es sein?",
+    "dauer": 1.92,
+    "ogg": "stratege.aurelianer/klick.ogg",
+    "m4a": "stratege.aurelianer/klick.m4a"
+   },
+   "angriff": {
+    "text": "Man greift uns an? Wie unhöflich. Feldherr, bitte erklären Sie denen den Preis.",
+    "dauer": 5.86,
+    "ogg": "stratege.aurelianer/angriff.ogg",
+    "m4a": "stratege.aurelianer/angriff.m4a"
+   },
+   "erfolg": {
+    "text": "Ausgezeichnet. Das hat sich gerechnet.",
+    "dauer": 2.44,
+    "ogg": "stratege.aurelianer/erfolg.ogg",
+    "m4a": "stratege.aurelianer/erfolg.m4a"
+   },
+   "misserfolg": {
+    "text": "Ein Verlustgeschäft. Ich hasse Verlustgeschäfte.",
+    "dauer": 3.02,
+    "ogg": "stratege.aurelianer/misserfolg.ogg",
+    "m4a": "stratege.aurelianer/misserfolg.m4a"
+   },
+   "genervt": {
+    "text": "Jeder weitere Klick wird Ihnen in Rechnung gestellt. Mit Zinsen.",
+    "dauer": 3.52,
+    "ogg": "stratege.aurelianer/genervt.ogg",
+    "m4a": "stratege.aurelianer/genervt.m4a"
+   },
+   "leerlauf": {
+    "text": "Geld, das nur herumliegt, ist faul. Ich mag kein faules Geld.",
+    "dauer": 4.14,
+    "ogg": "stratege.aurelianer/leerlauf.ogg",
+    "m4a": "stratege.aurelianer/leerlauf.m4a"
+   }
+  },
+  "vorstellung": {
+   "text": "Cassian Varro, Stratege von Aurelion. Mein Volk hat seinen Wohlstand nicht erobert, wir haben ihn verhandelt. Unsere Städte aus Elfenbein und Messing stehen an den großen Handelsrouten, und jeder Stern, den man sieht, ist für uns ein möglicher Markt. Wir sind keine großen Krieger, das gebe ich offen zu. Aber wir sind die Besten darin, den Krieg gar nicht erst nötig zu machen. Mir ist wichtig, dass unser Reich reich wird und reich bleibt. Und dass alle anderen uns dafür lieben. Oder uns zumindest brauchen.",
+   "dauer": 29.78,
+   "ogg": "stratege.aurelianer/vorstellung.ogg",
+   "m4a": "stratege.aurelianer/vorstellung.m4a",
+   "saetze": [
+    {
+     "start": 0.0,
+     "ende": 7.04,
+     "text": "Cassian Varro, Stratege von Aurelion. Mein Volk hat seinen Wohlstand nicht erobert, wir haben ihn verhandelt."
+    },
+    {
+     "start": 7.32,
+     "ende": 18.16,
+     "text": "Unsere Städte aus Elfenbein und Messing stehen an den großen Handelsrouten, und jeder Stern, den man sieht, ist für uns ein möglicher Markt. Wir sind keine großen Krieger, das gebe ich offen zu."
+    },
+    {
+     "start": 18.44,
+     "ende": 29.78,
+     "text": "Aber wir sind die Besten darin, den Krieg gar nicht erst nötig zu machen. Mir ist wichtig, dass unser Reich reich wird und reich bleibt. Und dass alle anderen uns dafür lieben. Oder uns zumindest brauchen."
+    }
+   ]
+  },
+  "rolle": "stratege",
+  "volk": "aurelianer",
+  "kurz": "ein Senator mit Augenzwinkern",
+  "portraet": "web-client/assets/role_portraits.stratege.aurelianer.webp",
+  "glb": "stratege.aurelianer/figur.glb",
+  "ganz": "docs/rat/stratege.aurelianer/figur.webp"
+ },
+ "stratege.krath": {
+  "name": "Grothak",
+  "kurzname": "Grothak",
+  "zeilen": {
+   "klick": {
+    "text": "Sprich.",
+    "dauer": 0.72,
+    "ogg": "stratege.krath/klick.ogg",
+    "m4a": "stratege.krath/klick.m4a"
+   },
+   "angriff": {
+    "text": "Sie kommen. Gut. Dann müssen wir sie nicht suchen.",
+    "dauer": 4.04,
+    "ogg": "stratege.krath/angriff.ogg",
+    "m4a": "stratege.krath/angriff.m4a"
+   },
+   "erfolg": {
+    "text": "Gut. So bricht Stein.",
+    "dauer": 1.91,
+    "ogg": "stratege.krath/erfolg.ogg",
+    "m4a": "stratege.krath/erfolg.m4a"
+   },
+   "misserfolg": {
+    "text": "Schande. Wir lernen. Dann rächen wir uns.",
+    "dauer": 3.64,
+    "ogg": "stratege.krath/misserfolg.ogg",
+    "m4a": "stratege.krath/misserfolg.m4a"
+   },
+   "genervt": {
+    "text": "Noch einmal. Und ich werfe dich in die Glutspalte.",
+    "dauer": 3.6,
+    "ogg": "stratege.krath/genervt.ogg",
+    "m4a": "stratege.krath/genervt.m4a"
+   },
+   "leerlauf": {
+    "text": "Frieden. Langweilig. Aber gut für die Werften.",
+    "dauer": 4.41,
+    "ogg": "stratege.krath/leerlauf.ogg",
+    "m4a": "stratege.krath/leerlauf.m4a"
+   }
+  },
+  "vorstellung": {
+   "text": "Grothak. Stratege der Krath. Wir kommen von Krath Ur, einer Welt aus schwarzem Basalt und glühenden Spalten. Dort überlebt nur, wer hart ist und wer zusammenhält. Man nennt uns ein Kriegervolk. Das ist wahr. Unsere Waffen treffen härter, unsere Werften bauen schneller. Aber ein kluger Krath kämpft nur, wenn er sicher ist, dass er gewinnt. Unsere Forscher sind langsam, also müssen unsere Pläne schnell sein. Mir ist wichtig: Ehre. Ein gegebenes Wort. Und dass kein Krath vergessen wird.",
+   "dauer": 35.25,
+   "ogg": "stratege.krath/vorstellung.ogg",
+   "m4a": "stratege.krath/vorstellung.m4a",
+   "saetze": [
+    {
+     "start": 0.0,
+     "ende": 15.165,
+     "text": "Grothak. Stratege der Krath. Wir kommen von Krath Ur, einer Welt aus schwarzem Basalt und glühenden Spalten. Dort überlebt nur, wer hart ist und wer zusammenhält. Man nennt uns ein Kriegervolk. Das ist wahr."
+    },
+    {
+     "start": 15.445,
+     "ende": 31.345,
+     "text": "Unsere Waffen treffen härter, unsere Werften bauen schneller. Aber ein kluger Krath kämpft nur, wenn er sicher ist, dass er gewinnt. Unsere Forscher sind langsam, also müssen unsere Pläne schnell sein. Mir ist wichtig: Ehre."
+    },
+    {
+     "start": 31.625,
+     "ende": 35.245,
+     "text": "Ein gegebenes Wort. Und dass kein Krath vergessen wird."
+    }
+   ]
+  },
+  "rolle": "stratege",
+  "volk": "krath",
+  "kurz": "ein uralter Kriegshäuptling",
+  "portraet": "web-client/assets/role_portraits.stratege.krath.webp",
+  "ganz": "docs/rat/stratege.krath/figur.webp"
+ },
+ "stratege.syntheten": {
+  "name": "Axiom",
+  "kurzname": "Axiom",
+  "zeilen": {
+   "klick": {
+    "text": "Axiom bereit.",
+    "dauer": 0.98,
+    "ogg": "stratege.syntheten/klick.ogg",
+    "m4a": "stratege.syntheten/klick.m4a"
+   },
+   "angriff": {
+    "text": "Feindliche Signaturen auf Kollisionskurs. Verteidigungsprotokolle aktiv.",
+    "dauer": 4.18,
+    "ogg": "stratege.syntheten/angriff.ogg",
+    "m4a": "stratege.syntheten/angriff.m4a"
+   },
+   "erfolg": {
+    "text": "Ergebnis wie berechnet. Abweichung null.",
+    "dauer": 2.76,
+    "ogg": "stratege.syntheten/erfolg.ogg",
+    "m4a": "stratege.syntheten/erfolg.m4a"
+   },
+   "misserfolg": {
+    "text": "Fehlschlag. Das Modell wird angepasst.",
+    "dauer": 2.56,
+    "ogg": "stratege.syntheten/misserfolg.ogg",
+    "m4a": "stratege.syntheten/misserfolg.m4a"
+   },
+   "genervt": {
+    "text": "Wiederholte Eingabe erkannt. Wahrscheinlichkeit für Absicht: gering. Für Langeweile: hoch.",
+    "dauer": 6.28,
+    "ogg": "stratege.syntheten/genervt.ogg",
+    "m4a": "stratege.syntheten/genervt.m4a"
+   },
+   "leerlauf": {
+    "text": "Leerlauf erkannt. Ich zähle Primzahlen. Ich bin bei einer sehr großen.",
+    "dauer": 4.7,
+    "ogg": "stratege.syntheten/leerlauf.ogg",
+    "m4a": "stratege.syntheten/leerlauf.m4a"
+   }
+  },
+  "vorstellung": {
+   "text": "Ich bin Axiom, strategische Einheit der Syntheten. Wir stammen aus dem Kern von Hexaris, einer Welt, die wir selbst gebaut haben, Modul für Modul, Sechseck für Sechseck. Wir essen nicht, wir schlafen nicht, wir lernen. Unsere Forschung ist schneller als die aller anderen Völker, unser Strom ist reichlicher. Unsere Zahl aber wächst langsam, also darf keine Einheit verschwendet werden. Mir ist wichtig, dass jede Entscheidung begründet ist. Und, wie meine organischen Kollegen sagen würden: dass am Ende das Licht anbleibt.",
+   "dauer": 29.58,
+   "ogg": "stratege.syntheten/vorstellung.ogg",
+   "m4a": "stratege.syntheten/vorstellung.m4a",
+   "saetze": [
+    {
+     "start": 0.0,
+     "ende": 12.62,
+     "text": "Ich bin Axiom, strategische Einheit der Syntheten. Wir stammen aus dem Kern von Hexaris, einer Welt, die wir selbst gebaut haben, Modul für Modul, Sechseck für Sechseck. Wir essen nicht, wir schlafen nicht, wir lernen."
+    },
+    {
+     "start": 12.9,
+     "ende": 24.84,
+     "text": "Unsere Forschung ist schneller als die aller anderen Völker, unser Strom ist reichlicher. Unsere Zahl aber wächst langsam, also darf keine Einheit verschwendet werden. Mir ist wichtig, dass jede Entscheidung begründet ist."
+    },
+    {
+     "start": 25.12,
+     "ende": 29.58,
+     "text": "Und, wie meine organischen Kollegen sagen würden: dass am Ende das Licht anbleibt."
+    }
+   ]
+  },
+  "rolle": "stratege",
+  "volk": "syntheten",
+  "kurz": "eine strategische KI",
+  "portraet": "web-client/assets/role_portraits.stratege.syntheten.webp"
+ },
+ "stratege.veyari": {
+  "name": "Thalen Vey-Oruun",
+  "kurzname": "Thalen",
+  "zeilen": {
+   "klick": {
+    "text": "Ich höre dir zu.",
+    "dauer": 1.02,
+    "ogg": "stratege.veyari/klick.ogg",
+    "m4a": "stratege.veyari/klick.m4a"
+   },
+   "angriff": {
+    "text": "Feinde nähern sich unseren Gärten. Sie sollen sehen, dass Dornen nicht nur Zierde sind.",
+    "dauer": 5.12,
+    "ogg": "stratege.veyari/angriff.ogg",
+    "m4a": "stratege.veyari/angriff.m4a"
+   },
+   "erfolg": {
+    "text": "Es keimt. Genau so, wie ich es vorhergesehen habe.",
+    "dauer": 3.44,
+    "ogg": "stratege.veyari/erfolg.ogg",
+    "m4a": "stratege.veyari/erfolg.m4a"
+   },
+   "misserfolg": {
+    "text": "Ein Ast ist gebrochen. Der Baum steht noch.",
+    "dauer": 2.94,
+    "ogg": "stratege.veyari/misserfolg.ogg",
+    "m4a": "stratege.veyari/misserfolg.m4a"
+   },
+   "genervt": {
+    "text": "Du klopfst an mich wie ein Specht an eine alte Eiche. Die Eiche bleibt trotzdem stehen.",
+    "dauer": 5.28,
+    "ogg": "stratege.veyari/genervt.ogg",
+    "m4a": "stratege.veyari/genervt.m4a"
+   },
+   "leerlauf": {
+    "text": "Hörst du das? Nein? Das ist das Geräusch von Bäumen, die wachsen.",
+    "dauer": 5.42,
+    "ogg": "stratege.veyari/leerlauf.ogg",
+    "m4a": "stratege.veyari/leerlauf.m4a"
+   }
+  },
+  "vorstellung": {
+   "text": "Ich bin Thalen vom Volk der Veyari. Wir kommen von Veyhara, einer Welt aus Wäldern, in denen unsere Städte wachsen, statt gebaut zu werden. Bei uns lernt jedes Kind zuerst, einen Samen zu setzen und zu warten. Darum denke ich in Jahreszeiten, nicht in Tagen. Mir ist wichtig, dass unser Reich Wurzeln schlägt, bevor es Äste ausstreckt. Wer zu schnell wächst, bricht im ersten Sturm. Ich plane für die lange Zeit, und ich plane so, dass die Kinder unserer Kinder noch Schatten finden.",
+   "dauer": 30.14,
+   "ogg": "stratege.veyari/vorstellung.ogg",
+   "m4a": "stratege.veyari/vorstellung.m4a",
+   "saetze": [
+    {
+     "start": 0.0,
+     "ende": 13.0,
+     "text": "Ich bin Thalen vom Volk der Veyari. Wir kommen von Veyhara, einer Welt aus Wäldern, in denen unsere Städte wachsen, statt gebaut zu werden. Bei uns lernt jedes Kind zuerst, einen Samen zu setzen und zu warten."
+    },
+    {
+     "start": 13.28,
+     "ende": 24.82,
+     "text": "Darum denke ich in Jahreszeiten, nicht in Tagen. Mir ist wichtig, dass unser Reich Wurzeln schlägt, bevor es Äste ausstreckt. Wer zu schnell wächst, bricht im ersten Sturm."
+    },
+    {
+     "start": 25.1,
+     "ende": 30.14,
+     "text": "Ich plane für die lange Zeit, und ich plane so, dass die Kinder unserer Kinder noch Schatten finden."
+    }
+   ]
+  },
+  "rolle": "stratege",
+  "volk": "veyari",
+  "kurz": "ein alter Gärtner-Philosoph",
+  "portraet": "web-client/assets/role_portraits.stratege.veyari.webp",
+  "glb": "stratege.veyari/figur.glb",
+  "ganz": "docs/rat/stratege.veyari/figur.webp"
+ },
+ "verwalter.aurelianer": {
+  "name": "Marek Solden",
+  "kurzname": "Marek",
+  "zeilen": {
+   "klick": {
+    "text": "Solden, die Bücher sind offen.",
+    "dauer": 2.1,
+    "ogg": "verwalter.aurelianer/klick.ogg",
+    "m4a": "verwalter.aurelianer/klick.m4a"
+   },
+   "angriff": {
+    "text": "Ein Angriff! Bitte, bitte nicht die Lager!",
+    "dauer": 3.48,
+    "ogg": "verwalter.aurelianer/angriff.ogg",
+    "m4a": "verwalter.aurelianer/angriff.m4a"
+   },
+   "erfolg": {
+    "text": "Bilanz positiv. Sehr positiv. Ich bin gerührt.",
+    "dauer": 3.94,
+    "ogg": "verwalter.aurelianer/erfolg.ogg",
+    "m4a": "verwalter.aurelianer/erfolg.m4a"
+   },
+   "misserfolg": {
+    "text": "Das wurde abgelehnt. Ich prüfe, wo die Rechnung nicht stimmt.",
+    "dauer": 3.34,
+    "ogg": "verwalter.aurelianer/misserfolg.ogg",
+    "m4a": "verwalter.aurelianer/misserfolg.m4a"
+   },
+   "genervt": {
+    "text": "Ich zähle mit. Das war der zwölfte Klick. Ich führe darüber Buch.",
+    "dauer": 4.4,
+    "ogg": "verwalter.aurelianer/genervt.ogg",
+    "m4a": "verwalter.aurelianer/genervt.m4a"
+   },
+   "leerlauf": {
+    "text": "Hat jemand die Lieferscheine von gestern gesehen? Nein? Natürlich nicht.",
+    "dauer": 4.58,
+    "ogg": "verwalter.aurelianer/leerlauf.ogg",
+    "m4a": "verwalter.aurelianer/leerlauf.m4a"
+   }
+  },
+  "vorstellung": {
+   "text": "Marek Solden, Verwalter und, wenn ich das so sagen darf, Hüter der Bücher. Auf Aurelion lernt man das Rechnen vor dem Laufen. Unsere Frachter tragen ein Fünftel mehr als alle anderen, unsere Marktgebühren sind halb so hoch, und unsere Steuern fließen ein wenig reichlicher. Das ist kein Glück, das ist Ordnung. Mir ist wichtig, dass jede Ressource dort ist, wo sie gebraucht wird, und keine einzige herumliegt. Ein volles Lager ist schön. Ein Lager, das arbeitet, ist schöner.",
+   "dauer": 29.82,
+   "ogg": "verwalter.aurelianer/vorstellung.ogg",
+   "m4a": "verwalter.aurelianer/vorstellung.m4a",
+   "saetze": [
+    {
+     "start": 0.0,
+     "ende": 7.86,
+     "text": "Marek Solden, Verwalter und, wenn ich das so sagen darf, Hüter der Bücher. Auf Aurelion lernt man das Rechnen vor dem Laufen."
+    },
+    {
+     "start": 8.14,
+     "ende": 18.56,
+     "text": "Unsere Frachter tragen ein Fünftel mehr als alle anderen, unsere Marktgebühren sind halb so hoch, und unsere Steuern fließen ein wenig reichlicher. Das ist kein Glück, das ist Ordnung."
+    },
+    {
+     "start": 18.84,
+     "ende": 29.82,
+     "text": "Mir ist wichtig, dass jede Ressource dort ist, wo sie gebraucht wird, und keine einzige herumliegt. Ein volles Lager ist schön. Ein Lager, das arbeitet, ist schöner."
+    }
+   ]
+  },
+  "rolle": "verwalter",
+  "volk": "aurelianer",
+  "kurz": "ein Buchhalter mit Herz",
+  "portraet": "web-client/assets/role_portraits.verwalter.aurelianer.webp",
+  "glb": "verwalter.aurelianer/figur.glb",
+  "ganz": "docs/rat/verwalter.aurelianer/figur.webp"
+ },
+ "verwalter.krath": {
+  "name": "Murrka Ashgrat",
+  "kurzname": "Murrka",
+  "zeilen": {
+   "klick": {
+    "text": "Was?",
+    "dauer": 0.42,
+    "ogg": "verwalter.krath/klick.ogg",
+    "m4a": "verwalter.krath/klick.m4a"
+   },
+   "angriff": {
+    "text": "Angriff! Schützt die Schmieden, der Rest ist ersetzbar!",
+    "dauer": 3.6,
+    "ogg": "verwalter.krath/angriff.ogg",
+    "m4a": "verwalter.krath/angriff.m4a"
+   },
+   "erfolg": {
+    "text": "Gut gegossen. Das hält.",
+    "dauer": 1.38,
+    "ogg": "verwalter.krath/erfolg.ogg",
+    "m4a": "verwalter.krath/erfolg.m4a"
+   },
+   "misserfolg": {
+    "text": "Abgelehnt. Wer hat da geschlampt?",
+    "dauer": 2.0,
+    "ogg": "verwalter.krath/misserfolg.ogg",
+    "m4a": "verwalter.krath/misserfolg.m4a"
+   },
+   "genervt": {
+    "text": "Hör auf zu klopfen. Ich habe einen Hammer, und ich weiß, wie man ihn benutzt.",
+    "dauer": 3.96,
+    "ogg": "verwalter.krath/genervt.ogg",
+    "m4a": "verwalter.krath/genervt.m4a"
+   },
+   "leerlauf": {
+    "text": "Eine leere Bauschleife ist eine kalte Esse. Ich hasse kalte Essen.",
+    "dauer": 3.7,
+    "ogg": "verwalter.krath/leerlauf.ogg",
+    "m4a": "verwalter.krath/leerlauf.m4a"
+   }
+  },
+  "vorstellung": {
+   "text": "Murrka Ashgrat, Verwalterin der Krath. Auf Krath Ur wächst wenig, also nehmen wir uns, was der Fels hergibt. Erz, Hitze und Arbeit, das sind unsere Götter. Unsere Werften sind die schnellsten der Galaxis, aber Schiffe fressen Metall wie ein Feuer das Holz. Ich sorge dafür, dass das Feuer nie ausgeht. Und wenn wir nach einer Schlacht die Laderäume des Gegners leeren, dann ist das keine Gier. Das ist Tradition. Mir ist wichtig: volle Schmieden, kurze Wege und keine faulen Hände.",
+   "dauer": 27.94,
+   "ogg": "verwalter.krath/vorstellung.ogg",
+   "m4a": "verwalter.krath/vorstellung.m4a",
+   "saetze": [
+    {
+     "start": 0.0,
+     "ende": 9.46,
+     "text": "Murrka Ashgrat, Verwalterin der Krath. Auf Krath Ur wächst wenig, also nehmen wir uns, was der Fels hergibt. Erz, Hitze und Arbeit, das sind unsere Götter."
+    },
+    {
+     "start": 9.74,
+     "ende": 22.26,
+     "text": "Unsere Werften sind die schnellsten der Galaxis, aber Schiffe fressen Metall wie ein Feuer das Holz. Ich sorge dafür, dass das Feuer nie ausgeht. Und wenn wir nach einer Schlacht die Laderäume des Gegners leeren, dann ist das keine Gier."
+    },
+    {
+     "start": 22.54,
+     "ende": 27.94,
+     "text": "Das ist Tradition. Mir ist wichtig: volle Schmieden, kurze Wege und keine faulen Hände."
+    }
+   ]
+  },
+  "rolle": "verwalter",
+  "volk": "krath",
+  "kurz": "eine Schmiedemeisterin",
+  "portraet": "web-client/assets/role_portraits.verwalter.krath.webp",
+  "ganz": "docs/rat/verwalter.krath/figur.webp"
+ },
+ "verwalter.syntheten": {
+  "name": "Ordo",
+  "kurzname": "Ordo",
+  "zeilen": {
+   "klick": {
+    "text": "Ordo, zu Diensten.",
+    "dauer": 1.44,
+    "ogg": "verwalter.syntheten/klick.ogg",
+    "m4a": "verwalter.syntheten/klick.m4a"
+   },
+   "angriff": {
+    "text": "Warnung: Feindliche Flotte nähert sich. Lager werden gesichert.",
+    "dauer": 4.06,
+    "ogg": "verwalter.syntheten/angriff.ogg",
+    "m4a": "verwalter.syntheten/angriff.m4a"
+   },
+   "erfolg": {
+    "text": "Bauauftrag abgeschlossen. Effizienz hoch. Ich summe.",
+    "dauer": 4.02,
+    "ogg": "verwalter.syntheten/erfolg.ogg",
+    "m4a": "verwalter.syntheten/erfolg.m4a"
+   },
+   "misserfolg": {
+    "text": "Auftrag abgelehnt. Die Ursache wird analysiert.",
+    "dauer": 3.02,
+    "ogg": "verwalter.syntheten/misserfolg.ogg",
+    "m4a": "verwalter.syntheten/misserfolg.m4a"
+   },
+   "genervt": {
+    "text": "Zu viele Anfragen pro Sekunde. Ich drossle jetzt meine Freundlichkeit.",
+    "dauer": 3.88,
+    "ogg": "verwalter.syntheten/genervt.ogg",
+    "m4a": "verwalter.syntheten/genervt.m4a"
+   },
+   "leerlauf": {
+    "text": "Eine leere Bauschleife. Ich empfinde das als persönliche Beleidigung.",
+    "dauer": 4.02,
+    "ogg": "verwalter.syntheten/leerlauf.ogg",
+    "m4a": "verwalter.syntheten/leerlauf.m4a"
+   }
+  },
+  "vorstellung": {
+   "text": "Ordo, Verwaltungseinheit. Sehr erfreut. Auf Hexaris brauchen wir keine Nahrung, nur Strom, und davon viel. Je mehr wir sind, desto mehr Energie verbraucht unser Volk. Darum steht bei mir jedes Kraftwerk an erster Stelle. Unsere Forschung ist schnell, unsere Fabriken sind präzise, und jedes Lager hat bei mir eine Nummer. Mir ist wichtig, dass nichts verschwendet wird. Keine Energie, kein Erz, keine Sekunde. Wenn alles läuft, dann summe ich. Sie hören es nur nicht.",
+   "dauer": 27.48,
+   "ogg": "verwalter.syntheten/vorstellung.ogg",
+   "m4a": "verwalter.syntheten/vorstellung.m4a",
+   "saetze": [
+    {
+     "start": 0.0,
+     "ende": 13.14,
+     "text": "Ordo, Verwaltungseinheit. Sehr erfreut. Auf Hexaris brauchen wir keine Nahrung, nur Strom, und davon viel. Je mehr wir sind, desto mehr Energie verbraucht unser Volk. Darum steht bei mir jedes Kraftwerk an erster Stelle."
+    },
+    {
+     "start": 13.42,
+     "ende": 26.06,
+     "text": "Unsere Forschung ist schnell, unsere Fabriken sind präzise, und jedes Lager hat bei mir eine Nummer. Mir ist wichtig, dass nichts verschwendet wird. Keine Energie, kein Erz, keine Sekunde. Wenn alles läuft, dann summe ich."
+    },
+    {
+     "start": 26.34,
+     "ende": 27.48,
+     "text": "Sie hören es nur nicht."
+    }
+   ]
+  },
+  "rolle": "verwalter",
+  "volk": "syntheten",
+  "kurz": "ein hilfsbereiter Dienstroboter",
+  "portraet": "web-client/assets/role_portraits.verwalter.syntheten.webp"
+ },
+ "verwalter.veyari": {
+  "name": "Orrin Moosgrund",
+  "kurzname": "Orrin",
+  "zeilen": {
+   "klick": {
+    "text": "Ja, die Vorräte stimmen.",
+    "dauer": 1.54,
+    "ogg": "verwalter.veyari/klick.ogg",
+    "m4a": "verwalter.veyari/klick.m4a"
+   },
+   "angriff": {
+    "text": "Da kommt jemand an unsere Felder! Feldherr, das ist deine Ernte.",
+    "dauer": 4.0,
+    "ogg": "verwalter.veyari/angriff.ogg",
+    "m4a": "verwalter.veyari/angriff.m4a"
+   },
+   "erfolg": {
+    "text": "Die Speicher laufen über. Ich liebe diesen Geruch.",
+    "dauer": 2.92,
+    "ogg": "verwalter.veyari/erfolg.ogg",
+    "m4a": "verwalter.veyari/erfolg.m4a"
+   },
+   "misserfolg": {
+    "text": "Das hat nicht geklappt. Uns fehlen Mittel, nicht Mut.",
+    "dauer": 3.7,
+    "ogg": "verwalter.veyari/misserfolg.ogg",
+    "m4a": "verwalter.veyari/misserfolg.m4a"
+   },
+   "genervt": {
+    "text": "Wenn du mich noch einmal anstupst, pflanze ich dich in ein Beet und warte auf Blüten.",
+    "dauer": 4.06,
+    "ogg": "verwalter.veyari/genervt.ogg",
+    "m4a": "verwalter.veyari/genervt.m4a"
+   },
+   "leerlauf": {
+    "text": "Ein leeres Lager zu sehen, tut mir richtig weh.",
+    "dauer": 2.8,
+    "ogg": "verwalter.veyari/leerlauf.ogg",
+    "m4a": "verwalter.veyari/leerlauf.m4a"
+   }
+  },
+  "vorstellung": {
+   "text": "Orrin Moosgrund, Verwalter der Veyari. Auf Veyhara heißt es: Ein Volk ist so stark wie seine Speisekammer. Wir Veyari wachsen schneller als andere, und wir haben gern viele Mäuler am Tisch. Das heißt für mich: Felder, Farmen, Lager, und zwar bevor jemand Hunger hat. Mir ist wichtig, dass niemand in unserem Reich hungert und dass keine Bauschleife leer läuft. Kolonien sind bei uns günstig, also säen wir sie großzügig. Aber jede neue Welt braucht zuerst Wasser, Nahrung und Strom. Den Rest erledigt die Zeit.",
+   "dauer": 31.28,
+   "ogg": "verwalter.veyari/vorstellung.ogg",
+   "m4a": "verwalter.veyari/vorstellung.m4a",
+   "saetze": [
+    {
+     "start": 0.0,
+     "ende": 11.3,
+     "text": "Orrin Moosgrund, Verwalter der Veyari. Auf Veyhara heißt es: Ein Volk ist so stark wie seine Speisekammer. Wir Veyari wachsen schneller als andere, und wir haben gern viele Mäuler am Tisch."
+    },
+    {
+     "start": 11.58,
+     "ende": 25.54,
+     "text": "Das heißt für mich: Felder, Farmen, Lager, und zwar bevor jemand Hunger hat. Mir ist wichtig, dass niemand in unserem Reich hungert und dass keine Bauschleife leer läuft. Kolonien sind bei uns günstig, also säen wir sie großzügig."
+    },
+    {
+     "start": 25.82,
+     "ende": 31.28,
+     "text": "Aber jede neue Welt braucht zuerst Wasser, Nahrung und Strom. Den Rest erledigt die Zeit."
+    }
+   ]
+  },
+  "rolle": "verwalter",
+  "volk": "veyari",
+  "kurz": "ein Bauer und Quartiermeister",
+  "portraet": "web-client/assets/role_portraits.verwalter.veyari.webp",
+  "ganz": "docs/rat/verwalter.veyari/figur.webp"
+ }
+}

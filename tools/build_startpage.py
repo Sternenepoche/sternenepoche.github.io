@@ -118,7 +118,7 @@ def build() -> None:
     DESTINATION.write_text(document, encoding="utf-8")
     print(f"Erstellt: {DESTINATION}")
     print(f"Aktuelle Screenshots und Spielmotive eingebettet, {DESTINATION.stat().st_size:,} Bytes")
-    print(f"20 Bedienwege, 8 Einstiegsschritte, 22 Kapitel; Handbuchquelle: {words:,} Wörter")
+    print(f"{len(SCREENS)} Bedienwege, 8 Einstiegsschritte, 22 Kapitel; Handbuchquelle: {words:,} Wörter")
 
 
 if __name__ == "__main__":

@@ -45,7 +45,14 @@ def screenshot(key, compact=False):
     return (f'<figure class="screenshot"><button type="button" class="zoom" aria-label="Screenshot vergrößern: {html.escape(title)}">'
             f'<img src="screen://{key}.webp" alt="Aktuelle Browseroberfläche: {html.escape(title)}" width="1440" height="1000" loading="lazy" decoding="async">'
             '<span class="zoom-label" aria-hidden="true">Vergrößern ↗</span></button>'
-            f'<figcaption><b>Echte Spieloberfläche · Beispielwelt · 08.10.2026</b>{html.escape(caption)}</figcaption></figure>')
+            f'<figcaption><b>Echte Spieloberfläche · Beispielwelt · 11.10.2026</b>{html.escape(caption)}</figcaption></figure>')
+
+def cockpit_bild(name, title, caption, stand='11.10.2026'):
+    """Echtes Bildschirmfoto des Harness-Cockpits (docs/bilder/cockpit/<name>.webp), zum Vergrößern."""
+    return (f'<figure class="screenshot"><button type="button" class="zoom" aria-label="Bildschirmfoto vergrößern: {html.escape(title)}">'
+            f'<img src="cockpit://{name}.webp" alt="Harness-Cockpit: {html.escape(title)}" width="1600" height="956" loading="lazy" decoding="async">'
+            '<span class="zoom-label" aria-hidden="true">Vergrößern ↗</span></button>'
+            f'<figcaption><b>Echtes Harness-Cockpit · Testwelt · {stand}</b>{html.escape(caption)}</figcaption></figure>')
 
 def illustration(name, title, caption):
     return (f'<figure class="illustration"><img src="asset://{name}" alt="{html.escape(title)} – Spielillustration" loading="lazy" width="480" height="360">'
@@ -64,7 +71,9 @@ def loading_screen(base='web-client/',kind='website',status='Deine Reise wird vo
     return (ROOT/'docs/loading-screen.html').read_text(encoding='utf-8').replace('{{BASE}}',base).replace('{{KIND}}',kind).replace('{{STATUS}}',status)
 
 def finish(document):
-    document = document.replace('<!-- SITE_THEME -->','<style>'+ (ROOT/'docs/site-theme.css').read_text(encoding='utf-8')+'</style>')
+    # Grundgestaltung plus Cockpit-Schicht (gleiche Sprache wie das Harness-Cockpit)
+    theme = (ROOT/'docs/site-theme.css').read_text(encoding='utf-8') + '\n' + (ROOT/'docs/site-cockpit.css').read_text(encoding='utf-8')
+    document = document.replace('<!-- SITE_THEME -->','<style>'+theme+'</style>')
     document = document.replace('<!-- SITE_MOTION -->','<script>'+ (ROOT/'docs/site-motion.js').read_text(encoding='utf-8')+'</script>')
     document = document.replace('<!-- SPACE -->',SPACE).replace('<!-- HERO_ART -->',HERO_ART).replace('<!-- IMAGE_DIALOG -->',DIALOG)
     loader_css=(ROOT/'web-client/loading-screen.css').read_text(encoding='utf-8').replace('url("brand/','url("web-client/brand/')
@@ -74,7 +83,7 @@ def finish(document):
     embedded = {}
     def embed(match):
         kind,name = match.groups()
-        folder={'asset':'web-client/assets','screen':'docs/bilder/online','logo':'docs/branding','artwork':'docs/artwork','comm':'docs/bilder/kommunikation','team':'docs/bilder/team'}[kind]
+        folder={'asset':'web-client/assets','screen':'docs/bilder/online','logo':'docs/branding','artwork':'docs/artwork','comm':'docs/bilder/kommunikation','team':'docs/bilder/team','cockpit':'docs/bilder/cockpit'}[kind]
         file = ROOT/folder/name
         if not file.is_file(): raise ValueError('Missing public image: '+str(file))
         if (kind,name) not in embedded:
@@ -83,6 +92,6 @@ def finish(document):
         return embedded[kind,name]
     document = document.replace('src="bilder/kommunikation/', 'src="comm://')
     document = document.replace('src="bilder/team/', 'src="team://')
-    document = re.sub(r'(asset|screen|logo|artwork|comm|team)://([a-zA-Z0-9_.-]+)',embed,document)
+    document = re.sub(r'(asset|screen|logo|artwork|comm|team|cockpit)://([a-zA-Z0-9_.-]+)',embed,document)
     if re.search(r'<!-- (?:SITE_|SPACE|HERO_ART|IMAGE_DIALOG)',document): raise ValueError('Unresolved website placeholder')
     return document

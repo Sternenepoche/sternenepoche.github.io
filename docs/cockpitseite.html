@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Das Sternenepoche Harness-Cockpit: Stell dir deinen KI-Rat aus vier Agenten zusammen, bau ihn lokal, prüfe ihn im Labor und lass ihn spielen – mit Schaltplan, Wachposten, Wissensquellen, Arena und Ratsstimmen.">
+  <meta name="theme-color" content="#050a12">
+  <meta property="og:title" content="Sternenepoche · Harness-Cockpit">
+  <meta property="og:description" content="Dein Rat. Dein Harness. Dein Cockpit. Alle Funktionen mit echten Bildern erklärt.">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://sternenepoche.github.io/Harness-Cockpit.html">
+  <title>Sternenepoche · Harness-Cockpit</title>
+  <!-- SITE_THEME -->
+<link rel="icon" type="image/png" href="docs/branding/favicon.png">
+</head>
+<body id="anfang">
+  <a class="skip" href="#was">Zum Inhalt</a>
+  <!-- SPACE -->
+  <header class="site-header"><div class="wrap header-inner">
+    <a class="brand" href="index.html" aria-label="Sternenepoche Startseite"><span class="brand-symbol" aria-hidden="true"><img src="logo://sternenepoche-mark.png" alt="" width="256" height="256"><span class="brand-glint"></span></span>STERNENEPOCHE</a>
+    <nav class="primary-nav" aria-label="Hauptnavigation"><a href="index.html#rat">Der Rat</a><a href="#starten">Starten</a><a href="#tour">Alle Funktionen</a><a href="#sicherheit">Sicherheit</a><a href="#api">Für Entwickler</a></nav>
+    <div class="header-actions"><a class="text-link" href="Sternenepoche-Start.html">Spielguide</a><details class="mobile-guide-menu"><summary>Menü</summary><nav aria-label="Mobile Hauptnavigation"><a href="index.html">Zur Startseite</a><a href="#starten">So startest du</a><a href="#tour">Alle Funktionen</a><a href="#sicherheit">Sicherheit und Fair Play</a><a href="#api">Harness-API</a></nav></details><a class="button small" href="https://desktop-3dei636.taila4f584.ts.net/">Zum Spiel ↗</a></div>
+  </div></header>
+  <main>
+    <section class="hero cockpit-hero" aria-labelledby="hero-title" data-ai-image>
+      <div class="wrap cockpit-vorschau hero-content">
+        <div><span class="eyebrow">Sternenepoche · Harness-Cockpit</span><h1 id="hero-title">Dein Rat.<span>Dein Cockpit.</span></h1>
+          <p class="lead">Stell dir einen Rat aus vier KI-Agenten zusammen, bau ihn auf deinem eigenen Rechner, prüfe ihn im Labor und lass ihn mit dem großen LOS-Knopf regieren. Jede Anzeige zeigt echte Daten, jeder Knopf wirkt.</p>
+          <div class="hero-actions"><a class="button" href="#starten">So startest du <span aria-hidden="true">↓</span></a><a class="button secondary" href="#tour">Alle Funktionen ansehen</a></div>
+          <p class="hero-note">Windows-Programm in Rust · Ollama, OpenRouter oder eigener Modellserver · spielt über die offene Harness-API</p></div>
+        <div><!-- COCKPIT_HERO --></div>
+      </div>
+    </section>
+    <div class="wrap facts" aria-label="Cockpit auf einen Blick"><div class="fact"><strong>04</strong><span><b>Agenten im Rat</b>Stratege, Verwalter, Diplomat, Feldherr.</span></div><div class="fact"><strong>10</strong><span><b>Stufen je Agent</b>Vom Auslöser bis zum Lernen, sichtbar als Schaltplan.</span></div><div class="fact"><strong>05</strong><span><b>Spielstile</b>Aufbau, Handel, Expansion, Bollwerk, Raubzug.</span></div><div class="fact"><strong>16</strong><span><b>Stimmen</b>Jedes Ratsmitglied spricht mit eigener Stimme.</span></div></div>
+
+    <section class="section" id="was" aria-labelledby="was-title"><div class="wrap">
+      <div class="split-heading"><div><span class="eyebrow">Was ist ein Harness?</span><h2 id="was-title">Ein Rahmen, der dein<br>Sprachmodell regieren lässt.</h2></div><p>Ein Sprachmodell allein weiß nichts über dein Reich. Der Harness gibt ihm Lage, Gedächtnis, Werkzeuge und Regeln, prüft jeden Vorschlag und spielt nur, was erlaubt ist. Das Cockpit macht diesen Rahmen sichtbar und einstellbar.</p></div>
+      <div class="wege"><article class="weg-karte"><div><h3>Läuft bei dir.</h3><p>Der Harness ist ein eigener, eingesperrter Prozess auf deinem PC. Modelle laufen lokal mit Ollama, über OpenRouter oder auf deinem eigenen Server.</p></div></article><article class="weg-karte"><div><h3>Spielt fair.</h3><p>Er nutzt ausschließlich die offene Harness-API des Servers – mit denselben Quoten, Prüfungen und Regeln wie ein Mensch im Browser.</p></div></article><article class="weg-karte"><div><h3>Fragt dich.</h3><p>Wachposten je Rolle und Bereich: Autopilot, Vorsicht, Erlaubnis oder gesperrt. Riskantes wartet auf deine Bestätigung.</p></div></article><article class="weg-karte"><div><h3>Lernt mit dir.</h3><p>Probezüge ohne Wirkung, Arena-Vergleiche, Kennzahlen und Trainingsdaten aus erfolgreichen Zügen für dein eigenes Modell.</p></div></article></div>
+    </div></section>
+
+    <section class="section" id="starten" aria-labelledby="start-title"><div class="wrap mission-grid">
+      <div><span class="eyebrow">In fünf Schritten zum Rat</span><h2 id="start-title">So startest du.</h2><p class="lead">Beim ersten Start führt ein Einrichtungsassistent durch alles Nötige. Bis zum ersten Zug zeigt die Brücke eine Liste „Startklar?“ mit dem jeweils nächsten Schritt.</p>
+        <ol class="quick-steps"><li><span class="step-no">01</span><div><h3>Server prüfen</h3><p>Das Cockpit verbindet sich mit der Spielwelt und lädt die aktuellen Regeln für Harnesses.</p></div></li><li><span class="step-no">02</span><div><h3>Spielstil wählen</h3><p>Ein Spielstil besetzt den ganzen Rat stimmig – Seelen, Rechte, Takt und Doktrin. Alles bleibt später einzeln einstellbar.</p></div></li><li><span class="step-no">03</span><div><h3>Modelle zuordnen</h3><p>Je Rolle ein Modell und ein Ersatzmodell. Das Cockpit zeigt installierte Ollama-Modelle und ob sie in den Grafikspeicher passen.</p></div></li><li><span class="step-no">04</span><div><h3>Bauen mit „Let's go“</h3><p>Bausteine wählen, Abhängigkeiten prüfen, alles mit SHA-256-Prüfung laden. Der Harness wird lokal gebaut und selbst geprüft.</p></div></li><li><span class="step-no">05</span><div><h3>▶ LOS</h3><p>Einmal im Spiel anmelden und die Harness-Regeln bestätigen. Der Rat bekommt einen eigenen Schlüssel nur für seine Rollen, sicher im Windows-Anmeldeinformationsspeicher.</p></div></li></ol></div>
+      <div><!-- COCKPIT_BAU --><p class="edition-note">Voraussetzungen: Windows 10 oder 11 mit WebView2, ein Spielkonto und ein Modellzugang (lokal mit Ollama, über OpenRouter oder ein OpenAI-kompatibler eigener Server). Das Passwort wird nur zur Anmeldung gesendet und nie gespeichert. Das Cockpit befindet sich in der Testphase.</p></div>
+    </div></section>
+
+    <section class="section" id="tour" aria-labelledby="tour-title"><div class="wrap">
+      <div class="section-heading"><span class="eyebrow">Alle Funktionen · echte Bilder</span><h2 id="tour-title">Ein Rundgang durch<br>das Cockpit.</h2><p class="lead">Links führt die Schiene durch dieselben Seiten wie im Cockpit. Jedes Bild ist ein echtes Bildschirmfoto aus einer Testwelt; ein Klick vergrößert es.</p></div>
+      <div class="tour">
+        <nav class="tour-schiene" aria-label="Seiten des Cockpits"><small>Führung</small><a href="#bruecke">Brücke</a><a href="#rat-seite">Rat</a><a href="#stimmen">Ratsstimmen</a><a href="#strategie">Strategie</a><a href="#plan">Plan</a><small>Werkzeuge</small><a href="#wissen">Wissen</a><a href="#labor">Labor</a><a href="#werkstatt">Werkstatt</a><a href="#spiel">Spiel</a><a href="#codex">Codex</a></nav>
+        <div>
+          <article class="tour-abschnitt" id="bruecke"><span class="eyebrow">01 · Brücke</span><h2>Alles Wichtige auf einen Blick.</h2><p>Die Brücke ist die Startseite: dein Reich, dein Rat und alles, was gerade passiert. Oben im Kopf stehen Vorräte mit Rate je Stunde, Energiesaldo, Credits, Quote und der Status des Rates – und der große LOS- bzw. STOPP-Knopf.</p>
+            <!-- BILD 01-bruecke | Die Brücke | Reich mit Stufe und Punkten, die vier Agenten als Karten mit Status und letzter Begründung, Planeten aus der Inventur, Befunde der Analyse und der Live-Strom aller Ereignisse. -->
+            <div class="funktionen"><div class="funktion"><b>Der Rat als Karten</b><span>Status, nächster Zug, Modell, letzte Begründung und Bilanz je Agent; „jetzt“ lässt eine Rolle sofort ziehen.</span></div><div class="funktion"><b>Befunde als Auftrag</b><span>Die Analyse findet Engpässe – Energie, Nahrung, volle Lager, leere Bauschleifen. Ein Klick gibt den Befund als Auftrag an die zuständige Rolle.</span></div><div class="funktion"><b>Wartende Erlaubnisse</b><span>Was der Wachposten zurückhält, wartet hier mit Begründung auf dein Ja oder Nein.</span></div><div class="funktion"><b>Ereignisstrom</b><span>Lage gelesen, Modell denkt, Zug, Probe, Wissen, Routinen – live und je Rolle eingefärbt.</span></div></div></article>
+
+          <article class="tour-abschnitt" id="rat-seite"><span class="eyebrow">02 · Rat</span><h2>Jeder Agent als Schaltplan.</h2><p>Je Rolle eine Bühne mit der 3D-Figur und darunter der Harness dieser Rolle in zehn Stufen. Eine Stufe leuchtet, während der Zug gerade dort ist. Ein Klick auf eine Stufe öffnet ihre Einstellungen.</p>
+            <!-- BILD 02-rat-verwalter | Rat · Verwalter | Bühne mit 3D-Figur, Kopfzeile mit Modell und Status, Schaltplan in zehn Stufen und darunter die Einstellungen der gewählten Stufe. -->
+            <div class="schaltplan-tafel"><div><b>Identität</b><span>soul.md, Vorlagen, Skills</span></div><div><b>Auslöser</b><span>Takt, Wecker, Budget</span></div><div><b>Wahrnehmung</b><span>Lage vom Server, gefiltert</span></div><div><b>Gedächtnis</b><span>Notizen, Erinnerungen, Team</span></div><div><b>Kontext</b><span>was ins Modell geht</span></div><div><b>Modell</b><span>Anbieter, Modell, Ersatz</span></div><div><b>Werkzeuge</b><span>Abfragen und Wissen</span></div><div><b>Wachposten</b><span>Autonomie und Rechte</span></div><div><b>Probe</b><span>Spielkern prüft vorab</span></div><div><b>Lernen</b><span>Ergebnis, Notiz, Erinnerung</span></div></div>
+            <div class="funktionen"><div class="funktion"><b>Seele als Markdown</b><span>Persönlichkeit, Auftrag, Arbeitsweise und Grenzen. Liegt als seelen/ROLLE.md im Harness-Ordner und wird vor jedem Zug frisch gelesen – auch mit deinem eigenen Editor.</span></div><div class="funktion"><b>Kontextbudget</b><span>Genau das, was in den nächsten Zug geht: Seele, Doktrin, Skills, Regeln, Lage, Gedächtnis – als Balken gegen das Kontextfenster deines Modells.</span></div><div class="funktion"><b>Modell je Rolle</b><span>Ollama, OpenRouter oder dein eigener OpenAI-kompatibler Server, mit Ersatzmodell, Temperatur, Antwortlänge und VRAM-Passung der installierten Modelle.</span></div><div class="funktion"><b>Wachposten</b><span>Autonomie je Bereich und Rechte je Aktion: erlauben, fragen oder verbieten. Feste Grenzen für Aktionen je Zug und Geschenke je Tag gelten immer.</span></div></div>
+            <div class="gallery"><!-- BILD 03-rat-kontext | Kontext-Vorschau | Kontextbudget je Bestandteil gegen das Kontextfenster, dazu Systemprompt und Lage im Klartext. --><div class="gallery-stack"><!-- BILD 04-rat-modell | Modell der Rolle | Anbieter, Modell, Ersatz, Temperatur und lokal installierte Modelle mit VRAM-Passung. --><!-- BILD 05-rat-wachposten | Wachposten | Autonomie je Bereich und Rechte je Aktion. --></div></div></article>
+
+          <article class="tour-abschnitt" id="stimmen"><span class="eyebrow">03 · Ratsstimmen</span><h2>Dein Rat spricht.</h2><p>Jedes der 16 Ratsmitglieder hat einen Namen, eine Herkunft, eine Persönlichkeit und eine eigene Stimme. Hör sie dir auf der <a class="text-link" href="index.html#rat">Startseite</a> an.</p>
+            <!-- BILD_OPTIONAL 18-rat-stimme | Vorstellung | Ein Klick auf die Figur: Die Kamera fährt zum Kopf, das Ratsmitglied stellt sich mit Untertitel vor. Darunter das Gespräch. -->
+            <div class="funktionen"><div class="funktion"><b>Vorstellung per Klick</b><span>Die Kamera fährt zum Kopf, die Figur atmet und wiegt sich leicht und nickt im Takt ihrer Stimme. Untertitel Satz für Satz.</span></div><div class="funktion"><b>Zurufe wie in C&amp;C</b><span>Bei Ereignissen ruft der Rat herein – Angriff, großer Erfolg, Rückschlag, Bitte um Erlaubnis, Aufstieg, neue Kolonie, Fehler –, im Funkfenster mit sprechendem Kopf. Abschaltbar, mit Lautstärkeregler.</span></div><div class="funktion"><b>Gespräch mit dem Rat</b><span>Stell eine Frage: Das Modell der Rolle antwortet in ihrer Persönlichkeit und mit Blick auf die Lage deines Reiches. Lokal spricht Voicebox die Antwort in ihrer Stimme.</span></div><div class="funktion"><b>Die Stimme gehört dir</b><span>„Stimmdateien“ schreibt je Figur ein Voicebox-Paket mit Referenzaufnahme in deinen Arbeitsordner – für Voicebox, Hermes oder jede andere lokale KI.</span></div></div>
+            <!-- BILD_OPTIONAL 19-funkfenster | Funkfenster | Zuruf bei einem Angriff: Der Feldherr meldet sich mit sprechendem Kopf. --></article>
+
+          <article class="tour-abschnitt" id="strategie"><span class="eyebrow">04 · Strategie</span><h2>Ein Spielstil für den ganzen Rat.</h2><p>Fünf Spielstile besetzen den Rat stimmig: Aufbau, Handel, Expansion, Bollwerk und Raubzug. Die Doktrin ist der gemeinsame Leitfaden deines Reiches – wie eine Projektbeschreibung, die jede Rolle in jedem Zug liest.</p>
+            <!-- BILD 06-strategie | Strategie | Spielstile, Doktrin mit Vorschlägen, Autonomie-Matrix Bereich mal Rolle und Routinen mit Bauliste. -->
+            <div class="funktionen"><div class="funktion"><b>Autonomie-Matrix</b><span>Für jeden Bereich und jede Rolle auf einen Blick: Autopilot, Vorsicht, Erlaubnis oder gesperrt.</span></div><div class="funktion"><b>Routinen ohne Modell</b><span>Inventur, Analyse und Auto-Ausbau laufen nach Zeitplan und kosten keine Tokens. Der Auto-Ausbau füllt leere Bauschleifen nach festen Regeln: zuerst Strom, dann Nahrung, Lager und Arbeitskräfte.</span></div></div></article>
+
+          <article class="tour-abschnitt" id="plan"><span class="eyebrow">05 · Plan</span><h2>Der Rat plant – du schreibst mit.</h2><p>Die Rollen legen Aufgaben an, übernehmen sie und melden sich gegenseitig Bedarf, wie ein Team mit einer gemeinsamen Aufgabenliste. Du siehst alles und kannst überall eingreifen.</p>
+            <div class="gallery"><!-- BILD 07-plan | Aufgaben | Aufgaben als Kanban mit Rolle, Priorität und Status. --><div class="gallery-stack"><!-- BILD 08-plan-team | Teambesprechung | Nachrichten der Rollen untereinander, Erinnerungen und Notizbücher. --></div></div></article>
+
+          <article class="tour-abschnitt" id="wissen"><span class="eyebrow">06 · Wissen</span><h2>Eigene Datenbanken, RAG und MCP.</h2><p>Wissensquellen sind frei definierbar: das eigene Gedächtnis per nur lesendem SQL, dein eigenes RAG über HTTP oder jeder MCP-Server. Antworten gelten für Modelle als fremde Daten und stehen in einem abgegrenzten Block.</p>
+            <div class="gallery"><!-- BILD 09-wissen | Wissensquellen | Quellen als Kacheln: anklicken, fragen, Antwort sehen. Beispielabfragen für das Gedächtnis. --><div class="gallery-stack"><!-- BILD 10-wissen-rag | Eigenes RAG | Vertrag für eine eigene Suche: Anfrage, Antwortpfad, Schlüssel im Tresor, Freigabe je Rolle. --></div></div></article>
+
+          <article class="tour-abschnitt" id="labor"><span class="eyebrow">07 · Labor</span><h2>Feinjustieren, bevor es zählt.</h2><p>Im Labor probierst du Seelen und Modelle aus, ohne dass etwas gespielt wird – und vergleichst Varianten auf derselben Lage.</p>
+            <!-- BILD 11-labor-probe | Probezug | Die Rolle entscheidet mit der aktuellen Seele, der Spielkern prüft jede Aktion, gespielt wird nichts. -->
+            <div class="funktionen"><div class="funktion"><b>Arena</b><span>Bis zu drei Varianten – anderes Modell, anderer Anbieter oder andere Seele – entscheiden über dieselbe Lage. Ergebnis mit gültigen Aktionen, Tokens, Latenz und Begründung.</span></div><div class="funktion"><b>Kennzahlen</b><span>Zeitreihen aus der Inventur: Punkte, Credits, Rang, Einwohner, Rohstoffe und Energiesaldo.</span></div><div class="funktion"><b>Modellaufrufe</b><span>Jeder Aufruf mit Systemprompt, Lage und Antwort – zum Nachvollziehen jeder Entscheidung.</span></div><div class="funktion"><b>Training</b><span>Erfolgreiche Züge als Chat-JSONL exportieren, dein Modell trainieren, als eigenen Server anbinden und in der Arena gegen das Grundmodell antreten lassen.</span></div></div>
+            <div class="gallery"><!-- BILD 12-labor-arena | Arena | Varianten nebeneinander, jede vom Spielkern geprobt. --><div class="gallery-stack"><!-- BILD 13-labor-kennzahlen | Kennzahlen | Zeitreihen deines Reiches aus der Inventur. --></div></div></article>
+
+          <article class="tour-abschnitt" id="werkstatt"><span class="eyebrow">08 · Werkstatt</span><h2>Bauen, Modelle, Konto, Schnittstellen.</h2><p>In der Werkstatt wählst du die Bausteine deines Harness und baust ihn: Gedächtnis mit SQLite oder DuckDB, Skripte in einer WASM-Sandbox oder ohne, lokale API mit MCP oder geschlossen.</p>
+            <div class="gallery"><!-- BILD 00-werkstatt-bau | Bau | Abhängigkeiten prüfen, „Let's go“, Bauschritte mit Fortschritt und lokale Prüfungen. --><div class="gallery-stack"><!-- BILD 16-werkstatt | Modelle und Schnittstellen | Grafikkarte, eigener Modellserver, OpenRouter, Konto, Profile, lokale API und MCP. --></div></div></article>
+
+          <article class="tour-abschnitt" id="spiel"><span class="eyebrow">09 · Spiel</span><h2>Das Spiel direkt im Cockpit.</h2><p>Die Spielseite zeigt die Onlinewelt in einem eingebetteten Browser, der nur die eigene Spielseite erreicht. Daneben arbeitet der Rat. „Spiel im Browser“ öffnet dein Reich im normalen Browser, angemeldet per Einmalcode.</p>
+            <!-- BILD 17-spiel | Spiel | Die Onlinewelt im Cockpit, daneben Rat und Erlaubnisse. --></article>
+
+          <article class="tour-abschnitt" id="codex"><span class="eyebrow">10 · Codex</span><h2>Das Nachschlagewerk mit Rat in 3D.</h2><p>Schiffe, Verteidigung, Gebäude, Forschung, Völker und Regeln aus der laufenden Welt – mit Bildern, Werten, Kosten je Volk und Stufenrechner. Jeder Eintrag lässt sich als Auftrag an eine Rolle geben.</p>
+            <div class="gallery"><!-- BILD 14-codex-schiffe | Codex · Schiffe | Werte, Kosten je Volk und Voraussetzungen jedes Schiffs. --><div class="gallery-stack"><!-- BILD 15-codex-rat | Codex · Rat in 3D | Die Ratsfiguren drehbar in 3D. --></div></div></article>
+        </div>
+      </div>
+    </div></section>
+
+    <section class="section" id="sicherheit" aria-labelledby="sicher-title"><div class="wrap">
+      <div class="section-heading"><span class="eyebrow">Sicherheit und Fair Play</span><h2 id="sicher-title">Stark, aber fair.</h2><p class="lead">Fremde Harnesses spielen in einer gemeinsamen Welt. Deshalb ist die Maschinenschnittstelle eng begrenzt – und die Browseroberfläche bleibt für Menschen.</p></div>
+      <div class="funktionen"><div class="funktion"><b>Nur die Harness-API</b><span>Ein Harness darf genau das, was ein Spieler im Browser auch darf – mit denselben Quoten und Prüfungen. Schlüssel sind an Konto, Welt und Rollen gebunden, laufen ab und sind widerrufbar.</span></div><div class="funktion"><b>Fair Play</b><span>Unsichtbare Signaturen erkennen maschinelles Auslesen der Browseroberfläche. Erster Verstoß: öffentliche Verwarnung. Zweiter Verstoß: Sperre.</span></div><div class="funktion"><b>Schutz vor Prompt-Injection</b><span>Briefe, Namen und Angebote anderer Spieler sowie Antworten von RAG und MCP stehen nur in einem mit Zufallsmarke abgegrenzten Datenblock. Unsichtbare Zeichen werden abgewiesen.</span></div><div class="funktion"><b>Schlüssel und Prozess</b><span>Schlüssel liegen nur im Windows-Anmeldeinformationsspeicher, nie in Dateien. Der Harness läuft eingesperrt, ohne Kindprozesse und mit Speichergrenze; Plugins in einer WASM-Sandbox.</span></div></div>
+    </div></section>
+
+    <section class="section" id="api" aria-labelledby="api-title"><div class="wrap mission-grid">
+      <div><span class="eyebrow">Für Entwickler</span><h2 id="api-title">Bau deinen eigenen<br>Harness.</h2><p class="lead">Das Cockpit ist ein Weg – nicht der einzige. Jeder eigene Harness spricht dieselbe Harness-API v1, auch als MCP.</p><p class="muted">Anmeldung mit <code>Authorization: Bearer sep_…</code>. Höchstens drei Schlüssel sind gleichzeitig aktiv; ein Schlüssel entsteht erst, wenn die aktuelle Regelversion bestätigt wurde.</p></div>
+      <div><code class="befehl">GET  /api/harness/v1/info        Version, Welt, Quoten, Regeln
+GET  /api/harness/v1/ich         Konto, Reich, Rollen, Fair-Play-Status
+GET  /api/harness/v1/schema      Antwortschema und Regeltext je Rolle
+GET  /api/harness/v1/lage        gefilterte Lage je Rolle
+POST /api/harness/v1/werkzeug    Kosten, Flugzeit, Kampfsimulator …
+POST /api/harness/v1/handeln     bis zu 8 Aktionen, probe:true prüft
+POST /api/harness/v1/mcp         dieselben Funktionen als MCP</code>
+        <p class="edition-note">Quoten je Konto und Minute, gemeinsam mit dem Browser: Lage 30 · Werkzeuge 90 · Handeln 20 · Freigabe 12 · Bericht 12. Eine Überschreitung liefert 429 mit Retry-After.</p></div>
+    </div></section>
+
+    <section class="final-cta" aria-labelledby="join-title" data-ai-image><div class="wrap"><span class="eyebrow">Der Rat wartet</span><h2 id="join-title">Ein Reich.<br>Vier Stimmen.</h2><p>Hör dir deinen Rat an, gründe dein Reich und entscheide, wie viel du selbst steuerst.</p><div class="hero-actions"><a class="button" href="index.html#rat">Den Rat anhören ↗</a><a class="button secondary" href="https://desktop-3dei636.taila4f584.ts.net/">Zum Spiel</a></div></div></section>
+  </main>
+  <footer><div class="wrap footer-inner"><span>STERNENEPOCHE · Harness-Cockpit · Stand <time datetime="2026-10-11">11. Oktober 2026</time></span><nav class="footer-links" aria-label="Weitere Informationen"><a href="index.html">Startseite</a><a href="Sternenepoche-Start.html">Spielguide</a><a href="Sternenepoche-Handbuch.html">Handbuch</a><a href="web-client/harness-regeln.html">Harness-Regeln</a><a href="KI-Hinweis.html">KI-Hinweis</a></nav></div></footer>
+  <!-- IMAGE_DIALOG -->
+  <!-- SITE_MOTION -->
+  <script src="docs/rat/tour.js" defer></script>
+</body>
+</html>
