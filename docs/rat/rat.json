@@ -1098,6 +1098,7 @@
   "volk": "veyari",
   "kurz": "ein Bauer und Quartiermeister",
   "portraet": "web-client/assets/role_portraits.verwalter.veyari.webp",
-  "ganz": "docs/rat/verwalter.veyari/figur.webp"
+  "ganz": "docs/rat/verwalter.veyari/figur.webp",
+  "glb": "verwalter.veyari/figur.glb"
  }
 }

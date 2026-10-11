@@ -141,6 +141,8 @@
       const mat = new T.MeshStandardMaterial({ color: 0xffffff, metalness: p.metallicFactor ?? 1, roughness: p.roughnessFactor ?? 1 });
       if (p.baseColorFactor) mat.color.setRGB(p.baseColorFactor[0], p.baseColorFactor[1], p.baseColorFactor[2]);
       mat.map = await textur(p.baseColorTexture, true); const mr = await textur(p.metallicRoughnessTexture, false); if (mr) { mat.metalnessMap = mr; mat.roughnessMap = mr; }
+      // ORM-Karte: Rot = Umgebungsverdeckung (Falten, unter den Armen), Grün = Rauheit, Blau = Metall.
+      const ao = await textur(m.occlusionTexture, false); if (ao) { mat.aoMap = ao; mat.aoMapIntensity = m.occlusionTexture.strength ?? 1; }
       mat.normalMap = await textur(m.normalTexture, false); mat.side = m.doubleSided ? T.DoubleSide : T.FrontSide; return mat; };
     const gruppe = new T.Group();
     const knoten = async (ni, eltern) => { const n = json.nodes[ni], g = new T.Group();
