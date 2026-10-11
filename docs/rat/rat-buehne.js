@@ -158,13 +158,22 @@
     gruppe.position.sub(new T.Vector3(mitte.x, box.min.y, mitte.z)); huelle.scale.setScalar(2 / Math.max(gr.y, 1e-6));
     return huelle;
   }
-  /** Ohne 3D-Modell: freigestelltes Ganzkörperbild bzw. Porträt als leuchtende Tafel auf der Bühne. */
+  /** Ohne 3D-Modell: freigestelltes Ganzkörperbild bzw. Porträt als leuchtende Tafel auf der Bühne.
+      Die Breite folgt dem Seitenverhältnis des Bildes (sonst wirken schmale Ganzkörperbilder breit gezogen);
+      der Alphatest stanzt die Figur sauber aus und schreibt Tiefe, damit der Bühnenboden nicht durch die Beine scheint. */
   function tafel(bild, ganz, farbe) {
-    const g = new T.Group(), tex = new T.TextureLoader().load(bild); tex.colorSpace = T.SRGBColorSpace;
-    const b = ganz ? 1.15 : 1.25, hoehe = ganz ? 2.0 : 1.25;
+    const g = new T.Group(), hoehe = ganz ? 2.0 : 1.25;
     const innen = new T.Group(); innen.position.y = ganz ? 1.0 : 1.35; g.add(innen);
-    innen.add(new T.Mesh(new T.PlaneGeometry(b, hoehe), new T.MeshBasicMaterial({ map: tex, transparent: true, side: T.DoubleSide, depthWrite: false })));
-    if (!ganz) { const rahmen = new T.Mesh(new T.PlaneGeometry(b + 0.06, hoehe + 0.06), new T.MeshBasicMaterial({ color: new T.Color(farbe), transparent: true, opacity: 0.35 })); rahmen.position.z = -0.01; innen.add(rahmen); }
+    const flaeche = new T.Mesh(new T.PlaneGeometry(1, hoehe), new T.MeshBasicMaterial({ transparent: true, alphaTest: 0.35, side: T.DoubleSide }));
+    flaeche.visible = false; innen.add(flaeche);
+    const rahmen = ganz ? null : new T.Mesh(new T.PlaneGeometry(1, hoehe + 0.06), new T.MeshBasicMaterial({ color: new T.Color(farbe), transparent: true, opacity: 0.35 }));
+    if (rahmen) { rahmen.position.z = -0.01; rahmen.visible = false; innen.add(rahmen); }
+    const tex = new T.TextureLoader().load(bild, (t) => {
+      const breite = hoehe * (t.image.width / t.image.height);
+      flaeche.scale.x = breite; flaeche.visible = true;
+      if (rahmen) { rahmen.scale.x = breite + 0.06; rahmen.visible = true; }
+    });
+    tex.colorSpace = T.SRGBColorSpace; flaeche.material.map = tex;
     g.userData.tafel = true; g.userData.bild = ganz ? null : innen; return g;
   }
   function bodenRing(farbe) {
@@ -186,6 +195,7 @@
   }
   function buehneStarten() {
     if (gestartet) return; gestartet = true;
+    const hinweis = wurzel.querySelector(".rat-hinweis"); if (hinweis) hinweis.textContent = "Der Rat betritt die Bühne …";
     dreiLaden().then(buehneBauen).catch(() => wurzel.classList.add("ohne-3d"));
   }
   function buehneBauen() {
