@@ -147,8 +147,9 @@ impl Game {
     }
     pub(crate) fn validated_account_name<'a>(&self,v:&'a Value)->Result<&'a str,(u16,String)> {
         let name=str_field(v,"name")?.trim();
-        if !(3..=24).contains(&name.chars().count()) || !name.chars().all(|c|c.is_alphanumeric()||c=='_'||c=='-') {return Err(err(400,"Name: 3 bis 24 Buchstaben, Ziffern, - oder _"));}
-        if self.world.spieler.iter().any(|s|s.name.eq_ignore_ascii_case(name)) || self.account_by_name(name).is_some() {return Err(err(409,"Name bereits vergeben"));}
+        if !(3..=24).contains(&name.chars().count()) || !eingabe::kontoname_zeichen(name) {return Err(err(400,"Name: 3 bis 24 lateinische Buchstaben (auch Umlaute), Ziffern, - oder _"));}
+        if eingabe::reserviert(name) {return Err(err(400,"Dieser Name ist der Spielleitung vorbehalten"));}
+        if self.world.spieler.iter().any(|s|s.name.eq_ignore_ascii_case(name)) || self.account_by_name(name).is_some() || self.fairplay_name_belegt(name) {return Err(err(409,"Name bereits vergeben"));}
         Ok(name)
     }
     pub(crate) fn admin_test_account(&mut self,v:&Value)->Reply {
@@ -163,6 +164,7 @@ impl Game {
                 if let Some(hash)=hashed {
                     g.db.execute("UPDATE accounts SET password=?1 WHERE id=?2",params![hash,a.id]).map_err(|_|err(503,"Passwort nicht gespeichert"))?;
                     g.db.execute("DELETE FROM sessions WHERE account=?1",[a.id]).map_err(|_|err(503,"Sitzungen nicht widerrufen"))?;
+                    g.db.execute("UPDATE harness_tokens SET revoked=1 WHERE account=?1",[a.id]).map_err(|_|err(503,"Harness-Schlüssel nicht widerrufen"))?;
                     if let Some(sid)=a.sid{g.runtime.leases.remove(&sid);}
                     g.identity_event(Some(a.id),"test_password_reset",json!({}))?;
                 }

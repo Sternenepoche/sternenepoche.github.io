@@ -7,7 +7,7 @@ function communicationData(){return view?.kommunikation||{};}
 function resetCommunication(){communicationIdentity='';allianceArchiveScope='';mailArchive=[];openedLetter=null;document.querySelectorAll('.letter-composer,.letter-reader').forEach(d=>d.close());document.querySelectorAll('.composer-form').forEach(f=>f.reset());}
 const RELATION_COLORS={verbuendet:'#63d89a',nap:'#f1cf65',handelsabkommen:'#c296f5',feindlich:'#ef6b73',ausgeschieden:'#9aa0a8'};
 function relationFor(name,fallback){return communicationData().kontakte?.find(c=>c.spieler===name)||fallback;}
-function relationHtml(name,fallback){const r=relationFor(name,fallback);const cls=r&&Object.hasOwn(RELATION_COLORS,r.status)?' relation-'+r.status:'';return `<span class="player-relation${cls}">${esc(name)}${r?.allianz?' <small>['+esc(r.allianz)+']</small>':''}${r&&r.status!=='neutral'?' <small>· '+esc(r.bezeichnung)+'</small>':''}</span>`;}
+function relationHtml(name,fallback){const r=relationFor(name,fallback);const cls=r&&Object.hasOwn(RELATION_COLORS,r.status)?' relation-'+r.status:'';return `<span class="player-relation${cls}">${esc(name)}${r?.allianz?' <small title="'+esc(r.allianz)+'">['+esc(r.allianz_tag||r.allianz)+']</small>':''}${r&&r.status!=='neutral'?' <small>· '+esc(r.bezeichnung)+'</small>':''}</span>`;}
 function mailRows(channel){const seen=new Set();return [...(communicationData().briefkasten||[]),...mailArchive].filter(n=>n.kanal===channel&&!seen.has(n.id)&&seen.add(n.id)).sort((a,b)=>b.id-a.id);}
 function letterList(rows,target){
  $(target).innerHTML=rows.length?'<div class="mail-letters">'+rows.map(n=>`<button class="mail-entry ${n.gelesen?'':'unread'}" data-open-letter="${esc(n.id)}"><span class="mail-avatar" aria-hidden="true">${esc((n.gesendet?n.an[0]:n.von)?.slice(0,1)||'✉')}</span><span class="mail-copy"><span class="mail-person">${n.gesendet?n.an.map(name=>relationHtml(name,n.an_beziehungen?.find(r=>r.spieler===name))).join(', '):relationHtml(n.von,n.von_beziehung)}</span><strong>${esc(n.betreff||'Nachricht')}</strong><span class="mail-preview">${esc(n.text.slice(0,160))}</span></span><span class="mail-date">${esc(n.zeit)}${n.gelesen?'':'<span class="unread-dot">Neu</span>'}</span></button>`).join('')+'</div>':`<div class="mail-empty"><span aria-hidden="true">✉</span><h3>Noch keine Briefe hier</h3><p>Wähle oben einen Verbündeten oder schreibe einen neuen Brief.</p></div>`;
@@ -26,7 +26,8 @@ function renderCommunication(){
  const unread=mailRows('privat').filter(n=>!n.gesendet&&!n.gelesen).length;$('mail-unread').textContent=unread||'';
  const requests=c.anfragen||[];
  $('diplomatic-requests').innerHTML=requests.length?requests.map(r=>`<article class="card"><div class="row"><h3>${esc(label(r.art))}</h3>${badge(r.status)}</div><p>${esc(r.von)} → ${esc(r.an)}</p><p>${esc(r.text)}</p>${r.status==='offen'&&r.an===view.name?`<button data-request="${esc(r.id)}" data-accept="true">Annehmen</button> <button class="secondary" data-request="${esc(r.id)}" data-accept="false">Ablehnen</button>`:''}</article>`).join(''):empty('Keine diplomatischen Anfragen.');
- $('alliance-state').innerHTML=a?`<h3>${esc(a.name)}</h3><p>${a.mitglieder.length} Mitglieder · Dein Amt: ${esc(a.mitglieder.find(m=>m.name===view.name)?.rolle||'Mitglied')}</p>`:empty('Du gehörst keiner Allianz an. Gründe eine Allianz oder nimm eine Einladung an.');
+ $('alliance-state').innerHTML=a?`<h3>[${esc(a.tag)}] ${esc(a.name)}</h3><p>${a.mitglieder.length} Mitglieder · Dein Amt: ${esc(a.mitglieder.find(m=>m.name===view.name)?.rolle||'Mitglied')}</p>`:empty('Du gehörst keiner Allianz an. Gründe eine Allianz oder nimm eine Einladung an.');
+ renderAllianceCodex();
  $('alliance-invitations').innerHTML=(view.einladungen||[]).map(n=>`<p>Einladung: ${esc(n)} <button data-join-alliance="${esc(n)}">Beitreten</button></p>`).join('');
  $('alliance-private').hidden=!a;$('alliance-public').hidden=!!a;
  $('alliance-leadership').hidden=!a?.gruender;
@@ -84,7 +85,12 @@ async function sendLetterForm(form,action){
  catch(error){status.textContent=error.message||'Senden fehlgeschlagen. Dein Entwurf bleibt erhalten.';}
  finally{button.disabled=false;}
 }
-document.addEventListener('input',e=>{if(e.target.matches('.communication-text'))updateLetterCount(e.target);if(e.target.id==='mail-search')renderCommunication();});
+function renderAllianceCodex(){
+ const term=$('alliance-codex-search').value.trim().toLocaleLowerCase('de');
+ const entries=(communicationData().allianzen||[]).filter(a=>!term||[a.tag,a.name,...(a.voelker||[])].join(' ').toLocaleLowerCase('de').includes(term));
+ $('alliance-codex-list').innerHTML=entries.map(a=>`<article class="card"><strong>[${esc(a.tag)}] ${esc(a.name)}</strong><p>${esc(a.anzahl)} Mitglieder · ${(a.voelker||[]).map(v=>esc(named(v))).join(', ')} · Leitung: ${esc(a.leitung)}</p></article>`).join('')||empty('Keine Allianz gefunden.');
+}
+document.addEventListener('input',e=>{if(e.target.matches('.communication-text'))updateLetterCount(e.target);if(e.target.id==='mail-search')renderCommunication();if(e.target.id==='alliance-codex-search')renderAllianceCodex();});
 document.addEventListener('click',e=>{
  const b=e.target.closest('[data-compose],[data-close-compose],[data-mail-to],[data-alliance-pane]');if(!b)return;
  if(b.dataset.compose)openComposer(b.dataset.compose);
@@ -113,7 +119,7 @@ document.addEventListener('submit',guard(async e=>{
   case 'request-form':action={typ:'diplomatie_anfrage',partner:f.partner.value,art:f.art.value,text:f.text.value};break;
   case 'alliance-chat-form':action={typ:'brief_senden',kanal:'allianz',an:'',betreff:'Allianzchat',text:f.text.value,antwort_auf:null};break;
   case 'alliance-post-form':await sendLetterForm(e.target,{typ:'brief_senden',kanal:'diplomatie',an:f.an.value,betreff:f.betreff.value,text:f.text.value,antwort_auf:Number(f.antwort_auf.value)||null});return;
-  case 'alliance-create':action={typ:'allianz_gruenden',name:f.name.value};break;
+  case 'alliance-create':action={typ:'allianz_gruenden',name:f.name.value,tag:f.tag.value.trim()||null};break;
   case 'alliance-invite':action={typ:'allianz_einladen',spieler:f.spieler.value};break;
   case 'alliance-rank':action={typ:'allianz_rolle',spieler:f.spieler.value,rang:Number(f.rang.value)};break;
   case 'alliance-expel':action={typ:'allianz_ausschliessen',spieler:f.spieler.value};break;

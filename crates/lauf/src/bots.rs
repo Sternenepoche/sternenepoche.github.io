@@ -55,6 +55,8 @@ impl Bot {
 }
 
 const TAKT: i64 = 2 * STUNDE;
+/// A probed colony target that is not confirmed free stays off the list this long.
+const KOLONIE_SPAEHPAUSE: i64 = 7 * TAG;
 
 fn tu(welt: &mut Welt, sid: SpielerId, aktion: Value) -> bool {
     welt.handeln(sid, Rolle::Alle, &aktion).0
@@ -144,7 +146,7 @@ fn habitat_fehlt(welt: &Welt, sid: SpielerId) -> bool {
 }
 
 /// Wählt den nächsten Bau eines Planeten: erst Versorgung, dann Ziele der Stufe, dann die Mine mit der kürzesten Amortisation.
-fn waehle_bau(welt: &Welt, sid: SpielerId, pid: usize, typ: Bottyp) -> Option<Gebaeude> {
+pub fn waehle_bau(welt: &Welt, sid: SpielerId, pid: usize, typ: Bottyp) -> Option<Gebaeude> {
     use Gebaeude::*;
     let r = &welt.regeln;
     let p = &welt.planeten[pid];
@@ -787,6 +789,7 @@ fn raeuber(welt: &mut Welt, sid: SpielerId, bot: &mut Bot) {
     // Neue Ziele ausspähen: belegte Plätze im eigenen Sektor, die nächsten zuerst.
     let mut sonden = n(welt, Einheit::Spionagesonde);
     let mut kandidaten: Vec<(i64, Koord)> = if welt.aufklaerungsregeln() {
+        let unbesetzt: std::collections::BTreeSet<String> = welt.spieler.iter().filter(|s| !welt.spieler_aktiv(s.id)).map(|s| s.name.clone()).collect();
         let mut known = Vec::new();
         for system in 1..=r.welt.systeme_je_sektor {
             if (system as i64-k.system as i64).abs()>15 {continue;}
@@ -794,6 +797,8 @@ fn raeuber(welt: &mut Welt, sid: SpielerId, bot: &mut Bot) {
                 let coord=Koord::neu(k.sektor,system,position);
                 let view=welt.planetenwissen(sid,coord);
                 if view["status"]=="eigen" || view["status"]=="frei" || view["status"]=="freund" {continue;}
+                // Unclaimed start places are public knowledge and frozen: no target, no probes.
+                if view["spieler"].as_str().is_some_and(|n|unbesetzt.contains(n)) {continue;}
                 if bot.gespaeht.get(&coord).is_some_and(|t|jetzt-*t<12*STUNDE) {continue;}
                 known.push((welt.entfernung(k,coord),coord));
             }
@@ -883,7 +888,7 @@ fn diplomatie(welt: &mut Welt, sid: SpielerId, typ: Bottyp) {
     let mut nachbarn: Vec<(i64, SpielerId)> = if welt.aufklaerungsregeln() {
         // Names and active membership are public; hidden home coordinates are not.
         (0..welt.spieler.len() as u16).filter(|id|*id!=sid&&welt.spieler_aktiv(*id))
-            .map(|id|(((id+50-sid)%50) as i64,id)).collect()
+            .map(|id|((i64::from(id)-i64::from(sid)).rem_euclid(welt.spieler.len() as i64),id)).collect()
     } else {welt
         .planeten
         .iter()
@@ -1074,7 +1079,11 @@ fn logistik(welt: &mut Welt, sid: SpielerId, typ: Bottyp) {
 }
 
 /// Ab Stufe IV: Bauteile fertigen, Kolonieschiff bauen und losschicken. Die erste Kolonie geht in einen Nebel.
-fn kolonisieren(welt: &mut Welt, sid: SpielerId) {
+/// `gespaeht`: the bot's probe memory. Under the reconnaissance rules a probed target that is
+/// not confirmed free is skipped for a week: the report alone does not last (a bot keeps
+/// only its latest 30 reports), and without this memory bots probed the same occupied or
+/// reserved home every few minutes, flooding its owner with "Spionage bemerkt".
+fn kolonisieren(welt: &mut Welt, sid: SpielerId, gespaeht: &mut BTreeMap<Koord, SimZeit>) {
     let r = welt.regeln.clone();
     let sp = &welt.spieler[sid as usize];
     if sp.stufe < 4 {
@@ -1107,6 +1116,7 @@ fn kolonisieren(welt: &mut Welt, sid: SpielerId) {
             for pos in von..=bis {
                 let z = Koord::neu(k.sektor, n, pos);
                 if welt.aufklaerungsregeln() && sp.erkundet.get(&z).is_some_and(|e|e.zone!=Zone::Leben) {continue;}
+                if welt.aufklaerungsregeln() && !sp.erkundet.contains_key(&z) && gespaeht.get(&z).is_some_and(|t| welt.zeit - *t < KOLONIE_SPAEHPAUSE) {continue;}
                 if if welt.aufklaerungsregeln() {
                     let status=welt.planetenwissen(sid,z)["status"].as_str().unwrap_or("unbekannt").to_string();
                     !matches!(status.as_str(),"frei"|"unbekannt")
@@ -1134,7 +1144,9 @@ fn kolonisieren(welt: &mut Welt, sid: SpielerId) {
                 if !sp.erkundet.contains_key(&ziel) {
                     if !welt.flotten.values().any(|f| f.besitzer == sid && f.mission == Mission::Spionage && f.ziel == ziel) {
                         if p.einheiten[Einheit::Spionagesonde.idx()] > 0 {
-                            tu(welt, sid, json!({"typ":"flotte_senden","start":ks,"ziel":ziel.to_string(),"mission":"spionage","schiffe":{"spionagesonde":1}}));
+                            if tu(welt, sid, json!({"typ":"flotte_senden","start":ks,"ziel":ziel.to_string(),"mission":"spionage","schiffe":{"spionagesonde":1}})) {
+                                gespaeht.insert(ziel, welt.zeit);
+                            }
                         } else if !p.fertigung[0].iter().any(|f| f.produkt == Produkt::Einheit(Einheit::Spionagesonde)) && bezahlbar(&bestand,&r.kosten_einheit(Einheit::Spionagesonde,sp.volk)) {
                             tu(welt, sid, json!({"typ":"fertigen","planet":ks,"einheit":"spionagesonde","anzahl":1}));
                         }
@@ -1228,13 +1240,27 @@ pub fn zug(welt: &mut Welt, sid: SpielerId, bot: &mut Bot) {
         Bottyp::Wehrlos => {}
     }
     logistik(welt, sid, bot.typ);
-    kolonisieren(welt, sid);
+    // Probe memory older than the longest pause (a week) no longer decides anything.
+    let jetzt = welt.zeit;
+    bot.gespaeht.retain(|_, t| jetzt - *t < KOLONIE_SPAEHPAUSE);
+    kolonisieren(welt, sid, &mut bot.gespaeht);
     diplomatie(welt, sid, bot.typ);
 }
 
 #[cfg(test)]
 mod interactive_colony_tests {
     use super::*;
+    #[test]
+    fn public_diplomacy_supports_more_than_fifty_players() {
+        let mut rules = Regelwerk::laden(include_str!("../../../regeln/online-v1.ron")).unwrap();
+        rules.welt.start_abstand=1;
+        rules.welt.systeme_je_sektor=80;
+        let mut w=Welt::neu(rules,712,128).unwrap();
+        w.zeit=2*TAG;
+        diplomatie(&mut w,100,Bottyp::Haendler);
+        assert!(w.vertraege.iter().any(|v|v.a==100&&v.b==101));
+        assert_eq!(w.spieler[100].statistik.abgelehnt,0);
+    }
     #[test]
     fn raid_estimate_uses_the_defenders_faction() {
         let mut rules = kern::Regelwerk::laden(include_str!("../../../regeln/online-v1.ron")).unwrap();
@@ -1323,7 +1349,7 @@ mod interactive_colony_tests {
         w.planeten[pid].gebaeude.fill(10);
         w.planeten[pid].bevoelkerung = 100_000 * M;
         w.planeten[pid].bestand = w.regeln.kosten_einheit(Einheit::Kolonieschiff, w.spieler[0].volk);
-        kolonisieren(&mut w, 0);
+        kolonisieren(&mut w, 0, &mut BTreeMap::new());
         assert!(!w.planeten[pid].fertigung[1].is_empty(), "fixture must actually spend resources on orbital components");
         assert_eq!(w.spieler[0].statistik.abgelehnt, 0, "colony ship used the pre-component stock snapshot");
         assert!(w.bestand_jetzt(pid).iter().all(|n|*n>=0));
@@ -1369,7 +1395,7 @@ mod interactive_colony_tests {
         w.planeten[p].bevoelkerung = 100_000 * M;
         w.planeten[p].bestand.fill(100_000 * M);
         for e in [Einheit::Spionagesonde, Einheit::Kolonieschiff, Einheit::LeichterJaeger] { w.planeten[p].einheiten[e.idx()] = 1; }
-        kolonisieren(&mut w, 0);
+        kolonisieren(&mut w, 0, &mut BTreeMap::new());
         let probe = w.flotten.values().find(|f| f.besitzer == 0 && f.mission == Mission::Spionage).unwrap_or_else(|| panic!("probe missing: {:?}",w.logpuffer));
         let target = probe.ziel;
         for _ in 0..192 {
@@ -1378,7 +1404,7 @@ mod interactive_colony_tests {
         }
         assert!(w.spieler[0].erkundet.contains_key(&target));
         w.planeten[p].bestand.fill(100_000 * M);
-        kolonisieren(&mut w, 0);
+        kolonisieren(&mut w, 0, &mut BTreeMap::new());
         let colony = w.flotten.values().find(|f| f.besitzer == 0 && f.mission == Mission::Kolonisieren).unwrap_or_else(|| panic!("colony missing: {:?}",w.logpuffer));
         assert_eq!(colony.ziel, target);
         assert!(colony.schiffe[Einheit::LeichterJaeger.idx()] > 0);
@@ -1389,12 +1415,30 @@ mod interactive_colony_tests {
 
 /// Baseline policies are explicitly script decisions, never presented as LLM reasoning.
 fn kommunizieren(w:&mut Welt,sid:SpielerId,typ:Bottyp) {
+    reagieren(w, sid, typ);
     let names=w.spieler.iter().map(|s|s.name.clone()).collect::<Vec<_>>();
+    initiativen(w, sid, typ, &names);
+}
+
+/// Immediate, bounded diplomacy, independent of the economic turn. Kernel-only worlds mark
+/// script players with the `ki` flag; hosts that run bots themselves use `reagieren_mit`.
+pub fn reagieren(w:&mut Welt,sid:SpielerId,typ:Bottyp) {
+    let scripts=w.spieler.iter().filter(|s|s.ki).map(|s|s.id).collect();
+    reagieren_mit(w,sid,typ,&scripts);
+}
+
+/// Same policy with the host's real script registry (online and local runtimes switch the
+/// kernel `ki` flag off, so it cannot identify their bots). Cheap when nothing is pending:
+/// called for every bot after each player command in a local round.
+pub fn reagieren_mit(w:&mut Welt,sid:SpielerId,typ:Bottyp,scripts:&std::collections::BTreeSet<SpielerId>) {
     for id in w.offene_antworten(sid).into_iter().take(4) {
         let n=w.nachrichten[id as usize-1].clone();
-        let style=match typ {Bottyp::Raeuber=>"Meine Flottenplanung lässt mir gerade keine Zeit für weitere Gespräche.",Bottyp::Igel=>"Ich sichere mein Reich. Über gegenseitige Hilfe und einen Nichtangriffspakt können wir sprechen.",Bottyp::Haendler=>"Ich suche verlässliche Handelspartner. Welche Waren brauchst du oder kannst du anbieten?",_=>"Ich baue eine langfristige Wirtschaft auf. Welche Zusammenarbeit stellst du dir vor?"};
-        tu(w,sid,json!({"typ":"brief_senden","kanal":"privat","an":names[n.von as usize],"betreff":"Antwort","text":format!("Ich bin {}. {style}",names[sid as usize]),"antwort_auf":id}));
+        let betreff=w.kommunikation.briefe.get(&id).map(|b|b.betreff.clone()).unwrap_or_default();
+        let detail=antwort_text(&format!("{betreff} {}",n.text),typ);
+        let (an,ich)=(w.spieler[n.von as usize].name.clone(),w.spieler[sid as usize].name.clone());
+        tu(w,sid,json!({"typ":"brief_senden","kanal":"privat","an":an,"betreff":"Antwort","text":format!("Guten Tag, {an}. Ich bin {ich}. {detail}"),"antwort_auf":id}));
     }
+    allianz_reagieren(w,sid,scripts);
     let requests=w.kommunikation.anfragen.iter().filter(|a|a.zielallianz.is_none()&&a.an==sid&&a.status=="offen"&&a.vertrag.is_none_or(|id|w.vertraege.iter().any(|v|v.id==id&&v.status==Vertragsstatus::Angeboten))).map(|a|(a.id,a.art.clone())).take(4).collect::<Vec<_>>();
     for (id,art) in requests {
         let accept=typ!=Bottyp::Raeuber && (art!="allianz"||w.spieler[sid as usize].allianz.is_none());
@@ -1402,6 +1446,103 @@ fn kommunizieren(w:&mut Welt,sid:SpielerId,typ:Bottyp) {
     }
     let council=w.kommunikation.anfragen.iter().filter(|a|a.status=="offen"&&a.zielallianz.is_some_and(|id|w.allianz_leitung(sid,id))).take(4).map(|a|a.id).collect::<Vec<_>>();
     for id in council {tu(w,sid,json!({"typ":"diplomatie_entscheiden","anfrage":id,"annehmen":typ!=Bottyp::Raeuber}));}
+    if typ != Bottyp::Raeuber && w.spieler[sid as usize].allianz.is_none() {
+        if let Some(name) = w.allianzen.iter().find(|a| a.eingeladen.contains(&sid)).map(|a| a.name.clone()) {
+            tu(w,sid,json!({"typ":"allianz_beitreten","allianz":name}));
+        }
+    }
+    // Contract offers are decided here as well, so a player's offer gets its answer as soon
+    // as the letters and requests do (the economic turn finds nothing left afterwards).
+    let offen=w.vertraege.iter().filter(|v|v.b==sid&&v.status==Vertragsstatus::Angeboten).map(|v|v.id).collect::<Vec<_>>();
+    for id in offen {
+        tu(w,sid,json!({"typ":if typ==Bottyp::Raeuber {"vertrag_ablehnen"} else {"vertrag_annehmen"},"vertrag":id}));
+    }
+}
+
+/// Script reply to a letter: the topics in the order the writer raised them (at most two),
+/// each answered with what this bot type really does in `reagieren_mit` and its turn.
+/// Nothing is promised that the policy would not carry out.
+fn antwort_text(text: &str, typ: Bottyp) -> String {
+    let t = format!(" {} ", text.to_lowercase());
+    let raeuber = typ == Bottyp::Raeuber;
+    let themen: [(&[&str], &str); 5] = [
+        (&["allianz", "bündnis", "buendnis", "verbünd", "verbuend"],
+            if raeuber { "Allianzen gehe ich nicht ein; ich bleibe unabhängig. Einzelne Geschäfte sind trotzdem möglich." }
+            else { "Eine Allianz lebt von verlässlicher Versorgung und gemeinsamer Verteidigung. Lade mich in deine Allianz ein oder schicke eine diplomatische Anfrage; solange ich in keiner Allianz bin, nehme ich an." }),
+        (&["frieden", "nichtangriff", " pakt", "waffenstillstand", "krieg"],
+            if raeuber { "Pakte schließe ich nicht. Wer Ruhe will, sichert Lager und Verteidigung." }
+            else { "Ein Nichtangriffspakt ist mir recht. Biete ihn unter Diplomatie als Vertrag an; ich nehme ihn an." }),
+        (&["handel", " erz", "kristall", " ware ", "güter", "tausch", "kauf", "rohstoff"],
+            match typ {
+                Bottyp::Raeuber => "Nenne mir Ware, Menge und Gegenleistung. Ich handle nur über den Markt gegen sofortige Bezahlung; eine Nachricht allein liefert nichts.",
+                Bottyp::Haendler => "Nenne mir Ware, Menge und Gegenleistung. Verbindlich wird es über ein Angebot im Markt oder im internen Markt unserer Allianz; eine Nachricht allein löst noch keine Lieferung aus.",
+                _ => "Nenne mir Ware, Menge und Gegenleistung. Ein Angebot im Markt oder ein Handelsabkommen können wir verbindlich prüfen; eine Nachricht allein löst noch keine Lieferung aus.",
+            }),
+        (&["angriff", "hilfe", "schutz", "verteidig", "bedroh"],
+            if raeuber { "Hilfe gibt es von mir nicht umsonst. Sichere deine Lager und unterschätze keinen fremden Anflug." }
+            else { "Nenne das betroffene System und den Bedarf. Verbündete können einen Hilferuf prüfen. Eine Zusage ohne verfügbare Schiffe gebe ich dir nicht." }),
+        (&[" wie ", "erkund", "anfäng", "anfang", "tipp"],
+            "Beginne mit Energie und Versorgung, baue danach Wirtschaft und Forschung aus. In der Sternenkarte kannst du Systeme erkunden; der Codex erklärt Gebäude, Flotten und Verträge."),
+    ];
+    let mut gefunden: Vec<(usize, &str)> = themen.iter()
+        .filter_map(|(worte, antwort)| worte.iter().filter_map(|w| t.find(w)).min().map(|pos| (pos, *antwort)))
+        .collect();
+    gefunden.sort_by_key(|(pos, _)| *pos);
+    if gefunden.is_empty() {
+        return match typ {
+            Bottyp::Raeuber => "Meine Flottenplanung lässt mir gerade keine Zeit für weitere Gespräche.",
+            Bottyp::Igel => "Ich sichere mein Reich. Über gegenseitige Hilfe und einen Nichtangriffspakt können wir sprechen.",
+            Bottyp::Haendler => "Ich suche verlässliche Handelspartner. Welche Waren brauchst du oder kannst du anbieten?",
+            _ => "Ich baue eine langfristige Wirtschaft auf. Welche Zusammenarbeit stellst du dir vor?",
+        }.into();
+    }
+    gefunden.iter().take(2).map(|(_, a)| *a).collect::<Vec<_>>().join(" ")
+}
+
+#[cfg(test)]
+mod antwort_tests {
+    use super::*;
+    #[test]
+    fn antworten_folgen_den_themen_des_briefs_und_versprechen_nur_was_der_bot_tut() {
+        let a = antwort_text("Hallo! Wollen wir eine Allianz gründen und gemeinsam handeln?", Bottyp::Oekonom);
+        assert!(a.starts_with("Eine Allianz lebt"), "{a}");
+        assert!(a.contains("Ware, Menge und Gegenleistung"), "{a}");
+        let r = antwort_text("Bündnis und Frieden?", Bottyp::Raeuber);
+        assert!(r.contains("Allianzen gehe ich nicht ein") && r.contains("Pakte schließe ich nicht"), "{r}");
+        assert!(antwort_text("Ich möchte Erz handeln", Bottyp::Haendler).contains("internen Markt"));
+        assert!(antwort_text("Guten Morgen", Bottyp::Igel).starts_with("Ich sichere mein Reich"));
+        // Word starts, not fragments: "herzlich" is no ore trade, "waren" no goods.
+        assert!(antwort_text("Herzliche Grüße, wir waren Nachbarn", Bottyp::Oekonom).starts_with("Ich baue"));
+        // "wie" only as a word: "wieder" is no beginner question.
+        assert!(!antwort_text("Bis wieder", Bottyp::Oekonom).contains("Beginne mit Energie"));
+        assert!(antwort_text("Wie fange ich an?", Bottyp::Oekonom).contains("Beginne mit Energie"));
+    }
+}
+
+/// Online runtimes disable the core AI flag to avoid a second economic controller.
+/// Supply their real script registry instead of inferring controllers from that flag.
+pub fn allianz_reagieren(w:&mut Welt,sid:SpielerId,scripts:&std::collections::BTreeSet<SpielerId>) {
+    // One script representative answers the newest human/model alliance message.
+    // Reply links prevent bot-to-bot chains and repeated answers on later ticks.
+    if let Some(aid)=w.spieler[sid as usize].allianz {
+        let representative=w.allianzen.iter().find(|a|a.id==aid).and_then(|a|a.mitglieder.iter().copied().filter(|id|scripts.contains(id)&&w.spieler_aktiv(*id)).min());
+        if representative==Some(sid) {
+            // Letter ids grow with time: scanning back one game day keeps this independent of
+            // the epoch length. Older unanswered chat lines are history, not a pending question.
+            let seit=w.zeit-TAG;
+            let root=w.kommunikation.briefe.iter().rev().take_while(|(id,_)|w.nachrichten[**id as usize-1].zeit>=seit).find(|(id,b)|b.kanal=="allianz"&&b.antwort_auf.is_none()&&!b.automatisch&&w.nachrichten[**id as usize-1].von!=sid&&!scripts.contains(&w.nachrichten[**id as usize-1].von)&&w.brief_sichtbar(sid,**id)).map(|(id,_)|*id);
+            if let Some(id)=root {
+                if !w.kommunikation.briefe.range(id..).any(|(bid,b)|b.antwort_auf==Some(id)&&w.nachrichten[*bid as usize-1].von==sid) {
+                    let n=&w.nachrichten[id as usize-1];let sender=w.spieler[n.von as usize].name.clone();let topic=n.text.to_lowercase();
+                    let text=if topic.contains("hilfe")||topic.contains("angriff"){"Bitte trage den betroffenen Planeten und deinen Bedarf als Hilferuf ein. Ich prüfe meine verfügbaren Kräfte."}else if topic.contains("handel")||topic.contains("erz")||topic.contains("kristall"){"Stelle Ware, Menge und Preis im Allianzbereich Wirtschaft ein. Dort können wir verbindlich handeln und die Lieferung verfolgen."}else{"Willkommen in unserer Allianz. Lass uns Versorgung und Forschung abstimmen. Über den internen Markt und die Hilferufe bleiben unsere Absprachen nachvollziehbar."};
+                    tu(w,sid,json!({"typ":"brief_senden","kanal":"allianz","an":"","betreff":"Antwort im Allianzchat","text":format!("Guten Tag, {sender}. {text}"),"antwort_auf":id}));
+                }
+            }
+        }
+    }
+}
+
+fn initiativen(w:&mut Welt,sid:SpielerId,typ:Bottyp,names:&[String]) {
     // One initiative per day and seat; no reply chains and no hidden enemy knowledge.
     if w.zeit % TAG >= TAKT || w.zeit<TAG {return;}
     let already=w.kommunikation.ereignisse.iter().rev().take_while(|e|e["time"].as_i64().unwrap_or(0)>=w.zeit-w.zeit%TAG).any(|e|e["player_id"]==sid && e["event_type"]=="communication.sent");
@@ -1424,9 +1565,19 @@ fn kommunizieren(w:&mut Welt,sid:SpielerId,typ:Bottyp) {
                 }
             }
             let k=w.planeten[w.spieler[sid as usize].heimat as usize].koord;
-            let view=w.sicht(sid,Rolle::Alle);
-            tu(w,sid,json!({"typ":"brief_senden","kanal":"allianz","an":"","betreff":"Lagebericht","text":format!("{} ist erreichbar. Bitte meldet Versorgungsbedarf über den internen Markt und Angriffe als Hilferuf.",names[sid as usize]),"antwort_auf":null}));
-            if view["angriffe"].as_array().is_some_and(|a|!a.is_empty()) && !w.kommunikation.hilfe.iter().any(|h|h.von==sid&&h.status=="offen") {tu(w,sid,json!({"typ":"allianz_hilfe","planet":k,"text":"Sensoren melden einen Angriff. Bitte Entsatz prüfen."}));}
+            // At most one weekly report per alliance and only with real content (open offers
+            // and help calls). Daily boilerplate from every bot flooded the chat and grew each
+            // save by hundreds of letters per game day.
+            let woche=w.zeit-7*TAG;
+            if (w.zeit/TAG)%7==0 && !w.kommunikation.briefe.iter().rev().take_while(|(id,_)|w.nachrichten[**id as usize-1].zeit>=woche).any(|(_,b)|b.kanal=="allianz"&&b.betreff=="Wochenbericht"&&b.allianzen.contains(&aid)) {
+                let angebote=w.kommunikation.angebote.iter().filter(|o|o.allianz==aid&&o.status=="offen").count();
+                let hilfe=w.kommunikation.hilfe.iter().filter(|h|h.allianz==aid&&h.status=="offen").map(|h|h.planet.to_string()).collect::<Vec<_>>();
+                if angebote>0 || !hilfe.is_empty() {
+                    let text=format!("Wochenbericht: {angebote} offene Angebote im internen Markt{}.",if hilfe.is_empty(){String::new()}else{format!(", offene Hilferufe für {}",hilfe.join(", "))});
+                    tu(w,sid,json!({"typ":"brief_senden","kanal":"allianz","an":"","betreff":"Wochenbericht","text":text,"antwort_auf":null}));
+                }
+            }
+            if !w.sichtbare_angriffe(sid).is_empty() && !w.kommunikation.hilfe.iter().any(|h|h.von==sid&&h.status=="offen") {tu(w,sid,json!({"typ":"allianz_hilfe","planet":k,"text":"Sensoren melden einen Angriff. Bitte Entsatz prüfen."}));}
             let help=w.kommunikation.hilfe.iter().find(|h|h.allianz==aid&&h.von!=sid&&h.status=="offen"&&!h.helfer.contains(&sid)).map(|h|h.id);
             if let Some(id)=help {tu(w,sid,json!({"typ":"allianz_hilfe_status","hilfe":id,"erledigt":false}));}
             let pid=w.spieler[sid as usize].heimat as usize;
@@ -1434,7 +1585,7 @@ fn kommunizieren(w:&mut Welt,sid:SpielerId,typ:Bottyp) {
             let offer=w.kommunikation.angebote.iter().find(|o|o.allianz==aid&&o.von!=sid&&o.status=="offen"&&o.preis<=M&&o.menge<=1000*M).map(|o|o.id);
             if typ!=Bottyp::Raeuber && w.spieler[sid as usize].credits>2000*M {if let Some(id)=offer {tu(w,sid,json!({"typ":"intern_kaufen","angebot":id,"planet":k}));}}
         }
-        if !w.kommunikation.briefe.iter().any(|(id,b)|b.kanal=="privat"&&w.nachrichten[*id as usize-1].von==sid&&w.nachrichten[*id as usize-1].an.contains(&p)) {
+        if !w.privat_kontakt(sid,p) {
             tu(w,sid,json!({"typ":"brief_senden","kanal":"privat","an":names[p as usize],"betreff":"Erster Kontakt","text":format!("Ich bin {}. Welche langfristigen Interessen hat dein Reich?",names[sid as usize]),"antwort_auf":null}));
         }
     }

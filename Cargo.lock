@@ -3274,14 +3274,17 @@ dependencies = [
  "kern",
  "lauf",
  "lettre",
+ "qrcodegen",
  "rand 0.8.8",
  "ron",
  "rusqlite",
  "serde",
  "serde_json",
  "sha2",
+ "socket2",
  "tiny_http",
  "totp-rs",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]

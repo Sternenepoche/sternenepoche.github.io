@@ -248,6 +248,14 @@ fn system_probe_discovers_no_planets_and_each_planet_needs_its_own_probe() {
     advance(&mut w, arrival);
     assert!(w.system_erfasst(0, k));
     assert_eq!(w.planetenwissen(0, k)["bekannt"], false);
+    let resident=w.planetenwissen(0,k);
+    assert_eq!(resident["besiedlung_bekannt"],true);
+    assert_eq!(resident["spieler"],w.spieler[1].name);
+    assert!(resident["zone"].is_null());assert!(resident["bestand_spannen"].is_null());
+    assert!(w.planetenwissen(2,k)["spieler"].is_null());
+    let saved=w.zu_bytes();let loaded=Welt::aus_bytes(&saved).unwrap();
+    assert_eq!(loaded.planetenwissen(0,k),resident);assert_eq!(loaded.zu_bytes(),saved);
+    assert!(loaded.atlas_sicht(0).iter().any(|p|p["koord"]==k.to_string()));
     let id = fly(
         &mut w,
         0,

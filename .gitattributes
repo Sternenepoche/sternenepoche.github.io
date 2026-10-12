@@ -1,0 +1,3 @@
+
+# Release delta and replacement files must retain their verified bytes.
+release-update/** -text

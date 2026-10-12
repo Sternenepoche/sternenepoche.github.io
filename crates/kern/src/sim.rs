@@ -238,7 +238,7 @@ impl Welt {
             h.update(b"ausscheiden-v1");
             h.update(bincode::serialize(&self.ausscheiden).expect("Ausscheidestatus"));
         }
-        if !self.kommunikation.ereignisse.is_empty() {
+        if self.kommunikation.ereignisse_gesamt() > 0 || !self.kommunikation.systemkontakte.is_empty() || !self.kommunikation.allianz_tags.is_empty() {
             h.update(b"kommunikation-v1");
             h.update(serde_json::to_vec(&self.kommunikation).expect("Kommunikation"));
         }
@@ -248,7 +248,7 @@ impl Welt {
     /// Vollständiger Schnappschuss als Bytes.
     pub fn zu_bytes(&self) -> Vec<u8> {
         let base=self.zu_bytes_v8();
-        if self.kommunikation.ereignisse.is_empty() {return base;}
+        if self.kommunikation.ereignisse_gesamt()==0 && self.kommunikation.systemkontakte.is_empty() && self.kommunikation.allianz_tags.is_empty() {return base;}
         let mut out=b"STERNEP9".to_vec();
         out.extend_from_slice(&(base.len() as u64).to_le_bytes());out.extend(base);
         out.extend(serde_json::to_vec(&self.kommunikation).expect("Kommunikation"));out

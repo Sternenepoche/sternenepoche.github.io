@@ -147,6 +147,8 @@ pub enum Aktion {
     },
     AllianzGruenden {
         name: String,
+        #[serde(default)]
+        tag: Option<String>,
     },
     AllianzEinladen {
         spieler: String,
@@ -658,7 +660,7 @@ impl Welt {
             Aktion::VertragAnnehmen { vertrag } => self.vertrag_annehmen(sid, vertrag),
             Aktion::VertragAblehnen { vertrag } => self.vertrag_ablehnen(sid, vertrag),
             Aktion::VertragKuendigen { vertrag } => self.vertrag_kuendigen(sid, vertrag),
-            Aktion::AllianzGruenden { name } => self.allianz_gruenden(sid, &name),
+            Aktion::AllianzGruenden { name, tag } => self.allianz_gruenden_mit_tag(sid, &name, tag.as_deref()),
             Aktion::AllianzEinladen { spieler } => self.allianz_einladen(sid, &spieler),
             Aktion::AllianzBeitreten { allianz } => self.allianz_beitreten(sid, &allianz),
             Aktion::AllianzVerlassen {} => self.allianz_verlassen(sid),
@@ -961,7 +963,7 @@ pub fn antwortschema(rolle: Rolle) -> serde_json::Value {
             "vertrag_annehmen" | "vertrag_ablehnen" | "vertrag_kuendigen" => {
                 vec![("vertrag", ganzzahl())]
             }
-            "allianz_gruenden" => vec![("name", text())],
+            "allianz_gruenden" => vec![("name", text()),("tag",json!({"type":["string","null"],"description":"Allianz-Kürzel: 2–6 Buchstaben/Ziffern oder null für automatisch"}))],
             "allianz_einladen" => vec![("spieler", text())],
             "allianz_beitreten" => vec![("allianz", text())],
             "markt_order" => vec![

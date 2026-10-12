@@ -3,15 +3,53 @@
 use crate::{typen::*, welt::*};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap,BTreeSet};
 
 #[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct Kommunikation {
+    /// Optional JSON extensions; the legacy bincode world stays unchanged.
+    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+    pub allianz_tags: BTreeMap<u32, String>,
+    /// Owner observations taken by a physical system probe, keyed by viewer:sector:system.
+    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+    pub systemkontakte: BTreeMap<String, BTreeMap<u8, Option<SpielerId>>>,
     pub briefe: BTreeMap<u64, Brief>,
     pub anfragen: Vec<Anfrage>,
     pub angebote: Vec<InternesAngebot>,
     pub hilfe: Vec<Hilferuf>,
     pub ereignisse: Vec<Value>,
+    /// Number of older events a host already archived and removed from memory
+    /// (`Welt::verlauf_auslagern`). Event ids stay continuous: id = ausgelagert + index + 1.
+    /// Zero for kernels that keep the full history; then the saved layout is unchanged.
+    #[serde(default, skip_serializing_if = "ist_null")]
+    pub ereignisse_ausgelagert: u64,
+    /// Derived lazily after loading; never changes saved worlds or state hashes.
+    #[serde(skip)]
+    offene_index: std::cell::RefCell<Option<BTreeSet<u64>>>,
+    /// Derived lazily: (sender, recipient) pairs of private letters. Never saved or hashed.
+    #[serde(skip)]
+    kontakt_index: std::cell::RefCell<Option<BTreeSet<(SpielerId, SpielerId)>>>,
+}
+fn ist_null(n: &u64) -> bool {
+    *n == 0
+}
+impl Kommunikation {
+    /// All events of this epoch, including those already moved to a host archive.
+    pub fn ereignisse_gesamt(&self) -> u64 {
+        self.ereignisse_ausgelagert + self.ereignisse.len() as u64
+    }
+    /// Events with an id above `nr`, for archives that append continuously.
+    /// Fails instead of silently skipping when such events are no longer in memory.
+    pub fn ereignisse_nach(&self, nr: u64) -> Result<&[Value], String> {
+        let ab = nr.checked_sub(self.ereignisse_ausgelagert).ok_or_else(|| {
+            format!(
+                "Kommunikationsereignisse {}..{} fehlen im Speicher und im Archiv",
+                nr + 1,
+                self.ereignisse_ausgelagert
+            )
+        })?;
+        Ok(&self.ereignisse[(ab as usize).min(self.ereignisse.len())..])
+    }
 }
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Brief {
@@ -67,7 +105,7 @@ pub struct Hilferuf {
 }
 impl Welt {
     pub fn kommunikationsereignis(&mut self, sid: SpielerId, art: &str, payload: Value) {
-        let e = json!({"id":self.kommunikation.ereignisse.len()+1,"time":self.zeit,
+        let e = json!({"id":self.kommunikation.ereignisse_gesamt()+1,"time":self.zeit,
             "event_type":art,"player_id":sid,"payload":payload});
         self.kommunikation.ereignisse.push(e.clone());
         self.fachereignisse.push(e);
@@ -145,16 +183,19 @@ impl Welt {
         let mut beantwortete = Vec::new();
         // A natural-language reply also satisfies the first-answer obligation.
         if kanal == "privat" {
-            for (bid, b) in &mut self.kommunikation.briefe {
-                let n = &self.nachrichten[*bid as usize - 1];
+            let ids=antwort_auf.map(|id|vec![id]).unwrap_or_else(||self.kommunikation.briefe.keys().copied().collect());
+            for bid in ids {
+                let Some(b)=self.kommunikation.briefe.get_mut(&bid) else {continue;};
+                let n = &self.nachrichten[bid as usize - 1];
                 if b.kanal == "privat"
                     && n.an.contains(&sid)
                     && empfaenger.contains(&n.von)
                     && !b.beantwortet.contains(&sid)
-                    && (antwort_auf.is_none() || antwort_auf == Some(*bid))
+                    && (antwort_auf.is_none() || antwort_auf == Some(bid))
                 {
                     b.beantwortet.push(sid);
-                    beantwortete.push(*bid);
+                    beantwortete.push(bid);
+                    if n.an.iter().all(|sid|b.beantwortet.contains(sid)) {if let Some(index)=self.kommunikation.offene_index.get_mut(){index.remove(&bid);}}
                 }
             }
         }
@@ -178,6 +219,8 @@ impl Welt {
                 beantwortet: Vec::new(),
             },
         );
+        if kanal=="privat"&&!automatisch&&antwort_auf.is_none(){if let Some(index)=self.kommunikation.offene_index.get_mut(){index.insert(id);}}
+        if kanal=="privat"{if let Some(index)=self.kommunikation.kontakt_index.get_mut(){for e in &empfaenger{index.insert((sid,*e));}}}
         self.kommunikationsereignis(sid,"communication.sent",json!({"message_id":id,"channel":kanal,"recipients":empfaenger,"alliances":allianzen,"reply_to":antwort_auf,"automatic":automatisch,"subject":betreff,"text":text.trim()}));
         for bid in beantwortete {
             self.kommunikationsereignis(
@@ -295,29 +338,50 @@ impl Welt {
         Ok("Als gelesen markiert".into())
     }
     /// Only root letters require an answer. Replies and automatic receipts never ping-pong.
+    fn offene_brief_ids(&self)->Vec<u64> {
+        let mut index=self.kommunikation.offene_index.borrow_mut();
+        if index.is_none(){*index=Some(self.kommunikation.briefe.iter().filter(|(id,b)|b.kanal=="privat"&&!b.automatisch&&b.antwort_auf.is_none()&&self.nachrichten[**id as usize-1].an.iter().any(|sid|!b.beantwortet.contains(sid))).map(|(id,_)|*id).collect());}
+        index.as_ref().unwrap().iter().copied().collect()
+    }
+    /// Has `von` ever written a private letter to `an` in this epoch? O(log n) after the first call.
+    pub fn privat_kontakt(&self, von: SpielerId, an: SpielerId) -> bool {
+        let mut index=self.kommunikation.kontakt_index.borrow_mut();
+        if index.is_none(){*index=Some(self.kommunikation.briefe.iter().filter(|(_,b)|b.kanal=="privat").flat_map(|(id,_)|{let n=&self.nachrichten[*id as usize-1];n.an.iter().map(move|e|(n.von,*e))}).collect());}
+        index.as_ref().unwrap().contains(&(von,an))
+    }
+    /// Moves communication events older than `vor_zeit` out of memory, but only those with an
+    /// id up to `archiviert_bis` (already written to the host's archive). Returns the count.
+    /// Only hosts with a durable archive call this; simulations keep the full history.
+    pub fn verlauf_auslagern(&mut self, vor_zeit: SimZeit, archiviert_bis: u64) -> usize {
+        let k=&mut self.kommunikation;
+        let erlaubt=archiviert_bis.saturating_sub(k.ereignisse_ausgelagert).min(k.ereignisse.len() as u64) as usize;
+        let n=k.ereignisse[..erlaubt].iter().take_while(|e|e["time"].as_i64().unwrap_or(SimZeit::MAX)<vor_zeit).count();
+        if n>0 {k.ereignisse.drain(..n);k.ereignisse_ausgelagert+=n as u64;}
+        n
+    }
+    /// Host retention for long-running worlds: battle reports and daily values older than
+    /// `vor_zeit` leave memory. The view shows only recent reports; analysis runs (`lauf`)
+    /// never call this and keep complete tables. Returns (reports, daily rows) removed.
+    pub fn berichte_auslagern(&mut self, vor_zeit: SimZeit) -> (usize, usize) {
+        let k=self.kampfberichte.iter().take_while(|b|b.zeit<vor_zeit).count();
+        self.kampfberichte.drain(..k);
+        let tag=vor_zeit.div_euclid(TAG);
+        let t=self.tageswerte.iter().take_while(|z|z.tag<tag).count();
+        self.tageswerte.drain(..t);
+        (k,t)
+    }
     pub fn offene_antworten(&self, sid: SpielerId) -> Vec<u64> {
-        self.kommunikation
-            .briefe
-            .iter()
-            .filter(|(id, b)| {
-                b.kanal == "privat"
-                    && !b.automatisch
-                    && b.antwort_auf.is_none()
-                    && !b.beantwortet.contains(&sid)
-                    && self.nachrichten[**id as usize - 1].an.contains(&sid)
-            })
-            .map(|(id, _)| *id)
-            .collect()
+        self.offene_brief_ids().into_iter().filter(|id|!self.kommunikation.briefe[id].beantwortet.contains(&sid)&&self.nachrichten[*id as usize-1].an.contains(&sid)).collect()
     }
     pub fn kommunikation_tick(&mut self) {
-        let pending = (0..self.spieler.len() as SpielerId)
-            .filter(|sid| self.spieler[*sid as usize].ki && self.spieler_aktiv(*sid))
-            .flat_map(|sid| {
-                self.offene_antworten(sid)
-                    .into_iter()
-                    .map(move |id| (sid, id))
-            })
+        // Scan the correspondence once, instead of the complete history for every
+        // player at every decision window. Preserve the original player/id order.
+        let ids=self.offene_brief_ids();
+        let mut pending = ids.iter().map(|id|(id,&self.kommunikation.briefe[id]))
+            .filter(|(id,b)|b.kanal=="privat"&&!b.automatisch&&b.antwort_auf.is_none()&&self.zeit-self.nachrichten[**id as usize-1].zeit>=STUNDE)
+            .flat_map(|(id,b)|self.nachrichten[*id as usize-1].an.iter().filter(|sid|self.spieler[**sid as usize].ki&&self.spieler_aktiv(**sid)&&!b.beantwortet.contains(sid)).map(move |sid|(*sid,*id)))
             .collect::<Vec<_>>();
+        pending.sort_unstable();
         for (sid, id) in pending {
             self.empfang_bei_zeitmangel(sid, id);
         }
@@ -339,7 +403,8 @@ impl Welt {
     }
 
     pub fn empfang_bei_zeitmangel(&mut self, sid: SpielerId, id: u64) {
-        if !self.offene_antworten(sid).contains(&id) {
+        let Some(b)=self.kommunikation.briefe.get(&id) else {return;};
+        if b.kanal!="privat"||b.automatisch||b.antwort_auf.is_some()||b.beantwortet.contains(&sid)||!self.nachrichten[id as usize-1].an.contains(&sid) {
             return;
         }
         let n = self.nachrichten[id as usize - 1].clone();
@@ -943,10 +1008,10 @@ impl Welt {
             let members=a.mitglieder.iter().enumerate().map(|(r,m)|json!({"name":self.spieler[*m as usize].name,"rang":r+1,"rolle":rollen.get(r).unwrap_or(&"Mitglied"),"planeten":self.spieler[*m as usize].planeten.iter().map(|p|self.planeten[*p as usize].koord).collect::<Vec<_>>()})).collect::<Vec<_>>();
             let angebote=self.kommunikation.angebote.iter().filter(|o|o.allianz==a.id).rev().take(100).map(|o|json!({"id":o.id,"von":self.spieler[o.von as usize].name,"planet":self.planeten[o.planet as usize].koord,"gut":o.gut,"menge":ganz(o.menge),"preis":o.preis as f64/M as f64,"status":o.status,"kaeufer":o.kaeufer.map(|s|&self.spieler[s as usize].name),"ankunft":o.ankunft})).collect::<Vec<_>>();
             let hilfe=self.kommunikation.hilfe.iter().filter(|h|h.allianz==a.id).rev().take(100).map(|h|json!({"id":h.id,"von":self.spieler[h.von as usize].name,"planet":h.planet,"text":h.text,"status":h.status,"helfer":h.helfer.iter().map(|s|&self.spieler[*s as usize].name).collect::<Vec<_>>()})).collect::<Vec<_>>();
-            json!({"id":a.id,"name":a.name,"leitung":self.allianz_leitung(sid,a.id),"gruender":self.allianz_rang(sid,a.id)==Some(0),"mitglieder":members,"angebote":angebote,"hilfe":hilfe})
+            json!({"id":a.id,"name":a.name,"tag":self.allianz_tag(a.id),"leitung":self.allianz_leitung(sid,a.id),"gruender":self.allianz_rang(sid,a.id)==Some(0),"mitglieder":members,"angebote":angebote,"hilfe":hilfe})
         });
         json!({"version":1,"kontakte":self.spieler.iter().filter(|s|!self.aufklaerung.inaktive_spieler.contains(&s.id)).map(|s|self.beziehung(sid,s.id)).collect::<Vec<_>>(),"allianzanfragen":self.kommunikation.anfragen.iter().filter(|a|a.zielallianz.is_some()&&(a.allianz.is_some_and(|id|self.allianz_leitung(sid,id))||a.zielallianz.is_some_and(|id|self.allianz_leitung(sid,id)))).map(|a|{let mut v=json!(a);v["empfangsberechtigt"]=json!(a.zielallianz.is_some_and(|id|self.allianz_leitung(sid,id)));v}).collect::<Vec<_>>(),"briefkasten":self.briefkasten(sid).into_iter().take(100).collect::<Vec<_>>(),"anfragen":anfragen,"allianzbereich":allianz,"antworten_offen":self.offene_antworten(sid),
-            "allianzen":self.allianzen.iter().filter(|a|!a.mitglieder.is_empty()).map(|a|json!({"name":a.name,"anzahl":a.mitglieder.len()})).collect::<Vec<_>>()})
+            "allianzen":self.allianz_verzeichnis(sid)})
     }
 }
 
@@ -995,7 +1060,16 @@ impl Welt {
         } else {
             ("neutral", "Neutral", None)
         };
-        json!({"spieler":sp.name,"allianz":sp.allianz.and_then(|id|self.allianzen.iter().find(|a|a.id==id)).map(|a|&a.name),"status":status,"bezeichnung":label,"farbe":color})
+        // A foreign alliance is red on the atlas without inventing a war declaration.
+        let (karte_status, karte_farbe) = if sid == ziel { ("eigen", "#4cf58a") }
+            else if status == "feindlich" { ("feindlich", "#ff6470") }
+            else if status == "verbuendet" { ("verbuendet", "#48bd9b") }
+            else if status == "nap" { ("nap", "#f3d365") }
+            else if status == "neutral" && b.is_some() && b != a { ("fremde_allianz", "#ff6470") }
+            else { ("neutral", "#ffffff") };
+        json!({"spieler":sp.name,"allianz":sp.allianz.and_then(|id|self.allianzen.iter().find(|a|a.id==id)).map(|a|&a.name),
+            "allianz_tag":sp.allianz.map(|id|self.allianz_tag(id)),"allianz_id":sp.allianz,
+            "status":status,"bezeichnung":label,"farbe":color,"karte_status":karte_status,"karte_farbe":karte_farbe})
     }
     pub fn allianz_anfrage(
         &mut self,
@@ -1142,5 +1216,25 @@ impl Welt {
                 vorgang: "Allianzschutzvertrag durch Angriff/Kriegserklärung gebrochen".into(),
             });
         }
+    }
+}
+
+#[cfg(test)]
+mod tick_tests {
+    use super::*;
+    #[test]
+    fn batched_receipts_preserve_history_order_and_privacy() {
+        let rules=crate::Regelwerk::laden(include_str!("../../../regeln/online-v1.ron")).unwrap();
+        let mut w=Welt::neu(rules,712,8).unwrap();
+        for (i,s) in w.spieler.iter_mut().enumerate(){s.ki=i%2==0;}
+        w.brief_speichern(1,vec![6,2,4,3],"privat","Frage","Können wir handeln?",vec![],None,false);
+        w.brief_speichern(3,vec![2,6],"privat","Antwort","Wir prüfen das.",vec![],Some(1),false);
+        w.zeit=STUNDE;
+        let mut reference=w.clone();
+        let pending=(0..reference.spieler.len() as SpielerId).filter(|sid|reference.spieler[*sid as usize].ki&&reference.spieler_aktiv(*sid)).flat_map(|sid|reference.offene_antworten(sid).into_iter().map(move|id|(sid,id))).collect::<Vec<_>>();
+        for(sid,id)in pending{reference.empfang_bei_zeitmangel(sid,id);}
+        w.kommunikation_tick();assert_eq!(w.hash(),reference.hash());
+        let hash=w.hash();w.kommunikation_tick();assert_eq!(hash,w.hash(),"No receipt ping-pong");
+        assert!(!w.brief_sichtbar(0,1));
     }
 }

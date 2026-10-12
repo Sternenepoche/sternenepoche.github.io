@@ -10,6 +10,9 @@ pub(crate) fn setup(db: &Connection) -> Result<(), String> {
         id INTEGER PRIMARY KEY,world_id TEXT NOT NULL,simulation_seconds INTEGER NOT NULL,
         actor INTEGER NOT NULL,role TEXT NOT NULL,accepted INTEGER NOT NULL,action_json TEXT NOT NULL,result TEXT NOT NULL);
       CREATE INDEX IF NOT EXISTS game_actions_actor ON game_actions(world_id,actor,id);
+      CREATE TABLE IF NOT EXISTS game_domain_events(
+        id INTEGER PRIMARY KEY,world_id TEXT NOT NULL,simulation_seconds INTEGER NOT NULL,
+        actor INTEGER NOT NULL,kind TEXT NOT NULL,payload_json TEXT NOT NULL);
       CREATE TABLE IF NOT EXISTS communication_objects(
         world_id TEXT NOT NULL,kind TEXT NOT NULL,object_id INTEGER NOT NULL,state_json TEXT NOT NULL,
         PRIMARY KEY(world_id,kind,object_id));
@@ -87,10 +90,16 @@ mod tests {
     }
 }
 impl Game {
-    pub(crate) fn save_communication(&self) -> Result<(), (u16, String)> {
+    pub(crate) fn save_communication(&mut self) -> Result<(), (u16, String)> {
         let error =
             |_: rusqlite::Error| err(503, "Kommunikationsarchiv konnte nicht gespeichert werden");
         let wid = &self.runtime.world_id;
+        // Engine domain events are a drainable delivery buffer, not another full
+        // in-memory history. Communications already have their own atomic archive.
+        let mut domain=self.db.prepare_cached("INSERT INTO game_domain_events(world_id,simulation_seconds,actor,kind,payload_json) VALUES(?1,?2,?3,?4,?5)").map_err(error)?;
+        for e in self.world.fachereignisse.iter().filter(|e|e.get("id").is_none()) {
+            domain.execute(params![wid,e["time"].as_i64(),e["player_id"].as_u64(),e["event_type"].as_str(),e["payload"].to_string()]).map_err(error)?;
+        }
         let last: u64 = self
             .db
             .query_row(
@@ -99,8 +108,13 @@ impl Game {
                 |r| r.get(0),
             )
             .map_err(error)?;
-        let events = &self.world.kommunikation.ereignisse;
-        for e in events.iter().skip(last as usize) {
+        // Ids are continuous across retention (`ereignisse_ausgelagert`); never a vector index.
+        let events = self
+            .world
+            .kommunikation
+            .ereignisse_nach(last)
+            .map_err(|e| err(503, &e))?;
+        for e in events.iter() {
             let p = &e["payload"];
             self.db
                 .execute(
@@ -138,14 +152,14 @@ impl Game {
                     .map_err(error)?;
             }
         }
-        if events.len() as u64 > last {
+        if !events.is_empty() {
             let put = |kind: &str, id: u64, value: Value| -> Result<(), (u16, String)> {
                 self.db.execute("INSERT INTO communication_objects VALUES(?1,?2,?3,?4) ON CONFLICT(world_id,kind,object_id) DO UPDATE SET state_json=excluded.state_json",params![wid,kind,id,value.to_string()]).map_err(error)?;
                 Ok(())
             };
             // Only objects affected by this transaction are rewritten.
             let mut affected = std::collections::BTreeSet::new();
-            for e in events.iter().skip(last as usize) {
+            for e in events.iter() {
                 for (key, kind) in [
                     ("message_id", "letter"),
                     ("request_id", "request"),
@@ -178,7 +192,14 @@ impl Game {
                 }
             }
         }
-        self.db.execute("INSERT INTO research_epochs VALUES(?1,?2,?3,?4,?5,?6) ON CONFLICT(world_id) DO UPDATE SET simulation_seconds=excluded.simulation_seconds,finished=excluded.finished,summary_json=excluded.summary_json",params![wid,self.world.startwert.to_string(),self.world.regeln.hash,self.world.zeit,self.world.beendet(),json!({"ranking":self.world.rangliste(),"communications":events.len(),"world_hash":self.world.hash(),"players":self.world.spieler.iter().map(|s|json!({"id":s.id,"name":s.name,"stats":s.statistik})).collect::<Vec<_>>(),"inference":"script_bots_or_client_models; see agent reports"}).to_string()]).map_err(error)?;
+        // The research summary hashes the whole world (a full copy and serialization). Writing
+        // it once per game hour and at the epoch end keeps clicks and ticks independent of
+        // the world size; the checkpoint itself is unaffected.
+        let key = (self.world.zeit / STUNDE, self.world.beendet());
+        if self.research_key != Some(key) {
+            self.db.execute("INSERT INTO research_epochs VALUES(?1,?2,?3,?4,?5,?6) ON CONFLICT(world_id) DO UPDATE SET simulation_seconds=excluded.simulation_seconds,finished=excluded.finished,summary_json=excluded.summary_json",params![wid,self.world.startwert.to_string(),self.world.regeln.hash,self.world.zeit,self.world.beendet(),json!({"ranking":self.world.rangliste(),"communications":self.world.kommunikation.ereignisse_gesamt(),"world_hash":self.world.hash(),"players":self.world.spieler.iter().map(|s|json!({"id":s.id,"name":s.name,"stats":s.statistik})).collect::<Vec<_>>(),"inference":"script_bots_or_client_models; see agent reports"}).to_string()]).map_err(error)?;
+            self.research_key = Some(key);
+        }
         Ok(())
     }
 }

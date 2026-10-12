@@ -1,0 +1,14 @@
+{
+ "quelle": "0191f9ba3818b11b",
+ "features": [
+  "ollama",
+  "openrouter",
+  "openai",
+  "sqlite",
+  "duckdb",
+  "wasm",
+  "lokale-api"
+ ],
+ "sha256": "c7a2cb750913ee11f1b6af13be0bf5e1954f5f49104ac8d29e3e73f25d8de219",
+ "version": "0.2.3+20261012"
+}

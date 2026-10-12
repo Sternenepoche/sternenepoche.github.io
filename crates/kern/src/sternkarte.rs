@@ -22,6 +22,17 @@ pub fn intervall(wert: i64, schritt: i64) -> [i64; 2] {
 }
 
 impl Welt {
+    /// Alliance members share the resident list of systems containing one of their worlds.
+    /// This grants no planet scan, environment, stock, buildings or fleet intelligence.
+    pub fn allianzsystem(&self, sid: SpielerId, k: Koord) -> bool {
+        let Some(aid) = self.spieler[sid as usize].allianz else { return false; };
+        self.allianzen.iter().find(|a|a.id == aid).is_some_and(|a|a.mitglieder.iter().any(|m| {
+            !self.aufklaerung.inaktive_spieler.contains(m) && self.spieler[*m as usize].planeten.iter().any(|pid| {
+                let p=&self.planeten[*pid as usize];
+                p.besitzer == *m && p.koord.sektor == k.sektor && p.koord.system == k.system
+            })
+        }))
+    }
     pub(crate) fn scan_aufzeichnen(&mut self, sid: SpielerId, ziel: Koord) {
         let (Some(p), Some(s)) = (self.platz(ziel), self.system(ziel)) else { return };
         let technik = self.spieler[sid as usize].forschung[Forschung::Spionagetechnik.idx()];
@@ -65,8 +76,41 @@ impl Welt {
             v["bekannt"]=json!(true); v["status"]=json!("frei"); v["zone"]=json!(e.zone.name());
             v["felder"]=json!(e.felder); v["alter_stunden"]=json!((self.zeit-e.zeit)/STUNDE);
             v["ertrag_promille"]=json!({"erz":intervall(e.reich_erz,800),"kristall":intervall(e.reich_kristall,800)});
+        } else if self.allianzsystem(sid,k) {
+            let owner = self.belegung.get(&k).map(|pid|self.planeten[*pid as usize].besitzer)
+                .filter(|owner|!self.aufklaerung.inaktive_spieler.contains(owner));
+            v["besiedlung_bekannt"]=json!(true);v["bewohnt"]=json!(owner.is_some());v["sichtgrund"]=json!("allianz");
+            if let Some(owner) = owner { v["spieler"]=json!(self.spieler[owner as usize].name); }
+        } else if let Some(owner) = self.kommunikation.systemkontakte.get(&format!("{sid}:{}:{}",k.sektor,k.system)).and_then(|s|s.get(&k.position)) {
+            v["besiedlung_bekannt"]=json!(true);
+            v["bewohnt"]=json!(owner.is_some());
+            if let Some(owner) = owner { v["spieler"]=json!(self.spieler[*owner as usize].name); }
         }
         if let Some(name)=v["spieler"].as_str(){if let Ok(owner)=self.spieler_nach_name(name){v["beziehung"]=self.beziehung(sid,owner);}}
         v
+    }
+
+    /// Coordinates enter the atlas only through ownership or the viewer's observations.
+    pub fn atlas_sicht(&self, sid: SpielerId) -> Vec<Value> {
+        let sp = &self.spieler[sid as usize];
+        let mut coords: std::collections::BTreeSet<Koord> = sp.planeten.iter().map(|p|self.planeten[*p as usize].koord).collect();
+        coords.extend(self.scans.keys().filter(|(s,_)|*s == sid).map(|(_,k)|*k));
+        coords.extend(sp.berichte.iter().map(|b|b.ziel));
+        if let Some(aid)=sp.allianz {
+            if let Some(a)=self.allianzen.iter().find(|a|a.id == aid) {
+                for k in a.mitglieder.iter().flat_map(|m|self.spieler[*m as usize].planeten.iter()).map(|pid|self.planeten[*pid as usize].koord) {
+                    coords.extend((1..=self.regeln.welt.plaetze_je_system).map(|p|Koord::neu(k.sektor,k.system,p)));
+                }
+            }
+        }
+        for &(viewer, sector, system) in self.aufklaerung.systemberichte.keys().filter(|(s,_,_)|*s == sid) {
+            if self.kommunikation.systemkontakte.contains_key(&format!("{viewer}:{sector}:{system}")) {
+                coords.extend((1..=self.regeln.welt.plaetze_je_system).map(|p|Koord::neu(sector,system,p)));
+            }
+        }
+        coords.into_iter().filter_map(|k| {
+            let p = self.planetenwissen(sid,k);
+            p["spieler"].as_str().map(|owner|json!({"koord":k.to_string(),"spieler":owner,"beziehung":p["beziehung"]}))
+        }).collect()
     }
 }

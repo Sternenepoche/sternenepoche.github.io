@@ -1,0 +1,29 @@
+name: Geprüften Cockpit-Download veröffentlichen
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cockpit-release-update
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Geprüftes Paket bytegenau zusammensetzen
+        run: python tools/assemble_cockpit_release.py
+      - name: Download veröffentlichen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload cockpit-v0.2.3-20261012 release-out/*.zip release-out/SHA256SUMS.txt
+          gh release edit cockpit-v0.2.3-20261012 --draft=false --latest --title 'Harness-Cockpit 0.2.3 für Windows (12.10.2026)' --notes-file release-update/0.2.3/notes.md

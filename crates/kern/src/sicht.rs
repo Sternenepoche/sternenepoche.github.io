@@ -752,6 +752,7 @@ impl Welt {
             "register": register,
             "nachrichten": nachrichten,
             "kommunikation": self.kommunikation_sicht(sid),
+            "atlas": self.atlas_sicht(sid),
             "ereignisse": ereignisse,
             "chronik": chronik,
             "markt": {"preise": markt, "orders": orders},

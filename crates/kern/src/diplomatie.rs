@@ -335,6 +335,28 @@ impl Welt {
     // ---------------------------------------------------------------- Allianzen
 
     pub fn allianz_gruenden(&mut self, sid: SpielerId, name: &str) -> Result<String, String> {
+        self.allianz_gruenden_mit_tag(sid, name, None)
+    }
+
+    /// Older alliances receive a stable, unique short code without changing their snapshot layout.
+    pub fn allianz_tag(&self, id: u32) -> String {
+        if let Some(tag) = self.kommunikation.allianz_tags.get(&id) { return tag.clone(); }
+        let name = self.allianzen.iter().find(|a|a.id == id).map(|a|a.name.as_str()).unwrap_or("ALL");
+        let suffix = id.to_string();
+        let mut prefix: String = name.chars().filter(char::is_ascii_alphanumeric).take(6usize.saturating_sub(suffix.len()).min(4)).map(|c|c.to_ascii_uppercase()).collect();
+        if prefix.is_empty() { prefix.push('A'); }
+        format!("{prefix}{suffix}")
+    }
+
+    pub fn allianz_verzeichnis(&self, sid: SpielerId) -> Vec<serde_json::Value> {
+        self.allianzen.iter().filter(|a|!a.mitglieder.is_empty()).map(|a| {
+            let voelker: std::collections::BTreeSet<_> = a.mitglieder.iter().map(|m|self.spieler[*m as usize].volk.name()).collect();
+            serde_json::json!({"id":a.id,"tag":self.allianz_tag(a.id),"name":a.name,"anzahl":a.mitglieder.len(),
+                "voelker":voelker,"leitung":self.spieler[a.mitglieder[0] as usize].name,"beziehung":self.beziehung(sid,a.mitglieder[0])})
+        }).collect()
+    }
+
+    pub fn allianz_gruenden_mit_tag(&mut self, sid: SpielerId, name: &str, tag: Option<&str>) -> Result<String, String> {
         let name = name.trim();
         if name.is_empty() || name.chars().count() > 30 {
             return Err("der Allianzname braucht 1 bis 30 Zeichen".into());
@@ -345,8 +367,28 @@ impl Welt {
         if self.allianzen.iter().any(|a| a.name.eq_ignore_ascii_case(name) && !a.mitglieder.is_empty()) {
             return Err(format!("eine Allianz '{name}' gibt es schon"));
         }
+        let tag = tag.map(|t|t.trim().to_ascii_uppercase()).filter(|t|!t.is_empty());
+        if let Some(tag) = &tag {
+            if !(2..=6).contains(&tag.len()) || !tag.bytes().all(|c|c.is_ascii_uppercase() || c.is_ascii_digit()) {
+                return Err("Das Allianz-Kürzel braucht 2 bis 6 Buchstaben oder Ziffern (A–Z, 0–9)".into());
+            }
+            if self.allianzen.iter().any(|a|self.allianz_tag(a.id) == *tag) {
+                return Err(format!("Das Allianz-Kürzel [{tag}] ist bereits vergeben"));
+            }
+        }
         let id = self.allianzen.len() as u32 + 1;
+        let tag = tag.unwrap_or_else(|| {
+            let suffix = id.to_string();
+            let prefix: String = name.chars().filter(char::is_ascii_alphanumeric).take(6usize.saturating_sub(suffix.len()).min(4)).map(|c|c.to_ascii_uppercase()).collect();
+            let mut candidate = format!("{}{suffix}",if prefix.is_empty(){"A"}else{&prefix});
+            let mut alternative = id;
+            while self.allianzen.iter().any(|a|self.allianz_tag(a.id) == candidate) {
+                alternative += 1; candidate = format!("A{alternative}");
+            }
+            candidate
+        });
         self.allianzen.push(Allianz { id, name: name.to_string(), mitglieder: vec![sid], eingeladen: Vec::new() });
+        self.kommunikation.allianz_tags.insert(id, tag);
         self.spieler[sid as usize].allianz = Some(id);
         self.kommunikationsereignis(sid,"alliance.membership",serde_json::json!({"alliance":id,"joined":true}));
         self.registrieren(0, "allianz", sid, sid, &format!("Allianz '{name}' gegründet"));

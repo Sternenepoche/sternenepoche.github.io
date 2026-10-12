@@ -108,19 +108,27 @@ impl Welt {
             return;
         };
         if let Some(system) = self.system(f.ziel) {
+            let kontakte = (1..=self.regeln.welt.plaetze_je_system).map(|position| {
+                let k = Koord::neu(f.ziel.sektor, f.ziel.system, position);
+                let owner = self.belegung.get(&k).map(|pid|self.planeten[*pid as usize].besitzer)
+                    .filter(|sid|!self.aufklaerung.inaktive_spieler.contains(sid));
+                (position, owner)
+            }).collect();
+            let (nebel, guertel) = (system.nebel, system.guertel);
+            self.kommunikation.systemkontakte.insert(format!("{}:{}:{}",f.besitzer,f.ziel.sektor,f.ziel.system),kontakte);
             self.aufklaerung.systemberichte.insert(
                 (f.besitzer, f.ziel.sektor, f.ziel.system),
                 Systembericht {
                     zeit: self.zeit,
-                    nebel: system.nebel,
-                    guertel: system.guertel,
+                    nebel,
+                    guertel,
                 },
             );
             self.vorfall(
                 f.besitzer,
                 "systemaufklaerung",
                 format!(
-                    "System {}:{} kartiert; Planeten bleiben unbekannt",
+                    "System {}:{} kartiert; Bewohner erkannt, Planetentypen und Ressourcen brauchen Planetensonden",
                     f.ziel.sektor, f.ziel.system
                 ),
             );

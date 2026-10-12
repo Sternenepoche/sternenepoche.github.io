@@ -10,6 +10,14 @@ use argon2::{
 };
 mod communication;
 mod workspace;
+pub mod eingabe;
+pub mod fairplay;
+pub mod harness;
+pub mod mcp;
+mod uebergabe;
+pub mod local;
+pub mod public_catalog;
+pub mod web_assets;
 use kern::{aktion::Aktion, regeln::Regelwerk, typen::*, Welt};
 use lauf::bots::{Bot, Bottyp};
 use rand::{rngs::OsRng, RngCore};
@@ -26,6 +34,13 @@ use std::{
 pub const API_VERSION: u32 = 1;
 pub const BOT_COUNT: u16 = 30;
 pub const SEATS: u16 = 20;
+/// Local rounds: pure time steps write the full checkpoint at most every 30 wall seconds.
+pub const LOCAL_TICK_CHECKPOINT_SECS: u64 = 30;
+/// Local rounds keep battle reports and daily values of the last 30 game days in memory.
+pub const LOCAL_REPORT_DAYS: i64 = 30;
+/// Local rounds keep the write-only research archives (actions, domain events) of the last
+/// 14 game days on disk. No game function reads them; online servers keep everything.
+pub const LOCAL_ARCHIVE_DAYS: i64 = 14;
 pub fn now() -> i64 {
     SystemTime::now()
         .duration_since(UNIX_EPOCH)
@@ -71,9 +86,14 @@ pub struct Lease {
     hash: String,
     until: i64,
     roles: Vec<Rolle>,
+    /// Harness-Schlüssel, der diese Freigabe hält; None für den Browser.
+    #[serde(default)]
+    token: Option<i64>,
 }
 #[derive(Clone, Serialize, Deserialize)]
 pub struct Runtime {
+    #[serde(default = "admission::legacy_admission_limit")]
+    pub seat_capacity: u16,
     pub world_id: String,
     pub tempo: u32,
     pub paused: bool,
@@ -115,9 +135,25 @@ pub struct Game {
     pub db: Connection,
     pub data_root: PathBuf,
     pub storage_error: Option<String>,
+    local_tick_times: Vec<f64>,
+    /// Local runtime (cockpit singleplayer/LAN): bots answer commands at once, archived
+    /// histories leave memory, and pure time steps checkpoint at a bounded rate.
+    pub(crate) local: bool,
+    /// Pure time steps write the full checkpoint at most this often (wall seconds).
+    /// Commands and claims always checkpoint. 0 = every transaction (online server).
+    pub(crate) tick_checkpoint_secs: u64,
+    /// Last failed local time step (shown in the cockpit instead of disappearing silently).
+    pub(crate) local_error: Option<String>,
+    /// This local world is open for LAN guests.
+    pub(crate) local_host: bool,
+    last_checkpoint: std::time::Instant,
+    checkpoint_written: bool,
+    research_key: Option<(i64, bool)>,
+    archive_pruned_day: i64,
     started: std::time::Instant,
     audit_context: Option<Value>,
     email_code_key: String,
+    pub(crate) fairplay: std::cell::RefCell<fairplay::Stolperdraht>,
 }
 pub type Reply = Result<Value, (u16, String)>;
 fn err(code: u16, text: &str) -> (u16, String) {
@@ -138,21 +174,24 @@ fn account_from(row: &rusqlite::Row) -> rusqlite::Result<Account> {
     })
 }
 fn fresh(seed: u64, rules: &str) -> Result<(Welt, Runtime), String> {
-    let mut r = Regelwerk::laden(rules)?;
+    fresh_with(seed, Regelwerk::laden(rules)?, BOT_COUNT, SEATS)
+}
+fn fresh_with(seed: u64, mut r: Regelwerk, bot_count: u16, seats: u16) -> Result<(Welt, Runtime), String> {
     r.welt.fenster_sekunden = 1;
-    let mut world = Welt::neu(r, seed, (BOT_COUNT + SEATS) as usize)?;
+    let mut world = Welt::neu(r, seed, (bot_count + seats) as usize)?;
     let mut bots = BTreeMap::new();
-    for sid in 0..BOT_COUNT {
+    for sid in 0..bot_count {
         world.spieler[sid as usize].ki = false;
         bots.insert(sid, Bot::neu(Bottyp::ALLE[sid as usize % 4], sid));
     }
-    for sid in BOT_COUNT..BOT_COUNT + SEATS {
-        world.spieler[sid as usize].name = format!("Freier Startplatz {}", sid - BOT_COUNT + 1);
+    for sid in bot_count..bot_count + seats {
+        world.spieler[sid as usize].name = format!("Freier Startplatz {}", sid - bot_count + 1);
         world.startplatz_reservieren(sid)?;
     }
     Ok((
         world,
         Runtime {
+            seat_capacity: seats,
             world_id: token(),
             tempo: 1,
             paused: false,
@@ -174,6 +213,9 @@ fn fresh(seed: u64, rules: &str) -> Result<(Welt, Runtime), String> {
 }
 impl Game {
     pub fn open(root: &Path, seed: u64) -> Result<Self, String> {
+        Self::open_world(root, seed, None)
+    }
+    fn open_world(root: &Path, seed: u64, local_bots: Option<u16>) -> Result<Self, String> {
         std::fs::create_dir_all(root).map_err(|e| e.to_string())?;
         let db = Connection::open(root.join("spiel.sqlite3")).map_err(|e| e.to_string())?;
         db.busy_timeout(std::time::Duration::from_secs(5))
@@ -183,7 +225,12 @@ impl Game {
             CREATE TABLE IF NOT EXISTS accounts(id INTEGER PRIMARY KEY,name TEXT NOT NULL COLLATE NOCASE UNIQUE,password TEXT NOT NULL,sid INTEGER UNIQUE,mode TEXT NOT NULL,banned INTEGER NOT NULL DEFAULT 0);
             CREATE TABLE IF NOT EXISTS sessions(hash TEXT PRIMARY KEY,account INTEGER NOT NULL REFERENCES accounts(id),expires INTEGER NOT NULL);
             CREATE TABLE IF NOT EXISTS commands(account INTEGER NOT NULL REFERENCES accounts(id),world_id TEXT NOT NULL,request_id TEXT NOT NULL,body_hash TEXT NOT NULL,result TEXT NOT NULL,created INTEGER NOT NULL,PRIMARY KEY(account,world_id,request_id));
-            CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY,time INTEGER NOT NULL,account INTEGER,kind TEXT NOT NULL,result TEXT NOT NULL);").map_err(|e|e.to_string())?;
+            CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY,time INTEGER NOT NULL,account INTEGER,kind TEXT NOT NULL,result TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS checkpoint_info(id INTEGER PRIMARY KEY CHECK(id=1),world_id TEXT NOT NULL,simulation_seconds INTEGER NOT NULL,saved_at INTEGER NOT NULL,world_bytes INTEGER NOT NULL,runtime_bytes INTEGER NOT NULL,revision INTEGER NOT NULL);").map_err(|e|e.to_string())?;
+        if local_bots.is_some() {
+            // Large checkpoints pass through the WAL; keep the file from staying at its peak.
+            db.execute_batch("PRAGMA journal_size_limit=67108864;").map_err(|e| e.to_string())?;
+        }
         let saved: Option<(u32, Vec<u8>, Vec<u8>)> = db
             .query_row(
                 "SELECT version,world,runtime FROM checkpoint WHERE id=1",
@@ -201,12 +248,29 @@ impl Game {
                 serde_json::from_slice(&r).map_err(|e| e.to_string())?,
             )
         } else {
-            fresh(seed, include_str!("../../../regeln/online-v1.ron"))?
+            if let Some(bots) = local_bots {
+                let mut r = Regelwerk::laden(include_str!("../../../regeln/online-v1.ron"))?;
+                let (sectors, systems) = local::dimensions(bots)?;
+                r.welt.sektoren = sectors;
+                r.welt.systeme_je_sektor = systems;
+                r.welt.start_abstand = 1;
+                r.hash = digest(&format!("{}:local-v2:{sectors}:{systems}:{bots}", r.hash));
+                let seats = local::seat_capacity(bots)?;
+                let (mut w, mut rt) = fresh_with(seed, r, bots, seats)?;
+                // HTTP actions are immediate; the event queue still processes every due event.
+                std::sync::Arc::make_mut(&mut w.regeln).welt.fenster_sekunden = 30;
+                rt.admission_limit = 32.min(seats);
+                rt.tempo = 30;
+                (w, rt)
+            } else { fresh(seed, include_str!("../../../regeln/online-v1.ron"))? }
         };
         communication::setup(&db)?;
         workspace::setup(&db)?;
         let email_code_key=identity::setup(&db,root)?;
         authenticator::setup(&db)?;
+        harness::setup(&db)?;
+        uebergabe::setup(&db)?;
+        let fairplay = std::cell::RefCell::new(fairplay::setup(&db, root)?);
         mail::MailConfig::initialize(root)?;
         let mut g = Self {
             world,
@@ -214,24 +278,72 @@ impl Game {
             db,
             data_root: root.into(),
             storage_error: None,
+            local_tick_times: Vec::new(),
+            local: local_bots.is_some(),
+            tick_checkpoint_secs: if local_bots.is_some() { LOCAL_TICK_CHECKPOINT_SECS } else { 0 },
+            local_error: None,
+            local_host: false,
+            last_checkpoint: std::time::Instant::now(),
+            checkpoint_written: false,
+            research_key: None,
+            archive_pruned_day: -1,
             started: std::time::Instant::now(),
             audit_context: None,
             email_code_key,
+            fairplay,
         };
         // No downtime catch-up and no model command survives a process restart.
         g.runtime.leases.clear();
+        g.archive_tail_after_checkpoint_remove()?;
         g.save().map_err(|e| e.1)?;
         Ok(g)
     }
+    /// Crash recovery. Pure time steps may commit their archive rows without a new checkpoint
+    /// (`tick_checkpoint_secs`). After a crash the world resumes from the last checkpoint and
+    /// re-simulates those seconds deterministically; their earlier rows must not stay twice,
+    /// and the communication primary keys would otherwise block every later save.
+    fn archive_tail_after_checkpoint_remove(&self) -> Result<(), String> {
+        let wid = &self.runtime.world_id;
+        let t = self.world.zeit;
+        self.db
+            .execute(
+                "DELETE FROM game_actions WHERE world_id=?1 AND simulation_seconds>?2",
+                params![wid, t],
+            )
+            .and_then(|_| {
+                self.db.execute(
+                    "DELETE FROM game_domain_events WHERE world_id=?1 AND simulation_seconds>?2",
+                    params![wid, t],
+                )
+            })
+            .and_then(|_| {
+                self.db.execute(
+                    "DELETE FROM communication_events WHERE world_id=?1 AND event_id>?2",
+                    params![wid, self.world.kommunikation.ereignisse_gesamt()],
+                )
+            })
+            .and_then(|_| {
+                self.db.execute(
+                    "DELETE FROM communication_messages WHERE world_id=?1 AND message_id>?2",
+                    params![wid, self.world.nachrichten.len() as u64],
+                )
+            })
+            .map(|_| ())
+            .map_err(|e| format!("Archiv nach Absturz nicht bereinigt: {e}"))
+    }
     fn save(&mut self) -> Result<(), (u16, String)> {
-        self.save_communication()?;
+        self.save_archive()?;
         self.snapshot_players()?;
         let w = self.world.zu_bytes();
         let r = serde_json::to_vec(&self.runtime)
             .map_err(|_| err(500, "Checkpoint nicht serialisierbar"))?;
-        let result=self.db.execute("INSERT INTO checkpoint VALUES(1,?1,?2,?3) ON CONFLICT(id) DO UPDATE SET version=excluded.version,world=excluded.world,runtime=excluded.runtime",params![API_VERSION,w,r]);
+        // checkpoint_info is the readable twin of the binary checkpoint for tools (Python
+        // reports, admins): game time, size and revision without decoding bincode.
+        let result=self.db.execute("INSERT INTO checkpoint VALUES(1,?1,?2,?3) ON CONFLICT(id) DO UPDATE SET version=excluded.version,world=excluded.world,runtime=excluded.runtime",params![API_VERSION,w,r])
+            .and_then(|_|self.db.execute("INSERT INTO checkpoint_info VALUES(1,?1,?2,?3,?4,?5,?6) ON CONFLICT(id) DO UPDATE SET world_id=excluded.world_id,simulation_seconds=excluded.simulation_seconds,saved_at=excluded.saved_at,world_bytes=excluded.world_bytes,runtime_bytes=excluded.runtime_bytes,revision=excluded.revision",
+                params![self.runtime.world_id,self.world.zeit,now(),w.len() as i64,r.len() as i64,self.runtime.revision as i64]));
         match result {
-            Ok(_) => Ok(()),
+            Ok(_) => {self.checkpoint_written=true;Ok(())},
             Err(_) => {
                 self.storage_error = Some("Speicherung fehlgeschlagen; Welt angehalten".into());
                 self.runtime.paused = true;
@@ -239,7 +351,49 @@ impl Game {
             }
         }
     }
+    /// Archive part of a save: communication, domain events and (local) history retention.
+    /// Runs in every transaction, also when a pure time step skips the full checkpoint.
+    fn save_archive(&mut self) -> Result<(), (u16, String)> {
+        self.save_communication()?;
+        self.world.fachereignisse.clear();
+        if self.local {
+            // Everything up to here is archived in this transaction. Memory keeps the current
+            // and the previous game day of events (bot initiative checks need today), battle
+            // reports and daily values of the last 30 days (the view shows recent reports).
+            let tag = self.world.zeit - self.world.zeit.rem_euclid(TAG);
+            let archiviert = self.world.kommunikation.ereignisse_gesamt();
+            self.world.verlauf_auslagern(tag - TAG, archiviert);
+            self.world.berichte_auslagern(self.world.zeit - LOCAL_REPORT_DAYS * TAG);
+            if self.archive_pruned_day != self.world.zeit / TAG {
+                let (wid, grenze) = (&self.runtime.world_id, self.world.zeit - LOCAL_ARCHIVE_DAYS * TAG);
+                self.db
+                    .execute("DELETE FROM game_actions WHERE world_id=?1 AND simulation_seconds<?2", params![wid, grenze])
+                    .and_then(|_| self.db.execute("DELETE FROM game_domain_events WHERE world_id=?1 AND simulation_seconds<?2", params![wid, grenze]))
+                    .map_err(|_| err(503, "Altes Spielprotokoll konnte nicht gekürzt werden"))?;
+                self.archive_pruned_day = self.world.zeit / TAG;
+            }
+        }
+        Ok(())
+    }
+    fn checkpoint_due(&self) -> bool {
+        self.tick_checkpoint_secs == 0
+            || self.last_checkpoint.elapsed().as_secs() >= self.tick_checkpoint_secs
+    }
+    /// Writes a complete checkpoint now (end of a local session, before a backup).
+    pub fn checkpoint_now(&mut self) -> Reply {
+        self.transaction(|_| Ok(json!({"ok":true})))
+    }
     fn transaction<F>(&mut self, f: F) -> Reply
+    where
+        F: FnOnce(&mut Self) -> Reply,
+    {
+        self.transaction_with(true, f)
+    }
+    /// `checkpoint=false` for transactions that only advance time or change transient
+    /// runtime data (leases, sessions, agent reports): they write their archive rows, but the
+    /// full checkpoint only when `checkpoint_due()`. A crash then loses at most those seconds,
+    /// which `archive_tail_after_checkpoint_remove` reconciles on the next start.
+    fn transaction_with<F>(&mut self, checkpoint: bool, f: F) -> Reply
     where
         F: FnOnce(&mut Self) -> Reply,
     {
@@ -251,15 +405,23 @@ impl Game {
         self.db
             .execute_batch("BEGIN IMMEDIATE")
             .map_err(|_| err(503, "Datenbank belegt"))?;
+        self.checkpoint_written = false;
         let result=f(self).and_then(|v| {
             if let Some(context)=&self.audit_context {
                 self.db.execute("INSERT INTO audit(time,account,kind,result) VALUES(?1,NULL,'admin',?2)",params![now(),json!({"context":context,"revision":self.runtime.revision+1,"world_id":self.runtime.world_id}).to_string()]).map_err(|_|err(503,"Admin-Audit konnte nicht gespeichert werden"))?;
             }
-            self.runtime.revision+=1; let logs=self.world.log_abholen();self.record_player_events(logs)?;self.save()?; Ok(v)
+            self.runtime.revision+=1; let logs=self.world.log_abholen();self.record_player_events(logs)?;
+            if checkpoint || self.checkpoint_due() {self.save()?;} else {self.save_archive()?;}
+            Ok(v)
         });
         if result.is_ok() && self.db.execute_batch("COMMIT").is_ok() {
+            if self.checkpoint_written {
+                self.last_checkpoint = std::time::Instant::now();
+            }
+            self.checkpoint_written = false;
             return result;
         }
+        self.checkpoint_written = false;
         let _ = self.db.execute_batch("ROLLBACK");
         self.world = w;
         self.runtime = r;
@@ -277,39 +439,72 @@ impl Game {
         if self.runtime.paused || self.world.beendet() {
             return Ok(json!({"paused":true}));
         }
-        self.transaction(|g| {
-            for _ in 0..seconds.min(3600) {
-                if !g.world.schritt() {
+        self.transaction_with(false, |g| {
+            g.advance_steps(seconds.min(3600))
+        })
+    }
+    /// Local round: script bots answer letters, requests and invitations at once, inside the
+    /// transaction of the triggering command (one checkpoint, no half-answered state after a
+    /// crash). Same policy for browser, harness and local agent commands.
+    fn bots_react(&mut self) {
+        if !self.runtime.bots_enabled {
+            return;
+        }
+        let scripts: std::collections::BTreeSet<SpielerId> =
+            self.runtime.bots.keys().copied().collect();
+        let bots: Vec<(SpielerId, Bottyp)> =
+            self.runtime.bots.iter().map(|(sid, b)| (*sid, b.typ)).collect();
+        for (sid, typ) in bots {
+            if !self.world.spieler_aktiv(sid) {
+                continue;
+            }
+            let (a, r) = {
+                let s = &self.world.spieler[sid as usize].statistik;
+                (s.aktionen, s.abgelehnt)
+            };
+            lauf::bots::reagieren_mit(&mut self.world, sid, typ, &scripts);
+            let s = &self.world.spieler[sid as usize].statistik;
+            self.runtime.bot_actions += (s.aktionen - a) as u64;
+            self.runtime.bot_rejected += (s.abgelehnt - r) as u64;
+        }
+    }
+    // Shared by transactional live ticks and explicit offline replay tests.
+    fn advance_steps(&mut self, seconds: u32) -> Reply {
+            let target = self.world.zeit + seconds.min(3600) as i64;
+            let script_players=self.runtime.bots.keys().copied().collect();
+            while self.world.zeit < target {
+                if !self.world.schritt() {
                     break;
                 }
-                let logs=g.world.log_abholen();g.record_player_events(logs)?;
-                if g.runtime.bots_enabled {
-                    let sids:Vec<_>=g.runtime.bots.keys().copied().collect();
+                let logs=self.world.log_abholen();self.record_player_events(logs)?;
+                if self.runtime.bots_enabled {
+                    let sids:Vec<_>=self.runtime.bots.iter().filter(|(_,b)|b.naechster<=self.world.zeit).map(|(sid,_)|*sid).collect();
                     for sid in sids {
-                        if !g.world.spieler_aktiv(sid) {continue;}
-                        let bot=g.runtime.bots.get_mut(&sid).unwrap();
-                        let due = bot.naechster <= g.world.zeit;
-                        let prev = g.world.spieler[sid as usize].statistik.clone();
-                        lauf::bots::zug(&mut g.world, sid, bot);
+                        if !self.world.spieler_aktiv(sid) {continue;}
+                        let bot=self.runtime.bots.get_mut(&sid).unwrap();
+                        let due = bot.naechster <= self.world.zeit;
+                        let prev = self.world.spieler[sid as usize].statistik.clone();
+                        lauf::bots::zug(&mut self.world, sid, bot);
+                        lauf::bots::allianz_reagieren(&mut self.world,sid,&script_players);
                         if due {
-                            bot.naechster = g.world.zeit + g.runtime.bot_period_secs;
+                            bot.naechster = self.world.zeit + self.runtime.bot_period_secs;
                         }
-                        let next = &g.world.spieler[sid as usize].statistik;
-                        g.runtime.bot_actions += (next.aktionen - prev.aktionen) as u64;
-                        g.runtime.bot_rejected += (next.abgelehnt - prev.abgelehnt) as u64;
-                        if due {g.record_bot_turn(sid)?;}
+                        let next = &self.world.spieler[sid as usize].statistik;
+                        self.runtime.bot_actions += (next.aktionen - prev.aktionen) as u64;
+                        self.runtime.bot_rejected += (next.abgelehnt - prev.abgelehnt) as u64;
+                        if due {self.record_bot_turn(sid)?;}
                     }
                 }
-                let logs=g.world.log_abholen();g.record_player_events(logs)?;
-                if g.world.zeit % 60 == 0 {
-                    let ids=g.runtime.bots.keys().chain(g.runtime.leases.keys()).copied().collect::<std::collections::BTreeSet<_>>();
-                    for sid in ids {for id in g.world.offene_antworten(sid) {g.world.empfang_bei_zeitmangel(sid,id);}}
+                let logs=self.world.log_abholen();self.record_player_events(logs)?;
+                if self.world.zeit % 60 == 0 {
+                    // AI players were already serviced by the core communication tick.
+                    let ids=self.runtime.bots.keys().chain(self.runtime.leases.keys()).copied().filter(|sid|!self.world.spieler[*sid as usize].ki).collect::<std::collections::BTreeSet<_>>();
+                    for sid in ids {for id in self.world.offene_antworten(sid) {self.world.empfang_bei_zeitmangel(sid,id);}}
                 }
-                if g.world.zeit % STUNDE == 0 {g.record_public_history();}
+                if self.world.zeit % STUNDE == 0 {self.record_public_history();}
             }
-            g.runtime.leases.retain(|sid, l| l.until > now() && g.world.spieler_aktiv(*sid));
-            Ok(json!({"sekunden":g.world.zeit}))
-        })
+            self.runtime.leases.retain(|sid, l| l.until > now() && self.world.spieler_aktiv(*sid));
+            Ok(json!({"sekunden":self.world.zeit}))
     }
     pub fn account_by_name(&self, name: &str) -> Option<Account> {
         self.db
@@ -378,13 +573,14 @@ impl Game {
         if a.banned {
             return Err(err(403, "Konto gesperrt"));
         }
-        self.transaction(|g| g.session(&a))
+        // Sessions live in their own table; the world and its checkpoint are unchanged.
+        self.transaction_with(false, |g| g.session(&a))
     }
     pub fn lobby(&self) -> Value {
         json!({"api_version":API_VERSION,"world_id":self.runtime.world_id,"revision":self.runtime.revision,"sekunden":self.world.zeit,
-          "paused":self.runtime.paused,"tempo":self.runtime.tempo,"beendet":self.world.beendet(),"bots":BOT_COUNT,"freie_plaetze":self.world.aufklaerung.inaktive_spieler.len(),"plaetze":SEATS,"freigegebene_plaetze":self.runtime.admission_limit,"freie_zugaenge":self.available_admissions(),"wartende":self.runtime.waitlist.len(),
+          "paused":self.runtime.paused,"tempo":self.runtime.tempo,"beendet":self.world.beendet(),"bots":self.runtime.bots.len(),"freie_plaetze":self.world.aufklaerung.inaktive_spieler.len(),"plaetze":self.runtime.seat_capacity,"freigegebene_plaetze":self.runtime.admission_limit,"freie_zugaenge":self.available_admissions(),"wartende":self.runtime.waitlist.len(),
             "rangliste":self.world.rangliste(),"ausgeschiedene":self.world.ausgeschiedene(),"aktive_reiche":self.world.spieler.iter().filter(|sp|self.world.spieler_aktiv(sp.id)).count(),"ausscheiden_regeln":self.world.ausscheiden.regeln,"regeln":self.world.regeln.version,"maintenance":self.runtime.maintenance,
-            "epoche_tage":self.world.regeln.welt.epoche_tage,"verlauf":self.runtime.public_history.iter().rev().take(48).cloned().collect::<Vec<_>>()})
+            "epoche_tage":self.world.regeln.welt.epoche_tage,"verlauf":self.runtime.public_history.iter().rev().take(48).cloned().collect::<Vec<_>>(),"fairplay":self.fairplay_oeffentlich()})
     }
     fn sid(a: &Account) -> Result<SpielerId, (u16, String)> {
         a.sid
@@ -398,6 +594,8 @@ impl Game {
         v["paused"] = json!(self.runtime.paused);
         v["beendet"] = json!(self.world.beendet());
         v["mode"] = json!(a.mode);
+        // Nur der Browserfeed trägt unsichtbare Fair-Play-Köder; die Harness-API nie.
+        if role == Rolle::Alle { v["oberflaeche"] = self.oberflaeche(Some(a.id), "reich"); }
         v["agent"] = json!(self
             .runtime
             .leases
@@ -419,7 +617,8 @@ impl Game {
     pub fn lease(&mut self, a: &Account, v: &Value) -> Reply {
         let sid = Self::sid(a)?;
         self.world_matches(v)?;
-        self.transaction(|g| {
+        // Leases never survive a restart (cleared on open), so they need no extra checkpoint.
+        self.transaction_with(false, |g| {
             let action = str_field(v, "action")?;
             if action == "stop" {
                 if let Some(raw) = v["lease"].as_str() {
@@ -436,6 +635,7 @@ impl Game {
             }
             if !g.world.spieler_aktiv(sid) {return Err(err(409,"Reich besiegt; bis zur nächsten Epoche nur zuschauen"));}
             if action == "heartbeat" {
+                harness::maschine_erlaubt(a)?;
                 let l = g
                     .runtime
                     .leases
@@ -475,6 +675,7 @@ impl Game {
                     hash: digest(&raw),
                     roles,
                     until,
+                    token: None,
                 },
             );
             Ok(json!({"lease":raw,"until":until,"world_id":g.runtime.world_id}))
@@ -482,6 +683,7 @@ impl Game {
     }
     pub fn command(&mut self, a: &Account, v: &Value) -> Reply {
         let sid = Self::sid(a)?;
+        if v.get("lease").is_some() { harness::maschine_erlaubt(a)?; }
         self.world_matches(v)?;
         let request = str_field(v, "request_id")?;
         if request.is_empty() || request.len() > 80 {
@@ -507,6 +709,11 @@ impl Game {
             .as_array()
             .filter(|a| a.len() <= 8 && (!a.is_empty() || v.get("lease").is_some()))
             .ok_or_else(|| err(400, "Höchstens acht Aktionen erlaubt"))?;
+        // Gleiche Vertrauensgrenze für Browser und Harness: keine fremden Felder,
+        // keine unsichtbaren Zeichen in Texten, die andere Spieler oder Modelle lesen.
+        for (i, action) in actions.iter().enumerate() {
+            eingabe::aktion_pruefen(action, i + 1).map_err(|e| err(400, &e))?;
+        }
         let role = if v.get("lease").is_some() {
             let l = self
                 .runtime
@@ -541,12 +748,13 @@ impl Game {
             g.check_team_turn(a,v)?;
             let result:Vec<Value>=actions.iter().map(|action| {let (ok,text)=g.world.handeln(sid,role,action);json!({"ok":ok,"text":text})}).collect();
             if role!=Rolle::Alle {
-                let notes=v["notiz"].as_str();
+                let cleaned=v["notiz"].as_str().map(|n|eingabe::bereinigen(n,true));let notes=cleaned.as_deref();
                 let wake=v["wecker_stunden"].as_f64().filter(|n|n.is_finite()).map(|n|(n.clamp(0.0,720.0)*3600.0) as i64);
                 let hints=result.iter().filter(|v|v["ok"]==false).filter_map(|v|v["text"].as_str().map(str::to_string)).collect::<Vec<_>>();
                 g.world.aufruf_ende(sid,role,notes,wake,&hints);
             }
             g.finish_team_turn(a,v,&result)?;
+            if g.local {g.bots_react();}
             let response=json!({"ergebnisse":result,"world_id":g.runtime.world_id,"revision":g.runtime.revision+1});
             g.db.execute("INSERT INTO commands VALUES(?1,?2,?3,?4,?5,?6)",params![a.id,g.runtime.world_id,request,body_hash,response.to_string(),now()]).map_err(|_|err(503,"Befehl konnte nicht gespeichert werden"))?;
             g.db.execute("INSERT INTO audit(time,account,kind,result) VALUES(?1,?2,'spiel',?3)",params![now(),a.id,response.to_string()]).map_err(|_|err(503,"Protokoll nicht gespeichert"))?;
@@ -555,6 +763,7 @@ impl Game {
     }
     pub fn agent_report(&mut self, a: &Account, v: &Value) -> Reply {
         let sid = Self::sid(a)?;
+        harness::maschine_erlaubt(a)?;
         self.world_matches(v)?;
         let l = self
             .runtime
@@ -563,7 +772,7 @@ impl Game {
             .filter(|l| l.until > now() && l.hash == digest(v["lease"].as_str().unwrap_or("")))
             .ok_or_else(|| err(409, "Agentfreigabe fehlt"))?;
         let _ = l;
-        self.transaction(|g| {
+        self.transaction_with(false, |g| {
             let clean=json!({"at":now(),"status":v["status"].as_str().unwrap_or("unbekannt").chars().take(80).collect::<String>(),"role":v["role"].as_str().unwrap_or(""),
               "calls":v["calls"].as_u64().unwrap_or(0),"errors":v["errors"].as_u64().unwrap_or(0),"tokens":v["tokens"].as_u64().unwrap_or(0),"latency_ms":v["latency_ms"].as_u64().unwrap_or(0),"accepted":v["accepted"].as_u64().unwrap_or(0),"rejected":v["rejected"].as_u64().unwrap_or(0),
               "provider":v["provider"].as_str().unwrap_or("").chars().take(32).collect::<String>(),"model":v["model"].as_str().unwrap_or("").chars().take(100).collect::<String>(),
@@ -603,7 +812,7 @@ impl Game {
             .collect::<Vec<_>>();
         json!({"lobby":self.lobby(),"monitor":self.monitoring_status(),"storage_error":self.storage_error,"world_hash":self.world.hash(),"uptime_s":self.started.elapsed().as_secs(),"db_bytes":db_bytes,"invariant_errors":invariant_errors,"bots_enabled":self.runtime.bots_enabled,"bot_period_secs":self.runtime.bot_period_secs,"epoche_tage":self.world.regeln.welt.epoche_tage,"bots":bots,"accounts":accounts,"warteliste":self.private_waitlist(),
             "agents":self.runtime.agent_status.keys().chain(self.runtime.leases.keys()).copied().collect::<std::collections::BTreeSet<_>>().iter().map(|sid|json!({"spieler":sid,"active":self.runtime.leases.get(sid).is_some_and(|l|l.until>now()),"roles":self.runtime.leases.get(sid).map(|l|&l.roles),"stats":self.runtime.agent_status.get(sid).cloned().unwrap_or_else(||json!({"status":"Wartet auf erste Modellantwort","calls":0,"errors":0,"tokens":0,"latency_ms":0}))})).collect::<Vec<_>>(),
-            "flotten":self.world.flotten.len(),"ereignisse":self.world.ereignisse.len(),"bot_actions":self.runtime.bot_actions,"bot_rejected":self.runtime.bot_rejected,"registration":{"enabled":mail::MailConfig::load(&self.data_root).is_ok_and(|c|c.is_some()),"config_file":"mail-private.json","code_digits":6},"database":{"root":self.data_root.to_string_lossy(),"file":"spiel.sqlite3","players_view":"registered_players","states_table":"player_states","events_table":"account_events","snapshot_interval_seconds":60}})
+            "flotten":self.world.flotten.len(),"ereignisse":self.world.ereignisse.len(),"fairplay":self.fairplay_admin(),"harness":self.harness_admin(),"bot_actions":self.runtime.bot_actions,"bot_rejected":self.runtime.bot_rejected,"registration":{"enabled":mail::MailConfig::load(&self.data_root).is_ok_and(|c|c.is_some()),"config_file":"mail-private.json","code_digits":6},"database":{"root":self.data_root.to_string_lossy(),"file":"spiel.sqlite3","players_view":"registered_players","states_table":"player_states","events_table":"account_events","snapshot_interval_seconds":60}})
     }
     pub fn backup(&self) -> Result<PathBuf, (u16, String)> {
         let dir = self.data_root.join("backups");
@@ -694,13 +903,14 @@ impl Game {
                 let id=v["id"].as_i64().ok_or_else(||err(400,"Kontonummer fehlt"))?;
                 let banned=v["banned"].as_bool().ok_or_else(||err(400,"Sperrstatus fehlt"))?;
                 if g.db.execute("UPDATE accounts SET banned=?1 WHERE id=?2",params![banned,id]).map_err(|_|err(503,"Konto nicht gespeichert"))?!=1{return Err(err(404,"Konto fehlt"));}
-                if banned {g.runtime.waitlist.retain(|w|w.account!=id);g.db.execute("DELETE FROM sessions WHERE account=?1",[id]).map_err(|_|err(503,"Sitzungen nicht gesperrt"))?;g.runtime.leases.retain(|_,l|l.account!=id);}
+                if banned {g.runtime.waitlist.retain(|w|w.account!=id);g.db.execute("DELETE FROM sessions WHERE account=?1",[id]).map_err(|_|err(503,"Sitzungen nicht gesperrt"))?;g.db.execute("UPDATE harness_tokens SET revoked=1 WHERE account=?1",[id]).map_err(|_|err(503,"Harness-Schlüssel nicht widerrufen"))?;g.runtime.leases.retain(|_,l|l.account!=id);}
                 Ok(json!({"ok":true}))}),
             "waitlist_remove"=>self.transaction(|g| {let id=v["id"].as_i64().ok_or_else(||err(400,"Kontonummer fehlt"))?;g.runtime.waitlist.retain(|w|w.account!=id);g.admit_waiting()?;Ok(json!({"ok":true}))}),
             "bot"=>self.transaction(|g| {
                 let sid=v["spieler"].as_u64().filter(|n|*n<BOT_COUNT as u64).ok_or_else(||err(400,"Botnummer ungültig"))? as u16;
                 let typ=Bottyp::aus_name(str_field(v,"typ")?).ok_or_else(||err(400,"Unbekannter Bottyp"))?;
                 let bot=g.runtime.bots.get_mut(&sid).unwrap();bot.typ=typ;bot.naechster=g.world.zeit;Ok(json!({"ok":true}))}),
+            "fairplay_aufheben"=>self.fairplay_aufheben(v),
             "stop_agent"=>self.transaction(|g| {let sid=v["spieler"].as_u64().filter(|n|*n<(BOT_COUNT+SEATS) as u64).ok_or_else(||err(400,"Spielernummer fehlt"))? as u16;g.runtime.leases.remove(&sid);Ok(json!({"ok":true}))}),
             "player_edit"=>{
                 self.backup()?;
@@ -827,6 +1037,30 @@ mod tests {
         assert_eq!(g.command(&a, &cmd).unwrap_err().0, 409);
         assert_eq!(g.authenticate(&raw).unwrap_err().0, 401);
         assert_eq!(g.lobby()["freie_plaetze"], 20);
+    }
+    /// Strukturelle Absicherung gegen SQL-Injektion: Keine SQL-Anweisung im Server wird
+    /// aus Text zusammengesetzt. Einzige Ausnahme sind fest verdrahtete Spaltennamen
+    /// beim Schema-Upgrade in identity.rs. Neue Ausnahmen lassen diesen Test scheitern.
+    #[test]
+    fn sql_nur_mit_gebundenen_parametern() {
+        let quellen = [("lib.rs", include_str!("lib.rs")), ("main.rs", include_str!("main.rs")), ("identity.rs", include_str!("identity.rs")),
+            ("admission.rs", include_str!("admission.rs")), ("authenticator.rs", include_str!("authenticator.rs")), ("communication.rs", include_str!("communication.rs")),
+            ("monitoring.rs", include_str!("monitoring.rs")), ("workspace.rs", include_str!("workspace.rs")), ("fairplay.rs", include_str!("fairplay.rs")),
+            ("harness.rs", include_str!("harness.rs")), ("mcp.rs", include_str!("mcp.rs")), ("uebergabe.rs", include_str!("uebergabe.rs")), ("mail.rs", include_str!("mail.rs"))];
+        let mut funde = Vec::new();
+        for (datei, text) in quellen {
+            // Nur Produktivcode; Testmodule dürfen Muster als Text enthalten.
+            let code = text.split("#[cfg(test)]").next().unwrap_or(text);
+            for aufruf in ["execute(&format!", "execute_batch(&format!", "prepare(&format!", "query_row(&format!", "query_map(&format!", "execute(format!", "prepare(format!"] {
+                for (i, _) in code.match_indices(aufruf) {
+                    let zeile = code[..i].lines().count();
+                    let inhalt = code.lines().nth(zeile.saturating_sub(1)).unwrap_or("");
+                    // Erlaubt: Schema-Upgrade mit fest verdrahteter Spaltenliste.
+                    if !inhalt.contains("ALTER TABLE accounts ADD COLUMN {name} {kind}") { funde.push(format!("{datei}:{zeile}")); }
+                }
+            }
+        }
+        assert!(funde.is_empty(), "SQL aus Text zusammengesetzt: {funde:?}");
     }
     #[test]
     fn rollback_storage_and_passwords() {

@@ -1,0 +1,72 @@
+Sternenepoche · Harness-Cockpit 0.2.3+20261012 (Windows x64)
+==========================================================
+
+Das Harness-Cockpit lässt deinen Rat aus vier KI-Agenten (Stratege, Verwalter, Diplomat, Feldherr) Sternenepoche
+für dich spielen – über die offizielle Harness-API des Spielservers, nach den Fair-Play-Regeln.
+
+Offline oder lokal spielen
+-------------------------
+Im Cockpit ist „Hier auch Singleplayer offline spielen“ direkt sichtbar. „Lokale Sitzung“ öffnet die
+lokalen Einstellungen. Standard: 30 Bots, einstellbar von 0 bis 400. Nachrichten, Allianzen und Handel
+funktionieren mit deutschen Skriptbots ohne Sprachmodell, Internet, Registrierung oder separates Serverprogramm.
+Während der Partie stehen Pause/Fortsetzen und Speichern oben bereit; der Einstieg wird ausgeblendet.
+Beim normalen Schließen wird gespeichert. Der nächste Start nimmt deine Welt, Pause und letzte Ansicht wieder auf.
+Die 3D-Galaxie zeigt Sektoren als transparente weiße Beschriftung und Sterne und Planeten mit kleinen weißen Zahlen.
+Eigene Heimat/Kolonien sind hellgrün, Verbündete/Allianz anderes Grün, NAP gelb, Feinde und fremde Allianzen ohne
+Beziehung rot, neutrale Bewohner weiß. Die Farblegende steht an der Karte und auf der Website. Allianz-Kürzel
+stehen beim Spielernamen und sind im Codex auffindbar. Allianzen nehmen Mitglieder aller Völker nach Einladung
+und Annahme auf. In Systemen deiner eigenen Allianz siehst du ohne Sonde ausschließlich die Bewohner/Zugehörigkeit;
+Planetentypen, Ressourcen und weitere Details brauchen weiterhin eigene Planetensonden.
+Für WLAN/LAN: „Lokalen Host-Server aktivieren“, Masterpasswort (12 bis 128 Zeichen) setzen und Sitzung starten.
+Mitspieler wählen „Hosts im Netzwerk suchen“ und treten mit Name und Masterpasswort bei.
+Bei gesperrter Netzwerksuche ist der Beitritt über die LAN-IP des Hosts und Port 8892 möglich.
+Der Host muss während der gemeinsamen Sitzung laufen. Sparmodus ist standardmäßig aktiv.
+Sechs vorbereitete Agentenspieler können eigene Reiche mit installierten Ollama-Modellen oder eigener API führen.
+Profile: Sparsam, Mittel, Max oder Custom. Weitere Plätze sind bis zur Welt- und Hardwaregrenze möglich.
+Der Systembalken schätzt CPU-, RAM- und Modellbedarf mit Reserve; gemessene Zug- und Tickzeiten verbessern die Anzeige.
+Eine Modellanfrage läuft zur selben Zeit; bei hoher Last wird der Abstand zwischen Agentenzügen verlängert.
+Standardbots bleiben auch ohne Ollama spielbar. Die leichte Sternenkarte zeigt Galaxie, Sektoren und Sonnensysteme.
+
+Starten
+-------
+1. Den Ordner an einen festen Platz entpacken (z. B. Dokumente\Sternenepoche-Harness-Cockpit).
+2. sternenepoche-cockpit.exe starten. Für Singleplayer wähle „Hier auch Singleplayer offline spielen“.
+   Dein Name genügt. Serverkonto, E-Mail, Modell und Grafikkarte sind dafür nicht erforderlich.
+3. Für den optionalen Modellrat führt der Einrichtungsassistent durch Server, Spielstil, Modelle, Bauen und LOS.
+   Bei „Modelle“ wählst du:
+   - Auf diesem PC (Ollama, https://ollama.com) – kleine Modelle funktionieren auch auf der CPU; oder
+   - In der Cloud (OpenRouter, https://openrouter.ai) – eigener Schlüssel und Budget, keine Grafikkarte nötig.
+4. „Bauen“ übernimmt den beiliegenden, fertig übersetzten Harness (sternenepoche-harness.exe, SHA-256 wird geprüft).
+   Rust und C++-Buildwerkzeuge sind NICHT nötig. Nur wer den Harness-Code selbst ändern will, schaltet in
+   Werkstatt → Bau „selbst übersetzen“ ein.
+5. Mit LOS meldest du dich einmal mit deinem Spielkonto an; der Rat bekommt seinen Harness-Schlüssel und tritt
+   zusammen.
+
+Voraussetzungen
+---------------
+- Windows 10 oder 11, 64 Bit.
+- Microsoft Edge WebView2 Runtime (bei Windows 11 vorinstalliert; sonst
+  https://developer.microsoft.com/microsoft-edge/webview2/).
+- Nur für die gemeinsame Onlinewelt: ein Spielkonto auf dem Sternenepoche-Server.
+- Nur für den optionalen lokalen Modellrat: Ollama und genügend RAM für das gewählte Modell.
+  Eine passende Grafikkarte beschleunigt größere Modelle; kleine CPU-Modelle sind ebenfalls möglich.
+
+Wo liegt was?
+-------------
+- Einstellungen: %APPDATA%\Sternenepoche\cockpit.json
+- Harness, Gedächtnis, Seelen (soul.md), Protokolle: %LOCALAPPDATA%\Sternenepoche\Harness
+- Schlüssel für Spielkonto, Harness, OpenRouter und Wissensquellen liegen in der Windows-Anmeldeinformations-
+  verwaltung. Nur der Zufallsschlüssel der lokalen API (127.0.0.1) steht in lokale-api.json im Harness-Ordner.
+Entfernen: Ordner des Cockpits und die beiden Ordner oben löschen; Schlüssel in der Anmeldeinformationsverwaltung
+unter „Sternenepoche/…“ entfernen.
+
+Prüfsummen
+----------
+sternenepoche-harness.json enthält die SHA-256 des vorgebauten Harness; das Cockpit prüft sie vor dem Einrichten.
+Die Prüfsumme des ganzen Pakets steht in SHA256SUMS.txt neben dem Download.
+
+Lizenzen
+--------
+Hinweise zu Drittkomponenten (Rust-Bibliotheken, three.js, Schriften): THIRD-PARTY-NOTICES.txt.
+Bilder und 3D-Figuren im Cockpit sind KI-generiert. Kleine Rohstoff-, Energie- und Kostenicons werden für
+die Lesbarkeit gesammelt in den Credits ausgewiesen; große Illustrationen behalten ihre Einzelmarkierung.

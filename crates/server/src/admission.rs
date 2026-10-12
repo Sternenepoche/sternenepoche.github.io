@@ -14,12 +14,12 @@ impl Game {
     pub fn me(&self, a: &Account) -> Value {
         let waiting = self.runtime.waitlist.iter().enumerate().find(|(_, w)| w.account == a.id)
             .map(|(i, w)| json!({"position":i+1,"mode":w.mode,"volk":w.volk,"seit":w.joined}));
-        json!({"name":a.name,"mode":a.mode,"spieler":a.sid,"world_id":self.runtime.world_id,"warteliste":waiting,"reich_status":a.sid.map(|sid|self.world.reich_status(sid)),"authenticator_enabled":self.authenticator_enabled(a.id)})
+        json!({"name":a.name,"mode":a.mode,"spieler":a.sid,"world_id":self.runtime.world_id,"warteliste":waiting,"reich_status":a.sid.map(|sid|self.world.reich_status(sid)),"authenticator_enabled":self.authenticator_enabled(a.id),"fairplay":self.fairplay_konto(a.id)})
     }
     pub(crate) fn available_admissions(&self) -> usize {
         if self.world.beendet() { return 0; }
         let inactive = self.world.aufklaerung.inaktive_spieler.len();
-        (self.runtime.admission_limit as usize).saturating_sub(SEATS as usize - inactive).min(inactive)
+        (self.runtime.admission_limit as usize).saturating_sub((self.runtime.seat_capacity as usize).saturating_sub(inactive)).min(inactive)
     }
     pub(crate) fn private_waitlist(&self) -> Vec<Value> {
         self.runtime.waitlist.iter().enumerate().map(|(i, w)| {
@@ -57,8 +57,14 @@ impl Game {
         self.transaction(|g| {
             let current = g.account_by_name(&a.name).ok_or_else(|| err(401,"Konto fehlt"))?;
             if current.banned { return Err(err(403,"Konto gesperrt")); }
-            if current.sid.is_some() {
+            if let Some(sid) = current.sid {
                 g.db.execute("UPDATE accounts SET mode=?1 WHERE id=?2",params![mode,current.id]).map_err(|_| err(503,"Spielweise nicht gespeichert"))?;
+                if mode == "mensch" {
+                    // Mensch heißt: keine Maschine handelt. Freigabe weg, Harness-Schlüssel widerrufen (neue erst nach Wechsel zu Agent/Gemischt).
+                    g.runtime.leases.remove(&sid);
+                    let n = g.db.execute("UPDATE harness_tokens SET revoked=1 WHERE account=?1 AND revoked=0",params![current.id]).map_err(|_| err(503,"Widerruf nicht gespeichert"))?;
+                    if n > 0 { g.identity_event(Some(current.id),"harness_widerruf",json!({"grund":"spielweise_mensch","anzahl":n}))?; }
+                }
             } else {
                 if g.world.beendet() { return Err(err(409,"Epoche beendet")); }
                 if let Some(w) = g.runtime.waitlist.iter_mut().find(|w| w.account == current.id) {

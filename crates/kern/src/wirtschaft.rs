@@ -1288,7 +1288,14 @@ impl Welt {
         let r = self.regeln.clone();
         let w = &r.wirtschaft;
         let jetzt = self.zeit;
+        let grenze = jetzt - r.agenten.chronik_tage * TAG;
         for sid in 0..self.spieler.len() as SpielerId {
+            // The chronicle limit applies to every seat. Reserved start places and defeated
+            // empires still receive incidents (probes, attacks); skipping them let their
+            // chronicle grow for the whole epoch (megabytes in every saved world).
+            let sp = &mut self.spieler[sid as usize];
+            sp.vorfaelle.retain(|v| v.zeit >= grenze);
+            sp.meldungen.retain(|m| m.zeit >= grenze);
             if !self.spieler_aktiv(sid) { continue; }
             // Unterhalt für Schiffe und Verwaltung der Kolonien.
             let kosten = mal(self.flottenwert(sid), w.unterhalt_schiffe_je_tag)
@@ -1311,10 +1318,6 @@ impl Welt {
                     );
                 }
             }
-            let grenze = jetzt - r.agenten.chronik_tage * TAG;
-            let sp = &mut self.spieler[sid as usize];
-            sp.vorfaelle.retain(|v| v.zeit >= grenze);
-            sp.meldungen.retain(|m| m.zeit >= grenze);
         }
         self.tribute_zahlen();
         self.punkte_neu();
