@@ -79,7 +79,8 @@ def atlas_legend():
 def finish(document):
     document=document.replace('<!-- ATLAS_LEGEND -->',atlas_legend())
     # Grundgestaltung plus Cockpit-Schicht (gleiche Sprache wie das Harness-Cockpit)
-    theme = (ROOT/'docs/site-theme.css').read_text(encoding='utf-8') + '\n' + (ROOT/'docs/site-cockpit.css').read_text(encoding='utf-8')
+    theme = '\n'.join((ROOT/name).read_text(encoding='utf-8') for name in
+        ['docs/site-theme.css', 'docs/site-cockpit.css', 'docs/action-surfaces.css'])
     document = document.replace('<!-- SITE_THEME -->','<style>'+theme+'</style>')
     document = document.replace('<!-- SITE_MOTION -->','<script>'+ (ROOT/'docs/site-motion.js').read_text(encoding='utf-8')+'</script>')
     document = document.replace('<!-- SPACE -->',SPACE).replace('<!-- HERO_ART -->',HERO_ART).replace('<!-- IMAGE_DIALOG -->',DIALOG)

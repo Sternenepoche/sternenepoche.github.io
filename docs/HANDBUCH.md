@@ -251,7 +251,7 @@ Plane zugleich den nächsten **Zivilisationsaufstieg**. Fehlende Freischaltungen
 
 ### 05 Die erste Sonde wirklich fertigen
 
-Prüfe im **Technologiebaum** die Voraussetzungen der Spionagesonde. Schaffe die nötigen Technologien und Gebäude, darunter Spionagetechnik, Raumhafen und Werft. Öffne **Schiffswerft**, wähle deine Sonde und stelle **Stückzahl** auf 1. Lies Stückkosten und Voraussetzungen; drücke **Fertigen**, wenn der Bau möglich ist.
+Prüfe im **Technologiebaum** die Voraussetzungen der Spionagesonde. Schaffe die nötigen Technologien und Gebäude, darunter Raumhafen und Werft; Spionagetechnik verbessert die gewonnenen Berichte. Öffne **Schiffswerft**, wähle deine Sonde und stelle **Stückzahl** auf 1. Lies Stückkosten und Voraussetzungen; drücke **Fertigen**, wenn der Bau möglich ist.
 
 **Das passiert danach:** Die Werft bearbeitet den Fertigungsauftrag. Die Bestellung ist noch kein fertiges Schiff. Warte, bis eine Sonde als Bestand auf dem Startplaneten erscheint. Prüfe außerdem Deuterium und einen freien Flottenplatz. Auch ein einzelner Sondenflug belegt einen Platz.
 
@@ -317,6 +317,14 @@ Für seltenere Befehle gibt es unter **Markt** den Bereich **Weitere Regierungs-
 
 ### Übersicht
 
+Die Übersicht bündelt die **neuesten Meldungen und persönlichen Briefe** sowie die **nächsten fünf Flottenbewegungen**. Eigene Flotten, verbündete Anflüge auf deine Planeten und erkannte feindliche Kontakte sind unterscheidbar. Öffne eine Zeile für die Details. Bei einem feindlichen Kontakt kannst du direkt eine **Flottensonde senden**; das Spiel verwendet den ausgewählten Planeten mit Sonde oder einen anderen eigenen Planeten mit verfügbarer Sonde. Unbekannte Schiffe und nur geschätzte Mengen bleiben ausdrücklich unbekannt beziehungsweise als Spanne gekennzeichnet.
+
+**Briefkasten** steht zusätzlich oben beim kleineren Abmelden-Knopf. Er bündelt persönliche Briefe, Antworten, Kampfberichte, Planetenspionage, Flottenaufklärung und Meldungen. Im Reiter **Berichte & Meldungen** filterst und suchst du die Berichte; beim Öffnen wird der Lesestatus kontoweit gespeichert. Briefe und Berichte kannst du auch während einer Pause lesen. Persönliche Briefe beantwortest du über **Antworten**; Empfänger und Bezug sind bereits ausgefüllt.
+
+**Codex öffnen** und **Kampf simulieren** sind direkt in der Übersicht erreichbar. Der Codex zeigt alle Gebäude, Forschungen, Schiffe und Verteidigungsanlagen, einschließlich Bild- und Kostenvarianten der anderen Völker. Der Simulator verwendet die echten Kampfregeln: Trage auf beiden Seiten Volk, Einheiten sowie Waffen-, Schild- und Panzerungstechnik ein. Eigene Schiffe und Technik lassen sich übernehmen; Spionageberichte können die Gegnerseite vorfüllen. Nicht aufgeklärte Werte und das Volk des Gegners musst du dabei selbst prüfen. Mehrere Zufallsläufe zeigen Siegchance, Unentschieden und durchschnittliche Verluste. Sie sind eine Planungshilfe, keine Garantie für einen späteren Kampf.
+
+**Vor jedem Kauf** stehen Wirkung, Kosten und vollständiges Datenblatt an der Auswahl. Voraussetzungen zeigen **vorhanden / benötigt** und einen Haken oder ein fehlendes Merkmal. Bei Werftbestellungen werden Stückzahl, Gesamtkosten, Besatzung, verbleibende Einwohner und Bestandsgrenzen berücksichtigt. Gebäude zeigen vor dem Ausbau den zusätzlichen Strombedarf sowie zusätzliche Arbeits- und Fachkräfte. Der Strommehrbedarf gilt bei voller Besetzung; die tatsächliche Versorgung hängt auch von Besetzung, Integrität, Technik und Energieerzeugung ab. Schiffsdaten enthalten wirksamen Angriff, Schild, Struktur, Geschwindigkeit, Laderaum, Verbrauch, Antrieb, Besatzung, Unterhalt und Schnellfeuer.
+
 **Hier findest du:** Den Zustand des ausgewählten Planeten, Bevölkerung und Wohnraum, Stabilität, Energie, Arbeitskräfte, Blockaden und die laufenden Bau-, Forschungs- und Werftaufträge. Warnungen und erkannte Angriffe verdienen zuerst Aufmerksamkeit. Über die rechte Planetenliste wechselst du die betrachtete Welt.
 
 **So benutzt du den Bereich:** Lies zuerst die Warnungen, dann die Versorgung und schließlich die Aufträge. Über **Gebäude ausbauen**, **Flotten verwalten** und **Neue Berichte** kommst du direkt zur nächsten Aufgabe. Prüfe bei jedem Planetenwechsel die Koordinate und seine eigenen Vorräte. Credits gelten reichsweit.
@@ -347,13 +355,15 @@ Für seltenere Befehle gibt es unter **Markt** den Bereich **Weitere Regierungs-
 
 ### Forschung
 
+Zu jeder Forschung zeigt ein bebilderter Baum die benötigten Gebäude und Technologien. Unter **Damit erreichst oder verbesserst du** stehen nachfolgende Freischaltungen, Aufstiege und betroffene Einheiten. Laufende Projekte tragen Uhrzeiger und Restzeit. Erst nach Serverbestätigung des Abschlusses laufen dezente Lichtimpulse in der Farbe deines Volkes vom Forschungsziel zu neu verfügbaren Nachfolgern. Mit reduzierter Bewegung bleibt die Statusänderung ohne umlaufenden Effekt sichtbar.
+
 **Hier findest du:** Forschungskacheln, Anforderungen, Kosten, Forschungsleistung, **Aktives Projekt** und **Forschungsschlange**. Der Forschungsstart der Browseroberfläche benutzt die Heimatwelt; die Labore des gesamten Reichs tragen Forschungspunkte bei.
 
 **So beginnst du:** Klicke eine Forschung an. Prüfe Zivilisationsstufe, verlangte Laborstufe auf der Heimatwelt und dortige Rohstoffe. Wähle **Stufe N erforschen**. Kontrolliere anschließend, ob sie als aktives Projekt läuft oder hinter einem bereits laufenden Projekt eingereiht wurde.
 
 **Was passiert:** Es gibt ein aktives Projekt und bis zu drei wartende. Die Zahlung erfolgt beim Start des Projekts. Forschung wird an Spielstunden verarbeitet. Mehr aktive Laborleistung verkürzt die nötige Zeit; fehlende Energie, Arbeiter oder Spezialisten können sie verlängern. Ein wechselnder Countdown ist deshalb eine Prognose.
 
-**Wenn es nicht klappt:** Vorräte oder ein großes Labor auf einer Kolonie ersetzen die Heimatvoraussetzung dieses Startknopfs nicht. Prüfe außerdem die volle Forschungsschlange. Für einen Flug musst du die Antriebstechnik tatsächlich abgeschlossen haben; eine bestellte oder nur freigeschaltete Forschung zählt noch nicht.
+**Wenn es nicht klappt:** Vorräte oder ein großes Labor auf einer Kolonie ersetzen die Heimatvoraussetzung dieses Startknopfs nicht. Prüfe außerdem die volle Forschungsschlange. Nur abgeschlossene Forschungen verbessern deine wirksamen Schiffswerte; eine bestellte Forschung zählt noch nicht.
 
 ### Schiffswerft
 
@@ -376,6 +386,8 @@ Für seltenere Befehle gibt es unter **Markt** den Bereich **Weitere Regierungs-
 **Deine Entscheidung:** Stimme Verteidigung auf Gegnerberichte, eigene Technologie und die zu schützenden Vorräte ab. Ein Bunker schützt einen begrenzten Teil der Güter; Sensoren liefern Vorwarnung. Eine große Verteidigung ersetzt weder Versorgung noch das Saven einer beweglichen Flotte. Raketenbefehle findest du bei den weiteren Regierungs- und Flottenbefehlen.
 
 ### Flotten & Saven
+
+Der Hangar zählt alle eigenen Schiffe im Reich genau einmal: stationierte Einheiten auf deinen Planeten plus Schiffe in fliegenden Flotten. Jede Schiffskarte zeigt Bild, Gesamtbestand, die Aufteilung und wichtige wirksame Werte. **Standorte & Auswahl** übernimmt die verfügbaren Schiffe eines Planeten in die Flugplanung; **Alle Schiffsdaten** öffnet den Codex. Flugkarten zeigen Route, Fortschritt, Countdown, Zusammensetzung und Fracht.
 
 **Hier findest du:** **Neue Flotte planen**, **Eigene Flotten** und erkannte gegnerische Bewegungen. Flottenkarten zeigen Kennung, Mission, Start, Ziel, Flugphase, Zeiten, Schiffe und Fracht.
 
@@ -462,6 +474,10 @@ Für seltenere Befehle gibt es unter **Markt** den Bereich **Weitere Regierungs-
 **Beispiel:** Du sparst zwei Tage Material und dein Rang steigt kaum. Nach einem fertigen Ausbau ändern sich Investitionspunkte. Eine verlorene Flotte ist anschließend kein dauerhaft behaltenes Punktekonto. Am Epochenende zählt die festgeschriebene Abschlussrangliste.
 
 ### Technologiebaum
+
+Wähle unter **Ziel planen** eine Forschung oder ein Schiff. Der Baum verfolgt die Voraussetzungen bis zu Labor, Werft, anderen Forschungen und Zivilisationsaufstiegen zurück. Erledigte Bedingungen sind grün markiert; offene Ziele nennen deinen Stand und die benötigte Stufe. Bei Aufstiegen stehen auch Bevölkerung und Kolonien; **Alle Aufstiegsbedingungen** zeigt Versorgung, Stabilität, Haltezeit und Kosten. Klicke einen Knoten, um sein Datenblatt oder den Aufstieg zu öffnen.
+
+Ein Antrieb erhöht die Geschwindigkeit seiner Schiffe. Er ist im aktiven Standardprofil keine zusätzliche Bedingung für deren Fertigung. Schwere Schiffe werden über die Zivilisationsstufe und den Werftausbau freigeschaltet; die dafür nötigen Aufstiegsforschungen stehen im selben Baum.
 
 **Hier findest du:** Die Abhängigkeiten zwischen Zivilisationsstufe, Gebäuden, Forschung, Schiffen und Verteidigung. Er beantwortet vor allem die Frage: Was fehlt mir vor meinem nächsten Ziel?
 
@@ -716,6 +732,8 @@ Auch eine erfolgreiche Untersuchung hat ein Abschussrisiko: grundsätzlich 10 %,
 Wird die Zielflotte vorher zurückgerufen oder ist schon angekommen, kann der Kontakt verloren gehen. Der Bericht ist außerdem eine Beobachtung dieses Zeitpunkts; ein später veränderter Flugplan bleibt möglich.
 
 ## 14 Flotten verschicken und richtig saven
+
+Die Checkbox **Rückflugkraftstoff beim Abflug sichern** macht die Reserve sichtbar. Für Rückflugmissionen muss sie aktiviert sein: Der Server zieht den Treibstoff für **Hin- und Rückflug bereits am Startplaneten** ab. Ein Erztransport braucht deshalb für seine Rückkehr kein Deuteriumlager am Ziel. Zusätzlich als Fracht geladenes Deuterium wird geliefert und ist von dieser Flugreserve getrennt. Stationieren und Kolonisieren sind Einwegaufträge; dafür zeigt die Planung nur die Hinflugreserve. Flugprüfung vor dem Start zeigt den Gesamtbedarf, Frachtraum, erwartete Rückkehr und die auf dem Startplaneten verbleibenden Vorräte.
 
 ### Vor jedem Flug
 
@@ -1221,3 +1239,30 @@ Prüfe den Status. Ein besiegtes Reich ist für diese Epoche ausgeschieden. Es k
 Der [bebilderte Spielguide](../Sternenepoche-Start.html) verbindet erste Schritte, alle 21 Spielbereiche und Regeln mit aktuellen Ansichten. Die genaue Einrichtung deiner eigenen Modelle steht in den Kapiteln 6 und 20.
 
 Kosten, Voraussetzungen, Flugpläne und Berichte findest du unmittelbar bei der jeweiligen Aktion im Spiel. Diese aktuellen Angaben sind maßgeblich, wenn die laufende Epoche abweichende Einstellungen verwendet.
+
+
+## 24 Aufträge planen und Verbindungen wiederherstellen
+
+**Stand des Ausbaus:** Diese Funktionen gehören zur vorbereiteten nächsten Spielversion. Die aktuellen Download-Versionen stehen auf der Downloadseite.
+
+Eine Warteschlange ist dein geordneter Plan. Öffne **Aufträge verwalten** direkt in der Übersicht, im Gebäude-, Forschungs- oder Werftbereich. Mit den Pfeilen verschiebst du wartende Einträge; der laufende Auftrag behält seinen Fortschritt. Entferne einzelne Einträge gezielt. Falls zwischen Anzeige und Klick ein Auftrag fertig wird, prüft der Server die Liste und fordert einen neuen Abgleich an.
+
+Gebäude und wartende Forschungen werden beim Start bezahlt. Fehlen Ressourcen, bleibt das Forschungsprojekt in der Schlange und startet später automatisch. Die Anzeige unterscheidet vorherige Aufträge, fehlende Versorgung und eine Forschung ohne Laborleistung. Aktive Bau- und Forschungsarbeit wird beim Abbruch nicht erstattet. Bei Fertigung werden Ressourcen und Besatzung bei Bestellung reserviert; unbegonnene Stücke geben sie beim Entfernen zurück. Lagergrenzen gelten, bereits verbrauchte Arbeit und Rollenbudgets werden nicht erstattet.
+
+Beim lokalen Einzelspiel bleibt eine bestätigte Bestellung dauerhaft gespeichert. Jeder Simulationsschritt wird atomar gesichert. Eine Verarbeitung mit unerwartetem Fehler setzt ihre Transaktion zurück. Bei einer Verbindungsunterbrechung bleibt die letzte Ansicht lesbar und versucht alle zwei Sekunden erneut einen Abgleich. Die Android-App überwacht außerdem ihren eigenen Spielserver; drei fehlgeschlagene Erreichbarkeitsprüfungen lösen eine Wiederherstellung derselben Welt und Adresse aus. Ein Neustart setzt die Spielwelt nicht neu auf. Dauerhafte Speicherfehler werden angezeigt und müssen behoben werden; eine beschädigte Datei wird niemals durch eine neue Partie ersetzt.
+
+## 25 Flottenvielfalt, Konter und Koloniestart
+
+**Stand des Flottenausbaus:** Der neue Kodex und die Forschungswege sind bereits auf der Website nachlesbar. Die erweiterten Spielregeln werden mit der nächsten Spielversion bereitgestellt.
+
+Der [öffentliche Flottenkodex](Sternenepoche-Kodex.html) zeigt alle vier Volksstile und die vollständigen Steckbriefe. Im Spiel zeigt der **Codex** zusätzlich die tatsächlichen Kosten und Werte bei deiner Forschung. Wenn du einen Eintrag auswählst, springt seine Detailansicht in den sichtbaren Bereich.
+
+Je Volk gibt es vier Jäger, vier Transporter, vier Kreuzer, vier Schlachter, zwei Bomber, drei Zerstörer und zwei Kolonieschiffe; dazu Sonde, Bergbauschiff, Recycler und Truppentransporter. Größer bedeutet nicht automatisch besser: Treibstoff, Tempo, Kosten, Schild und Zielerfassung unterscheiden die Rollen. Schwere Jäger haben zwei verschiedene Ziele pro Runde, erfassen Bomber und kontern Plasma. Zerstörer kontern schwere Jäger; Sturmjäger wiederum kontern Zerstörer. Begleitende Kreuzer und Abfangjäger schützen vor diesen Torpedojägern.
+
+Mehrzielzahl bezeichnet verschiedene Gegner pro Runde. Schnellfeuer erzeugt zusätzliche Schüsse auf dasselbe Ziel und ist auf 64 Schüsse begrenzt. Bomber können ausschließlich von schweren Jägern, Flottenkreuzern, Schlachtschiffen aller vier Varianten und Plasmawerfern erfasst werden. Der Kampfsimulator nutzt genau diese Regeln, einschließlich Volksbonus, Waffen-, Schild- und Panzerungstechnik. Seine Wahrscheinlichkeiten beziehen sich auf die von dir eingegebenen Kräfte; unbekannte gegnerische Technik bleibt eine Eingabe, keine erfundene Null.
+
+Fünf Waffenanlagen übernehmen unterschiedliche Aufgaben: Raketen gegen bestimmte Kreuzer, Laser mit zwei Zielen gegen leichte Jäger, Ionen gegen Schilde, Gauß gegen Großschiffe und Plasma gegen Bomber. Drei Planetenschildstufen stehen im Verteidigungsbereich. Pro Planet ist eine Schildstufe aktiv; die größere ersetzt die kleinere nach Fertigstellung. Die genauen Forschungsbedingungen siehst du neben deinem erreichten Stand und im Technologiebaum.
+
+Das kleine Kolonieschiff trägt 10.000 Ressourcen und 3.000 eingeschiffte Siedler. Das große trägt 50.000 Ressourcen und 6.000 Siedler, fliegt schneller und bringt Erz- und Kristallmine bereits mit. Ein Schiff wird bei Gründung verbraucht. Solarversorgung, bei biologischen Völkern Farmen und ausreichendes Rohstofflager gehören zum Startpaket. Die Siedler werden vor Abflug aus der Startbevölkerung genommen; Fracht, Eskorte und Aufklärung gehören weiterhin zur Planung.
+
+Systemsonden entdecken Asteroidengürtel, natürliche Rohstoffringe und Bergungsfelder. Das Bergbauschiff baut Erz und Kristall an ausgewählten Gürteln oder Ringen ab; Recycler sammeln endliche Trümmer. Natürliche Bergungsfelder erscheinen einmal beim Weltaufbau beziehungsweise bei der Inhaltsmigration und werden bei Neustarts nicht neu aufgefüllt. Im Flottenbereich führen bekannte Ziele unmittelbar zum passenden Missionsplan.

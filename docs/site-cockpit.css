@@ -24,10 +24,7 @@ body { background: var(--bg); font-family: "Segoe UI Variable Text", "Segoe UI",
 .primary-nav a { color: var(--muted); letter-spacing: .04em; padding: 6px 2px; position: relative; }
 .primary-nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; border-radius: 2px; background: var(--gold); transform: scaleX(0); transition: transform .2s; }
 
-/* ---------- Knöpfe wie die .k-Familie im Cockpit */
-.button { border-radius: 10px; background: linear-gradient(180deg, #f1d39c, #c99a55); color: #1d1406; border-color: #f6dfb0;
-  box-shadow: 0 6px 22px rgba(218, 181, 123, .28), inset 0 1px 0 rgba(255, 255, 255, .5); letter-spacing: .02em; }
-.button.secondary { background: rgba(127, 211, 255, .06); color: var(--text); border-color: var(--line2); box-shadow: none; }
+/* Action surfaces are defined centrally in action-surfaces.css. */
 .text-link { color: var(--cyan); }
 .eyebrow { color: var(--gold); letter-spacing: .22em; font-family: var(--titel); }
 h2, .hero h1 { font-family: var(--titel); }
@@ -54,8 +51,6 @@ h2, .hero h1 { font-family: var(--titel); }
 .final-cta::before { opacity: .55; }
 .edition-note { color: #8ea3b8; }
 @media (hover: hover) and (pointer: fine) {
-  .button:hover { background: linear-gradient(180deg, #f6dcab, #d3a764); filter: brightness(1.04); }
-  .button.secondary:hover { background: rgba(127, 211, 255, .14); border-color: var(--cyan); }
   .primary-nav a:hover { color: var(--gold2); }
   .primary-nav a:hover::after { transform: scaleX(1); }
   .faction-card:hover, .role-card:hover, .cockpit-karte:hover { border-color: var(--line2); transform: translateY(-3px); box-shadow: 0 22px 60px rgba(0, 0, 0, .55), 0 0 0 1px rgba(127, 211, 255, .12); }

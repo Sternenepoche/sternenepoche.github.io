@@ -182,8 +182,7 @@ to{transform:translateX(calc(100vw + 170px)) translateY(-100px) rotate(140deg)}
 
 body[data-motion="paused"] .hero-planet,body[data-motion="paused"] .hero-ship,body[data-motion="paused"] .space-rock,body[data-page-hidden="true"] .hero-planet,body[data-page-hidden="true"] .hero-ship,body[data-page-hidden="true"] .space-rock{animation-play-state:paused}
 
-@media(hover:hover) and (pointer:fine){.button:hover{background:#ffe0ab}
-.button.secondary:hover{background:#1b314a}
+@media(hover:hover) and (pointer:fine){
 .primary-nav a:hover,.footer-links a:hover{color:var(--gold)}
 .faction-card:hover{border-color:#efc88b80;transform:translateY(-4px)}
 .topic-card:hover{border-color:#8be0dc80}
