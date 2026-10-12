@@ -30,6 +30,7 @@ with zipfile.ZipFile(base) as archive:
         target = work / name
         replacement = payload / name
         target.write_bytes(replacement.read_bytes() if replacement.exists() else archive.read(entry['filename']))
+subprocess.run(['git', 'init', '--quiet'], cwd=work, check=True)
 subprocess.run(['git', 'apply', '--binary', str(payload / 'cockpit.patch')], cwd=work, check=True)
 result = out / meta['filename']
 with zipfile.ZipFile(result, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
