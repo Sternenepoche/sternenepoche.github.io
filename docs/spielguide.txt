@@ -1255,7 +1255,7 @@ Beim lokalen Einzelspiel bleibt eine bestätigte Bestellung dauerhaft gespeicher
 
 **Stand des Flottenausbaus:** Der neue Kodex und die Forschungswege sind bereits auf der Website nachlesbar. Die erweiterten Spielregeln werden mit der nächsten Spielversion bereitgestellt.
 
-Der [öffentliche Flottenkodex](Sternenepoche-Kodex.html) zeigt alle vier Volksstile und die vollständigen Steckbriefe. Im Spiel zeigt der **Codex** zusätzlich die tatsächlichen Kosten und Werte bei deiner Forschung. Wenn du einen Eintrag auswählst, springt seine Detailansicht in den sichtbaren Bereich.
+Der [öffentliche Flottenkodex](../Sternenepoche-Kodex.html) zeigt alle vier Volksstile und die vollständigen Steckbriefe. Im Spiel zeigt der **Codex** zusätzlich die tatsächlichen Kosten und Werte bei deiner Forschung. Wenn du einen Eintrag auswählst, springt seine Detailansicht in den sichtbaren Bereich.
 
 Je Volk gibt es vier Jäger, vier Transporter, vier Kreuzer, vier Schlachter, zwei Bomber, drei Zerstörer und zwei Kolonieschiffe; dazu Sonde, Bergbauschiff, Recycler und Truppentransporter. Größer bedeutet nicht automatisch besser: Treibstoff, Tempo, Kosten, Schild und Zielerfassung unterscheiden die Rollen. Schwere Jäger haben zwei verschiedene Ziele pro Runde, erfassen Bomber und kontern Plasma. Zerstörer kontern schwere Jäger; Sturmjäger wiederum kontern Zerstörer. Begleitende Kreuzer und Abfangjäger schützen vor diesen Torpedojägern.
 

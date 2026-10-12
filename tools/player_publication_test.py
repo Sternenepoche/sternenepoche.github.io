@@ -18,7 +18,7 @@ def main():
         assert term in guide, 'Player model setup lost: '+term
     structured=json.loads((OUT/'docs/spielguide.json').read_text(encoding='utf-8'))
     assert next(c for c in structured['chapters'] if c['number']==20)['title']=='Deinen eigenen KI-Assistenten verbinden'
-    for name in ['index.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html','Harness-Cockpit.html','KI-Hinweis.html']:
+    for name in ['index.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html','Sternenepoche-Kodex.html','Harness-Cockpit.html','Download.html','KI-Hinweis.html']:
         document=(OUT/name).read_text(encoding='utf-8')
         for href in re.findall(r'\bhref="([^"]+)"',document):
             url=urlsplit(href)

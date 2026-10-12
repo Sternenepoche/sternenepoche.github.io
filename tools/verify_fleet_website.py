@@ -1,12 +1,12 @@
 """Read-only mobile/desktop reference QA against a local static site."""
 from pathlib import Path
-import functools,http.server,json,threading
+import functools,http.server,json,threading,os
 from playwright.sync_api import sync_playwright
-ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'laeufe/player-help-2026-10-12'
+ROOT=Path(__file__).resolve().parents[1];SITE=Path(os.environ.get('STERN_WEBSITE_TEST_ROOT',str(ROOT)));OUT=ROOT/'laeufe/player-help-2026-10-12'
 class Quiet(http.server.SimpleHTTPRequestHandler):
  def log_message(self,*a):pass
 def main():
- server=http.server.ThreadingHTTPServer(('127.0.0.1',19039),functools.partial(Quiet,directory=str(ROOT)));threading.Thread(target=server.serve_forever,daemon=True).start();checks=[]
+ server=http.server.ThreadingHTTPServer(('127.0.0.1',19039),functools.partial(Quiet,directory=str(SITE)));threading.Thread(target=server.serve_forever,daemon=True).start();checks=[]
  try:
   with sync_playwright() as p:
    browser=p.chromium.launch(channel='chrome',headless=True,args=['--use-angle=swiftshader','--enable-unsafe-swiftshader']);page=browser.new_page(reduced_motion='reduce');errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
