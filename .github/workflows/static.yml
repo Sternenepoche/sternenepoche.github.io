@@ -22,11 +22,50 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      backend: ${{ steps.scope.outputs.backend }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: scope
+        name: Determine whether game code changed
+        env:
+          BEFORE: ${{ github.event.before }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          python3 - <<'PY'
+          import os, subprocess
+          before = os.environ.get('BEFORE', '')
+          public_files = {'index.html', 'KI-Hinweis.html', 'Sternenepoche-Start.html',
+              'Sternenepoche-Handbuch.html', 'Sternenepoche-Kodex.html', 'Harness-Cockpit.html',
+              'Download.html', 'sitemap.xml', 'robots.txt', 'llms.txt', '_config.yml',
+              'web-client/art.js', 'web-client/technology-rules.js', 'web-client/public-techtree.js',
+              'web-client/public-techtree.css', '.github/workflows/static.yml',
+              'tools/website_content.py', 'tools/site_policy.py', 'tools/sync_website_catalog.py',
+              'tools/player_publication_test.py', 'tools/verify_fleet_website.py',
+              'tools/build_pages.py', 'tools/build_website.py', 'tools/build_fleet_codex.py',
+              'tools/build_landingpage.py', 'tools/build_startpage.py', 'tools/build_handbook.py',
+              'tools/build_cockpitpage.py', 'tools/build_downloadpage.py'}
+          if os.environ['EVENT_NAME'] != 'push' or not before.strip('0'):
+              backend = True
+          else:
+              paths = subprocess.check_output(['git', 'diff', '--name-only', before, 'HEAD'], text=True).splitlines()
+              backend = any(p not in public_files and not p.startswith(('docs/', 'web-client/assets/')) for p in paths)
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              out.write('backend=' + str(backend).lower() + '\n')
+          print('Game checks required:', backend)
+          PY
   verify:
+    needs: changes
+    if: needs.changes.outputs.backend == 'true'
     uses: ./.github/workflows/online-checks.yml
   # Single deploy job since we're just deploying
   deploy:
-    needs: verify
+    needs: [changes, verify]
+    if: always() && needs.changes.result == 'success' && (needs.verify.result == 'success' || needs.verify.result == 'skipped')
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -43,6 +82,8 @@ jobs:
         run: python -m pip install Pillow==12.2.0
       - name: Prepare public sources
         run: python3 tools/build_pages.py
+      - name: Verify public pages and links
+        run: python3 tools/player_publication_test.py
       - name: Build public documentation
         uses: actions/jekyll-build-pages@v1
         with:

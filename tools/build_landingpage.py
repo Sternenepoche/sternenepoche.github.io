@@ -12,7 +12,7 @@ def build():
         'url':'https://sternenepoche.github.io/','inLanguage':'de','genre':['Strategy','Space strategy'],
         'gamePlatform':['Web browser','Windows'],'playMode':['SinglePlayer','MultiPlayer'],
         'description':'Gemeinsame Weltraumstrategie mit Reichsaufbau, Forschung, Sondenaufklärung, Handel, Kolonisation und Flotten. Menschen, Serverbots und KI-Agenten spielen nach denselben Regeln.',
-        'dateModified':'2026-10-11','image':'https://sternenepoche.github.io/web-client/assets/backgrounds.start.webp',
+        'dateModified':'2026-10-12','image':'https://sternenepoche.github.io/web-client/assets/backgrounds.start.webp',
         'subjectOf':{'@type':'Article','name':'Bebilderter Sternenepoche-Spielguide','url':'https://sternenepoche.github.io/Sternenepoche-Start.html'}}
     document = document.replace('<!-- STRUCTURED_DATA -->','<script type="application/ld+json">'+json.dumps(data,ensure_ascii=False)+'</script>')
     document = decorate(finish(document),'KI-Hinweis.html')

@@ -88,7 +88,7 @@ def guide_parts() -> tuple[dict[str, str], int]:
         + ''.join(screen_links) + '</nav><div class="screen-content">' + ''.join(panels) + '</div></div>'
         '<p id="screen-status" class="sr-only" role="status"></p></div>')
     toc, articles = [], []
-    for number in range(1, 23):
+    for number in sorted(n for n in chapters if n != 23):
         title, content = chapters[number]
         target = anchors[number]
         heading = f'## {number} {title}\n\n'
@@ -101,7 +101,7 @@ def guide_parts() -> tuple[dict[str, str], int]:
         chapter = render(heading + content)
         chapter = re.sub(r'(</h3>)', lambda m: m[1] + chapter_visual(number), chapter, count=1)
         articles.append(f'<section class="guide-chapter" aria-labelledby="{target}" data-search-title="{html.escape(title, quote=True)}">{chapter}<a class="chapter-back" href="#spielguide">↑ Zur Kapitelauswahl</a></section>')
-    book = '<div class="guide-layout"><aside class="guide-index"><details open><summary>22 Kapitel zum Nachschlagen</summary><nav aria-label="Spielguide-Kapitel"><ol>' + ''.join(toc) + '</ol></nav></details><p>Kapitel 20 hilft dir, eigene OpenRouter- oder Ollama-Modelle für dein Reich einzurichten.</p></aside><div class="guide-reading">' + ''.join(articles) + '</div></div>'
+    book = '<div class="guide-layout"><aside class="guide-index"><details open><summary>'+str(len(toc))+' Kapitel zum Nachschlagen</summary><nav aria-label="Spielguide-Kapitel"><ol>' + ''.join(toc) + '</ol></nav></details><p>Kapitel 20 hilft dir, eigene OpenRouter- oder Ollama-Modelle für dein Reich einzurichten.</p></aside><div class="guide-reading">' + ''.join(articles) + '</div></div>'
     return {"ERSTE_SITZUNG": first_html, "OBERFLAECHE": screens_html, "SPIELGUIDE": book}, len(source.split())
 
 
@@ -118,7 +118,7 @@ def build() -> None:
     DESTINATION.write_text(document, encoding="utf-8")
     print(f"Erstellt: {DESTINATION}")
     print(f"Aktuelle Screenshots und Spielmotive eingebettet, {DESTINATION.stat().st_size:,} Bytes")
-    print(f"{len(SCREENS)} Bedienwege, 8 Einstiegsschritte, 22 Kapitel; Handbuchquelle: {words:,} Wörter")
+    print(f"{len(SCREENS)} Bedienwege, 8 Einstiegsschritte, Kapitel aus der aktuellen Handbuchquelle: {words:,} Wörter")
 
 
 if __name__ == "__main__":
