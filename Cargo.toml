@@ -1,6 +1,7 @@
 [workspace]
 resolver = "2"
 members = ["crates/kern", "crates/lauf", "crates/agenten", "crates/inhalt", "crates/spieler", "crates/wissen", "crates/server"]
+exclude = ["harness", "vendor/tiny_http"]
 
 [workspace.package]
 version = "0.1.0"
