@@ -1243,7 +1243,7 @@ Kosten, Voraussetzungen, Flugpläne und Berichte findest du unmittelbar bei der 
 
 ## 24 Aufträge planen und Verbindungen wiederherstellen
 
-**Stand des Ausbaus:** Diese Funktionen gehören zur vorbereiteten nächsten Spielversion. Die aktuellen Download-Versionen stehen auf der Downloadseite.
+**Stand des Ausbaus:** Diese Funktionen sind in Android 0.3.0 für lokale Welten enthalten. In Onlinewelten bestimmt der jeweilige Server den Funktionsumfang.
 
 Eine Warteschlange ist dein geordneter Plan. Öffne **Aufträge verwalten** direkt in der Übersicht, im Gebäude-, Forschungs- oder Werftbereich. Mit den Pfeilen verschiebst du wartende Einträge; der laufende Auftrag behält seinen Fortschritt. Entferne einzelne Einträge gezielt. Falls zwischen Anzeige und Klick ein Auftrag fertig wird, prüft der Server die Liste und fordert einen neuen Abgleich an.
 
@@ -1253,7 +1253,7 @@ Beim lokalen Einzelspiel bleibt eine bestätigte Bestellung dauerhaft gespeicher
 
 ## 25 Flottenvielfalt, Konter und Koloniestart
 
-**Stand des Flottenausbaus:** Der neue Kodex und die Forschungswege sind bereits auf der Website nachlesbar. Die erweiterten Spielregeln werden mit der nächsten Spielversion bereitgestellt.
+**Stand des Flottenausbaus:** Android 0.3.0 enthält diese Regeln im Einzelspiel und bei selbst gehosteten WLAN-Welten. Der Website-Kodex zeigt den vollständigen Ausbau. Onlinewelten verwenden das Regelprofil ihres Servers.
 
 Der [öffentliche Flottenkodex](../Sternenepoche-Kodex.html) zeigt alle vier Volksstile und die vollständigen Steckbriefe. Im Spiel zeigt der **Codex** zusätzlich die tatsächlichen Kosten und Werte bei deiner Forschung. Wenn du einen Eintrag auswählst, springt seine Detailansicht in den sichtbaren Bereich.
 
