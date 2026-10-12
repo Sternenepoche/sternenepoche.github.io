@@ -6,9 +6,10 @@ from build_landingpage import build as landing
 from build_startpage import build as guide
 from build_handbook import build as handbook
 from build_cockpitpage import build as cockpit
+from build_downloadpage import build as downloads
 
 def build():
-    landing(); guide(); handbook(); cockpit()
+    landing(); guide(); handbook(); cockpit(); downloads()
     source = (ROOT/'docs/HANDBUCH.md').read_text(encoding='utf-8')
     chapters = [{'number':int(m[1]),'title':m[2],'markdown':m[3].strip()}
         for m in re.finditer(r'^## (\d+) ([^\n]+)\n(.*?)(?=^## |\Z)',source,re.M|re.S)]

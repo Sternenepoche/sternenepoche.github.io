@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "code": 2,
+  "datei": "Sternenepoche-0.2.0.apk",
+  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.2.0-20261012/Sternenepoche-0.2.0.apk",
+  "sha256": "312f9f3e1bfe84c86880135709151b31ca62b6ab197f9a7d839817def8769a49",
+  "bytes": 44214924,
+  "groesse_mb": 42.2,
+  "stand": "12.10.2026",
+  "min_android": "8.0",
+  "abis": [
+    "arm64-v8a",
+    "x86_64"
+  ],
+  "hinweis": "Erste Fassung: online, eigene Welt, Handy als WLAN-Server, Handy-Modelle, Handy-Cockpit und Updates direkt in der App."
+}

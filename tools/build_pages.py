@@ -51,7 +51,7 @@ def prepare(out:Path):
     out.mkdir(parents=True,exist_ok=False)
     approved=[]
     tracked=set(subprocess.check_output(['git','ls-files','-z'],cwd=ROOT).decode('utf-8').split('\0'))
-    for name in ['index.html','KI-Hinweis.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html','Harness-Cockpit.html','_config.yml','llms.txt','robots.txt','sitemap.xml','docs/HANDBUCH.md','docs/spielguide.json','docs/spielguide.txt','docs/branding/sternenepoche-neuralstern-512.gif']:
+    for name in ['index.html','KI-Hinweis.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html','Harness-Cockpit.html','Download.html','docs/android-download.json','_config.yml','llms.txt','robots.txt','sitemap.xml','docs/HANDBUCH.md','docs/spielguide.json','docs/spielguide.txt','docs/branding/sternenepoche-neuralstern-512.gif']:
         file=ROOT/name
         if file.is_file(): approved.append(file)
     # Deliberate file list: the sibling admin directory must never be packaged.
@@ -76,7 +76,7 @@ def prepare(out:Path):
             approved.append(image)
     # Only player-facing documentation and explicitly public artwork are shipped.
     # In particular: no recursive docs export, historical viewer, inventories or awarre.html.
-    for folder in ['_layouts','docs/bilder/online','docs/bilder/kommunikation','docs/bilder/team','docs/bilder/cockpit','docs/branding','docs/artwork']:
+    for folder in ['_layouts','docs/bilder/online','docs/bilder/kommunikation','docs/bilder/team','docs/bilder/cockpit','docs/bilder/android','docs/branding','docs/artwork']:
         approved.extend(p for p in (ROOT/folder).rglob('*') if p.is_file() and p.suffix.lower() in EXT
                         and (folder=='_layouts' or p.suffix.lower() in {'.svg','.png','.jpg','.jpeg','.webp','.ico','.gif'})
                         and p.relative_to(ROOT).as_posix() in tracked
