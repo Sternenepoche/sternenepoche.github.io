@@ -1,16 +1,16 @@
 {
-  "version": "0.3.0",
-  "code": 5,
-  "datei": "Sternenepoche-0.3.0.apk",
-  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.3.0-20261012/Sternenepoche-0.3.0.apk",
-  "sha256": "cde9152dccd2de20021dd68402b7268b8dee495f30c1e78d4510c552174b3206",
-  "bytes": 47885027,
-  "groesse_mb": 45.7,
-  "stand": "12.10.2026",
+  "version": "0.3.1",
+  "code": 6,
+  "datei": "Sternenepoche-0.3.1.apk",
+  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.3.1-20261014/Sternenepoche-0.3.1.apk",
+  "sha256": "0f811261d0643665b0c182aa5069651c5e497feaeb9e42afe7b9f3191e6220cb",
+  "bytes": 49298147,
+  "groesse_mb": 47.0,
+  "stand": "14.10.2026",
   "min_android": "8.0",
   "abis": [
     "arm64-v8a",
     "x86_64"
   ],
-  "hinweis": "Flottenausbau und Forschungsbäume in lokalen Welten; kompakte Oberfläche und automatische Wiederherstellung des lokalen Servers. Online-Inhalte hängen vom Server ab."
+  "hinweis": "Aktueller Core mit Raketensilos, fünf Raketenarten, Pathfinder/Bergungsschiffen und Volksmotiven für Singleplayer und lokalen WLAN-Host. Einmaliger Neustart für Partien vor der Core-Umstellung; Altstände bleiben archiviert."
 }
