@@ -1,10 +1,10 @@
 {
-  "version": "0.3.1",
-  "code": 6,
-  "datei": "Sternenepoche-0.3.1.apk",
-  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.3.1-20261014/Sternenepoche-0.3.1.apk",
-  "sha256": "0f811261d0643665b0c182aa5069651c5e497feaeb9e42afe7b9f3191e6220cb",
-  "bytes": 49298147,
+  "version": "0.3.2",
+  "code": 7,
+  "datei": "Sternenepoche-0.3.2.apk",
+  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.3.2-20261014/Sternenepoche-0.3.2.apk",
+  "sha256": "abd78fc22fe5a5e8cb7634d32649bb919ea192be00810f0427e9d4f697dc61cc",
+  "bytes": 49330915,
   "groesse_mb": 47.0,
   "stand": "14.10.2026",
   "min_android": "8.0",
@@ -12,5 +12,5 @@
     "arm64-v8a",
     "x86_64"
   ],
-  "hinweis": "Aktueller Core mit Raketensilos, fünf Raketenarten, Pathfinder/Bergungsschiffen und Volksmotiven für Singleplayer und lokalen WLAN-Host. Einmaliger Neustart für Partien vor der Core-Umstellung; Altstände bleiben archiviert."
+  "hinweis": "Aktueller Core für Singleplayer und WLAN-Host: Zielprioritäten und Mehrfachziel-Limits im Kampf und Datenblatt, Zielboni für bevorzugte Gegner, normaler Schaden gegen andere Ziele. Raketen, Silo und alle vier Volksmotive enthalten. Aktuelle Partien bleiben fortsetzbar."
 }
