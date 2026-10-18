@@ -1,0 +1,41 @@
+/* Kopfleiste der Website – eigene Klassen (sk-*), damit sie neben dem Technologiebaum (web-client/techbaum) bestehen. */
+@font-face{font-family:Oxanium;font-weight:500;font-display:swap;src:url("{B}web-client/fonts/oxanium-latin-500-normal.woff2") format("woff2")}
+@font-face{font-family:Oxanium;font-weight:600;font-display:swap;src:url("{B}web-client/fonts/oxanium-latin-600-normal.woff2") format("woff2")}
+@font-face{font-family:Oxanium;font-weight:700;font-display:swap;src:url("{B}web-client/fonts/oxanium-latin-700-normal.woff2") format("woff2")}
+:root{color-scheme:dark;
+ --grund:#040913;--grund2:#060c18;--glas:rgba(9,20,34,.84);--glas2:rgba(13,28,46,.9);--rand:rgba(150,190,230,.18);--rand2:rgba(150,190,230,.34);
+ --text:#dfe8f1;--leise:#93a8bc;--gold:#e2bd62;--gold2:#f6dc9a;--blau:#8fd0ff;--blau2:#3fa9e0;--gruen:#56d27c;--orange:#f2a43a;--rot:#ff6464;
+ --aurelianer:#ffcf33;--krath:#ff4a2e;--veyari:#5dff7a;--syntheten:#5ab8ff;
+ --titel:Oxanium,"Segoe UI",system-ui,sans-serif;--lese:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+ --mono:"Cascadia Mono",Consolas,ui-monospace,monospace;--r:6px;--breite:1240px;--ease:cubic-bezier(.22,1,.36,1)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.springen{position:fixed;left:16px;top:-80px;z-index:200;background:var(--gold);color:#0a0f18;padding:10px 16px;border-radius:4px;font-weight:650}
+.springen:focus{top:10px}
+.sk-rahmen{width:min(var(--breite),calc(100% - 32px));margin-inline:auto}
+/* ---------- Kopfleiste ---------- */
+.sk-kopf{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,rgba(5,11,21,.97),rgba(5,11,21,.86));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--rand)}
+.sk-kopf::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(226,189,98,.6),rgba(143,208,255,.4),transparent)}
+.sk-innen{display:flex;align-items:center;gap:18px;min-height:64px}
+.sk-marke{display:inline-flex;align-items:center;gap:10px;color:var(--gold);text-decoration:none;font:700 15px/1 var(--titel);letter-spacing:.26em;white-space:nowrap}
+.sk-marke img{width:30px;height:30px}
+.sk-nav{display:flex;gap:2px;margin-left:auto;align-items:center}
+.sk-nav a{position:relative;padding:8px 10px;color:#b9cadb;text-decoration:none;font:500 13.5px/1 var(--titel);letter-spacing:.03em;border-radius:3px;white-space:nowrap}
+.sk-nav a:hover{color:#fff;background:rgba(143,208,255,.07)}
+.sk-nav a[aria-current="page"]{color:var(--gold2)}
+.sk-nav a[aria-current="page"]::after{content:"";position:absolute;left:10px;right:10px;bottom:2px;height:2px;border-radius:2px;background:var(--gold)}
+.sk-kopf .button{min-height:40px;padding:8px 16px;font:600 13px/1 var(--titel)}
+.sk-menue{display:none;margin-left:auto}
+.sk-menue summary{list-style:none;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border:1px solid var(--rand2);border-radius:4px;color:var(--text);font:600 13px/1 var(--titel);cursor:pointer;background:var(--glas)}
+.sk-menue summary::-webkit-details-marker{display:none}
+.sk-menue summary::before{content:"";width:16px;height:10px;border-block:2px solid currentColor;box-shadow:inset 0 4px 0 -2px currentColor;background:linear-gradient(currentColor,currentColor) center/100% 2px no-repeat}
+.sk-menue[open] summary{border-color:var(--gold)}
+.sk-menue nav{position:absolute;left:0;right:0;top:100%;display:grid;gap:2px;padding:10px 16px 16px;background:rgba(5,11,21,.98);border-bottom:1px solid var(--rand2);max-height:calc(100vh - 64px);overflow:auto}
+.sk-menue nav a{display:flex;justify-content:space-between;padding:12px 10px;color:var(--text);text-decoration:none;font:500 15px/1.2 var(--titel);border-bottom:1px solid var(--rand)}
+.sk-menue nav a small{color:var(--leise);font:400 12px/1.2 var(--lese)}
+.sk-menue nav a[aria-current="page"]{color:var(--gold2)}
+
+/* ---------- Knöpfe (Ergänzung zu action-surfaces.css) ---------- */
+.button{display:inline-flex;align-items:center;justify-content:center;gap:12px;text-decoration:none;font-family:var(--titel);font-size:14.5px}
+.knopfreihe{display:flex;flex-wrap:wrap;gap:12px}
+
+@media (max-width:1180px){.sk-nav{display:none}.sk-menue{display:block}.sk-kopf .button.spielen{display:none}}

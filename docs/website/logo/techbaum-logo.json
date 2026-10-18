@@ -1,0 +1,7 @@
+{
+ "saat": 1801,
+ "quelle": "docs\\website\\logo\\kandidaten\\techbaum-1801.png",
+ "prompt": "Redesign this exact emblem into the logo of a TECHNOLOGY TREE. Keep the very same four-point star unchanged in shape and material: four separated tapered faceted segments of brushed titanium and dark graphite with fine champagne-gold chamfered edges and a small icy cyan glowing diamond core. Place the star in the lower centre. From its top point grows a stylised tree of knowledge: precise machined circuit traces branching upward and outward like a symmetric tree crown, ending in seven to nine small glowing hexagonal nodes; the central trunk path glows warm gold, the outer branches glow cool cyan, built from the same metal, gold and light as the star. Premium industrial space-navigation hardware, restrained dimensional depth, front view, centred, compact square composition filling 75 percent of the canvas, iconic and readable at 32 pixels. Plain flat medium grey background.",
+ "negativ": "text, letters, numbers, words, typography, watermark, signature, frame, border, circle, ring, shield, wings, planet, scenery, stars in background, collage, multiple emblems, cartoon, flat vector clipart, blurry, cut off, cropped",
+ "modell": "qwen_image_2.1 edit, BiRefNet"
+}

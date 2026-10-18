@@ -1,0 +1,34 @@
+{
+ "dauer": 48.0,
+ "voelker": [
+  {
+   "volk": "aurelianer",
+   "name": "Aurelianer",
+   "farbe": "#ffcf33",
+   "von": 0.0,
+   "bis": 12.0
+  },
+  {
+   "volk": "krath",
+   "name": "Krath",
+   "farbe": "#ff4a2e",
+   "von": 12.0,
+   "bis": 24.0
+  },
+  {
+   "volk": "veyari",
+   "name": "Veyari",
+   "farbe": "#5dff7a",
+   "von": 24.0,
+   "bis": 36.0
+  },
+  {
+   "volk": "syntheten",
+   "name": "Syntheten",
+   "farbe": "#5ab8ff",
+   "von": 36.0,
+   "bis": 48.0
+  }
+ ],
+ "quelle": "rgba"
+}

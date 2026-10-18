@@ -1,0 +1,35 @@
+/* Kodex im Spiel-Look: überschreibt Farben und Schrift des Funktionsteils aus tools/build_fleet_codex.py. */
+.codex-bereiche{margin:0 0 4px}
+.codex-bereiche button{border-radius:4px;border-color:var(--rand2);background:var(--glas);color:#b9cadb;font:600 13.5px/1.2 var(--titel);letter-spacing:.03em}
+.codex-bereiche button[aria-pressed=true]{border-color:var(--gold);color:var(--gold2);box-shadow:inset 0 0 0 1px rgba(226,189,98,.5);background:linear-gradient(180deg,rgba(226,189,98,.14),rgba(226,189,98,.03))}
+.codex-bereiche small{margin-left:8px;color:var(--leise)}
+.codex-filter label{font:600 11px/1.2 var(--titel);letter-spacing:.14em;text-transform:uppercase;color:var(--leise)}
+.codex-filter select,.codex-filter input{border-radius:4px;border-color:var(--rand2);background:#050b15;font:15px var(--lese);letter-spacing:0;text-transform:none}
+.codex-detail{border-radius:var(--r);border-color:var(--rand);background:var(--glas)}
+.codex-art{background:radial-gradient(ellipse at center,rgba(63,169,224,.12),#02060c 70%)}
+.codex-copy h2{font-size:clamp(24px,2.6vw,32px);color:#fff}
+.codex-copy small{font:600 11px/1.3 var(--titel);letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.codex-copy h3{font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-top:1.6em}
+.codex-facts div{border-color:var(--rand)!important;background:rgba(4,9,19,.55)!important;border-radius:4px!important}
+.codex-facts dt{font:600 10.5px/1.2 var(--titel)!important;letter-spacing:.12em;text-transform:uppercase;color:var(--leise)!important}
+.codex-facts dd{font:600 16px/1.3 var(--titel)!important;color:var(--gold2)!important}
+.codex-tile{border-radius:4px;border-color:var(--rand);background:var(--glas)}
+.codex-tile[aria-pressed=true]{border-color:var(--gold);box-shadow:inset 0 0 0 1px rgba(226,189,98,.6)}
+.codex-tile span{font:500 12.5px/1.3 var(--titel)}
+.codex-texte div{border-left-color:var(--gold)}
+.codex-texte dt{font:600 10.5px/1.2 var(--titel);color:var(--blau)}
+.codex-info{border-radius:var(--r);border-color:var(--rand);background:var(--glas)}
+.codex-info h2{color:#fff;font-family:var(--titel)}
+.codex-matrix thead th{background:#050b15;font-family:var(--titel)}
+.codex-archiv>h3,.codex-archiv h4{font-family:var(--titel)}
+.codex-archiv>h3{color:var(--gold2)}
+.codex-archiv h4{color:var(--gold)}
+.codex-akte{border-radius:4px}
+.kodex-zeichnung{margin:18px 0 6px;padding-top:6px;border-top:1px solid var(--rand)}
+.kodex-stile{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px}
+.kodex-stile button{min-height:40px;padding:6px 12px;border:1px solid var(--rand2);border-radius:4px;background:var(--glas2);color:#b9cadb;font:600 12.5px/1 var(--titel);cursor:pointer}
+.kodex-stile button[aria-pressed=true]{border-color:var(--blau);color:#fff;background:linear-gradient(180deg,rgba(63,169,224,.28),rgba(63,169,224,.08))}
+.kodex-zeichnung figure{margin:0}
+.kodex-zeichnung figure button{display:block;width:100%;padding:0;border:1px solid var(--rand);border-radius:4px;background:#02060c;cursor:zoom-in}
+.kodex-zeichnung img{width:100%;height:auto;max-height:520px;object-fit:contain}
+.kodex-zeichnung figcaption{margin-top:6px;font-size:12.5px;color:var(--leise)}

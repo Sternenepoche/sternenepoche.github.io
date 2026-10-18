@@ -1,0 +1,4 @@
+/* Technologiebaum als Seite der Website: Karte (web-client/techbaum, unverändert, mit eigenem Logo) unter KI-Hinweis und Kopfleiste. */
+html,body.seite-techbaum{margin:0;height:100%;overflow:hidden;background:#02060c}
+.seite-techbaum .fuss{display:none}
+.seite-techbaum .app,.seite-techbaum .app.eingebettet{top:var(--kopfhoehe,104px)!important}

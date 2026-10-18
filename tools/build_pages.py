@@ -51,11 +51,15 @@ def prepare(out:Path):
     out.mkdir(parents=True,exist_ok=False)
     approved=[]
     tracked=set(subprocess.check_output(['git','ls-files','-z'],cwd=ROOT).decode('utf-8').split('\0'))
-    for name in ['index.html','KI-Hinweis.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html','Sternenepoche-Kodex.html','Harness-Cockpit.html','Download.html','docs/android-download.json','_config.yml','llms.txt','robots.txt','sitemap.xml','docs/HANDBUCH.md','docs/spielguide.json','docs/flottenkodex.json','docs/technologie-regeln.json','docs/spielguide.txt','docs/branding/sternenepoche-neuralstern-512.gif']:
+    for name in ['Technologiebaum.html','Weltenkruemmer.html','Lore.html','index.html','KI-Hinweis.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html','Sternenepoche-Kodex.html','Harness-Cockpit.html','Download.html','docs/android-download.json','_config.yml','llms.txt','robots.txt','sitemap.xml','docs/spielguide.json','docs/flottenkodex.json','docs/technologie-regeln.json','docs/spielguide.txt','docs/branding/sternenepoche-neuralstern-512.gif']:
         file=ROOT/name
         if file.is_file(): approved.append(file)
     # Deliberate file list: the sibling admin directory must never be packaged.
     for name in ['index.html','app.js','identity-ui.js','identity-ui.css','presentation.js','style.css','config.js','game-ui.js','communication.js','local-play.js','local-galaxy.js','agent-team.js','agent-team.css','agenten-hilfe.html','guide/team-01-modelle.webp','guide/team-02-ollama.webp','guide/team-03-openrouter.webp','guide/team-04-rollen.webp','guide/team-05-browserfreigabe.webp','guide/team-06-pinwaende.webp','guide/anfragen.webp','guide/gruenden.webp','guide/schreiben.webp','guide/chat.webp','guide/briefkasten.webp','guide/allianz.webp','guide/wirtschaft.webp','guide/hilfe.webp','guide/allianzpost.webp','game.css','technology-rules.js','public-techtree.js','public-techtree.css','art.js','three.min.js','galaxy.js','galaxy.css','cockpit-look.css','fairplay-ui.js','harness-regeln.html','ai-labels.js','loading-screen.css','loading-screen.js','brand-animation.js','loading-no-js.css','brand/neuralstern-panels.webp','brand/neuralstern-panels.png','brand/neuralstern-poster.jpg']:
+        file=ROOT/'web-client'/name
+        if file.is_file(): approved.append(file)
+    # Shared player tools are also used by the static online entry point.
+    for name in ['player-tools.js','player-tools.css','mobile-layout.css','progression.js','progression.css','queue-controls.js','rahmen.js','rahmen.css','bauseite.js','galaxie-tabelle.js','mond.js']:
         file=ROOT/'web-client'/name
         if file.is_file(): approved.append(file)
     # Exact reviewed image manifest, never the whole web-client directory.
@@ -68,7 +72,9 @@ def prepare(out:Path):
     if manifest.exists():
         raw=manifest.read_text(encoding='utf-8').removeprefix('window.STERNEN_ART=').strip().removesuffix(';')
         art=json.loads(raw)
-        for item in art['images'].values():
+        # Motive und Oberflächenkarten (Planeten/Monde als Karte und Kugel, u. a. für den Technologiebaum).
+        karten=[{'url':u} for m in art.get('maps',{}).values() for u in (m.get('karte'),m.get('kugel')) if u]
+        for item in [*art['images'].values(),*karten]:
             name=item['url'].split('?')[0]
             if not re.fullmatch(r'assets/[a-z0-9_.-]+\.webp',name): raise ValueError('Unsafe image manifest')
             image=ROOT/'web-client'/name
@@ -76,11 +82,20 @@ def prepare(out:Path):
             approved.append(image)
     # Only player-facing documentation and explicitly public artwork are shipped.
     # In particular: no recursive docs export, historical viewer, inventories or awarre.html.
-    for folder in ['_layouts','docs/bilder/online','docs/bilder/kommunikation','docs/bilder/team','docs/bilder/cockpit','docs/bilder/android','docs/branding','docs/artwork']:
+    # Website 0.4: alte Bildordner docs/bilder/* (8.–12.10.) sind ersetzt durch docs/website/fotos (tools/website/fotos.py).
+    for folder in ['_layouts','docs/branding','docs/artwork']:
         approved.extend(p for p in (ROOT/folder).rglob('*') if p.is_file() and p.suffix.lower() in EXT
                         and (folder=='_layouts' or p.suffix.lower() in {'.svg','.png','.jpg','.jpeg','.webp','.ico','.gif'})
                         and p.relative_to(ROOT).as_posix() in tracked
                         and not p.is_symlink() and not any(s in {'data','saves','keys','geheimnisse'} for s in p.parts))
+    # Website 0.4 (tools/website/bauen.py --pages): Stil und Skripte, frische Spielfotos, Weltenkrümmer-Filme,
+    # Technologiebaum-Logo, der Technologiebaum selbst und die Oxanium-Schrift. Nur versionierte Dateien.
+    web={'.css','.js','.webp','.png','.jpg','.webm','.mp4','.woff2'}
+    for folder,endungen in [('seite',web),('docs/website/fotos',{'.webp'}),('docs/website/medien',web|{'.json'}),
+                            ('docs/website/logo',{'.webp','.png'}),('web-client/techbaum',{'.css','.js'}),('web-client/fonts',{'.woff2'})]:
+        approved.extend(p for p in sorted((ROOT/folder).rglob('*')) if p.is_file() and p.suffix.lower() in endungen
+                        and 'kandidaten' not in p.parts and (folder!='docs/website/logo' or p.name.startswith('techbaum-logo'))
+                        and p.relative_to(ROOT).as_posix() in tracked and not p.is_symlink())
     # Der Rat auf der Startseite: Bühnen-Skript, Daten, Web-3D-Figuren, freigestellte Bilder und Stimmen.
     for p in sorted((ROOT/'docs/rat').rglob('*')):
         if p.is_file() and p.suffix.lower() in {'.js','.json','.glb','.ogg','.m4a','.webp'} and p.relative_to(ROOT).as_posix() in tracked and not p.is_symlink():

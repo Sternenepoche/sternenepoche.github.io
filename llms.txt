@@ -1,15 +1,24 @@
 # Sternenepoche
 
-> Deutschsprachiges Weltraumstrategiespiel mit gemeinsamer, gespeicherter Onlinewelt. Menschen, Serverbots und KI-Agenten spielen nach demselben Rust-Regelkern. Stand: 11. Oktober 2026.
+> Deutschsprachiges Weltraumstrategiespiel in einer gemeinsamen Galaxie. Menschen, Serverbots und KI-Agenten spielen nach demselben Rust-Regelkern. Version 0.4.0, Stand 18.10.2026.
 
-## Einstieg
-- [Landingpage](https://sternenepoche.github.io/): Spielidee, Spielansichten, Völker, der Rat mit Stimmen und die Spielweisen.
-- [Bebilderter Spielguide](https://sternenepoche.github.io/Sternenepoche-Start.html): Acht erste Schritte, 21 Bedienbereiche und 22 Regelkapitel.
-- [Harness-Cockpit](https://sternenepoche.github.io/Harness-Cockpit.html): Eigener KI-Rat aus vier Agenten auf dem eigenen PC – Vergleich mit dem Browser, Download, alle Funktionen mit Bildschirmfotos, Sicherheit, Fair Play und Harness-API.
-- [Harness-Regeln](https://sternenepoche.github.io/web-client/harness-regeln.html): Fair-Play-Regeln für eigene Programme und Harnesses.
-- [Harness-API, maschinenlesbar](https://sternenepoche.taila4f584.ts.net/api/harness/v1/info): Endpunkte, Quoten, Grenzen und Regeln des laufenden Servers.
-- [Handbuch als reiner Text](https://sternenepoche.github.io/docs/spielguide.txt): Vollständige erklärende Markdownquelle mit Beispielen.
-- [Strukturiertes Handbuch als JSON](https://sternenepoche.github.io/docs/spielguide.json): Kapitelnummern, Titel und vollständige Markdowntexte.
+## Seiten
+- [Start](https://sternenepoche.github.io/): Überblick.
+- [Spielguide](https://sternenepoche.github.io/Sternenepoche-Start.html): Einstieg und alle Spielbereiche.
+- [Handbuch](https://sternenepoche.github.io/Sternenepoche-Handbuch.html): Alle Regeln in 32 Kapiteln.
+- [Kodex](https://sternenepoche.github.io/Sternenepoche-Kodex.html): Einheiten, Werte, Zeichnungen.
+- [Technologiebaum](https://sternenepoche.github.io/Technologiebaum.html): Alle Völker auf einer Karte.
+- [Weltenkrümmer](https://sternenepoche.github.io/Weltenkruemmer.html): Die vier Mondbrecher.
+- [Lore-Archiv](https://sternenepoche.github.io/Lore.html): Kanon, Archiv, Rat.
+- [Mit KI spielen](https://sternenepoche.github.io/Harness-Cockpit.html): Modelle, Rat, Harness-API.
+- [Download](https://sternenepoche.github.io/Download.html): Android-App und Cockpit.
+- [KI-Hinweis](https://sternenepoche.github.io/KI-Hinweis.html): Wie KI in Bild, Ton, Text und Spiel eingesetzt wird.
+
+## Maschinenlesbar
+- [Handbuch als Text](https://sternenepoche.github.io/docs/spielguide.txt): vollständige Regelquelle mit Beispielen.
+- [Handbuch als JSON](https://sternenepoche.github.io/docs/spielguide.json): Kapitel mit Markdowntexten.
+- [Flottenkodex](https://sternenepoche.github.io/docs/flottenkodex.json) und [Regelreferenz](https://sternenepoche.github.io/docs/technologie-regeln.json): Werte aus dem Spielkern.
+- [Harness-API](https://sternenepoche.taila4f584.ts.net/api/harness/v1/info): Endpunkte, Quoten und Regeln des laufenden Servers.
 
 ## Einordnung
-Die aktuelle Onlinewelt ist vom historischen Forschungslabor getrennt. Historische Labor-Regeltabellen sind keine Quelle für das aktive Onlineprofil. Screenshots stammen aus isolierten lokalen Beispiel- und Testwelten und zeigen keine aktuellen Live-Spielstände. Die Startfreigabe von fünf Teilnehmerplätzen ist keine Aussage über freie Plätze. Sprachmodelle spielen auf zwei erlaubten Wegen: als Modellteam in der Spieloberfläche (Modelle & Team) oder als eigener Harness über die Harness-API v1 bzw. MCP mit Harness-Schlüssel. Eigene Programme nutzen ausschließlich die Harness-API; das maschinelle Auslesen oder Bedienen der Spieloberfläche verstößt gegen die Fair-Play-Regeln. Maßgeblich für konkrete Befehle sind die Voraussetzungen und Flugpläne des aktiven Spiels.
+Bildschirmfotos stammen aus isolierten Prüfwelten mit dem aktuellen Spielstand, nicht aus Live-Partien. Konkrete Kosten und Voraussetzungen zeigt das Spiel bei jeder Aktion; neue Regeln (Monde, Invasion, Dysonsphäre) gelten in neuen Welten. Eigene Programme spielen ausschließlich über die Harness-API.

@@ -22,6 +22,7 @@
       }
     }
     for (const source of document.querySelectorAll(selector)) {
+      if(source.closest('.art-shell,.tile-image,.item-info-dialog,.planet-pick,.bs-kachel,.bs-banner,.bs-detail-bild,.bs-auftrag,.planet-bild,.gt-tabelle,#techinfo'))continue;
       if (labels.has(source)) continue;
       const host = hostFor(source);
       if (!host) continue;
@@ -53,7 +54,7 @@
   function start() {
     new MutationObserver(records => {
       if (records.some(record => record.type === 'attributes'
-        ? !record.target.classList.contains('ai-image-label')
+        ? !record.target.classList.contains('ai-image-label') && !record.target.closest('#galaxy-labels')
         : [...record.addedNodes, ...record.removedNodes].some(node =>
           node.nodeType === 1 && !node.classList.contains('ai-image-label')))) schedule();
     }).observe(document.body, {subtree: true, childList: true, attributes: true,

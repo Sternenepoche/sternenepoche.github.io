@@ -28,6 +28,9 @@ CAPTIONS = {
  'freischaltungen': ('Vom Ziel rückwärts planen', 'Der Technologiebaum macht Abhängigkeiten sichtbar. Prüfe Gebäude, Forschung und Zivilisationsstufe, bevor du Rohstoffe für dein nächstes Ziel zurücklegst.'),
  'agent': ('Aufgaben bewusst an Modelle vergeben', 'Aktiviere zunächst eine Rolle und prüfe ihre Entscheidungen. Der Browser-Agent benötigt den offenen Tab und eine erreichbare Modellverbindung.'),
  'profil': ('Dein Reich bleibt dein Reich', 'Hier änderst du die Spielweise. Volk und Teilnehmerplatz bleiben in der laufenden Epoche gebunden; ein Wechsel erzeugt kein neues Reich.'),
+ 'truppen': ('Bodentruppen ausbilden und verlegen', 'Die Kaserne bildet zwölf Truppentypen aus. Fertige Truppen verteidigen ihren Planeten und fliegen nur in Truppentransportern mit.'),
+ 'grossprojekt': ('Die Dysonsphäre gemeinsam bauen', 'Bedingungen, Projektkasse, eigener Anteil und Baufortschritt der Allianz auf einen Blick; die Sphäre wächst sichtbar um die Sonne.'),
+ 'mond': ('Einen eigenen Mond ausbauen', 'Mondgebäude, Mondwerft, Versorgungsfähre, Tiefenphalanx und Sprungtor. Bezahlt wird aus dem Mondlager, nicht vom Planeten.'),
  'regeln': ('Die aktuellen Voraussetzungen im Spiel nachlesen', 'Der Browser zeigt die Regeln der aktiven Welt. Sie sind bei konkreten Bau-, Forschungs- und Flugentscheidungen maßgeblich.'),
 }
 
@@ -42,10 +45,13 @@ CHAPTER_ART = {
 
 def screenshot(key, compact=False):
     title, caption = CAPTIONS[key]
+    # Aufnahmedatum des jeweiligen Bildes statt eines festen Datums (neue Bereiche kamen später dazu).
+    bild = ROOT / 'docs/bilder/online' / f'{key}.webp'
+    stand = __import__('datetime').date.fromtimestamp(bild.stat().st_mtime).strftime('%d.%m.%Y') if bild.exists() else '11.10.2026'
     return (f'<figure class="screenshot"><button type="button" class="zoom" aria-label="Screenshot vergrößern: {html.escape(title)}">'
             f'<img src="screen://{key}.webp" alt="Aktuelle Browseroberfläche: {html.escape(title)}" width="1440" height="1000" loading="lazy" decoding="async">'
             '<span class="zoom-label" aria-hidden="true">Vergrößern ↗</span></button>'
-            f'<figcaption><b>Echte Spieloberfläche · Beispielwelt · 11.10.2026</b>{html.escape(caption)}</figcaption></figure>')
+            f'<figcaption><b>Echte Spieloberfläche · Beispielwelt · {stand}</b>{html.escape(caption)}</figcaption></figure>')
 
 def cockpit_bild(name, title, caption, stand='11.10.2026'):
     """Echtes Bildschirmfoto des Harness-Cockpits (docs/bilder/cockpit/<name>.webp), zum Vergrößern."""

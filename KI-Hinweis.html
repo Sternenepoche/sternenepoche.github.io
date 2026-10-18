@@ -1,41 +1,126 @@
 <!doctype html>
-<html lang="de">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; script-src &#x27;self&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;; img-src &#x27;self&#x27; data:; font-src &#x27;self&#x27;; connect-src &#x27;self&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;self&#x27;">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="So wird KI in Sternenepoche eingesetzt: Entwicklung, Spielgrafiken und optionale Agentensteuerung.">
-<title>KI-Hinweis · Sternenepoche</title>
-<style>
-:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#0b121d;color:#e0e9f1;font:17px/1.75 system-ui,'Segoe UI',sans-serif}main{max-width:800px;margin:auto;padding:40px 24px 72px}nav{display:flex;gap:20px;flex-wrap:wrap;font-size:14px}a{color:#eed0a1;text-underline-offset:3px}a:focus-visible{outline:2px solid #9bd8d2;outline-offset:4px}h1{font-size:clamp(32px,6vw,46px);line-height:1.15;margin:36px 0 20px}h2{font-size:23px;line-height:1.3;margin-top:36px;color:#b5ddd8}.lead{font-size:20px;color:#b6c8d6}.note{padding:18px 22px;border:1px solid #38515d;border-radius:10px;background:#10212d}footer{margin-top:40px;font-size:14px;color:#a8bdca}li{margin:10px 0}
-</style>
+<html lang="de"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-nFfUlRdJlLtq17txgZJEwTI0b3Ja9DHFdCQjQG3kcTI=&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;; img-src &#x27;self&#x27; data:; font-src &#x27;self&#x27;; connect-src &#x27;self&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;self&#x27;">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>KI-Hinweis – Sternenepoche</title>
+<meta name="description" content="Wie KI in der Sternenepoche eingesetzt wird.">
+<meta name="theme-color" content="#040913">
+<meta property="og:title" content="KI-Hinweis – Sternenepoche"><meta property="og:description" content="Wie KI in der Sternenepoche eingesetzt wird."><meta property="og:type" content="website">
+<meta property="og:image" content="https://sternenepoche.github.io/docs/website/fotos/uebersicht.webp">
+<link rel="icon" type="image/png" href="docs/branding/favicon.png">
+<link rel="preload" href="web-client/fonts/oxanium-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="seite/kopf.css?v=244884af5d">
+<link rel="stylesheet" href="seite/stil.css?v=244884af5d">
+
 <style id="site-ai-notice-style">.site-ai-notice{box-sizing:border-box;position:relative;z-index:6;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 12px;margin:0;padding:8px 16px;background:#10212d;color:#d3e3e8;border-bottom:1px solid #38515d;font:12px/1.6 system-ui,'Segoe UI',sans-serif;letter-spacing:0;text-align:center}
 .site-ai-notice .site-ai-tag{display:inline-block;padding:0 7px;border:1px solid #729e9c;border-radius:4px;color:#bce9de;font-weight:700;letter-spacing:.05em}
 .site-ai-notice a{display:inline-flex;align-items:center;min-height:28px;color:#f2d3a2;text-decoration:underline;text-underline-offset:3px;font:inherit;white-space:nowrap}
 .site-ai-notice a:focus-visible{outline:2px solid #f2d3a2;outline-offset:3px}
-@media(max-width:480px){.site-ai-notice{font-size:11px;padding:7px 12px;gap:2px 8px}.site-ai-notice .site-ai-description{flex-basis:calc(100% - 50px);text-align:left}}</style>
+@media(max-width:480px){.site-ai-notice{font-size:11px;padding:7px 12px;gap:2px 8px}.site-ai-notice .site-ai-description{flex-basis:calc(100% - 50px);text-align:left}}
+.ai-image-label{box-sizing:border-box;position:absolute;z-index:5;display:block;width:auto;min-width:0;margin:0;padding:1px 3px;border:1px solid #ffffff42;border-radius:3px;background:#07111dd9;color:#fff;font:600 8px/1.2 system-ui,'Segoe UI',sans-serif;letter-spacing:.03em;text-align:center;white-space:nowrap;pointer-events:none;transform:translate(-100%,-100%)}
+.ai-image-label[hidden]{display:none!important}
+.ai-background-label{right:3px;bottom:3px;transform:none}
+.ai-page-label{position:fixed}</style>
 </head>
-<body>
-<div class="site-ai-notice" data-ai-disclosure="true" role="note" aria-label="KI-Kennzeichnung"><span class="site-ai-tag">KI</span><span class="site-ai-description">Mit KI-Unterstützung entwickelt · Spielgrafiken mit KI erstellt</span><a href="/KI-Hinweis.html">KI-Hinweis</a></div>
-<main id="entstehung">
-<nav aria-label="Navigation"><a href="/">Startseite</a><a href="/web-client/">Anmelden &amp; spielen</a><a href="/Sternenepoche-Start.html">Spielguide</a></nav>
-<h1>KI in Sternenepoche</h1>
-<p class="lead">Sternenepoche wird mit KI-Unterstützung entwickelt. Die Spielgrafiken sind KI-generiert. Hier erfährst du, was das für dich bedeutet.</p>
-<h2>Entwicklung, Texte und Bilder</h2>
-<p>KI unterstützt die Programmierung, die Gestaltung der Oberfläche und das Schreiben der Anleitungen und Spieltexte. Die Spielmotive – darunter Völkerporträts, Planeten, Gebäude, Schiffe und Hintergründe – wurden mit dem Bildmodell Qwen Image erstellt. Sie stellen eine erfundene Spielwelt dar.</p>
-<h2>Wer spielt mit KI?</h2>
-<ul>
-<li><strong>Mensch:</strong> Du entscheidest und gibst die Befehle selbst. Dafür brauchst du kein Sprachmodell und keinen Modellschlüssel.</li>
-<li><strong>Agent:</strong> Ein von dir ausgewähltes Sprachmodell steuert die freigegebenen Rollen deines Reichs. Du kannst lokales Ollama oder OpenRouter verwenden.</li>
-<li><strong>Gemischt:</strong> Du und deine Agenten teilen ein Reich. Du bestimmst, welche Rollen die Agenten übernehmen.</li>
-<li><strong>Serverbot:</strong> Die eingebauten Bots folgen programmierten Strategien. Sie verwenden kein Sprachmodell.</li>
-</ul>
-<h2>Entscheidungen und Spielregeln</h2>
-<p>Die Rust-Spielwelt prüft jeden Befehl nach denselben Regeln. Ein KI-Agent erhält dadurch keine Sonderrechte. Modellantworten können Fehler enthalten oder ungünstige Entscheidungen treffen; in der Agentensteuerung kannst du die Entscheidungen verfolgen und die Steuerung anhalten oder übernehmen.</p>
-<h2>Modellanbieter und Daten</h2>
-<p>Ein Agent läuft in deinem geöffneten Browser. Bei Ollama gehen die Modellanfragen an deinen lokalen Ollama-Dienst. Bei OpenRouter werden die für die Agentenentscheidung bereitgestellten Spieldaten an diesen Anbieter übermittelt. OpenRouter kann dafür Kosten berechnen. Dein Modellschlüssel bleibt im Arbeitsspeicher des Browsers und wird nicht in der Spielserver-Datenbank gespeichert.</p>
-<p class="note">Die Website bindet keine Werbenetzwerke ein. KI-Modellanfragen entstehen durch die von dir aktivierte Agentensteuerung. Der KI-Hinweis kennzeichnet die Entstehung des Projekts und der Grafiken; er bedeutet nicht, dass alle Mitspieler KI-Agenten sind.</p>
-<footer>Fragen zur Bedienung? Der <a href="/Sternenepoche-Start.html#oberflaeche">Spielguide erklärt alle Spielbereiche</a>.</footer>
+<body class="">
+<div class="site-ai-notice" data-ai-disclosure="true" role="note" aria-label="KI-Kennzeichnung"><span class="site-ai-tag">KI</span><span class="site-ai-description">Bild, Ton und Text sind KI-generiert</span><a href="KI-Hinweis.html">KI-Hinweis</a></div>
+<a class="springen" href="#inhalt">Zum Inhalt</a>
+<header class="sk-kopf"><div class="sk-rahmen sk-innen">
+<a class="sk-marke" href="index.html" aria-label="Sternenepoche – Startseite"><img src="docs/branding/sternenepoche-mark.png" alt="" width="30" height="30">STERNENEPOCHE</a>
+<nav class="sk-nav" aria-label="Hauptnavigation"><a href="Sternenepoche-Start.html">Spielguide</a><a href="Sternenepoche-Handbuch.html">Handbuch</a><a href="Sternenepoche-Kodex.html">Kodex</a><a href="Technologiebaum.html">Technologiebaum</a><a href="Weltenkruemmer.html">Weltenkrümmer</a><a href="Lore.html">Lore-Archiv</a><a href="Harness-Cockpit.html">Mit KI spielen</a><a href="Download.html">Download</a></nav>
+<a class="button spielen" href="https://sternenepoche.taila4f584.ts.net/">Jetzt spielen ↗</a>
+<details class="sk-menue"><summary>Menü</summary><nav aria-label="Navigation"><a href="index.html">Start<small>Überblick</small></a><a href="Sternenepoche-Start.html">Spielguide<small>Einstieg und alle Spielbereiche</small></a><a href="Sternenepoche-Handbuch.html">Handbuch<small>Alle Regeln in 32 Kapiteln</small></a><a href="Sternenepoche-Kodex.html">Kodex<small>Einheiten, Werte, Zeichnungen</small></a><a href="Technologiebaum.html">Technologiebaum<small>Alle Völker auf einer Karte</small></a><a href="Weltenkruemmer.html">Weltenkrümmer<small>Die vier Mondbrecher</small></a><a href="Lore.html">Lore-Archiv<small>Kanon, Archiv, Rat</small></a><a href="Harness-Cockpit.html">Mit KI spielen<small>Modelle, Rat, Harness-API</small></a><a href="Download.html">Download<small>Android-App und Cockpit</small></a><a href="https://sternenepoche.taila4f584.ts.net/">Jetzt spielen ↗<small>Im Browser, sofort</small></a></nav></details>
+</div></header>
+<main id="inhalt">
+<section class="seitenkopf"><div class="rahmen"><nav class="brotkrumen" aria-label="Pfad"><a href="index.html">Start</a><span aria-hidden="true">›</span><span>KI-Hinweis</span></nav><span class="kennung">Transparenz</span><h1>KI in der Sternenepoche.</h1><p class="einleitung">Bild, Ton und Text der Sternenepoche sind KI-generiert. Auch die Entwicklung erfolgt mit KI-Unterstützung.</p></div></section><div class="rahmen lesen" style="grid-template-columns:minmax(0,1fr)"><article class="text">
+<h2 id="inhalte">Bild, Ton und Text</h2><p>Spielbilder, Filme, Stimmen, Anleitungen und Spieltexte entstehen mit KI. Bilder tragen ein kleines „KI“-Label. Die Motive – Völker, Planeten, Gebäude, Schiffe, technische Zeichnungen und Hintergründe – zeigen eine erfundene Spielwelt.</p>
+<h2 id="spieler">Wer spielt mit KI?</h2><ul><li><b>Mensch:</b> Du gibst die Befehle selbst und brauchst kein Sprachmodell.</li><li><b>Agent:</b> Ein Sprachmodell deiner Wahl steuert die Rollen, die du freigibst – über lokales Ollama oder OpenRouter.</li>
+<li><b>Gemischt:</b> Du und deine Agenten teilt euch ein Reich.</li><li><b>Harness-Cockpit:</b> Ein Rat aus vier Agenten regiert auf deinem PC über die Harness-API.</li><li><b>Serverbot:</b> Eingebaute Bots folgen programmierten Strategien und verwenden kein Sprachmodell.</li></ul>
+<h2 id="regeln">Gleiche Regeln für alle</h2><p>Die Spielwelt prüft jeden Befehl nach denselben Regeln. Ein KI-Agent erhält keine Sonderrechte. Modellantworten können Fehler enthalten; du kannst die Entscheidungen verfolgen und die Steuerung anhalten oder übernehmen.</p>
+<h2 id="daten">Modellanbieter und Daten</h2><p>Bei Ollama gehen Modellanfragen an deinen lokalen Dienst. Bei OpenRouter werden die für die Entscheidung nötigen Spieldaten an diesen Anbieter übermittelt; er kann dafür Kosten berechnen. Dein Modellschlüssel wird nicht in der Spielserver-Datenbank gespeichert. Die Website bindet keine Werbenetzwerke und keine fremden Skripte ein.</p>
+</article></div>
 </main>
-</body>
-</html>
+<footer class="fuss"><div class="rahmen">
+<div class="fuss-raster">
+<div><a class="sk-marke" href="index.html"><img src="docs/branding/sternenepoche-mark.png" alt="" width="30" height="30">STERNENEPOCHE</a>
+<p style="margin-top:12px">Weltraumstrategie in einer gemeinsamen Galaxie – im Browser, als Android-App und mit deinem eigenen KI-Rat. Version 0.4.0.</p></div>
+<div><h4>Spielen</h4><ul><li><a href="https://sternenepoche.taila4f584.ts.net/">Im Browser spielen</a></li><li><a href="Download.html">Android-App</a></li><li><a href="Harness-Cockpit.html">Harness-Cockpit</a></li><li><a href="Sternenepoche-Start.html">Erste Schritte</a></li></ul></div>
+<div><h4>Nachschlagen</h4><ul><li><a href="Sternenepoche-Handbuch.html">Handbuch</a></li><li><a href="Sternenepoche-Kodex.html">Kodex</a></li><li><a href="Technologiebaum.html">Technologiebaum</a></li><li><a href="Lore.html">Lore-Archiv</a></li></ul></div>
+<div><h4>Projekt</h4><ul><li><a href="Weltenkruemmer.html">Weltenkrümmer</a></li><li><a href="KI-Hinweis.html">KI-Hinweis</a></li><li><a href="https://github.com/Sternenepoche/sternenepoche.github.io">Quellcode</a></li></ul></div>
+</div>
+<p class="ki">Bild, Ton und Text der Sternenepoche sind KI-generiert. Seite erzeugt am 18.10.2026 aus den Spielquellen der Version 0.4.0.</p>
+</div></footer>
+<script src="seite/seite.js?v=244884af5d" defer></script>
+
+<script id="site-ai-labels">// One small label per displayed image, including images added by the game UI.
+(() => {
+  'use strict';
+  const labels = new Map();
+  const selector = 'img:not(.art-color):not([data-auth-qr]), canvas, [data-ai-image]';
+  let scheduled = false;
+  const resize = new ResizeObserver(schedule);
+
+  function schedule() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(update);
+  }
+
+  function update() {
+    scheduled = false;
+    for (const [source, label] of labels) {
+      if (!source.isConnected || label.parentElement !== hostFor(source)) {
+        resize.unobserve(source);
+        label.remove();
+        labels.delete(source);
+      }
+    }
+    for (const source of document.querySelectorAll(selector)) {
+      if(source.closest('.art-shell,.tile-image,.item-info-dialog,.planet-pick,.bs-kachel,.bs-banner,.bs-detail-bild,.bs-auftrag,.planet-bild,.gt-tabelle,#techinfo'))continue;
+      if (labels.has(source)) continue;
+      const host = hostFor(source);
+      if (!host) continue;
+      if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
+      const label = document.createElement('span');
+      label.className = 'ai-image-label';
+      label.textContent = 'KI';
+      label.setAttribute('aria-hidden', 'true');
+      if (source.hasAttribute('data-ai-image')) label.classList.add('ai-background-label');
+      if (source === document.body) label.classList.add('ai-page-label');
+      host.append(label);
+      labels.set(source, label);
+      resize.observe(source);
+    }
+    for (const [source, label] of labels) {
+      label.hidden = Math.min(source.offsetWidth, source.offsetHeight) < 64 || !source.getClientRects().length || !source.offsetWidth || !source.offsetHeight
+        || (source.tagName === 'IMG' && (!source.complete || !source.naturalWidth));
+      if (source.hasAttribute('data-ai-image')) continue;
+      // Sibling overlays preserve existing grid, flex and absolute image layouts.
+      label.style.left = `${source.offsetLeft + source.offsetWidth - 2}px`;
+      label.style.top = `${source.offsetTop + source.offsetHeight - 2}px`;
+    }
+  }
+
+  function hostFor(source) {
+    return source.hasAttribute('data-ai-image') ? source : source.parentElement;
+  }
+
+  function start() {
+    new MutationObserver(records => {
+      if (records.some(record => record.type === 'attributes'
+        ? !record.target.classList.contains('ai-image-label') && !record.target.closest('#galaxy-labels')
+        : [...record.addedNodes, ...record.removedNodes].some(node =>
+          node.nodeType === 1 && !node.classList.contains('ai-image-label')))) schedule();
+    }).observe(document.body, {subtree: true, childList: true, attributes: true,
+      attributeFilter: ['src', 'hidden', 'class', 'open']});
+    document.addEventListener('load', schedule, true);
+    document.addEventListener('error', schedule, true);
+    window.addEventListener('resize', schedule);
+    document.fonts?.ready.then(schedule);
+    schedule();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, {once: true});
+  else start();
+})();
+</script>
+</body></html>

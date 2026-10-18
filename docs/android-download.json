@@ -1,16 +1,41 @@
 {
-  "version": "0.3.2",
-  "code": 7,
-  "datei": "Sternenepoche-0.3.2.apk",
-  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.3.2-20261014/Sternenepoche-0.3.2.apk",
-  "sha256": "abd78fc22fe5a5e8cb7634d32649bb919ea192be00810f0427e9d4f697dc61cc",
-  "bytes": 49330915,
-  "groesse_mb": 47.0,
-  "stand": "14.10.2026",
-  "min_android": "8.0",
+  "version": "0.4.0",
+  "code": 19,
+  "datei": "Sternenepoche-0.4.0.apk",
+  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.0-20261018/Sternenepoche-0.4.0.apk",
+  "sha256": "17a7e7612572d3ce217154eb253aa3d2d071e0c75c384df66c18d78295461ec9",
+  "bytes": 176110307,
+  "groesse_mb": 168.0,
   "abis": [
     "arm64-v8a",
     "x86_64"
   ],
-  "hinweis": "Aktueller Core für Singleplayer und WLAN-Host: Zielprioritäten und Mehrfachziel-Limits im Kampf und Datenblatt, Zielboni für bevorzugte Gegner, normaler Schaden gegen andere Ziele. Raketen, Silo und alle vier Volksmotive enthalten. Aktuelle Partien bleiben fortsetzbar."
+  "stand": "18.10.2026",
+  "min_android": "8.0",
+  "hinweis": "Monde mit Mondgebäuden und Sprungtor, Weltenkrümmer in 3D, Schlachtkreuzer, Invasion mit Belagerung und Miliz, Dyson-Sphäre und Allianzen bis 50, Flottenführung, Antriebswechsel und Plasmatechnik, technische Zeichnungen für jede Einheit, Gesamt-Technologiebaum. Vollversion für alle Geräte, Lite nur für ARM-Handys.",
+  "varianten": [
+    {
+      "art": "lite",
+      "datei": "Sternenepoche-0.4.0-lite.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.0-20261018/Sternenepoche-0.4.0-lite.apk",
+      "sha256": "e023ba7e3ac78752ffde120e04f131fe812c05c1d526557c290a5688112346cc",
+      "bytes": 92576333,
+      "groesse_mb": 88.3,
+      "abis": [
+        "arm64-v8a"
+      ]
+    },
+    {
+      "art": "voll",
+      "datei": "Sternenepoche-0.4.0.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.0-20261018/Sternenepoche-0.4.0.apk",
+      "sha256": "17a7e7612572d3ce217154eb253aa3d2d071e0c75c384df66c18d78295461ec9",
+      "bytes": 176110307,
+      "groesse_mb": 168.0,
+      "abis": [
+        "arm64-v8a",
+        "x86_64"
+      ]
+    }
+  ]
 }

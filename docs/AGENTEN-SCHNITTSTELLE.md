@@ -157,7 +157,7 @@ aus denen der Kern ablehnt; die Ablehnung kommt immer mit einem Text zurück.
 | `fertigen` | V, F | Variante A: `planet`, `einheit` Einheit, `anzahl`; Variante B: `planet`, `bauteil` (`antriebskern` oder `habitatmodul`), `anzahl` | `anzahl` 1 | genau eines von `einheit` und `bauteil`; `anzahl` 1 bis 10.000; Zivilisationsstufe, Werftstufe, Voraussetzungen, Höchstzahl je Planet; Verwalter nur zivile Schiffe; Bauteile brauchen eine Orbitalwerft; Fertigungsschleife höchstens 5 |
 | `steuersatz` | V | `prozent` Ganzzahl | – | 0 bis 50 |
 | `prioritaeten` | V | `planet`, `reihenfolge` Array von Gebäuden | – | Doppelte werden entfernt |
-| `stufenaufstieg` | S, V | keine | – | alle Bedingungen seit `stufen_haltezeit_stunden` = 48 Stunden erfüllt; Kosten von der Heimatwelt |
+| `stufenaufstieg` | S, V | keine | – | alle Bedingungen erfüllt (seit `stufen_haltezeit_stunden` Stunden; neue Welten 0 = sofort); Kosten von der Heimatwelt |
 | `flotte_senden` | V (zivile Missionen), F (alle) | `start`, `ziel`, `mission`, `schiffe` (Objekt mit allen 12 Schiffsnamen, Ganzzahlen), `geschwindigkeit` Zahl, `ladung` (Objekt mit den 8 Frachtgütern, Zahlen), `haltedauer_stunden` Ganzzahl | `geschwindigkeit` 1.0, `ladung` leer, `haltedauer_stunden` 0 | `geschwindigkeit` 0.1 bis 1.0; Raumhafen am Start; mindestens ein Schiff, nicht mehr als vorhanden; freier Flottenplatz; Position 0 nur mit `abbau` und `abbau` nur dorthin; `halten` 1 bis 168 Stunden (`flug.halten_max_stunden`) nur bei Verbündeten; `abbau` 1 bis 48 Stunden (`flug.abbau_max_stunden`) mit Bergbauschiffen in einem System mit Gürtel; `spionage` nur Sonden; `kolonisieren` mit Kolonieschiff auf freien Platz; `blockade` und `invasion` ab Stufe 4; `invasion` nie auf Heimatwelten; Anfängerschutz |
 | `flotte_zurueckrufen` | V, F | `flotte` Ganzzahl | – | Flotte existiert und gehört dir |
 | `verband_oeffnen` | F | `flotte` | – | nur eigene ausfliegende Angriffsflotte |
@@ -210,15 +210,18 @@ Fensters beantwortet. Ein Fehler kommt als Ergebnis mit dem Feld `fehler` zurüc
 | `typ` | Felder (Schema, alle Pflicht) | Bedeutung | Ergebnis |
 |---|---|---|---|
 | `kosten` | `gebaeude`, `forschung`, `einheit`, `rakete` (je Wert oder null), `anzahl` (Ganzzahl oder null), `stufe` (Ganzzahl oder null), `planet` (Koordinate oder null) | genau eine Art wählen; `stufe` null = nächste Stufe; `anzahl` gilt für Raketen (Standard 1); `planet` null = Heimatwelt, sonst eigener Planet. Werden mehrere Arten gesetzt, gilt die Reihenfolge `rakete`, `gebaeude`, `forschung`, `einheit` | Gebäude: `stufe`, `kosten`, `bauzeit_min`, `ertrag`, `arbeiter`, `fachkraefte`, `strom`, `ab_zivilisationsstufe`. Forschung: `stufe`, `kosten`, `punkte`, `dauer_stunden`, `labor`, `ab_zivilisationsstufe`. Einheit: `kosten`, `bauzeit_min`, `besatzung`, `unterhalt_je_tag`, `ab_zivilisationsstufe`, `werft`. Rakete: `kosten`, `bauzeit_sekunden`, `kapazitaet`, `belegt` |
-| `flugzeit` | `start` (eigener Planet), `ziel`, `schiffe` (alle 12 Schiffsnamen), `geschwindigkeit` | Flugplan ohne Start | `entfernung`, `dauer_min`, `treibstoff_je_strecke`, `ladekapazitaet`, `tempo` |
-| `kampfsimulator` | `ziel`, `schiffe` | Kampf der eigenen Schiffe gegen den letzten Spionagebericht des Ziels, `kampf.simulator_laeufe` = 100 Läufe | `siegchance_prozent`, `unentschieden_prozent`, `eigene_verluste_wert`, `verluste_gegner_wert`, `beute_bei_sieg_ohne_ladegrenze`, `bericht_alter_stunden`, `technik_des_gegners` |
+| `regelkontext` | keine weiteren Felder | Versionierte wirksame Regeln, Erweiterungen und Personen-/Mengeneinheiten | `schema_version`, `protokoll_regelhash`, `wirksamer_regelhash`, Erweiterungsflags, `personen`, `gueter_reihenfolge` |
+| `wirtschaftsdiagnose` | `planet` (eigener Planet) | Aktuelle Core-Produktion erklären, ohne Änderung oder Zukunftssimulation | `kontext`, `spielzeit`, `revision`, `status`, `bestand_milli`, `berechnung` mit Werksbilanzen und Rechenschritten; bei Inaktivität keine Berechnung |
+| `kostenplan` | `planet` (eigener Planet), `positionen` (1–32) | Zwischenstufen und Serien mit den echten Preisen; keine Bau-/Zeitfreigabe | `kontext`, `revision`, `eingabehash`, Kostenpositionen/Gesamtkosten, `bestand_milli`, `fehlmenge_milli`, `crewbedarf_personen`; Formen und Beispiele im [Planer-API-Vertrag](PLANUNGS-SYSTEM-KONZEPT.md#11-api-vertrag) |
+| `flugzeit` | `start` (eigener Planet), `ziel`, `schiffe` (aktive Schiffsnamen), `geschwindigkeit` | Flugplan ohne Start | `entfernung`, `dauer_min`, `treibstoff_je_strecke`, `ladekapazitaet`, `tempo`, getrennte Personenplätze und Erklärungen für Treibstoff/Kapazität |
+| `kampfsimulator` | `ziel`, `schiffe` | Kampf der eigenen Schiffe gegen den letzten Spionagebericht des Ziels; aktive Laufzahl auf 1–64 begrenzt, insgesamt höchstens 20.000 Einheiten | `siegchance_prozent`, `unentschieden_prozent`, `eigene_verluste_wert`, `verluste_gegner_wert`, `beute_bei_sieg_ohne_ladegrenze`, `bericht_alter_stunden`, `technik_des_gegners` |
 | `regel` | `stichwort` | Regeltext nachschlagen, Abschnitte aller Rollen | `text` |
 | `galaxie` | `sektor`, `von`, `bis` | belegte Plätze eines Abschnitts, höchstens 20 Systeme | je System `nebel`, `asteroidenguertel`, `belegt` mit `position`, `spieler`, `punkte` |
 
 Der Kampfsimulator braucht einen Spionagebericht, der Schiffe und Verteidigung zeigt; sonst meldet er
 „für … liegt kein Spionagebericht vor“ oder „der Bericht zeigt Schiffe oder Verteidigung nicht“. Ohne
 Forschungsangaben im Bericht schätzt er die Technik des Gegners wie die eigene. Bei `flugzeit` und
-`kampfsimulator` zählt jede Zahl in `schiffe` als Schiff: Weil das Schema alle 12 Namen verlangt,
+`kampfsimulator` zählt jede Zahl in `schiffe` als Schiff: Weil das strikte Profilschema alle aktiven Namen verlangt,
 müssen nicht beteiligte Typen 0 sein. Im echten Lauf (`laeufe/openrouter-test`) setzte der Verwalter
 bei einer Flugzeitabfrage jeden Schiffstyp auf 1.
 
@@ -227,6 +230,10 @@ Text (höchstens zwei Treffer). Ohne Treffer kommt die Liste der Stichworte zur�
 galaxie, voelker, wirtschaft, bevoelkerung, energie, stabilitaet, steuern, lager, stufen, gebaeude,
 forschung, schiffe, verteidigung, flug, missionen, kampf, pluenderung, spionage, blockade, eroberung,
 schutz, diplomatie, markt, raketen, grossprojekte, verband, regierung.
+
+Das lesende Werkzeug **kampfszenario** erwartet `angreifer` und `verteidiger`, jeweils mit `volk`, `einheiten` (Name → Stückzahl) und `technik` (`waffentechnik`, `schildtechnik`, `panzerung`). Technikstufen liegen zwischen 0 und 30; insgesamt sind bis zu 20.000 Einheiten möglich. Angreifer dürfen nur Schiffe eingeben, Verteidiger auch stationäre Verteidigung. Die Simulation verwendet die aktiven Kampfregeln und Volksfaktoren in mehreren unabhängigen Zufallsläufen. Sie verändert weder Welt noch Weltzufall und liefert keine unbekannten Gegnerdaten. Erfolgschancen und mittlere Verluste gelten ausschließlich für das eingegebene Szenario.
+
+Das Kostenwerkzeug für Einheiten akzeptiert optional `volk` und liefert unter `werte` Grundwerte, wirksame Waffen-/Schild-/Strukturwerte, Tempo, Laderaum, Besatzung und Unterhalt. Die wirksamen Werte verwenden die Technik des anfragenden Reichs; eine fremde Volkswahl stellt keine tatsächliche gegnerische Forschung fest.
 
 ### 2.5 Beispiel einer Antwort
 
@@ -560,7 +567,7 @@ nur einmal vorgemerkt; ein dringender Auslöser macht die ganze Vormerkung dring
 | Rolle | Grund | dringend | Quelle |
 |---|---|:-:|---|
 | Stratege | Meldung vom verwalter / feldherr / diplomat | nein | `aktion.rs` |
-| Stratege | Stufenaufstieg möglich (Bedingungen seit 48 Stunden erfüllt) | nein | `wirtschaft.rs` |
+| Stratege | Stufenaufstieg möglich (alle Bedingungen erfüllt, ggf. seit der Haltezeit) | nein | `wirtschaft.rs` |
 | Stratege | Stufe erreicht | nein | `wirtschaft.rs` |
 | Stratege | Desertion | nein | `wirtschaft.rs` |
 | Stratege | Kampfbericht | nein | `flotte.rs` |

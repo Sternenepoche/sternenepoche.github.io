@@ -1,0 +1,268 @@
+{
+ "uebersicht.webp": {
+  "welt": "flotten",
+  "ziel": "reich",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:22:13"
+ },
+ "auftraege.webp": {
+  "welt": "flotten",
+  "ziel": "auftraege",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:22:16"
+ },
+ "versorgung.webp": {
+  "welt": "flotten",
+  "ziel": "versorgung",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:22:20"
+ },
+ "produktion.webp": {
+  "welt": "flotten",
+  "ziel": "kolonie",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:22:23"
+ },
+ "anlagen.webp": {
+  "welt": "flotten",
+  "ziel": "gebaeude",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:22:27"
+ },
+ "forschung.webp": {
+  "welt": "flotten",
+  "ziel": "forschen",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:22:30"
+ },
+ "technologiebaum.webp": {
+  "welt": "flotten",
+  "ziel": "freischaltungen",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:22:34"
+ },
+ "werft.webp": {
+  "welt": "flotten",
+  "ziel": "werft",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:22:37"
+ },
+ "verteidigung.webp": {
+  "welt": "flotten",
+  "ziel": "verteidigung",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:22:41"
+ },
+ "truppen.webp": {
+  "welt": "flotten",
+  "ziel": "truppen",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:22:44"
+ },
+ "flotte.webp": {
+  "welt": "flotten",
+  "ziel": "flotten",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:22:48"
+ },
+ "kampfsimulator.webp": {
+  "welt": "flotten",
+  "ziel": "warsim",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:22:52"
+ },
+ "galaxie.webp": {
+  "welt": "flotten",
+  "ziel": "karte",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:22:55"
+ },
+ "kolonisation.webp": {
+  "welt": "flotten",
+  "ziel": "kolonien",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:22:59"
+ },
+ "imperium.webp": {
+  "welt": "flotten",
+  "ziel": "imperium",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:23:02"
+ },
+ "codex.webp": {
+  "welt": "flotten",
+  "ziel": "codex",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:23:06"
+ },
+ "allianz.webp": {
+  "welt": "flotten",
+  "ziel": "allianzbereich",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:23:10"
+ },
+ "briefkasten.webp": {
+  "welt": "flotten",
+  "ziel": "briefkasten",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:23:13"
+ },
+ "berichte.webp": {
+  "welt": "flotten",
+  "ziel": "berichte",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:23:17"
+ },
+ "handel.webp": {
+  "welt": "flotten",
+  "ziel": "aktionen",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:23:20"
+ },
+ "rat.webp": {
+  "welt": "flotten",
+  "ziel": "agent",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:23:24"
+ },
+ "pinwaende.webp": {
+  "welt": "flotten",
+  "ziel": "pinwaende",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:23:28"
+ },
+ "technik-blaupause.webp": {
+  "welt": "flotten",
+  "ziel": "technik:kreuzer:blaupause",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:23:38"
+ },
+ "technik-explosion.webp": {
+  "welt": "flotten",
+  "ziel": "technik:kreuzer:explosion",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:23:47"
+ },
+ "technik-schnitt.webp": {
+  "welt": "flotten",
+  "ziel": "technik:kreuzer:schnitt",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:23:57"
+ },
+ "archiv.webp": {
+  "welt": "flotten",
+  "ziel": "archiv:kreuzer",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:24:06"
+ },
+ "uebersicht-handy.webp": {
+  "welt": "flotten",
+  "ziel": "reich",
+  "breite": 390,
+  "hoehe": 844,
+  "zeit": "2026-10-18T14:24:14"
+ },
+ "werft-handy.webp": {
+  "welt": "flotten",
+  "ziel": "werft",
+  "breite": 390,
+  "hoehe": 844,
+  "zeit": "2026-10-18T14:24:17"
+ },
+ "truppen-handy.webp": {
+  "welt": "flotten",
+  "ziel": "truppen",
+  "breite": 390,
+  "hoehe": 844,
+  "zeit": "2026-10-18T14:24:20"
+ },
+ "flotte-handy.webp": {
+  "welt": "flotten",
+  "ziel": "flotten",
+  "breite": 390,
+  "hoehe": 844,
+  "zeit": "2026-10-18T14:24:24"
+ },
+ "galaxie-handy.webp": {
+  "welt": "flotten",
+  "ziel": "karte",
+  "breite": 390,
+  "hoehe": 844,
+  "zeit": "2026-10-18T14:24:27"
+ },
+ "mond.webp": {
+  "welt": "monde",
+  "ziel": "mond",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:24:35"
+ },
+ "grossprojekt.webp": {
+  "welt": "dyson",
+  "ziel": "grossprojekt",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:24:56"
+ },
+ "grossprojekt-handy.webp": {
+  "welt": "dyson",
+  "ziel": "grossprojekt",
+  "breite": 390,
+  "hoehe": 844,
+  "zeit": "2026-10-18T14:25:04"
+ },
+ "lage.webp": {
+  "welt": "lage",
+  "ziel": "reich",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:25:12"
+ },
+ "techbaum-karte.webp": {
+  "welt": "techbaum",
+  "ziel": "http://127.0.0.1:8765/ausgabe/website/Technologiebaum.html",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:55:56"
+ },
+ "techbaum-nah.webp": {
+  "welt": "techbaum",
+  "ziel": "http://127.0.0.1:8765/ausgabe/website/Technologiebaum.html",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-18T14:56:12"
+ },
+ "techbaum-handy.webp": {
+  "welt": "techbaum",
+  "ziel": "http://127.0.0.1:8765/ausgabe/website/Technologiebaum.html",
+  "breite": 390,
+  "hoehe": 844,
+  "zeit": "2026-10-18T14:56:20"
+ }
+}
