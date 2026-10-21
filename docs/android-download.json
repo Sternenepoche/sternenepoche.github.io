@@ -1,37 +1,37 @@
 {
-  "version": "0.4.0",
-  "code": 19,
-  "datei": "Sternenepoche-0.4.0.apk",
-  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.0-20261018/Sternenepoche-0.4.0.apk",
-  "sha256": "17a7e7612572d3ce217154eb253aa3d2d071e0c75c384df66c18d78295461ec9",
-  "bytes": 176110307,
-  "groesse_mb": 168.0,
+  "version": "0.4.1",
+  "code": 20,
+  "datei": "Sternenepoche-0.4.1.apk",
+  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.1-20261021/Sternenepoche-0.4.1.apk",
+  "sha256": "23f41e647730798bd8525fb474e658df414253d8cb4baacf4bc001bbfae19d57",
+  "bytes": 181856995,
+  "groesse_mb": 173.4,
   "abis": [
     "arm64-v8a",
     "x86_64"
   ],
-  "stand": "18.10.2026",
+  "stand": "21.10.2026",
   "min_android": "8.0",
-  "hinweis": "Monde mit Mondgebäuden und Sprungtor, Weltenkrümmer in 3D, Schlachtkreuzer, Invasion mit Belagerung und Miliz, Dyson-Sphäre und Allianzen bis 50, Flottenführung, Antriebswechsel und Plasmatechnik, technische Zeichnungen für jede Einheit, Gesamt-Technologiebaum. Vollversion für alle Geräte, Lite nur für ARM-Handys.",
+  "hinweis": "Das Handy-Update: alle Formulare reagieren wieder, Übersicht wie ein Kommandostand mit Versorgungssymbolen, Flottenhangar, 3D-Sonnensystem, Tech-Datenbank und Technologiebaum im Spiel, neue Berichte, Weltenkrümmer vernichten Monde, Bots spielen bis Stufe V, bauen Dysonsphären und Weltenkrümmer und handeln mit dir, Stufe V in rund 30 Tagen, ein Asteroidengürtel in jedem System, mehr Energie. Vollversion für alle Geräte, Lite nur für ARM-Handys.",
   "varianten": [
     {
       "art": "lite",
-      "datei": "Sternenepoche-0.4.0-lite.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.0-20261018/Sternenepoche-0.4.0-lite.apk",
-      "sha256": "e023ba7e3ac78752ffde120e04f131fe812c05c1d526557c290a5688112346cc",
-      "bytes": 92576333,
-      "groesse_mb": 88.3,
+      "datei": "Sternenepoche-0.4.1-lite.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.1-20261021/Sternenepoche-0.4.1-lite.apk",
+      "sha256": "47833026ee69bbb0862be2625094560de809c012020839247694d92c152c0600",
+      "bytes": 95398477,
+      "groesse_mb": 91.0,
       "abis": [
         "arm64-v8a"
       ]
     },
     {
       "art": "voll",
-      "datei": "Sternenepoche-0.4.0.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.0-20261018/Sternenepoche-0.4.0.apk",
-      "sha256": "17a7e7612572d3ce217154eb253aa3d2d071e0c75c384df66c18d78295461ec9",
-      "bytes": 176110307,
-      "groesse_mb": 168.0,
+      "datei": "Sternenepoche-0.4.1.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.1-20261021/Sternenepoche-0.4.1.apk",
+      "sha256": "23f41e647730798bd8525fb474e658df414253d8cb4baacf4bc001bbfae19d57",
+      "bytes": 181856995,
+      "groesse_mb": 173.4,
       "abis": [
         "arm64-v8a",
         "x86_64"
