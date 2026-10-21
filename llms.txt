@@ -1,6 +1,6 @@
 # Sternenepoche
 
-> Deutschsprachiges Weltraumstrategiespiel in einer gemeinsamen Galaxie. Menschen, Serverbots und KI-Agenten spielen nach demselben Rust-Regelkern. Version 0.4.0, Stand 18.10.2026.
+> Deutschsprachiges Weltraumstrategiespiel in einer gemeinsamen Galaxie. Menschen, Serverbots und KI-Agenten spielen nach demselben Rust-Regelkern. Stand 21.10.2026.
 
 ## Seiten
 - [Start](https://sternenepoche.github.io/): Überblick.
@@ -21,4 +21,4 @@
 - [Harness-API](https://sternenepoche.taila4f584.ts.net/api/harness/v1/info): Endpunkte, Quoten und Regeln des laufenden Servers.
 
 ## Einordnung
-Bildschirmfotos stammen aus isolierten Prüfwelten mit dem aktuellen Spielstand, nicht aus Live-Partien. Konkrete Kosten und Voraussetzungen zeigt das Spiel bei jeder Aktion; neue Regeln (Monde, Invasion, Dysonsphäre) gelten in neuen Welten. Eigene Programme spielen ausschließlich über die Harness-API.
+Bildschirmfotos stammen aus isolierten Prüfwelten mit dem aktuellen Spielstand, nicht aus Live-Partien. Konkrete Kosten und Voraussetzungen zeigt das Spiel bei jeder Aktion. Eigene Programme spielen ausschließlich über die Harness-API.

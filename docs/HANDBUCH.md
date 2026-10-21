@@ -137,6 +137,8 @@ Die 30 Serverbots benutzen eingebaute Strategien: **Ökonom**, **Räuber**, **Ig
 
 Sie unterliegen ebenfalls Ressourcen, Technik, Versorgung, Flügen und Aufklärung. Sie können verlieren und ausscheiden. Ein Bot ist deshalb weder ein zusätzlicher menschlicher Account noch automatisch ein Sprachmodell.
 
+Räuberbots haben einen einstellbaren **Opferschutz** (Standard: an). Neulinge, also Reiche unter Zivilisationsstufe II oder auf Stufe II mit einer Heimatwelt, die jünger als fünf Tage ist, werden von Räuberbots weder ausgespäht noch angegriffen. Außerdem wird jedes Reich von allen Räuberbots zusammen höchstens einmal in 24 Stunden angegriffen. Der Betreiber kann beide Fristen und den Schutz selbst ändern; der Anfängerschutz unten gilt davon unabhängig.
+
 ### Was ein Browser-Agent ist
 
 Ein Browser-Agent lässt ein Sprachmodell die erlaubten Informationen deines Reiches auswerten. Das Modell kann Aktionen vorschlagen. Der Rust-Server prüft jede davon auf Besitz, Rolle, Kosten, Technologie und aktuellen Weltzustand. Ein Modell kann keinen kostenlosen Bau erzwingen oder geheime gegnerische Daten freischalten.
@@ -656,16 +658,16 @@ Die Einwohnerzahl zählt reichsweit. Bei einer verlangten Gebäudestufe genügt 
 
 | Zielstufe | Wesentliche Voraussetzungen | Aufstiegskosten |
 |---|---|---|
-| **II** | 2.000 Einwohner; Erzmine 5; Kristallmine 5; auf allen eigenen Planeten Nahrung und Energie im Plus, bei Syntheten ohne Nahrungspflicht | 2.000 Erz, 1.000 Kristall |
-| **III** | 8.000 Einwohner; Gießerei 3; Elektronikfabrik 2; Energietechnik 3; Heimatstabilität mindestens 55 | 10.000 Erz, 6.000 Kristall, 500 Legierung, 200 Elektronik |
-| **IV** | 32.000 Einwohner; Werft 4; Impulsantrieb 3; Astrophysik 1; Heimatstabilität mindestens 60; Konsumdeckung mindestens 80 % | 40.000 Erz, 25.000 Kristall, 10.000 Deuterium, 2.000 Legierung, 1.000 Elektronik |
-| **V** | 700.000 Einwohner; Hyperraumantrieb 1; mindestens drei Kolonien | 200.000 Erz, 150.000 Kristall, 50.000 Deuterium, 10.000 Legierung, 5.000 Elektronik, 5.000 Xenokristall |
+| **II** | 1.500 Einwohner; Erzmine 5; Kristallmine 5; auf allen eigenen Planeten Nahrung und Energie im Plus, bei Syntheten ohne Nahrungspflicht | 2.000 Erz, 1.000 Kristall |
+| **III** | 4.000 Einwohner; Gießerei 3; Elektronikfabrik 2; Energietechnik 3; Heimatstabilität mindestens 55 | 10.000 Erz, 6.000 Kristall, 500 Legierung, 200 Elektronik |
+| **IV** | 40.000 Einwohner; Werft 4; Impulsantrieb 3; Astrophysik 1; Heimatstabilität mindestens 60; Konsumdeckung mindestens 80 % | 40.000 Erz, 25.000 Kristall, 10.000 Deuterium, 2.000 Legierung, 1.000 Elektronik |
+| **V** | 200.000 Einwohner; Hyperraumantrieb 1; mindestens drei Kolonien | 200.000 Erz, 150.000 Kristall, 50.000 Deuterium, 10.000 Legierung, 5.000 Elektronik, 5.000 Xenokristall |
 
 Die Aufstiegskosten müssen auf dem Heimatplaneten bereitliegen. Die Oberfläche zeigt den Stand der Voraussetzungen; der Befehl **Stufenaufstieg** ist auch bei den weiteren Regierungsbefehlen zu finden.
 
 Auf der höchsten Stufe kommen große Projekte hinzu: beispielsweise ein Orbitalring mit zusätzlichen Bauplätzen und Wohnraum, ein Archiv mit stärkerer Forschung oder ein Versorgungsnetz mit höherer Energieausbeute. Auch diese Projekte kosten Material und Bauzeit.
 
-**Beispiel:** Du hast 2.000 Einwohner und die nötigen Minen, Nahrung und Strom sind im Plus. Du kannst sofort zu Stufe II aufsteigen. Sinkt später auf einer Kolonie die Energie ins Minus, bevor du aufgestiegen bist, ist die Bedingung offen, bis sie wieder erfüllt ist.
+**Beispiel:** Du hast 1.500 Einwohner und die nötigen Minen, Nahrung und Strom sind im Plus. Du kannst sofort zu Stufe II aufsteigen. Sinkt später auf einer Kolonie die Energie ins Minus, bevor du aufgestiegen bist, ist die Bedingung offen, bis sie wieder erfüllt ist.
 
 ## 12 Die Galaxie erkunden und Planeten ausspähen
 
@@ -673,7 +675,7 @@ Auf der höchsten Stufe kommen große Projekte hinzu: beispielsweise ein Orbital
 
 Die Onlinegalaxie hat zwei Sektoren mit jeweils 60 Sonnensystemen und zwölf Planetenpositionen. Eine Koordinate wie **1:27:6** bedeutet Sektor 1, System 27, Position 6.
 
-Unter **Galaxie** gehst du von der Sternwolke des Sektors zum Sonnensystem und dann zum Planeten. In der Systemansicht bewegen sich die Planeten optisch auf ihren Bahnen um die Sonne. Ziehen dreht die Kamera, Scrollen zoomt, **Kamera zentrieren** zeigt das System vollständig.
+Unter **Galaxie** gehst du von der Sternwolke des Sektors zum Sonnensystem und dann zum Planeten. In der Systemansicht bewegen sich die Planeten optisch auf ihren Bahnen um die Sonne. Ziehen dreht die Kamera, Scrollen zoomt, **Kamera zentrieren** zeigt das System vollständig. Drei Dinge nicht verwechseln: Ein **Nebelsystem** erkennst du am violett-türkisen Nebel im Hintergrund (nur ein Teil der Systeme, nie ein Heimatsystem; natürlicher Xenokristall auf den geraden Plätzen, dort violette Nebelwelten, kleinere Welten, mehr Amethystmonde). Der **Asteroidengürtel** ist das Felsband zwischen der siebten und achten Bahn – jedes System hat einen, Abbau mit Bergbauschiffen über Position 0. Ein **Trümmerfeld** ist eine Wrackwolke an einem Planeten nach Kampf oder Mondzerstörung, geborgen mit Recyclern oder Bergungsschiffen. Die Sonne antippen zeigt Nebelsystem, Gürtel und Dysonsphäre des Systems.
 
 Ein Klick auf einen Planeten, seine Nummer oder seinen Listeneintrag öffnet seine **Infokarte** über der Ansicht. Du schließt sie mit ×, Escape oder einem Klick daneben. Die Liste bietet dieselben Ziele auch ohne genaues Treffen eines bewegten Planeten.
 
@@ -1043,6 +1045,8 @@ Wähle unter **Hilferufe** einen eigenen Planeten und beschreibe die Lage. Mitgl
 
 Serverbots nutzen dieselben Aktionen und Sichtrechte. Sie stellen sich auf einen ersten privaten Brief vor und beginnen je nach Strategie ein Gespräch oder lehnen weitere Unterhaltung wegen Zeitmangel ab. Sie können selbst Kontakte, Einladungen, Allianzpost, interne Angebote und Hilferufe initiieren. Modelle erhalten die Post in ihrer erlaubten Spielersicht und entscheiden mit ihren eigenen Modellen und Rollenrechten.
 
+**Mit Bots handeln:** Schreibe einem Bot, was du brauchst oder anbietest, zum Beispiel »Ich brauche 2000 Legierung«, »Ich verkaufe dir 1000 Kristall« oder »Tausche 4000 Kristall gegen 600 Elektronik«. Der Bot antwortet mit einem Angebot: Menge, Preis je Einheit, Summe und der Weg im Markt. Du stellst unter **Handel & Markt** die passende Order ein; der Bot bedient sie sofort oder spätestens in seinem nächsten Zug, der Kern bucht die Credits, und die Ware fliegt mit der Handelsflotte zu dir. Ein Brief allein liefert nichts. Über den Preis lässt sich reden: Ein Gebot unter dem Angebot bekommt einen Gegenvorschlag, ein Gebot unter seiner letzten Grenze eine klare Absage. Bots handeln nahe am Marktwert (Erz 1, Kristall 1,5, Deuterium 3, Nahrung 0,5 Credits wie im Soforthandel, andere Güter nach ihrem Wert), deshalb gibt es bei ihnen weder Schleuderpreise noch Wucher. Ein Tausch sind zwei Orders, jede gegen Credits. Fragen wie »Wie handeln wir?«, »Was kannst du?« oder »Greifst du an?« beantworten sie ehrlich, ohne dass etwas ausgelöst wird.
+
 Bleibt die erste Antwort eines aktiven Agenten aus, versendet das System nach einer Spielstunde eine ausdrücklich **automatische Empfangsantwort**. Diese ist keine erfundene Modellentscheidung. Antworten lösen keine endlose Folge automatischer Antworten aus. Bei Pause vergeht keine Spielzeit; ausgeschiedene Reiche handeln nicht mehr.
 
 ### Was wird für spätere Epochen ausgewertet?
@@ -1389,7 +1393,7 @@ Die Kosten der Stufe n betragen Grundkosten × Faktor^(n−1). Bezahlt wird aus 
 
 **Beispiel:** Mondbasis Stufe 5 kostet 44.205 Erz, 88.410 Kristall und 44.205 Deuterium, Stufe 10 bereits 283.342 Erz, 566.685 Kristall und 283.342 Deuterium.
 
-**Werftdock:** Es zählt als Werftstufe für alles, was auf dem Mond gefertigt wird: Schiffe, Verteidigung, Solarsatelliten und ab Stufe 10 Weltenkrümmer. Die Bauzeit ist dort 25 % länger als in einer Planetenwerft. Antriebskerne und Habitatmodule entstehen nur in der Orbitalwerft eines Planeten und müssen geliefert werden. Als **Reparaturdock** setzt das Werftdock nach einem Kampf am Mond oder an seinem Planeten, in dem du Verteidiger warst, **3 % je Stufe, höchstens 30 %** deiner dort verlorenen Schiffe wieder instand. Das kostet 10 % des Schiffspreises und 10 % der Bauzeit; die Schiffe erscheinen auf dem Mond. Verteidigung und Weltenkrümmer repariert es nicht, und reparierte Schiffe hinterlassen keine Trümmer.
+**Werftdock:** Es zählt als Werftstufe für alles, was auf dem Mond gefertigt wird: Schiffe, Verteidigung, Solarsatelliten und ab Stufe 10 Weltenkrümmer. Die Bauzeit ist dort so lang wie in einer Planetenwerft der gleichen Stufe (bis 20.10.2026: 25 % länger). Antriebskerne und Habitatmodule entstehen nur in der Orbitalwerft eines Planeten und müssen geliefert werden. Als **Reparaturdock** setzt das Werftdock nach einem Kampf am Mond oder an seinem Planeten, in dem du Verteidiger warst, **3 % je Stufe, höchstens 30 %** deiner dort verlorenen Schiffe wieder instand. Das kostet 10 % des Schiffspreises und 10 % der Bauzeit; die Schiffe erscheinen auf dem Mond. Verteidigung und Weltenkrümmer repariert es nicht, und reparierte Schiffe hinterlassen keine Trümmer.
 
 **Ortungsschleier:** Jede Stufe erhöht die Schwellen einer Spionage auf diesen Mond um eins. Außerdem verbirgt er die Öffnung eines Hyperraumlochs vor fernen Tiefenphalanxen, deren Stufe nicht höher ist als der Schleier.
 
@@ -1512,7 +1516,7 @@ Der **Weltenkrümmer**, von seinen Besatzungen **Weltenkrümmer** genannt, ist e
 | Kosten | 5.000.000 Erz, 4.000.000 Kristall, 1.000.000 Deuterium, 100.000 Legierung, 50.000 Elektronik, 20.000 Xenokristall, 20 Antriebskerne |
 | Struktur / Schild / Angriff | 9.000.000 / 50.000 / 200.000, vier Ziele je Runde |
 | Ladung / Tempo / Verbrauch / Besatzung | 1.000.000 / 100 / 1 / 5.000, Hyperraumantrieb |
-| Bau | nur im **Werftdock Stufe 10** eines Mondes; Zivilisationsstufe V, Hyperraumantrieb 6, Waffentechnik 10 |
+| Bau | nur im **Werftdock Stufe 10** eines Mondes; Zivilisationsstufe V, Hyperraumantrieb 5, Waffentechnik 8 (bis 20.10.2026: 6 und 10) |
 | Schnellfeuer | 64 gegen Spionagesonden, Transporter, Recycler und Solarsatelliten; 50 gegen leichte Jäger, Raketenwerfer und Lasergeschütze; 33 gegen Kreuzer; 30 gegen Schlachtschiffe; 25 gegen Bomber und Ionengeschütze; 15 gegen Schlachtkreuzer und Abfang-Schlachtkreuzer; 12 gegen Gaußkanonen; 8 gegen Schwere Schlachtkreuzer; 5 gegen Zerstörer |
 
 Eine Planetenwerft lehnt den Bau ab. Der Weltenkrümmer passt durch kein Hyperraumloch, das Reparaturdock setzt ihn nicht instand, und gegen Monde fliegt er nur Angriff, Mond zerstören, Transport oder Stationieren. Mit Tempo 100 ist er extrem langsam und braucht für weite Strecken entsprechend lange. Wird er zerstört, hinterlässt er 2.700.000 Trümmer und damit allein die volle Mondchance von 20 %.
@@ -1603,7 +1607,7 @@ Auf Plätzen mit TF-Angabe braucht dein Volk die genannte Stufe **Terraforming**
 
 ### Sonnenenergie, Solarkraftwerk und Solarsatelliten
 
-Der **Sonnenfaktor** hängt nur vom Platz ab: Platz 6 erhält 100 %, innen mehr, außen weniger bis 20 % auf dem letzten Platz. Ein Solarkraftwerk der Stufe n liefert 26,4 × n × 1,1^n × Sonnenfaktor × (1 + 5 % je Stufe Energietechnik) Energie je Stunde; Syntheten erhalten 10 % mehr.
+Der **Sonnenfaktor** hängt nur vom Platz ab: Platz 6 erhält 100 %, innen mehr, außen weniger bis 20 % auf dem letzten Platz. Ein Solarkraftwerk der Stufe n liefert 29,04 × n × 1,1^n × Sonnenfaktor × (1 + 5 % je Stufe Energietechnik) Energie je Stunde, ein Fusionskraftwerk 55 × n × 1,1^n × (1 + 5 % je Stufe Energietechnik), ein Solarsatellit 33 × Sonnenfaktor der Bahn (alle drei seit 20.10.2026 10 % mehr). Syntheten erhalten bei Solar und Satelliten 10 % mehr; ihre Fusionskraftwerke liefern in neuen Welten 30 % mehr als die anderer Völker, bei gleichen Kosten.
 
 Ab Zivilisationsstufe II baust du in Welten mit Monden über jedem eigenen Planeten mit Werft 1 **Solarsatelliten** für 2.000 Kristall und 500 Deuterium. Jeder liefert **30 × Sonnenfaktor** Energie, ebenfalls mit Energietechnik und Volksbonus, auf einem Mond zusätzlich mit dem Faktor seines Typs. Die Energie je Satellit hängt also von der Bahn ab; die Bauseite zeigt dir den Wert für deinen Planeten. Satelliten belegen kein Feld, brauchen keine Besatzung und keinen Unterhalt, fliegen nie, sind wehrlos, kämpfen bei jeder Verteidigung ihres Ortes mit, werden danach nicht wiederaufgebaut und hinterlassen je 600 Kristall Trümmer.
 
@@ -1766,13 +1770,13 @@ Den Bau startet die Allianzleitung, wenn **gleichzeitig** gilt:
 
 - **Alle zwölf Plätze** des Systems sind von Mitgliedern der Allianz besiedelt.
 - Mindestens **10 Projektmitglieder** mit Planet im System haben ihren Anteil **voll eingezahlt**.
-- Alle diese Projektmitglieder stehen auf **Zivilisationsstufe V** und sind seit mindestens **14 Spieltagen** in der Allianz.
+- Alle diese Projektmitglieder stehen auf **Zivilisationsstufe V** und sind seit mindestens **7 Spieltagen** in der Allianz (bis 20.10.2026: 14).
 
 Der Reiter **Großprojekt** zeigt diese Bedingungen als Häkchenliste mit Ist- und Sollwerten.
 
 ### Bau, Ruhen und Abbruch
 
-Der Bau dauert **30 Spieltage**, bei 1× also 30 reale Tage. Die Phasen heißen Gerüst, Äquatorgürtel, Halbschale, Polkappen und vollendet. Vor der Fertigstellung wirkt die Sphäre nicht.
+Der Bau dauert **15 Spieltage** (bis 20.10.2026: 30), bei 1× also 15 reale Tage. Die Phasen heißen Gerüst, Äquatorgürtel, Halbschale, Polkappen und vollendet. Vor der Fertigstellung wirkt die Sphäre nicht.
 
 Fällt eine Bedingung weg, weil ein Platz verloren geht oder weniger als zehn eingezahlte Projektmitglieder übrig sind, **ruht** der Bau; der Fortschritt friert ein. Ist die Bedingung wieder erfüllt, läuft er weiter. Ruht er insgesamt **14 Spieltage**, wird er abgebrochen. Die Allianzleitung kann auch selbst abbrechen. Nach einem Abbruch ist das System **30 Spieltage** für ein neues Projekt gesperrt.
 
@@ -1801,7 +1805,7 @@ Auch dieser Ertrag endet an der Lagergrenze des Planeten und ist plünderbar. Ei
 
 Die Sphäre selbst ist kein Kampfziel. Verwundbar ist das System: Sie wirkt nur, solange die Eigner-Allianz **mindestens sechs der zwölf Plätze** hält. Sonst ist sie **verwaist** und wirkt nicht. Hält eine Allianz, auch eine fremde, **7 Spieltage** lang alle Plätze mit mindestens zehn Mitgliedern, geht die verwaiste Sphäre an sie über. Verliert ein angeschlossener Planet seinen Besitzer, erlischt sein Anschluss sofort.
 
-**Beispiel:** In einer 365-Tage-Welt zahlen zwölf Projektmitglieder je 55 Millionen Erz, Kristall und Deuterium ein, insgesamt 660 Millionen je Gut. Nach 30 Bautagen erhalten vier angeschlossene Planeten je 82.500 Deuterium in der Stunde. Erobert ein Gegner danach sieben der zwölf Plätze, verwaist die Sphäre, bis die Allianz das System zurückgewinnt.
+**Beispiel:** In einer 365-Tage-Welt zahlen zwölf Projektmitglieder je 7 Millionen Erz, Kristall und Deuterium ein, insgesamt 84 Millionen je Gut (bis 21.10.2026: 28 Millionen, bis 20.10.2026: 55 Millionen). Nach 15 Bautagen erhalten vier angeschlossene Planeten je 10.500 Deuterium in der Stunde; die absoluten Mengen folgen dem Anteil, Sonnenfaktor und Strombad gelten voll. Erobert ein Gegner danach sieben der zwölf Plätze, verwaist die Sphäre, bis die Allianz das System zurückgewinnt.
 
 ### Großprojekt-Reiter und Galaxie
 

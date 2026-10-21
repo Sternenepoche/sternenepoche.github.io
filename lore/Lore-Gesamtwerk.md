@@ -1,6 +1,6 @@
 # Sternenepoche – Lore-Gesamtwerk
 
-Die gesamte geltende Lore an einem Ort, erzeugt am 18.10.2026 11:24 aus `docs/LORE-BIBEL.md`, `content/beschreibungen.json`, `docs/rat/rat.json` und `web-client/audio/bots/texte.json`. **Nicht hier ändern:** Lore wird in diesen Quellen geändert und danach mit `python -X utf8 tools/content/lore_gesamtwerk.py` neu erzeugt.
+Die gesamte geltende Lore an einem Ort, erzeugt am 21.10.2026 09:44 aus `docs/LORE-BIBEL.md`, `content/beschreibungen.json`, `docs/rat/rat.json` und `web-client/audio/bots/texte.json`. **Nicht hier ändern:** Lore wird in diesen Quellen geändert und danach mit `python -X utf8 tools/content/lore_gesamtwerk.py` neu erzeugt.
 
 ## Teil I · Der Kanon (Lore-Bibel)
 
@@ -83,7 +83,9 @@ Deuterium und Nahrung einer Bahn ändert es nicht.
 
 - **Nebelsysteme** liegen in einem auffällig *regelmäßigen* Raster: System 5, 15, 25 … – sechs je Sektor. Nur dort gibt es
   **Xenokristall**. Die Regelmäßigkeit ist das größte Rätsel der Astrophysik (siehe 3.2, „Zehnerraster“).
-- **Asteroidengürtel** liegen in jedem fünften System (3, 8, 13 …). Bergbauschiffe holen dort Erz und Kristall ohne Mine.
+- **Asteroidengürtel** umgeben jedes Sonnensystem (Position 0, Band zwischen der siebten und achten Bahn; seit 20.10.2026,
+  vorher jedes fünfte). Bergbauschiffe holen dort Erz und Kristall ohne Mine. Ein Gürtel ist kein Nebel (der liegt nur in
+  Nebelsystemen) und kein Trümmerfeld (Wrackreste an Planeten, geborgen von Recyclern und Bergungsschiffen).
 - **Monde** entstehen nicht von selbst: Sie sind **verdichtete Schlachttrümmer** (siehe 4.9). Jeder Mond der Weite ist
   ein Denkmal einer Schlacht.
 
@@ -120,10 +122,10 @@ Epochen tauchen in Expeditionsberichten auf.
 | Stufe | Name | Bedingungen (Regelwerk) | Erzählung |
 |---|---|---|---|
 | I | Gründungszeit | Start | Landnacht, Solarfolie, Bohrturm, die erste Akademie in einer Halle aus Archenrumpf. Alles ist Bausatz und Improvisation. |
-| II | Industrie | 2.000 Einwohner, Erzmine 5, Kristallmine 5 | Die ersten Brecher laufen im Takt. Gießerei, Elektronikwerk, Fusion, erste Jäger und Frachter. |
-| III | Orbit | 8.000 Einwohner, Gießerei 3, Elektronikwerk 2, Energietechnik 3, Stabilität 55 | Der Himmel wird Arbeitsplatz: Markt, Phalanx, Silos, Bergbau im Gürtel. |
-| IV | Sternenflug | 32.000 Einwohner, Werft 4, Impulsantrieb 3, Astrophysik 1, Stabilität 60, Konsum 80 % | Impulsflotten, Orbitalwerft, Kolonieschiffe, Kreuzer, Gaußkanone, erster Planetenschild. Die ersten Monde (Kreuzerwinter) und Mondbasen. Kaserne, Bodentruppen und Truppentransporter – noch ohne Landung auf fremdem Boden, denn die braucht Bomber. Aus einer Welt wird ein Reich. |
-| V | Imperium | 700.000 Einwohner, Hyperraumantrieb 1, 3 Kolonien | Hyperraum, Schlachtschiffe, Flottenkreuzer, Plasmawerfer, Bomber (und mit ihnen die ersten Landungen), Zerstörer, Schlachtkreuzer, Planetenschild II und III, Orbitalring, Sprungtore, Weltenkrümmer; als Allianzwerk die Dysonsphäre. |
+| II | Industrie | 1.500 Einwohner, Erzmine 5, Kristallmine 5 | Die ersten Brecher laufen im Takt. Gießerei, Elektronikwerk, Fusion, erste Jäger und Frachter. |
+| III | Orbit | 4.000 Einwohner, Gießerei 3, Elektronikwerk 2, Energietechnik 3, Stabilität 55 | Der Himmel wird Arbeitsplatz: Markt, Phalanx, Silos, Bergbau im Gürtel. |
+| IV | Sternenflug | 40.000 Einwohner, Werft 4, Impulsantrieb 3, Astrophysik 1, Stabilität 60, Konsum 80 % | Impulsflotten, Orbitalwerft, Kolonieschiffe, Kreuzer, Gaußkanone, erster Planetenschild. Die ersten Monde (Kreuzerwinter) und Mondbasen. Kaserne, Bodentruppen und Truppentransporter – noch ohne Landung auf fremdem Boden, denn die braucht Bomber. Aus einer Welt wird ein Reich. |
+| V | Imperium | 200.000 Einwohner, Hyperraumantrieb 1, 3 Kolonien | Hyperraum, Schlachtschiffe, Flottenkreuzer, Plasmawerfer, Bomber (und mit ihnen die ersten Landungen), Zerstörer, Schlachtkreuzer, Planetenschild II und III, Orbitalring, Sprungtore, Weltenkrümmer; als Allianzwerk die Dysonsphäre. |
 
 Die Stufen sind **Kanon für den Klang**: Ein Text über eine Stufe-II-Anlage klingt nach Staub, Schweiß und Improvisation;
 ein Text über eine Stufe-V-Einheit nach Großwerft, Admiralität und Machtpolitik.
@@ -677,11 +679,11 @@ Die Erzmine ist eine kombinierte Tagebau- und Stollenanlage, die Eisen-, Nickel-
 
 Die erste Ausbaustufe liefert 30 Erz Grundertrag und kostet 60 Erz und 15 Kristall, und jede weitere Stufe teuft eine neue Sohle ab, verlängert die Bänder und kostet das 1,43-Fache der vorigen. Der Betrieb braucht 25 Arbeiter und 10 Strom für Brecher, Bandantriebe und die Wasserhaltung, die eindringendes Grundwasser abpumpt. Fachkräfte braucht sie keine, was sie zur einfachsten Anlage jeder Gründung macht, und Automatisierung spart je Stufe 4 Prozent der Arbeiter bis zu einer Grenze von 50 Prozent.
 
-Ihre Schwäche liegt im Wesen der Sache, denn gefördertes Erz liegt offen in Halden und Lagern, wo Plünderer es holen, und was über die Lagergrenze hinaus gefördert wird, verpufft. Fünf Ausbaustufen Erzmine sind neben fünf Stufen Kristallmine und 2.000 Einwohnern die Bedingung für den Aufstieg ins Industriezeitalter.
+Ihre Schwäche liegt im Wesen der Sache, denn gefördertes Erz liegt offen in Halden und Lagern, wo Plünderer es holen, und was über die Lagergrenze hinaus gefördert wird, verpufft. Fünf Ausbaustufen Erzmine sind neben fünf Stufen Kristallmine und 1.500 Einwohnern die Bedingung für den Aufstieg ins Industriezeitalter.
 
 ##### Chronik
 
-Die Erzmine ist so alt wie jede Gründung, denn ihr Bausatz gehört seit der Ersten Öffnung zur Startausstattung jeder Arche, gemeinsam mit Kristallmine, Farm, Solarfeld, Wohnblock und Lager. Mit den 2.000 Erz aus dem Laderaum wird sie in den meisten Kolonien als Erstes ausgebaut, und die Chronik verbindet sie mit der Landnacht, weil ihr Brecher oft anläuft, bevor der erste Wohnblock bezogen ist. Aus ihrem Erz entstand im Industriezeitalter die Gießerei, deren Legierung Rümpfe und Panzerplatten erst möglich machte. Im Orbitzeitalter bekam sie Gesellschaft durch das Bergbauschiff, das in den Asteroidengürteln jedes fünften Systems Erz ohne Planetenfelder fräst, doch keine Flotte hat je die heimische Mine ersetzt.
+Die Erzmine ist so alt wie jede Gründung, denn ihr Bausatz gehört seit der Ersten Öffnung zur Startausstattung jeder Arche, gemeinsam mit Kristallmine, Farm, Solarfeld, Wohnblock und Lager. Mit den 2.000 Erz aus dem Laderaum wird sie in den meisten Kolonien als Erstes ausgebaut, und die Chronik verbindet sie mit der Landnacht, weil ihr Brecher oft anläuft, bevor der erste Wohnblock bezogen ist. Aus ihrem Erz entstand im Industriezeitalter die Gießerei, deren Legierung Rümpfe und Panzerplatten erst möglich machte. Im Orbitzeitalter bekam sie Gesellschaft durch das Bergbauschiff, das in den Asteroidengürteln jedes Systems Erz ohne Planetenfelder fräst, doch keine Flotte hat je die heimische Mine ersetzt.
 
 ##### Volksakten
 
@@ -1262,7 +1264,7 @@ Nach einem Überfall ist das Saatgut das Erste, was wieder ans Licht getragen wi
 
 **Grenzen.** Er ist Voraussetzung für jeden Aufstieg nach Einwohnerzahl, belegt aber Felder, die später Industrie fehlen.
 
-> Die frühen Wohnblöcke sind enge Kästen aus vorgefertigten Platten, gestapelt so hoch, wie die Schwerkraft erlaubt, und der erste kommt als Bausatz durch die Schwelle. In ihnen werden aus 1.000 Siedlern der Landnacht irgendwann 700.000 Bürger eines Imperiums.
+> Die frühen Wohnblöcke sind enge Kästen aus vorgefertigten Platten, gestapelt so hoch, wie die Schwerkraft erlaubt, und der erste kommt als Bausatz durch die Schwelle. In ihnen werden aus 1.000 Siedlern der Landnacht irgendwann 200.000 Bürger eines Imperiums.
 
 - **Aurelianer:** Aurelianer vermieten Wohnungen mit Blick auf den Raumhafen teurer, und der Zehnt mit Quittung macht jeden Mieter zu einem Steuerzahler, der gern zahlt. Die Fassaden der Serie Hospitalitas tragen geschwungene Elfenbeinbalkone, denn ein schönes Viertel zieht zahlungskräftige Bürger an.
 - **Krath:** Krath-Wohnblöcke heißen Clanhallen, mit Gemeinschaftshallen statt Wohnzimmern und Übungsplätzen auf dem Dach. Wer einzieht, schwört dem Clan, dessen Namen der Block trägt, vor dem Eingang Treue.
@@ -1273,7 +1275,7 @@ Nach einem Überfall ist das Saatgut das Erste, was wieder ans Licht getragen wi
 
 Der Wohnblock ist eine mehrstöckige Wohnanlage aus vorgefertigten Platten mit Grundversorgung, also Wasser, Abwasser, Luftaufbereitung, Wärme und Licht für jede Wohnung. Die Platten werden im Fertigteilwerk gegossen, mit Dämmkern und Leitungskanälen versehen und auf der Baustelle verschraubt, und die Bauhöhe richtet sich nach der Schwerkraft der Welt, weil die unteren Geschosse das Gewicht der oberen tragen. Die erste Ausbaustufe schafft 700 Wohnraum, kostet nur 120 Erz und 40 Kristall und braucht 3 Arbeiter und 3 Strom für Pumpen, Lüftung und Aufzüge, und jede weitere Stufe stockt auf oder setzt einen Block daneben, zum 1,4-Fachen der vorigen Kosten.
 
-Das Bevölkerungswachstum folgt einer logistischen Kurve, denn solange Wohnraum frei ist, wächst die Kolonie kräftig, und je näher sie an die Grenze kommt, desto mehr flacht es ab. Bleiben mindestens 20 Prozent des Wohnraums frei, erhält die Kolonie den vollen Stabilitätsbonus von 10 Punkten, weil niemand sich eine Wohnung mit Fremden teilen muss. Jeder Aufstieg nach Einwohnerzahl hängt an ihm, von 2.000 Einwohnern für die Industrie über 8.000 für den Orbit und 32.000 für den Sternenflug bis 700.000 für das Imperium.
+Das Bevölkerungswachstum folgt einer logistischen Kurve, denn solange Wohnraum frei ist, wächst die Kolonie kräftig, und je näher sie an die Grenze kommt, desto mehr flacht es ab. Bleiben mindestens 20 Prozent des Wohnraums frei, erhält die Kolonie den vollen Stabilitätsbonus von 10 Punkten, weil niemand sich eine Wohnung mit Fremden teilen muss. Jeder Aufstieg nach Einwohnerzahl hängt an ihm, von 1.500 Einwohnern für die Industrie über 4.000 für den Orbit und 40.000 für den Sternenflug bis 200.000 für das Imperium.
 
 Seine Schwäche ist der Boden, denn jeder Block belegt Felder, die der Industrie fehlen, bis der Orbitalring 50.000 Wohnraum über die Wolken hebt.
 
@@ -2567,7 +2569,7 @@ Seither legt jede Besatzung vor dem ersten Sprung eines neuen Schiffs einen Same
 
 ##### Technisches Dossier
 
-Astrophysik ist die Vermessung der Weite: Spektrografen zerlegen das Licht jedes Sterns in seine Linien und verraten Temperatur, Alter und Strahlungsruhe, Bahnmechaniker berechnen die zwölf Bahnen eines Systems, und Planetologen lesen aus Rückstrahlung, Masse und Atmosphärenspektrum, welche Welt Leben trägt. Ihre Grundordnung ist die Zonenlehre, nach der die Glutzone der Bahnen 1 bis 3 kleine Welten mit kargen Böden trägt, die Lebenszone der Bahnen 4 bis 8 große, fruchtbare Welten und die Frostzone der Bahnen 9 bis 12 Eispanzer mit 1,5-fachem Deuterium, während die Solartabelle das Licht Bahn für Bahn misst, von 171 Prozent auf der innersten über 100 Prozent auf Bahn 6 bis zu 20 Prozent auf der äußersten. Jeder Sektor zählt 60 Systeme, in jedem fünften liegt ein Asteroidengürtel, und sechs je Sektor sind Nebelsysteme, die einzigen Fundorte von Xenokristall.
+Astrophysik ist die Vermessung der Weite: Spektrografen zerlegen das Licht jedes Sterns in seine Linien und verraten Temperatur, Alter und Strahlungsruhe, Bahnmechaniker berechnen die zwölf Bahnen eines Systems, und Planetologen lesen aus Rückstrahlung, Masse und Atmosphärenspektrum, welche Welt Leben trägt. Ihre Grundordnung ist die Zonenlehre, nach der die Glutzone der Bahnen 1 bis 3 kleine Welten mit kargen Böden trägt, die Lebenszone der Bahnen 4 bis 8 große, fruchtbare Welten und die Frostzone der Bahnen 9 bis 12 Eispanzer mit 1,5-fachem Deuterium, während die Solartabelle das Licht Bahn für Bahn misst, von 171 Prozent auf der innersten über 100 Prozent auf Bahn 6 bis zu 20 Prozent auf der äußersten. Jeder Sektor zählt 60 Systeme, jedes mit einem Asteroidengürtel, und ein Teil von ihnen sind Nebelsysteme, die einzigen Fundorte von natürlichem Xenokristall.
 
 Jede Forschungsstufe erlaubt dem Reich eine weitere Kolonie, weil eine Welt erst dann sicher besiedelt werden kann, wenn ihre Bahn, ihr Klima und ihre Versorgungswege so genau vermessen sind, dass Kolonieschiff, Frachter und Verwaltung sich darauf verlassen können, bis zu 14 Kolonien neben der Heimatwelt und damit 15 Planeten insgesamt. Ohne Kolonieschiffe und Siedler bringt das freilich nichts, denn ein Katalogeintrag ist noch keine Siedlung. Die erste Stufe kostet 4.000 Erz, 8.000 Kristall und 4.000 Deuterium bei 2.000 Forschungspunkten, und weil der Preis mit dem Faktor 1,75 statt 2 steigt, wird sie langsamer teurer als die übrigen Fächer.
 
@@ -3309,7 +3311,7 @@ Sylvane Ithrel ermunterte die Kinder an Bord, ihre Namen in die Innenwand zu rit
 
 **Grenzen.** Es erschließt Rohstoffe außerhalb der eigenen Welten, ist mit Tempo 4.000 aber langsam und im Gürtel ein leichtes Ziel.
 
-> Das Bergbauschiff macht aus jedem fünften System der Weite eine Mine ohne Planetenfeld: Fräsköpfe vorn, Greifarme an den Flanken und ein Erzbunker im Bauch. Seine Crews leben zwei Tage am Stück im Gürtel und erzählen hinterher von Brocken, die größer waren als ihr Heimathafen.
+> Das Bergbauschiff macht aus jedem Asteroidengürtel der Weite eine Mine ohne Planetenfeld: Fräsköpfe vorn, Greifarme an den Flanken und ein Erzbunker im Bauch. Seine Crews leben zwei Tage am Stück im Gürtel und erzählen hinterher von Brocken, die größer waren als ihr Heimathafen.
 
 - **Aurelianer:** Aurelianische Bergbauschiffe der Klasse Industria fahren auf Rechnung von Schürfkontoren, und jede Fahrt beginnt mit einem Vertrag über die Schürfrechte. Die Crews sind am Ertrag beteiligt und polieren nach jeder Rückkehr das Gildenzeichen am Bug.
 - **Krath:** Für die Krath ist ein Gürtel ein Schlachtfeld aus Fels, und ihre Gürtelbrecher reißen Asteroiden mit den Greifarmen auf wie einem Gegner den Panzer. Kein Clan lässt einen Gürtelbrecher ohne Wachschiff arbeiten, denn im Fels ist er ein leichtes Ziel.
@@ -3320,7 +3322,7 @@ Sylvane Ithrel ermunterte die Kinder an Bord, ihre Namen in die Innenwand zu rit
 
 Das Bergbauschiff ist ein 160 Meter langes Industrieschiff, dessen Bug zwei gegenläufige Fräsköpfe aus gehärteter Legierung trägt, flankiert von Greifarmen, die einen Asteroiden festhalten, während die Fräsen ihn abtragen. Hinter dem Fräsdeck liegen Brecher und Sortierband, die Erz von Kristall trennen, und dahinter der Erzbunker mit 10.000 Fracht. Im Gürtel fördert es bis zu 48 Stunden am Stück 150 Erz und 100 Kristall je Stunde, ohne ein einziges Planetenfeld zu belegen, und erschließt so Rohstoffe außerhalb der eigenen Welten.
 
-Asteroidengürtel liegen in jedem fünften System, in System 3, 8, 13 und weiter im selben Takt, sodass fast jede Gründung einen Gürtel in erreichbarer Nähe hat. Sein Verbrennungsantrieb ist auf Schub beim Rangieren zwischen den Brocken ausgelegt, nicht auf Reisetempo, darum kommt es nur auf Tempo 4.000 bei einem Verbrauch von 40. Eine Besatzung von 20 Köpfen bedient Fräsen, Greifer und Sortieranlage in Schichten.
+Jedes Sonnensystem hat einen Asteroidengürtel, erreichbar über Position 0, sodass jede Gründung einen Gürtel vor der Haustür hat; Trümmerfelder an Planeten sind dagegen Sache von Recyclern und Bergungsschiffen. Sein Verbrennungsantrieb ist auf Schub beim Rangieren zwischen den Brocken ausgelegt, nicht auf Reisetempo, darum kommt es nur auf Tempo 4.000 bei einem Verbrauch von 40. Eine Besatzung von 20 Köpfen bedient Fräsen, Greifer und Sortieranlage in Schichten.
 
 Mit 12.000 Struktur, einem Schirm von 20 und Angriff 5 übersteht es Steinschlag, aber keinen Überfall, und im Gürtel ist es ein leichtes Ziel, weil es verankert und ohne Fahrt arbeitet. Gebaut wird es ab Stufe III in einer Werft der Stufe 2 aus 8.000 Erz, 4.000 Kristall, 2.000 Deuterium und 100 Legierung.
 

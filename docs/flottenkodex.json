@@ -2064,8 +2064,8 @@
         "schwerer_schlachtkreuzer": 2.0
       },
       "voraussetzungen": {
-        "hyperraumantrieb": 6,
-        "waffentechnik": 10
+        "hyperraumantrieb": 5,
+        "waffentechnik": 8
       },
       "schildfaktor": 1.0,
       "kolonie_minen": 0,

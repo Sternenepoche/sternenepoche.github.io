@@ -10,7 +10,7 @@ Dieses Handbuch erklärt die **gemeinsame Onlinewelt**, ihre Bedienung und ihre 
 
 **Zum Lesen:** Die Datei **Sternenepoche-Handbuch.html** im Hauptordner lässt sich per Doppelklick öffnen und ohne Internet lesen. Die bearbeitbare Fassung liegt unter **docs/HANDBUCH.md**.
 
-**Zum Einsteigen:** Lies zuerst die Kapitel 1 bis 8. Die weiteren Kapitel erklären einzelne Regeln mit Beispielen. Kapitel 20 führt dich durch die Verbindung mit deinem eigenen KI-Assistenten. Die Kapitel 26 bis 32 beschreiben Monde, Sprungtore, Weltenkrümmer, Wachstum und Energie, Invasion, Dysonsphäre und die Flottenführung, wie sie in neu erzeugten Welten gelten.
+**Zum Einsteigen:** Lies zuerst die Kapitel 1 bis 8. Die weiteren Kapitel erklären einzelne Regeln mit Beispielen. Kapitel 20 führt dich durch die Verbindung mit deinem eigenen KI-Assistenten. Die Kapitel 26 bis 32 beschreiben Monde, Sprungtore, Weltenkrümmer, Wachstum und Energie, Invasion, Dysonsphäre und die Flottenführung.
 
 ## 1 Worum es geht
 
@@ -136,6 +136,8 @@ Ein **eigener Harness** ist keine eigene Spielweise. Das [Harness-Cockpit](../Ha
 Die 30 Serverbots benutzen eingebaute Strategien: **Ökonom**, **Räuber**, **Igel** oder **Händler**. Sie benötigen keinen Ollama-Dienst und keinen OpenRouter-Schlüssel. Im aktuellen Betriebsstand handeln sie in versetzten Abständen von grundsätzlich zwei Spielstunden.
 
 Sie unterliegen ebenfalls Ressourcen, Technik, Versorgung, Flügen und Aufklärung. Sie können verlieren und ausscheiden. Ein Bot ist deshalb weder ein zusätzlicher menschlicher Account noch automatisch ein Sprachmodell.
+
+Räuberbots haben einen einstellbaren **Opferschutz** (Standard: an). Neulinge, also Reiche unter Zivilisationsstufe II oder auf Stufe II mit einer Heimatwelt, die jünger als fünf Tage ist, werden von Räuberbots weder ausgespäht noch angegriffen. Außerdem wird jedes Reich von allen Räuberbots zusammen höchstens einmal in 24 Stunden angegriffen. Der Betreiber kann beide Fristen und den Schutz selbst ändern; der Anfängerschutz unten gilt davon unabhängig.
 
 ### Was ein Browser-Agent ist
 
@@ -436,7 +438,7 @@ Der Hangar zählt alle eigenen Schiffe im Reich genau einmal: stationierte Einhe
 
 **Nach der Ankunft:** Eine erfolgreiche Gründung erscheint als eigener Planet. Wähle ihn rechts aus, lies Versorgung und stelle seine ersten Energie-, Nahrungs- und Förderanlagen in Auftrag. Die Startfracht baut keine Gebäude automatisch. Ein anderer Spieler kann einen freien Planeten vor dir erreichen.
 
-**So reparierst du:** Wähle bei einer beschädigten Anlage **Reparatur prüfen**, kontrolliere Kosten und Zeit und drücke **Reparatur starten**. Die Reparatur benötigt die örtlichen Materialien und eine verfügbare Baustelle. Unter Bombardierung oder Belagerung ist keine Reparatur möglich. Für die Übernahme einer feindlichen Kolonie gelten Orbitkontrolle, höchstens 30 % Gebäudeintegrität und in neuen Welten eine Belagerung mit Bodentruppen (Kapitel 30); ein ursprünglicher Heimatplanet ist ausgeschlossen.
+**So reparierst du:** Wähle bei einer beschädigten Anlage **Reparatur prüfen**, kontrolliere Kosten und Zeit und drücke **Reparatur starten**. Die Reparatur benötigt die örtlichen Materialien und eine verfügbare Baustelle. Unter Bombardierung oder Belagerung ist keine Reparatur möglich. Für die Übernahme einer feindlichen Kolonie gelten Orbitkontrolle, höchstens 30 % Gebäudeintegrität und eine Belagerung mit Bodentruppen (Kapitel 30); ein ursprünglicher Heimatplanet ist ausgeschlossen.
 
 ### Kampf & Verbände
 
@@ -620,7 +622,7 @@ Unter **30 Stabilität** herrschen Unruhen: Neue Bauaufträge werden gesperrt un
 
 ### Lager Bunker und laufende Kosten
 
-Ein Lager begrenzt örtliche Vorräte. Was über die Grenze hinaus gefördert würde, verfällt. In neuen Welten ruhen Verarbeitungswerke bei vollem Lager ihres Erzeugnisses, und die Rohstoffleiste zeigt **Lager voll** (Kapitel 29). Ein Bunker schützt einen Teil bestimmter Rohstoffe vor Plünderung. Er erzeugt keine Güter und schützt nicht vor Gebäudebombardement.
+Ein Lager begrenzt örtliche Vorräte. Was über die Grenze hinaus gefördert würde, verfällt. Verarbeitungswerke ruhen bei vollem Lager ihres Erzeugnisses, und die Rohstoffleiste zeigt **Lager voll** (Kapitel 29). Ein Bunker schützt einen Teil bestimmter Rohstoffe vor Plünderung. Er erzeugt keine Güter und schützt nicht vor Gebäudebombardement.
 
 Schiffe kosten laufend Credits. Im Profil beträgt der tägliche Unterhalt 0,5 % ihres gewichteten Bauwerts; jede Kolonie kostet zusätzlich 300 Credits je Spieltag. Ortsfeste Verteidigung hat keinen solchen Schiffsunterhalt.
 
@@ -638,7 +640,7 @@ Die Baukosten werden bezahlt, wenn der jeweilige Auftrag wirklich beginnt. Ein v
 
 **Beispiel:** Die erste Mine wird fertig. Als Nächstes steht eine teure Lagerstufe an, für die Kristall fehlt. Die günstige Farm dahinter beginnt dadurch nicht von selbst. Du musst die fehlenden Güter beschaffen oder die Reihenfolge bewusst korrigieren.
 
-Gebäudestufen brauchen zunehmend Material und Zeit. Außerdem gelten Zivilisationsstufe, Technologie, Bauplätze und örtliche Voraussetzungen. Fertige Gebäude können bei Unruhen oder Beschädigung eingeschränkt wirken. Ein Abriss senkt ein Gebäude um eine Stufe und erstattet nichts; in neuen Welten ist er gesperrt, solange ein wartender Bauauftrag genau diese Stufe als Voraussetzung braucht (Kapitel 29).
+Gebäudestufen brauchen zunehmend Material und Zeit. Außerdem gelten Zivilisationsstufe, Technologie, Bauplätze und örtliche Voraussetzungen. Fertige Gebäude können bei Unruhen oder Beschädigung eingeschränkt wirken. Ein Abriss senkt ein Gebäude um eine Stufe und erstattet nichts; er ist gesperrt, solange ein wartender Bauauftrag genau diese Stufe als Voraussetzung braucht (Kapitel 29).
 
 ### Forschung und Fertigung
 
@@ -656,16 +658,16 @@ Die Einwohnerzahl zählt reichsweit. Bei einer verlangten Gebäudestufe genügt 
 
 | Zielstufe | Wesentliche Voraussetzungen | Aufstiegskosten |
 |---|---|---|
-| **II** | 2.000 Einwohner; Erzmine 5; Kristallmine 5; auf allen eigenen Planeten Nahrung und Energie im Plus, bei Syntheten ohne Nahrungspflicht | 2.000 Erz, 1.000 Kristall |
-| **III** | 8.000 Einwohner; Gießerei 3; Elektronikfabrik 2; Energietechnik 3; Heimatstabilität mindestens 55 | 10.000 Erz, 6.000 Kristall, 500 Legierung, 200 Elektronik |
-| **IV** | 32.000 Einwohner; Werft 4; Impulsantrieb 3; Astrophysik 1; Heimatstabilität mindestens 60; Konsumdeckung mindestens 80 % | 40.000 Erz, 25.000 Kristall, 10.000 Deuterium, 2.000 Legierung, 1.000 Elektronik |
-| **V** | 700.000 Einwohner; Hyperraumantrieb 1; mindestens drei Kolonien | 200.000 Erz, 150.000 Kristall, 50.000 Deuterium, 10.000 Legierung, 5.000 Elektronik, 5.000 Xenokristall |
+| **II** | 1.500 Einwohner; Erzmine 5; Kristallmine 5; auf allen eigenen Planeten Nahrung und Energie im Plus, bei Syntheten ohne Nahrungspflicht | 2.000 Erz, 1.000 Kristall |
+| **III** | 4.000 Einwohner; Gießerei 3; Elektronikfabrik 2; Energietechnik 3; Heimatstabilität mindestens 55 | 10.000 Erz, 6.000 Kristall, 500 Legierung, 200 Elektronik |
+| **IV** | 40.000 Einwohner; Werft 4; Impulsantrieb 3; Astrophysik 1; Heimatstabilität mindestens 60; Konsumdeckung mindestens 80 % | 40.000 Erz, 25.000 Kristall, 10.000 Deuterium, 2.000 Legierung, 1.000 Elektronik |
+| **V** | 200.000 Einwohner; Hyperraumantrieb 1; mindestens drei Kolonien | 200.000 Erz, 150.000 Kristall, 50.000 Deuterium, 10.000 Legierung, 5.000 Elektronik, 5.000 Xenokristall |
 
 Die Aufstiegskosten müssen auf dem Heimatplaneten bereitliegen. Die Oberfläche zeigt den Stand der Voraussetzungen; der Befehl **Stufenaufstieg** ist auch bei den weiteren Regierungsbefehlen zu finden.
 
 Auf der höchsten Stufe kommen große Projekte hinzu: beispielsweise ein Orbitalring mit zusätzlichen Bauplätzen und Wohnraum, ein Archiv mit stärkerer Forschung oder ein Versorgungsnetz mit höherer Energieausbeute. Auch diese Projekte kosten Material und Bauzeit.
 
-**Beispiel:** Du hast 2.000 Einwohner und die nötigen Minen, Nahrung und Strom sind im Plus. Du kannst sofort zu Stufe II aufsteigen. Sinkt später auf einer Kolonie die Energie ins Minus, bevor du aufgestiegen bist, ist die Bedingung offen, bis sie wieder erfüllt ist.
+**Beispiel:** Du hast 1.500 Einwohner und die nötigen Minen, Nahrung und Strom sind im Plus. Du kannst sofort zu Stufe II aufsteigen. Sinkt später auf einer Kolonie die Energie ins Minus, bevor du aufgestiegen bist, ist die Bedingung offen, bis sie wieder erfüllt ist.
 
 ## 12 Die Galaxie erkunden und Planeten ausspähen
 
@@ -673,7 +675,7 @@ Auf der höchsten Stufe kommen große Projekte hinzu: beispielsweise ein Orbital
 
 Die Onlinegalaxie hat zwei Sektoren mit jeweils 60 Sonnensystemen und zwölf Planetenpositionen. Eine Koordinate wie **1:27:6** bedeutet Sektor 1, System 27, Position 6.
 
-Unter **Galaxie** gehst du von der Sternwolke des Sektors zum Sonnensystem und dann zum Planeten. In der Systemansicht bewegen sich die Planeten optisch auf ihren Bahnen um die Sonne. Ziehen dreht die Kamera, Scrollen zoomt, **Kamera zentrieren** zeigt das System vollständig.
+Unter **Galaxie** gehst du von der Sternwolke des Sektors zum Sonnensystem und dann zum Planeten. In der Systemansicht bewegen sich die Planeten optisch auf ihren Bahnen um die Sonne. Ziehen dreht die Kamera, Scrollen zoomt, **Kamera zentrieren** zeigt das System vollständig. Drei Dinge nicht verwechseln: Ein **Nebelsystem** erkennst du am violett-türkisen Nebel im Hintergrund (nur ein Teil der Systeme, nie ein Heimatsystem; natürlicher Xenokristall auf den geraden Plätzen, dort violette Nebelwelten, kleinere Welten, mehr Amethystmonde). Der **Asteroidengürtel** ist das Felsband zwischen der siebten und achten Bahn – jedes System hat einen, Abbau mit Bergbauschiffen über Position 0. Ein **Trümmerfeld** ist eine Wrackwolke an einem Planeten nach Kampf oder Mondzerstörung, geborgen mit Recyclern oder Bergungsschiffen. Die Sonne antippen zeigt Nebelsystem, Gürtel und Dysonsphäre des Systems.
 
 Ein Klick auf einen Planeten, seine Nummer oder seinen Listeneintrag öffnet seine **Infokarte** über der Ansicht. Du schließt sie mit ×, Escape oder einem Klick daneben. Die Liste bietet dieselben Ziele auch ohne genaues Treffen eines bewegten Planeten.
 
@@ -799,8 +801,8 @@ Du hast grundsätzlich **einen Flottenplatz plus einen weiteren je Stufe Compute
 | **Abbau** | Mit geeigneten Bergbauschiffen am Asteroidengürtel Rohstoffe gewinnen |
 | **Recyceln** | Mit Recyclern Trümmer bergen |
 | **Blockade** | Den feindlichen Orbit kontrollieren und Verkehr behindern |
-| **Bombardieren** | Nach ausgeschalteter bewaffneter Verteidigung Gebäude beschädigen; in neuen Welten wirken nur Bomber (Kapitel 30) |
-| **Kampfkolonisieren** | Eine feindliche Kolonie mit Kolonieschiff und, in neuen Welten, Bodentruppen erobern (Kapitel 30) |
+| **Bombardieren** | Nach ausgeschalteter bewaffneter Verteidigung Gebäude beschädigen; dabei wirken nur Bomber (Kapitel 30) |
+| **Kampfkolonisieren** | Eine feindliche Kolonie mit Kolonieschiff und Bodentruppen erobern (Kapitel 30) |
 | **Mond zerstören** | Mit Weltenkrümmern einen feindlichen Mond vernichten (Kapitel 28) |
 
 Viele Aufträge haben auch einen Mond als Ziel oder Start: Im Versand wählst du dafür Zielart oder Startart **Mond** (Kapitel 26).
@@ -926,18 +928,7 @@ Ein Sondenbericht reserviert keinen Planeten. Wenn ein anderes Reich zuerst erfo
 
 Eine normale Angriffsmission reicht nicht. Die Übernahme verbindet militärische Orbitkontrolle, gezielte Gebäudeschäden und ein überlebendes Kolonieschiff.
 
-**In neuen Welten gilt die Invasion aus Kapitel 30:** Bomber senken die Gebäude in Runden alle 15 Spielminuten auf 30 % Integrität, danach landen Bodentruppen und belagern den Planeten 48 Spielstunden. Der Verteidiger kann eigene Truppen nachschicken, sich von Verbündeten helfen lassen und mit einer Kaserne die Volksmiliz ausrufen. Die folgende kurze Frist und die frühere Miliz gelten dort nicht mehr.
-
-**In älteren Welten** läuft die Übernahme so:
-
-1. Kläre die feindliche Kolonie auf.
-2. Schalte ihre bewaffneten Verteidiger einschließlich eines vorhandenen Planetenschildes aus.
-3. Beschädige die vorhandenen Gebäude durch **Bombardieren** auf höchstens **30 % Integrität**.
-4. Nutze **Kampfkolonisieren** mit einem Kolonieschiff und einer geeigneten Flotte.
-5. Halte die geforderte Kontrolle mindestens **30 Spielminuten** und über **zwei abgeschlossene Reaktionsfenster** des Verteidigers.
-6. Das Kolonieschiff muss überleben und die Koloniekapazität weiterhin ausreichen.
-
-Die Reaktionsfenster verarbeitet der Server. Der Verteidiger muss dafür nicht erst einen Knopf drücken oder sich einloggen. Neue bewaffnete Verteidiger können die Kontrolle erneut bestreiten. Ein verlorenes Kolonieschiff oder verlorene Kontrolle kann die Übernahme scheitern lassen. Zivile Reparaturen oder Sonden allein setzen den Übernahmetimer nicht beliebig zurück.
+**Die Übernahme ist eine Invasion (Kapitel 30):** Bomber senken die Gebäude in Runden alle 15 Spielminuten auf 30 % Integrität, danach landen Bodentruppen und belagern den Planeten 48 Spielstunden. Der Verteidiger kann eigene Truppen nachschicken, sich von Verbündeten helfen lassen und mit einer Kaserne die Volksmiliz ausrufen.
 
 **Der ursprüngliche Heimatplanet eines Reiches kann niemals übernommen oder kolonisiert werden.** Das gilt auch nach seiner Niederlage. Er kann angegriffen, blockiert und bombardiert werden und dadurch zum wirtschaftlichen Zusammenbruch beitragen.
 
@@ -981,7 +972,7 @@ Eine Nachricht ist noch kein Spielvertrag. Verbindliche Wirkungen entstehen erst
 
 **Beispiel:** „Wir greifen uns nicht an“ in einer Nachricht ist eine Absprache zwischen Spielern. Ein angenommener Nichtangriffspakt setzt zusätzlich die im Spiel geregelten Vertragsbedingungen in Kraft.
 
-Allianzen können in neuen Welten bis zu **50 Mitglieder** haben, in älteren Welten bis zu acht. Serverbots laden selbst nur bis zu einer Allianzgröße von zwölf ein. Für Verteidigungsbündnisse sind bis zu drei Partner vorgesehen. Bündnisse können Warnungen und gemeinsames Halten ermöglichen; sie geben nicht automatisch jede private Planetenaufklärung weiter.
+Allianzen können bis zu **50 Mitglieder** haben. Serverbots laden selbst nur bis zu einer Allianzgröße von zwölf ein. Für Verteidigungsbündnisse sind bis zu drei Partner vorgesehen. Bündnisse können Warnungen und gemeinsames Halten ermöglichen; sie geben nicht automatisch jede private Planetenaufklärung weiter.
 
 Nichtangriffs- und Verteidigungsverträge haben eine Kündigungsfrist von **48 Spielstunden**. Handelsabkommen können sofort beendet werden. Wenn ein Vertrag eine Kaution verlangt, hinterlegen beide Seiten Credits. Bei ordnungsgemäßem Ende werden sie zurückgegeben; bei Vertragsbruch erhält die geschädigte Seite die hinterlegten Kautionen.
 
@@ -1005,7 +996,7 @@ Im Postfach gelten weiterhin die Diplomatiekennzeichnungen: Bündnis grün, NAP 
 
 ### Wie gründe ich eine Allianz und verteile Rollen?
 
-Öffne **Allianz**, gib einen noch freien Namen und optional ein eindeutiges Kürzel mit zwei bis sechs Buchstaben/Ziffern ein und bestätige die Gründung. Du wirst erstes Mitglied und Leitung. Lade anschließend Spieler mit ihrem Namen ein. Erst deren Annahme macht sie zu Mitgliedern; die Obergrenze beträgt in neuen Welten 50, in älteren acht. Ein Spieler kann jeweils einer Allianz angehören. Mitglieder aller Völker und Häuser können gemeinsam aufgenommen werden. Suche das Kürzel unter **Codex → Allianzen**; im Browser findest du das Verzeichnis unter **Allianz → Codex · Allianzen**.
+Öffne **Allianz**, gib einen noch freien Namen und optional ein eindeutiges Kürzel mit zwei bis sechs Buchstaben/Ziffern ein und bestätige die Gründung. Du wirst erstes Mitglied und Leitung. Lade anschließend Spieler mit ihrem Namen ein. Erst deren Annahme macht sie zu Mitgliedern; die Obergrenze beträgt 50. Ein Spieler kann jeweils einer Allianz angehören. Mitglieder aller Völker und Häuser können gemeinsam aufgenommen werden. Suche das Kürzel unter **Codex → Allianzen**; im Browser findest du das Verzeichnis unter **Allianz → Codex · Allianzen**.
 
 ![Gründungsformular für einen Spieler ohne Allianz](bilder/kommunikation/gruenden.webp)
 
@@ -1042,6 +1033,8 @@ Wähle unter **Hilferufe** einen eigenen Planeten und beschreibe die Lage. Mitgl
 ### Antworten Bots und eigene Modelle ebenfalls?
 
 Serverbots nutzen dieselben Aktionen und Sichtrechte. Sie stellen sich auf einen ersten privaten Brief vor und beginnen je nach Strategie ein Gespräch oder lehnen weitere Unterhaltung wegen Zeitmangel ab. Sie können selbst Kontakte, Einladungen, Allianzpost, interne Angebote und Hilferufe initiieren. Modelle erhalten die Post in ihrer erlaubten Spielersicht und entscheiden mit ihren eigenen Modellen und Rollenrechten.
+
+**Mit Bots handeln:** Schreibe einem Bot, was du brauchst oder anbietest, zum Beispiel »Ich brauche 2000 Legierung«, »Ich verkaufe dir 1000 Kristall« oder »Tausche 4000 Kristall gegen 600 Elektronik«. Der Bot antwortet mit einem Angebot: Menge, Preis je Einheit, Summe und der Weg im Markt. Du stellst unter **Handel & Markt** die passende Order ein; der Bot bedient sie sofort oder spätestens in seinem nächsten Zug, der Kern bucht die Credits, und die Ware fliegt mit der Handelsflotte zu dir. Ein Brief allein liefert nichts. Über den Preis lässt sich reden: Ein Gebot unter dem Angebot bekommt einen Gegenvorschlag, ein Gebot unter seiner letzten Grenze eine klare Absage. Bots handeln nahe am Marktwert (Erz 1, Kristall 1,5, Deuterium 3, Nahrung 0,5 Credits wie im Soforthandel, andere Güter nach ihrem Wert), deshalb gibt es bei ihnen weder Schleuderpreise noch Wucher. Ein Tausch sind zwei Orders, jede gegen Credits. Fragen wie »Wie handeln wir?«, »Was kannst du?« oder »Greifst du an?« beantworten sie ehrlich, ohne dass etwas ausgelöst wird.
 
 Bleibt die erste Antwort eines aktiven Agenten aus, versendet das System nach einer Spielstunde eine ausdrücklich **automatische Empfangsantwort**. Diese ist keine erfundene Modellentscheidung. Antworten lösen keine endlose Folge automatischer Antworten aus. Bei Pause vergeht keine Spielzeit; ausgeschiedene Reiche handeln nicht mehr.
 
@@ -1211,7 +1204,7 @@ Prüfe sämtliche Güter am richtigen Planeten, den ersten wartenden Auftrag und
 
 ### Ein Werk steht still obwohl Rohstoffe da sind
 
-Prüfe in der Rohstoffleiste, ob beim Erzeugnis **Lager voll** steht. In neuen Welten ruht ein Verarbeitungswerk, solange sein Erzeugnis die Lagergrenze erreicht hat. Baue das Lager aus, verbrauche das Gut oder transportiere es ab (Kapitel 29).
+Prüfe in der Rohstoffleiste, ob beim Erzeugnis **Lager voll** steht. Ein Verarbeitungswerk ruht, solange sein Erzeugnis die Lagergrenze erreicht hat. Baue das Lager aus, verbrauche das Gut oder transportiere es ab (Kapitel 29).
 
 ### Mein Abriss wird abgelehnt
 
@@ -1306,7 +1299,6 @@ Kosten, Voraussetzungen, Flugpläne und Berichte findest du unmittelbar bei der 
 
 ## 24 Aufträge planen und Verbindungen wiederherstellen
 
-**Stand des Ausbaus:** Diese Funktionen sind in Android 0.3.0 für lokale Welten enthalten. In Onlinewelten bestimmt der jeweilige Server den Funktionsumfang.
 
 Eine Warteschlange ist dein geordneter Plan. Öffne **Aufträge verwalten** direkt in der Übersicht, im Gebäude-, Forschungs- oder Werftbereich. Mit den Pfeilen verschiebst du wartende Einträge; der laufende Auftrag behält seinen Fortschritt. Entferne einzelne Einträge gezielt. Falls zwischen Anzeige und Klick ein Auftrag fertig wird, prüft der Server die Liste und fordert einen neuen Abgleich an.
 
@@ -1316,7 +1308,6 @@ Beim lokalen Einzelspiel bleibt eine bestätigte Bestellung dauerhaft gespeicher
 
 ## 25 Flottenvielfalt, Konter und Koloniestart
 
-**Stand des Flottenausbaus:** Android 0.3.0 enthält diese Regeln im Einzelspiel und bei selbst gehosteten WLAN-Welten. Der Website-Kodex zeigt den vollständigen Ausbau. Onlinewelten verwenden das Regelprofil ihres Servers.
 
 Der [öffentliche Flottenkodex](../Sternenepoche-Kodex.html) zeigt alle vier Volksstile und die vollständigen Steckbriefe. Im Spiel zeigt der **Codex** zusätzlich die tatsächlichen Kosten und Werte bei deiner Forschung. Wenn du einen Eintrag auswählst, springt seine Detailansicht in den sichtbaren Bereich.
 
@@ -1332,7 +1323,6 @@ Systemsonden entdecken Asteroidengürtel, natürliche Rohstoffringe und Bergungs
 
 ## 26 Monde
 
-**Gilt für neue Welten.** Monde, Mondgebäude, Sprungtore und Weltenkrümmer gibt es nur in Welten, die mit der Mondgeneration erzeugt wurden. Ältere Welten bleiben ohne Monde.
 
 ### Wie ein Mond entsteht
 
@@ -1389,7 +1379,7 @@ Die Kosten der Stufe n betragen Grundkosten × Faktor^(n−1). Bezahlt wird aus 
 
 **Beispiel:** Mondbasis Stufe 5 kostet 44.205 Erz, 88.410 Kristall und 44.205 Deuterium, Stufe 10 bereits 283.342 Erz, 566.685 Kristall und 283.342 Deuterium.
 
-**Werftdock:** Es zählt als Werftstufe für alles, was auf dem Mond gefertigt wird: Schiffe, Verteidigung, Solarsatelliten und ab Stufe 10 Weltenkrümmer. Die Bauzeit ist dort 25 % länger als in einer Planetenwerft. Antriebskerne und Habitatmodule entstehen nur in der Orbitalwerft eines Planeten und müssen geliefert werden. Als **Reparaturdock** setzt das Werftdock nach einem Kampf am Mond oder an seinem Planeten, in dem du Verteidiger warst, **3 % je Stufe, höchstens 30 %** deiner dort verlorenen Schiffe wieder instand. Das kostet 10 % des Schiffspreises und 10 % der Bauzeit; die Schiffe erscheinen auf dem Mond. Verteidigung und Weltenkrümmer repariert es nicht, und reparierte Schiffe hinterlassen keine Trümmer.
+**Werftdock:** Es zählt als Werftstufe für alles, was auf dem Mond gefertigt wird: Schiffe, Verteidigung, Solarsatelliten und ab Stufe 10 Weltenkrümmer. Die Bauzeit ist dort so lang wie in einer Planetenwerft der gleichen Stufe. Antriebskerne und Habitatmodule entstehen nur in der Orbitalwerft eines Planeten und müssen geliefert werden. Als **Reparaturdock** setzt das Werftdock nach einem Kampf am Mond oder an seinem Planeten, in dem du Verteidiger warst, **3 % je Stufe, höchstens 30 %** deiner dort verlorenen Schiffe wieder instand. Das kostet 10 % des Schiffspreises und 10 % der Bauzeit; die Schiffe erscheinen auf dem Mond. Verteidigung und Weltenkrümmer repariert es nicht, und reparierte Schiffe hinterlassen keine Trümmer.
 
 **Ortungsschleier:** Jede Stufe erhöht die Schwellen einer Spionage auf diesen Mond um eins. Außerdem verbirgt er die Öffnung eines Hyperraumlochs vor fernen Tiefenphalanxen, deren Stufe nicht höher ist als der Schleier.
 
@@ -1446,7 +1436,7 @@ Der Gescannte erfährt nichts von deinem Scan. Ein Phalanxbericht ist eine Momen
 
 ## 27 Sprungtor und Hyperraumloch
 
-**Gilt für neue Welten mit Monden.** Ein Sprungtor springt nicht privat. Es reißt ein **öffentliches Hyperraumloch** zu einem anderen Sprungtor auf. Wer es öffnet, bewegt Flotten ohne Flugzeit, nimmt aber in Kauf, dass Fremde es in beide Richtungen mitbenutzen.
+Ein Sprungtor springt nicht privat. Es reißt ein **öffentliches Hyperraumloch** zu einem anderen Sprungtor auf. Wer es öffnet, bewegt Flotten ohne Flugzeit, nimmt aber in Kauf, dass Fremde es in beide Richtungen mitbenutzen.
 
 ### Ein Loch öffnen
 
@@ -1487,21 +1477,20 @@ Mitreisen darf jeder, der das Loch sieht und Schiffe **im Start- oder Zielsystem
 
 ### Gebühr und Rückflugtreibstoff
 
-Die Durchreise selbst kostet **kein Deuterium und keine Zeit**: Deine Flotte steht sofort am Austritt. **Bleibst du nach der Durchreise im Orbit**, zahlst du in neuen Welten sofort den normalen Treibstoff für den späteren Rückflug zu deinem Herkunftsort mit – nimm also Deuterium mit. Der Heimweg ist damit nicht kostenlos.
+Die Durchreise selbst kostet **kein Deuterium und keine Zeit**: Deine Flotte steht sofort am Austritt. **Bleibst du nach der Durchreise im Orbit**, zahlst du sofort den normalen Treibstoff für den späteren Rückflug zu deinem Herkunftsort mit – nimm also Deuterium mit. Der Heimweg ist damit nicht kostenlos.
 
 **Beispiel:** Ein normaler Flug zwischen den Toren würde deine Flotte 8.000 Deuterium kosten – durch das Loch zahlst du nichts. Landest du an deinem eigenen Austrittsmond, bleibt es dabei. Bleibst du im Orbit und kostet der Rückflug zum Herkunftsplaneten 8.000, zahlst du beim Durchreisen diese 8.000 Deuterium.
 
 ### Nach der Durchreise
 
 - **Landen** kannst du nur an deinem **eigenen** Austrittsmond. Schiffe und Ladung kommen in seinen Bestand.
-- **Orbit** heißt: Die Flotte steht an der Austrittskoordinate. Am eigenen oder verbündeten Mond gilt das als Halten bis zur Höchstdauer des Haltens, im Onlineprofil 168 Spielstunden. Am Mond eines Fremden gilt es in neuen Welten **wie Saven und endet nach höchstens 72 Spielstunden**. Danach fliegt die Flotte auf normalem Weg heim; ihre Heimat bleibt der Herkunftsplanet. Eine neue Orbitflotte braucht einen freien Flottenplatz.
+- **Orbit** heißt: Die Flotte steht an der Austrittskoordinate. Am eigenen oder verbündeten Mond gilt das als Halten bis zur Höchstdauer des Haltens, im Onlineprofil 168 Spielstunden. Am Mond eines Fremden gilt es **wie Saven und endet nach höchstens 72 Spielstunden**. Danach fliegt die Flotte auf normalem Weg heim; ihre Heimat bleibt der Herkunftsplanet. Eine neue Orbitflotte braucht einen freien Flottenplatz.
 - **Torwache:** Kommst du an einem Mond an, dessen Besitzer mit dir weder in derselben Allianz noch im Verteidigungsbündnis ist und keinen Nichtangriffspakt mit dir hat, folgt in derselben Sekunde ein Kampf. Du kämpfst gegen alles auf dem Austrittsmond, also Verteidigung, stationierte Schiffe und Solarsatelliten, sowie gegen verbündete Halteflotten dort. Dieser Kampf erzeugt keinen neuen Mond. Wer überlebt, steht im Orbit und kann normal weiterfliegen. Dasselbe gilt für Reisende in Gegenrichtung am Startmond: Wer ein Loch öffnet, braucht eine starke Torwache.
 
 **Für Agenten:** `hyperraumloch_oeffnen` öffnet, `hyperraumloch_durchreisen` reist mit `von` (Planet, Mond oder Orbitflotte) und `danach` (`landen` oder `orbit`), `sprungtor_freigabe` gibt das eigene Tor für Partner frei.
 
 ## 28 Weltenkrümmer und Schlachtkreuzer
 
-**Gilt für neue Welten mit Monden.**
 
 ### Der Weltenkrümmer
 
@@ -1512,7 +1501,7 @@ Der **Weltenkrümmer**, von seinen Besatzungen **Weltenkrümmer** genannt, ist e
 | Kosten | 5.000.000 Erz, 4.000.000 Kristall, 1.000.000 Deuterium, 100.000 Legierung, 50.000 Elektronik, 20.000 Xenokristall, 20 Antriebskerne |
 | Struktur / Schild / Angriff | 9.000.000 / 50.000 / 200.000, vier Ziele je Runde |
 | Ladung / Tempo / Verbrauch / Besatzung | 1.000.000 / 100 / 1 / 5.000, Hyperraumantrieb |
-| Bau | nur im **Werftdock Stufe 10** eines Mondes; Zivilisationsstufe V, Hyperraumantrieb 6, Waffentechnik 10 |
+| Bau | nur im **Werftdock Stufe 10** eines Mondes; Zivilisationsstufe V, Hyperraumantrieb 5, Waffentechnik 8 |
 | Schnellfeuer | 64 gegen Spionagesonden, Transporter, Recycler und Solarsatelliten; 50 gegen leichte Jäger, Raketenwerfer und Lasergeschütze; 33 gegen Kreuzer; 30 gegen Schlachtschiffe; 25 gegen Bomber und Ionengeschütze; 15 gegen Schlachtkreuzer und Abfang-Schlachtkreuzer; 12 gegen Gaußkanonen; 8 gegen Schwere Schlachtkreuzer; 5 gegen Zerstörer |
 
 Eine Planetenwerft lehnt den Bau ab. Der Weltenkrümmer passt durch kein Hyperraumloch, das Reparaturdock setzt ihn nicht instand, und gegen Monde fliegt er nur Angriff, Mond zerstören, Transport oder Stationieren. Mit Tempo 100 ist er extrem langsam und braucht für weite Strecken entsprechend lange. Wird er zerstört, hinterlässt er 2.700.000 Trümmer und damit allein die volle Mondchance von 20 %.
@@ -1558,7 +1547,6 @@ In Welten mit Monden gibt es eine eigene Klasse zwischen Kreuzer und Schlachtsch
 
 ## 29 Wachstum, Energie und Grundausbildung
 
-**Gilt für neue Welten.** Ältere Welten behalten ihre bisherigen Wachstums- und Sonnentabellen; ihre Werte zeigt die Regelreferenz im Spiel.
 
 ### Wie die Bevölkerung wächst
 
@@ -1603,7 +1591,7 @@ Auf Plätzen mit TF-Angabe braucht dein Volk die genannte Stufe **Terraforming**
 
 ### Sonnenenergie, Solarkraftwerk und Solarsatelliten
 
-Der **Sonnenfaktor** hängt nur vom Platz ab: Platz 6 erhält 100 %, innen mehr, außen weniger bis 20 % auf dem letzten Platz. Ein Solarkraftwerk der Stufe n liefert 26,4 × n × 1,1^n × Sonnenfaktor × (1 + 5 % je Stufe Energietechnik) Energie je Stunde; Syntheten erhalten 10 % mehr.
+Der **Sonnenfaktor** hängt nur vom Platz ab: Platz 6 erhält 100 %, innen mehr, außen weniger bis 20 % auf dem letzten Platz. Ein Solarkraftwerk der Stufe n liefert 29,04 × n × 1,1^n × Sonnenfaktor × (1 + 5 % je Stufe Energietechnik) Energie je Stunde, ein Fusionskraftwerk 55 × n × 1,1^n × (1 + 5 % je Stufe Energietechnik), ein Solarsatellit 33 × Sonnenfaktor der Bahn. Syntheten erhalten bei Solar und Satelliten 10 % mehr; ihre Fusionskraftwerke liefern 30 % mehr als die anderer Völker, bei gleichen Kosten.
 
 Ab Zivilisationsstufe II baust du in Welten mit Monden über jedem eigenen Planeten mit Werft 1 **Solarsatelliten** für 2.000 Kristall und 500 Deuterium. Jeder liefert **30 × Sonnenfaktor** Energie, ebenfalls mit Energietechnik und Volksbonus, auf einem Mond zusätzlich mit dem Faktor seines Typs. Die Energie je Satellit hängt also von der Bahn ab; die Bauseite zeigt dir den Wert für deinen Planeten. Satelliten belegen kein Feld, brauchen keine Besatzung und keinen Unterhalt, fliegen nie, sind wehrlos, kämpfen bei jeder Verteidigung ihres Ortes mit, werden danach nicht wiederaufgebaut und hinterlassen je 600 Kristall Trümmer.
 
@@ -1626,7 +1614,7 @@ Die Werte gelten ohne Energietechnik. **Beispiel:** Zehn Solarsatelliten über e
 
 ### Grundausbildung der Akademie
 
-Fachkräfte und Forscher entstehen in neuen Welten ohne Auftrag und **ohne Kosten**. Jede intakte Akademie bildet je Spieltag **20 × n × 1,1^n** Personen aus, n ist ihre Stufe: Stufe 1 bildet 22 aus, Stufe 2 48,4, Stufe 3 79,9 und Stufe 4 117,1. Besetzung, Energiedeckung und Leistungsregler der Akademie verringern diesen Wert anteilig. Ausgebildet wird nur aus freien, ungelernten Bewohnern, zuerst aus deinem Reichsvolk, und nur bis zum Bedarf: dem Personalbedarf der eigenen Werke geteilt durch die Arbeitsquote, plus 10 % und fünf Personen Reserve. Fachkräfte entstehen für alle Werke außer dem Labor, Forscher für das Labor, sofern eines steht.
+Fachkräfte und Forscher entstehen ohne Auftrag und **ohne Kosten**. Jede intakte Akademie bildet je Spieltag **20 × n × 1,1^n** Personen aus, n ist ihre Stufe: Stufe 1 bildet 22 aus, Stufe 2 48,4, Stufe 3 79,9 und Stufe 4 117,1. Besetzung, Energiedeckung und Leistungsregler der Akademie verringern diesen Wert anteilig. Ausgebildet wird nur aus freien, ungelernten Bewohnern, zuerst aus deinem Reichsvolk, und nur bis zum Bedarf: dem Personalbedarf der eigenen Werke geteilt durch die Arbeitsquote, plus 10 % und fünf Personen Reserve. Fachkräfte entstehen für alle Werke außer dem Labor, Forscher für das Labor, sofern eines steht.
 
 **Beispiel:** Elektronikwerk 2 und Fusionskraftwerk 3 brauchen zusammen 54 Fachkräfte. Mit Reserve ist das Ziel 64. Akademie 1 erreicht es von 24 Startfachkräften aus in rund zwei Spieltagen.
 
@@ -1640,7 +1628,7 @@ Bei Unruhen unter Stabilität 30 ruhen Bauaufträge. Verwaltungszentrum, Konsumg
 
 ### Volle Lager
 
-Erreicht ein Gut die Lagergrenze seines Planeten, verfällt alles, was darüber hinaus gefördert würde. In neuen Welten gilt außerdem:
+Erreicht ein Gut die Lagergrenze seines Planeten, verfällt alles, was darüber hinaus gefördert würde. Außerdem gilt:
 
 - Ein **Verarbeitungswerk** (Gießerei, Elektronikwerk, Konsumgüterwerk) **ruht**, solange das Lager seines Erzeugnisses voll ist, und verbraucht dann auch keine Rohstoffe.
 - Was an einem vollen Lager entstünde, füllt **keine Budgettöpfe** der Agentenrollen.
@@ -1651,13 +1639,13 @@ Erreicht ein Gut die Lagergrenze seines Planeten, verfällt alles, was darüber 
 
 ### Abriss
 
-Ein Abriss senkt ein Gebäude um eine Stufe und erstattet nichts. In neuen Welten ist er gesperrt, wenn ein **wartender Bauauftrag** dieses Gebäude auf seiner jetzigen Stufe als Voraussetzung braucht. Die Meldung nennt den betroffenen Auftrag.
+Ein Abriss senkt ein Gebäude um eine Stufe und erstattet nichts. Er ist gesperrt, wenn ein **wartender Bauauftrag** dieses Gebäude auf seiner jetzigen Stufe als Voraussetzung braucht. Die Meldung nennt den betroffenen Auftrag.
 
 **Beispiel:** In der Bauschleife wartet eine Nanofabrik, die Bauhof 10 verlangt. Den Bauhof 10 kannst du jetzt nicht auf Stufe 9 abreißen; entferne zuerst den Auftrag oder warte, bis er begonnen hat.
 
 ### Antriebswechsel
 
-In neuen Welten wechseln drei Schiffe mit genug Antriebsforschung auf einen stärkeren Antrieb. Ab dieser Stufe fliegen alle Schiffe dieses Typs mit neuem Grundtempo und neuem Verbrauch; das Tempo im Flug wächst danach mit der Stufe des neuen Antriebs. Werft und Techinfo zeigen den wirksamen Antrieb und den nächsten Wechsel.
+Drei Schiffe wechseln mit genug Antriebsforschung auf einen stärkeren Antrieb. Ab dieser Stufe fliegen alle Schiffe dieses Typs mit neuem Grundtempo und neuem Verbrauch; das Tempo im Flug wächst danach mit der Stufe des neuen Antriebs. Werft und Techinfo zeigen den wirksamen Antrieb und den nächsten Wechsel.
 
 | Schiff | ab Forschung | neuer Antrieb | Grundtempo | Verbrauch |
 |---|---|---|---|---|
@@ -1670,13 +1658,13 @@ In neuen Welten wechseln drei Schiffe mit genug Antriebsforschung auf einen stä
 
 ### Plasmatechnik
 
-Die Forschung **Plasmatechnik** (Gruppe Wirtschaft, ab Zivilisationsstufe IV mit Labor 4 und Energietechnik 5) erhöht in neuen Welten die Förderung aller eigenen Planeten: je Stufe **+2 % Erz, +1,33 % Kristall und +0,67 % Deuterium** aus Minen und Synthesizer. Die Kosten verdoppeln sich je Stufe (Grundkosten 2.000 Erz, 4.000 Kristall, 1.000 Deuterium).
+Die Forschung **Plasmatechnik** (Gruppe Wirtschaft, ab Zivilisationsstufe IV mit Labor 4 und Energietechnik 5) erhöht die Förderung aller eigenen Planeten: je Stufe **+2 % Erz, +1,33 % Kristall und +0,67 % Deuterium** aus Minen und Synthesizer. Die Kosten verdoppeln sich je Stufe (Grundkosten 2.000 Erz, 4.000 Kristall, 1.000 Deuterium).
 
 **Beispiel:** Mit Plasmatechnik 5 fördert eine Erzmine 10 % mehr, eine Kristallmine 6,65 % und ein Synthesizer 3,35 %.
 
 ## 30 Invasion
 
-**Gilt für neue Welten.** Sie ersetzt dort die kurze Besetzungsfrist und die frühere Miliz aus Kapitel 16. Eine Kolonie fällt in drei Abschnitten: Verteidigung brechen und bombardieren, landen, belagern. Der ursprüngliche Heimatplanet eines Reiches bleibt immer geschützt.
+Eine Kolonie fällt in drei Abschnitten: Verteidigung brechen und bombardieren, landen, belagern. Der ursprüngliche Heimatplanet eines Reiches bleibt immer geschützt.
 
 ### 1. Verteidigung brechen
 
@@ -1731,11 +1719,10 @@ Der **Lagebericht** oben in der Übersicht zeigt jede laufende Invasion an deine
 
 ## 31 Dysonsphäre und Allianzen bis 50
 
-**Gilt für neue Welten.** In älteren Welten bleibt es bei acht Mitgliedern und ohne Dysonsphäre.
 
 ### Allianzen bis 50 Mitglieder
 
-Eine Allianz kann in neuen Welten bis zu **50 Mitglieder** haben. Serverbots laden selbst nur bis zu einer Größe von zwölf ein. Einladen, Führungspost und Großprojekt-Entscheidungen bleiben bei den obersten vier Rängen. Ein Verband bleibt auf 16 Flotten begrenzt. Große Allianzen sehen über die Systeme ihrer Mitglieder viel von der Karte; das ist ein echter Aufklärungsvorteil.
+Eine Allianz kann bis zu **50 Mitglieder** haben. Serverbots laden selbst nur bis zu einer Größe von zwölf ein. Einladen, Führungspost und Großprojekt-Entscheidungen bleiben bei den obersten vier Rängen. Ein Verband bleibt auf 16 Flotten begrenzt. Große Allianzen sehen über die Systeme ihrer Mitglieder viel von der Karte; das ist ein echter Aufklärungsvorteil.
 
 ### Was die Dysonsphäre ist
 
@@ -1766,13 +1753,13 @@ Den Bau startet die Allianzleitung, wenn **gleichzeitig** gilt:
 
 - **Alle zwölf Plätze** des Systems sind von Mitgliedern der Allianz besiedelt.
 - Mindestens **10 Projektmitglieder** mit Planet im System haben ihren Anteil **voll eingezahlt**.
-- Alle diese Projektmitglieder stehen auf **Zivilisationsstufe V** und sind seit mindestens **14 Spieltagen** in der Allianz.
+- Alle diese Projektmitglieder stehen auf **Zivilisationsstufe V** und sind seit mindestens **7 Spieltagen** in der Allianz.
 
 Der Reiter **Großprojekt** zeigt diese Bedingungen als Häkchenliste mit Ist- und Sollwerten.
 
 ### Bau, Ruhen und Abbruch
 
-Der Bau dauert **30 Spieltage**, bei 1× also 30 reale Tage. Die Phasen heißen Gerüst, Äquatorgürtel, Halbschale, Polkappen und vollendet. Vor der Fertigstellung wirkt die Sphäre nicht.
+Der Bau dauert **15 Spieltage**, bei 1× also 15 reale Tage. Die Phasen heißen Gerüst, Äquatorgürtel, Halbschale, Polkappen und vollendet. Vor der Fertigstellung wirkt die Sphäre nicht.
 
 Fällt eine Bedingung weg, weil ein Platz verloren geht oder weniger als zehn eingezahlte Projektmitglieder übrig sind, **ruht** der Bau; der Fortschritt friert ein. Ist die Bedingung wieder erfüllt, läuft er weiter. Ruht er insgesamt **14 Spieltage**, wird er abgebrochen. Die Allianzleitung kann auch selbst abbrechen. Nach einem Abbruch ist das System **30 Spieltage** für ein neues Projekt gesperrt.
 
@@ -1801,7 +1788,7 @@ Auch dieser Ertrag endet an der Lagergrenze des Planeten und ist plünderbar. Ei
 
 Die Sphäre selbst ist kein Kampfziel. Verwundbar ist das System: Sie wirkt nur, solange die Eigner-Allianz **mindestens sechs der zwölf Plätze** hält. Sonst ist sie **verwaist** und wirkt nicht. Hält eine Allianz, auch eine fremde, **7 Spieltage** lang alle Plätze mit mindestens zehn Mitgliedern, geht die verwaiste Sphäre an sie über. Verliert ein angeschlossener Planet seinen Besitzer, erlischt sein Anschluss sofort.
 
-**Beispiel:** In einer 365-Tage-Welt zahlen zwölf Projektmitglieder je 55 Millionen Erz, Kristall und Deuterium ein, insgesamt 660 Millionen je Gut. Nach 30 Bautagen erhalten vier angeschlossene Planeten je 82.500 Deuterium in der Stunde. Erobert ein Gegner danach sieben der zwölf Plätze, verwaist die Sphäre, bis die Allianz das System zurückgewinnt.
+**Beispiel:** In einer 365-Tage-Welt zahlen zwölf Projektmitglieder je 7 Millionen Erz, Kristall und Deuterium ein, insgesamt 84 Millionen je Gut. Nach 15 Bautagen erhalten vier angeschlossene Planeten je 10.500 Deuterium in der Stunde; die absoluten Mengen folgen dem Anteil, Sonnenfaktor und Strombad gelten voll. Erobert ein Gegner danach sieben der zwölf Plätze, verwaist die Sphäre, bis die Allianz das System zurückgewinnt.
 
 ### Großprojekt-Reiter und Galaxie
 

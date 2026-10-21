@@ -24,7 +24,7 @@ from site_policy import decorate  # noqa: E402
 import build_fleet_codex  # noqa: E402
 
 Q = ROOT / "docs/website"
-VERSION = "0.4.0"
+VERSION = "0.4.1"
 # Öffentliche Spieladresse; im Pages-Repo fehlt data/online (Betriebsdaten werden nie veröffentlicht).
 _URL = ROOT / "data/online/public-url.txt"
 SPIEL_URL = (_URL.read_text(encoding="utf-8").strip() if _URL.exists() else "https://sternenepoche.taila4f584.ts.net").rstrip("/") + "/"
@@ -46,9 +46,9 @@ NAV = [("index.html", "Start", "Überblick"), ("Sternenepoche-Start.html", "Spie
 # Frische Fotos (docs/website/fotos, 18.10.2026) je Spielbereich – Name wie im Spielmenü (web-client/rahmen.js).
 BEREICHSFOTO = {"Übersicht": "uebersicht", "Anlagen": "anlagen", "Versorgung": "versorgung", "Forschung": "forschung",
                 "Schiffswerft": "werft", "Verteidigung": "verteidigung", "Truppen": "truppen", "Flotte": "flotte",
-                "Galaxie": "galaxie", "Kolonisation": "kolonisation", "Kampf & Verbände": "kampfsimulator",
+                "Galaxie": "galaxie-3d", "Kolonisation": "kolonisation", "Kampf & Verbände": "kampfsimulator",
                 "Handel": "handel", "Nachrichten": "briefkasten", "Allianz": "allianz", "Großprojekt": "grossprojekt",
-                "Berichte": "berichte", "Imperium": "imperium", "Technologiebaum": "technologiebaum", "Rat": "rat",
+                "Berichte": "bericht", "Imperium": "imperium", "Technologiebaum": "technologiebaum", "Rat": "rat",
                 "Pinwände": "pinwaende", "Mond": "mond"}
 KAPITELFOTO = {7: "uebersicht", 10: "produktion", 11: "forschung", 12: "galaxie", 14: "flotte", 15: "kampfsimulator",
                16: "kolonisation", 17: "handel", 19: "imperium", 20: "rat", 24: "auftraege", 26: "mond", 29: "versorgung",
@@ -63,7 +63,8 @@ ART = json.loads((ROOT / "web-client/art.js").read_text(encoding="utf-8").remove
 KODEX = lade("docs/flottenkodex.json")
 REGELN = lade("docs/technologie-regeln.json")
 TEXTE = lade("content/beschreibungen.json")["eintraege"]
-HANDBUCH = (ROOT / "docs/HANDBUCH.md").read_text(encoding="utf-8")
+from heute import heute  # noqa: E402
+HANDBUCH = heute((ROOT / "docs/HANDBUCH.md").read_text(encoding="utf-8"))
 FOTOS = lade("docs/website/fotos/fotos.json")
 KOPF = lade("docs/website/medien/weltenkruemmer.json")
 
@@ -71,6 +72,13 @@ KOPF = lade("docs/website/medien/weltenkruemmer.json")
 def slug(text: str) -> str:
     text = re.sub(r"<[^>]+>", "", html.unescape(text)).strip().lower()
     return re.sub(r"\s+", "-", re.sub(r"[^\w\s-]", "", text))
+
+
+def zahl_de(x) -> str:
+    """Zahl mit deutschem Tausenderpunkt und Komma."""
+    if isinstance(x, float) and not x.is_integer():
+        return str(x).replace(".", ",")
+    return f"{int(x):,}".replace(",", ".")
 
 
 def kapitel_liste():
@@ -101,11 +109,10 @@ class Bau:
         if not meta:
             raise ValueError("Foto fehlt: " + name)
         pfad = self.u(f"docs/website/fotos/{name}.webp")
-        stand = "Spielstand 18.10.2026" if meta["zeit"].startswith("2026-10-18") else meta["zeit"][:10]
         return (f'<figure class="foto {klasse}"><button type="button" data-gross="{pfad}" data-titel="{esc(titel)}" aria-label="Bild vergrößern: {esc(titel)}">'
                 f'<img src="{pfad}" alt="Spieloberfläche: {esc(titel)}" width="{meta["breite"]}" height="{meta["hoehe"]}" loading="lazy" decoding="async">'
                 f'<span class="lupe" aria-hidden="true">Vergrößern</span></button><figcaption><b>{esc(titel)}</b>{esc(text)}'
-                f'{" · " if text else ""}<span class="leise">Echte Oberfläche · {stand}</span></figcaption></figure>')
+                f'{" · " if text else ""}<span class="leise">Echte Oberfläche</span></figcaption></figure>')
 
     def ausschnitt(self, name: str) -> str:
         """Inhaltsbereich eines Fotos (ohne Menü, Rohstoffleiste, Kolonienliste) für Kacheln – lesbar statt verkleinert."""
@@ -114,7 +121,7 @@ class Bau:
         ziel = ROOT / f"docs/website/fotos/ausschnitt/{name}.webp"
         if not ziel.exists() or ziel.stat().st_mtime < quelle.stat().st_mtime:
             ziel.parent.mkdir(parents=True, exist_ok=True)
-            box = (232, 4, 1208, 553) if name.startswith(("technik", "archiv")) else (205, 160, 1222, 732)
+            box = {"galaxie-3d": (219, 315, 1207, 871)}.get(name) or ((232, 4, 1208, 553) if name.startswith(("technik", "archiv")) else (205, 160, 1222, 732))
             with Image.open(quelle) as im:
                 im.convert("RGB").crop(box).save(ziel, "WEBP", quality=86, method=6)
         return self.u(f"docs/website/fotos/ausschnitt/{name}.webp")
@@ -172,8 +179,8 @@ class Bau:
 <header class="sk-kopf"><div class="sk-rahmen sk-innen">
 <a class="sk-marke" href="index.html" aria-label="Sternenepoche – Startseite"><img src="{self.u('docs/branding/sternenepoche-mark.png')}" alt="" width="30" height="30">STERNENEPOCHE</a>
 <nav class="sk-nav" aria-label="Hauptnavigation">{nav}</nav>
-<a class="button spielen" href="{SPIEL_URL}">Jetzt spielen ↗</a>
-<details class="sk-menue"><summary>Menü</summary><nav aria-label="Navigation">{mobil}<a href="{SPIEL_URL}">Jetzt spielen ↗<small>Im Browser, sofort</small></a></nav></details>
+<a class="button spielen" href="{SPIEL_URL}">Spielen ↗</a>
+<details class="sk-menue"><summary>Menü</summary><nav aria-label="Navigation">{mobil}<a href="{SPIEL_URL}">Spielen ↗<small>Im Browser, sofort</small></a></nav></details>
 </div></header>
 <main id="inhalt">
 {inhalt}
@@ -181,12 +188,12 @@ class Bau:
 <footer class="fuss"><div class="rahmen">
 <div class="fuss-raster">
 <div><a class="sk-marke" href="index.html"><img src="{self.u('docs/branding/sternenepoche-mark.png')}" alt="" width="30" height="30">STERNENEPOCHE</a>
-<p style="margin-top:12px">Weltraumstrategie in einer gemeinsamen Galaxie – im Browser, als Android-App und mit deinem eigenen KI-Rat. Version {VERSION}.</p></div>
+<p style="margin-top:12px">Weltraumstrategie in einer gemeinsamen Galaxie – im Browser, als Android-App und mit deinem eigenen KI-Rat.</p></div>
 <div><h4>Spielen</h4><ul><li><a href="{SPIEL_URL}">Im Browser spielen</a></li><li><a href="Download.html">Android-App</a></li><li><a href="Harness-Cockpit.html">Harness-Cockpit</a></li><li><a href="Sternenepoche-Start.html">Erste Schritte</a></li></ul></div>
 <div><h4>Nachschlagen</h4><ul><li><a href="Sternenepoche-Handbuch.html">Handbuch</a></li><li><a href="Sternenepoche-Kodex.html">Kodex</a></li><li><a href="Technologiebaum.html">Technologiebaum</a></li><li><a href="Lore.html">Lore-Archiv</a></li></ul></div>
 <div><h4>Projekt</h4><ul><li><a href="Weltenkruemmer.html">Weltenkrümmer</a></li><li><a href="KI-Hinweis.html">KI-Hinweis</a></li><li><a href="https://github.com/Sternenepoche/sternenepoche.github.io">Quellcode</a></li></ul></div>
 </div>
-<p class="ki">Bild, Ton und Text der Sternenepoche sind KI-generiert. Seite erzeugt am {jetzt} aus den Spielquellen der Version {VERSION}.</p>
+<p class="ki">Bild, Ton und Text der Sternenepoche sind KI-generiert. Stand {jetzt}.</p>
 </div></footer>
 <script src="seite/seite.js?v={self.stand}" defer></script>
 {fuss_extra}
@@ -228,11 +235,11 @@ class Bau:
   </div>
  </div>
  <div class="rahmen buehne-text">
-  <a class="version" href="#neu"><b>{VERSION}</b>Flottenführung · Monde · Weltenkrümmer</a>
+  <a class="version" href="#spiel"><b>Online</b>Browser · Android · KI-Rat</a>
   <h1 id="titel">Baue ein Reich,<span>das Welten krümmt.</span></h1>
   <p class="einleitung">Ein Heimatplanet, eine kleine Bevölkerung, knappe Vorräte – daraus wird in 365 Spieltagen ein Reich. Du forschst, baust Flotten,
   gewinnst Monde, öffnest Hyperraumlöcher und baust mit deiner Allianz eine Dysonsphäre. Und wer den Mond seines Gegners brechen will, braucht einen Weltenkrümmer.</p>
-  <div class="knopfreihe"><a class="button" href="{SPIEL_URL}">Jetzt im Browser spielen <span aria-hidden="true">↗</span></a>
+  <div class="knopfreihe"><a class="button" href="{SPIEL_URL}">Im Browser spielen <span aria-hidden="true">↗</span></a>
   <a class="button secondary" href="Download.html">Android-App laden</a><a class="button secondary" href="Sternenepoche-Start.html">Erste Schritte</a></div>
   <p class="buehne-fuss">Menschen, Serverbots und KI-Agenten spielen in derselben Galaxie nach denselben Regeln. Zuschauen geht ohne Konto.</p>
  </div>
@@ -252,11 +259,13 @@ class Bau:
                     f'<div class="neu-text"><span class="marke-klein">{esc(kennung)}</span><h3>{titel}</h3><p>{text}</p>{f"<ul>{li}</ul>" if li else ""}'
                     f'<a class="weiter" href="{link}">{linktext} →</a></div></article>')
         f = self.ausschnitt
+        wk = KODEX["units"]["weltentruemmer"]
+        dy = REGELN["dyson"]["regeln"]
         neu = f"""
-<section class="abschnitt" id="neu" aria-labelledby="neu-titel"><div class="rahmen">
- <div class="abschnitt-kopf"><div><span class="kennung">Neu in Version {VERSION}</span><h2 id="neu-titel">Was die Galaxie jetzt kann.</h2></div>
- <p>Seit Version 0.3.5 ist das Spiel in fast jedem Bereich gewachsen: neue Flottenführung, Monde mit eigener Wirtschaft, Invasion mit Bodentruppen,
- Allianz-Großprojekte und ein Archiv, das jede Einheit erklärt. Alle Bilder unten sind echte Ansichten des aktuellen Spiels.</p></div>
+<section class="abschnitt" id="spiel" aria-labelledby="spiel-titel"><div class="rahmen">
+ <div class="abschnitt-kopf"><div><span class="kennung">Das Spiel</span><h2 id="spiel-titel">Was dich in der Galaxie erwartet.</h2></div>
+ <p>Du führst Flotten über Sektoren hinweg, gewinnst Monde aus großen Schlachten, belagerst feindliche Kolonien und fasst mit deiner Allianz eine Sonne ein.
+ Zu jeder Einheit gibt es Werte, Zeichnungen und ihre Geschichte. Alle Bilder sind Ansichten aus dem Spiel.</p></div>
  <div class="neu-raster">
  {karte("breit", f("flotte"), "Flottenführung", "Versand in drei Schritten", "Der Flottenversand führt dich von Ziel und Auftrag über die Flotte bis zu Zeit und Verband – mit Prüfung bei jedem Schritt.",
    ["<b>Ziel &amp; Auftrag:</b> Schnellziele, Zielkarte und Aufklärungskette – unpassende Aufträge stehen abgeblendet mit Grund.",
@@ -264,29 +273,30 @@ class Bau:
     "<b>Zeit &amp; Verband:</b> zehn Tempostufen mit Ankunft und Deuterium, Ankunft koppeln, Terminflug bis 7 Spieltage voraus.",
     "<b>Farbige Auftragszeichen</b> in acht Gruppen überall im Spiel; Verbände bis 16 Flotten aus deiner Allianz."],
    "Sternenepoche-Handbuch.html#kapitel-32", "Kapitel 32 lesen")}
- {karte("", self.u("docs/website/medien/filme/krath.jpg"), "Megaschiff", "Weltenkrümmer", "Eine mondgroße Kampfstation aus verschmolzenen Trümmern: 9 Millionen Struktur, 200.000 Angriff auf vier Ziele je Runde. Gebaut nur im Werftdock Stufe 10 eines Mondes.",
-   ["Nach vollständigem Sieg: Mond zerstören mit (100 − √d) · √n % Chance.", "Dazu drei Schlachtkreuzer zwischen Kreuzer und Schlachtschiff."],
+ {karte("", self.u("docs/website/medien/filme/krath.jpg"), "Megaschiff", "Weltenkrümmer", f"Eine mondgroße Kampfstation aus verschmolzenen Trümmern mit {zahl_de(wk['struktur'])} Struktur und {zahl_de(wk['angriff'])} Angriff auf vier Ziele je Runde. Sie entsteht im Werftdock eines Mondes.",
+   ["Nach einem vollständigen Sieg bricht sie den Mond des Gegners.", "Drei Schlachtkreuzer ergänzen die Linie: Linien-, Abfang- und schwerer Schlachtkreuzer."],
    "Weltenkruemmer.html", "Die vier Weltenkrümmer")}
- {karte("", f("mond"), "Monde", "Monde, Sprungtor, Phalanx", "Monde entstehen aus Schlachttrümmern: 1 % je 100.000 Trümmer, höchstens 20 %. Zehn Mondtypen mit Vor- und Nachteil, sieben Mondgebäude.",
-   ["Sprungtor öffnet ein öffentliches Hyperraumloch für 300 Spielsekunden.", "Tiefenphalanx scannt Flüge eines Planeten in Reichweite."],
+ {karte("", f("mond"), "Monde", "Monde, Sprungtor, Phalanx", "Aus großen Schlachten entstehen Monde. Jeder der zehn Mondtypen hat einen eigenen Vor- und Nachteil, sieben Mondgebäude machen ihn zu Hafen, Werft und Torstation.",
+   ["Das Sprungtor öffnet ein öffentliches Hyperraumloch für 300 Spielsekunden.", "Die Tiefenphalanx zeigt die Flüge eines Planeten in Reichweite."],
    "Sternenepoche-Handbuch.html#kapitel-26", "Kapitel 26 und 27")}
  {karte("", f("lage"), "Invasion", "Bomben, landen, belagern", "Eine Kolonie fällt in drei Abschnitten: Bomber senken alle Gebäude auf 30 % Integrität, Truppentransporter landen, dann 48 Spielstunden Belagerung.",
    [f"{len(boden)} Bodentruppen mit Kontertabelle, Kaserne und Garnison.", "Verbündete schicken Bodenhilfe; einmal je Belagerung die Volksmiliz."],
    "Sternenepoche-Handbuch.html#kapitel-30", "Kapitel 30 lesen")}
- {karte("", f("grossprojekt"), "Allianz-Großprojekt", "Die Dysonsphäre", "Das größte Bauwerk des Spiels: Eine Allianz umschließt eine Sonne. 30 Spieltage Bau, danach 1,6-facher Sonnenfaktor und bis zu vier angeschlossene Planeten.",
-   ["Allianzen jetzt bis 50 Mitglieder.", "Die Sphäre wirkt nur, solange die Allianz sechs der zwölf Plätze hält."],
+ {karte("", f("grossprojekt"), "Allianz-Großprojekt", "Die Dysonsphäre", f"Das größte Bauwerk des Spiels: Eine Allianz umschließt eine Sonne. Nach {dy['bau_sekunden'] // 86400} Spieltagen Bau liefert sie den {zahl_de(dy['sonnenfaktor'])}-fachen Sonnenfaktor und versorgt bis zu {dy['anschluesse']} angeschlossene Planeten.",
+   [f"Allianzen mit bis zu {REGELN['allianz_max']} Mitgliedern.", "Die Sphäre wirkt, solange die Allianz sechs der zwölf Plätze hält."],
    "Sternenepoche-Handbuch.html#kapitel-31", "Kapitel 31 lesen")}
- {karte("", f("technik-explosion"), "Techinfo „Technik“", "Technische Zeichnungen", f"Zu jedem Schiff, jeder Bodentruppe und jedem Weltenkrümmer gibt es Blaupause, Explosionszeichnung und Schnitt – in der Bauart jedes Volkes, zusammen {zeichnungen} Zeichnungen.",
+ {karte("", self.art("blueprints", "explosion.ships.kreuzer", "krath"), "Techinfo „Technik“", "Technische Zeichnungen", f"Zu jedem Schiff, jeder Bodentruppe und jedem Weltenkrümmer gibt es Blaupause, Explosionszeichnung und Schnitt – in der Bauart jedes Volkes, zusammen {zeichnungen} Zeichnungen.",
    [], "Sternenepoche-Kodex.html", "Im Kodex ansehen")}
- {karte("", f("archiv"), "Techinfo „Archiv“", "Lore-Archiv", f"Jeder der {archiv} Einträge hat ein technisches Dossier, eine Chronik und die Akten aller vier Völker. Dazu der Kanon der Weite und die Stimmen des Rates.",
+ {karte("", self.art("backgrounds", "archive"), "Techinfo „Archiv“", "Lore-Archiv", f"Jeder der {archiv} Einträge hat ein technisches Dossier, eine Chronik und die Akten aller vier Völker. Dazu der Kanon der Weite und die Stimmen des Rates.",
    [], "Lore.html", "Zum Lore-Archiv")}
  {karte("", f("technologiebaum"), "Gesamtkarte", "Technologiebaum", f"Alle Gebäude, {forschungen} Forschungen und Einheiten aller Völker auf einer Karte, mit Bildern, Voraussetzungen und Kampfauswertung – auf- und zuklappbar.",
    [], "Technologiebaum.html", "Technologiebaum öffnen")}
- {karte("halb", f("versorgung"), "Wirtschaft", "Wachstum, Klima und Sonne", "Jedes Volk hat seine Heimatbahn; der Klimafaktor je Platz bestimmt das Wachstum, der Sonnenfaktor die Energie aus Solarkraftwerk und Solarsatelliten.",
-   ["Akademie bildet Fachkräfte und Forscher kostenlos aus.", "Aufstieg ohne Haltezeit, sobald die Bedingungen erfüllt sind.", "Plasmatechnik und Antriebswechsel als neue Forschungsziele."],
+ {karte("halb", f("versorgung"), "Wirtschaft", "Wachstum, Klima und Sonne", "Jedes Volk hat seine Heimatbahn. Der Klimafaktor eines Platzes bestimmt das Wachstum, der Sonnenfaktor die Energie aus Solarkraftwerk und Solarsatelliten.",
+   ["In jedem Sonnensystem liegt ein Asteroidengürtel für Bergbauschiffe.", "Die Akademie bildet Fachkräfte und Forscher kostenlos aus.", "Plasmatechnik steigert die Förderung, Antriebsforschung bringt stärkere Antriebe."],
    "Sternenepoche-Handbuch.html#kapitel-29", "Kapitel 29 lesen")}
- {karte("halb", f("auftraege"), "Bedienung", "Aufträge planen", "Bau-, Forschungs- und Werftaufträge stehen in geordneten Schlangen; der Lagebericht nennt auch Gründe, die man nicht direkt sieht – etwa ein fehlendes Aufstiegsgut oder Unruhen.",
-   [], "Sternenepoche-Start.html#bereiche", "Alle Spielbereiche")}
+ {karte("halb", f("galaxie-3d"), "Galaxie", "Sonnensysteme in 3D", "Jedes Sonnensystem lässt sich frei drehen und zoomen: Planeten mit Wolken und Stadtlichtern, Monde, Asteroidengürtel, Trümmerfelder und Nebel. Ein Tipp auf ein Objekt zeigt, was dort ist und was du tun kannst.",
+   ["Weltenkrümmer erscheinen aus einem Hyperraumloch und sind im System zu sehen.", "Am Handy öffnet die Galaxie direkt in 3D, die Tabelle ist einen Tipp entfernt."],
+   "Sternenepoche-Start.html#bereich-galaxie", "Zur Galaxie im Spielguide")}
  </div></div></section>"""
         tb = json.loads((lambda s: s[s.index("{"):s.rindex("}") + 1])((ROOT / "web-client/techbaum/daten.js").read_text(encoding="utf-8")))
         tbk = list(tb["knoten"].values())
@@ -295,7 +305,7 @@ class Bau:
 <section class="abschnitt techbaum-teaser" id="technologiebaum" aria-labelledby="tb-titel"><div class="rahmen">
  <div class="tb-raster">
   <div class="tb-text"><img class="tb-zeichen" src="seite/techbaum-logo.webp" alt="" width="120" height="120">
-   <span class="kennung">Neu · Gesamtkarte</span><h2 id="tb-titel">Der ganze Technologiebaum auf einer Karte.</h2>
+   <span class="kennung">Gesamtkarte</span><h2 id="tb-titel">Der ganze Technologiebaum auf einer Karte.</h2>
    <p>{len(tbk)} Einträge in {len(tb['bereiche'])} Bereichen – {zahl('gebaeude')} Gebäude, {zahl('forschung')} Forschungen, {zahl('schiff', 'megaschiff')} Schiffe, {zahl('boden')} Bodentruppen,
    {zahl('verteidigung', 'schild', 'rakete')} Abwehranlagen und Raketen, {zahl('mond')} Mondanlagen, {zahl('mission')} Missionen – für alle vier Völker.</p>
    <ul class="tb-liste"><li><b>Pfade:</b> Wähle ein Ziel, und die Karte zeigt den Weg dorthin über alle Voraussetzungen.</li>
@@ -308,10 +318,10 @@ class Bau:
  </div></div></section>"""
         galerie = f"""
 <section class="abschnitt" id="ansicht" aria-labelledby="ansicht-titel"><div class="rahmen">
- <div class="abschnitt-kopf"><div><span class="kennung">So sieht das Spiel heute aus</span><h2 id="ansicht-titel">Deine Brücke.</h2></div>
+ <div class="abschnitt-kopf"><div><span class="kennung">Aus dem Spiel</span><h2 id="ansicht-titel">Deine Brücke.</h2></div>
  <p>Links das Menü, oben Vorräte und Ereignisse, rechts deine Kolonien. Jede Seite folgt demselben Aufbau: Banner, Kacheln, Detailfeld mit Bauknopf.</p></div>
  <div class="galerie">{self.foto("uebersicht", "Übersicht", "Lagebericht, Zivilisationsstufe, Grundausbildung und Flottenbewegungen")}
- <div class="stapel">{self.foto("werft", "Schiffswerft", "Alle Schiffe des Volkes mit Bestand")}{self.foto("galaxie", "Galaxie", "Eine Zeile je Platz mit Mond, Trümmerfeld und Aktion")}</div></div>
+ <div class="stapel">{self.foto("werft", "Schiffswerft", "Alle Schiffe des Volkes mit Bestand")}{self.foto("galaxie-3d", "Galaxie in 3D", "Sonnensystem mit Planeten, Monden und Asteroidengürtel")}</div></div>
 </div></section>"""
         vtab = self.voelker_tabelle()
         voelker = "".join(f"""
@@ -340,8 +350,8 @@ class Bau:
  <div class="abschnitt-kopf"><div><span class="kennung">Drei Wege ins Spiel</span><h2 id="spielen-titel">Spiel, wo du willst.</h2></div>
  <p>Online spielst du in der gemeinsamen Galaxie. Die Android-App und das Harness-Cockpit bringen dieselbe Spielwelt auch lokal mit – allein, im WLAN oder mit deinem eigenen KI-Rat.</p></div>
  <div class="wege">
-  <article class="weg glas"><span class="weg-symbol">01</span><h3>Im Browser</h3><p>Anmelden, Volk wählen, Platz belegen – und los. Bauen, forschen und Flotten führen direkt im Browser, auf dem Handy mit eigener Menüleiste.</p><a class="button" href="{SPIEL_URL}">Jetzt spielen ↗</a></article>
-  <article class="weg glas"><span class="weg-symbol">02</span><h3>Android-App</h3><p>Die ganze Spielwelt auf dem Telefon: Einzelspiel, WLAN-Partie für Freunde oder online. Version {VERSION} als Lite für Handys und als Vollversion auch für x86-Geräte.</p><a class="button secondary" href="Download.html#android">Zur App</a></article>
+  <article class="weg glas"><span class="weg-symbol">01</span><h3>Im Browser</h3><p>Anmelden, Volk wählen, Platz belegen – und los. Bauen, forschen und Flotten führen direkt im Browser, auf dem Handy mit eigener Menüleiste.</p><a class="button" href="{SPIEL_URL}">Im Browser spielen ↗</a></article>
+  <article class="weg glas"><span class="weg-symbol">02</span><h3>Android-App</h3><p>Die ganze Spielwelt auf dem Telefon: Einzelspiel, WLAN-Partie für Freunde oder online. Als Lite-Fassung für Handys und als Vollversion auch für x86-Geräte.</p><a class="button secondary" href="Download.html#android">Zur App</a></article>
   <article class="weg glas"><span class="weg-symbol">03</span><h3>Mit KI regieren</h3><p>Verbinde Ollama oder OpenRouter mit deinem Reich, gib Rollen an Modelle ab oder lass im Harness-Cockpit einen Rat aus vier Agenten regieren.</p><a class="button secondary" href="Harness-Cockpit.html">Mit KI spielen</a></article>
  </div></div></section>"""
         wissen = f"""
@@ -355,7 +365,7 @@ class Bau:
  </div></div></section>"""
         inhalt = buehne + neu + techbaum + galerie + voelker + rat + wege + wissen
         doc = self.huelle("index.html", "Sternenepoche – Weltraumstrategie für Menschen und KI",
-                          f"Sternenepoche {VERSION}: Baue ein Reich in einer gemeinsamen Galaxie. Flottenführung, Monde, Weltenkrümmer, Invasion, Dysonsphäre – im Browser, als Android-App und mit eigenem KI-Rat.",
+                          f"Sternenepoche: Baue ein Reich in einer gemeinsamen Galaxie. Flottenführung, Monde, Weltenkrümmer, Invasion, Dysonsphäre – im Browser, als Android-App und mit eigenem KI-Rat.",
                           inhalt, kopf_extra=f'<link rel="preload" as="image" href="{self.u("docs/artwork/hero-ocean-v2.webp")}">',
                           fuss_extra=f'<script src="{self.u("docs/rat/rat-buehne.js")}" defer></script>')
         self.schreibe("index.html", doc)
@@ -379,7 +389,7 @@ class Bau:
         erste = kap[7][1]
         intro = erste.split("### ", 1)[0]
         schritte = list(re.finditer(r"^### (\d+) ([^\n]+)\n(.*?)(?=^### |\Z)", erste, re.M | re.S))
-        schrittfoto = {"01": "uebersicht", "02": "versorgung", "03": "anlagen", "04": "forschung", "05": "werft", "06": "flotte", "07": "berichte", "08": "auftraege"}
+        schrittfoto = {"01": "uebersicht", "02": "versorgung", "03": "anlagen", "04": "forschung", "05": "werft", "06": "flotte", "07": "bericht", "08": "auftraege"}
         teile = [f'<section data-suche><h2 id="erste-schritte"><span class="nr">Kapitel 7</span>Deine erste Spielsitzung</h2>{self.md(intro)}']
         for m in schritte:
             teile.append(f'<h3 id="schritt-{m[1]}">{m[1]} · {esc(m[2])}</h3>{self.foto(schrittfoto[m[1]], m[2], "", "glas kapitel-bild")}{self.md(m[3])}')
@@ -408,7 +418,7 @@ class Bau:
                   + f'</ol></li></ol><p class="gruppe">Spielbereiche</p><ol><li><a href="#bereiche">So liest du die Oberfläche</a></li>{"".join(leiste_b)}</ol>'
                   f'<p class="gruppe">Mit KI spielen</p><ol><li><a href="#agent-setup">Eigene Modelle einrichten</a></li></ol>'
                   f'<p class="gruppe">Hilfe</p><ol><li><a href="#kapitel-22">Begriffe</a></li><li><a href="#kapitel-21">Häufige Probleme</a></li></ol></details></aside>')
-        inhalt = (self.seitenkopf("Spielguide · Version " + VERSION, "Vom ersten Bauauftrag zur eigenen Flotte.",
+        inhalt = (self.seitenkopf("Spielguide", "Vom ersten Bauauftrag zur eigenen Flotte.",
                                   f"Die erste Spielsitzung in acht Schritten und alle {len(bereiche)} Spielbereiche – jeder mit einem Bild der heutigen Oberfläche und dem Weg dorthin. Die vollständigen Regeln stehen im <a href=\"Sternenepoche-Handbuch.html\">Handbuch</a>.",
                                   self.u("web-client/assets/backgrounds.command.webp"), "Spielguide")
                   + f'<div class="rahmen lesen">{leiste}<article class="text">{"".join(teile)}</article></div>')
@@ -418,7 +428,7 @@ class Bau:
     # ===================================================================== Handbuch
     def handbuch(self):
         teile, leiste = [], []
-        gruppen = [(1, "Grundlagen"), (7, "Spielen"), (12, "Galaxie, Flotten, Kampf"), (17, "Diplomatie und Wertung"), (20, "Hilfe"), (24, "Neu in den Welten von 0.4")]
+        gruppen = [(1, "Grundlagen"), (7, "Spielen"), (12, "Galaxie, Flotten, Kampf"), (17, "Diplomatie und Wertung"), (20, "Hilfe"), (24, "Flotten, Monde und Großprojekte")]
         for n, titel, text in kapitel_liste():
             if n == 23:
                 continue
@@ -489,7 +499,7 @@ document.getElementById('detail').addEventListener('click',e=>{const s=e.target.
 <div class="codex-layout"><section id="detail" class="codex-detail glas" aria-live="polite"></section><section><p id="result-count" class="leise"></p>
 <div id="gallery" class="codex-gallery" aria-label="Einträge auswählen"></div></section></div>
 <section id="bereich-info" class="codex-info glas" hidden></section>
-<p style="margin-top:28px" class="leise">Die Werte stammen aus dem Regelexport des Spielkerns. Mondgeneration, Invasion und Allianzwunder gelten in neuen Welten; laufende Welten behalten ihre Regeln. Wie alles zusammenhängt, zeigt der <a href="Technologiebaum.html">Technologiebaum</a>.</p>
+<p style="margin-top:28px" class="leise">Die Werte stammen aus dem Regelexport des Spielkerns. Wie alles zusammenhängt, zeigt der <a href="Technologiebaum.html">Technologiebaum</a>.</p>
 </div>''')
         daten = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
         (self.ziel / "seite").mkdir(parents=True, exist_ok=True)
@@ -612,11 +622,11 @@ document.getElementById('detail').addEventListener('click',e=>{const s=e.target.
                 body = body.replace('<h3 id="der-eigene-rat-im-harness-cockpit">', '<h3 id="cockpit">')
             teile.append(f'<section data-suche><h2 id="kapitel-{n}"><span class="nr">Handbuch · Kapitel {n}</span>{esc(kap[n][0])}</h2>{body}</section>')
         c = lade("docs/cockpit-download.json")
-        api = (ROOT / "docs/AGENTEN-SCHNITTSTELLE.md")
-        api_text = ""
-        if api.exists():
-            roh = api.read_text(encoding="utf-8")
-            api_text = self.md(re.sub(r"^# [^\n]*\n", "", roh, count=1))
+        api_text = ('<p>Eigene Programme spielen über die <b>Harness-API v1</b> oder über MCP. Den Harness-Schlüssel erzeugst du im Spiel unter '
+                    '<b>Modelle &amp; Team → Harness-Schlüssel</b> oder im Harness-Cockpit unter <b>Werkstatt → Konto</b>. Jeder Befehl geht durch dieselben '
+                    'Regeln und Quoten wie im Browser; das maschinelle Bedienen der Spieloberfläche ist nicht erlaubt.</p>'
+                    f'<p>Endpunkte, Quoten, Grenzen und Regeln beschreibt der laufende Server selbst: <a href="{SPIEL_URL}api/harness/v1/info">Harness-API – Beschreibung des Servers</a>. '
+                    f'Die Fair-Play-Regeln für eigene Programme stehen unter <a href="{self.u("web-client/harness-regeln.html")}">Harness-Regeln</a>.</p>')
         leiste = ('<aside class="leiste glas"><details open><summary>Inhalt</summary><ol>'
                   + "".join(f'<li><a href="#kapitel-{n}">{esc(kap[n][0])}</a></li>' for n in (2, 5, 6, 20))
                   + ('<li><a href="#api">Harness-API</a></li>' if api_text else "") + '<li><a href="#cockpit-laden">Cockpit herunterladen</a></li></ol></details></aside>')
@@ -628,7 +638,7 @@ document.getElementById('detail').addEventListener('click',e=>{const s=e.target.
                   + "".join(teile)
                   + (f'<section data-suche><h2 id="api"><span class="nr">Für eigene Programme</span>Harness-API</h2>{api_text}</section>' if api_text else "")
                   + f'<section><h2 id="cockpit-laden"><span class="nr">Download</span>Harness-Cockpit {esc(c["version"])}</h2><p>Das Harness-Cockpit für Windows enthält deinen Rat aus vier Agenten, den vorgebauten Harness und eine lokale Spielwelt. '
-                  + f'Stand {esc(c["stand"])}, {esc(str(c["groesse_mb"]).replace(".", ","))} MB.</p><p><a class="button" href="{esc(c["url"])}">Cockpit {esc(c["version"])} für Windows laden</a></p>'
+                  + f'Download {esc(str(c["groesse_mb"]).replace(".", ","))} MB.</p><p><a class="button" href="{esc(c["url"])}">Cockpit {esc(c["version"])} für Windows laden</a></p>'
                   + f'<p class="leise" style="word-break:break-all">SHA-256: {esc(c["sha256"])}</p></section></article></div>')
         self.schreibe("Harness-Cockpit.html", self.huelle("Harness-Cockpit.html", "Mit KI spielen – Sternenepoche",
                       "Eigene Modelle über Ollama oder OpenRouter, der Rat im Harness-Cockpit und die Harness-API der Sternenepoche.", inhalt))
@@ -636,12 +646,13 @@ document.getElementById('detail').addEventListener('click',e=>{const s=e.target.
     # ===================================================================== Download
     def download(self):
         """Zwei APKs (Karl 18.10.): Lite nur arm64-v8a für Handys, Vollversion arm64-v8a + x86_64. Daten aus
-        docs/android-download.json – Schema mit „varianten“ (lite, voll); Knöpfe erst bei Version 0.4.0 mit Datei und SHA-256."""
+        docs/android-download.json – Schema mit „varianten“ (lite, voll); Version und Knöpfe kommen allein aus diesen Daten."""
         a, c = lade("docs/android-download.json"), lade("docs/cockpit-download.json")
         varianten = {v.get("art"): v for v in a.get("varianten", [])}
-        bereit = a.get("version") == VERSION and {"lite", "voll"} <= set(varianten)
+        av = a.get("version", "")
+        bereit = {"lite", "voll"} <= set(varianten)
         if not bereit:
-            print(f"  HINWEIS: docs/android-download.json nennt {a.get('version')} ohne Varianten lite/voll für {VERSION} – APK-Knöpfe bleiben gesperrt.")
+            print(f"  HINWEIS: docs/android-download.json nennt keine Varianten lite/voll – APK-Knöpfe bleiben gesperrt.")
         mb = lambda v, etwa: (str(v["groesse_mb"]).replace(".", ",") + " MB") if bereit and v.get("groesse_mb") else f"etwa {etwa} MB"
         def apk(art, titel, etwa, kennung, text, punkte):
             v = varianten.get(art, {})
@@ -651,41 +662,42 @@ document.getElementById('detail').addEventListener('click',e=>{const s=e.target.
             li = "".join(f"<li>{x}</li>" for x in punkte)
             return (f'<article class="download glas" id="android-{art}"><span class="kennung">{kennung}</span><h3>{titel} <small class="leise">{mb(v, etwa)}</small></h3>'
                     f'<p>{text}</p><ul>{li}</ul>{knopf}</article>')
-        lite = apk("lite", f"Android {VERSION} Lite", 88, "Für Handys und Tablets",
-                   "Der gleiche Spielinhalt ohne Abstriche, nur ohne den x86-Teil, den Handys nie benutzen.",
+        lite = apk("lite", f"Android {av} Lite", 88, "Für Handys und Tablets",
+                   "Das ganze Spiel für Android-Handys und -Tablets.",
                    ["Nur arm64-v8a – praktisch alle Android-Handys und -Tablets",
                     "Alle Völker, Technologiebaum, Weltenkrümmer in 3D, technische Zeichnungen, Einzel- und Hostspiel",
                     "Lokale KI-Modelle in drei Varianten (basis, dotprod, i8mm) – die App wählt die schnellste passende"])
-        voll = apk("voll", f"Android {VERSION} Vollversion", 168, "Für alle Android-Geräte",
-                   "Alles aus Lite und zusätzlich die Fassung für x86-Geräte.",
+        voll = apk("voll", f"Android {av} Vollversion", 168, "Für alle Android-Geräte",
+                   "Das ganze Spiel für jedes Android-Gerät, auch mit Intel- oder AMD-Prozessor.",
                    ["arm64-v8a und x86_64 – Handys, Tablets, Android-Emulator am PC, Chromebooks, Tablets mit Intel/AMD",
                     "Lokale KI-Modelle: arm64 in drei Varianten, x86_64 in der Basisvariante",
-                    "Die Handy-Teile sind byte-gleich mit der Lite-Fassung"])
-        vergleich = """<div class="tabelle" tabindex="0" role="region" aria-label="Vergleich Lite und Vollversion"><table>
+                    "Gleiche App und gleiche Spielstände wie in der Lite-Fassung"])
+        groesse_lite, groesse_voll = mb(varianten.get("lite", {}), 88), mb(varianten.get("voll", {}), 168)
+        vergleich = f"""<div class="tabelle" tabindex="0" role="region" aria-label="Vergleich Lite und Vollversion"><table>
 <thead><tr><th></th><th>Lite</th><th>Vollversion</th></tr></thead><tbody>
 <tr><td>Geräte</td><td>Android-Handys und -Tablets (arm64-v8a)</td><td>dazu x86_64: Android-Emulator, Chromebooks, Tablets mit Intel/AMD</td></tr>
-<tr><td>Spielinhalt</td><td>vollständig</td><td>vollständig – identisch</td></tr>
+<tr><td>Spielinhalt</td><td colspan="2">das ganze Spiel: alle Völker, Technologiebaum, Weltenkrümmer in 3D, technische Zeichnungen, Einzel- und Hostspiel</td></tr>
 <tr><td>Lokale KI-Modelle</td><td>arm64: basis, dotprod, i8mm</td><td>arm64: basis, dotprod, i8mm · x86_64: basis</td></tr>
-<tr><td>Download und Speicherplatz</td><td>etwa 80 MB kleiner</td><td>größer durch den x86-Teil</td></tr>
-<tr><td>Arbeitsspeicher und Tempo im Spiel</td><td colspan="2">auf einem Handy gleich – Lite spart Download und Speicherplatz, nicht Rechenleistung</td></tr>
+<tr><td>Download</td><td>{groesse_lite}</td><td>{groesse_voll}</td></tr>
+<tr><td>Arbeitsspeicher und Tempo im Spiel</td><td colspan="2">auf einem Handy gleich</td></tr>
 <tr><td>Voraussetzung</td><td colspan="2">Android 8.0 (API 26) oder neuer, 64-bit</td></tr>
 <tr><td>Wechseln und Updates</td><td colspan="2">gleiche App, gleicher Signaturschlüssel: Updates über bestehende Installationen, Wechsel zwischen Lite und Vollversion jederzeit</td></tr>
 </tbody></table></div>"""
         inhalt = (self.seitenkopf("Download", "Sternenepoche überall.", "Im Browser ohne Installation, als Android-App mit eigener Spielwelt oder als Harness-Cockpit für deinen KI-Rat unter Windows.",
                                   self.art("planets", "leben_ozean"), "Download")
                   + f'''<div class="rahmen" style="padding-block:36px 90px">
-<h2 id="android">Android-App {VERSION}</h2>
-<p class="einleitung">Zwei Fassungen mit demselben Spiel. <b>Faustregel:</b> Handy oder Tablet → <b>Lite</b>. Android-Emulator am PC, Chromebook, Tablet mit Intel- oder AMD-Prozessor – oder „ich will alles“ → <b>Vollversion</b>.</p>
+<h2 id="android">Android-App {av}</h2>
+<p class="einleitung">Zwei Fassungen mit demselben Spiel. Für Handy und Tablet nimmst du <b>Lite</b>, für den Android-Emulator am PC, ein Chromebook oder ein Tablet mit Intel- oder AMD-Prozessor die <b>Vollversion</b>.</p>
 <div class="downloads zwei" style="margin-top:22px">{lite}{voll}</div>
-<h3 style="margin-top:36px">Der Unterschied genau</h3>{vergleich}
+<h3 style="margin-top:36px">Die beiden Fassungen</h3>{vergleich}
 <h2 style="margin-top:56px">Weitere Wege</h2>
 <div class="downloads zwei" style="margin-top:22px">
-<article class="download glas" id="browser"><span class="kennung">Ohne Installation</span><h3>Im Browser</h3><p>Die Online-Galaxie läuft in jedem aktuellen Browser auf PC, Tablet und Handy.</p><p><a class="button" href="{SPIEL_URL}">Jetzt spielen ↗</a></p></article>
+<article class="download glas" id="browser"><span class="kennung">Ohne Installation</span><h3>Im Browser</h3><p>Die Online-Galaxie läuft in jedem aktuellen Browser auf PC, Tablet und Handy.</p><p><a class="button" href="{SPIEL_URL}">Im Browser spielen ↗</a></p></article>
 <article class="download glas" id="cockpit"><span class="kennung">Windows</span><h3>Harness-Cockpit {esc(c["version"])}</h3><p>Dein Rat aus vier Agenten, eigener Harness und lokale Spielwelt.</p><p><a class="button secondary" href="{esc(c["url"])}">Für Windows laden ({esc(str(c["groesse_mb"]).replace(".", ","))} MB)</a></p><p class="pruefsumme">SHA-256 {esc(c["sha256"])}</p></article>
 </div>
-<h2 style="margin-top:56px">Was in {VERSION} steckt</h2>
+<h2 style="margin-top:56px">Aus dem Spiel</h2>
 <div class="galerie" style="margin-top:20px">{self.foto("flotte", "Flottenkommando", "Versand in drei Schritten, Verbände, Zusammenarbeit")}<div class="stapel">{self.foto("uebersicht-handy", "Auf dem Handy", "Menü unten, Lagebericht oben", "glas")}</div></div>
-<p style="margin-top:20px"><a href="index.html#neu">Alle Neuerungen auf der Startseite</a> · <a href="Sternenepoche-Handbuch.html">Handbuch</a></p></div>''')
+<p style="margin-top:20px"><a href="index.html#spiel">Mehr über das Spiel</a> · <a href="Sternenepoche-Handbuch.html">Handbuch</a></p></div>''')
         self.schreibe("Download.html", self.huelle("Download.html", "Download – Sternenepoche",
                       "Sternenepoche im Browser, als Android-App (Lite und Vollversion) und als Harness-Cockpit für Windows.", inhalt))
 
@@ -709,14 +721,14 @@ document.getElementById('detail').addEventListener('click',e=>{const s=e.target.
             # Maschinenlesbares Handbuch (wie bisher build_website.py) – nur im Pages-Modus in docs/.
             kap = [{"number": n, "title": t, "markdown": x.strip()} for n, t, x in kapitel_liste()]
             (ROOT / "docs/spielguide.json").write_text(json.dumps({"title": "Sternenepoche Spielguide", "updated": heute, "language": "de",
-                "version": VERSION, "website": url, "guide": url + "Sternenepoche-Handbuch.html",
+                "website": url, "guide": url + "Sternenepoche-Handbuch.html",
                 "rules_note": "Konkrete Kosten, Voraussetzungen und Flugpläne kommen aus dem aktiven Regelprofil im Spiel.",
                 "chapters": kap}, ensure_ascii=False, indent=2), encoding="utf-8")
             (ROOT / "docs/spielguide.txt").write_text(HANDBUCH, encoding="utf-8")
         seiten = [n for n, _, _ in NAV] + ["KI-Hinweis.html"]
         self.schreibe("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                       + "".join(f"<url><loc>{url}{'' if s == 'index.html' else s}</loc><lastmod>{heute}</lastmod></url>\n" for s in seiten) + "</urlset>\n")
-        zeilen = [f"# Sternenepoche", "", f"> Deutschsprachiges Weltraumstrategiespiel in einer gemeinsamen Galaxie. Menschen, Serverbots und KI-Agenten spielen nach demselben Rust-Regelkern. Version {VERSION}, Stand {date.today().strftime('%d.%m.%Y')}.", "", "## Seiten"]
+        zeilen = [f"# Sternenepoche", "", f"> Deutschsprachiges Weltraumstrategiespiel in einer gemeinsamen Galaxie. Menschen, Serverbots und KI-Agenten spielen nach demselben Rust-Regelkern. Stand {date.today().strftime('%d.%m.%Y')}.", "", "## Seiten"]
         zeilen += [f"- [{t}]({url}{'' if d == 'index.html' else d}): {u}." for d, t, u in NAV]
         zeilen += ["- [KI-Hinweis](" + url + "KI-Hinweis.html): Wie KI in Bild, Ton, Text und Spiel eingesetzt wird.", "",
                    "## Maschinenlesbar",
@@ -725,7 +737,7 @@ document.getElementById('detail').addEventListener('click',e=>{const s=e.target.
                    f"- [Flottenkodex]({url}docs/flottenkodex.json) und [Regelreferenz]({url}docs/technologie-regeln.json): Werte aus dem Spielkern.",
                    f"- [Harness-API]({SPIEL_URL}api/harness/v1/info): Endpunkte, Quoten und Regeln des laufenden Servers.", "",
                    "## Einordnung",
-                   "Bildschirmfotos stammen aus isolierten Prüfwelten mit dem aktuellen Spielstand, nicht aus Live-Partien. Konkrete Kosten und Voraussetzungen zeigt das Spiel bei jeder Aktion; neue Regeln (Monde, Invasion, Dysonsphäre) gelten in neuen Welten. Eigene Programme spielen ausschließlich über die Harness-API."]
+                   "Bildschirmfotos stammen aus isolierten Prüfwelten mit dem aktuellen Spielstand, nicht aus Live-Partien. Konkrete Kosten und Voraussetzungen zeigt das Spiel bei jeder Aktion. Eigene Programme spielen ausschließlich über die Harness-API."]
         self.schreibe("llms.txt", "\n".join(zeilen) + "\n")
 
     # ===================================================================== Stil, Prüfung

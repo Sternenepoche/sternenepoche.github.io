@@ -415,7 +415,7 @@ Credits 740, Steuersatz 15 %
 Töpfe (Guthaben in Werteinheiten, Anteil am Einkommen): wirtschaft 924.288 (70 %), militaer 40.615 (10 %), […]
 Kolonien 0 von 1 erlaubten, Verwaltungsgrenze 0; Flotten unterwegs 0 von 1
 Nächste Stufe IV Sternenflug, Bedingungen erfüllt seit 0 von 48 Stunden:
-  [ ] 32000 Einwohner (jetzt 23079)
+  [ ] 40000 Einwohner (jetzt 23079)
   [x] werft Stufe 4 (jetzt 4)
   […]
 
@@ -496,7 +496,7 @@ Die Nutzernachricht ist `welt.sicht(spieler, rolle)` als JSON ohne Zeilenumbrüc
  "anfaengerschutz_bis": "Tag 11, 00:00",
  "toepfe": {"wirtschaft": {"guthaben": 3240, "anteil": 60}, "militaer": {"guthaben": 540, "anteil": 10}, "…": "…"},
  "naechste_stufe": {"name": "II Industrie",
-   "bedingungen": [{"text": "2000 Einwohner (jetzt 1000)", "erfuellt": false}, "…"], "…": "…"},
+   "bedingungen": [{"text": "1500 Einwohner (jetzt 1000)", "erfuellt": false}, "…"], "…": "…"},
  "forschung": {"stufen": {}, "aktiv": null, "moeglich": [{"forschung": "energietechnik", "stufe": 1,
    "kosten": {"kristall": 400, "deuterium": 200}, "dauer_stunden": null, "labor": 1, "labor_heimat": 0, "fehlt": []}, "…"]},
  "planeten": [{"koord": "1:54:6", "heimat": true, "zone": "leben", "felder": {"belegt": 6, "gesamt": 180},

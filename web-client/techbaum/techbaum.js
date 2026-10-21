@@ -249,12 +249,23 @@ function impulse() {
 
 /* ---------- Kamera ---------- */
 const MIN_S = 0.04, MAX_S = 2.4;
+// Handy (< 768 px): Kopf eine Zeile, unten das Dock mit Bereichen; Blätter (Dossier, Weg) kommen von unten.
+// LESBAR: kleinster Maßstab, bei dem Namen auf dem Handy mindestens 12 px groß sind (Name 13 px × 0,95).
+const MOBIL_BIS = 768, LESBAR = 0.95, BLATT_HALB = .46, BLATT_GANZ = .78;
+const istMobil = () => buehne.getBoundingClientRect().width < MOBIL_BIS;
 function sicht() {
-  const r = buehne.getBoundingClientRect(), mobil = r.width < 760;
+  const r = buehne.getBoundingClientRect(), mobil = r.width < MOBIL_BIS;
   const dossierOffen = !$('dossier').hidden, planOffen = !$('plan').hidden;
-  return {w: r.width, h: r.height, oben: mobil ? 186 : (r.width < 1100 ? 150 : 82), unten: mobil ? (dossierOffen ? r.height * ($('dossier').classList.contains('halb') ? .47 : .78) : 150) : 140,
-    links: !mobil && planOffen ? 350 : 16, rechts: !mobil && dossierOffen ? 490 : 16, mobil};
+  if (mobil) {
+    const kopf = W.querySelector('.kopf').getBoundingClientRect().bottom - r.top, dock = $('dock')?.getBoundingClientRect();
+    const unten = dossierOffen ? r.height * ($('dossier').classList.contains('halb') ? BLATT_HALB : BLATT_GANZ) : planOffen ? r.height * BLATT_HALB : dock?.height ? r.bottom - dock.top + 4 : 70;
+    return {w: r.width, h: r.height, oben: kopf + 4, unten, links: 6, rechts: 6, mobil};
+  }
+  return {w: r.width, h: r.height, oben: r.width < 1100 ? 150 : 82, unten: 140,
+    links: planOffen ? 350 : 16, rechts: dossierOffen ? 490 : 16, mobil};
 }
+let kameraRaf = 0;
+const kameraBald = () => { if (!kameraRaf) kameraRaf = requestAnimationFrame(() => { kameraRaf = 0; kamera(); }); };
 function kamera() {
   const c = zustand.cam; welt.style.transform = `translate(${c.x}px,${c.y}px) scale(${c.s})`;
   welt.classList.toggle('z-makro', c.s < 0.42); welt.classList.toggle('z-detail', c.s > 1.15);
@@ -262,7 +273,16 @@ function kamera() {
   for (const k of W.querySelectorAll('.band-kopf')) { k.style.left = bx + 'px'; k.classList.toggle('klebt', bx > 19); }
   const ky = Math.max(0, (v.oben - c.y) / c.s);
   for (const k of W.querySelectorAll('.bereich-kopf')) { k.style.top = ky + 'px'; k.classList.toggle('klebt', ky > 0); }
+  if (v.mobil) dockAktiv((v.w / 2 - c.x) / c.s);
   zeichneMinikarte();
+}
+// Dock-Chip des Bereichs in der Bildmitte hervorheben und in Sicht rollen.
+let dockBereich = null;
+function dockAktiv(wx) {
+  const b = LAY?.bereiche.find(x => wx >= x.x && wx < x.x + x.w + B_GAP); if (!b || b.id === dockBereich) return; dockBereich = b.id;
+  const leiste = $('dock-chips'); if (!leiste) return;
+  for (const x of leiste.children) x.classList.toggle('aktiv', x.dataset.zoom === b.id);
+  const el = leiste.querySelector(`[data-zoom="${b.id}"]`); if (el) leiste.scrollTo({left: el.offsetLeft - leiste.offsetLeft - leiste.clientWidth / 2 + el.offsetWidth / 2, behavior: 'smooth'});
 }
 function begrenze() {
   const c = zustand.cam, v = sicht(), w = LAY.w * c.s, h = LAY.h * c.s;
@@ -286,19 +306,47 @@ const gesamt = () => fliege(passend({x: 0, y: 0, w: LAY.w, h: LAY.h}));
 function zumBereich(id) {
   if (zustand.zu.has(id)) { zustand.zu.delete(id); neuLayout(); }
   const b = LAY.bereiche.find(x => x.id === id), v = sicht(), bw = v.w - v.links - v.rechts, bh = v.h - v.oben - v.unten;
-  const s = Math.max(v.mobil ? 0.5 : MIN_S, Math.min(0.85, bw / (b.w + 40))), hoehe = LAY.h * s;
-  fliege({s, x: b.w * s > bw ? v.links - b.x * s + 4 : v.links + (bw - b.w * s) / 2 - b.x * s, y: hoehe < bh ? v.oben + (bh - hoehe) / 2 : v.oben + 6});
-  W.querySelectorAll('.leiste-bereiche button').forEach(x => x.classList.toggle('aktiv', x.dataset.zoom === id));
+  if (v.mobil) {
+    // Handy: lesbar an den linken Rand des Bereichs, oben die Stufe des eigenen Stands (sonst Stufe I)
+    const s = Math.max(LESBAR, Math.min(1.1, zustand.cam.s)), band = LAY.baender[Math.max(0, Math.min(LAY.baender.length, S?.stufe || 1) - 1)];
+    fliege({s, x: v.links - b.x * s, y: v.oben - Math.max(0, band.y - 80) * s});
+  } else {
+    const s = Math.max(MIN_S, Math.min(0.85, bw / (b.w + 40))), hoehe = LAY.h * s;
+    fliege({s, x: b.w * s > bw ? v.links - b.x * s + 4 : v.links + (bw - b.w * s) / 2 - b.x * s, y: hoehe < bh ? v.oben + (bh - hoehe) / 2 : v.oben + 6});
+  }
+  W.querySelectorAll('.leiste-bereiche button,.dock-chips button').forEach(x => x.classList.toggle('aktiv', x.dataset.zoom === id));
   zeige(`${b.titel}: ${D.bereiche.find(x => x.id === id).bahnen.reduce((s, l) => s + l.knoten.length, 0)} Einträge`);
 }
+// Handy-Start: lesbar beim eigenen Stand – die jetzt möglichen (sonst erreichten) Einträge bis zur eigenen Stufe,
+// im ersten Bereich, in dem es welche gibt. Ohne Spielstand (Testseite): Stufe I des ersten Bereichs.
+function standAnsicht() {
+  const v = sicht(), s = LESBAR;
+  let ids = [];
+  if (S) for (const k of ['moeglich', 'erreicht']) {
+    ids = Object.keys(K).filter(id => LAY.pos[id] && !LAY.pos[id].zu && K[id].stufe <= S.stufe && knotenEl[id].classList.contains('st-' + k));
+    if (ids.length) break;
+  }
+  let b;
+  if (ids.length) { const bid = ids.map(id => K[id].bereich).sort((a, c) => BEREICH[a].i - BEREICH[c].i)[0]; b = LAY.bereiche.find(x => x.id === bid); ids = ids.filter(id => K[id].bereich === bid); }
+  else b = LAY.bereiche.find(x => !x.zu) || LAY.bereiche[0];
+  const ps = ids.map(id => LAY.pos[id]), bw = v.w - v.links - v.rechts;
+  const stufe = ps.length ? Math.min(...ids.map(id => K[id].stufe)) : 1, band = LAY.baender[stufe - 1];
+  const x0 = ps.length && (Math.max(...ps.map(p => p.x)) + 112 - b.x) * s > bw ? Math.min(...ps.map(p => p.x)) - 14 : b.x;
+  return {s, x: v.links - x0 * s, y: v.oben - Math.max(0, band.y - 80) * s, bereich: b.id};
+}
+function zumStand() { const z = standAnsicht(); fliege(z); dockBereich = null; zeige(S ? `Dein Stand: ${STUFE[S.stufe - 1]?.name || ''} · ${BEREICH[z.bereich].titel}` : BEREICH[z.bereich].titel); }
+function zuBand(nr) {
+  const v = sicht(), c = zustand.cam, s = Math.max(LESBAR, c.s), band = LAY.baender[nr - 1]; if (!band) return;
+  fliege({s, x: v.w / 2 - (v.w / 2 - c.x) / c.s * s, y: v.oben - Math.max(0, band.y - 80) * s});
+}
 function zuKnoten(id, s) {
-  const p = LAY.pos[id], v = sicht(), c = zustand.cam, ns = s ?? Math.max(c.s, 0.85);
+  const p = LAY.pos[id], v = sicht(), c = zustand.cam, ns = s ?? Math.max(c.s, v.mobil ? LESBAR : 0.85);
   const bw = v.w - v.links - v.rechts, bh = v.h - v.oben - v.unten;
   fliege({s: ns, x: v.links + bw / 2 - (p.x + 48) * ns, y: v.oben + bh / 2 - (p.y + 60) * ns});
 }
 function zoomUm(f, sx, sy) {
   const c = zustand.cam, ns = Math.max(MIN_S, Math.min(MAX_S, c.s * f));
-  c.x = sx - (sx - c.x) * ns / c.s; c.y = sy - (sy - c.y) * ns / c.s; c.s = ns; begrenze(); kamera();
+  c.x = sx - (sx - c.x) * ns / c.s; c.y = sy - (sy - c.y) * ns / c.s; c.s = ns; begrenze(); kameraBald();
 }
 
 // Zeiger: Ziehen, Kneifen, Rad
@@ -319,7 +367,7 @@ buehne.addEventListener('pointermove', e => {
   if (zug && zeiger.size === 1 && !zug.kneif) { const dx = e.clientX - zug.x, dy = e.clientY - zug.y; bewegt = Math.max(bewegt, Math.hypot(dx, dy));
     if (bewegt > 5) { // erst beim echten Ziehen fangen, damit normale Klicks ihr Ziel behalten
       if (!buehne.hasPointerCapture?.(e.pointerId)) try { buehne.setPointerCapture(e.pointerId); } catch {}
-      buehne.classList.add('zieht'); zustand.cam.x = zug.cx + dx; zustand.cam.y = zug.cy + dy; begrenze(); kamera(); } }
+      buehne.classList.add('zieht'); zustand.cam.x = zug.cx + dx; zustand.cam.y = zug.cy + dy; begrenze(); kameraBald(); } }
 });
 const loslassen = e => {
   zeiger.delete(e.pointerId); buehne.classList.remove('zieht');
@@ -342,7 +390,7 @@ buehne.addEventListener('click', e => {
   if (z) { zumBereich(z.dataset.zoom); return; }
   if (st) { zeigeStufe(+st.dataset.stufe); return; }
   if (kopf) { zustand.zu.has(kopf.dataset.kopf) ? klappe(kopf.dataset.kopf) : zumBereich(kopf.dataset.kopf); return; }
-  if (k) { waehle(k.dataset.id, {fliegen: true}); return; }
+  if (k) { if (zustand.zielwahl) zielGewaehlt(k.dataset.id); else waehle(k.dataset.id, {fliegen: true}); return; }
   if (e.target.closest('.zaehler')) { const b = e.target.closest('[data-bereich]'); if (b) zumBereich(b.dataset.bereich); return; }
   if (zustand.gewaehlt || !$('dossier').hidden) schliesseDossier();
 });
@@ -390,15 +438,37 @@ function standAktualisieren() {
   for (const el of W.querySelectorAll('.band')) el.classList.toggle('st-erreicht', !!S && S.stufe >= +el.querySelector('[data-stufe]').dataset.stufe);
   if (S && $('meinstand')) $('meinstand').querySelector('small').textContent = `${STUFE[S.stufe - 1]?.name || ''}`;
   if (PLAN) { const offen = !$('plan').hidden; PLAN = berechnePlan(PLAN.ziel); zeigePlan(); $('plan').hidden = !offen; markiere(); }
-  if (zustand.gewaehlt) oeffneDossier(dossierKnoten(K[zustand.gewaehlt]));
+  if (zustand.gewaehlt) oeffneDossier(dossierKnoten(K[zustand.gewaehlt]), {behalten: true});
 }
 function standBox(n) {
   const st = status(n); if (!st) return '';
   const titel = st.k === 'erreicht' ? (MIT_STUFEN.has(n.typ) ? `Dein Stand: Stufe ${st.lv}` : 'Vorhanden')
     : st.k === 'moeglich' ? (EINHEIT.has(n.typ) || ['boden', 'rakete'].includes(n.typ) ? 'Jetzt baubar – alle Bedingungen erfüllt' : 'Jetzt möglich – alle Bedingungen erfüllt') : 'Noch gesperrt';
   const fehlt = st.k === 'gesperrt' ? [...st.fehlt.map(x => esc(name(x.id)) + (!x.id.startsWith('stufe_') && bedWert(x) ? ' ' + esc(bedWert(x)) : '')), ...st.oder.map(() => 'eine der Alternativen')] : [];
-  const naechste = st.k === 'erreicht' && MIT_STUFEN.has(n.typ) && n.faktor && n.faktor !== 1 ? `<small>Nächste Stufe ${st.lv + 1} kostet:</small>${guterListe(kostenStufe(n, st.lv + 1))}` : '';
+  const naechste = st.k === 'erreicht' && MIT_STUFEN.has(n.typ) && n.faktor && n.faktor !== 1 && !OPT.spiel?.info?.(n.id, n.typ) ? `<small>Nächste Stufe ${st.lv + 1} kostet:</small>${guterListe(kostenStufe(n, st.lv + 1))}` : '';
   return `<div class="d-stand st-${st.k}"><b>${titel}</b>${fehlt.length ? `<small>Es fehlt: ${fehlt.join(', ')}</small>` : ''}${naechste}</div>`;
+}
+// Im Spiel: echter Auftrag aus dem Dossier über OPT.spiel (techbaum-start.js → dieselben Handler wie die Kacheln der Bauseiten).
+function aktionBlock(n) {
+  const i = OPT.spiel?.info?.(n.id, n.typ); if (!i) return '';
+  const imSpiel = `<button type="button" class="d-zweit" data-spiel-oeffnen="${esc(n.id)}">${esc(i.seiteText)}</button>`;
+  if (i.auftrag) return `<div class="d-aktion laeuft"><b>${esc(i.auftrag)}</b><small>${esc(i.ort)}</small>${imSpiel}</div>`;
+  if (i.gesperrt.length) {
+    const st = status(n), ids = st?.k === 'gesperrt' ? st.fehlt.map(x => x.id).filter(id => K[id] || id.startsWith('stufe_')) : [];
+    return `<div class="d-aktion gesperrt"><b>Gesperrt: braucht ${esc(i.gesperrt.join(' · '))}</b>${ids.length ? `<small>Antippen springt zur Bedingung:</small><div class="chips">${ids.map(id => chip(id)).join('')}</div>` : ''}${imSpiel}</div>`;
+  }
+  const aus = !!i.lesen || !i.bezahlbar && !i.vormerken;
+  const menge = i.menge ? `<label class="d-menge"><span>Anzahl</span><input id="d-menge" type="number" min="1" max="${Math.max(1, i.max || 1)}" value="1" inputmode="numeric"></label>` : '';
+  const hinweis = i.lesen ? i.lesen : !i.bezahlbar ? (i.vormerken ? 'Rohstoffe fehlen noch: der Auftrag wird vorgemerkt und startet automatisch.' : 'Rohstoffe reichen noch nicht.') : i.hinweis || '';
+  return `<div class="d-aktion bereit"><div class="d-aktion-zeile">${menge}<button type="button" class="d-bauen" data-spiel-bauen="${esc(n.id)}"${aus ? ' disabled' : ''}>${esc(i.wort)}</button></div>
+    ${guterListe(i.kosten)}<small>${esc(i.ort)}${hinweis ? ' · ' + esc(hinweis) : ''}</small>${imSpiel}</div>`;
+}
+async function spielBauen(knopf) {
+  const id = knopf.dataset.spielBauen, menge = Math.max(1, Math.floor(+($('d-menge')?.value || 1)));
+  knopf.disabled = true; knopf.classList.add('laeuft'); knopf.textContent = 'Wird beauftragt …';
+  let r; try { r = await OPT.spiel.ausfuehren(id, K[id].typ, menge); } catch (e) { r = {ok: false, text: e.message}; }
+  zeige(r.text || (r.ok ? 'Auftrag erteilt' : 'Nicht möglich'), {fehler: !r.ok, ms: 4500});
+  standAktualisieren();
 }
 function markiere() {
   const s = zustand.gewaehlt && K[zustand.gewaehlt] ? zustand.gewaehlt : null;
@@ -570,19 +640,30 @@ function dossierKnoten(n) {
   const aw = (n.antriebswechsel || []).length ? `<ol class="sf-liste">${n.antriebswechsel.map(a => `<li data-geh="${esc(a.forschung)}"><img alt="" src="${esc(bild(a.forschung))}"><span><b>${esc(name(a.forschung))} ${a.stufe}</b><small>wechselt auf ${esc(name(a.antrieb))}</small></span><em>${kurz(a.tempo)}</em></li>`).join('')}</ol><p class="vp-hinweis">Ab der genannten Stufe gelten neuer Antrieb, Grundtempo und Verbrauch; Startantrieb: ${esc(name(n.antrieb))}.</p>` : '';
   const anteile = n.anteile ? `<div class="tabelle-roll"><table class="tabelle"><thead><tr><th>Epoche</th><th>Anteil je Gut</th></tr></thead><tbody>${n.anteile.map(z => `<tr><td>${z.tage} Tage</td><td>${kurz(z.anteil)}</td></tr>`).join('')}</tbody></table></div>` : '';
   const gewichte = n.gewichte ? `<div class="kp-zahlen">${Object.entries(n.gewichte).map(([z, w]) => `<div><b>${w}</b><span>${esc(name('zone_' + z))}</span></div>`).join('')}</div><p class="vp-hinweis">Relative Häufigkeit nach Zone des Planeten.</p>` : '';
-  return {farbe: b.farbe, html: `
-    <div class="d-held${flaeche ? ' flaeche' : ''}${['planet', 'mondtyp'].includes(n.typ) ? ' kugel' : ''}"><img id="d-bild" alt="${esc(n.name)}" src="${esc(bild(n.id))}">${eigenesBild ? `<span class="d-volk">${V.emblem ? `<img alt="" src="${esc(BASIS + V.emblem)}">` : ''}${esc(V.name)}-Motiv</span>` : ''}</div>
+  const held = `<div class="d-held${flaeche ? ' flaeche' : ''}${['planet', 'mondtyp'].includes(n.typ) ? ' kugel' : ''}"><img id="d-bild" alt="${esc(n.name)}" src="${esc(bild(n.id))}">${eigenesBild ? `<span class="d-volk">${V.emblem ? `<img alt="" src="${esc(BASIS + V.emblem)}">` : ''}${esc(V.name)}-Motiv</span>` : ''}</div>`;
+  const titel = `<div class="d-titel"><small>${esc(b.titel)} · ${esc(n.klasse || TYP[n.typ])}</small><h2>${esc(n.name)}</h2></div>`;
+  const werte = abschnitt('Werte', werteBlock(n), EINHEIT.has(n.typ) ? 'Grundwerte mit Volksbonus' : '') + kampf;
+  const bed = abschnitt('Bedingungen', bedingungen(n, n.stufe), 'alles, was erfüllt sein muss'), volk = abschnitt('Volk · ' + esc(V.name), volkText);
+  const kost = abschnitt(EINHEIT.has(n.typ) || ['boden', 'rakete', 'bauteil'].includes(n.typ) ? 'Baukosten' : n.typ === 'wunder' ? 'Anteil je Mitglied (365 Tage)' : 'Kosten Stufe 1', guterListe(kosten, n.kosten), n.typ === 'boden' ? 'je Einheit' : '');
+  const wirk = n.wirkung && n.wirkung !== n.rolle ? abschnitt('Wirkung', `<p data-st="margin:0">${esc(n.wirkung)}</p>`) : '';
+  // Handy: Bild klein neben dem Titel, darunter Stand und Bauen/Erforschen, dann Kosten, Wirkung, Bedingungen (im halben Blatt sichtbar)
+  const mobil = istMobil();
+  return {farbe: b.farbe, html: (mobil ? `
+    <div class="d-oben">${held}${titel}</div>
     ${bildwahl(n)}
     ${wkKnoepfe(n)}
-    <div class="d-titel"><small>${esc(b.titel)} · ${esc(n.klasse || TYP[n.typ])}</small><h2>${esc(n.name)}</h2></div>
     ${standBox(n)}
+    ${aktionBlock(n)}
     ${n.rolle ? `<p class="d-rolle">${esc(n.rolle)}</p>` : ''}
-    ${abschnitt('Werte', werteBlock(n), EINHEIT.has(n.typ) ? 'Grundwerte mit Volksbonus' : '')}
-    ${kampf}
-    ${abschnitt('Bedingungen', bedingungen(n, n.stufe), 'alles, was erfüllt sein muss')}
-    ${abschnitt('Volk · ' + esc(V.name), volkText)}
-    ${abschnitt(EINHEIT.has(n.typ) || ['boden', 'rakete', 'bauteil'].includes(n.typ) ? 'Baukosten' : n.typ === 'wunder' ? 'Anteil je Mitglied (365 Tage)' : 'Kosten Stufe 1', guterListe(kosten, n.kosten), n.typ === 'boden' ? 'je Einheit' : '')}
-    ${n.wirkung && n.wirkung !== n.rolle ? abschnitt('Wirkung', `<p data-st="margin:0">${esc(n.wirkung)}</p>`) : ''}
+    ${kost}${wirk}${bed}${werte}${volk}` : `
+    ${held}
+    ${bildwahl(n)}
+    ${wkKnoepfe(n)}
+    ${titel}
+    ${standBox(n)}
+    ${aktionBlock(n)}
+    ${n.rolle ? `<p class="d-rolle">${esc(n.rolle)}</p>` : ''}
+    ${werte}${bed}${volk}${kost}${wirk}`) + `
     ${abschnitt('Klima je Volk', habitatTabelle(n), 'Bevölkerungswachstum')}
     ${abschnitt('Vorkommen', gewichte)}
     ${abschnitt('Anteil nach Epochenlänge', anteile)}
@@ -595,7 +676,7 @@ function dossierKnoten(n) {
     ${abschnitt('Lore', (lore.allgemein ? `<p class="lore">${esc(lore.allgemein)}</p>` : '') + (lore[v] ? `<p class="lore" data-st="border-color:${V.farbe}">${esc(lore[v])}</p>` : ''), '', false)}
     ${abschnitt('Archiv', archiv(n), '', false)}
     ${abschnitt('Regeltexte', regeln(n.regeln), 'Volltext aus dem Regelwerk', false)}
-    <button type="button" class="halten${PLAN?.ziel === n.id ? ' fertig' : ''}" id="halten" data-ziel="${esc(n.id)}"><i></i><strong>${PLAN?.ziel === n.id ? 'WEG GEPLANT ✓' : 'WEG PLANEN'}</strong><small>${PLAN?.ziel === n.id ? 'erneut halten zum Aufheben' : 'halten (1,2 s) – alle Schritte, Bedingungen und Gesamtkosten'}</small></button>
+    <button type="button" class="halten${PLAN?.ziel === n.id ? ' fertig' : ''}" id="halten" data-ziel="${esc(n.id)}"><i></i><strong>${PLAN?.ziel === n.id ? 'WEG GEPLANT ✓' : mobil ? 'WEG HIERHER PLANEN' : 'WEG PLANEN'}</strong><small>${PLAN?.ziel === n.id ? (mobil ? 'antippen zum Aufheben' : 'erneut halten zum Aufheben') : mobil ? 'antippen – alle Schritte, Bedingungen und Gesamtkosten' : 'halten (1,2 s) – alle Schritte, Bedingungen und Gesamtkosten'}</small></button>
     <div class="knopfzeile"><button type="button" data-pfad="${esc(n.id)}">Ganzen Pfad zeigen</button><button type="button" data-zoom="${n.bereich}">Baum „${esc(b.titel)}“</button></div>`};
 }
 function zeigeStufe(nr) {
@@ -603,15 +684,15 @@ function zeigeStufe(nr) {
   zustand.gewaehlt = null; markiere();
   const bed = nr > 1 ? bedingungen({voraus: st.voraus, bedingungen: st.bedingungen}, nr - 1 > 1 ? nr - 1 : 0) : `<ul class="bed-text">${st.bedingungen.map(t => `<li>${esc(t)}</li>`).join('')}</ul>`;
   oeffneDossier({farbe: 'var(--gold)', html: `
-    <div class="d-held flaeche"><img alt="${esc(st.name)}" src="${esc(bild('stufe_' + nr))}"></div>
-    <div class="d-titel"><small>Zivilisationsstufe</small><h2>${esc(st.name)}</h2></div>
+    <div class="${istMobil() ? 'd-oben' : 'd-stufe-kopf'}"><div class="d-held flaeche"><img alt="${esc(st.name)}" src="${esc(bild('stufe_' + nr))}"></div>
+    <div class="d-titel"><small>Zivilisationsstufe</small><h2>${esc(st.name)}</h2></div></div>
     <p class="d-rolle">${nr === 1 ? 'Jedes Reich beginnt hier.' : `Aufstieg schaltet ${frei.length} Einträge frei.`}</p>
     ${abschnitt('Bedingungen', bed, 'alles, was erfüllt sein muss')}
     ${abschnitt('Aufstiegskosten', guterListe(st.kosten))}
     ${abschnitt('Schaltet frei', `<div class="chips">${frei.map(n => chip(n.id)).join('')}</div>`, `${frei.length} Einträge`)}
     ${abschnitt('Regeltexte', regeln(['stufen']), '', false)}
-    ${nr > 1 ? `<button type="button" class="halten${PLAN?.ziel === 'stufe_' + nr ? ' fertig' : ''}" id="halten" data-ziel="stufe_${nr}"><i></i><strong>${PLAN?.ziel === 'stufe_' + nr ? 'WEG GEPLANT ✓' : 'AUFSTIEG PLANEN'}</strong><small>halten (1,2 s)</small></button>` : ''}`});
-  const band = LAY.baender[nr - 1]; fliege(passend({x: 0, y: band.y - 10, w: LAY.w, h: band.h + 20}, 0.9));
+    ${nr > 1 ? `<button type="button" class="halten${PLAN?.ziel === 'stufe_' + nr ? ' fertig' : ''}" id="halten" data-ziel="stufe_${nr}"><i></i><strong>${PLAN?.ziel === 'stufe_' + nr ? 'WEG GEPLANT ✓' : 'AUFSTIEG PLANEN'}</strong><small>${istMobil() ? 'antippen' : 'halten (1,2 s)'}</small></button>` : ''}`});
+  const band = LAY.baender[nr - 1]; if (istMobil()) zuBand(nr); else fliege(passend({x: 0, y: band.y - 10, w: LAY.w, h: band.h + 20}, 0.9));
 }
 function zeigeBereich(id) {
   const b = BEREICH[id];
@@ -645,14 +726,19 @@ function zeigeRegeln() {
     <label class="suche regelsuche"><span class="sr">Regeln durchsuchen</span><input id="regelsuche" type="search" placeholder="Regeln durchsuchen …"></label>
     <div id="regelliste">${regeln(Object.keys(D.regelabschnitte))}</div>`});
 }
-function oeffneDossier({farbe: f, html}) {
-  const d = $('dossier'); d.style.setProperty('--bf', f); $('dossier-inhalt').innerHTML = html; $('dossier-inhalt').scrollTop = 0;
-  const war = d.hidden; d.hidden = false; d.classList.toggle('halb', innerWidth < 760); if (war) kamera();
+function oeffneDossier({farbe: f, html}, {behalten = false} = {}) {
+  const d = $('dossier'), inhalt = $('dossier-inhalt'), y = inhalt.scrollTop; behalten &&= !d.hidden;
+  d.style.setProperty('--bf', f); inhalt.innerHTML = html; inhalt.scrollTop = behalten ? y : 0;
+  if (istMobil() && !$('plan').hidden) $('plan').hidden = true; // auf dem Handy immer nur ein Blatt
+  const war = d.hidden; d.hidden = false; if (!behalten) d.classList.toggle('halb', istMobil()); if (war) kamera();
 }
 $('dossier-zu').addEventListener('click', schliesseDossier);
 $('dossier-griff').addEventListener('click', () => $('dossier').classList.toggle('halb'));
 $('dossier-inhalt').addEventListener('scroll', e => { if (e.target.scrollTop > 40) $('dossier').classList.remove('halb'); }, {passive: true});
 $('dossier').addEventListener('click', e => {
+  const sb = e.target.closest('[data-spiel-bauen]'); if (sb) { if (!sb.disabled) spielBauen(sb); return; }
+  const so = e.target.closest('[data-spiel-oeffnen]'); if (so) { OPT.spiel?.oeffnen?.(so.dataset.spielOeffnen, K[so.dataset.spielOeffnen]?.typ); return; }
+  const ha = e.target.closest('#halten'); if (ha) { if (istMobil()) planUmschalten(ha.dataset.ziel); return; }
   const wk = e.target.closest('[data-wk]'); if (wk) { window.Weltenkruemmer?.oeffnen(zustand.volk, true, wk.dataset.wk === 'film' ? {film: {mond: wk.dataset.mond}} : {}); return; }
   const bw = e.target.closest('[data-bild]'); if (bw) { $('d-bild').src = bw.dataset.bild; bw.parentElement.querySelectorAll('button').forEach(x => x.setAttribute('aria-selected', x === bw)); return; }
   const f = e.target.closest('[data-vtf]'); if (f) { const wert = f.dataset.vtf, box = f.closest('details');
@@ -675,7 +761,7 @@ function passeAn(ids) {
 
 /* ---------- Halten zum Bestätigen ---------- */
 let haltTimer = null;
-function haltStart(e) { const h = e.target.closest('#halten'); if (!h || h.classList.contains('laeuft')) return; e.preventDefault();
+function haltStart(e) { const h = e.target.closest('#halten'); if (!h || h.classList.contains('laeuft') || istMobil() && e.type === 'pointerdown') return; e.preventDefault();
   h.classList.add('laeuft'); haltTimer = setTimeout(() => { h.classList.remove('laeuft'); navigator.vibrate?.(25); planUmschalten(h.dataset.ziel); }, 1200); }
 function haltEnde() { clearTimeout(haltTimer); W.querySelector('#halten.laeuft')?.classList.remove('laeuft'); }
 $('dossier').addEventListener('pointerdown', haltStart);
@@ -702,10 +788,21 @@ function berechnePlan(ziel) {
   return {ziel, bedarf, stufen, schritte, gesamt, fp, erledigt: erledigt.size};
 }
 function planUmschalten(ziel) {
-  if (PLAN?.ziel === ziel) { PLAN = null; $('plan').hidden = true; $('planknopf').classList.remove('an'); markiere(); zeige('Planung aufgehoben'); refreshDossier(); return; }
-  PLAN = berechnePlan(ziel); speicher.schreib('plan', ziel); zeigePlan(); markiere(); refreshDossier();
+  if (PLAN?.ziel === ziel) { PLAN = null; $('plan').hidden = true; $('planknopf').classList.remove('an'); $('dock-weg')?.classList.remove('an'); markiere(); zeige('Planung aufgehoben'); refreshDossier(); return; }
+  PLAN = berechnePlan(ziel); speicher.schreib('plan', ziel);
+  if (istMobil()) { // Handy: Dossier zu, Wegblatt halb hoch, Karte darüber zeigt den ganzen Weg
+    zustand.gewaehlt = null; $('dossier').hidden = true; schreibHash(); zeigePlan(); markiere();
+    passeAn([...PLAN.bedarf.keys(), ...(ziel.startsWith('stufe_') ? [] : [ziel])]);
+  } else { zeigePlan(); markiere(); refreshDossier(); }
   requestAnimationFrame(() => impulse()); zeige(`Weg geplant: ${PLAN.schritte.length} Schritte, ${PLAN.stufen.size} Aufstiege`);
 }
+// Weg auf dem Handy: „Weg“ im Dock ohne Plan → Ziel wählen (Suche oder Eintrag antippen).
+function zielwahl(an) {
+  zustand.zielwahl = an; $('dock-weg')?.classList.toggle('an', an || !!PLAN);
+  suche.placeholder = an ? 'Ziel für den Weg …' : 'Suchen …';
+  if (an) { zeige('Weg planen: Ziel suchen oder Eintrag auf der Karte antippen', {ms: 4000}); suche.focus(); }
+}
+function zielGewaehlt(id) { zielwahl(false); suche.blur(); planUmschalten(id); }
 function refreshDossier() { if (zustand.gewaehlt) oeffneDossier(dossierKnoten(K[zustand.gewaehlt])); else { const h = W.querySelector('#halten'); if (h?.dataset.ziel?.startsWith('stufe_')) zeigeStufeNurDossier(+h.dataset.ziel.slice(6)); } }
 function zeigeStufeNurDossier(nr) { const c = {...zustand.cam}; zeigeStufe(nr); cancelAnimationFrame(flug); zustand.cam = c; kamera(); }
 function zeigePlan() {
@@ -716,13 +813,14 @@ function zeigePlan() {
   const html = STUFE.map(st => { const g = (gruppen[st.nr] || []).sort((a, b) => ord(a.id) - ord(b.id)), auf = p.stufen.has(st.nr);
     if (!g.length && !auf) return '';
     return `<div class="plan-stufe">${esc(st.name)}</div><ul class="plan-liste">${auf ? `<li><button type="button" data-geh="stufe_${st.nr}"><img alt="" src="${esc(bild('stufe_' + st.nr))}"><span>Aufstieg: ${esc(st.name)}${st.einwohner ? `<br><small data-st="color:var(--leise)">${fmt(st.einwohner)} Einwohner${st.kolonien ? `, ${st.kolonien} Kolonien` : ''}</small>` : ''}</span><b>↑</b></button></li>` : ''}${g.map(s => `<li><button type="button" data-geh="${s.id}"><img alt="" src="${esc(bild(s.id))}" loading="lazy"><span>${esc(name(s.id))}<br><small data-st="color:var(--leise)">${esc(TYP[K[s.id].typ])}</small></span><b>${angabe(s)}</b></button></li>`).join('')}</ul>`; }).join('');
+  const mobil = istMobil();
   el.innerHTML = `<div class="plan-kopf"><span>GEPLANTER WEG</span><button type="button" class="x" id="plan-zu" aria-label="Plan schließen">✕</button></div><div class="plan-inhalt">
     <div class="plan-ziel"><img alt="" src="${esc(bild(p.ziel))}"><div><small>Ziel</small><strong>${esc(name(p.ziel))}</strong><small>${p.schritte.length} Schritte · ${p.stufen.size} Aufstiege · ${esc(D.voelker[zustand.volk].name)}</small></div></div>
-    ${abschnitt('Gesamtkosten', guterListe(p.gesamt) + (p.fp ? `<p class="vp-hinweis">Forschungspunkte: ${kurz(p.fp)}${D.voelker[zustand.volk].regel.forschung !== 1 ? ` (Tempo ${mal(D.voelker[zustand.volk].regel.forschung)})` : ''}</p>` : ''), 'alle Stufen kumuliert')}
+    ${mobil ? html : ''}${abschnitt('Gesamtkosten', guterListe(p.gesamt) + (p.fp ? `<p class="vp-hinweis">Forschungspunkte: ${kurz(p.fp)}${D.voelker[zustand.volk].regel.forschung !== 1 ? ` (Tempo ${mal(D.voelker[zustand.volk].regel.forschung)})` : ''}</p>` : ''), 'alle Stufen kumuliert', !mobil)}
     ${S ? `<p class="vp-hinweis">Ab deinem Stand gerechnet: ${p.erledigt} Bedingungen sind schon erfüllt und fehlen hier; Ausbaustufen zählen ab deiner aktuellen Stufe.</p>` : ''}
     <p class="vp-hinweis">Bei „eine davon genügt“ nimmt der Plan die erste Möglichkeit; Versorgung (Strom, Personal) ist nicht eingerechnet.</p>
-    ${html}<div class="knopfzeile"><button type="button" id="plan-zeigen">Auf der Karte zeigen</button><button type="button" id="plan-weg">Plan aufheben</button></div></div>`;
-  el.hidden = false; $('planknopf').classList.add('an');
+    ${mobil ? '' : html}<div class="knopfzeile"><button type="button" id="plan-zeigen">Auf der Karte zeigen</button><button type="button" id="plan-weg">Plan aufheben</button></div></div>`;
+  el.hidden = false; $('planknopf').classList.add('an'); $('dock-weg')?.classList.add('an');
 }
 $('plan').addEventListener('click', e => {
   const g = e.target.closest('[data-geh]'); if (g) { const id = g.dataset.geh; id.startsWith('stufe_') ? zeigeStufe(+id.slice(6)) : waehle(id, {fliegen: true}); if (sicht().mobil) $('plan').hidden = true; return; }
@@ -764,7 +862,8 @@ $('volksprofil').addEventListener('click', e => { if (e.target.closest('#vp-kopf
 
 /* ---------- Werkzeuge oben ---------- */
 $('meinestufe').innerHTML += STUFE.map(s => `<option value="${s.nr}">${esc(s.name)}</option>`).join('');
-$('meinestufe').addEventListener('change', e => { zustand.meine = +e.target.value; markiere(); stufenStatus(); zeige(zustand.meine ? `Gesperrt ist alles über ${STUFE[zustand.meine - 1].name}` : 'Alle Stufen offen'); });
+$('meinestufe').options[0].textContent = 'Alle Stufen';
+$('meinestufe').addEventListener('change', e => { zustand.meine = +e.target.value; markiere(); stufenStatus(); if (zustand.meine && istMobil()) zuBand(zustand.meine); zeige(zustand.meine ? `Gesperrt ist alles über ${STUFE[zustand.meine - 1].name}` : 'Alle Stufen offen'); });
 $('volksmodus').dataset.kurz = 'Volk'; $('allelinien').dataset.kurz = 'Linien';
 $('volksmodus').addEventListener('click', e => { zustand.volksmodus = !zustand.volksmodus; e.currentTarget.setAttribute('aria-pressed', zustand.volksmodus); welt.classList.toggle('volksfokus', zustand.volksmodus);
   zeige(zustand.volksmodus ? `Hervorgehoben: was die ${D.voelker[zustand.volk].name} verändern` : 'Alle Einträge sichtbar'); });
@@ -784,7 +883,9 @@ suche.addEventListener('input', () => {
   treffer.hidden = false;
 });
 suche.addEventListener('keydown', e => { if (e.key === 'Enter') treffer.querySelector('[data-geh]')?.click(); if (e.key === 'Escape') { suche.value = ''; treffer.hidden = true; } if (e.key === 'ArrowDown') { e.preventDefault(); treffer.querySelector('button')?.focus(); } });
-treffer.addEventListener('click', e => { const b = e.target.closest('[data-geh]'); if (!b) return; treffer.hidden = true; suche.value = ''; suche.blur(); waehle(b.dataset.geh, {fliegen: true});
+treffer.addEventListener('click', e => { const b = e.target.closest('[data-geh]'); if (!b) return; treffer.hidden = true; suche.value = ''; suche.blur();
+  if (zustand.zielwahl) { zielGewaehlt(b.dataset.geh); return; }
+  waehle(b.dataset.geh, {fliegen: true});
   const el = knotenEl[b.dataset.geh]; el.classList.remove('treffer'); void el.offsetWidth; el.classList.add('treffer'); });
 document.addEventListener('pointerdown', e => { if (!e.composedPath().some(x => x.classList?.contains('suche'))) treffer.hidden = true; });
 
@@ -793,7 +894,7 @@ document.addEventListener('keydown', e => {
   if (EINGEBETTET && !OPT.aktiv?.()) return;
   if (e.composedPath()[0]?.matches?.('input,select,textarea')) return;
   const v = sicht();
-  if (e.key === 'Escape') { if (!$('dossier').hidden) schliesseDossier(); else if (!$('plan').hidden) $('plan').hidden = true; else OPT.schliessen?.(); }
+  if (e.key === 'Escape') { if (!zurueck()) OPT.schliessen?.(); }
   else if (e.key === '0') gesamt();
   else if (e.key === '+' || e.key === '=') zoomUm(1.25, v.w / 2, v.h / 2);
   else if (e.key === '-') zoomUm(.8, v.w / 2, v.h / 2);
@@ -827,7 +928,7 @@ mk.addEventListener('pointerup', () => mkZieht = false);
 
 /* ---------- Hinweis ---------- */
 let hinweisT = null;
-function zeige(t) { const h = $('hinweis'); h.textContent = t; h.classList.add('zeigen'); clearTimeout(hinweisT); hinweisT = setTimeout(() => h.classList.remove('zeigen'), 2200); }
+function zeige(t, {fehler = false, ms = 2200} = {}) { const h = $('hinweis'); h.textContent = t; h.classList.toggle('fehler', fehler); h.classList.add('zeigen'); clearTimeout(hinweisT); hinweisT = setTimeout(() => h.classList.remove('zeigen'), ms); }
 
 /* ---------- Mobil: Blatt nach unten wischen ---------- */
 (() => { const g = $('dossier-griff'); let y0 = null;
@@ -848,22 +949,87 @@ if (EINGEBETTET) {
   stand.addEventListener('click', () => { zustand.standAn = !(zustand.standAn !== false); stand.setAttribute('aria-pressed', zustand.standAn); welt.classList.toggle('stand-an', !!S && zustand.standAn); });
   const werkzeuge = W.querySelector('.kopf-werkzeuge'); werkzeuge.prepend(stand); werkzeuge.prepend(zu);
 }
+/* ---------- Handy: Menü (Volk, Anzeige, Regeln) und Dock (Stand, Weg, Bereiche) ---------- */
+const menueKnopf = document.createElement('button'); menueKnopf.type = 'button'; menueKnopf.className = 'schalter menue-knopf'; menueKnopf.id = 'menueknopf';
+menueKnopf.dataset.kurz = '☰'; menueKnopf.setAttribute('aria-label', 'Menü: Volk, Anzeige, Regeln'); menueKnopf.setAttribute('aria-expanded', 'false'); menueKnopf.setAttribute('aria-controls', 'menue');
+W.querySelector('.kopf-werkzeuge').append(menueKnopf);
+const menue = document.createElement('div'); menue.className = 'menue glas'; menue.id = 'menue'; menue.hidden = true; menue.setAttribute('role', 'dialog'); menue.setAttribute('aria-label', 'Menü');
+const dock = document.createElement('nav'); dock.className = 'dock glas'; dock.id = 'dock'; dock.setAttribute('aria-label', 'Stand, Weg und Bereiche');
+dock.innerHTML = `<button type="button" class="dock-knopf" id="dock-stand"><b>◉</b><span>${EINGEBETTET ? 'Stand' : 'Start'}</span></button><button type="button" class="dock-knopf" id="dock-weg"><b>◎</b><span>Weg</span></button>`
+  + `<div class="dock-chips" id="dock-chips">${D.bereiche.map(b => `<button type="button" data-zoom="${b.id}" data-st="--bf:${b.farbe}">${esc(b.titel)}</button>`).join('')}</div>`;
+$('app').append(menue, dock);
+const schaltZeile = (m, text, an) => `<button type="button" class="menue-zeile" data-m="${m}" aria-pressed="${!!an}"><span class="lampe"></span>${text}</button>`;
+function baueMenue() {
+  menue.innerHTML = `<div class="menue-kopf"><span>ANSICHT</span><button type="button" class="x" data-m="zu" aria-label="Menü schließen">✕</button></div>
+    <h4>Volk</h4><div class="menue-voelker">${Object.entries(D.voelker).map(([k, v]) => `<button type="button" class="volk-knopf" data-mvolk="${k}" data-st="--vf:${v.farbe}" aria-pressed="${k === zustand.volk}">${v.emblem ? `<img alt="" src="${esc(BASIS + v.emblem)}">` : ''}<span>${esc(v.name)}</span></button>`).join('')}</div>
+    <h4>Anzeige</h4><div class="menue-liste">${S ? schaltZeile('stand', 'Mein Stand (Gold erreicht, Cyan möglich)', zustand.standAn !== false) : ''}${schaltZeile('volksmodus', 'Nur Volksänderungen hervorheben', zustand.volksmodus)}${schaltZeile('allelinien', 'Alle Linien zeigen', zustand.allelinien)}</div>
+    <h4>Gehe zu</h4><div class="menue-liste"><button type="button" class="menue-zeile" data-m="profil">Volksprofil ${esc(D.voelker[zustand.volk].name)}</button><button type="button" class="menue-zeile" data-m="ganz">Gesamtübersicht aller Bäume</button><button type="button" class="menue-zeile" data-m="klappen">Alle Bereiche zu-/aufklappen</button><button type="button" class="menue-zeile" data-m="regeln">Alle Regeltexte</button></div>`;
+}
+function menueZeigen(an) { if (an) baueMenue(); menue.hidden = !an; menueKnopf.setAttribute('aria-expanded', an); }
+menueKnopf.addEventListener('click', () => menueZeigen(menue.hidden));
+menue.addEventListener('click', e => {
+  const v = e.target.closest('[data-mvolk]'); if (v) { setzeVolk(v.dataset.mvolk); baueMenue(); return; }
+  const m = e.target.closest('[data-m]')?.dataset.m; if (!m) return;
+  if (m === 'stand') $('meinstand')?.click(); else if (m === 'volksmodus') $('volksmodus').click(); else if (m === 'allelinien') $('allelinien').click();
+  if (['stand', 'volksmodus', 'allelinien'].includes(m)) { baueMenue(); return; }
+  menueZeigen(false);
+  if (m === 'profil') { const pv = $('volksprofil'); pv.classList.remove('zu'); pv.classList.add('mobil-offen'); }
+  else if (m === 'ganz') gesamt(); else if (m === 'klappen') $('allezu').click(); else if (m === 'regeln') zeigeRegeln();
+});
+$('volksprofil').addEventListener('click', e => { if (e.target.closest('#vp-kopf') && istMobil()) $('volksprofil').classList.remove('mobil-offen'); });
+dock.addEventListener('click', e => {
+  const z = e.target.closest('[data-zoom]'); if (z) { zielwahl(false); zumBereich(z.dataset.zoom); return; }
+  if (e.target.closest('#dock-stand')) { zielwahl(false); zumStand(); return; }
+  if (e.target.closest('#dock-weg')) {
+    if (zustand.zielwahl) { zielwahl(false); return; }
+    if (!PLAN) { zielwahl(true); return; }
+    const pl = $('plan'); if (pl.hidden) { $('dossier').hidden = true; zustand.gewaehlt = null; markiere(); pl.hidden = false; passeAn([...PLAN.bedarf.keys()]); impulse(); } else { pl.hidden = true; kamera(); }
+  }
+});
+document.addEventListener('pointerdown', e => { if (!menue.hidden && !e.composedPath().some(x => x === menue || x === menueKnopf)) menueZeigen(false); });
 const gespeichertZu = speicher.lies('zu'); if (gespeichertZu) for (const z of gespeichertZu.split(',')) if (BEREICH[z]) zustand.zu.add(z);
 if (speicher.lies('vpzu') !== '0') $('volksprofil').classList.add('zu');
 baueNach(); baueVoelker(); baueKnoten(); layout(); setzePositionen();
 setzeVolk(zustand.volk);
 standAktualisieren();
 const startPlan = speicher.lies('plan'); if (startPlan && (K[startPlan] || /^stufe_[2-5]$/.test(startPlan))) { PLAN = berechnePlan(startPlan); zeigePlan(); $('plan').hidden = true; markiere(); }
-const v0 = passend({x: 0, y: 0, w: LAY.w, h: LAY.h}); zustand.cam = v0; kamera();
+// Start: Desktop zeigt alle Bäume, das Handy beginnt lesbar beim eigenen Stand.
+const startKamera = () => { const {s, x, y} = istMobil() ? standAnsicht() : passend({x: 0, y: 0, w: LAY.w, h: LAY.h}); zustand.cam = {s, x, y}; dockBereich = null; kamera(); };
+startKamera();
 if (hash.get('id') && K[hash.get('id')]) setTimeout(() => waehle(hash.get('id'), {fliegen: true}), 300);
-else zeige('Ziehen zum Verschieben · Rad/zwei Finger zum Zoomen · Eintrag antippen für das Dossier');
-addEventListener('resize', () => { minikarteGrund = null; if (!angefasst) zustand.cam = passend({x: 0, y: 0, w: LAY.w, h: LAY.h}); kamera(); });
+else zeige(istMobil() ? 'Wischen verschiebt · zwei Finger zoomen · Eintrag antippen' : 'Ziehen zum Verschieben · Rad/zwei Finger zum Zoomen · Eintrag antippen für das Dossier', {ms: 3500});
+addEventListener('resize', () => { minikarteGrund = null; if (!angefasst) startKamera(); else kamera(); });
+// Zurück (Android, Browser, Esc): erst Menü, Suche, Zielwahl, Volksprofil, Dossier, Weg – dann darf der Baum selbst schließen.
 function zurueck() {
+  if (!menue.hidden) { menueZeigen(false); return true; }
+  if (!treffer.hidden) { treffer.hidden = true; suche.value = ''; suche.blur(); return true; }
+  if (zustand.zielwahl) { zielwahl(false); return true; }
+  if ($('volksprofil').classList.contains('mobil-offen')) { $('volksprofil').classList.remove('mobil-offen'); return true; }
   if (!$('dossier').hidden) { schliesseDossier(); return true; }
   if (!$('plan').hidden) { $('plan').hidden = true; kamera(); return true; }
   return false;
 }
-window.__techbaum = {zustand, LAY: () => LAY, waehle, zumBereich, planUmschalten, berechnePlan, zeigeBereich, zeigeRegeln, Kampf, standAktualisieren, zurueck};
+// Bei jedem Öffnen im Spiel: Stand neu lesen; wer noch nichts verschoben hat, landet wieder beim eigenen Stand.
+function geoeffnet() { standAktualisieren(); if (!angefasst) startKamera(); }
+// Objektansicht im Spiel (Karl 19.10.: „immer den neuen Baum nutzen und für das Objekt passend zoomen, um alles zu
+// erkennen – auch auf dem Handy“): Eintrag wählen (Dossier, ganzer Pfad hervorgehoben) und die Kamera auf ihn, seine
+// direkten Voraussetzungen und das direkt Freigeschaltete einpassen. Nie kleiner als lesbar: passt der Kreis nicht, nur
+// Eintrag + Voraussetzungen, sonst der Eintrag in der Mitte (Pfadlinien führen weiter).
+function zeigeObjekt(id) {
+  const n = K[id]; if (!n) return false;
+  if (zustand.zu.has(n.bereich)) { zustand.zu.delete(n.bereich); neuLayout(); }
+  angefasst = true; zustand.gewaehlt = id; markiere(); oeffneDossier(dossierKnoten(n)); schreibHash();
+  const da = i => LAY.pos[i] && !LAY.pos[i].zu, vor = vorausVon(n).filter(v => HART.has(v.art)).map(v => v.id).filter(da), folge = (nach[id] || []).map(v => v.id).filter(da);
+  const v = sicht(), min = v.mobil ? .62 : .5;
+  const rahmen = ids => { const ps = ids.map(i => LAY.pos[i]), x = Math.min(...ps.map(p => p.x)) - 30, y = Math.min(...ps.map(p => p.y)) - 40;
+    return passend({x, y, w: Math.max(...ps.map(p => p.x)) + 126 - x, h: Math.max(...ps.map(p => p.y)) + 150 - y}, 1.1); };
+  let ziel = [[id, ...vor, ...folge], [id, ...vor]].map(rahmen).find(z => z.s >= min);
+  if (!ziel) { const p = LAY.pos[id], bw = v.w - v.links - v.rechts, bh = v.h - v.oben - v.unten; ziel = {s: min, x: v.links + bw / 2 - (p.x + 48) * min, y: v.oben + bh / 2 - (p.y + 60) * min}; }
+  fliege(ziel, 750);
+  zeige(`${n.name || id}: ${vor.length ? vor.length + ' direkte Voraussetzung' + (vor.length > 1 ? 'en' : '') : 'keine Voraussetzung'} · ${folge.length ? 'schaltet ' + folge.length + ' frei' : 'schaltet nichts frei'}`, {ms: 3200});
+  return true;
+}
+window.__techbaum = {zeigeObjekt, zustand, LAY: () => LAY, waehle, zumBereich, zumStand, planUmschalten, berechnePlan, zeigeBereich, zeigeRegeln, Kampf, standAktualisieren, zurueck, geoeffnet, sicht};
 return window.__techbaum;
 };
 const LOGO = 'data:image/webp;base64,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';

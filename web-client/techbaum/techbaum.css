@@ -568,3 +568,118 @@ details.akte p{margin:0 0 9px;color:#cfe1ee;font-size:13px}
 /* Logo oben links (wie Spiel-Seitenleiste), ungeschnitten */
 .marke-logo{width:42px;height:42px;flex:none;object-fit:contain;border-radius:9px;background:#02060c;border:1px solid var(--rand);box-shadow:0 0 14px rgba(95,225,255,.3)}
 @media (max-width:760px){.marke-logo{width:30px;height:30px;border-radius:7px}}
+
+/* ---------- Im Spiel: Bauen/Erforschen direkt aus dem Dossier ---------- */
+.d-aktion{margin:0 0 10px;padding:10px;border-radius:6px;border:1px solid var(--cyan);background:rgba(95,225,255,.07);display:grid;gap:8px}
+.d-aktion>b{font:700 14px var(--titel);color:#fff;overflow-wrap:anywhere}
+.d-aktion>small{color:var(--leise);font-size:12px;line-height:1.4}
+.d-aktion.laeuft{border-color:var(--gold);background:rgba(255,196,107,.08)}.d-aktion.laeuft>b{color:var(--gold)}
+.d-aktion.gesperrt{border-color:#5d7184;background:rgba(93,113,132,.1)}.d-aktion.gesperrt>b{color:#d6e2ea}
+.d-aktion-zeile{display:flex;gap:8px;align-items:stretch}
+.d-bauen{flex:1;min-height:48px;border-radius:6px;border:1.5px solid var(--cyan);background:linear-gradient(180deg,rgba(95,225,255,.32),rgba(95,225,255,.1));color:#fff;font:700 15px var(--titel);letter-spacing:.06em;cursor:pointer;box-shadow:0 0 16px rgba(95,225,255,.3)}
+.d-bauen:hover:not(:disabled){background:linear-gradient(180deg,rgba(95,225,255,.45),rgba(95,225,255,.16))}
+.d-bauen:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.d-bauen.laeuft{opacity:.75}
+.d-menge{display:flex;flex-direction:column;justify-content:center;gap:2px;font-size:12px;color:var(--leise)}
+.d-menge input{width:78px;height:34px;border-radius:5px;border:1px solid var(--rand);background:rgba(3,10,18,.8);padding:0 8px;font-size:15px}
+.d-zweit{justify-self:start;min-height:40px;padding:0 14px;border-radius:5px;border:1px solid var(--rand);background:rgba(3,12,20,.8);cursor:pointer;font:600 12.5px var(--titel);letter-spacing:.04em;color:var(--leise)}
+.d-zweit:hover{color:#fff;border-color:var(--cyan)}
+.hinweis.fehler{border-color:var(--rot);color:#ffd2ca}
+
+/* ---------- Handy (< 768 px): eine Kopfzeile, Dock unten, Dossier und Weg als Blätter von unten ---------- */
+.dock,.menue,.menue-knopf{display:none}
+@media (max-width:767px){
+  .app{overscroll-behavior:none;--kopf-unten:calc(max(4px,env(safe-area-inset-top)) + 56px)}
+  .kopf{top:max(4px,env(safe-area-inset-top));left:4px;right:4px;min-height:0;padding:5px;gap:6px;flex-wrap:nowrap}
+  .marke,.voelker{display:none}
+  .kopf-werkzeuge{order:0;flex:1;min-width:0;width:auto;gap:6px;flex-wrap:nowrap;justify-content:flex-end}
+  .suche{flex:1;min-width:0}
+  .suche input{width:100%;height:40px;font-size:15px}
+  .suche::before{top:9px}
+  .suchtreffer{position:fixed;left:4px;right:4px;top:var(--kopf-unten);width:auto;max-height:58vh}
+  .suchtreffer li button{min-height:48px;font-size:14px}
+  .suchtreffer small{font-size:12px}
+  .app .stufenwahl,.app.mit-stand .stufenwahl{display:flex}
+  .stufenwahl span{display:none}
+  .stufenwahl select{height:40px;max-width:118px;font-size:13px}
+  #volksmodus,#allelinien,#meinstand{display:none}
+  .schalter.zurueck,.menue-knopf{display:flex;width:40px;height:40px;padding:0;justify-content:center;flex:none}
+  .schalter.zurueck::after,.menue-knopf::after{margin:0;font-size:18px;color:#fff}
+  .volksprofil{display:none;top:var(--kopf-unten);left:4px;right:4px;width:auto;max-width:none;max-height:60vh}
+  .volksprofil.mobil-offen{display:block;z-index:44}
+  .leiste-bereiche,.daumen{display:none}
+  .hinweis{top:auto;bottom:calc(max(4px,env(safe-area-inset-bottom)) + 70px);font-size:13px;max-width:calc(100% - 24px)}
+  .app:has(.dossier:not([hidden])) .hinweis,.app:has(.plan:not([hidden])) .hinweis{top:calc(var(--kopf-unten) + 4px);bottom:auto}
+  .welt{will-change:transform}
+  /* Schrift auf der Karte: bei Startmaßstab 0,95 mindestens 12 px */
+  .knoten .name{font-size:13px}
+  .knoten .info{font-size:12.5px}
+  .knoten .tor{height:20px;font-size:12px;line-height:18px}
+  .knoten .lvl{height:19px;font-size:12px;line-height:17px;top:68px}
+  .bahn-titel{font-size:12.5px;top:55px}
+  .welt.z-makro .linie.plan{stroke-width:12}
+  .welt.z-makro .knoten.geplant .kachel{outline:8px solid var(--gold);outline-offset:6px}
+  .bereich-kopf p{font-size:13px}
+  .band-kopf small{font-size:13px}
+  .band-kopf.klebt{top:1px}
+  .band-kopf.klebt{padding:2px 8px}
+  .band-kopf.klebt strong{font-size:13px}
+  .band-kopf.klebt small{display:none}
+  .linie-zahl{font-size:13px}
+  /* Dock: Stand, Weg, Bereiche */
+  .dock{display:flex;position:absolute;left:4px;right:4px;bottom:max(4px,env(safe-area-inset-bottom));z-index:30;gap:5px;padding:5px;align-items:center}
+  .dock-knopf{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;width:56px;height:50px;border:1px solid var(--rand);border-radius:6px;background:rgba(3,10,18,.7);cursor:pointer;color:var(--leise)}
+  .dock-knopf b{font-size:19px;line-height:1;color:var(--cyan);font-weight:400}
+  .dock-knopf span{font:600 12px var(--titel);margin-top:3px}
+  .dock-knopf.an{border-color:var(--gold);color:var(--gold)}.dock-knopf.an b{color:var(--gold)}
+  .dock-chips{flex:1;min-width:0;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px;touch-action:pan-x;overscroll-behavior:contain}
+  .dock-chips::-webkit-scrollbar{display:none}
+  .dock-chips button{flex:none;display:flex;align-items:center;gap:7px;height:46px;padding:0 13px;border-radius:23px;border:1px solid color-mix(in srgb,var(--bf) 50%,transparent);background:rgba(3,10,18,.78);color:var(--bf);font:600 13px var(--titel);letter-spacing:.03em;cursor:pointer;white-space:nowrap}
+  .dock-chips button::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--bf);box-shadow:0 0 6px var(--bf)}
+  .dock-chips button.aktiv{background:color-mix(in srgb,var(--bf) 24%,rgba(3,10,18,.8));color:#fff;border-color:var(--bf)}
+  /* Menü (Volk, Anzeige, Gehe zu) */
+  .menue{display:block;position:absolute;top:var(--kopf-unten);left:4px;right:4px;max-height:calc(100% - 150px);overflow:auto;overscroll-behavior:contain;z-index:45;padding:8px 10px 12px;background:var(--glas-stark)}
+  .menue[hidden]{display:none}
+  .menue-kopf{display:flex;justify-content:space-between;align-items:center;font:700 12px var(--titel);letter-spacing:.3em;color:var(--cyan)}
+  .menue-kopf .x{width:40px;height:40px}
+  .menue h4{margin:10px 0 6px;font:700 12px var(--titel);letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+  .menue-voelker{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .menue-voelker .volk-knopf{min-height:46px;min-width:0}
+  .menue-voelker .volk-knopf span{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .menue-liste{display:grid;gap:5px}
+  .menue-zeile{display:flex;align-items:center;gap:10px;min-height:46px;padding:0 12px;border-radius:6px;border:1px solid var(--rand);background:rgba(3,10,18,.6);text-align:left;font-size:14px;cursor:pointer;color:var(--text)}
+  .menue-zeile .lampe{flex:none;width:10px;height:10px;border-radius:50%;background:#28414f}
+  .menue-zeile[aria-pressed=true]{border-color:var(--volk)}
+  .menue-zeile[aria-pressed=true] .lampe{background:var(--volk);box-shadow:0 0 8px var(--volk)}
+  /* Dossier als Blatt von unten: Bild klein neben dem Titel, Bauen sofort sichtbar */
+  .dossier{height:78vh}
+  .dossier.halb{height:46vh}
+  .dossier-griff{width:56px;margin-top:6px}
+  .dossier-kopf{padding:0 6px 4px 14px;font-size:11px}
+  .dossier-kopf .x{width:40px;height:40px}
+  .dossier-inhalt{padding:0 12px 18px}
+  .d-oben{display:grid;grid-template-columns:104px minmax(0,1fr);gap:12px;align-items:center;margin:8px 0}
+  .d-oben .d-held{margin:0;height:104px}
+  .d-oben .d-volk{display:none}
+  .d-oben .d-titel h2{font-size:20px}
+  .d-titel small{font-size:12px}
+  .d-rolle{font-size:14px}
+  .d-stand b{font-size:14px}.d-stand small{font-size:13px}
+  .d-abschnitt>summary{min-height:44px}
+  .d-abschnitt>summary h3{font-size:12px}
+  .d-abschnitt>summary small,.vp-hinweis,.bed small,.kchip span small,.bed-text,.gut,.chip,.wert,.vt-hinweis{font-size:13px}
+  .bed b,.kchip span b,.pchip span{font-size:13.5px}
+  .bed-gruppe h4,.texte dt,.kp-h{font-size:12px}
+  .tabelle{font-size:12px}.tabelle th{font-size:12px}
+  .halten small{font-size:12px}
+  .knopfzeile button{min-height:44px;font-size:13px}
+  .chip{min-height:40px}
+  /* Weg als halbes Blatt: oben bleibt die Karte mit dem markierten Pfad */
+  .plan{height:46vh}
+  .plan-kopf{font-size:12px}
+  .plan-kopf .x{width:40px;height:40px}
+  .plan-ziel strong{font-size:16px}
+  .plan-ziel small,.plan-stufe{font-size:12px}
+  .plan-liste button{min-height:46px;font-size:14px}
+  .plan-liste small{font-size:12px}
+}

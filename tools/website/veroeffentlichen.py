@@ -25,7 +25,7 @@ UMGEBUNG = dict(os.environ, MSYS_NO_PATHCONV="1", PYTHONUTF8="1")
 
 DATEIEN = [
     "tools/website/bauen.py", "tools/website/fotos.py", "tools/website/kopfvideo.py", "tools/website/pruefen.py",
-    "tools/website/techbaum_logo.py", "tools/website/veroeffentlichen.py", "tools/build_pages.py", "tools/build_fleet_codex.py",
+    "tools/website/techbaum_logo.py", "tools/website/veroeffentlichen.py", "tools/website/heute.py", "tools/build_pages.py", "tools/build_fleet_codex.py",
     "tools/website_content.py", "tools/site_policy.py", "tools/player_publication_test.py",
     "docs/action-surfaces.css", "docs/HANDBUCH.md", "docs/AGENTEN-SCHNITTSTELLE.md", "docs/flottenkodex.json", "docs/technologie-regeln.json",
     "docs/android-download.json", "docs/cockpit-download.json", "docs/artwork/hero-ocean-v2.webp",
