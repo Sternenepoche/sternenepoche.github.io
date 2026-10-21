@@ -139,22 +139,30 @@ def techbaum(url: str):
     liste = json.loads((OUT / "fotos.json").read_text(encoding="utf-8")) if (OUT / "fotos.json").exists() else {}
     with sync_playwright() as pw:
         b = pw.chromium.launch(channel="msedge", args=["--use-angle=swiftshader", "--enable-unsafe-swiftshader"])
-        for name, groesse, schritte in (("techbaum-karte", DESKTOP, []), ("techbaum-nah", DESKTOP, ["naeher"]), ("techbaum-handy", HANDY, [])):
+        # 21.10.2026 (Karl: „der coole neue Techtree“): lesbare Nahansichten statt der winzigen Gesamtkarte –
+        # ein Bereich mit Bildern und Linien, der Weltenkrümmer mit Dossier und hervorgehobenem Pfad, am Handy ein Kreuzer.
+        for name, groesse, volk, schritt in (("techbaum-karte", DESKTOP, "syntheten", "bereich:flotte"), ("techbaum-nah", DESKTOP, "syntheten", "objekt:weltentruemmer"),
+                                             ("techbaum-raumfahrt", DESKTOP, "veyari", "bereich:raumfahrt"), ("techbaum-handy", HANDY, "aurelianer", "objekt:kreuzer")):
             p = b.new_page(viewport={"width": groesse[0], "height": groesse[1]}, is_mobile=groesse[0] < 768, has_touch=groesse[0] < 768)
-            p.goto(url); time.sleep(5)
+            p.goto(url + "#volk=" + volk); time.sleep(5)
             # Website-Seite: Kopfleiste und KI-Zeile fürs Foto ausblenden, Karte füllt das Bild.
             p.evaluate("() => { document.querySelector('.sk-kopf')?.remove(); document.querySelector('.site-ai-notice')?.remove();"
                        " document.documentElement.style.setProperty('--kopfhoehe', '0px'); dispatchEvent(new Event('resize')); }")
             time.sleep(2)
-            for s in schritte:
-                if s == "naeher":
-                    # Hineinzoomen und einen Knoten wählen: Dossier mit Bild, Werten und Pfaden.
-                    p.mouse.move(groesse[0] * .42, groesse[1] * .45)
-                    for _ in range(4):
-                        p.mouse.wheel(0, -240); time.sleep(.4)
-                    time.sleep(1)
-                    p.mouse.click(466, 440)
-                    time.sleep(2.5)
+            p.evaluate("(v) => document.querySelector(`[data-volk='${v}']`)?.click()", volk); time.sleep(1.5)
+            art, ziel = schritt.split(":")
+            if art == "bereich":
+                # Lesbarer Ausschnitt: Kamera auf die Mitte des Bereichs (Stufen IV und V, wo er am dichtesten ist), Maßstab 0,85.
+                p.evaluate("""(ber) => { const T = window.__techbaum, L = T.LAY(), K = window.TECHBAUM.knoten;
+                  const ids = Object.keys(K).filter(i => K[i].bereich === ber && L.pos[i] && !L.pos[i].zu);
+                  const xs = ids.map(i => L.pos[i].x), ys = ids.map(i => L.pos[i].y), s = .85;
+                  const cx = (Math.min(...xs) + Math.max(...xs) + 96) / 2, cy = (Math.min(...ys) + Math.max(...ys) + 110) / 2 + 260;
+                  const v = T.sicht(); T.zustand.cam = {s, x: v.links + (v.w - v.links - v.rechts) / 2 - cx * s, y: v.oben + (v.h - v.oben - v.unten) / 2 - cy * s};
+                  document.getElementById('buehne').dispatchEvent(new WheelEvent('wheel', {deltaY: 0, clientX: 700, clientY: 400, bubbles: true})); }""", ziel)
+            else:
+                p.evaluate("(z) => window.__techbaum.zeigeObjekt(z)", ziel)
+            time.sleep(3.5)
+            p.evaluate("() => { const h = document.getElementById('hinweis'); if (h) h.style.opacity = 0; }")
             Image.open(io.BytesIO(p.screenshot(timeout=150000))).convert("RGB").save(OUT / f"{name}.webp", "WEBP", quality=86, method=6)
             liste[name + ".webp"] = {"welt": "techbaum", "ziel": url, "breite": groesse[0], "hoehe": groesse[1],
                                       "zeit": datetime.now().isoformat(timespec="seconds")}

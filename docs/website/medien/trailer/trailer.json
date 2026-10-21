@@ -1,0 +1,71 @@
+{
+ "dauer": 82.0,
+ "szenen": [
+  {
+   "t": 0.0,
+   "titel": "Weltenkrümmer",
+   "text": "Ein Mond. Ein Schuss.",
+   "bild": "szene-00.webp"
+  },
+  {
+   "t": 6.0,
+   "titel": "Die Nachbarschaft",
+   "text": "Heimatwelt, Verbündete, Handelspartner",
+   "bild": "szene-01.webp"
+  },
+  {
+   "t": 18.0,
+   "titel": "Nachbar Vex",
+   "text": "Mond Asche",
+   "bild": "szene-02.webp"
+  },
+  {
+   "t": 24.0,
+   "titel": "Anomalie",
+   "text": "Etwas regt sich im Hyperraum",
+   "bild": "szene-03.webp"
+  },
+  {
+   "t": 30.0,
+   "titel": "Hyperraumloch",
+   "text": "Der Weltenkrümmer tritt aus",
+   "bild": "szene-04.webp"
+  },
+  {
+   "t": 36.0,
+   "titel": "Entfaltung",
+   "text": "Er nimmt den Mond in den Fokus",
+   "bild": "szene-05.webp"
+  },
+  {
+   "t": 45.0,
+   "titel": "Aufladen",
+   "text": "Die Fokussierschale lädt",
+   "bild": "szene-06.webp"
+  },
+  {
+   "t": 53.5,
+   "titel": "Scherlanze",
+   "text": "Der Strahl trifft den Mond",
+   "bild": "szene-07.webp"
+  },
+  {
+   "t": 59.5,
+   "titel": "Bruch",
+   "text": "Mond Asche zerstört",
+   "bild": "szene-08.webp"
+  },
+  {
+   "t": 66.0,
+   "titel": "Trümmerfeld",
+   "text": "Recycler und Bergungsschiffe bergen das Material",
+   "bild": "szene-09.webp"
+  },
+  {
+   "t": 77.5,
+   "titel": "Sternenepoche",
+   "text": "Ein Spiel über Imperien, Allianzen und Mut",
+   "bild": "szene-10.webp"
+  }
+ ]
+}

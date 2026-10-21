@@ -1,0 +1,83 @@
+/* Hörchronik: ruhiges Hördeck im Glasrahmen, Folgen als Karten, Kapitel und Nachlesen. Ohne JavaScript: normale Audio-Elemente. */
+.chronik{padding-block:clamp(28px,4vw,48px) clamp(56px,7vw,96px)}
+.hc-deck{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:clamp(18px,3vw,36px);padding:clamp(16px,2.4vw,28px);--farbe:var(--gold)}
+.hc-bild{position:relative;aspect-ratio:1;border-radius:4px;overflow:hidden;background:#050b15;border:1px solid var(--rand)}
+.hc-bild img.motiv{width:100%;height:100%;object-fit:cover;transition:opacity .5s var(--ease),transform 8s linear}
+.hc-spielt .hc-bild img.motiv{transform:scale(1.06)}
+.hc-bild::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(3,6,13,.85));pointer-events:none}
+.hc-bild .wappen{position:absolute;left:12px;bottom:12px;z-index:1;width:46px;height:46px;filter:drop-shadow(0 2px 8px #000)}
+.hc-welle{position:absolute;right:12px;bottom:16px;z-index:1;display:flex;align-items:flex-end;gap:3px;height:26px}
+.hc-welle i{width:3px;height:30%;background:var(--farbe);border-radius:1px;opacity:.85;box-shadow:0 0 8px var(--farbe)}
+.hc-spielt .hc-welle i{animation:hc-welle 1.1s ease-in-out infinite}
+.hc-welle i:nth-child(2){animation-delay:-.3s}.hc-welle i:nth-child(3){animation-delay:-.7s}.hc-welle i:nth-child(4){animation-delay:-.15s}.hc-welle i:nth-child(5){animation-delay:-.5s}
+@keyframes hc-welle{0%,100%{height:25%}50%{height:100%}}
+.hc-kopf h2{font-size:clamp(24px,2.8vw,38px);margin:0 0 .3em}
+.hc-kopf .kennung{color:var(--farbe)}
+.hc-kopf .kennung::before{background:linear-gradient(90deg,var(--farbe),transparent)}
+.hc-kopf p{color:#c4d2df;margin:0 0 1em;max-width:70ch}
+.hc-steuer{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:6px 0 4px}
+.hc-steuer button{display:inline-grid;place-items:center;height:40px;min-width:40px;padding:0 10px;border-radius:4px;border:1px solid var(--rand2);background:rgba(9,20,34,.75);color:var(--text);font:600 12px/1 var(--titel);letter-spacing:.06em;cursor:pointer}
+.hc-steuer button:hover{border-color:var(--farbe);color:#fff}
+.hc-steuer .hc-spiel{width:58px;height:58px;border-radius:50%;border-color:var(--farbe);background:radial-gradient(circle,color-mix(in srgb,var(--farbe) 28%,transparent),rgba(5,11,21,.85) 70%);box-shadow:0 0 26px color-mix(in srgb,var(--farbe) 40%,transparent)}
+.hc-steuer svg{width:18px;height:18px;fill:currentColor}
+.hc-steuer .hc-spiel svg{width:24px;height:24px;fill:#fff}
+.hc-zeit{font:600 13px/1 var(--titel);font-variant-numeric:tabular-nums;color:#c4d2df;margin-left:4px}
+.hc-tempo{margin-left:auto}
+.hc-leiste{position:relative;height:30px;margin:10px 0 4px;cursor:pointer;touch-action:none}
+.hc-leiste::before{content:"";position:absolute;left:0;right:0;top:13px;height:4px;border-radius:2px;background:rgba(143,208,255,.16)}
+.hc-leiste .voll{position:absolute;left:0;top:13px;height:4px;width:0;border-radius:2px;background:var(--farbe);box-shadow:0 0 10px var(--farbe)}
+.hc-leiste i{position:absolute;top:9px;width:2px;height:12px;margin-left:-1px;background:rgba(223,232,241,.45);pointer-events:none}
+.hc-leiste:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.hc-jetzt{font:600 12px/1.4 var(--titel);letter-spacing:.1em;text-transform:uppercase;color:var(--leise);margin:0 0 12px}
+.hc-jetzt b{color:#fff;letter-spacing:.02em;text-transform:none;font-size:14px}
+.hc-kapitel{list-style:none;margin:0;padding:0;columns:2 260px;column-gap:20px}
+.hc-kapitel li{break-inside:avoid}
+.hc-kapitel button{display:flex;gap:10px;width:100%;padding:6px 8px;border:0;border-left:2px solid transparent;background:none;color:#c4d2df;text-align:left;font:inherit;font-size:14px;line-height:1.35;cursor:pointer;border-radius:0 3px 3px 0}
+.hc-kapitel button:hover{background:rgba(143,208,255,.06);color:#fff}
+.hc-kapitel span{flex:none;min-width:44px;font:600 12px/1.6 var(--titel);font-variant-numeric:tabular-nums;color:var(--leise)}
+.hc-kapitel .an button{border-left-color:var(--farbe);background:rgba(143,208,255,.07);color:#fff}
+.hc-kapitel .an span{color:var(--farbe)}
+.hc-hinweis{margin:10px 0 0;font-size:13.5px;color:var(--orange)}
+
+.hc-folgen{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:22px}
+.hc-folge{position:relative;display:flex;flex-direction:column;width:100%;padding:0;border:1px solid var(--rand);border-radius:var(--r);background:var(--glas);color:var(--text);cursor:pointer;text-align:left;font:inherit;overflow:hidden;transition:border-color .3s,transform .3s var(--ease)}
+.hc-folge img{width:100%;aspect-ratio:4/3;object-fit:cover;opacity:.8;transition:opacity .3s}
+.hc-folge div{padding:12px 14px 14px}
+.hc-folge small{display:block;font:600 10.5px/1.3 var(--titel);letter-spacing:.18em;text-transform:uppercase;color:var(--farbe)}
+.hc-folge b{display:block;margin:5px 0 4px;font:600 15.5px/1.25 var(--titel)}
+.hc-folge span{font-size:13px;color:var(--leise)}
+.hc-folge em{display:block;margin-top:6px;font-style:normal;font-size:12.5px;color:var(--gold2)}
+.hc-folge:hover,.hc-folge:focus-visible{border-color:var(--rand2);transform:translateY(-2px)}
+.hc-folge:hover img{opacity:1}
+.hc-folge[aria-current="true"]{border-color:var(--farbe);box-shadow:0 0 22px color-mix(in srgb,var(--farbe) 30%,transparent)}
+.hc-folge[aria-current="true"] img{opacity:1}
+
+.hc-text{margin-top:22px;padding:clamp(16px,2.4vw,28px)}
+.hc-text>summary{cursor:pointer;font:600 15px/1.3 var(--titel);letter-spacing:.06em;color:var(--gold2)}
+.hc-text>summary small{display:block;margin-top:4px;font:400 13.5px/1.4 var(--lese);letter-spacing:0;color:var(--leise)}
+.hc-lesen{max-width:76ch;margin-top:18px}
+.hc-lesen h3{margin:1.6em 0 .6em;font-size:19px;color:#fff;scroll-margin-top:90px}
+.hc-lesen h3.an{color:var(--farbe)}
+.hc-lesen p{margin:0 0 .75em;color:#d3dde7}
+.hc-lesen p b{display:block;font:600 11.5px/1.4 var(--titel);letter-spacing:.14em;text-transform:uppercase;margin-top:.9em}
+
+.hc-mini{position:fixed;left:50%;bottom:14px;z-index:60;display:flex;align-items:center;gap:12px;width:min(560px,calc(100% - 24px));padding:8px 10px 8px 8px;transform:translate(-50%,140%);
+ border:1px solid var(--rand2);border-radius:8px;background:rgba(6,13,25,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 14px 40px rgba(0,0,0,.6);transition:transform .45s var(--ease)}
+.hc-mini.an{transform:translate(-50%,0)}
+.hc-mini img{width:42px;height:42px;border-radius:4px;object-fit:cover;flex:none}
+.hc-mini div{min-width:0;flex:1}
+.hc-mini b{display:block;font:600 13.5px/1.25 var(--titel);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hc-mini span{display:block;font-size:12px;color:var(--leise);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hc-mini button{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--rand2);background:rgba(9,20,34,.8);color:#fff;cursor:pointer}
+.hc-mini button svg{width:18px;height:18px;fill:currentColor}
+.hc-mini .hc-mini-zu{width:30px;height:30px;border:0;background:none;color:var(--leise);font-size:16px}
+
+@media (max-width:1100px){.hc-folgen{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:760px){
+ .hc-deck{grid-template-columns:minmax(0,1fr)}
+ .hc-bild{aspect-ratio:16/9}
+ .hc-folgen{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .hc-folge b{font-size:14px}
+ .hc-tempo{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){.hc-spielt .hc-welle i{animation:none;height:70%}.hc-spielt .hc-bild img.motiv{transform:none}.hc-mini{transition:none}}

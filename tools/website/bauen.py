@@ -34,7 +34,8 @@ VOLKFARBE = {v: f for v, _, f in VOELKER}
 VOLKNAME = {v: n for v, n, _ in VOELKER}
 esc = lambda s: html.escape(str(s), quote=True)
 
-NAV = [("index.html", "Start", "Überblick"), ("Sternenepoche-Start.html", "Spielguide", "Einstieg und alle Spielbereiche"),
+NAV = [("index.html", "Start", "Überblick"), ("Trailer.html", "Trailer", "Der Weltenkrümmer im Film"),
+       ("Sternenepoche-Start.html", "Spielguide", "Einstieg und alle Spielbereiche"),
        ("Sternenepoche-Handbuch.html", "Handbuch", "Alle Regeln in 32 Kapiteln"),
        ("Sternenepoche-Kodex.html", "Kodex", "Einheiten, Werte, Zeichnungen"),
        ("Technologiebaum.html", "Technologiebaum", "Alle Völker auf einer Karte"),
@@ -42,15 +43,20 @@ NAV = [("index.html", "Start", "Überblick"), ("Sternenepoche-Start.html", "Spie
        ("Lore.html", "Lore-Archiv", "Kanon, Archiv, Rat"),
        ("Harness-Cockpit.html", "Mit KI spielen", "Modelle, Rat, Harness-API"),
        ("Download.html", "Download", "Android-App und Cockpit")]
+# Leise Seiten: im Menü am Handy, im Fuß und auf den passenden Seiten verlinkt, nicht in der Kopfleiste.
+NEBEN = [("Hoerchronik.html", "Hörchronik", "Die Geschichte der Weite in fünf Folgen")]
+ALLE = NAV + NEBEN
+HC = ROOT / "docs/website/medien/hoerchronik"
+TRAILER = ROOT / "docs/website/medien/trailer"
 
 # Frische Fotos (docs/website/fotos, 18.10.2026) je Spielbereich – Name wie im Spielmenü (web-client/rahmen.js).
 BEREICHSFOTO = {"Übersicht": "uebersicht", "Anlagen": "anlagen", "Versorgung": "versorgung", "Forschung": "forschung",
                 "Schiffswerft": "werft", "Verteidigung": "verteidigung", "Truppen": "truppen", "Flotte": "flotte",
                 "Galaxie": "galaxie-3d", "Kolonisation": "kolonisation", "Kampf & Verbände": "kampfsimulator",
                 "Handel": "handel", "Nachrichten": "briefkasten", "Allianz": "allianz", "Großprojekt": "grossprojekt",
-                "Berichte": "bericht", "Imperium": "imperium", "Technologiebaum": "technologiebaum", "Rat": "rat",
+                "Berichte": "bericht", "Imperium": "imperium", "Technologiebaum": "techbaum-nah", "Rat": "rat",
                 "Pinwände": "pinwaende", "Mond": "mond"}
-KAPITELFOTO = {7: "uebersicht", 10: "produktion", 11: "forschung", 12: "galaxie", 14: "flotte", 15: "kampfsimulator",
+KAPITELFOTO = {7: "uebersicht", 10: "produktion", 11: "forschung", 12: "galaxie-3d", 14: "flotte", 15: "kampfsimulator",
                16: "kolonisation", 17: "handel", 19: "imperium", 20: "rat", 24: "auftraege", 26: "mond", 29: "versorgung",
                30: "lage", 31: "grossprojekt", 32: "flotte"}
 
@@ -121,7 +127,7 @@ class Bau:
         ziel = ROOT / f"docs/website/fotos/ausschnitt/{name}.webp"
         if not ziel.exists() or ziel.stat().st_mtime < quelle.stat().st_mtime:
             ziel.parent.mkdir(parents=True, exist_ok=True)
-            box = {"galaxie-3d": (219, 315, 1207, 871)}.get(name) or ((232, 4, 1208, 553) if name.startswith(("technik", "archiv")) else (205, 160, 1222, 732))
+            box = {"galaxie-3d": (219, 315, 1207, 871), "techbaum-karte": (190, 84, 1207, 656)}.get(name) or ((232, 4, 1208, 553) if name.startswith(("technik", "archiv")) else (205, 160, 1222, 732))
             with Image.open(quelle) as im:
                 im.convert("RGB").crop(box).save(ziel, "WEBP", quality=86, method=6)
         return self.u(f"docs/website/fotos/ausschnitt/{name}.webp")
@@ -158,7 +164,7 @@ class Bau:
     def huelle(self, datei: str, titel: str, beschreibung: str, inhalt: str, kopf_extra: str = "", fuss_extra: str = "",
                koerper_klasse: str = "", nur_kopf: bool = False) -> str:
         nav = "".join(f'<a href="{d}"{" aria-current=\"page\"" if d == datei else ""}>{esc(t)}</a>' for d, t, _ in NAV[1:])
-        mobil = "".join(f'<a href="{d}"{" aria-current=\"page\"" if d == datei else ""}>{esc(t)}<small>{esc(u)}</small></a>' for d, t, u in NAV)
+        mobil = "".join(f'<a href="{d}"{" aria-current=\"page\"" if d == datei else ""}>{esc(t)}<small>{esc(u)}</small></a>' for d, t, u in ALLE)
         jetzt = date.today().strftime("%d.%m.%Y")
         doc = f"""<!doctype html>
 <html lang="de"><head><meta charset="utf-8">
@@ -190,8 +196,8 @@ class Bau:
 <div><a class="sk-marke" href="index.html"><img src="{self.u('docs/branding/sternenepoche-mark.png')}" alt="" width="30" height="30">STERNENEPOCHE</a>
 <p style="margin-top:12px">Weltraumstrategie in einer gemeinsamen Galaxie – im Browser, als Android-App und mit deinem eigenen KI-Rat.</p></div>
 <div><h4>Spielen</h4><ul><li><a href="{SPIEL_URL}">Im Browser spielen</a></li><li><a href="Download.html">Android-App</a></li><li><a href="Harness-Cockpit.html">Harness-Cockpit</a></li><li><a href="Sternenepoche-Start.html">Erste Schritte</a></li></ul></div>
-<div><h4>Nachschlagen</h4><ul><li><a href="Sternenepoche-Handbuch.html">Handbuch</a></li><li><a href="Sternenepoche-Kodex.html">Kodex</a></li><li><a href="Technologiebaum.html">Technologiebaum</a></li><li><a href="Lore.html">Lore-Archiv</a></li></ul></div>
-<div><h4>Projekt</h4><ul><li><a href="Weltenkruemmer.html">Weltenkrümmer</a></li><li><a href="KI-Hinweis.html">KI-Hinweis</a></li><li><a href="https://github.com/Sternenepoche/sternenepoche.github.io">Quellcode</a></li></ul></div>
+<div><h4>Nachschlagen</h4><ul><li><a href="Sternenepoche-Handbuch.html">Handbuch</a></li><li><a href="Sternenepoche-Kodex.html">Kodex</a></li><li><a href="Technologiebaum.html">Technologiebaum</a></li><li><a href="Lore.html">Lore-Archiv</a></li><li><a href="Hoerchronik.html">Hörchronik</a></li></ul></div>
+<div><h4>Projekt</h4><ul><li><a href="Trailer.html">Trailer</a></li><li><a href="Weltenkruemmer.html">Weltenkrümmer</a></li><li><a href="KI-Hinweis.html">KI-Hinweis</a></li><li><a href="https://github.com/Sternenepoche/sternenepoche.github.io">Quellcode</a></li></ul></div>
 </div>
 <p class="ki">Bild, Ton und Text der Sternenepoche sind KI-generiert. Stand {jetzt}.</p>
 </div></footer>
@@ -240,7 +246,7 @@ class Bau:
   <p class="einleitung">Ein Heimatplanet, eine kleine Bevölkerung, knappe Vorräte – daraus wird in 365 Spieltagen ein Reich. Du forschst, baust Flotten,
   gewinnst Monde, öffnest Hyperraumlöcher und baust mit deiner Allianz eine Dysonsphäre. Und wer den Mond seines Gegners brechen will, braucht einen Weltenkrümmer.</p>
   <div class="knopfreihe"><a class="button" href="{SPIEL_URL}">Im Browser spielen <span aria-hidden="true">↗</span></a>
-  <a class="button secondary" href="Download.html">Android-App laden</a><a class="button secondary" href="Sternenepoche-Start.html">Erste Schritte</a></div>
+  <a class="button secondary trailer-knopf" href="Trailer.html"><span aria-hidden="true">▶</span> Trailer ansehen</a><a class="button secondary" href="Download.html">Android-App laden</a></div>
   <p class="buehne-fuss">Menschen, Serverbots und KI-Agenten spielen in derselben Galaxie nach denselben Regeln. Zuschauen geht ohne Konto.</p>
  </div>
  <div class="buehne-hud" aria-live="off"><span>Im Film</span><b>Weltenkrümmer</b><div class="balken">{balken}</div><button type="button">Film anhalten</button></div>
@@ -288,8 +294,8 @@ class Bau:
  {karte("", self.art("blueprints", "explosion.ships.kreuzer", "krath"), "Techinfo „Technik“", "Technische Zeichnungen", f"Zu jedem Schiff, jeder Bodentruppe und jedem Weltenkrümmer gibt es Blaupause, Explosionszeichnung und Schnitt – in der Bauart jedes Volkes, zusammen {zeichnungen} Zeichnungen.",
    [], "Sternenepoche-Kodex.html", "Im Kodex ansehen")}
  {karte("", self.art("backgrounds", "archive"), "Techinfo „Archiv“", "Lore-Archiv", f"Jeder der {archiv} Einträge hat ein technisches Dossier, eine Chronik und die Akten aller vier Völker. Dazu der Kanon der Weite und die Stimmen des Rates.",
-   [], "Lore.html", "Zum Lore-Archiv")}
- {karte("", f("technologiebaum"), "Gesamtkarte", "Technologiebaum", f"Alle Gebäude, {forschungen} Forschungen und Einheiten aller Völker auf einer Karte, mit Bildern, Voraussetzungen und Kampfauswertung – auf- und zuklappbar.",
+   [f'Zum Hören: die <a href="Hoerchronik.html">Hörchronik</a> – {self.hc_kurz()}.'], "Lore.html", "Zum Lore-Archiv")}
+ {karte("", f("techbaum-karte"), "Gesamtkarte", "Technologiebaum", f"Alle Gebäude, {forschungen} Forschungen und Einheiten aller Völker auf einer Karte, mit Bildern, Voraussetzungen und Kampfauswertung – auf- und zuklappbar.",
    [], "Technologiebaum.html", "Technologiebaum öffnen")}
  {karte("halb", f("versorgung"), "Wirtschaft", "Wachstum, Klima und Sonne", "Jedes Volk hat seine Heimatbahn. Der Klimafaktor eines Platzes bestimmt das Wachstum, der Sonnenfaktor die Energie aus Solarkraftwerk und Solarsatelliten.",
    ["In jedem Sonnensystem liegt ein Asteroidengürtel für Bergbauschiffe.", "Die Akademie bildet Fachkräfte und Forscher kostenlos aus.", "Plasmatechnik steigert die Förderung, Antriebsforschung bringt stärkere Antriebe."],
@@ -313,8 +319,8 @@ class Bau:
    <li><b>Meine Stufe &amp; Volksänderungen:</b> Was ist bei deiner Zivilisationsstufe offen, was macht dein Volk anders?</li>
    <li><b>Suche, Minikarte, Klappen</b> – auf dem Handy mit zwei Fingern zoomen.</li></ul>
    <div class="knopfreihe"><a class="button" href="Technologiebaum.html">Technologiebaum öffnen</a></div></div>
-  <div class="tb-bilder">{self.foto("techbaum-nah", "Technologiebaum · Dossier", "Großer Transporter mit Pfaden und Werten")}
-   {self.foto("techbaum-karte", "Gesamtkarte", "Alle Bereiche, Aurelianer")}</div>
+  <div class="tb-bilder">{self.foto("techbaum-nah", "Technologiebaum · Dossier", "Weltenkrümmer der Syntheten mit Pfad und Werten")}
+   {self.foto("techbaum-karte", "Kampfflotte und Verteidigung", "Ansicht der Syntheten")}</div>
  </div></div></section>"""
         galerie = f"""
 <section class="abschnitt" id="ansicht" aria-labelledby="ansicht-titel"><div class="rahmen">
@@ -334,7 +340,7 @@ class Bau:
  <div class="abschnitt-kopf"><div><span class="kennung">Vier Zivilisationen</span><h2 id="voelker-titel">Wähle dein Volk.</h2></div>
  <p>Das Volk verändert Spielwerte und Aussehen – Schiffe, Gebäude, Monde, Zeichnungen und Weltenkrümmer haben je Volk eine eigene Bauart. Es bleibt für die ganze Epoche.</p></div>
  <div class="voelker">{voelker}</div>
- <p style="margin-top:20px"><a href="Sternenepoche-Handbuch.html#kapitel-4">Alle Volkswerte im Handbuch</a> · <a href="Lore.html#6-die-vier-völker">Geschichte der Völker im Lore-Archiv</a></p>
+ <p style="margin-top:20px"><a href="Sternenepoche-Handbuch.html#kapitel-4">Alle Volkswerte im Handbuch</a> · <a href="Lore.html#6-die-vier-völker">Geschichte der Völker im Lore-Archiv</a> · <a href="Hoerchronik.html">Jedes Volk erzählt seine Geschichte – zum Hören</a></p>
 </div></section>"""
         rat = f"""
 <section class="abschnitt" id="rat" aria-labelledby="rat-titel"><div class="rahmen">
@@ -580,7 +586,7 @@ document.getElementById('detail').addEventListener('click',e=>{const s=e.target.
         inhalt = (self.seitenkopf("Lore-Archiv · Kanon der Weite", "Die Geschichte der Weite.",
                                   f"Die Weite und die Schwelle, der Erste Bruch, Physik und Technik, die Chronik früherer Epochen und die vier Völker. Dazu das Archiv aller {archiv} Einträge mit technischem Dossier, Chronik und den Akten jedes Volkes – und die sechzehn Stimmen des Rates.",
                                   self.art("backgrounds", "archive"), "Lore-Archiv")
-                  + f'<div class="rahmen lesen">{aside}<article class="text">{"".join(aus)}</article></div>')
+                  + f'<div class="rahmen lesen">{aside}<article class="text">{self.hc_hinweis()}{"".join(aus)}</article></div>')
         self.schreibe("Lore.html", self.huelle("Lore.html", "Lore-Archiv – Sternenepoche",
                       "Kanon, Archiv und Rat der Sternenepoche: die Weite, der Erste Bruch, die vier Völker und jede Einheit mit Dossier, Chronik und Volksakten.", inhalt))
 
@@ -605,12 +611,131 @@ document.getElementById('detail').addEventListener('click',e=>{const s=e.target.
         inhalt = (self.seitenkopf("Megaschiff · Mondzerstörer", "Die vier Weltenkrümmer.",
                                   esc(e["rolle"]) + " " + esc((e.get("lore") or {}).get("allgemein", "")),
                                   self.art("megaships", "todesmond", "syntheten"), "Weltenkrümmer")
-                  + f'<div class="rahmen" style="padding-block:36px 40px"><div class="wk-liste">{"".join(karten)}</div></div>'
+                  + f'<div class="rahmen" style="padding-top:28px"><a class="hc-hinweis-karte glas" href="Trailer.html"><img src="{self.u("docs/website/medien/trailer/szene-07.webp")}" alt="" width="160" height="90" loading="lazy">'
+                    f'<span><b>Der Trailer</b>Ein Weltenkrümmer tritt aus dem Hyperraum und bricht einen Mond – {self.trailer_dauer()} Spielgrafik.</span><i aria-hidden="true">▶</i></a></div>'
+                  + f'<div class="rahmen" style="padding-block:28px 40px"><div class="wk-liste">{"".join(karten)}</div></div>'
                   + f'<div class="rahmen lesen" style="grid-template-columns:minmax(0,1fr)"><article class="text"><h2 id="regeln"><span class="nr">Handbuch · Kapitel 28</span>Bau, Werte und Mondzerstörung</h2>{self.md(regeln)}'
                   + f'<h2 id="dossier"><span class="nr">Archiv</span>Technisches Dossier und Chronik</h2>{"".join(f"<p>{esc(s)}</p>" for s in re.split(r"(?<=[.!?])\s+(?=[A-ZÄÖÜ])", e["archiv"]["technik"]) if s)}'
                   + f'<h3>Chronik</h3><p>{esc(e["archiv"].get("geschichte", ""))}</p></article></div>')
         self.schreibe("Weltenkruemmer.html", self.huelle("Weltenkruemmer.html", "Weltenkrümmer – Sternenepoche",
                       "Die Weltenkrümmer der vier Völker im Film: Verwandlung, Strahl und Mondzerstörung – mit Werten, Regeln und Archiv.", inhalt))
+
+    # ===================================================================== Trailer
+    def trailer_dauer(self) -> str:
+        d = round(lade("docs/website/medien/trailer/trailer.json")["dauer"])
+        return f"{d // 60}:{d % 60:02d} Minuten"
+
+    def trailer(self):
+        t = lade("docs/website/medien/trailer/trailer.json")
+        m = self.u("docs/website/medien/trailer/")
+        d = round(t["dauer"])
+        dauer = f"{d // 60}:{d % 60:02d}"
+        szenen = t["szenen"]
+        marken = "".join(f'<i style="left:{100 * s["t"] / t["dauer"]:.2f}%"></i>' for s in szenen[1:])
+        karten = "".join(f'<li><button type="button"><img src="{m}{s["bild"]}" alt="" width="480" height="270" loading="lazy" decoding="async">'
+                         f'<span>{int(s["t"]) // 60}:{int(s["t"]) % 60:02d}</span><b>{esc(s["titel"])}</b></button></li>' for s in szenen)
+        spiel = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg>'
+        vollbild = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v2H6v4H4zm10 0h6v6h-2V6h-4zM4 14h2v4h4v2H4zm14 0h2v6h-6v-2h4z"/></svg>'
+        quellen = json.dumps({"1080": m + "trailer-1080.mp4", "720": m + "trailer-720.mp4"})
+        inhalt = f"""
+<section class="kino" aria-labelledby="kino-titel">
+ <div class="kino-raum" aria-hidden="true" style="background-image:url('{m}raum.webp')"></div>
+ <canvas class="kino-sterne" aria-hidden="true"></canvas>
+ <div class="kino-licht" aria-hidden="true"></div>
+ <div class="kino-innen">
+  <div class="kino-titel"><span class="kennung">Promo-Trailer · {dauer} · Spielgrafik</span>
+   <h1 id="kino-titel">Ein Mond.<span>Ein Schuss.</span></h1>
+   <p class="einleitung">Ein Weltenkrümmer tritt aus dem Hyperraum, nimmt den Mond eines Nachbarn in den Fokus und bricht ihn mit einem einzigen Strahl.
+   Jedes Bild im Film stammt aus der 3D-Galaxie des Spiels – dieselben Planeten, Monde und Schiffe, die du beim Spielen siehst.</p></div>
+  <div class="kino-schirm" data-kino tabindex="-1" data-quellen='{esc(quellen)}' data-szenen='{esc(json.dumps(szenen, ensure_ascii=False))}' data-dauer="{t['dauer']:.2f}">
+   <div class="kino-bild"><video muted playsinline preload="metadata" poster="{m}standbild.webp" aria-label="Trailer: Weltenkrümmer – Ein Mond. Ein Schuss.">
+    <source src="{m}trailer-720.mp4" type="video/mp4"></video></div>
+   <span class="kino-ecke lo"></span><span class="kino-ecke ro"></span><span class="kino-ecke lu"></span><span class="kino-ecke ru"></span>
+   <div class="kino-hud" aria-hidden="true"><span class="lo"><i class="punkt"></i>Übertragung · Kanal 01</span><span class="ro"><b data-zeit>0:00</b>/ {dauer} <i data-qual>720p</i></span>
+    <span class="lu" data-szene>{esc(szenen[0]['titel'])}</span><span class="ru">Sektor 1 · System 60</span></div>
+   <button type="button" class="kino-start" aria-label="Trailer abspielen"><span class="ring">{spiel}</span><b>Trailer abspielen</b><small>{dauer} · Spielgrafik</small></button>
+   <div class="kino-ende"><p>Ein Spiel über Imperien, Allianzen und Mut.<span>Sternenepoche</span></p>
+    <div class="knopfreihe"><a class="button" href="{SPIEL_URL}">Im Browser spielen ↗</a><a class="button secondary" href="Download.html">Android-App</a><button type="button" class="button secondary" data-k="nochmal">Nochmal ansehen</button></div></div>
+   <div class="kino-leiste"><button type="button" data-k="spiel" aria-label="Abspielen">{spiel}</button>
+    <div class="kino-zeitleiste" role="slider" tabindex="0" aria-label="Position im Trailer" aria-valuemin="0" aria-valuemax="{d}" aria-valuenow="0"><div class="puffer"></div><div class="voll"></div>{marken}<span class="kino-marke"></span></div>
+    <span class="kino-zeit">0:00 / {dauer}</span><button type="button" data-k="vollbild" aria-label="Vollbild">{vollbild}</button></div>
+  </div>
+  <ol class="kino-szenen" aria-label="Szenen">{karten}</ol>
+ </div>
+</section>
+<section class="abschnitt" aria-labelledby="im-film"><div class="rahmen">
+ <div class="abschnitt-kopf"><div><span class="kennung">Im Film</span><h2 id="im-film">Was du gerade gesehen hast.</h2></div>
+ <p>Weltenkrümmer, Hyperraumloch, Mondzerstörung und Trümmerfeld gibt es so im Spiel. Hier steht, wie sie funktionieren.</p></div>
+ <div class="kino-infos">
+  <article class="kino-info glas"><span class="kennung">Megaschiff</span><h3>Der Weltenkrümmer</h3><p>Eine mondgroße Kampfstation aus verschmolzenen Trümmern, gebaut im Werftdock eines eigenen Mondes. Jedes Volk hat seine eigene Bauart und Strahlfarbe.</p><a class="weiter" href="Weltenkruemmer.html">Die vier Weltenkrümmer →</a></article>
+  <article class="kino-info glas"><span class="kennung">Mondzerstörung</span><h3>Ein Strahl, ein Risiko</h3><p>Erst wenn das Gefecht am Mond gewonnen ist, feuert die Scherlanze. Kleine Monde brechen leichter, große halten öfter stand – und der Rückschlag kann die Station mitreißen.</p><a class="weiter" href="Sternenepoche-Handbuch.html#kapitel-28">Handbuch, Kapitel 28 →</a></article>
+  <article class="kino-info glas"><span class="kennung">Galaxie in 3D</span><h3>Trümmerfeld und Bergung</h3><p>Aus dem zerstörten Mond wird ein Trümmerring. Ein Tipp darauf zeigt, was dort liegt; Recycler und Bergungsschiffe holen das Material zurück.</p><a class="weiter" href="Sternenepoche-Start.html#bereich-galaxie">Zur Galaxie im Spielguide →</a></article>
+ </div>
+ <div class="knopfreihe" style="margin-top:28px"><a class="button" href="{SPIEL_URL}">Im Browser spielen ↗</a><a class="button secondary" href="Download.html">Android-App laden</a></div>
+</div></section>"""
+        self.schreibe("Trailer.html", self.huelle("Trailer.html", "Trailer – Sternenepoche",
+                      f"Der Promo-Trailer der Sternenepoche: Ein Weltenkrümmer bricht einen Mond – {dauer} aus der 3D-Galaxie des Spiels.", inhalt,
+                      kopf_extra=f'<link rel="stylesheet" href="seite/kino.css?v={self.stand}"><link rel="preload" as="image" href="{m}standbild.webp">',
+                      fuss_extra=f'<script src="seite/kino.js?v={self.stand}" defer></script>', koerper_klasse="seite-kino"))
+
+    # ===================================================================== Hörchronik
+    def hc_folgen(self):
+        return lade("docs/website/medien/hoerchronik/hoerchronik.json")
+
+    def hc_kurz(self) -> str:
+        s = sum(f["dauer"] for f in self.hc_folgen())
+        return f"fünf Folgen, zusammen {int(s // 3600)} Stunden {int(s % 3600 // 60)} Minuten"
+
+    def hc_hinweis(self) -> str:
+        return (f'<a class="hc-hinweis-karte glas" href="Hoerchronik.html"><img src="{self.art("portraits", "krath", "krath")}" alt="" width="64" height="64" loading="lazy">'
+                f'<span><b>Lieber zuhören?</b>Die Hörchronik erzählt die Geschichte der Weite – {self.hc_kurz()}. Zuerst das ganze Epos, dann erzählt jedes Volk selbst.</span><i aria-hidden="true">▶</i></a>')
+
+    def hoerchronik(self):
+        folgen = self.hc_folgen()
+        m = self.u("docs/website/medien/hoerchronik/")
+        daten = []
+        for f in folgen:
+            v = f["volk"]
+            daten.append({"id": f["id"], "titel": f["titel"], "kurz": f["kurz"], "gastgeber": f["gastgeber"], "rolle": "" if f["gastgeber"].split()[-1] in f["rolle"] else f["rolle"],
+                          "farbe": VOLKFARBE.get(v, "#e2bd62"), "bild": self.art("portraits", v, v) if v else self.art("backgrounds", "archive"),
+                          "wappen": self.art("emblems", v, v) if v else "", "url": m + f["datei"], "textUrl": m + f["text"],
+                          "dauer": f["dauer"], "kapitel": f["kapitel"]})
+        welle = "<i></i>" * 5
+        spiel = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg>'
+        zur = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V1L7 6l5 5V7a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z"/></svg>'
+        vor = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V1l5 5-5 5V7a6 6 0 1 0 6 6h2a8 8 0 1 1-8-8z"/></svg>'
+        karten = "".join(
+            f'<button type="button" class="hc-folge" data-id="{d["id"]}" style="--farbe:{d["farbe"]}"><img src="{d["bild"]}" alt="" loading="lazy" width="480" height="360">'
+            f'<div><small>Folge {int(d["id"][:2])} · {round(d["dauer"] / 60)} Minuten</small><b>{esc(d["titel"])}</b><span>{esc(d["gastgeber"])}</span></div></button>' for d in daten)
+        ohne_js = "".join(f'<p><b>{esc(d["titel"])}</b><br><audio controls preload="none" src="{d["url"]}"></audio></p>' for d in daten)
+        f0 = daten[0]
+        inhalt = (self.seitenkopf("Hörchronik · fünf Folgen", "Die Weite zum Hören.",
+                                  "Die Erzählerin führt durch das ganze Epos, von der Ersten Öffnung bis zum Ersten Licht. Danach erzählen die Völker selbst: "
+                                  "die Aurelianer im Hafen von Port Aurel, die Krath am Schmiedefeuer, die Veyari in ihrem Garten und die Syntheten im einzigen Raum "
+                                  f"von Hexaris, der ein Fenster hat. {self.hc_kurz()[0].upper() + self.hc_kurz()[1:]}, mit vielen Stimmen, Klängen und Musik.",
+                                  self.art("backgrounds", "archive"), "Hörchronik")
+                  + f"""<div class="rahmen chronik" data-chronik data-folgen='{esc(json.dumps(daten, ensure_ascii=False))}' data-farben='{esc(json.dumps(VOLKFARBE))}'>
+<section class="hc-deck glas" tabindex="-1" aria-label="Hördeck" style="--farbe:{f0['farbe']}">
+ <div class="hc-bild"><img class="motiv" src="{f0['bild']}" alt="" width="512" height="512"><img class="wappen" src="" alt="" width="46" height="46" hidden><div class="hc-welle" aria-hidden="true">{welle}</div></div>
+ <div>
+  <div class="hc-kopf"><span class="kennung">Folge 0 · {esc(f0['gastgeber'])}</span><h2>{esc(f0['titel'])}</h2><p>{esc(f0['kurz'])}</p></div>
+  <div class="hc-steuer"><button type="button" class="hc-spiel" aria-label="Abspielen">{spiel}</button>
+   <button type="button" data-k="zurueck" aria-label="15 Sekunden zurück">{zur}</button><button type="button" data-k="vor" aria-label="15 Sekunden vor">{vor}</button>
+   <span class="hc-zeit">0:00</span><button type="button" class="hc-tempo" aria-label="Tempo">1×</button></div>
+  <div class="hc-leiste" role="slider" tabindex="0" aria-label="Position in der Folge" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0"><div class="voll"></div></div>
+  <p class="hc-jetzt">Jetzt · <b></b></p>
+  <ol class="hc-kapitel" aria-label="Kapitel"></ol>
+ </div>
+</section>
+<noscript>{ohne_js}</noscript>
+<div class="hc-folgen" role="list">{karten}</div>
+<details class="hc-text glas"><summary>Zum Nachlesen<small>Der gesprochene Text der gewählten Folge, Kapitel für Kapitel.</small></summary><div class="hc-lesen"></div></details>
+</div>
+<div class="hc-mini" aria-label="Hörchronik läuft"><img src="" alt="" width="42" height="42"><div><b></b><span></span></div><button type="button" aria-label="Abspielen oder anhalten">{spiel}</button><button type="button" class="hc-mini-zu" aria-label="Schließen">✕</button></div>""")
+        self.schreibe("Hoerchronik.html", self.huelle("Hoerchronik.html", "Hörchronik – Sternenepoche",
+                      "Die Geschichte der Sternenepoche zum Hören: das ganze Epos und die vier Völker in fünf Folgen, mit vielen Stimmen, Klängen und Musik.", inhalt,
+                      kopf_extra=f'<link rel="stylesheet" href="seite/chronik.css?v={self.stand}">',
+                      fuss_extra=f'<script src="seite/chronik.js?v={self.stand}" defer></script>'))
 
     # ===================================================================== Mit KI spielen
     def ki(self):
@@ -725,11 +850,11 @@ document.getElementById('detail').addEventListener('click',e=>{const s=e.target.
                 "rules_note": "Konkrete Kosten, Voraussetzungen und Flugpläne kommen aus dem aktiven Regelprofil im Spiel.",
                 "chapters": kap}, ensure_ascii=False, indent=2), encoding="utf-8")
             (ROOT / "docs/spielguide.txt").write_text(HANDBUCH, encoding="utf-8")
-        seiten = [n for n, _, _ in NAV] + ["KI-Hinweis.html"]
+        seiten = [n for n, _, _ in ALLE] + ["KI-Hinweis.html"]
         self.schreibe("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                       + "".join(f"<url><loc>{url}{'' if s == 'index.html' else s}</loc><lastmod>{heute}</lastmod></url>\n" for s in seiten) + "</urlset>\n")
         zeilen = [f"# Sternenepoche", "", f"> Deutschsprachiges Weltraumstrategiespiel in einer gemeinsamen Galaxie. Menschen, Serverbots und KI-Agenten spielen nach demselben Rust-Regelkern. Stand {date.today().strftime('%d.%m.%Y')}.", "", "## Seiten"]
-        zeilen += [f"- [{t}]({url}{'' if d == 'index.html' else d}): {u}." for d, t, u in NAV]
+        zeilen += [f"- [{t}]({url}{'' if d == 'index.html' else d}): {u}." for d, t, u in ALLE]
         zeilen += ["- [KI-Hinweis](" + url + "KI-Hinweis.html): Wie KI in Bild, Ton, Text und Spiel eingesetzt wird.", "",
                    "## Maschinenlesbar",
                    f"- [Handbuch als Text]({url}docs/spielguide.txt): vollständige Regelquelle mit Beispielen.",
@@ -753,11 +878,13 @@ document.getElementById('detail').addEventListener('click',e=>{const s=e.target.
         (self.ziel / "seite/techbaum.css").write_text((Q / "techbaum-seite.css").read_text(encoding="utf-8").replace("{B}", self.css_basis), encoding="utf-8")
         shutil.copyfile(Q / "logo/techbaum-logo.webp", self.ziel / "seite/techbaum-logo.webp")
         (self.ziel / "seite/seite.js").write_text((Q / "seite.js").read_text(encoding="utf-8"), encoding="utf-8")
+        for n in ("kino.css", "kino.js", "chronik.css", "chronik.js"):
+            (self.ziel / "seite" / n).write_text((Q / n).read_text(encoding="utf-8"), encoding="utf-8")
 
     def pruefen(self):
         verboten = re.compile(r"8891|Dashboard-oeffnen|Server-starten\.cmd|SERVER-BETRIEB|ONLINE-KONZEPT|awarre\.html|Verwaltungsdashboard|Karls PC|Für Karl|data/online|[A-Za-z]:[\\/]projekte_ki|\{B\}", re.I)
         fehler = []
-        for d in [n for n, _, _ in NAV] + ["KI-Hinweis.html"]:
+        for d in [n for n, _, _ in ALLE] + ["KI-Hinweis.html"]:
             t = (self.ziel / d).read_text(encoding="utf-8")
             if (m := verboten.search(t)):
                 fehler.append(f"{d}: verbotener Inhalt {m.group()}")
@@ -774,7 +901,7 @@ document.getElementById('detail').addEventListener('click',e=>{const s=e.target.
         # Versionskennung aus dem Inhalt: jede Änderung an Stil oder Skript lädt neu, nichts Altes bleibt im Zwischenspeicher.
         import hashlib
         h = hashlib.sha256()
-        for f in (Q / "stil.css", Q / "kopf.css", Q / "techbaum-seite.css", Q / "logo/techbaum-logo.webp", Q / "seite.js", Q / "kodex.css", ROOT / "docs/action-surfaces.css", Path(__file__)):
+        for f in (Q / "stil.css", Q / "kopf.css", Q / "techbaum-seite.css", Q / "kino.css", Q / "kino.js", Q / "chronik.css", Q / "chronik.js", Q / "logo/techbaum-logo.webp", Q / "seite.js", Q / "kodex.css", ROOT / "docs/action-surfaces.css", Path(__file__)):
             h.update(f.read_bytes())
         self.stand = h.hexdigest()[:10]
         self.ziel.mkdir(parents=True, exist_ok=True)
@@ -785,7 +912,7 @@ document.getElementById('detail').addEventListener('click',e=>{const s=e.target.
             for p in re.findall(r'"portraet":\s*"([^"]+)"', (ROOT / "docs/rat/rat.json").read_text(encoding="utf-8")):
                 (self.ziel / p).parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(ROOT / p, self.ziel / p)
-        for teil in (self.start, self.guide, self.handbuch, self.kodex, self.techbaum, self.lore, self.weltenkruemmer, self.ki, self.download, self.kihinweis, self.verzeichnisse):
+        for teil in (self.start, self.trailer, self.hoerchronik, self.guide, self.handbuch, self.kodex, self.techbaum, self.lore, self.weltenkruemmer, self.ki, self.download, self.kihinweis, self.verzeichnisse):
             teil()
         return self.pruefen()
 

@@ -25,7 +25,7 @@ UMGEBUNG = dict(os.environ, MSYS_NO_PATHCONV="1", PYTHONUTF8="1")
 
 DATEIEN = [
     "tools/website/bauen.py", "tools/website/fotos.py", "tools/website/kopfvideo.py", "tools/website/pruefen.py",
-    "tools/website/techbaum_logo.py", "tools/website/veroeffentlichen.py", "tools/website/heute.py", "tools/build_pages.py", "tools/build_fleet_codex.py",
+    "tools/website/techbaum_logo.py", "tools/website/veroeffentlichen.py", "tools/website/heute.py", "tools/website/trailer_web.py", "tools/website/hoerchronik_web.py", "tools/build_pages.py", "tools/build_fleet_codex.py",
     "tools/website_content.py", "tools/site_policy.py", "tools/player_publication_test.py",
     "docs/action-surfaces.css", "docs/HANDBUCH.md", "docs/AGENTEN-SCHNITTSTELLE.md", "docs/flottenkodex.json", "docs/technologie-regeln.json",
     "docs/android-download.json", "docs/cockpit-download.json", "docs/artwork/hero-ocean-v2.webp",
@@ -33,7 +33,7 @@ DATEIEN = [
     "web-client/art.js", "web-client/ai-labels.js", "web-client/three.min.js",
 ]
 ORDNER = [  # (Ordner, erlaubte Endungen, auszuschließende Namensteile)
-    ("docs/website", {".css", ".js", ".webp", ".png", ".jpg", ".json", ".webm", ".mp4"}, ("kandidaten", "vorlage-stern", "-frei.png", "techbaum-1801")),
+    ("docs/website", {".css", ".js", ".webp", ".png", ".jpg", ".json", ".webm", ".mp4", ".ogg"}, ("kandidaten", "vorlage-stern", "-frei.png", "techbaum-1801")),
     ("docs/rat", {".js", ".json", ".glb", ".ogg", ".m4a", ".webp"}, ()),
     ("web-client/techbaum", {".css", ".js"}, ()),
     ("web-client/fonts", {".woff2", ".txt"}, ()),
@@ -92,7 +92,7 @@ def vorbereiten():
     lauf("tools/website/bauen.py", "--pages")
     # Neue Dateien müssen versioniert sein, bevor build_pages sie als öffentlich anerkennt.
     git("add", "-A", "--", "index.html", "Sternenepoche-Start.html", "Sternenepoche-Handbuch.html", "Sternenepoche-Kodex.html",
-        "Technologiebaum.html", "Weltenkruemmer.html", "Lore.html", "Harness-Cockpit.html", "Download.html", "KI-Hinweis.html",
+        "Technologiebaum.html", "Trailer.html", "Hoerchronik.html", "Weltenkruemmer.html", "Lore.html", "Harness-Cockpit.html", "Download.html", "KI-Hinweis.html",
         "sitemap.xml", "llms.txt", "seite", "docs", "tools", "content", "lore", "web-client", ".github")
     ziel = WT / ".pages-artifact" / ("pruefung-" + datetime.now().strftime("%Y%m%d-%H%M%S"))
     lauf("tools/build_pages.py", "--out", ziel)
@@ -118,11 +118,14 @@ def workflow_anpassen():
            "'tools/website/', 'lore/'))")
     if alt in s:
         s = s.replace(alt, neu)
-    zusatz = ("'Technologiebaum.html', 'Weltenkruemmer.html', 'Lore.html', 'content/beschreibungen.json', "
+    zusatz = ("'Trailer.html', 'Hoerchronik.html', 'Technologiebaum.html', 'Weltenkruemmer.html', 'Lore.html', 'content/beschreibungen.json', "
               "'web-client/ai-labels.js', 'web-client/three.min.js',\n              ")
-    if "'Technologiebaum.html'" not in s:
-        s = s.replace("public_files = {'index.html',", "public_files = {" + zusatz + "'index.html',", 1)
-    if neu not in s or "'Technologiebaum.html'" not in s:
+    if "'Trailer.html'" not in s:
+        if "'Technologiebaum.html'" in s:  # frühere Fassung: nur die zwei neuen Seiten ergänzen
+            s = s.replace("public_files = {'Technologiebaum.html',", "public_files = {'Trailer.html', 'Hoerchronik.html', 'Technologiebaum.html',", 1)
+        else:
+            s = s.replace("public_files = {'index.html',", "public_files = {" + zusatz + "'index.html',", 1)
+    if neu not in s or "'Trailer.html'" not in s:
         sys.exit("static.yml hat eine unerwartete Form – Website-Pfade bitte von Hand eintragen")
     w.write_text(s, encoding="utf-8")
 

@@ -311,6 +311,17 @@ mark{background:rgba(226,189,98,.35);color:#fff;border-radius:2px}
 .download h3 small{font:500 13px/1 var(--titel);margin-left:6px}
 @media (max-width:767px){.downloads.zwei{grid-template-columns:minmax(0,1fr)}}
 
+/* ---------- Leise Hinweiskarte (Hörchronik im Lore-Archiv, Trailer bei den Weltenkrümmern) ---------- */
+.hc-hinweis-karte{display:flex;align-items:center;gap:16px;padding:12px 18px 12px 12px;margin:0 0 28px;color:var(--text);text-decoration:none;transition:border-color .3s,transform .3s var(--ease)}
+.hc-hinweis-karte img{flex:none;width:64px;height:64px;object-fit:cover;border-radius:4px}
+.hc-hinweis-karte img[width="160"]{width:120px;height:68px}
+.hc-hinweis-karte span{flex:1;min-width:0;font-size:14.5px;line-height:1.5;color:#c4d2df}
+.hc-hinweis-karte b{display:block;font:600 15px/1.3 var(--titel);color:var(--gold2);margin-bottom:2px}
+.hc-hinweis-karte i{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid rgba(226,189,98,.6);color:var(--gold2);font-style:normal;font-size:14px;box-shadow:0 0 18px rgba(226,189,98,.25)}
+.hc-hinweis-karte:hover{border-color:var(--rand2);transform:translateY(-1px)}
+@media (max-width:560px){.hc-hinweis-karte img[width="160"]{width:84px;height:48px}.hc-hinweis-karte i{display:none}}
+.trailer-knopf span{color:var(--gold2);font-size:.85em;margin-right:4px}
+
 .codex-wrap{max-width:1280px;margin:auto;padding:20px clamp(12px,3vw,36px) 60px}.codex-head{display:flex;align-items:center;justify-content:space-between;gap:14px}.codex-head a{color:#dcf5ff}.codex-intro{max-width:850px;line-height:1.65;color:#c6d7e4}.codex-intro h1{color:#f7e5b6;font-size:clamp(1.55rem,4vw,2.6rem);line-height:1.15}
 .codex-bereiche{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;padding:0;list-style:none}.codex-bereiche button{min-height:44px;padding:6px 15px;border:1px solid #476278;border-radius:22px;background:#102033;color:#dcf5ff;font:inherit;cursor:pointer}.codex-bereiche button[aria-pressed=true]{border-color:#f0cf8a;color:#fff1c9;box-shadow:inset 0 0 0 1px #f0cf8a}.codex-bereiche small{color:#9fb4c6;margin-left:6px}
 .codex-filter{display:grid;grid-template-columns:1fr 1fr 1.4fr 1.2fr;gap:12px;margin:18px 0 22px}.codex-filter label{display:grid;gap:7px;font-size:.82rem;color:#cee4f5}.codex-filter label[hidden]{display:none}.codex-filter select,.codex-filter input{background:#102033;color:white;border:1px solid #4c637b;min-height:44px;border-radius:9px;padding:8px;width:100%;box-sizing:border-box}

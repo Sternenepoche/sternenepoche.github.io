@@ -4,6 +4,7 @@
 
 ## Seiten
 - [Start](https://sternenepoche.github.io/): Überblick.
+- [Trailer](https://sternenepoche.github.io/Trailer.html): Der Weltenkrümmer im Film.
 - [Spielguide](https://sternenepoche.github.io/Sternenepoche-Start.html): Einstieg und alle Spielbereiche.
 - [Handbuch](https://sternenepoche.github.io/Sternenepoche-Handbuch.html): Alle Regeln in 32 Kapiteln.
 - [Kodex](https://sternenepoche.github.io/Sternenepoche-Kodex.html): Einheiten, Werte, Zeichnungen.
@@ -12,6 +13,7 @@
 - [Lore-Archiv](https://sternenepoche.github.io/Lore.html): Kanon, Archiv, Rat.
 - [Mit KI spielen](https://sternenepoche.github.io/Harness-Cockpit.html): Modelle, Rat, Harness-API.
 - [Download](https://sternenepoche.github.io/Download.html): Android-App und Cockpit.
+- [Hörchronik](https://sternenepoche.github.io/Hoerchronik.html): Die Geschichte der Weite in fünf Folgen.
 - [KI-Hinweis](https://sternenepoche.github.io/KI-Hinweis.html): Wie KI in Bild, Ton, Text und Spiel eingesetzt wird.
 
 ## Maschinenlesbar

@@ -1193,7 +1193,7 @@
       "verbrauch": 2500,
       "besatzung": 5000,
       "ab_stufe": 5,
-      "werft": 10,
+      "werft": 8,
       "kosten": {
         "erz": 5000000,
         "kristall": 4000000,
@@ -1223,7 +1223,7 @@
         "abfang_schlachtkreuzer": 15,
         "schwerer_schlachtkreuzer": 8
       },
-      "wirkung": "Mondgroßes Megaschiff (künstlicher Kleinmond von 160 km), nur im Werftdock (Stufe 10) eines Mondes; kann Monde zerstören; passt durch kein Hyperraumloch",
+      "wirkung": "Mondgroßes Megaschiff (künstlicher Kleinmond von 160 km), nur im Werftdock (Stufe 8) eines Mondes; kann Monde zerstören; passt durch kein Hyperraumloch",
       "klasse": "megaschiff",
       "label": "Weltenkrümmer",
       "voraussetzungen": {

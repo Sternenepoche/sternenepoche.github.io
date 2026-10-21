@@ -1,0 +1,153 @@
+/* Trailer-Seite: Kinosaal auf der Brücke. Nebel aus dem Film, Sternenfeld, Holo-Schirm mit Eckmarken, Ambilicht aus dem Bild.
+   Ohne JavaScript bleibt ein normaler Videospieler mit Standbild. */
+@property --licht-l{syntax:"<color>";inherits:true;initial-value:rgba(120,90,170,.55)}
+@property --licht-r{syntax:"<color>";inherits:true;initial-value:rgba(70,120,190,.55)}
+.seite-kino{background:#03060d}
+.seite-kino .fuss{position:relative;z-index:1}
+.kino{position:relative;isolation:isolate;overflow:hidden;padding:clamp(28px,4vw,56px) 0 clamp(48px,6vw,84px);min-height:calc(100svh - 64px)}
+.kino-raum{position:absolute;inset:-6%;z-index:-4;background:center/cover no-repeat;opacity:.5;filter:saturate(1.15);transform:scale(1.04);animation:kino-drift 60s ease-in-out infinite alternate}
+.kino::before{content:"";position:absolute;inset:0;z-index:-3;pointer-events:none;
+ background:radial-gradient(ellipse 70% 60% at 50% 48%,transparent 30%,rgba(3,6,13,.82) 100%),linear-gradient(180deg,rgba(3,6,13,.55),transparent 24%,transparent 70%,#03060d)}
+.kino-sterne{position:absolute;inset:0;z-index:-2;width:100%;height:100%;pointer-events:none}
+.kino-licht{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.0;transition:opacity 1.6s var(--ease);
+ background:radial-gradient(ellipse 34% 46% at 22% 56%,var(--licht-l),transparent 70%),radial-gradient(ellipse 34% 46% at 78% 56%,var(--licht-r),transparent 70%);filter:blur(30px)}
+.kino-spielt .kino-licht{opacity:.75}
+.kino-innen{width:min(1560px,calc(100% - 32px));margin-inline:auto}
+@keyframes kino-drift{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.12) translate(-2%,1.5%)}}
+
+/* ---------- Titel ---------- */
+.kino-titel{max-width:1180px;max-height:420px;margin:0 auto clamp(20px,3vw,34px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:10px 48px;align-items:end;transition:opacity .9s var(--ease),max-height 1.1s var(--ease),margin 1.1s var(--ease)}
+.kino-titel h1{font-size:clamp(38px,5.6vw,80px);margin:0;letter-spacing:.01em;text-shadow:0 0 40px rgba(143,208,255,.18)}
+.kino-titel h1 span{display:block;color:var(--gold);text-shadow:0 0 34px rgba(226,189,98,.35)}
+.kino-titel .einleitung{margin:0;color:#c4d2df}
+.kino-titel .kennung{grid-column:1/-1;margin:0}
+/* Beim Abspielen weicht der Titel; der Schirm rückt nach oben und füllt die Höhe des Fensters. */
+.kino-spielt .kino-titel{opacity:0;max-height:0;margin-bottom:0;overflow:hidden}
+
+/* ---------- Schirm ---------- */
+.kino-schirm{--eck:rgba(226,189,98,.85);position:relative;max-width:clamp(560px,calc((100svh - 400px) * 1.7778),1180px);margin-inline:auto;transition:max-width 1.1s var(--ease);outline:none}
+.kino-spielt .kino-schirm{max-width:clamp(560px,calc((100svh - 190px) * 1.7778),1480px)}
+.kino-bild{position:relative;aspect-ratio:16/9;background:#02040a;border:1px solid rgba(143,208,255,.28);border-radius:4px;overflow:hidden;
+ box-shadow:0 0 0 1px rgba(0,0,0,.6),0 30px 90px rgba(0,0,0,.65),-40px 0 140px -30px var(--licht-l),40px 0 140px -30px var(--licht-r);
+ animation:kino-an 1.15s .25s var(--ease) both}
+.kino-bild video,.kino-bild img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#02040a}
+.kino-bild::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px);mix-blend-mode:overlay;opacity:.7}
+.kino-bild::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;box-shadow:inset 0 0 120px rgba(0,0,0,.55);transition:opacity .8s}
+@keyframes kino-an{0%{clip-path:inset(49.6% 0 49.6% 0);filter:brightness(3) saturate(0)}38%{clip-path:inset(49.6% 0 49.6% 0);filter:brightness(2.4) saturate(.2)}100%{clip-path:inset(0 0 0 0);filter:none}}
+/* Eckmarken wie im Spielrahmen, außen am Bild */
+.kino-ecke{position:absolute;width:26px;height:26px;border:solid var(--eck);pointer-events:none;z-index:3;animation:kino-ecke .9s .9s var(--ease) both}
+.kino-ecke.lo{left:-9px;top:-9px;border-width:2px 0 0 2px}.kino-ecke.ro{right:-9px;top:-9px;border-width:2px 2px 0 0}
+.kino-ecke.lu{left:-9px;bottom:-9px;border-width:0 0 2px 2px}.kino-ecke.ru{right:-9px;bottom:-9px;border-width:0 2px 2px 0}
+@keyframes kino-ecke{from{opacity:0;transform:scale(1.8)}to{opacity:1;transform:none}}
+
+/* HUD über dem Bild */
+.kino-hud{position:absolute;inset:0;z-index:4;pointer-events:none;font:600 11px/1 var(--titel);letter-spacing:.2em;text-transform:uppercase;color:rgba(223,232,241,.82);animation:kino-hud .8s 1.2s ease both}
+.kino-hud>span{position:absolute;display:flex;align-items:center;gap:8px;text-shadow:0 1px 6px #000;transition:opacity .6s}
+.kino-hud .lo{left:18px;top:16px}.kino-hud .ro{right:18px;top:16px;font-variant-numeric:tabular-nums}
+.kino-hud .lu{left:18px;bottom:64px;color:var(--gold2)}.kino-hud .ru{right:18px;bottom:64px}
+.kino-hud .punkt{width:7px;height:7px;border-radius:50%;background:var(--rot);box-shadow:0 0 10px var(--rot)}
+.kino-spielt .kino-hud .punkt{animation:kino-puls 1.6s ease-in-out infinite}
+.kino-hud .ro i{font-style:normal;color:var(--blau);border:1px solid rgba(143,208,255,.45);padding:3px 5px;border-radius:2px;letter-spacing:.1em}
+@keyframes kino-hud{from{opacity:0}to{opacity:1}}
+@keyframes kino-puls{50%{opacity:.25}}
+.kino-ruhe .kino-hud>span:not(.lo),.kino-ruhe .kino-leiste{opacity:0}
+.kino-ruhe{cursor:none}
+
+/* Startknopf: Reaktorring */
+.kino-start{position:absolute;inset:0;z-index:5;display:grid;place-content:center;justify-items:center;gap:14px;border:0;margin:0;padding:0;cursor:pointer;color:#fff;
+ background:radial-gradient(circle at 50% 50%,rgba(3,6,13,.15),rgba(3,6,13,.55));font:inherit;transition:opacity .5s var(--ease),visibility .5s}
+.kino-start .ring{position:relative;width:clamp(78px,10vw,118px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
+ background:radial-gradient(circle,rgba(226,189,98,.22),rgba(5,11,21,.7) 62%);border:1px solid rgba(226,189,98,.7);box-shadow:0 0 40px rgba(226,189,98,.35),inset 0 0 26px rgba(226,189,98,.25)}
+.kino-start .ring::before{content:"";position:absolute;inset:-11px;border-radius:50%;border:2px dashed rgba(143,208,255,.55);animation:kino-dreh 14s linear infinite}
+.kino-start .ring::after{content:"";position:absolute;inset:-22px;border-radius:50%;border:1px solid rgba(226,189,98,.25);border-top-color:rgba(226,189,98,.9);animation:kino-dreh 3.2s linear infinite reverse}
+.kino-start svg{width:38%;height:38%;margin-left:7%;fill:var(--gold2);filter:drop-shadow(0 0 10px rgba(226,189,98,.7))}
+.kino-start b{font:700 clamp(14px,1.4vw,17px)/1 var(--titel);letter-spacing:.24em;text-transform:uppercase;margin-top:12px;text-shadow:0 2px 12px #000}
+.kino-start small{font:600 11px/1 var(--titel);letter-spacing:.2em;text-transform:uppercase;color:var(--blau);text-shadow:0 2px 10px #000}
+.kino-start:hover .ring,.kino-start:focus-visible .ring{transform:scale(1.06);box-shadow:0 0 60px rgba(226,189,98,.55),inset 0 0 30px rgba(226,189,98,.35)}
+.kino-start .ring{transition:transform .35s var(--ease),box-shadow .35s}
+.kino-laeuft .kino-start{opacity:0;visibility:hidden}
+.kino-schirm:not(.kino-laeuft) .kino-leiste{opacity:0;pointer-events:none}
+@keyframes kino-dreh{to{transform:rotate(360deg)}}
+
+/* Endkarte */
+.kino-ende{position:absolute;inset:0;z-index:6;display:grid;place-content:center;justify-items:center;gap:18px;text-align:center;padding:20px;
+ background:radial-gradient(ellipse at center,rgba(3,6,13,.55),rgba(3,6,13,.88));opacity:0;visibility:hidden;transition:opacity .8s var(--ease),visibility .8s}
+.kino-ende.an{opacity:1;visibility:visible}
+.kino-ende p{margin:0;font:600 clamp(18px,2.4vw,30px)/1.2 var(--titel);color:#fff}
+.kino-ende p span{display:block;margin-top:8px;font-size:.5em;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.kino-ende .knopfreihe{justify-content:center;margin:0}
+
+/* Bedienleiste */
+.kino-leiste{position:absolute;left:0;right:0;bottom:0;z-index:7;display:flex;align-items:center;gap:12px;padding:26px 14px 10px;
+ background:linear-gradient(transparent,rgba(2,4,10,.88));transition:opacity .5s var(--ease)}
+.kino-leiste button{flex:none;display:grid;place-items:center;width:36px;height:36px;border-radius:4px;border:1px solid rgba(143,208,255,.3);background:rgba(9,20,34,.7);color:var(--text);cursor:pointer;padding:0}
+.kino-leiste button:hover{border-color:var(--gold);color:var(--gold2)}
+.kino-leiste svg{width:16px;height:16px;fill:currentColor}
+.kino-zeit{flex:none;font:600 12px/1 var(--titel);letter-spacing:.08em;font-variant-numeric:tabular-nums;color:#c4d2df;min-width:92px;text-align:center}
+.kino-zeitleiste{position:relative;flex:1;height:26px;cursor:pointer;touch-action:none}
+.kino-zeitleiste::before{content:"";position:absolute;left:0;right:0;top:11px;height:4px;border-radius:2px;background:rgba(143,208,255,.16)}
+.kino-zeitleiste .puffer,.kino-zeitleiste .voll{position:absolute;left:0;top:11px;height:4px;border-radius:2px;width:0}
+.kino-zeitleiste .puffer{background:rgba(143,208,255,.22)}
+.kino-zeitleiste .voll{background:linear-gradient(90deg,var(--gold),var(--gold2));box-shadow:0 0 12px rgba(226,189,98,.7)}
+.kino-zeitleiste .voll::after{content:"";position:absolute;right:-6px;top:-4px;width:12px;height:12px;border-radius:50%;background:var(--gold2);box-shadow:0 0 12px var(--gold)}
+.kino-zeitleiste i{position:absolute;top:7px;width:2px;height:12px;margin-left:-1px;background:rgba(223,232,241,.55);border-radius:1px;pointer-events:none}
+.kino-zeitleiste:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.kino-marke{position:absolute;bottom:30px;transform:translateX(-50%);white-space:nowrap;padding:5px 8px;border-radius:3px;background:rgba(5,11,21,.94);border:1px solid var(--rand2);
+ font:600 11px/1 var(--titel);letter-spacing:.08em;color:var(--gold2);pointer-events:none;opacity:0;transition:opacity .2s}
+.kino-zeitleiste:hover .kino-marke{opacity:1}
+
+/* Szenenleiste */
+.kino-szenen{list-style:none;margin:clamp(22px,3vw,34px) auto 0;padding:0;max-width:clamp(560px,calc((100svh - 400px) * 1.7778),1180px);display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:8px;transition:max-width 1.1s var(--ease)}
+.kino-spielt .kino-szenen{max-width:clamp(560px,calc((100svh - 190px) * 1.7778),1480px)}
+.kino-szenen button{position:relative;display:block;width:100%;padding:0;border:1px solid var(--rand);border-radius:4px;background:#050b15;color:var(--text);cursor:pointer;overflow:hidden;text-align:left;font:inherit;transition:border-color .3s,transform .3s var(--ease)}
+.kino-szenen img{width:100%;aspect-ratio:16/9;object-fit:cover;opacity:.62;transition:opacity .3s}
+.kino-szenen span{position:absolute;left:6px;top:5px;font:600 10px/1 var(--titel);letter-spacing:.08em;color:var(--blau);text-shadow:0 1px 4px #000}
+.kino-szenen b{display:block;padding:6px 7px 7px;font:600 11.5px/1.2 var(--titel);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kino-szenen button:hover,.kino-szenen button:focus-visible{border-color:var(--rand2);transform:translateY(-2px)}
+.kino-szenen button:hover img{opacity:.9}
+.kino-szenen .an button{border-color:var(--gold);box-shadow:0 0 18px rgba(226,189,98,.3)}
+.kino-szenen .an img{opacity:1}
+.kino-szenen .an b{color:var(--gold2)}
+
+/* Untere Abschnitte */
+.kino-infos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.kino-info{padding:22px 22px 18px}
+.kino-info h3{margin-bottom:.4em}
+.kino-info p{color:#c4d2df;margin:0 0 .8em}
+
+/* Vollbild: der Schirm füllt den Bildschirm, Leiste bleibt */
+.kino-schirm:fullscreen{max-width:none;width:100vw;height:100vh;background:#000;display:grid;place-items:center}
+.kino-schirm:fullscreen .kino-bild{width:min(100vw,177.78vh);border:0;border-radius:0;box-shadow:none}
+.kino-schirm:fullscreen .kino-ecke{display:none}
+
+@media (max-width:1100px){.kino-szenen{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media (max-width:900px){
+ .kino-titel{grid-template-columns:minmax(0,1fr)}
+ .kino-infos{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:640px){
+ .kino-szenen{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+ .kino-szenen b{font-size:10.5px;padding:5px}
+ .kino-hud .ru,.kino-hud .lu{display:none}
+ .kino-hud .lo,.kino-hud .ro{top:10px}.kino-hud .lo{left:10px}.kino-hud .ro{right:10px}
+ .kino-hud{font-size:9.5px;letter-spacing:.14em}
+ .kino-leiste{gap:8px;padding:20px 8px 6px}
+ .kino-zeit{min-width:0;font-size:11px}
+ .kino-leiste button{width:32px;height:32px}
+ .kino-ecke{width:16px;height:16px}
+ .kino-ecke.lo,.kino-ecke.lu{left:-5px}.kino-ecke.ro,.kino-ecke.ru{right:-5px}
+ .kino-ecke.lo,.kino-ecke.ro{top:-5px}.kino-ecke.lu,.kino-ecke.ru{bottom:-5px}
+ .kino-ende .knopfreihe .button{padding-inline:14px}
+ .kino-start small{display:none}
+ .kino-start b{font-size:12px;margin-top:6px}
+ .kino-start .ring{width:64px}
+ .kino-start .ring::after{inset:-16px}
+ .kino-ende p{font-size:16px}
+ .kino-ende{gap:10px}
+ .kino-ende .knopfreihe{gap:6px}
+ .kino-ende .knopfreihe .button{min-height:36px;padding:6px 10px;font-size:12px}
+}
+@media (prefers-reduced-motion:reduce){
+ .kino-raum,.kino-bild,.kino-ecke,.kino-hud,.kino-start .ring::before,.kino-start .ring::after,.kino-spielt .kino-hud .punkt{animation:none}
+ .kino-schirm,.kino-szenen,.kino-titel{transition:none}
+}

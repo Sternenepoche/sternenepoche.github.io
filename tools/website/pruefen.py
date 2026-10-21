@@ -13,7 +13,7 @@ from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[2]
 BASIS = sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:8765/ausgabe/website/"
 OUT = ROOT / ("laeufe/website-2026-10-18/" + ("pruefung-live" if "github.io" in BASIS else "pruefung"))
-SEITEN = ["index.html", "Sternenepoche-Start.html", "Sternenepoche-Handbuch.html", "Sternenepoche-Kodex.html", "Technologiebaum.html",
+SEITEN = ["index.html", "Trailer.html", "Hoerchronik.html", "Sternenepoche-Start.html", "Sternenepoche-Handbuch.html", "Sternenepoche-Kodex.html", "Technologiebaum.html",
           "Weltenkruemmer.html", "Lore.html", "Harness-Cockpit.html", "Download.html", "KI-Hinweis.html"]
 GROESSEN = {"desktop": (1440, 900), "handy": (375, 812)}
 

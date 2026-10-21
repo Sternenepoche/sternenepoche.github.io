@@ -1,6 +1,6 @@
 # Sternenepoche – Lore-Gesamtwerk
 
-Die gesamte geltende Lore an einem Ort, erzeugt am 21.10.2026 09:44 aus `docs/LORE-BIBEL.md`, `content/beschreibungen.json`, `docs/rat/rat.json` und `web-client/audio/bots/texte.json`. **Nicht hier ändern:** Lore wird in diesen Quellen geändert und danach mit `python -X utf8 tools/content/lore_gesamtwerk.py` neu erzeugt.
+Die gesamte geltende Lore an einem Ort, erzeugt am 21.10.2026 17:10 aus `docs/LORE-BIBEL.md`, `content/beschreibungen.json`, `docs/rat/rat.json` und `web-client/audio/bots/texte.json`. **Nicht hier ändern:** Lore wird in diesen Quellen geändert und danach mit `python -X utf8 tools/content/lore_gesamtwerk.py` neu erzeugt.
 
 ## Teil I · Der Kanon (Lore-Bibel)
 
@@ -6470,7 +6470,7 @@ Haus Quirin versichert Satelliten nicht, weil keine Bodenmannschaft sie nach ein
 
 **Stärke.** Mit 9.000.000 Struktur, 50.000 Schild und 200.000 Angriff auf vier Ziele je Runde hat es Schnellfeuer 64 gegen Sonden, Transporter, Recycler und Solarsonden, 50 gegen Leichte Jäger, Raketenwerfer und Lasergeschütze, 33 gegen Kreuzer, 30 gegen Schlachtschiffe, 25 gegen Bomber und Ionengeschütze, 15 gegen Schlachtkreuzer und Abfang-Schlachtkreuzer, 12 gegen Gaußkanonen, 8 gegen Schwere Schlachtkreuzer und 5 gegen Zerstörer; sein Frachtraum fasst 1.000.000, doch mit Verbrauch 2.500 trägt er je Deuterium nicht mehr als ein Großer Transporter.
 
-**Grenzen.** Es entsteht nur im Werftdock Stufe 10 eines Mondes (Stufe V, Hyperraumantrieb 6, Waffentechnik 10) für 5 Millionen Erz, 4 Millionen Kristall, 1 Million Deuterium, 20.000 Xenokristall und 20 Antriebskerne, fliegt mit Tempo 100, passt durch kein Hyperraumloch, wird nie repariert und geht beim Zerstörungsversuch mit √d/2 Prozent ganz verloren, während der Mond mit (100 − √d)·√n Prozent bricht.
+**Grenzen.** Es entsteht nur im Werftdock Stufe 8 eines Mondes (Stufe V, Hyperraumantrieb 5, Waffentechnik 8) für 5 Millionen Erz, 4 Millionen Kristall, 1 Million Deuterium, 20.000 Xenokristall und 20 Antriebskerne, fliegt mit Tempo 100, passt durch kein Hyperraumloch, wird nie repariert und geht beim Zerstörungsversuch mit √d/2 Prozent ganz verloren, während der Mond mit (100 − √d)·√n Prozent bricht.
 
 > Weltenkrümmer heißen so, weil ihre Lanze nach dem Prinzip des Ersten Bruchs arbeitet, der ganze Welten zerschlug, auch wenn ihre Scherung nur für Monde reicht, und ihre Besatzungen nennen sie nur Weltenkrümmer. Seit dem Fall von Kessa verändert schon das Gerücht, ein Reich lege einen Kiel, die Diplomatie eines ganzen Sektors.
 
@@ -6487,7 +6487,7 @@ Die Scherung reicht für die Masse eines Mondes, nicht für die einer Welt, und 
 
 Im Gefecht feuert er mit 200.000 Angriff auf vier Ziele je Salve, und weil jeder Treffer ein Schlachtschiff oder einen Zerstörer meist in einem Schuss zerreißt, liegt seine Grenze in der Nachführsalve: 64 gegen Sonden, Transporter, Recycler und Solarsatelliten, 50 gegen Leichte Jäger, Raketenwerfer und Lasergeschütze, 33 gegen Kreuzer, 30 gegen Schlachtschiffe, 25 gegen Bomber und Ionengeschütze, 15 gegen Schlachtkreuzer und Abfang-Schlachtkreuzer, 12 gegen Gaußkanonen, 8 gegen Schwere Schlachtkreuzer und nur 5 gegen Zerstörer. Seine 9.000.000 Struktur trägt ein Schirm von 50.000, an dessen Schwellreflex jeder Treffer unter einem Hundertstel verpufft, darum sind Jägerschwärme gegen ihn nutzlos, und erst schwere Linienartillerie richtet Schaden an. Er fliegt mit Tempo 100 bei einem Verbrauch von 1, trägt 1.000.000 Ladung und 5.000 Köpfe Besatzung, passt durch kein Hyperraumloch und wird nie repariert, sodass jede Schramme bleibt.
 
-Er entsteht nur im Werftdock der Stufe 10 eines Mondes ab Stufe V mit Hyperraumantrieb 6 und Waffentechnik 10 für 5.000.000 Erz, 4.000.000 Kristall, 1.000.000 Deuterium, 100.000 Legierung, 50.000 Elektronik, 20.000 Xenokristall und 20 Antriebskerne aus der Orbitalwerft.
+Er entsteht nur im Werftdock der Stufe 8 eines Mondes ab Stufe V mit Hyperraumantrieb 5 und Waffentechnik 8 für 5.000.000 Erz, 4.000.000 Kristall, 1.000.000 Deuterium, 100.000 Legierung, 50.000 Elektronik, 20.000 Xenokristall und 20 Antriebskerne aus der Orbitalwerft.
 
 ##### Chronik
 

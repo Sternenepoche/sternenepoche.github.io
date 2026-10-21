@@ -1,0 +1,360 @@
+[
+ {
+  "id": "00-chronik-der-weite",
+  "titel": "Die Chronik der Weite",
+  "kurz": "Das ganze Epos der Sternenepoche, von der Ersten Öffnung bis zum Ersten Licht, erzählt von der Erzählerin an ihrem Fenster in die Weite – mit den Stimmen derer, die dabei waren.",
+  "gastgeber": "Die Erzählerin",
+  "rolle": "Erzählerin der Chronik",
+  "volk": "",
+  "datei": "00-chronik-der-weite.ogg",
+  "text": "00-chronik-der-weite.text.json",
+  "dauer": 4842.4,
+  "bytes": 22876213,
+  "kapitel": [
+   {
+    "titel": "Kapitel 1 – Die Weite und die große Frage",
+    "start": 0.6
+   },
+   {
+    "titel": "Kapitel 2 – Die Schwelle",
+    "start": 202.6
+   },
+   {
+    "titel": "Kapitel 3 – Die Erste Öffnung und die Landnacht",
+    "start": 479.4
+   },
+   {
+    "titel": "Kapitel 4 – Der Kodex der Häfen",
+    "start": 927.0
+   },
+   {
+    "titel": "Kapitel 5 – Die Glutjagd",
+    "start": 1205.2
+   },
+   {
+    "titel": "Kapitel 6 – Die Halle der Vier Siegel",
+    "start": 1488.6
+   },
+   {
+    "titel": "Kapitel 7 – Der Kreuzerwinter",
+    "start": 1722.0
+   },
+   {
+    "titel": "Kapitel 8 – Der Dornensommer",
+    "start": 2036.7
+   },
+   {
+    "titel": "Kapitel 9 – Der Erste Sprung",
+    "start": 2314.1
+   },
+   {
+    "titel": "Kapitel 10 – Die Schlacht am Zehnten Nebel",
+    "start": 2596.6
+   },
+   {
+    "titel": "Kapitel 11 – Die Bomberjahre und die Rampenzeit",
+    "start": 3085.9
+   },
+   {
+    "titel": "Kapitel 12 – Die Kuppelkrise",
+    "start": 3435.8
+   },
+   {
+    "titel": "Kapitel 13 – Die Torzeit und der Verrat von Kessmar",
+    "start": 3787.5
+   },
+   {
+    "titel": "Kapitel 14 – Der Fall von Kessa",
+    "start": 4029.8
+   },
+   {
+    "titel": "Kapitel 15 – Das Erste Licht",
+    "start": 4376.1
+   },
+   {
+    "titel": "Kapitel 16 – Epilog: Die Schwelle öffnet sich wieder",
+    "start": 4678.9
+   }
+  ]
+ },
+ {
+  "id": "01-aurelianer",
+  "titel": "Das Haus der tausend Verträge – die Aurelianer",
+  "kurz": "Ein Tag in Port Aurel mit Severin Lazar vom Haus Lazar: vom Kai bei Flut über Kontor, Leitstand und Werft bis an Bord einer frisch getauften Concordia. Mit Freunden aus den Häusern, drei geschätzten Fremden und der Frage, warum ein Volk von Händlern in der Weite so weit gekommen ist.",
+  "gastgeber": "Severin Lazar",
+  "rolle": "Gesandter, Haus Lazar",
+  "volk": "aurelianer",
+  "datei": "01-aurelianer.ogg",
+  "text": "01-aurelianer.text.json",
+  "dauer": 3212.2,
+  "bytes": 15181539,
+  "kapitel": [
+   {
+    "titel": "Kapitel 1 – Die Nacht der Lichter",
+    "start": 0.6
+   },
+   {
+    "titel": "Kapitel 2 – Willkommen im Neuen Markt",
+    "start": 140.2
+   },
+   {
+    "titel": "Kapitel 3 – Salz im Wind",
+    "start": 273.6
+   },
+   {
+    "titel": "Kapitel 4 – Die erste Seite",
+    "start": 529.8
+   },
+   {
+    "titel": "Kapitel 5 – Die zwölfte Linie",
+    "start": 949.2
+   },
+   {
+    "titel": "Kapitel 6 – Stapellauf",
+    "start": 1222.0
+   },
+   {
+    "titel": "Kapitel 7 – Weicher Griff",
+    "start": 1590.6
+   },
+   {
+    "titel": "Kapitel 8 – Das Zehntel",
+    "start": 1819.5
+   },
+   {
+    "titel": "Kapitel 9 – Elf Seiten Präambel",
+    "start": 2047.6
+   },
+   {
+    "titel": "Kapitel 10 – Beginn bei Ernte",
+    "start": 2359.7
+   },
+   {
+    "titel": "Kapitel 11 – Vier Sekunden",
+    "start": 2596.5
+   },
+   {
+    "titel": "Kapitel 12 – Bordmesse",
+    "start": 2877.8
+   },
+   {
+    "titel": "Kapitel 13 – Die Lichter bleiben an",
+    "start": 3127.1
+   }
+  ]
+ },
+ {
+  "id": "02-krath",
+  "titel": "Was hält – die Krath",
+  "kurz": "Eine Nacht am Schmiedefeuer von Clan Groth. Der uralte Grothak wartet auf einen Jungkrath, der von seinem zehnten Einsatz heimkehren soll. Während Murrka Ziegel verteilt, Hrogar Platten prüft, Vashkor siezt und Rogh zu spät kommt, erzählen die Krath von Krath Ur und der Steinhaut, von Wort und Name, Basaltstahl und Schmiedekette – und von der Glutjagd, dem Dornensommer und dem Zehnten Nebel.",
+  "gastgeber": "Grothak",
+  "rolle": "uralter Kriegshäuptling, Clan Groth",
+  "volk": "krath",
+  "datei": "02-krath.ogg",
+  "text": "02-krath.text.json",
+  "dauer": 3749.1,
+  "bytes": 17771585,
+  "kapitel": [
+   {
+    "titel": "Kapitel 1 – Der Erste Funke",
+    "start": 0.6
+   },
+   {
+    "titel": "Kapitel 2 – Am Schmiedefeuer",
+    "start": 117.7
+   },
+   {
+    "titel": "Kapitel 3 – Krath Ur und die Steinhaut",
+    "start": 370.2
+   },
+   {
+    "titel": "Kapitel 4 – Wort und Name",
+    "start": 732.4
+   },
+   {
+    "titel": "Kapitel 5 – Was ein Schlag fragt",
+    "start": 1071.9
+   },
+   {
+    "titel": "Kapitel 6 – Der Takt der Werft",
+    "start": 1359.6
+   },
+   {
+    "titel": "Kapitel 7 – Zwölf Striche in der Asche",
+    "start": 1561.1
+   },
+   {
+    "titel": "Kapitel 8 – Das beste Schiff",
+    "start": 1757.9
+   },
+   {
+    "titel": "Kapitel 9 – Was uns schwerfällt",
+    "start": 2070.2
+   },
+   {
+    "titel": "Kapitel 10 – Die Glutjagd: die Aurelianer",
+    "start": 2362.2
+   },
+   {
+    "titel": "Kapitel 11 – Der Dornensommer: die Veyari",
+    "start": 2663.3
+   },
+   {
+    "titel": "Kapitel 12 – Rogh und der Erste Sprung",
+    "start": 2862.6
+   },
+   {
+    "titel": "Kapitel 13 – Der Zehnte Nebel: die Syntheten",
+    "start": 3055.6
+   },
+   {
+    "titel": "Kapitel 14 – Gebrochenenglas",
+    "start": 3330.2
+   },
+   {
+    "titel": "Kapitel 15 – Ein Name am Feuer",
+    "start": 3524.8
+   },
+   {
+    "titel": "Kapitel 16 – Was hält",
+    "start": 3688.1
+   }
+  ]
+ },
+ {
+  "id": "03-veyari",
+  "titel": "Der Ungepflanzte Garten – die Veyari",
+  "kurz": "Im Habitatgarten einer Esche topft Thalen Vey-Oruun, alter Gärtner der Veyari, einen Setzling um. Freunde kommen vorbei, Orrin bringt Suppe, und nebenbei erfährt der Gast, wie Schiffe wachsen, was unter den Wäldern von Veyhara liegt und warum die Krath seit dem Dornensommer von den Dornen sprechen.",
+  "gastgeber": "Thalen Vey-Oruun",
+  "rolle": "Gärtner-Philosoph, Stratege",
+  "volk": "veyari",
+  "datei": "03-veyari.ogg",
+  "text": "03-veyari.text.json",
+  "dauer": 3771.2,
+  "bytes": 17777002,
+  "kapitel": [
+   {
+    "titel": "Kapitel 1 – Eine stille Wiese",
+    "start": 0.6
+   },
+   {
+    "titel": "Kapitel 2 – Für einen mehr",
+    "start": 180.9
+   },
+   {
+    "titel": "Kapitel 3 – Was unter dem Wald liegt",
+    "start": 499.6
+   },
+   {
+    "titel": "Kapitel 4 – Der Samen, der nicht aufging",
+    "start": 882.6
+   },
+   {
+    "titel": "Kapitel 5 – Ein Stück Schale",
+    "start": 1231.2
+   },
+   {
+    "titel": "Kapitel 6 – Die Speisekammer",
+    "start": 1579.4
+   },
+   {
+    "titel": "Kapitel 7 – Seite einundvierzig",
+    "start": 1818.0
+   },
+   {
+    "titel": "Kapitel 8 – Die Sumpfzypresse",
+    "start": 2147.7
+   },
+   {
+    "titel": "Kapitel 9 – Die Wiese",
+    "start": 2390.9
+   },
+   {
+    "titel": "Kapitel 10 – Das geduldigste Buch",
+    "start": 2742.2
+   },
+   {
+    "titel": "Kapitel 11 – Ein Teller für Lumen",
+    "start": 2950.6
+   },
+   {
+    "titel": "Kapitel 12 – Jahresringe",
+    "start": 3245.9
+   },
+   {
+    "titel": "Kapitel 13 – Ein zweiter Frühling",
+    "start": 3502.9
+   },
+   {
+    "titel": "Kapitel 14 – Epilog: Das Geräusch",
+    "start": 3723.1
+   }
+  ]
+ },
+ {
+  "id": "04-syntheten",
+  "titel": "Protokoll Null – Die Syntheten von Hexaris",
+  "kurz": "Ein Besuch auf Hexaris: Lumen, Gesandte der Syntheten, empfängt einen Gast in dem einzigen Raum ihrer Welt, der ein Fenster hat. Ihre Kolleginnen und Kollegen führen durch das erste Gewölbe mit seinem leeren Feld, durch die Wiege, in der eine neue Einheit erwacht, durch die Werft, in der ein Modul nicht passen will, und bis an den Zehnten Nebel, wo ein einzelner Schildkreuzer stehen blieb.",
+  "gastgeber": "Lumen",
+  "rolle": "Gesandte",
+  "volk": "syntheten",
+  "datei": "04-syntheten.ogg",
+  "text": "04-syntheten.text.json",
+  "dauer": 3668.0,
+  "bytes": 17381551,
+  "kapitel": [
+   {
+    "titel": "Kapitel 1 – Sprung null null null eins",
+    "start": 0.6
+   },
+   {
+    "titel": "Kapitel 2 – Ein Gast auf Hexaris",
+    "start": 82.7
+   },
+   {
+    "titel": "Kapitel 3 – Das leere Feld",
+    "start": 424.9
+   },
+   {
+    "titel": "Kapitel 4 – Die Wiege",
+    "start": 806.8
+   },
+   {
+    "titel": "Kapitel 5 – Zeile drei",
+    "start": 1125.3
+   },
+   {
+    "titel": "Kapitel 6 – Revision fünfzehn",
+    "start": 1402.2
+   },
+   {
+    "titel": "Kapitel 7 – Ein Licht für den Gast",
+    "start": 1766.1
+   },
+   {
+    "titel": "Kapitel 8 – Was danach kam",
+    "start": 2097.1
+   },
+   {
+    "titel": "Kapitel 9 – Der Zehnte Nebel",
+    "start": 2281.8
+   },
+   {
+    "titel": "Kapitel 10 – Vier Gewürze",
+    "start": 2685.8
+   },
+   {
+    "titel": "Kapitel 11 – Ein Schritt am anderen Ende des Tals",
+    "start": 2943.2
+   },
+   {
+    "titel": "Kapitel 12 – Unbekannte Anteile",
+    "start": 3203.2
+   },
+   {
+    "titel": "Kapitel 13 – Am Fenster",
+    "start": 3455.4
+   }
+  ]
+ }
+]

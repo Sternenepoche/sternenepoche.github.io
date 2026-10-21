@@ -39,7 +39,7 @@ jobs:
           python3 - <<'PY'
           import os, subprocess
           before = os.environ.get('BEFORE', '')
-          public_files = {'Technologiebaum.html', 'Weltenkruemmer.html', 'Lore.html', 'content/beschreibungen.json', 'web-client/ai-labels.js', 'web-client/three.min.js',
+          public_files = {'Trailer.html', 'Hoerchronik.html', 'Technologiebaum.html', 'Weltenkruemmer.html', 'Lore.html', 'content/beschreibungen.json', 'web-client/ai-labels.js', 'web-client/three.min.js',
               'index.html', 'KI-Hinweis.html', 'Sternenepoche-Start.html',
               'Sternenepoche-Handbuch.html', 'Sternenepoche-Kodex.html', 'Harness-Cockpit.html',
               'Download.html', 'sitemap.xml', 'robots.txt', 'llms.txt', '_config.yml',

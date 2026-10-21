@@ -1374,12 +1374,12 @@ Die Kosten der Stufe n betragen Grundkosten × Faktor^(n−1). Bezahlt wird aus 
 | **Sprungtor** | V | 500.000 Erz, 1.000.000 Kristall, 500.000 Deuterium, 20.000 Legierung, 10.000 Elektronik, 3.000 Xenokristall | 1,6 | 150 | Mondbasis 3, Hyperraumantrieb 3 | öffnet Hyperraumlöcher; höchstens Stufe 5 |
 | **Regolithförderung** | IV | 4.000 Erz, 2.000 Kristall, 100 Legierung | 1,38 | 15 | Mondbasis 1 | fördert Erz und Kristall ohne Arbeiter |
 | **Kryolager** | IV | 5.000 Erz, 3.000 Kristall, 200 Legierung | 1,36 | 5 | Mondbasis 1 | Deuteriumlager, ein Viertel plünderungssicher |
-| **Werftdock** | IV | 20.000 Erz, 10.000 Kristall, 1.000 Legierung, 300 Elektronik | 1,35 | 30 | Mondbasis 2 | Mondwerft und Reparaturdock; ab Stufe 10 Weltenkrümmer |
+| **Werftdock** | IV | 20.000 Erz, 10.000 Kristall, 1.000 Legierung, 300 Elektronik | 1,35 | 30 | Mondbasis 2 | Mondwerft und Reparaturdock; ab Stufe 8 Weltenkrümmer |
 | **Ortungsschleier** | IV | 8.000 Kristall, 4.000 Deuterium, 400 Elektronik | 1,45 | 25 | Mondbasis 2, Abschirmtechnik 1 | erschwert Spionage auf den Mond; höchstens Stufe 5 |
 
 **Beispiel:** Mondbasis Stufe 5 kostet 44.205 Erz, 88.410 Kristall und 44.205 Deuterium, Stufe 10 bereits 283.342 Erz, 566.685 Kristall und 283.342 Deuterium.
 
-**Werftdock:** Es zählt als Werftstufe für alles, was auf dem Mond gefertigt wird: Schiffe, Verteidigung, Solarsatelliten und ab Stufe 10 Weltenkrümmer. Die Bauzeit ist dort so lang wie in einer Planetenwerft der gleichen Stufe. Antriebskerne und Habitatmodule entstehen nur in der Orbitalwerft eines Planeten und müssen geliefert werden. Als **Reparaturdock** setzt das Werftdock nach einem Kampf am Mond oder an seinem Planeten, in dem du Verteidiger warst, **3 % je Stufe, höchstens 30 %** deiner dort verlorenen Schiffe wieder instand. Das kostet 10 % des Schiffspreises und 10 % der Bauzeit; die Schiffe erscheinen auf dem Mond. Verteidigung und Weltenkrümmer repariert es nicht, und reparierte Schiffe hinterlassen keine Trümmer.
+**Werftdock:** Es zählt als Werftstufe für alles, was auf dem Mond gefertigt wird: Schiffe, Verteidigung, Solarsatelliten und ab Stufe 8 Weltenkrümmer. Die Bauzeit ist dort so lang wie in einer Planetenwerft der gleichen Stufe. Antriebskerne und Habitatmodule entstehen nur in der Orbitalwerft eines Planeten und müssen geliefert werden. Als **Reparaturdock** setzt das Werftdock nach einem Kampf am Mond oder an seinem Planeten, in dem du Verteidiger warst, **3 % je Stufe, höchstens 30 %** deiner dort verlorenen Schiffe wieder instand. Das kostet 10 % des Schiffspreises und 10 % der Bauzeit; die Schiffe erscheinen auf dem Mond. Verteidigung und Weltenkrümmer repariert es nicht, und reparierte Schiffe hinterlassen keine Trümmer.
 
 **Ortungsschleier:** Jede Stufe erhöht die Schwellen einer Spionage auf diesen Mond um eins. Außerdem verbirgt er die Öffnung eines Hyperraumlochs vor fernen Tiefenphalanxen, deren Stufe nicht höher ist als der Schleier.
 
@@ -1501,7 +1501,7 @@ Der **Weltenkrümmer**, von seinen Besatzungen **Weltenkrümmer** genannt, ist e
 | Kosten | 5.000.000 Erz, 4.000.000 Kristall, 1.000.000 Deuterium, 100.000 Legierung, 50.000 Elektronik, 20.000 Xenokristall, 20 Antriebskerne |
 | Struktur / Schild / Angriff | 9.000.000 / 50.000 / 200.000, vier Ziele je Runde |
 | Ladung / Tempo / Verbrauch / Besatzung | 1.000.000 / 100 / 1 / 5.000, Hyperraumantrieb |
-| Bau | nur im **Werftdock Stufe 10** eines Mondes; Zivilisationsstufe V, Hyperraumantrieb 5, Waffentechnik 8 |
+| Bau | nur im **Werftdock Stufe 8** eines Mondes; Zivilisationsstufe V, Hyperraumantrieb 5, Waffentechnik 8 |
 | Schnellfeuer | 64 gegen Spionagesonden, Transporter, Recycler und Solarsatelliten; 50 gegen leichte Jäger, Raketenwerfer und Lasergeschütze; 33 gegen Kreuzer; 30 gegen Schlachtschiffe; 25 gegen Bomber und Ionengeschütze; 15 gegen Schlachtkreuzer und Abfang-Schlachtkreuzer; 12 gegen Gaußkanonen; 8 gegen Schwere Schlachtkreuzer; 5 gegen Zerstörer |
 
 Eine Planetenwerft lehnt den Bau ab. Der Weltenkrümmer passt durch kein Hyperraumloch, das Reparaturdock setzt ihn nicht instand, und gegen Monde fliegt er nur Angriff, Mond zerstören, Transport oder Stationieren. Mit Tempo 100 ist er extrem langsam und braucht für weite Strecken entsprechend lange. Wird er zerstört, hinterlässt er 2.700.000 Trümmer und damit allein die volle Mondchance von 20 %.
@@ -1788,7 +1788,7 @@ Auch dieser Ertrag endet an der Lagergrenze des Planeten und ist plünderbar. Ei
 
 Die Sphäre selbst ist kein Kampfziel. Verwundbar ist das System: Sie wirkt nur, solange die Eigner-Allianz **mindestens sechs der zwölf Plätze** hält. Sonst ist sie **verwaist** und wirkt nicht. Hält eine Allianz, auch eine fremde, **7 Spieltage** lang alle Plätze mit mindestens zehn Mitgliedern, geht die verwaiste Sphäre an sie über. Verliert ein angeschlossener Planet seinen Besitzer, erlischt sein Anschluss sofort.
 
-**Beispiel:** In einer 365-Tage-Welt zahlen zwölf Projektmitglieder je 7 Millionen Erz, Kristall und Deuterium ein, insgesamt 84 Millionen je Gut. Nach 15 Bautagen erhalten vier angeschlossene Planeten je 10.500 Deuterium in der Stunde; die absoluten Mengen folgen dem Anteil, Sonnenfaktor und Strombad gelten voll. Erobert ein Gegner danach sieben der zwölf Plätze, verwaist die Sphäre, bis die Allianz das System zurückgewinnt.
+**Beispiel:** In einer 365-Tage-Welt zahlen zwölf Projektmitglieder je 5 Millionen Erz, Kristall und Deuterium ein, insgesamt 60 Millionen je Gut. Nach 15 Bautagen erhalten vier angeschlossene Planeten je 7.500 Deuterium in der Stunde; die absoluten Mengen folgen dem Anteil, Sonnenfaktor und Strombad gelten voll. Erobert ein Gegner danach sieben der zwölf Plätze, verwaist die Sphäre, bis die Allianz das System zurückgewinnt.
 
 ### Großprojekt-Reiter und Galaxie
 
