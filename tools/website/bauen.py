@@ -75,6 +75,13 @@ FOTOS = lade("docs/website/fotos/fotos.json")
 KOPF = lade("docs/website/medien/weltenkruemmer.json")
 
 
+def android_daten() -> dict:
+    """Download-Daten der App. STERN_ANDROID_JSON: Vorschau eines gebauten, noch nicht veröffentlichten Release
+    (JSON aus dem Probelauf von android/veroeffentlichen_*.py) – docs/android-download.json schreibt nur das Release."""
+    import os
+    return json.loads(Path(os.environ["STERN_ANDROID_JSON"]).read_text(encoding="utf-8")) if os.environ.get("STERN_ANDROID_JSON") else lade("docs/android-download.json")
+
+
 def slug(text: str) -> str:
     text = re.sub(r"<[^>]+>", "", html.unescape(text)).strip().lower()
     return re.sub(r"\s+", "-", re.sub(r"[^\w\s-]", "", text))
@@ -235,16 +242,17 @@ class Bau:
  <div class="buehne-raum" aria-hidden="true"></div>
  <div class="buehne-szene" aria-hidden="true">
   <div class="buehne-bahn"></div><div class="buehne-bahn"></div>
-  <div class="buehne-planet"><img src="{self.u('docs/artwork/hero-ocean-v2.webp')}" alt="" width="960" height="960" fetchpriority="high" decoding="async"></div>
+  <div class="buehne-planet"><img src="{self.u('docs/artwork/hero-ozeanwelt.webp')}" alt="" width="1200" height="1200" fetchpriority="high" decoding="async"></div>
   <div class="buehne-film" data-kopffilm data-quelle="{medien}" data-standbild="{medien}-standbild.webp" data-marken='{esc(marken)}'>
    <img src="{medien}-standbild.webp" alt="" hidden width="960" height="540">
   </div>
  </div>
+ <div class="buehne-kino" aria-hidden="true" data-kinofilm data-quelle="{self.u('docs/website/medien/kopffilm')}" data-standbild="{self.u('docs/website/medien/kopffilm-standbild.webp')}" data-titel="Aus dem Spiel: ein Mond bricht"></div>
  <div class="rahmen buehne-text">
   <a class="version" href="#spiel"><b>Online</b>Browser · Android · KI-Rat</a>
-  <h1 id="titel">Baue ein Reich,<span>das Welten krümmt.</span></h1>
-  <p class="einleitung">Ein Heimatplanet, eine kleine Bevölkerung, knappe Vorräte – daraus wird in 365 Spieltagen ein Reich. Du forschst, baust Flotten,
-  gewinnst Monde, öffnest Hyperraumlöcher und baust mit deiner Allianz eine Dysonsphäre. Und wer den Mond seines Gegners brechen will, braucht einen Weltenkrümmer.</p>
+  <h1 id="titel">Weltraumstrategie<span>für Menschen und KI</span></h1>
+  <p class="einleitung">Du fängst mit einem Planeten und knappen Vorräten an. Eine Runde dauert 365 Spieltage. In der Zeit forschst du, baust Flotten,
+  gewinnst Monde, öffnest Hyperraumlöcher und errichtest mit deiner Allianz eine Dysonsphäre. Wer einen gegnerischen Mond zerstören will, braucht einen Weltenkrümmer.</p>
   <div class="knopfreihe"><a class="button" href="{SPIEL_URL}">Im Browser spielen <span aria-hidden="true">↗</span></a>
   <a class="button secondary trailer-knopf" href="Trailer.html"><span aria-hidden="true">▶</span> Trailer ansehen</a><a class="button secondary" href="Download.html">Android-App laden</a></div>
   <p class="buehne-fuss">Menschen, Serverbots und KI-Agenten spielen in derselben Galaxie nach denselben Regeln. Zuschauen geht ohne Konto.</p>
@@ -350,7 +358,7 @@ class Bau:
  <div class="rat-buehne" id="rat-buehne" data-basis="{self.u('docs/rat/')}" data-three="{self.u('web-client/three.min.js')}" data-volk="aurelianer"><div class="rat-leinwand"></div><span class="rat-hinweis">Ton an · Klick auf eine Figur</span><div class="rat-untertitel" aria-live="polite"></div></div>
  <div class="rat-karten" id="rat-karten"><noscript><p>Die Ratsbühne braucht JavaScript.</p></noscript></div>
 </div></section>"""
-        android = lade("docs/android-download.json")
+        android = android_daten()
         wege = f"""
 <section class="abschnitt" id="spielen" aria-labelledby="spielen-titel"><div class="rahmen">
  <div class="abschnitt-kopf"><div><span class="kennung">Drei Wege ins Spiel</span><h2 id="spielen-titel">Spiel, wo du willst.</h2></div>
@@ -371,8 +379,8 @@ class Bau:
  </div></div></section>"""
         inhalt = buehne + neu + techbaum + galerie + voelker + rat + wege + wissen
         doc = self.huelle("index.html", "Sternenepoche – Weltraumstrategie für Menschen und KI",
-                          f"Sternenepoche: Baue ein Reich in einer gemeinsamen Galaxie. Flottenführung, Monde, Weltenkrümmer, Invasion, Dysonsphäre – im Browser, als Android-App und mit eigenem KI-Rat.",
-                          inhalt, kopf_extra=f'<link rel="preload" as="image" href="{self.u("docs/artwork/hero-ocean-v2.webp")}">',
+                          f"Sternenepoche: Online-Weltraumstrategie in einer gemeinsamen Galaxie. Flottenführung, Monde, Weltenkrümmer, Invasion, Dysonsphäre – im Browser, als Android-App und mit eigenem KI-Rat.",
+                          inhalt, kopf_extra=f'<link rel="preload" as="image" href="{self.u("docs/artwork/hero-ozeanwelt.webp")}">',
                           fuss_extra=f'<script src="{self.u("docs/rat/rat-buehne.js")}" defer></script>')
         self.schreibe("index.html", doc)
 
@@ -772,7 +780,7 @@ document.getElementById('detail').addEventListener('click',e=>{const s=e.target.
     def download(self):
         """Zwei APKs (Karl 18.10.): Lite nur arm64-v8a für Handys, Vollversion arm64-v8a + x86_64. Daten aus
         docs/android-download.json – Schema mit „varianten“ (lite, voll); Version und Knöpfe kommen allein aus diesen Daten."""
-        a, c = lade("docs/android-download.json"), lade("docs/cockpit-download.json")
+        a, c = android_daten(), lade("docs/cockpit-download.json")
         varianten = {v.get("art"): v for v in a.get("varianten", [])}
         av = a.get("version", "")
         bereit = {"lite", "voll"} <= set(varianten)

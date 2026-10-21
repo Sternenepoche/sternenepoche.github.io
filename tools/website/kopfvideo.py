@@ -9,7 +9,7 @@ Ergebnis in docs/website/medien/:
   weltenkruemmer.mp4  / -klein.mp4   H.264 auf Schwarz vormultipliziert – Safari/iOS legt es mit mix-blend-mode: screen auf
   weltenkruemmer-standbild.webp      Standbild mit Alpha (prefers-reduced-motion, Plakat)
   weltenkruemmer.json                Zeitmarken je Volk für die Beschriftung
-Aufruf: python -X utf8 tools/website/kopfvideo.py
+Aufruf: python -X utf8 tools/website/kopfvideo.py   (--filme: Filme je Volk, --kopffilm: Spielfilm im Wechsel)
 """
 import json, shutil, subprocess
 from pathlib import Path
@@ -129,9 +129,28 @@ def filme():
         print(volk, f"{(ziel / f'{volk}.mp4').stat().st_size / 1e6:.2f} MB")
 
 
+KOPFFILM = ROOT / "ausgabe/pr-film/kopffilm-quelle.mp4"  # Karls Fassung vom 19.10. (Downloads/5gT4_6Q9HLiA0XkvaTrE9A.mp4)
+
+
+def kopffilm():
+    """Der ganze Spielfilm (82 s, Mond Asche bricht) für den Kopf der Startseite, im Wechsel mit den Weltenkrümmern
+    (docs/website/seite.js): 960×540 für breite Fenster (das Kinofenster ist höchstens ~900 px breit), 640×360 fürs Handy, beide H.264 ohne Ton mit faststart."""
+    x264 = ["-c:v", "libx264", "-preset", "slow", "-profile:v", "high", "-pix_fmt", "yuv420p", "-movflags", "+faststart", "-an"]
+    for name, hoehe, crf in (("kopffilm", 540, "27"), ("kopffilm-klein", 360, "28")):
+        subprocess.run([FFMPEG, "-v", "error", "-y", "-i", str(KOPFFILM), "-vf", f"scale=-2:{hoehe}:flags=lanczos", *x264,
+                        "-crf", crf, str(ZIEL / f"{name}.mp4")], check=True)
+    # Standbild: der Strahl trifft den Mond.
+    subprocess.run([FFMPEG, "-v", "error", "-y", "-ss", "56", "-i", str(KOPFFILM), "-frames:v", "1", "-vf", "scale=1280:-2",
+                    "-c:v", "libwebp", "-quality", "82", str(ZIEL / "kopffilm-standbild.webp")], check=True)
+    for f in sorted(ZIEL.glob("kopffilm*")):
+        print(f.name, f"{f.stat().st_size / 1e6:.2f} MB")
+
+
 if __name__ == "__main__":
     import sys
-    if "--filme" in sys.argv:
+    if "--kopffilm" in sys.argv:
+        kopffilm()
+    elif "--filme" in sys.argv:
         filme()
     elif "--rgba" in sys.argv or (KINO / "kopf/kopf-fertig.txt").exists():
         kopf_rgba()

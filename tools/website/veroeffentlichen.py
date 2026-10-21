@@ -28,7 +28,7 @@ DATEIEN = [
     "tools/website/techbaum_logo.py", "tools/website/veroeffentlichen.py", "tools/website/heute.py", "tools/website/trailer_web.py", "tools/website/hoerchronik_web.py", "tools/build_pages.py", "tools/build_fleet_codex.py",
     "tools/website_content.py", "tools/site_policy.py", "tools/player_publication_test.py",
     "docs/action-surfaces.css", "docs/HANDBUCH.md", "docs/AGENTEN-SCHNITTSTELLE.md", "docs/flottenkodex.json", "docs/technologie-regeln.json",
-    "docs/android-download.json", "docs/cockpit-download.json", "docs/artwork/hero-ocean-v2.webp",
+    "docs/android-download.json", "docs/cockpit-download.json", "docs/artwork/hero-ozeanwelt.webp",
     "docs/branding/sternenepoche-mark.png", "docs/branding/favicon.png", "content/beschreibungen.json", "lore/Lore-Gesamtwerk.md",
     "web-client/art.js", "web-client/ai-labels.js", "web-client/three.min.js",
 ]

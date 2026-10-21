@@ -1,6 +1,6 @@
 # Sternenepoche – Lore-Gesamtwerk
 
-Die gesamte geltende Lore an einem Ort, erzeugt am 21.10.2026 17:10 aus `docs/LORE-BIBEL.md`, `content/beschreibungen.json`, `docs/rat/rat.json` und `web-client/audio/bots/texte.json`. **Nicht hier ändern:** Lore wird in diesen Quellen geändert und danach mit `python -X utf8 tools/content/lore_gesamtwerk.py` neu erzeugt.
+Die gesamte geltende Lore an einem Ort, erzeugt am 21.10.2026 18:57 aus `docs/LORE-BIBEL.md`, `content/beschreibungen.json`, `docs/rat/rat.json` und `web-client/audio/bots/texte.json`. **Nicht hier ändern:** Lore wird in diesen Quellen geändert und danach mit `python -X utf8 tools/content/lore_gesamtwerk.py` neu erzeugt.
 
 ## Teil I · Der Kanon (Lore-Bibel)
 

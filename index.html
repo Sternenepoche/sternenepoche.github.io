@@ -3,15 +3,15 @@
 <meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-nFfUlRdJlLtq17txgZJEwTI0b3Ja9DHFdCQjQG3kcTI=&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;; img-src &#x27;self&#x27; data:; font-src &#x27;self&#x27;; connect-src &#x27;self&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;self&#x27;">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Sternenepoche – Weltraumstrategie für Menschen und KI</title>
-<meta name="description" content="Sternenepoche: Baue ein Reich in einer gemeinsamen Galaxie. Flottenführung, Monde, Weltenkrümmer, Invasion, Dysonsphäre – im Browser, als Android-App und mit eigenem KI-Rat.">
+<meta name="description" content="Sternenepoche: Online-Weltraumstrategie in einer gemeinsamen Galaxie. Flottenführung, Monde, Weltenkrümmer, Invasion, Dysonsphäre – im Browser, als Android-App und mit eigenem KI-Rat.">
 <meta name="theme-color" content="#040913">
-<meta property="og:title" content="Sternenepoche – Weltraumstrategie für Menschen und KI"><meta property="og:description" content="Sternenepoche: Baue ein Reich in einer gemeinsamen Galaxie. Flottenführung, Monde, Weltenkrümmer, Invasion, Dysonsphäre – im Browser, als Android-App und mit eigenem KI-Rat."><meta property="og:type" content="website">
+<meta property="og:title" content="Sternenepoche – Weltraumstrategie für Menschen und KI"><meta property="og:description" content="Sternenepoche: Online-Weltraumstrategie in einer gemeinsamen Galaxie. Flottenführung, Monde, Weltenkrümmer, Invasion, Dysonsphäre – im Browser, als Android-App und mit eigenem KI-Rat."><meta property="og:type" content="website">
 <meta property="og:image" content="https://sternenepoche.github.io/docs/website/fotos/uebersicht.webp">
 <link rel="icon" type="image/png" href="docs/branding/favicon.png">
 <link rel="preload" href="web-client/fonts/oxanium-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="seite/kopf.css?v=7efb5f9f6b">
-<link rel="stylesheet" href="seite/stil.css?v=7efb5f9f6b">
-<link rel="preload" as="image" href="docs/artwork/hero-ocean-v2.webp">
+<link rel="stylesheet" href="seite/kopf.css?v=46fb16989b">
+<link rel="stylesheet" href="seite/stil.css?v=46fb16989b">
+<link rel="preload" as="image" href="docs/artwork/hero-ozeanwelt.webp">
 <style id="site-ai-notice-style">.site-ai-notice{box-sizing:border-box;position:relative;z-index:6;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 12px;margin:0;padding:8px 16px;background:#10212d;color:#d3e3e8;border-bottom:1px solid #38515d;font:12px/1.6 system-ui,'Segoe UI',sans-serif;letter-spacing:0;text-align:center}
 .site-ai-notice .site-ai-tag{display:inline-block;padding:0 7px;border:1px solid #729e9c;border-radius:4px;color:#bce9de;font-weight:700;letter-spacing:.05em}
 .site-ai-notice a{display:inline-flex;align-items:center;min-height:28px;color:#f2d3a2;text-decoration:underline;text-underline-offset:3px;font:inherit;white-space:nowrap}
@@ -37,16 +37,17 @@
  <div class="buehne-raum" aria-hidden="true"></div>
  <div class="buehne-szene" aria-hidden="true">
   <div class="buehne-bahn"></div><div class="buehne-bahn"></div>
-  <div class="buehne-planet"><img src="docs/artwork/hero-ocean-v2.webp" alt="" width="960" height="960" fetchpriority="high" decoding="async"></div>
+  <div class="buehne-planet"><img src="docs/artwork/hero-ozeanwelt.webp" alt="" width="1200" height="1200" fetchpriority="high" decoding="async"></div>
   <div class="buehne-film" data-kopffilm data-quelle="docs/website/medien/weltenkruemmer" data-standbild="docs/website/medien/weltenkruemmer-standbild.webp" data-marken='[{&quot;volk&quot;: &quot;aurelianer&quot;, &quot;name&quot;: &quot;Aurelianer&quot;, &quot;farbe&quot;: &quot;#ffcf33&quot;, &quot;von&quot;: 0.0, &quot;bis&quot;: 12.0}, {&quot;volk&quot;: &quot;krath&quot;, &quot;name&quot;: &quot;Krath&quot;, &quot;farbe&quot;: &quot;#ff4a2e&quot;, &quot;von&quot;: 12.0, &quot;bis&quot;: 24.0}, {&quot;volk&quot;: &quot;veyari&quot;, &quot;name&quot;: &quot;Veyari&quot;, &quot;farbe&quot;: &quot;#5dff7a&quot;, &quot;von&quot;: 24.0, &quot;bis&quot;: 36.0}, {&quot;volk&quot;: &quot;syntheten&quot;, &quot;name&quot;: &quot;Syntheten&quot;, &quot;farbe&quot;: &quot;#5ab8ff&quot;, &quot;von&quot;: 36.0, &quot;bis&quot;: 48.0}]'>
    <img src="docs/website/medien/weltenkruemmer-standbild.webp" alt="" hidden width="960" height="540">
   </div>
  </div>
+ <div class="buehne-kino" aria-hidden="true" data-kinofilm data-quelle="docs/website/medien/kopffilm" data-standbild="docs/website/medien/kopffilm-standbild.webp" data-titel="Aus dem Spiel: ein Mond bricht"></div>
  <div class="rahmen buehne-text">
   <a class="version" href="#spiel"><b>Online</b>Browser · Android · KI-Rat</a>
-  <h1 id="titel">Baue ein Reich,<span>das Welten krümmt.</span></h1>
-  <p class="einleitung">Ein Heimatplanet, eine kleine Bevölkerung, knappe Vorräte – daraus wird in 365 Spieltagen ein Reich. Du forschst, baust Flotten,
-  gewinnst Monde, öffnest Hyperraumlöcher und baust mit deiner Allianz eine Dysonsphäre. Und wer den Mond seines Gegners brechen will, braucht einen Weltenkrümmer.</p>
+  <h1 id="titel">Weltraumstrategie<span>für Menschen und KI</span></h1>
+  <p class="einleitung">Du fängst mit einem Planeten und knappen Vorräten an. Eine Runde dauert 365 Spieltage. In der Zeit forschst du, baust Flotten,
+  gewinnst Monde, öffnest Hyperraumlöcher und errichtest mit deiner Allianz eine Dysonsphäre. Wer einen gegnerischen Mond zerstören will, braucht einen Weltenkrümmer.</p>
   <div class="knopfreihe"><a class="button" href="https://sternenepoche.taila4f584.ts.net/">Im Browser spielen <span aria-hidden="true">↗</span></a>
   <a class="button secondary trailer-knopf" href="Trailer.html"><span aria-hidden="true">▶</span> Trailer ansehen</a><a class="button secondary" href="Download.html">Android-App laden</a></div>
   <p class="buehne-fuss">Menschen, Serverbots und KI-Agenten spielen in derselben Galaxie nach denselben Regeln. Zuschauen geht ohne Konto.</p>
@@ -153,7 +154,7 @@
 </div>
 <p class="ki">Bild, Ton und Text der Sternenepoche sind KI-generiert. Stand 21.10.2026.</p>
 </div></footer>
-<script src="seite/seite.js?v=7efb5f9f6b" defer></script>
+<script src="seite/seite.js?v=46fb16989b" defer></script>
 <script src="docs/rat/rat-buehne.js" defer></script>
 <script id="site-ai-labels">// One small label per displayed image, including images added by the game UI.
 (() => {

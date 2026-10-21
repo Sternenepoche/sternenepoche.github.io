@@ -4,47 +4,91 @@
   const ruhig = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const sparen = !!(navigator.connection && navigator.connection.saveData);
 
-  /* ---------- Kopf-Film: freigestellt (WebM mit Alpha) vor dem Planeten; Safari/iOS: MP4 mit Aufhellen-Mischung ---------- */
+  /* ---------- Kopf im Wechsel: ein Weltenkrümmer schießt (freigestellt vor dem Planeten), dann der Spielfilm, dann der
+     nächste Weltenkrümmer, wieder der Film … Weltenkrümmer: WebM mit Alpha, Safari/iOS MP4 mit Aufhellen-Mischung. ---------- */
   const film = document.querySelector("[data-kopffilm]");
   if (film) {
+    const buehne = document.querySelector(".buehne");
+    const kino = document.querySelector("[data-kinofilm]");
     const hud = document.querySelector(".buehne-hud");
+    const titel = hud?.querySelector("b");
     const marken = JSON.parse(film.dataset.marken || "[]");
     const setzeVolk = (m) => {
       if (!m) return;
-      document.querySelector(".buehne").style.setProperty("--volk", m.farbe);
-      if (hud) {
-        hud.querySelector("b").textContent = "Weltenkrümmer der " + m.name;
-        hud.querySelectorAll(".balken i").forEach((i, n) => i.classList.toggle("an", marken[n] === m));
-      }
+      buehne.style.setProperty("--volk", m.farbe);
+      if (titel) titel.textContent = "Weltenkrümmer der " + m.name;
+      hud?.querySelectorAll(".balken i").forEach((i, n) => i.classList.toggle("an", marken[n] === m));
     };
     setzeVolk(marken[0]);
     const standbild = () => { film.querySelector("img")?.removeAttribute("hidden"); film.classList.add("an"); };
     const knopf = hud?.querySelector("button");
-    let v = null;
+    const klein = Math.min(innerWidth, screen.width || innerWidth) < 820;
+    let wk = null, kv = null, aktiv = null, nr = 0, sichtbar = true;
+    const spiele = (v) => { aktiv = v; if (sichtbar && !knopf?.dataset.aus) v.play().catch(() => {}); };
+    const imKino = (an) => {
+      buehne.classList.toggle("im-kino", an);
+      hud?.classList.toggle("kino", an);
+      if (an && titel) titel.textContent = kino.dataset.titel;
+    };
+    const kinoVideo = () => {
+      if (kv || !kino) return kv;
+      kv = document.createElement("video");
+      Object.assign(kv, { muted: true, playsInline: true, preload: "auto" });
+      kv.setAttribute("muted", ""); kv.setAttribute("playsinline", ""); kv.setAttribute("aria-hidden", "true");
+      kv.poster = kino.dataset.standbild;
+      kv.src = kino.dataset.quelle + (klein ? "-klein" : "") + ".mp4";
+      kv.addEventListener("ended", () => wkTeil(nr + 1));
+      kino.prepend(kv);
+      return kv;
+    };
+    // Ein Volk: von seiner Marke bis zur nächsten; dort ist der Weltenkrümmer schon ausgeblendet.
+    const wkTeil = (n) => {
+      nr = n % marken.length;
+      imKino(false);
+      setzeVolk(marken[nr]);
+      wk.currentTime = marken[nr].von;
+      spiele(wk);
+    };
+    const insKino = () => {
+      if (aktiv !== wk) return;
+      wk.pause();
+      const v = kinoVideo();
+      if (!v) { wkTeil(nr + 1); return; }
+      v.currentTime = 0;
+      imKino(true);
+      spiele(v);
+    };
     const starte = (sofort) => {
       const apple = /Apple/.test(navigator.vendor || "");
-      const klein = Math.min(innerWidth, screen.width || innerWidth) < 820;
-      v = document.createElement("video");
-      Object.assign(v, { muted: true, loop: true, playsInline: true, autoplay: true, preload: "auto" });
-      v.setAttribute("muted", ""); v.setAttribute("playsinline", ""); v.setAttribute("aria-hidden", "true");
-      v.poster = film.dataset.standbild;
+      wk = document.createElement("video");
+      Object.assign(wk, { muted: true, playsInline: true, preload: "auto" });
+      wk.setAttribute("muted", ""); wk.setAttribute("playsinline", ""); wk.setAttribute("aria-hidden", "true");
+      wk.poster = film.dataset.standbild;
       const basis = film.dataset.quelle + (klein ? "-klein" : "");
-      if (apple) { film.classList.add("mischen"); v.src = basis + ".mp4"; }
-      else { v.src = basis + ".webm"; v.addEventListener("error", () => { film.classList.add("mischen"); v.src = basis + ".mp4"; }, { once: true }); }
-      v.addEventListener("playing", () => { film.classList.add("an"); film.querySelector("img")?.setAttribute("hidden", ""); }, { once: true });
-      v.addEventListener("timeupdate", () => setzeVolk(marken.find((m) => v.currentTime >= m.von && v.currentTime < m.bis)));
-      const start = () => { film.prepend(v); v.play().catch(standbild); };
+      if (apple) { film.classList.add("mischen"); wk.src = basis + ".mp4"; }
+      else { wk.src = basis + ".webm"; wk.addEventListener("error", () => { film.classList.add("mischen"); wk.src = basis + ".mp4"; }, { once: true }); }
+      wk.addEventListener("playing", () => {
+        film.classList.add("an"); film.querySelector("img")?.setAttribute("hidden", "");
+        kinoVideo();  // Film vorladen, solange der erste Weltenkrümmer läuft
+      }, { once: true });
+      wk.addEventListener("timeupdate", () => { if (wk.currentTime >= marken[nr].bis - 0.15) insKino(); });
+      wk.addEventListener("ended", insKino);
+      const start = () => { film.prepend(wk); aktiv = wk; wk.play().catch(standbild); };
       // Automatisch erst nach dem Laden der Seite, damit Text und Bilder Vorrang haben.
       if (sofort) start();
       else if (document.readyState === "complete") setTimeout(start, 200);
       else addEventListener("load", () => setTimeout(start, 200), { once: true });
       // Nur abspielen, wenn sichtbar und nicht angehalten.
-      new IntersectionObserver(([e]) => { if (!v.isConnected || knopf?.dataset.aus) return; e.isIntersecting ? v.play().catch(() => {}) : v.pause(); }).observe(film);
+      new IntersectionObserver(([e]) => {
+        sichtbar = e.isIntersecting;
+        if (!aktiv?.isConnected || knopf?.dataset.aus) return;
+        sichtbar ? aktiv.play().catch(() => {}) : aktiv.pause();
+      }).observe(buehne);
     };
     knopf?.addEventListener("click", () => {
-      if (!v) { starte(true); knopf.textContent = "Film anhalten"; return; }
-      if (v.paused) { delete knopf.dataset.aus; v.play().catch(() => {}); knopf.textContent = "Film anhalten"; }
-      else { knopf.dataset.aus = "1"; v.pause(); knopf.textContent = "Film abspielen"; }
+      if (!wk) { starte(true); knopf.textContent = "Film anhalten"; return; }
+      if (knopf.dataset.aus) { delete knopf.dataset.aus; aktiv?.play().catch(() => {}); knopf.textContent = "Film anhalten"; }
+      else { knopf.dataset.aus = "1"; aktiv?.pause(); knopf.textContent = "Film abspielen"; }
     });
     // „Bewegung reduzieren“ oder Datensparen: Standbild, der Film startet nur auf ausdrücklichen Klick.
     if (ruhig || sparen) { standbild(); if (knopf) knopf.textContent = "Film abspielen"; }
