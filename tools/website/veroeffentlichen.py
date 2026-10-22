@@ -36,6 +36,7 @@ ORDNER = [  # (Ordner, erlaubte Endungen, auszuschließende Namensteile)
     ("docs/website", {".css", ".js", ".webp", ".png", ".jpg", ".json", ".webm", ".mp4", ".ogg"}, ("kandidaten", "vorlage-stern", "-frei.png", "techbaum-1801")),
     ("docs/rat", {".js", ".json", ".glb", ".ogg", ".m4a", ".webp"}, ()),
     ("web-client/techbaum", {".css", ".js"}, ()),
+    ("web-client/assets/klein", {".webp"}, ()),  # Vorschaubilder der Techbaum-Kacheln (techbaum_kleinbilder.py)
     ("web-client/fonts", {".woff2", ".txt"}, ()),
 ]
 

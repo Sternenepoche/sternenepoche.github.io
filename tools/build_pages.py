@@ -92,7 +92,7 @@ def prepare(out:Path):
     # Technologiebaum-Logo, der Technologiebaum selbst und die Oxanium-Schrift. Nur versionierte Dateien.
     web={'.css','.js','.webp','.png','.jpg','.webm','.mp4','.woff2'}
     for folder,endungen in [('seite',web),('docs/website/fotos',{'.webp'}),('docs/website/medien',web|{'.json','.ogg'}),
-                            ('docs/website/logo',{'.webp','.png'}),('web-client/techbaum',{'.css','.js'}),('web-client/fonts',{'.woff2'})]:
+                            ('docs/website/logo',{'.webp','.png'}),('web-client/techbaum',{'.css','.js'}),('web-client/assets/klein',{'.webp'}),('web-client/fonts',{'.woff2'})]:
         approved.extend(p for p in sorted((ROOT/folder).rglob('*')) if p.is_file() and p.suffix.lower() in endungen
                         and 'kandidaten' not in p.parts and (folder!='docs/website/logo' or p.name.startswith('techbaum-logo'))
                         and p.relative_to(ROOT).as_posix() in tracked and not p.is_symlink())
