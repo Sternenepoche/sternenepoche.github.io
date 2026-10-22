@@ -12,7 +12,7 @@ import re
 # Gezielte Umformulierungen (Text muss genau so vorkommen).
 GENAU = [
     (", wie sie in neu erzeugten Welten gelten", ""),
-    ("**Gilt für neue Welten.** Monde, Mondgebäude, Sprungtore und Weltenkrümmer gibt es nur in Welten, die mit der Mondgeneration erzeugt wurden. Ältere Welten bleiben ohne Monde.\n", ""),
+    ("**Gilt für neue Welten.** Monde, Mondgebäude, Hyperraumtor-Generatoren und Weltenkrümmer gibt es nur in Welten, die mit der Mondgeneration erzeugt wurden. Ältere Welten bleiben ohne Monde.\n", ""),
     ("**Gilt für neue Welten.** Ältere Welten behalten ihre bisherigen Wachstums- und Sonnentabellen; ihre Werte zeigt die Regelreferenz im Spiel.\n", ""),
     ("**Gilt für neue Welten.** In älteren Welten bleibt es bei acht Mitgliedern und ohne Dysonsphäre.\n", ""),
     ("**Gilt für neue Welten.** Sie ersetzt dort die kurze Besetzungsfrist und die frühere Miliz aus Kapitel 16. ", ""),
@@ -43,6 +43,8 @@ REST = re.compile(r"neue[nr]? Welten|älter(?:e|en|er) Welten|\b(?:bis|seit) \d{
 
 
 def heute(text: str) -> str:
+    # Seit 22.10. bereinigen die Regel-Sitzungen die Quelle selbst: fehlt eine Stelle, ist sie dort schon entfernt.
+    # Die Restprüfung unten bleibt streng – übrig gebliebene Alt-Bezüge brechen den Bau weiter ab.
     for alt, neu in GENAU:
         if alt not in text:
             raise ValueError(f"Handbuch geändert – Stelle fehlt: {alt[:70]!r}")

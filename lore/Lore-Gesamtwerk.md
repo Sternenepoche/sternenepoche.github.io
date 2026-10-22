@@ -1,6 +1,6 @@
 # Sternenepoche – Lore-Gesamtwerk
 
-Die gesamte geltende Lore an einem Ort, erzeugt am 21.10.2026 18:57 aus `docs/LORE-BIBEL.md`, `content/beschreibungen.json`, `docs/rat/rat.json` und `web-client/audio/bots/texte.json`. **Nicht hier ändern:** Lore wird in diesen Quellen geändert und danach mit `python -X utf8 tools/content/lore_gesamtwerk.py` neu erzeugt.
+Die gesamte geltende Lore an einem Ort, erzeugt am 22.10.2026 20:29 aus `docs/LORE-BIBEL.md`, `content/beschreibungen.json`, `docs/rat/rat.json` und `web-client/audio/bots/texte.json`. **Nicht hier ändern:** Lore wird in diesen Quellen geändert und danach mit `python -X utf8 tools/content/lore_gesamtwerk.py` neu erzeugt.
 
 ## Teil I · Der Kanon (Lore-Bibel)
 
@@ -125,7 +125,7 @@ Epochen tauchen in Expeditionsberichten auf.
 | II | Industrie | 1.500 Einwohner, Erzmine 5, Kristallmine 5 | Die ersten Brecher laufen im Takt. Gießerei, Elektronikwerk, Fusion, erste Jäger und Frachter. |
 | III | Orbit | 4.000 Einwohner, Gießerei 3, Elektronikwerk 2, Energietechnik 3, Stabilität 55 | Der Himmel wird Arbeitsplatz: Markt, Phalanx, Silos, Bergbau im Gürtel. |
 | IV | Sternenflug | 40.000 Einwohner, Werft 4, Impulsantrieb 3, Astrophysik 1, Stabilität 60, Konsum 80 % | Impulsflotten, Orbitalwerft, Kolonieschiffe, Kreuzer, Gaußkanone, erster Planetenschild. Die ersten Monde (Kreuzerwinter) und Mondbasen. Kaserne, Bodentruppen und Truppentransporter – noch ohne Landung auf fremdem Boden, denn die braucht Bomber. Aus einer Welt wird ein Reich. |
-| V | Imperium | 200.000 Einwohner, Hyperraumantrieb 1, 3 Kolonien | Hyperraum, Schlachtschiffe, Flottenkreuzer, Plasmawerfer, Bomber (und mit ihnen die ersten Landungen), Zerstörer, Schlachtkreuzer, Planetenschild II und III, Orbitalring, Sprungtore, Weltenkrümmer; als Allianzwerk die Dysonsphäre. |
+| V | Imperium | 200.000 Einwohner, Hyperraumantrieb 1, 3 Kolonien | Hyperraum, Schlachtschiffe, Flottenkreuzer, Plasmawerfer, Bomber (und mit ihnen die ersten Landungen), Zerstörer, Schlachtkreuzer, Planetenschild II und III, Orbitalring, Hyperraumtor-Generatoren, Weltenkrümmer; als Allianzwerk die Dysonsphäre. |
 
 Die Stufen sind **Kanon für den Klang**: Ein Text über eine Stufe-II-Anlage klingt nach Staub, Schweiß und Improvisation;
 ein Text über eine Stufe-V-Einheit nach Großwerft, Admiralität und Machtpolitik.
@@ -175,7 +175,7 @@ dürfen Theorien der Völker erzählen, nie eine Wahrheit festlegen.
 | **Legierung** | Strukturmetall: Stahl-, Titan- und Basaltverbund | Gießerei (4 Erz) | Rümpfe, Panzerplatten, Bauteile. Werkstoffkunde +5 % Ausbeute je Stufe. |
 | **Elektronik** | Rechen-, Steuer- und Sensorbauteile | Elektronikwerk (2 Kristall + 1 Erz, braucht Fachkräfte) | Zielrechner, Feuerleitung, Schildsteuerung. Staubempfindlich. |
 | **Konsumgut** | Kleidung, Geräte, Werkzeuge | Konsumgüterwerk (1 Erz + 1 Kristall + 0,5 Deuterium) | Deuterium liefert die Wasserstoffchemie für Polymere und Textilien. Hält Kolonien stabil. |
-| **Xenokristall** | Bruchmaterie (3.2) | Xenoextraktor, nur in Nebelsystemen | Hyperraumkerne, Schildgitter höherer Ordnung, Sprungtore, Weltenkrümmer. |
+| **Xenokristall** | Bruchmaterie (3.2) | Xenoextraktor, nur in Nebelsystemen | Hyperraumkerne, Schildgitter höherer Ordnung, Hyperraumtor-Generatoren, Weltenkrümmer. |
 | **Antriebskern** | versiegelter Fusionsblock mit Steuerung | Orbitalwerft | Herz von Kolonie- und Großschiffen; zu groß und zu heiß, um am Boden montiert zu werden. |
 | **Habitatmodul** | druckfester Lebensraum mit Lebenserhaltung | Orbitalwerft | Wohnraum für 2.000 Menschen an Bord und bei der Landung. |
 
@@ -280,7 +280,7 @@ Weitere feste Begriffe:
   einem Planeten erscheinen, und jede Durchreise durch ein Hyperraumloch. „Wer auf seinem Mond lauert, muss sich am Ziel
   trotzdem zeigen.“
 
-#### 4.9 Monde, Sprungtore, Weltenkrümmer
+#### 4.9 Monde, Hyperraumtor-Generatoren, Weltenkrümmer
 
 - **Mondentstehung:** Wenn bei einem Gefecht am Planeten genug Trümmer entstehen (ab 100.000 Einheiten Trümmermasse je
   Prozent Chance, höchstens 20 %), sammelt sich die Wolke in der Einflusssphäre des Planeten und kollabiert zu einem Mond.
@@ -293,7 +293,7 @@ Weitere feste Begriffe:
 - **Monde sind Verstecke:** geringe Schwerkraft (Werftdock baut Rümpfe, die am Boden zusammenbrächen), schwer einsehbar,
   ideal für Phalanx und Tor. Ein Mond hat keine Bewohner; alles läuft selbsttätig, darum kostet er **Unterhalt** aus der
   Reichskasse: 150 Credits am Tag und 20 je Gebäudestufe (grüne Monde ein Viertel weniger). Unbezahlt arbeiten alle
-  Mondanlagen mit halber Wirkung, Sprungtor und Tiefenphalanx gar nicht.
+  Mondanlagen mit halber Wirkung, Hyperraumtor-Generator und Tiefenphalanx gar nicht.
 - **Mondtypen:** Welcher Typ entsteht, zeichnet die Zone des Mutterplaneten vor (in Nebelsystemen häufiger Amethyst). Die
   Mechanik hängt nur am Typ, die Farbe der Bauten am Besitzervolk.
 
@@ -310,7 +310,7 @@ Weitere feste Begriffe:
 | `amethyst_violett` | Xenoadern aus der Bruchmaterie der Nebel | Regolith liefert Xenokristall (1 % der Kristallmenge, im Nebel 2 %) | Erz −20 % |
 | `karmin_rot` | Magnetitkruste aus oxidiertem Eisen der Rümpfe | Tiefenphalanx reicht eine Stufe weiter, Scan −20 % Deuterium | Solarsatelliten −10 % (die Kruste streut den Strahl) |
 
-- **Sprungtor:** Ein Xenokristallring, der zwischen zwei Torsmonden ein **Hyperraumloch** aufreißt. Es steht **300
+- **Hyperraumtor-Generator:** Ein Xenokristallring, der neben seinem Mond ein **Hyperraumtor** (Hyperraumloch) zu einem zweiten Torsmond aufreißt. Es steht **300
   Sekunden** offen, lässt sich nicht vorzeitig schließen und kennt keine Seiten: Wer es sieht und mit stationierten Schiffen
   oder einer Orbitflotte im Start- oder Zielsystem steht, darf **einmal** hindurch – in beide Richtungen, ohne Flugzeit
   (nicht: Weltenkrümmer, Solarsatelliten, Verteidigung). Die Kehle trägt 2.000.000 Struktur je Torstufe.
@@ -427,7 +427,7 @@ erzählt sie anders; die folgenden **Ereignisse sind Kanon** und dürfen in jede
 | **Die Bomberjahre** | Bomberverbände des Imperiums (Stufe V, Werft 7) tragen ganze Verteidigungsringe ab und senken zum ersten Mal Welten bis zur Dreißig-Grenze: Es beginnen die ersten Landungen auf fremdem Boden (**Rampenzeit**), in denen die älteren Bodentruppen des Sternenflugs ihre erste echte Probe bestehen. Die Verteidiger bauen nichts Neues, sondern messen ältere Werkzeuge auf Bomber ein: Schwerer Jäger und Flottenrakete (Orbit-Zeitalter), Flottenkreuzer (Werft 6) und Plasmawerfer aus den ersten Jahren des Imperiums. Berühmt werden sie alle erst jetzt; ein Kind dieser Jahre ist erst der Strategische Bomber an ihrem Ende. | Bomber, Schwerer Jäger, Flottenkreuzer, Plasmawerfer, Flottenrakete, Truppentransporter |
 | **Die Kuppelkrise** | Belagerungsschlachtschiffe (Stufe V) brechen den einfachen Planetenschild in wenigen Salven. Antwort: Planetenschild II und III. Der ältere Bunkerbrecher (Stufe IV), bis dahin eine Silowaffe gegen Festungswelten, erlebt auf der Angreiferseite seine größte Zeit. | Belagerungsschlachtschiff, Planetenschild II/III, Bunkerbrecher |
 | **Der Dornensommer** | Im Sternenflug, als die ersten Kasernen Aufklärungsdrohnen stellen, will ein Krath-Clan eine Veyari-Kolonie plündern und findet sie verlassen – bis Kael Dornhags Verteidigung aus Aufklärung, Minenfeldern aus Raketenwerfern und einem einzigen gut getimten Gegenschlag zuschlägt. Seither halten die Krath die Veyari nicht mehr für weich. | Kael Dornhag, Raketenwerfer, Aufklärungsdrohne, Sensorphalanx |
-| **Die Torzeit** | Die ersten Sprungtore verbinden Monde. Bald zeigt sich, dass ein Loch keine Seiten kennt: Beim **Verrat von Kessmar** strömt durch ein frisch geöffnetes Tor die Flotte des Gegners. | Sprungtor, Tiefenphalanx, Ortungsschleier |
+| **Die Torzeit** | Die ersten Hyperraumtor-Generatoren verbinden Monde. Bald zeigt sich, dass ein Loch keine Seiten kennt: Beim **Verrat von Kessmar** strömt durch ein frisch geöffnetes Tor die Flotte des Gegners. | Hyperraumtor-Generator, Tiefenphalanx, Ortungsschleier |
 | **Der Fall von Kessa** | Der erste Weltenkrümmer der Chronik bricht den Mond Kessa. Die Trümmerwolke regnet tagelang auf den Planeten darunter. Seither heißt jede Kiellegung eines Weltenkrümmers in den Admiralitäten *die Mondfrage*. | Weltenkrümmer, Werftdock, Xenokristall, Erster Bruch |
 | **Das Erste Licht** | Ein Bund aus Reichen aller vier Völker besiedelt alle zwölf Bahnen eines Systems und schließt nach dreißig Bautagen die letzte Polkappe der ersten Dysonsphäre. Die Sonne glüht nur noch durch die Fugen. Seither misst man den Rang eines Bundes an seinen Sphären, und jede Allianz weiß, dass man ein Dyson-System nicht zerstören, nur erobern kann. | Dysonsphäre, Solarsatellit, Versorgungsnetz, Orbitalring, Allianz |
 
@@ -1128,13 +1128,13 @@ Xenokristall ist Bruchmaterie, also Gestein, das unter der Hyperraumscherung des
 
 Jede Probe wandert sofort in gekühlte, gegeneinander isolierte Kassetten, denn Xenokristall kann sich ohne äußere Ursache erwärmen, und das erste Xenolabor der Chronik brannte deshalb ab. Die erste Ausbaustufe liefert 4 Einheiten Grundertrag und braucht 30 Arbeiter, 10 Fachkräfte für Kassetten, Kühlung und Gittermessung sowie 60 Strom, mehr als jedes andere Versorgungswerk. Sie kostet 20.000 Erz, 10.000 Kristall, 500 Legierung und 200 Elektronik, und jede weitere Stufe das 1,23-Fache.
 
-Xenomaterialkunde hebt die Förderung um 10 Prozent je Stufe, weil die Forscher die Launen des Gitters besser vorhersagen und weniger Proben verlieren. Aus dem Ertrag entstehen Hyperraumkerne, Schildgitter höherer Ordnung, Sprungtore und Weltenkrümmer, und darum ist jede Nebelwelt ein Ziel.
+Xenomaterialkunde hebt die Förderung um 10 Prozent je Stufe, weil die Forscher die Launen des Gitters besser vorhersagen und weniger Proben verlieren. Aus dem Ertrag entstehen Hyperraumkerne, Schildgitter höherer Ordnung, Hyperraumtor-Generatoren und Weltenkrümmer, und darum ist jede Nebelwelt ein Ziel.
 
 ##### Chronik
 
 Der Xenoextraktor gehört zum Zeitalter des Sternenflugs, denn erst mit Legierung, Elektronik und Fachkräften in großer Zahl ließ sich eine Anlage bauen, die eine so launische Materie sicher fördert. Vorher kannte jede Gründung Xenokristall nur als Erinnerung, weil beim Durchgang durch die Schwelle jedes Gitter in der Schwellenblässe verlischt und keine Arche einen Hyperraumkern mitbringt. Mit den ersten Extraktoren begann die Xenomaterialkunde, und aus dem Ertrag der Extraktoren entstand der Hyperraumantrieb, dessen Erster Sprung vier Sekunden dauerte und drei Tage Sprungtaubheit brachte.
 
-Im Imperium verschlangen Schlachtschiffe, Sprungtore und Weltenkrümmer den Ertrag ganzer Nebel, und seit dem Fall von Kessa wissen alle Admiralitäten, dass dieselbe Bruchmaterie, die Schiffe in den Hyperraum trägt, auch Monde brechen kann. Die Halle der Vier Siegel stand schon am Rand des ersten Nebels, lange bevor dort der erste Extraktor lief, und so wurde der älteste Markt der Weite ganz von selbst der erste Handelsplatz für Xenokristall.
+Im Imperium verschlangen Schlachtschiffe, Hyperraumtor-Generatoren und Weltenkrümmer den Ertrag ganzer Nebel, und seit dem Fall von Kessa wissen alle Admiralitäten, dass dieselbe Bruchmaterie, die Schiffe in den Hyperraum trägt, auch Monde brechen kann. Die Halle der Vier Siegel stand schon am Rand des ersten Nebels, lange bevor dort der erste Extraktor lief, und so wurde der älteste Markt der Weite ganz von selbst der erste Handelsplatz für Xenokristall.
 
 ##### Volksakten
 
@@ -1154,7 +1154,7 @@ Ihre Kühlkassetten sind Sechseckmodule mit eigener Wärmesenke, und wenn eine P
 
 Bei der ersten Ernte eines neuen Nebels lassen die Veyari eine Schale Staub als Dank im Raum treiben, und die Pfleger tragen beim Sortieren Handschuhe aus Pilzleder, weil sie der Materie nicht ihre Wärme aufdrängen wollen. Nüchtern betrachtet verringert das die Erwärmung der Proben, und die Kreise haben den Brauch darum nie abgeschafft. Ein Hain sagt, man nehme aus einem Grab nur, was man ehren kann.
 
-**Siehe auch:** [Xenomaterialkunde](#xenomaterialkunde) · [Hyperraumantrieb](#hyperraumantrieb) · [Schlachtschiff](#schlachtschiff) · [Sprungtor](#sprungtor) · [Weltenkrümmer](#weltenkrümmer)
+**Siehe auch:** [Xenomaterialkunde](#xenomaterialkunde) · [Hyperraumantrieb](#hyperraumantrieb) · [Schlachtschiff](#schlachtschiff) · [Hyperraumtor-Generator](#hyperraumtor-generator) · [Weltenkrümmer](#weltenkrümmer)
 
 #### Lager
 
@@ -2522,13 +2522,13 @@ Der Hyperraumantrieb fliegt nicht durch den Raum, sondern gleitet durch die Kurz
 
 Schon die erste Stufe kostet 10.000 Erz, 20.000 Kristall, 6.000 Deuterium und 1.000 Xenokristall bei 6.000 Forschungspunkten, jede weitere doppelt so viel, und weil sie Xenokristall verlangt, bindet sie jeden Fortschritt an die Nebelsysteme. Erforschbar ist sie ab der Sternenflugzeit mit einem Labor der Stufe 6, und jede Stufe bringt allen Hyperraumschiffen 30 Prozent mehr Tempo, den höchsten Antriebsgewinn der Weite, durch ruhigere Resonatoren und eine festere Kopplung. Der Eintritt verzerrt den Raum vor dem Schiff zu einer Kielwelle, die stärker ist als die jedes anderen Antriebs, und wer zum ersten Mal gleitet, leidet an Sprungtaubheit, weil Gleichgewichtssinn und Trägheitssensoren in der Kurzschicht keinen festen Bezug mehr finden.
 
-Hyperraumantrieb 1 ist Pflicht für den Aufstieg zum Imperium und öffnet Flottenkreuzer und Bunkerbrecher, Stufe 2 Sturmschlachtschiff und Abfang-Schlachtkreuzer, Stufe 3 Schlachtkreuzer, Strategischen Bomber und Sprungtor, Stufe 4 Hyperrakete, Schweren Schlachtkreuzer und Schweren Zerstörer und Stufe 6 den Weltenkrümmer. Beim Durchgang durch die Schwelle verlischt jedes Xenokristallgitter, und darum muss jede Gründung dieses Fach in der Weite neu erarbeiten.
+Hyperraumantrieb 1 ist Pflicht für den Aufstieg zum Imperium und öffnet Flottenkreuzer und Bunkerbrecher, Stufe 2 Sturmschlachtschiff und Abfang-Schlachtkreuzer, Stufe 3 Schlachtkreuzer, Strategischen Bomber und Hyperraumtor-Generator, Stufe 4 Hyperrakete, Schweren Schlachtkreuzer und Schweren Zerstörer und Stufe 6 den Weltenkrümmer. Beim Durchgang durch die Schwelle verlischt jedes Xenokristallgitter, und darum muss jede Gründung dieses Fach in der Weite neu erarbeiten.
 
 ##### Chronik
 
 Der Hyperraumantrieb steht am Übergang vom Sternenflug zum Imperium: Erst wenn Xenoextraktoren in Nebelsystemen fördern und ein Labor die Stufe 6 erreicht, lässt er sich erforschen, und meist ist zuvor die Xenomaterialkunde gewachsen, die den launischen Kristall überhaupt handhabbar macht. Berühmt wurde er durch den Ersten Sprung der Chronik, vier Sekunden Hyperraum und drei Tage Sprungtaubheit, den vier Völker für sich beanspruchen: Kapitänin Ilse Varenna aus einer Nebenlinie von Haus Varro, Rogh Ul-Tharn, der angeblich ohne Instrumente sprang, Einheit Kadenz mit dem Protokoll „Sprung 0001“ und die unbemannte Saatkapsel Erstling der Veyari. Keiner der Ansprüche ist entschieden, und jede Akademie lehrt eine andere Fassung.
 
-Aus dem Sprung erwuchs das Schlachtschiff, und in der Schlacht am Zehnten Nebel prallten zum ersten Mal Hyperraumflotten aufeinander, deren Trümmer den Mond Narbe bildeten. In der Torzeit verbanden Sprungtore die Monde, und mit dem Fall von Kessa zeigte der Weltenkrümmer, dass die Scherung, mit der die Vorgänger ganze Welten brachen, im Kleinen eines Mondes wieder in den Händen der Völker liegt.
+Aus dem Sprung erwuchs das Schlachtschiff, und in der Schlacht am Zehnten Nebel prallten zum ersten Mal Hyperraumflotten aufeinander, deren Trümmer den Mond Narbe bildeten. In der Torzeit verbanden Hyperraumtore die Monde, und mit dem Fall von Kessa zeigte der Weltenkrümmer, dass die Scherung, mit der die Vorgänger ganze Welten brachen, im Kleinen eines Mondes wieder in den Händen der Völker liegt.
 
 ##### Volksakten
 
@@ -2548,7 +2548,7 @@ Seither verbringen Syntheten jede Gleitphase mit Selbstdiagnosen und gleichen na
 
 Seither legt jede Besatzung vor dem ersten Sprung eines neuen Schiffs einen Samen in den Bug, der am Ziel eingepflanzt wird. Wenn die Zeit es erlaubt, schicken die Kreise vor einer neuen Route zuerst eine Saatkapsel voraus, und erst wenn deren Samen am Ziel keimen, folgt ein bemanntes Schiff.
 
-**Siehe auch:** [Xenomaterialkunde](#xenomaterialkunde) · [Schlachtschiff](#schlachtschiff) · [Sprungtor](#sprungtor) · [Weltenkrümmer](#weltenkrümmer) · [Xenoextraktor](#xenoextraktor) · [Flottenkreuzer](#flottenkreuzer)
+**Siehe auch:** [Xenomaterialkunde](#xenomaterialkunde) · [Schlachtschiff](#schlachtschiff) · [Hyperraumtor-Generator](#hyperraumtor-generator) · [Weltenkrümmer](#weltenkrümmer) · [Xenoextraktor](#xenoextraktor) · [Flottenkreuzer](#flottenkreuzer)
 
 #### Astrophysik
 
@@ -2932,7 +2932,7 @@ Der Kristall steckt in den Sendergittern, das Deuterium in den Testflügen, bei 
 
 ##### Chronik
 
-Die Abschirmtechnik ist fast so alt wie die Überwachung, denn beide entstanden in der Industriezeit aus derselben Glutjagd: Als die aurelianischen Geleitzüge lernten, Krath-Schwärme früh zu hören, lernten die Schwärme, ihre Stärke im Rauschen zu verbergen. Den Durchbruch brachten aber die aurelianischen Häuser, die ihre Konvois maskierten, damit kein Plünderer erkannte, welcher Geleitzug sich lohnte und welcher bewacht war. Im Sternenflug trug ihre erste Stufe den Ortungsschleier auf den Monden, und in der Torzeit strömte beim Verrat von Kessmar eine Flotte durch ein frisch geöffnetes Sprungtor, deren Stärke die Verteidiger nicht kannten.
+Die Abschirmtechnik ist fast so alt wie die Überwachung, denn beide entstanden in der Industriezeit aus derselben Glutjagd: Als die aurelianischen Geleitzüge lernten, Krath-Schwärme früh zu hören, lernten die Schwärme, ihre Stärke im Rauschen zu verbergen. Den Durchbruch brachten aber die aurelianischen Häuser, die ihre Konvois maskierten, damit kein Plünderer erkannte, welcher Geleitzug sich lohnte und welcher bewacht war. Im Sternenflug trug ihre erste Stufe den Ortungsschleier auf den Monden, und in der Torzeit strömte beim Verrat von Kessmar eine Flotte durch ein frisch geöffnetes Hyperraumtor, deren Stärke die Verteidiger nicht kannten.
 
 Ob damals ein Ortungsschleier die Öffnung des Lochs vor fernen Phalanxen verbarg, streiten die Chronisten bis heute. Seither gilt in jeder Admiralität der Satz, dass Abschirmtechnik keine Schlacht gewinnt, aber jede Schlacht teurer macht, die der Gegner ohne Wissen beginnt.
 
@@ -2954,7 +2954,7 @@ Die Einheit Ordo, die diese Versuche lange leitete, nennt sie das freundlichste 
 
 Eine neue Stufe wächst bei den Veyari als neue Faserlinie über viele Jahreszeiten, und die Faserhüterin Liane Rindhain prüft jede Generation, indem sie sie gegen die Horchstation ihres eigenen Hains fliegen lässt. Ein Gärtner zeigt die Blüte, sagen die Veyari, aber nie die Wurzel.
 
-**Siehe auch:** [Spionagetechnik](#spionagetechnik) · [Überwachungstechnik](#überwachungstechnik) · [Ortungsschleier](#ortungsschleier) · [Geheimdienst](#geheimdienst) · [Sensorphalanx](#sensorphalanx) · [Sprungtor](#sprungtor)
+**Siehe auch:** [Spionagetechnik](#spionagetechnik) · [Überwachungstechnik](#überwachungstechnik) · [Ortungsschleier](#ortungsschleier) · [Geheimdienst](#geheimdienst) · [Sensorphalanx](#sensorphalanx) · [Hyperraumtor-Generator](#hyperraumtor-generator)
 
 #### Plasmatechnik
 
@@ -6048,7 +6048,7 @@ Darum rechnen Syntheten ihre Garnisonen nicht auf den Sieg, sondern auf das Übe
 
 ### Mondanlagen
 
-[Mondbasis](#mondbasis) · [Tiefenphalanx](#tiefenphalanx) · [Sprungtor](#sprungtor) · [Regolithförderung](#regolithförderung) · [Deuterium-Kühllager](#deuterium-kühllager) · [Werftdock](#werftdock) · [Ortungsschleier](#ortungsschleier)
+[Mondbasis](#mondbasis) · [Tiefenphalanx](#tiefenphalanx) · [Hyperraumtor-Generator](#hyperraumtor-generator) · [Regolithförderung](#regolithförderung) · [Deuterium-Kühllager](#deuterium-kühllager) · [Werftdock](#werftdock) · [Ortungsschleier](#ortungsschleier)
 
 #### Mondbasis
 
@@ -6081,7 +6081,7 @@ Grüne Monde schließlich bergen Nährmatten aus den zersetzten Habitatgärten u
 
 Die ersten Monde der Chronik entstanden im Kreuzerwinter, als Impulskreuzer über den jungen Kolonien so viel Schrott hinterließen, dass sich die Trümmerwolken in der Einflusssphäre ihrer Planeten zu kleinen Kreuzermonden verdichteten, und der älteste von ihnen, Raureif, trägt bis heute die erste Mondbasis der Weite. Ihre Bauweise übernahm sie von den Druckquartieren der Bergbauschiffe im Gürtel, und die Besatzungen der Recycler, die eigentlich Trümmer einsammeln wollten, fanden stattdessen einen Felsen, der ihnen nicht mehr davonflog. Seither darf jede Gründung, die das Zeitalter des Sternenflugs erreicht hat, auf dem Mond über ihrer Welt eine Mondbasis setzen, und als die Schlacht am Zehnten Nebel ihre Trümmer zu Narbe verdichtete, dem größten Schlachtmond der Chronik, wuchsen dort die ersten Kuppeln der Hyperraumzeit.
 
-Auf ihr ruhen alle Mondanlagen: Regolithförderung, Kühllager und Tiefenphalanx ab der ersten Stufe, Werftdock und Ortungsschleier ab der zweiten, das Sprungtor ab der dritten. So wurde aus einem Denkmal der Schlacht ein Flottenhafen und aus dem Flottenhafen in der Torzeit ein Knoten zwischen den Sternen.
+Auf ihr ruhen alle Mondanlagen: Regolithförderung, Kühllager und Tiefenphalanx ab der ersten Stufe, Werftdock und Ortungsschleier ab der zweiten, der Hyperraumtor-Generator ab der dritten. So wurde aus einem Denkmal der Schlacht ein Flottenhafen und aus dem Flottenhafen in der Torzeit ein Knoten zwischen den Sternen.
 
 ##### Volksakten
 
@@ -6101,7 +6101,7 @@ Dass ein Mond keine Bevölkerung trägt, empfindet das Kollektiv nicht als Mange
 
 Da niemand dauerhaft auf einem Mond lebt, gießen die Mannschaften der stationierten Schiffe das Moos, und es gilt als Unglück, eine Basis zu verlassen, ohne es getan zu haben. Die Kreise verstehen den Mond als Grab einer Schlacht und die Basis als ersten Bewuchs darauf, der langsam ein Ort für Lebende wird.
 
-**Siehe auch:** [Regolithförderung](#regolithförderung) · [Deuterium-Kühllager](#deuterium-kühllager) · [Werftdock](#werftdock) · [Sprungtor](#sprungtor) · [Recycler](#recycler) · [Bergbauschiff](#bergbauschiff)
+**Siehe auch:** [Regolithförderung](#regolithförderung) · [Deuterium-Kühllager](#deuterium-kühllager) · [Werftdock](#werftdock) · [Hyperraumtor-Generator](#hyperraumtor-generator) · [Recycler](#recycler) · [Bergbauschiff](#bergbauschiff)
 
 #### Tiefenphalanx
 
@@ -6109,7 +6109,7 @@ Da niemand dauerhaft auf einem Mond lebt, gießen die Mannschaften der stationie
 
 **Wozu.** Sie scannt einen Planeten in Reichweite und zeigt alle Flüge zu ihm und von ihm, ohne dass der Gescannte davon erfährt.
 
-**Stärke.** Ihre Reichweite beträgt ⌊(Stufe² − 1)/2⌋ Systeme im eigenen Sektor, und liegt ihre Stufe über dem Ortungsschleier eines Sprungtors, sieht sie dort auch die Öffnung von Hyperraumlöchern.
+**Stärke.** Ihre Reichweite beträgt ⌊(Stufe² − 1)/2⌋ Systeme im eigenen Sektor, und liegt ihre Stufe über dem Ortungsschleier eines Hyperraumtor-Generators, sieht sie dort auch die Öffnung von Hyperraumlöchern.
 
 **Grenzen.** Ab Stufe IV mit Mondbasis 1, Spionagetechnik 2 und Überwachungstechnik 1 baubar, kostet jeder Scan 5.000 Deuterium bei 300 Sekunden Abklingzeit und 40 Energie; Monde selbst, Flüge zwischen zwei Monden und Durchreisen bleiben unsichtbar, ein vom Mond gestarteter Flug zeigt sich erst im Scan seines Zielplaneten, und ein Flug vom gescannten Planeten zu einem Mond erscheint, und ohne volle Versorgung und bezahlten Unterhalt ist sie gesperrt.
 
@@ -6126,11 +6126,11 @@ Die Tiefenphalanx ist eine große, nach oben gerichtete Phasengruppenschüssel a
 
 Ihre Reichweite wächst mit dem Quadrat der Stufe nach ⌊(Stufe² − 1)/2⌋ Systemen im eigenen Sektor: Stufe 2 erreicht das Nachbarsystem, Stufe 5 zwölf Systeme, und erst Stufe 11 überblickt alle 60 Systeme eines Sektors. Jeder Scan ist eine Momentaufnahme eines Planeten mit allen Flügen zu ihm und von ihm, verbraucht 5.000 Deuterium für Empfängerkühlung und Rechenläufe, und weil die Phalanx nur hört und nie sendet, erfährt der Gescannte nichts davon. Danach braucht die Schüssel 300 Sekunden, bis sie wieder kalt genug ist, und wie fein sie einen Kontakt auflöst, begrenzen die eigene Überwachungstechnik und die Abschirmung der beobachteten Flotte.
 
-Blind ist sie für alles, was den Planeten als Bezugsmarke nicht berührt: Monde lassen sich nicht anpeilen, weil ihr Schwerefeld aus verdichtetem Schrott zu unruhig ist, Flüge von Mond zu Mond und Flotten, die von einem Mond aufbrechen, verschwinden in diesem Rauschen, bis sie über einem Planeten auftauchen, und Durchreisen durch Hyperraumlöcher haben keine Bahn, die man verfolgen könnte, während ein Anflug vom Mond auf den gescannten Planeten und jeder Flug, der von ihm zu einem Mond aufbricht, im Bericht erscheinen. Liegt ihre Stufe über dem Ortungsschleier eines Sprungtors in Reichweite, bemerkt sie dort jede Lochöffnung, denn ein aufreißendes Loch erschüttert die Kurzschicht stärker als jede Flotte. Gebaut wird sie ab Stufe IV mit Mondbasis 1, Spionagetechnik 2 und Überwachungstechnik 1 für 10.000 Erz, 20.000 Kristall, 5.000 Deuterium und 500 Elektronik bei Faktor 1,5, sie braucht 40 Energie und schweigt ganz, wenn Versorgung oder Unterhalt fehlen.
+Blind ist sie für alles, was den Planeten als Bezugsmarke nicht berührt: Monde lassen sich nicht anpeilen, weil ihr Schwerefeld aus verdichtetem Schrott zu unruhig ist, Flüge von Mond zu Mond und Flotten, die von einem Mond aufbrechen, verschwinden in diesem Rauschen, bis sie über einem Planeten auftauchen, und Durchreisen durch Hyperraumlöcher haben keine Bahn, die man verfolgen könnte, während ein Anflug vom Mond auf den gescannten Planeten und jeder Flug, der von ihm zu einem Mond aufbricht, im Bericht erscheinen. Liegt ihre Stufe über dem Ortungsschleier eines Hyperraumtor-Generators in Reichweite, bemerkt sie dort jede Lochöffnung, denn ein aufreißendes Loch erschüttert die Kurzschicht stärker als jede Flotte. Gebaut wird sie ab Stufe IV mit Mondbasis 1, Spionagetechnik 2 und Überwachungstechnik 1 für 10.000 Erz, 20.000 Kristall, 5.000 Deuterium und 500 Elektronik bei Faktor 1,5, sie braucht 40 Energie und schweigt ganz, wenn Versorgung oder Unterhalt fehlen.
 
 ##### Chronik
 
-Die Tiefenphalanx stammt von der planetaren Sensorphalanx aus dem Zeitalter des Orbits ab, deren Radioteleskope und Schweresensoren nur den Raum um die eigene Welt bewachten. Auf der Grundlage von Spionagetechnik und der passiven Ortung der Überwachungstechnik entstand sie im Zeitalter des Sternenflugs, kaum dass die ersten Mondbasen standen, und lange bevor es Sprungtore gab. Ihre Grenze schuf sofort eine neue Taktik, denn kluge Admirale starten seither vom Mond, weil keine Phalanx einen solchen Aufbruch sieht und eine Flotte erst im Bericht erscheint, wenn sie einen Planeten anfliegt.
+Die Tiefenphalanx stammt von der planetaren Sensorphalanx aus dem Zeitalter des Orbits ab, deren Radioteleskope und Schweresensoren nur den Raum um die eigene Welt bewachten. Auf der Grundlage von Spionagetechnik und der passiven Ortung der Überwachungstechnik entstand sie im Zeitalter des Sternenflugs, kaum dass die ersten Mondbasen standen, und lange bevor es Hyperraumtore gab. Ihre Grenze schuf sofort eine neue Taktik, denn kluge Admirale starten seither vom Mond, weil keine Phalanx einen solchen Aufbruch sieht und eine Flotte erst im Bericht erscheint, wenn sie einen Planeten anfliegt.
 
 In der Torzeit bekam sie eine zweite Aufgabe, weil eine Phalanx, deren Stufe über dem Ortungsschleier eines Tors liegt, dort jede Lochöffnung bemerkt. Nach dem Verrat von Kessmar bauten die Torsmonde ihre Phalanxen höher als je zuvor, denn wer die Öffnung eines fremden Tors sieht, weiß, aus welchem Loch die nächste Flotte kommen kann.
 
@@ -6152,19 +6152,19 @@ Dass Monde unsichtbar bleiben, hat das Kollektiv in einer langen Messreihe best�
 
 Seit dem Dornensommer, als Kael Dornhag mit Aufklärung mehr gewann als mit Geschützen, gilt den Veyari das frühe Wissen als der schärfste Dorn, und die Espe führt diese Lehre in die Tiefe. Den Gescannten lassen sie nie spüren, dass sie hingesehen haben, und es gilt als unhöflich, über das zu sprechen, was die Espe gezeigt hat.
 
-**Siehe auch:** [Sensorphalanx](#sensorphalanx) · [Überwachungstechnik](#überwachungstechnik) · [Spionagetechnik](#spionagetechnik) · [Mondbasis](#mondbasis) · [Sprungtor](#sprungtor) · [Ortungsschleier](#ortungsschleier)
+**Siehe auch:** [Sensorphalanx](#sensorphalanx) · [Überwachungstechnik](#überwachungstechnik) · [Spionagetechnik](#spionagetechnik) · [Mondbasis](#mondbasis) · [Hyperraumtor-Generator](#hyperraumtor-generator) · [Ortungsschleier](#ortungsschleier)
 
-#### Sprungtor
+#### Hyperraumtor-Generator
 
-*Mondgebäude (Hyperraumlochgenerator) · Hyperraumlochgenerator, der zwischen zwei Sprungtor-Monden ein öffentliches Loch aufreißt.*
+*Mondgebäude (Generator für Hyperraumtore) · Generator, der neben seinem Mond ein öffentliches Hyperraumtor zu einem zweiten Generator aufreißt.*
 
-**Wozu.** Es versetzt Flotten ohne Flugzeit zu einem anderen Sprungtor, dem eigenen oder dem freigegebenen eines Partners.
+**Wozu.** Es versetzt Flotten ohne Flugzeit zu einem anderen Hyperraumtor-Generator, dem eigenen oder dem freigegebenen eines Partners.
 
 **Stärke.** Das Loch bleibt 300 Spielsekunden offen, reicht 15 Systeme je Stufe (Sektorwechsel ab Stufe 4), fasst 2.000.000 Struktur je Stufe, und jede Stufe senkt die Abklingzeit von 120 Minuten um 10 Prozent bis auf höchstens 60 Minuten, während die Durchreise sofort und für keine Phalanx sichtbar ist und Ladung vom Startplaneten oder Startmond mitnimmt.
 
 **Grenzen.** Ab Stufe V mit Mondbasis 3 und Hyperraumantrieb 3 baubar (höchstens Stufe 5, 150 Energie), kostet jede Öffnung 20.000 plus 2.000 Deuterium je System, und jeder, der das Loch sieht, darf es ohne Treibstoff in beide Richtungen nutzen (wer danach im Orbit der Gegenstelle bleibt, zahlt den Rückflug gleich mit), sodass der Öffner am Austritt auf seine Torwache angewiesen ist.
 
-> Ein Sprungtor reißt den Raum für fünf Minuten auf, und so lange liegen zwei ferne Monde nur einen Augenblick auseinander. Doch ein Loch kennt keine Seiten, und seit dem Verrat von Kessmar weiß jeder Öffner, dass durch sein Tor auch der Feind kommen kann.
+> Ein Hyperraumtor-Generator reißt neben seinem Mond den Raum für fünf Minuten auf, und so lange liegen zwei ferne Monde nur einen Augenblick auseinander. Doch ein Loch kennt keine Seiten, und seit dem Verrat von Kessmar weiß jeder Öffner, dass durch sein Tor auch der Feind kommen kann.
 
 - **Aurelianer:** Aurelianische Tore der Serie Fides dienen als Handelswege, und vor jeder Öffnung rechnet ein Kontor nach, ob sich das Deuterium für die Strecke lohnt. Dass jeder, der das Loch sieht, mitreisen darf, verbuchen die Häuser als Geschäftsrisiko und stellen am Austritt eine Torwache auf, die mehr kostet als manche Handelsflotte.
 - **Krath:** Krath-Tore heißen Kar-Schlund, und die Clans sichern sie mit Torwachen, die schwerer sind als die meisten Flotten, die hindurchwollen. Manche Clans öffnen ein Loch absichtlich, wenn fremde Schiffe am anderen Ende kreisen, nur um zu sehen, wer es wagt, hindurchzukommen.
@@ -6173,7 +6173,7 @@ Seit dem Dornensommer, als Kael Dornhag mit Aufklärung mehr gewann als mit Gesc
 
 ##### Technisches Dossier
 
-Das Sprungtor ist ein aufrecht stehender Ring aus Xenokristallsegmenten, gehalten von schweren Ankerpylonen und umgeben von Kondensatorbänken und dicken Speiseleitungen, und schon die erste Stufe verlangt 3.000 Xenokristall, 1.000.000 Kristall, je 500.000 Erz und Deuterium, 20.000 Legierung und 10.000 Elektronik. Zwei solche Ringe auf zwei Monden werden gegeneinander in Resonanz gebracht, bis ihre Gitter gemeinsam in die Kurzschicht des Hyperraums greifen und zwischen ihnen ein Hyperraumloch aufreißt, das 300 Sekunden offen steht und sich erst schließt, wenn das Gitter von selbst in seinen Ruhezustand zurückfällt. Die Öffnung kostet 20.000 Deuterium plus 2.000 je überbrücktem System aus den Vorräten des Startmondes, jede Stufe verlängert die Reichweite um 15 Systeme, ab Stufe 4 über die Sektorgrenze hinaus, und die Lochkehle trägt je Stufe 2.000.000 Struktur an Durchreisenden, gut dreißig Schlachtschiffe.
+Der Hyperraumtor-Generator ist ein aufrecht stehender Ring aus Xenokristallsegmenten, gehalten von schweren Ankerpylonen und umgeben von Kondensatorbänken und dicken Speiseleitungen, und schon die erste Stufe verlangt 3.000 Xenokristall, 1.000.000 Kristall, je 500.000 Erz und Deuterium, 20.000 Legierung und 10.000 Elektronik. Zwei solche Ringe auf zwei Monden werden gegeneinander in Resonanz gebracht, bis ihre Gitter gemeinsam in die Kurzschicht des Hyperraums greifen und zwischen ihnen ein Hyperraumloch aufreißt, das 300 Sekunden offen steht und sich erst schließt, wenn das Gitter von selbst in seinen Ruhezustand zurückfällt. Die Öffnung kostet 20.000 Deuterium plus 2.000 je überbrücktem System aus den Vorräten des Startmondes, jede Stufe verlängert die Reichweite um 15 Systeme, ab Stufe 4 über die Sektorgrenze hinaus, und die Lochkehle trägt je Stufe 2.000.000 Struktur an Durchreisenden, gut dreißig Schlachtschiffe.
 
 Nach jeder Öffnung muss der Kristall abkühlen, weil Xenokristall sich unter Last launisch erwärmt, und die Abklingzeit von 120 Minuten sinkt mit jeder Stufe um 10 Prozent, nie aber unter 60 Minuten, während bei Stufe 5 der Ring ausgereizt ist. Ein Loch ist eine Verbindung und keine Tür: Jeder, der es sieht und mit stationierten Schiffen oder einer Orbitflotte im Start- oder Zielsystem steht, darf einmal hindurch, in beide Richtungen und ohne Flugzeit, nur Weltenkrümmer, Solarsatelliten und Verteidigungsanlagen nicht. Wer von einem Planeten oder Mond aufbricht, nimmt Ladung bis zur Ladekapazität seiner Schiffe mit, vor allem Deuterium für Weiterflug und Heimweg, während eine Orbitflotte mit dem reist, was sie geladen hat.
 
@@ -6183,7 +6183,7 @@ Gebaut wird es ab Stufe V auf einem Mond mit Mondbasis 3 und mit Hyperraumantrie
 
 ##### Chronik
 
-Das Sprungtor ist ein Kind des Imperiums: Erst als Hyperraumantrieb 3 die Kopplung an die Kurzschicht beherrschbar machte und Mondbasen der dritten Stufe genug Fundament boten, ließen sich zwei Ringe in Resonanz bringen. Die ersten Tore der Torzeit verbanden Monde befreundeter Reiche, und eine Weile galt das Loch als sicherer als jeder Flug, weil keine Phalanx die Durchreise sieht. Dann kam der Verrat von Kessmar, als ein frisch geöffnetes Loch am Torsmond Kessmar von einer gegnerischen Flotte im Zielsystem gesehen wurde, die in Gegenrichtung hindurchströmte und auf eine Torwache traf, die für den Empfang von Freunden bemessen war.
+Der Hyperraumtor-Generator ist ein Kind des Imperiums: Erst als Hyperraumantrieb 3 die Kopplung an die Kurzschicht beherrschbar machte und Mondbasen der dritten Stufe genug Fundament boten, ließen sich zwei Ringe in Resonanz bringen. Die ersten Tore der Torzeit verbanden Monde befreundeter Reiche, und eine Weile galt das Loch als sicherer als jeder Flug, weil keine Phalanx die Durchreise sieht. Dann kam der Verrat von Kessmar, als ein frisch geöffnetes Loch am Torsmond Kessmar von einer gegnerischen Flotte im Zielsystem gesehen wurde, die in Gegenrichtung hindurchströmte und auf eine Torwache traf, die für den Empfang von Freunden bemessen war.
 
 Ob jemand die Öffnungszeit verraten hatte oder ob, wie die meisten Ingenieure glauben, das Loch selbst der Verräter war, ist bis heute umstritten. Seither gehören Ortungsschleier und Torwache zu jedem Tor, und Tiefenphalanxen werden höher gebaut, um fremde Öffnungen zu erkennen. Nur der Weltenkrümmer passt durch kein Loch, und manche Admirale halten das für die einzige Gnade, die die Torzeit hinterlassen hat.
 
@@ -6268,7 +6268,7 @@ Die erste Ernte jedes Mondes geht mit der Fähre zum Mutterplaneten und wird dor
 
 **Grenzen.** Ab Stufe IV mit Mondbasis 1 für 5.000 Erz, 3.000 Kristall und 200 Legierung baubar, braucht es 5 Energie, lagert nur Deuterium und fasst auf vulkanischen Glutmonden 30 Prozent weniger.
 
-> Am Boden der ewig dunklen Mondkrater bleibt Deuterium fast von allein kalt, und die Kühllager müssen nur noch dicht halten. Ohne sie lebten Tiefenphalanx und Sprungtor von dem, was das Lager der Mondbasis gerade hergibt, denn beide verbrauchen Treibstoff in Mengen, die keine Fähre nebenbei liefert.
+> Am Boden der ewig dunklen Mondkrater bleibt Deuterium fast von allein kalt, und die Kühllager müssen nur noch dicht halten. Ohne sie lebten Tiefenphalanx und Hyperraumtor-Generator von dem, was das Lager der Mondbasis gerade hergibt, denn beide verbrauchen Treibstoff in Mengen, die keine Fähre nebenbei liefert.
 
 - **Aurelianer:** Aurelianische Kühllager der Serie Temperantia dienen als Tankstellen für befreundete Flotten, natürlich gegen Gebühr. Ihre Tankbücher sind in Messing gebunden, und wer seine Rechnung nicht begleicht, findet beim nächsten Anflug das Ventil verschlossen.
 - **Krath:** Die Krath versenken ihre Kaltgruben tief unter den Kraterboden, damit wenigstens der unterste Teil des Treibstoffs jedem Plünderer entgeht. Sie wissen aus eigenen Raubzügen, dass das Viertel, das man behält, oft über den Gegenschlag entscheidet.
@@ -6281,13 +6281,13 @@ Das Deuterium-Kühllager nutzt einen Vorteil, den kein Planet bietet, denn in de
 
 Ein Viertel des Bestands liegt in den untersten Kammern, die nur über lange, enge Kaltleitungen erreichbar sind, und weil sich flüssiges Deuterium dort nicht schneller abpumpen lässt, als die Leitungen erlauben, bleibt dieses Viertel vor jeder Plünderung sicher. Das ist der einzige Plünderschutz eines Mondes, denn das Lager der Mondbasis hält zwar alle Güter vor, schützt aber nichts, und einen Bunker gibt es auf Monden nicht. Auf rissigen Eismonden dienen die natürlichen Spalten als zusätzliche Kammern und erweitern das Lager um 50 Prozent, auf vulkanischen Glutmonden dagegen heizt der Boden von unten, und es fasst 30 Prozent weniger.
 
-Gebraucht wird der Vorrat vor allem von zwei Verbrauchern, denn ein Scan der Tiefenphalanx kostet 5.000 Deuterium und eine Öffnung des Sprungtors 20.000 und dazu 2.000 je System, und beides wird aus dem Bestand des Mondes bezahlt, nicht vom Planeten. Gebaut wird das Lager ab Stufe IV mit Mondbasis 1 für 5.000 Erz, 3.000 Kristall und 200 Legierung, jede Stufe kostet das 1,36-Fache, und es lagert ausschließlich Deuterium.
+Gebraucht wird der Vorrat vor allem von zwei Verbrauchern, denn ein Scan der Tiefenphalanx kostet 5.000 Deuterium und eine Öffnung des Hyperraumtor-Generators 20.000 und dazu 2.000 je System, und beides wird aus dem Bestand des Mondes bezahlt, nicht vom Planeten. Gebaut wird das Lager ab Stufe IV mit Mondbasis 1 für 5.000 Erz, 3.000 Kristall und 200 Legierung, jede Stufe kostet das 1,36-Fache, und es lagert ausschließlich Deuterium.
 
 ##### Chronik
 
 Das Kühllager entstand mit den ersten Mondbasen auf den Kreuzermonden des Sternenflugs, als die Gründungen merkten, dass ein Mond Treibstoff schneller verbraucht, als die Fähre ihn vom Planeten herüberbringt. Seine Technik stammt vom Deuteriumsynthesizer der Gründungszeit, dessen Eisabscheider schweren Wasserstoff auf den Frostwelten gewannen, und von den Lagern aus Archenrumpf, die jede Gründung lehrten, Vorräte zu sichern, bevor man sie braucht. Zuerst füllte es die Tanks der Tiefenphalanx, deren Scans jedes Mal Deuterium verbrennen.
 
-In der Torzeit wurde es unentbehrlich, denn ein Sprungtor zieht für jede Öffnung mehr als 20.000 Deuterium aus dem Mond, mehr als ein Kühllager der ersten Stufe überhaupt fasst. Das Viertel, das vor Plünderung sicher ist, wurde nach den ersten Überfällen auf Torsmonde zur wichtigsten Zahl der Mondlogistik, weil es den Treibstoff für einen Gegenschlag bewahrt.
+In der Torzeit wurde es unentbehrlich, denn ein Hyperraumtor-Generator zieht für jede Öffnung mehr als 20.000 Deuterium aus dem Mond, mehr als ein Kühllager der ersten Stufe überhaupt fasst. Das Viertel, das vor Plünderung sicher ist, wurde nach den ersten Überfällen auf Torsmonde zur wichtigsten Zahl der Mondlogistik, weil es den Treibstoff für einen Gegenschlag bewahrt.
 
 ##### Volksakten
 
@@ -6307,7 +6307,7 @@ Das plünderungssichere Viertel sehen die Einheiten als Mindestvorrat, der dem M
 
 Das Viertel, das kein Plünderer erreicht, nennen die Veyari den Wurzelstock, weil aus ihm nach jedem Überfall alles wieder austreibt. Wer ein Lager zum ersten Mal füllt, legt einen Samen in die Saatkammer, und wird das Lager je aufgegeben, nimmt man diesen Samen mit.
 
-**Siehe auch:** [Mondbasis](#mondbasis) · [Tiefenphalanx](#tiefenphalanx) · [Sprungtor](#sprungtor) · [Deuteriumsynthesizer](#deuteriumsynthesizer) · [Lager](#lager) · [Bunker](#bunker)
+**Siehe auch:** [Mondbasis](#mondbasis) · [Tiefenphalanx](#tiefenphalanx) · [Hyperraumtor-Generator](#hyperraumtor-generator) · [Deuteriumsynthesizer](#deuteriumsynthesizer) · [Lager](#lager) · [Bunker](#bunker)
 
 #### Werftdock
 
@@ -6374,14 +6374,14 @@ Eine zehnte Stufe erreicht ein Weidedock nur nach Beratung in allen Kreisen, und
 
 - **Aurelianer:** Aurelianer legen ihren Schleier der Serie Discretio vor allem über ihre Lager, damit niemand ihre Bestände kennt. Ein Haus, dessen Vorräte keiner schätzen kann, verhandelt aus einer Position der Stärke, und so gilt der Schleier als Teil jeder guten Preisgestaltung.
 - **Krath:** Die Krath halten Tarnung für einen Umweg, legen ihren Rußmantel aber über ihre Werftdocks, wo neue Rümpfe geheim bleiben sollen. Ein Feind soll ihre Flotte erst sehen, wenn sie vor ihm steht, und darin erkennen sie keine Feigheit, sondern Schmiedekunst.
-- **Syntheten:** Synthetische Schleier der Klasse Entropie erzeugen ein Rauschen, das statistisch nicht von nacktem Mondgestein zu unterscheiden ist. Über einem Sprungtor stimmen sie den Schleier so hoch ab, dass ferne Phalanxen niedrigerer Stufe eine Lochöffnung gar nicht erst bemerken.
+- **Syntheten:** Synthetische Schleier der Klasse Entropie erzeugen ein Rauschen, das statistisch nicht von nacktem Mondgestein zu unterscheiden ist. Über einem Hyperraumtor-Generator stimmen sie den Schleier so hoch ab, dass ferne Phalanxen niedrigerer Stufe eine Lochöffnung gar nicht erst bemerken.
 - **Veyari:** Veyari beschreiben ihren Schleier der Baureihe Faulbaum als Nebel über einem Waldsee, der alles verbirgt, ohne etwas zu verändern. Sie schützen damit weniger ihre Schiffe als ihre Ruhe, denn ein Mond, den niemand durchschaut, weckt seltener Neugier.
 
 ##### Technisches Dossier
 
 Der Ortungsschleier ist ein Netz aus Störsendern, Wärmestrahlern und Schweretäuschern, die über die Mondoberfläche verteilt stehen und gemeinsam einen Rauschteppich weben, der jeder fremden Sonde das Bild von nacktem Fels, kaltem Staub und den Restsignaturen eines Trümmerkörpers zurückwirft. Er beruht auf der Abschirmtechnik, deren Signaturdämpfung und Täuschsender zuerst Flotten verbargen, und überträgt dieses Prinzip auf einen ganzen Himmelskörper, dessen eigene Unruhe als Schrottmond die Täuschung glaubwürdig macht. Jede Stufe legt eine weitere Rauschschicht über den Mond und hebt alle Spionageschwellen um 1, sodass eine Sonde für Schiffe, Verteidigung, Gebäude und Forschung jeweils mehr Scanstärke braucht als sonst.
 
-Bei Stufe 5 endet der Ausbau, denn jede weitere Schicht ließe den Mond nicht mehr wie Fels aussehen, sondern wie einen auffällig stillen Fleck, und ein zu ruhiger Mond verrät sich selbst. Über einem Sprungtor hat der Schleier eine zweite Aufgabe, weil er das Aufreißen der Kurzschicht dämpft, sodass eine ferne Tiefenphalanx eine Lochöffnung nur sieht, wenn ihre Stufe höher liegt als die des Schleiers. Gegen Angriffe hilft er nicht, denn der Mond selbst bleibt am Himmel sichtbar, und wer ihn blind anfliegt, trifft auf alles, was darunter steht.
+Bei Stufe 5 endet der Ausbau, denn jede weitere Schicht ließe den Mond nicht mehr wie Fels aussehen, sondern wie einen auffällig stillen Fleck, und ein zu ruhiger Mond verrät sich selbst. Über einem Hyperraumtor-Generator hat der Schleier eine zweite Aufgabe, weil er das Aufreißen der Kurzschicht dämpft, sodass eine ferne Tiefenphalanx eine Lochöffnung nur sieht, wenn ihre Stufe höher liegt als die des Schleiers. Gegen Angriffe hilft er nicht, denn der Mond selbst bleibt am Himmel sichtbar, und wer ihn blind anfliegt, trifft auf alles, was darunter steht.
 
 Auf rostigen Staubmonden webt der Staub selbst mit und wirkt wie eine zusätzliche Schicht, auf grünen Monden dagegen verraten die Lebenszeichen der Nährmatten mehr, als einem Schleier lieb ist. Gebaut wird er ab Stufe IV mit Mondbasis 2 und Abschirmtechnik 1 für 8.000 Kristall, 4.000 Deuterium und 400 Elektronik, jede Stufe kostet das 1,45-Fache, und die Sender ziehen 25 Energie.
 
@@ -6401,7 +6401,7 @@ Die Händlerin Junia Lazar soll einen großen Mondkontrakt nur deshalb gewonnen 
 
 Nur über jedem Kar-Schlund liegt seit Kessmar ein Rußmantel der höchsten Stufe, und die Clans sagen, das sei der einzige Fall, in dem ein Krath sich gern versteckt. Ein Sondenmeister, dessen Sonde einen fremden Rußmantel durchdringt, darf ein Rußzeichen auf seinen Leitstand malen.
 
-**Syntheten-Akte.** Der synthetische Schleier heißt Entropie, Revision 5, und erzeugt ein Rauschen, das in jeder bekannten Testreihe statistisch nicht von nacktem Mondgestein zu unterscheiden ist. Das Kollektiv hat dafür Messreihen über viele unbebaute Monde gesammelt und das Rauschen so zusammengesetzt, dass selbst ein Auswerter, der weiß, dass ein Schleier liegt, keine Kante findet. Über einem Sprungtor stimmen die Einheiten den Schleier auf die höchste Stufe ab und führen eine Liste aller fremden Tiefenphalanxen in Reichweite, damit keine Öffnung von einer Anlage gesehen wird, die höher reicht als der Schleier.
+**Syntheten-Akte.** Der synthetische Schleier heißt Entropie, Revision 5, und erzeugt ein Rauschen, das in jeder bekannten Testreihe statistisch nicht von nacktem Mondgestein zu unterscheiden ist. Das Kollektiv hat dafür Messreihen über viele unbebaute Monde gesammelt und das Rauschen so zusammengesetzt, dass selbst ein Auswerter, der weiß, dass ein Schleier liegt, keine Kante findet. Über einem Hyperraumtor-Generator stimmen die Einheiten den Schleier auf die höchste Stufe ab und führen eine Liste aller fremden Tiefenphalanxen in Reichweite, damit keine Öffnung von einer Anlage gesehen wird, die höher reicht als der Schleier.
 
 Konstrukteurin Sekante, die sonst Feuerleitungen einmisst, hat gezeigt, dass eine sechste Rauschschicht den Mond auffälliger machen würde als fünf, und das Kollektiv hat diesen Beweis ohne Gegenstimme angenommen. Dass grüne Monde durch ihre Lebenszeichen schwerer zu verbergen sind, verzeichnen die Einheiten als einen der seltenen Fälle, in denen Leben ein messbarer Nachteil ist.
 
@@ -6409,7 +6409,7 @@ Konstrukteurin Sekante, die sonst Feuerleitungen einmisst, hat gezeigt, dass ein
 
 Die Kreise schützen mit dem Schleier weniger ihre Schiffe als ihre Ruhe, denn wer nicht neugierig wird, kommt auch nicht. Ein Faulbaumschleier wird nie ganz abgeschaltet, auch nicht für Freunde, denn ein Nebel, der sich hebt, so sagt man, verrät immer, dass er da war.
 
-**Siehe auch:** [Abschirmtechnik](#abschirmtechnik) · [Tiefenphalanx](#tiefenphalanx) · [Sprungtor](#sprungtor) · [Spionagesonde](#spionagesonde) · [Mondbasis](#mondbasis) · [Werftdock](#werftdock)
+**Siehe auch:** [Abschirmtechnik](#abschirmtechnik) · [Tiefenphalanx](#tiefenphalanx) · [Hyperraumtor-Generator](#hyperraumtor-generator) · [Spionagesonde](#spionagesonde) · [Mondbasis](#mondbasis) · [Werftdock](#werftdock)
 
 ### Satelliten
 
@@ -6466,7 +6466,7 @@ Haus Quirin versichert Satelliten nicht, weil keine Bodenmannschaft sie nach ein
 
 *Megaschiff (Mondzerstörer) · Mondgroße Kampfstation, ein künstlicher Kleinmond von 160 Kilometern Durchmesser aus verschmolzenen Trümmern und Asteroidenfels mit einer gewaltigen Fokussierschüssel, gebaut auf der Oberfläche eines Mondes.*
 
-**Wozu.** Es zerschlägt Großkampfverbände und zerstört nach einem vollständigen Sieg mit der Mission Mond zerstören feindliche Monde samt Sprungtor, Phalanx und Werftdock.
+**Wozu.** Es zerschlägt Großkampfverbände und zerstört nach einem vollständigen Sieg mit der Mission Mond zerstören feindliche Monde samt Hyperraumtor-Generator, Phalanx und Werftdock.
 
 **Stärke.** Mit 9.000.000 Struktur, 50.000 Schild und 200.000 Angriff auf vier Ziele je Runde hat es Schnellfeuer 64 gegen Sonden, Transporter, Recycler und Solarsonden, 50 gegen Leichte Jäger, Raketenwerfer und Lasergeschütze, 33 gegen Kreuzer, 30 gegen Schlachtschiffe, 25 gegen Bomber und Ionengeschütze, 15 gegen Schlachtkreuzer und Abfang-Schlachtkreuzer, 12 gegen Gaußkanonen, 8 gegen Schwere Schlachtkreuzer und 5 gegen Zerstörer; sein Frachtraum fasst 1.000.000, doch mit Verbrauch 2.500 trägt er je Deuterium nicht mehr als ein Großer Transporter.
 
@@ -6483,7 +6483,7 @@ Haus Quirin versichert Satelliten nicht, weil keine Bodenmannschaft sie nach ein
 
 Der Weltenkrümmer ist ein künstlicher Kleinmond von 160 Kilometern Durchmesser, dessen Hülle aus verschmolzenen Trümmerbrocken, Asteroidenfels und Legierungsspanten besteht und geschlossen kaum von einem gewöhnlichen Mond zu unterscheiden ist. Seine Verwandlung folgt einem festen Takt: Zuerst entriegeln sich die Panzersegmente und ihre Nähte glühen, dann fahren sie auf Teleskoparmen langsam nach außen, rasten mit einem Lichtblitz ein und bilden mit ihren Innenseiten eine gewaltige Fokussierschale um den Kern. Im Kern laden Reaktor- und Resonanzringe aus Xenokristall immer schneller pulsierend auf, bis die Scherlanze feuert, ein Strahl, der wie beim Ersten Bruch den Hyperraum unter dem Ziel abschert, und danach kühlt die Station ab und klappt sich wieder zur Kugel zusammen.
 
-Die Scherung reicht für die Masse eines Mondes, nicht für die einer Welt, und der Bruchversuch folgt nur, wenn das Gefecht am Mond vollständig gewonnen ist und mindestens eine Station überlebt hat, und mit dem Mond vergehen Sprungtor, Phalanx und Werftdock, die auf ihm stehen. Dann bricht der Mond mit (100 − √d)·√n Prozent, wobei d sein Durchmesser in Kilometern und n die Zahl der überlebenden Weltenkrümmer ist, sodass ein Mond von 8.944 Kilometern einer einzelnen Lanze nur gut ein Zwanzigstel Chance lässt und vier Stationen diese Chance bloß verdoppeln. Zugleich schlägt die abgescherte Kurzschicht auf die Lanze zurück, und mit √d/2 Prozent gehen alle beteiligten Weltenkrümmer verloren, bei den größten Monden also in fast der Hälfte der Versuche.
+Die Scherung reicht für die Masse eines Mondes, nicht für die einer Welt, und der Bruchversuch folgt nur, wenn das Gefecht am Mond vollständig gewonnen ist und mindestens eine Station überlebt hat, und mit dem Mond vergehen Hyperraumtor-Generator, Phalanx und Werftdock, die auf ihm stehen. Dann bricht der Mond mit (100 − √d)·√n Prozent, wobei d sein Durchmesser in Kilometern und n die Zahl der überlebenden Weltenkrümmer ist, sodass ein Mond von 8.944 Kilometern einer einzelnen Lanze nur gut ein Zwanzigstel Chance lässt und vier Stationen diese Chance bloß verdoppeln. Zugleich schlägt die abgescherte Kurzschicht auf die Lanze zurück, und mit √d/2 Prozent gehen alle beteiligten Weltenkrümmer verloren, bei den größten Monden also in fast der Hälfte der Versuche.
 
 Im Gefecht feuert er mit 200.000 Angriff auf vier Ziele je Salve, und weil jeder Treffer ein Schlachtschiff oder einen Zerstörer meist in einem Schuss zerreißt, liegt seine Grenze in der Nachführsalve: 64 gegen Sonden, Transporter, Recycler und Solarsatelliten, 50 gegen Leichte Jäger, Raketenwerfer und Lasergeschütze, 33 gegen Kreuzer, 30 gegen Schlachtschiffe, 25 gegen Bomber und Ionengeschütze, 15 gegen Schlachtkreuzer und Abfang-Schlachtkreuzer, 12 gegen Gaußkanonen, 8 gegen Schwere Schlachtkreuzer und nur 5 gegen Zerstörer. Seine 9.000.000 Struktur trägt ein Schirm von 50.000, an dessen Schwellreflex jeder Treffer unter einem Hundertstel verpufft, darum sind Jägerschwärme gegen ihn nutzlos, und erst schwere Linienartillerie richtet Schaden an. Er fliegt mit Tempo 100 bei einem Verbrauch von 1, trägt 1.000.000 Ladung und 5.000 Köpfe Besatzung, passt durch kein Hyperraumloch und wird nie repariert, sodass jede Schramme bleibt.
 
@@ -6493,7 +6493,7 @@ Er entsteht nur im Werftdock der Stufe 8 eines Mondes ab Stufe V mit Hyperrauman
 
 Der Weltenkrümmer ist das letzte Werk des Imperiums und setzt fast alles voraus, was die Chronik vor ihm hervorbrachte: Hyperraumantrieb 6 für die Kopplung an die Kurzschicht, Waffentechnik 10 für die Lanze, Antriebskerne aus der Orbitalwerft und ein Werftdock der zehnten Stufe auf einem Mond, der selbst aus einer Schlacht entstand. Den ersten Kiel legte ein Reich, dessen Namen die Völker verschieden überliefern, und sicher ist nur, dass dieser erste Weltenkrümmer den Mond Kessa brach und die Trümmerwolke tagelang auf den Planeten darunter regnete. Seit dem Fall von Kessa heißt jede Kiellegung in den Admiralitäten die Mondfrage, und mit ihr stellt sich die Frage der ganzen Sternenepoche, ob die Völker, die mit der Scherlanze wiederholen, was die Vorgänger beim Ersten Bruch taten, klüger sind als die Gebrochenen.
 
-Als Schutz blieben nur große Monde, deren Masse der Lanze widersteht, und Zerstörer, gegen die seine Feuerleitung am schlechtesten nachführt, während ihm das Sprungtor nichts nützt, weil er durch kein Loch passt und jeden Weg im Kriechgang gehen muss. Wird er selbst über einer Welt ohne Mond zerstört, bleiben so viele Trümmer, dass dort ein neuer Mond entstehen kann, und manche Admirale sagen, jeder Weltenkrümmer trage seinen Grabstein schon in sich.
+Als Schutz blieben nur große Monde, deren Masse der Lanze widersteht, und Zerstörer, gegen die seine Feuerleitung am schlechtesten nachführt, während ihm der Hyperraumtor-Generator nichts nützt, weil er durch kein Loch passt und jeden Weg im Kriechgang gehen muss. Wird er selbst über einer Welt ohne Mond zerstört, bleiben so viele Trümmer, dass dort ein neuer Mond entstehen kann, und manche Admirale sagen, jeder Weltenkrümmer trage seinen Grabstein schon in sich.
 
 ##### Volksakten
 
@@ -6513,7 +6513,7 @@ Vor jedem Bruchversuch rechnen die Einheiten die Bruchlinien des Zielmondes aus 
 
 Wer einen Schwarzdorn vom Stapel lässt, muss zuvor einen Hain auf einer toten Welt pflanzen, damit für jeden Mond, der bricht, irgendwo etwas Neues Wurzeln schlägt. Mira Sennwurz hielt den Ersten Bruch für einen Schnitt durch das Wurzelwerk zwischen den Sternen, und ihre Schüler fürchten, dass jeder gebrochene Mond diesen Schnitt ein wenig weiter führt.
 
-**Siehe auch:** [Werftdock](#werftdock) · [Sprungtor](#sprungtor) · [Hyperraumantrieb](#hyperraumantrieb) · [Orbitalwerft](#orbitalwerft) · [Zerstörer](#zerstörer) · [Schlachtschiff](#schlachtschiff)
+**Siehe auch:** [Werftdock](#werftdock) · [Hyperraumtor-Generator](#hyperraumtor-generator) · [Hyperraumantrieb](#hyperraumantrieb) · [Orbitalwerft](#orbitalwerft) · [Zerstörer](#zerstörer) · [Schlachtschiff](#schlachtschiff)
 
 
 ## Teil III · Der Rat

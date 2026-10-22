@@ -36,6 +36,11 @@ const STUFE = D.stufen;
 const name = id => K[id]?.name || D.namen?.[id] || (id.startsWith('stufe_') ? STUFE[+id.slice(6) - 1]?.name : id);
 const bildVon = (b, v) => b ? BASIS + (b[v] || b._ || Object.values(b)[0] || '') : '';
 const bild = id => K[id] ? bildVon(K[id].bild, zustand.volk) : id.startsWith('stufe_') ? bildVon(STUFE[+id.slice(6) - 1].bild, zustand.volk) : '';
+// Kacheln (84 px) und Stufenköpfe zeigen Vorschaubilder aus assets/klein/ (192 px, tools/techbaum_kleinbilder.py) statt der
+// 480-px-Motive: am Handy dekodierte der erste Flug in einen Bereich sonst ~200 MB (Ruckeln, Android beendete andere Apps).
+// Fehlt eine kleine Fassung (ältere Server, Website), lädt der Fehlerhaken unten das große Bild.
+const bildKlein = id => bild(id).replace(/assets\/(?!klein\/)([^/?]+\.webp)/, 'assets/klein/$1');
+W.addEventListener('error', e => { const i = e.target; if (i?.tagName === 'IMG' && i.src.includes('/assets/klein/')) i.src = i.src.replace('/assets/klein/', '/assets/'); }, true);
 const res = g => D.ressourcen[g] ? BASIS + D.ressourcen[g] : '';
 const gutName = g => D.namen?.[g] || g;
 const farbe = id => K[id] ? BEREICH[K[id].bereich].farbe : 'var(--gold)';
@@ -161,7 +166,7 @@ function infoZeile(n) {
   return k || TYP[n.typ];
 }
 function aktualisiereBilder() {
-  for (const n of Object.values(K)) { const el = knotenEl[n.id], img = el.querySelector('img'), u = bild(n.id); if (img.getAttribute('src') !== u) img.src = u;
+  for (const n of Object.values(K)) { const el = knotenEl[n.id], img = el.querySelector('img'), u = bildKlein(n.id); if (img.getAttribute('src') !== u) img.src = u;
     el.querySelector('.info').textContent = infoZeile(n);
     const eff = volkEffekte(n), vb = el.querySelector('.vb');
     el.classList.toggle('volk-betroffen', eff.length > 0);
@@ -175,7 +180,7 @@ function setzePositionen() {
   welt.style.width = LAY.w + 'px'; welt.style.height = LAY.h + 'px';
   for (const [id, p] of Object.entries(LAY.pos)) { const el = knotenEl[id]; el.style.left = p.x + 'px'; el.style.top = p.y + 'px'; el.classList.toggle('zu', p.zu); el.tabIndex = p.zu ? -1 : 0; }
   $('baender').innerHTML = LAY.baender.map((b, i) => { const st = STUFE[i];
-    return `<div class="band${zustand.meine && st.nr > zustand.meine ? ' gesperrt' : ''}" data-st="top:${b.y}px;height:${b.h}px;width:${LAY.w}px"><button type="button" class="band-kopf" data-stufe="${st.nr}"><img alt="" src="${esc(bild('stufe_' + st.nr))}"><strong>${esc(st.name)}</strong><small>${st.nr === 1 ? 'Start jeder Kolonie' : fmt(st.einwohner) + ' Einwohner' + (st.kolonien ? ` · ${st.kolonien} Kolonien` : '')}</small></button></div>`; }).join('');
+    return `<div class="band${zustand.meine && st.nr > zustand.meine ? ' gesperrt' : ''}" data-st="top:${b.y}px;height:${b.h}px;width:${LAY.w}px"><button type="button" class="band-kopf" data-stufe="${st.nr}"><img alt="" src="${esc(bildKlein('stufe_' + st.nr))}"><strong>${esc(st.name)}</strong><small>${st.nr === 1 ? 'Start jeder Kolonie' : fmt(st.einwohner) + ' Einwohner' + (st.kolonien ? ` · ${st.kolonien} Kolonien` : '')}</small></button></div>`; }).join('');
   $('spalten').innerHTML = LAY.bereiche.map(b => {
     const quelle = D.bereiche.find(x => x.id === b.id);
     const zaehler = b.zu ? LAY.baender.map((band, i) => { const n = quelle.bahnen.reduce((s, l) => s + (LAY.zellen[l.id][i + 1]?.length || 0), 0);
@@ -186,7 +191,7 @@ function setzePositionen() {
       <div class="kn"><button type="button" data-info="${b.id}" title="Übersicht und Regeln" aria-label="Übersicht ${esc(b.titel)}">ⓘ</button><button type="button" data-zoom="${b.id}" title="In diesen Baum zoomen" aria-label="In ${esc(b.titel)} zoomen">⤢</button><button type="button" data-klapp="${b.id}" title="${b.zu ? 'Aufklappen' : 'Zuklappen'}" aria-label="${esc(b.titel)} ${b.zu ? 'aufklappen' : 'zuklappen'}">${b.zu ? '▸' : '▾'}</button></div>
       ${b.bahnen.map(l => `<span class="bahn-titel" data-st="left:${l.x}px;width:${l.w - 6}px">${esc(l.titel)}</span>`).join('')}</div>${zaehler}</section>`; }).join('');
   $('leiste-bereiche').innerHTML = D.bereiche.map(b => `<button type="button" data-zoom="${b.id}" data-st="--bf:${b.farbe}">${esc(b.titel)}</button>`).join('');
-  zeichneLinien(); stufenStatus(); minikarteGrund = null; kamera();
+  zeichneLinien(); stufenStatus(); minikarteGrund = null; kopfX = kopfY = null; kamera();
 }
 
 /* ---------- Linien ---------- */
@@ -253,7 +258,11 @@ const MIN_S = 0.04, MAX_S = 2.4;
 // LESBAR: kleinster Maßstab, bei dem Namen auf dem Handy mindestens 12 px groß sind (Name 13 px × 0,95).
 const MOBIL_BIS = 768, LESBAR = 0.95, BLATT_HALB = .46, BLATT_GANZ = .78;
 const istMobil = () => buehne.getBoundingClientRect().width < MOBIL_BIS;
+// Während einer Geste ändern sich Bühne, Kopf und Dock nicht: Maße einmal je Geste lesen statt bei jedem Fingerzug
+// (jede Messung erzwang am Handy eine Stilberechnung pro Bild).
+let sichtFest = null;
 function sicht() {
+  if (sichtFest) return sichtFest;
   const r = buehne.getBoundingClientRect(), mobil = r.width < MOBIL_BIS;
   const dossierOffen = !$('dossier').hidden, planOffen = !$('plan').hidden;
   if (mobil) {
@@ -266,15 +275,28 @@ function sicht() {
 }
 let kameraRaf = 0;
 const kameraBald = () => { if (!kameraRaf) kameraRaf = requestAnimationFrame(() => { kameraRaf = 0; kamera(); }); };
+// Flackern am Handy (Karl 22.10.2026): Die Welt ist eine riesige Ebene. Jede Layout-Änderung darin (klebende Köpfe per
+// left/top) zwang bei jedem Bild zum Neuzeichnen und Neurastern der ganzen Ebene – das Android-WebView kam nicht nach und
+// zeigte leere Kacheln. Jetzt: erst messen, dann schreiben (kein erzwungenes Layout), klebende Köpfe nur per transform auf
+// eigenen Ebenen und nur bei echter Änderung. Die Weltebene (will-change: transform) behält ihren Rastermaßstab; ändert
+// ein Zoom ihn deutlich, wird sie nach der Geste genau einmal im neuen Maßstab gerastert (reine Verschiebungen nie).
+let kopfX = null, kopfY = null, ruheT = 0, rasterS = null;
+function scharf() {
+  const s = zustand.cam.s; if (rasterS === null) { rasterS = s; return; }
+  if (Math.abs(s - rasterS) / rasterS < 0.15) return; rasterS = s;
+  welt.style.willChange = 'auto'; requestAnimationFrame(() => requestAnimationFrame(() => { welt.style.willChange = ''; }));
+}
+function bewegung() { clearTimeout(ruheT); ruheT = setTimeout(scharf, 320); }
 function kamera() {
-  const c = zustand.cam; welt.style.transform = `translate(${c.x}px,${c.y}px) scale(${c.s})`;
+  const c = zustand.cam, v = sicht(), bx = Math.max(18, (-c.x + 8) / c.s), ky = Math.max(0, (v.oben - c.y) / c.s);
+  const t = `translate(${c.x}px,${c.y}px) scale(${c.s})`;
+  if (welt.style.transform !== t) { welt.style.transform = t; bewegung(); }
   welt.classList.toggle('z-makro', c.s < 0.42); welt.classList.toggle('z-detail', c.s > 1.15);
-  const v = sicht(), bx = Math.max(18, (-c.x + 8) / c.s);
-  for (const k of W.querySelectorAll('.band-kopf')) { k.style.left = bx + 'px'; k.classList.toggle('klebt', bx > 19); }
-  const ky = Math.max(0, (v.oben - c.y) / c.s);
-  for (const k of W.querySelectorAll('.bereich-kopf')) { k.style.top = ky + 'px'; k.classList.toggle('klebt', ky > 0); }
+  const rx = Math.round((bx - 18) * 10) / 10, ry = Math.round(ky * 10) / 10;
+  if (rx !== kopfX) { kopfX = rx; for (const k of W.querySelectorAll('.band-kopf')) { k.style.transform = rx ? `translateX(${rx}px)` : ''; k.classList.toggle('klebt', bx > 19); } }
+  if (ry !== kopfY) { kopfY = ry; for (const k of W.querySelectorAll('.bereich-kopf')) { k.style.transform = ry ? `translateY(${ry}px)` : ''; k.classList.toggle('klebt', ky > 0); } }
   if (v.mobil) dockAktiv((v.w / 2 - c.x) / c.s);
-  zeichneMinikarte();
+  else zeichneMinikarte();
 }
 // Dock-Chip des Bereichs in der Bildmitte hervorheben und in Sicht rollen.
 let dockBereich = null;
@@ -290,7 +312,7 @@ function begrenze() {
 }
 let flug = null;
 function fliege(ziel, ms = 650) {
-  cancelAnimationFrame(flug); const a = {...zustand.cam}, t0 = performance.now();
+  cancelAnimationFrame(flug); schwungStopp(); sichtFest = null; const a = {...zustand.cam}, t0 = performance.now();
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) ms = 1;
   const schritt = t => { const f = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - f, 4);
     zustand.cam = {x: a.x + (ziel.x - a.x) * e, y: a.y + (ziel.y - a.y) * e, s: a.s + (ziel.s - a.s) * e}; kamera();
@@ -349,13 +371,34 @@ function zoomUm(f, sx, sy) {
   c.x = sx - (sx - c.x) * ns / c.s; c.y = sy - (sy - c.y) * ns / c.s; c.s = ns; begrenze(); kameraBald();
 }
 
+// Schwung nach dem Wischen (Karl 22.10.2026: „ruckelt und zuckelt, keine flüssigen Bewegungen“): die Karte gleitet mit der
+// Geschwindigkeit der letzten ~80 ms weiter und bremst sanft ab – wie native Listen am Handy.
+let schwung = 0, spur = [];
+function schwungStopp() { cancelAnimationFrame(schwung); schwung = 0; }
+function schwungStart() {
+  const jetzt = performance.now(), neu = spur.filter(p => jetzt - p.t < 90); spur = [];
+  if (neu.length < 2 || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const a = neu[0], b = neu[neu.length - 1], dt = Math.max(8, b.t - a.t);
+  let vx = (b.x - a.x) / dt, vy = (b.y - a.y) / dt;
+  if (Math.hypot(vx, vy) < 0.15) return;
+  let t0 = jetzt; sichtFest = sicht();
+  const schritt = t => {
+    const d = Math.min(40, t - t0); t0 = t; const r = Math.pow(0.9945, d);
+    const c = zustand.cam, x0 = c.x, y0 = c.y; c.x += vx * d; c.y += vy * d; begrenze();
+    if (c.x === x0) vx = 0; if (c.y === y0) vy = 0; // am Rand anhalten
+    vx *= r; vy *= r; kamera();
+    if (Math.hypot(vx, vy) > 0.02) schwung = requestAnimationFrame(schritt); else { schwung = 0; sichtFest = null; bewegung(); }
+  };
+  schwung = requestAnimationFrame(schritt);
+}
+
 // Zeiger: Ziehen, Kneifen, Rad
 const zeiger = new Map(); let zug = null, bewegt = 0, angefasst = false;
 buehne.addEventListener('pointerdown', () => { angefasst = true; }, {capture: true});
 buehne.addEventListener('pointerdown', e => {
   if (e.target.closest('.kn,.band-kopf,.leiste-bereiche')) return;
   zeiger.set(e.pointerId, {x: e.clientX, y: e.clientY});
-  cancelAnimationFrame(flug); if (zeiger.size === 1) bewegt = 0;
+  cancelAnimationFrame(flug); schwungStopp(); spur = []; sichtFest = null; sichtFest = sicht(); if (zeiger.size === 1) bewegt = 0;
   if (zeiger.size === 1) zug = {x: e.clientX, y: e.clientY, cx: zustand.cam.x, cy: zustand.cam.y};
   else if (zeiger.size === 2) { const [a, b] = [...zeiger.values()]; zug = {kneif: Math.hypot(a.x - b.x, a.y - b.y), s: zustand.cam.s}; bewegt = 99;
     for (const id of zeiger.keys()) try { buehne.setPointerCapture(id); } catch {} }
@@ -367,11 +410,14 @@ buehne.addEventListener('pointermove', e => {
   if (zug && zeiger.size === 1 && !zug.kneif) { const dx = e.clientX - zug.x, dy = e.clientY - zug.y; bewegt = Math.max(bewegt, Math.hypot(dx, dy));
     if (bewegt > 5) { // erst beim echten Ziehen fangen, damit normale Klicks ihr Ziel behalten
       if (!buehne.hasPointerCapture?.(e.pointerId)) try { buehne.setPointerCapture(e.pointerId); } catch {}
-      buehne.classList.add('zieht'); zustand.cam.x = zug.cx + dx; zustand.cam.y = zug.cy + dy; begrenze(); kameraBald(); } }
+      if (!buehne.classList.contains('zieht')) buehne.classList.add('zieht');
+      spur.push({x: e.clientX, y: e.clientY, t: e.timeStamp || performance.now()}); if (spur.length > 8) spur.shift();
+      zustand.cam.x = zug.cx + dx; zustand.cam.y = zug.cy + dy; begrenze(); kameraBald(); } }
 });
 const loslassen = e => {
+  const warZug = zeiger.size === 1 && zug && !zug.kneif && bewegt > 5 && e.type === 'pointerup';
   zeiger.delete(e.pointerId); buehne.classList.remove('zieht');
-  if (zeiger.size === 0) zug = null;
+  if (zeiger.size === 0) { zug = null; if (warZug) schwungStart(); else { spur = []; sichtFest = null; } }
   else if (zeiger.size === 1) { const [p] = [...zeiger.values()]; zug = {x: p.x, y: p.y, cx: zustand.cam.x, cy: zustand.cam.y}; }
 };
 buehne.addEventListener('pointerup', loslassen); buehne.addEventListener('pointercancel', loslassen);
@@ -461,7 +507,7 @@ function aktionBlock(n) {
   const menge = i.menge ? `<label class="d-menge"><span>Anzahl</span><input id="d-menge" type="number" min="1" max="${Math.max(1, i.max || 1)}" value="1" inputmode="numeric"></label>` : '';
   const hinweis = i.lesen ? i.lesen : !i.bezahlbar ? (i.vormerken ? 'Rohstoffe fehlen noch: der Auftrag wird vorgemerkt und startet automatisch.' : 'Rohstoffe reichen noch nicht.') : i.hinweis || '';
   return `<div class="d-aktion bereit"><div class="d-aktion-zeile">${menge}<button type="button" class="d-bauen" data-spiel-bauen="${esc(n.id)}"${aus ? ' disabled' : ''}>${esc(i.wort)}</button></div>
-    ${guterListe(i.kosten)}<small>${esc(i.ort)}${hinweis ? ' · ' + esc(hinweis) : ''}</small>${imSpiel}</div>`;
+    ${guterListe(i.kosten)}${i.wirkung || ''}<small>${esc(i.ort)}${hinweis ? ' · ' + esc(hinweis) : ''}</small>${imSpiel}</div>`;
 }
 async function spielBauen(knopf) {
   const id = knopf.dataset.spielBauen, menge = Math.max(1, Math.floor(+($('d-menge')?.value || 1)));
@@ -812,7 +858,7 @@ function zeigePlan() {
   const angabe = s => { const k = K[s.id]; return MIT_STUFEN.has(k.typ) ? (s.von > 1 ? `Stufe ${s.von}→${s.n}` : 'Stufe ' + s.n) : EINHEIT.has(k.typ) || ['boden', 'rakete'].includes(k.typ) ? '1×' : s.n > 1 ? (s.id === 'kz_stabilitaet' ? '≥ ' : '') + kurz(s.n) : '✓'; };
   const html = STUFE.map(st => { const g = (gruppen[st.nr] || []).sort((a, b) => ord(a.id) - ord(b.id)), auf = p.stufen.has(st.nr);
     if (!g.length && !auf) return '';
-    return `<div class="plan-stufe">${esc(st.name)}</div><ul class="plan-liste">${auf ? `<li><button type="button" data-geh="stufe_${st.nr}"><img alt="" src="${esc(bild('stufe_' + st.nr))}"><span>Aufstieg: ${esc(st.name)}${st.einwohner ? `<br><small data-st="color:var(--leise)">${fmt(st.einwohner)} Einwohner${st.kolonien ? `, ${st.kolonien} Kolonien` : ''}</small>` : ''}</span><b>↑</b></button></li>` : ''}${g.map(s => `<li><button type="button" data-geh="${s.id}"><img alt="" src="${esc(bild(s.id))}" loading="lazy"><span>${esc(name(s.id))}<br><small data-st="color:var(--leise)">${esc(TYP[K[s.id].typ])}</small></span><b>${angabe(s)}</b></button></li>`).join('')}</ul>`; }).join('');
+    return `<div class="plan-stufe">${esc(st.name)}</div><ul class="plan-liste">${auf ? `<li><button type="button" data-geh="stufe_${st.nr}"><img alt="" src="${esc(bildKlein('stufe_' + st.nr))}"><span>Aufstieg: ${esc(st.name)}${st.einwohner ? `<br><small data-st="color:var(--leise)">${fmt(st.einwohner)} Einwohner${st.kolonien ? `, ${st.kolonien} Kolonien` : ''}</small>` : ''}</span><b>↑</b></button></li>` : ''}${g.map(s => `<li><button type="button" data-geh="${s.id}"><img alt="" src="${esc(bild(s.id))}" loading="lazy"><span>${esc(name(s.id))}<br><small data-st="color:var(--leise)">${esc(TYP[K[s.id].typ])}</small></span><b>${angabe(s)}</b></button></li>`).join('')}</ul>`; }).join('');
   const mobil = istMobil();
   el.innerHTML = `<div class="plan-kopf"><span>GEPLANTER WEG</span><button type="button" class="x" id="plan-zu" aria-label="Plan schließen">✕</button></div><div class="plan-inhalt">
     <div class="plan-ziel"><img alt="" src="${esc(bild(p.ziel))}"><div><small>Ziel</small><strong>${esc(name(p.ziel))}</strong><small>${p.schritte.length} Schritte · ${p.stufen.size} Aufstiege · ${esc(D.voelker[zustand.volk].name)}</small></div></div>
@@ -851,7 +897,7 @@ function setzeVolk(v) {
   const pv = $('volksprofil'), zu = pv.classList.contains('zu');
   pv.innerHTML = `<button type="button" class="vp-kopf" id="vp-kopf" aria-expanded="${!zu}"><img alt="" src="${esc(BASIS + (V.portrait || V.emblem || ''))}"><div><strong>${esc(V.name.toUpperCase())}</strong><small>${betroffen} Einträge verändert</small></div><span class="pfeil">▾</span></button>
     <div class="vp-rest">${V.zivilisation ? `<img class="vp-stadt" alt="Hauptstadt der ${esc(V.name)}" src="${esc(BASIS + V.zivilisation)}">` : ''}<ul class="vp-liste">${zeilen.join('') || '<li class="leer"><span>Keine Abweichungen</span><b>–</b></li>'}</ul>${hab}<p class="vp-hinweis">Bäume sind für alle Völker gleich; das Volk ändert Werte, Kosten, Tempo, Klima und Motive. „Volksänderungen“ blendet alles andere aus.</p></div>`;
-  aktualisiereBilder(); for (const k of W.querySelectorAll('.band-kopf img')) k.src = bild('stufe_' + k.parentElement.dataset.stufe);
+  aktualisiereBilder(); for (const k of W.querySelectorAll('.band-kopf img')) k.src = bildKlein('stufe_' + k.parentElement.dataset.stufe);
   if (LAY) zeichneLinien();
   if (PLAN) { const offen = !$('plan').hidden; PLAN = berechnePlan(PLAN.ziel); zeigePlan(); $('plan').hidden = !offen; }
   if (zustand.gewaehlt) oeffneDossier(dossierKnoten(K[zustand.gewaehlt]));

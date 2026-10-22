@@ -41,10 +41,11 @@ NAV = [("index.html", "Start", "Überblick"), ("Trailer.html", "Trailer", "Der W
        ("Technologiebaum.html", "Technologiebaum", "Alle Völker auf einer Karte"),
        ("Weltenkruemmer.html", "Weltenkrümmer", "Die vier Mondbrecher"),
        ("Lore.html", "Lore-Archiv", "Kanon, Archiv, Rat"),
+       ("Hoerchronik.html", "Hörchronik", "Die Geschichte der Weite in fünf Folgen"),
        ("Harness-Cockpit.html", "Mit KI spielen", "Modelle, Rat, Harness-API"),
        ("Download.html", "Download", "Android-App und Cockpit")]
 # Leise Seiten: im Menü am Handy, im Fuß und auf den passenden Seiten verlinkt, nicht in der Kopfleiste.
-NEBEN = [("Hoerchronik.html", "Hörchronik", "Die Geschichte der Weite in fünf Folgen")]
+NEBEN: list = []  # Karl 22.10.: die Hörchronik gehört sichtbar in die Kopfleiste
 ALLE = NAV + NEBEN
 HC = ROOT / "docs/website/medien/hoerchronik"
 TRAILER = ROOT / "docs/website/medien/trailer"
@@ -290,8 +291,8 @@ class Bau:
  {karte("", self.u("docs/website/medien/filme/krath.jpg"), "Megaschiff", "Weltenkrümmer", f"Eine mondgroße Kampfstation aus verschmolzenen Trümmern mit {zahl_de(wk['struktur'])} Struktur und {zahl_de(wk['angriff'])} Angriff auf vier Ziele je Runde. Sie entsteht im Werftdock eines Mondes.",
    ["Nach einem vollständigen Sieg bricht sie den Mond des Gegners.", "Drei Schlachtkreuzer ergänzen die Linie: Linien-, Abfang- und schwerer Schlachtkreuzer."],
    "Weltenkruemmer.html", "Die vier Weltenkrümmer")}
- {karte("", f("mond"), "Monde", "Monde, Sprungtor, Phalanx", "Aus großen Schlachten entstehen Monde. Jeder der zehn Mondtypen hat einen eigenen Vor- und Nachteil, sieben Mondgebäude machen ihn zu Hafen, Werft und Torstation.",
-   ["Das Sprungtor öffnet ein öffentliches Hyperraumloch für 300 Spielsekunden.", "Die Tiefenphalanx zeigt die Flüge eines Planeten in Reichweite."],
+ {karte("", f("mond"), "Monde", "Monde, Hyperraumtor, Phalanx", "Aus großen Schlachten entstehen Monde. Jeder der zehn Mondtypen hat einen eigenen Vor- und Nachteil, sieben Mondgebäude machen ihn zu Hafen, Werft und Torstation.",
+   ["Der Hyperraumtor-Generator öffnet neben seinem Mond ein öffentliches Hyperraumtor zu einem zweiten Generator.", "Die Tiefenphalanx zeigt die Flüge eines Planeten in Reichweite."],
    "Sternenepoche-Handbuch.html#kapitel-26", "Kapitel 26 und 27")}
  {karte("", f("lage"), "Invasion", "Bomben, landen, belagern", "Eine Kolonie fällt in drei Abschnitten: Bomber senken alle Gebäude auf 30 % Integrität, Truppentransporter landen, dann 48 Spielstunden Belagerung.",
    [f"{len(boden)} Bodentruppen mit Kontertabelle, Kaserne und Garnison.", "Verbündete schicken Bodenhilfe; einmal je Belagerung die Volksmiliz."],
@@ -464,7 +465,7 @@ class Bau:
                  f'<label class="leiste-suche">Im Handbuch suchen<input type="search" placeholder="z. B. Phalanx, Miliz, Terminflug"></label><p id="suche-status" class="sr-only" role="status"></p>'
                  f'<ol>{"".join(leiste)}</ol></details></aside>').replace("<ol></ol>", "")
         inhalt = (self.seitenkopf("Handbuch · alle Regeln", "Das Handbuch der Sternenepoche.",
-                                  "Jede Regel mit Zahlen und Rechenbeispielen: von Versorgung und Zivilisationsstufen über Flüge, Kampf und Kolonisation bis zu Monden, Sprungtor, Weltenkrümmer, Invasion, Dysonsphäre und Flottenführung. Konkrete Kosten deiner Welt zeigt das Spiel bei jeder Aktion.",
+                                  "Jede Regel mit Zahlen und Rechenbeispielen: von Versorgung und Zivilisationsstufen über Flüge, Kampf und Kolonisation bis zu Monden, Hyperraumtor, Weltenkrümmer, Invasion, Dysonsphäre und Flottenführung. Konkrete Kosten deiner Welt zeigt das Spiel bei jeder Aktion.",
                                   self.u("web-client/assets/backgrounds.research.webp"), "Handbuch")
                   + f'<div class="rahmen lesen">{aside}<article class="text">{"".join(teile)}</article></div>')
         self.schreibe("Sternenepoche-Handbuch.html", self.huelle("Sternenepoche-Handbuch.html", "Handbuch – Sternenepoche",

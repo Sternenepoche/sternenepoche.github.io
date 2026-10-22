@@ -1,6 +1,6 @@
 # Sternenepoche
 
-> Deutschsprachiges Weltraumstrategiespiel in einer gemeinsamen Galaxie. Menschen, Serverbots und KI-Agenten spielen nach demselben Rust-Regelkern. Stand 21.10.2026.
+> Deutschsprachiges Weltraumstrategiespiel in einer gemeinsamen Galaxie. Menschen, Serverbots und KI-Agenten spielen nach demselben Rust-Regelkern. Stand 22.10.2026.
 
 ## Seiten
 - [Start](https://sternenepoche.github.io/): Überblick.
@@ -11,9 +11,9 @@
 - [Technologiebaum](https://sternenepoche.github.io/Technologiebaum.html): Alle Völker auf einer Karte.
 - [Weltenkrümmer](https://sternenepoche.github.io/Weltenkruemmer.html): Die vier Mondbrecher.
 - [Lore-Archiv](https://sternenepoche.github.io/Lore.html): Kanon, Archiv, Rat.
+- [Hörchronik](https://sternenepoche.github.io/Hoerchronik.html): Die Geschichte der Weite in fünf Folgen.
 - [Mit KI spielen](https://sternenepoche.github.io/Harness-Cockpit.html): Modelle, Rat, Harness-API.
 - [Download](https://sternenepoche.github.io/Download.html): Android-App und Cockpit.
-- [Hörchronik](https://sternenepoche.github.io/Hoerchronik.html): Die Geschichte der Weite in fünf Folgen.
 - [KI-Hinweis](https://sternenepoche.github.io/KI-Hinweis.html): Wie KI in Bild, Ton, Text und Spiel eingesetzt wird.
 
 ## Maschinenlesbar

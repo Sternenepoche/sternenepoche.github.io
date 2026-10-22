@@ -19,7 +19,7 @@
 .sk-marke{display:inline-flex;align-items:center;gap:10px;color:var(--gold);text-decoration:none;font:700 15px/1 var(--titel);letter-spacing:.26em;white-space:nowrap}
 .sk-marke img{width:30px;height:30px}
 .sk-nav{display:flex;gap:2px;margin-left:auto;align-items:center}
-.sk-nav a{position:relative;padding:8px 10px;color:#b9cadb;text-decoration:none;font:500 13.5px/1 var(--titel);letter-spacing:.03em;border-radius:3px;white-space:nowrap}
+.sk-nav a{position:relative;padding:8px 7px;color:#b9cadb;text-decoration:none;font:500 13.5px/1 var(--titel);letter-spacing:.03em;border-radius:3px;white-space:nowrap}
 .sk-nav a:hover{color:#fff;background:rgba(143,208,255,.07)}
 .sk-nav a[aria-current="page"]{color:var(--gold2)}
 .sk-nav a[aria-current="page"]::after{content:"";position:absolute;left:10px;right:10px;bottom:2px;height:2px;border-radius:2px;background:var(--gold)}
@@ -38,4 +38,4 @@
 .button{display:inline-flex;align-items:center;justify-content:center;gap:12px;text-decoration:none;font-family:var(--titel);font-size:14.5px}
 .knopfreihe{display:flex;flex-wrap:wrap;gap:12px}
 
-@media (max-width:1180px){.sk-nav{display:none}.sk-menue{display:block}.sk-kopf .button.spielen{display:none}}
+@media (max-width:1280px){.sk-nav{display:none}.sk-menue{display:block}.sk-kopf .button.spielen{display:none}}

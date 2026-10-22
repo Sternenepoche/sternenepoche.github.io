@@ -10,7 +10,7 @@ Dieses Handbuch erklärt die **gemeinsame Onlinewelt**, ihre Bedienung und ihre 
 
 **Zum Lesen:** Die Datei **Sternenepoche-Handbuch.html** im Hauptordner lässt sich per Doppelklick öffnen und ohne Internet lesen. Die bearbeitbare Fassung liegt unter **docs/HANDBUCH.md**.
 
-**Zum Einsteigen:** Lies zuerst die Kapitel 1 bis 8. Die weiteren Kapitel erklären einzelne Regeln mit Beispielen. Kapitel 20 führt dich durch die Verbindung mit deinem eigenen KI-Assistenten. Die Kapitel 26 bis 32 beschreiben Monde, Sprungtore, Weltenkrümmer, Wachstum und Energie, Invasion, Dysonsphäre und die Flottenführung, wie sie in neu erzeugten Welten gelten.
+**Zum Einsteigen:** Lies zuerst die Kapitel 1 bis 8. Die weiteren Kapitel erklären einzelne Regeln mit Beispielen. Kapitel 20 führt dich durch die Verbindung mit deinem eigenen KI-Assistenten. Die Kapitel 26 bis 32 beschreiben Monde, Hyperraumtor-Generatoren, Weltenkrümmer, Wachstum und Energie, Invasion, Dysonsphäre und die Flottenführung, wie sie in neu erzeugten Welten gelten.
 
 ## 1 Worum es geht
 
@@ -310,7 +310,7 @@ Die Rohstoffleiste zeigt die Vorräte des **rechts ausgewählten eigenen Planete
 | **Pinwände** | Rat › Reiter | Dauerhaftes Wissen, mehrere Wände, Karten, Ziele und Teamabsprachen |
 | **Einstellungen** | Kopfzeile | Spielweise und persönliche Darstellung |
 | **Hilfe** | Kopfzeile | Hilfe und Regelwerk der verbundenen Welt |
-| **Mond** | Mondbild in Planetenliste oder Galaxie | Mondgebäude, Mondwerft, Versorgungsfähre, Tiefenphalanx und Sprungtor eines eigenen Mondes |
+| **Mond** | Mondbild in Planetenliste oder Galaxie | Mondgebäude, Mondwerft, Versorgungsfähre, Tiefenphalanx und Hyperraumtor-Generator eines eigenen Mondes |
 
 Die Mondseite hat keinen eigenen Menüpunkt. Du öffnest sie mit einem Klick auf das Mondbild neben deinem Planeten in der Planetenliste oder in der Galaxie. Den Reiter **Großprojekt** findest du im Bereich **Allianz**.
 
@@ -552,7 +552,7 @@ Für alle Spielweisen: Erstelle mehrere Wände, ergänze Karten mit Wissen, Ziel
 
 **So versorgst du den Mond:** Mit **Fähre einstellen** legst du eine dauerhafte Lieferung zwischen Planet und Mond fest. Größere Mengen bringst du mit einem Transport, bei dem du im Versand als Zielart **Mond** wählst. **Flotte vom Mond starten** öffnet den Versand mit dem Mond als Start.
 
-**Tiefenphalanx und Sprungtor:** Mit **Scannen** prüfst du die Flüge eines Planeten in Reichweite. Unter dem Sprungtor stehen die erreichbaren Gegenstellen mit **Hyperraumloch öffnen**; offene Löcher führen zu **Durchreisen**, wo du Schiffe und mitgenommenes Deuterium wählst. Die Regeln stehen in den Kapiteln 26 und 27.
+**Tiefenphalanx und Hyperraumtor-Generator:** Mit **Scannen** prüfst du die Flüge eines Planeten in Reichweite. Im Feld Hyperraumtor-Generator wählst du Gegenstelle und Schiffe und tippst **Tor öffnen und durchfliegen**; offene Löcher führen zu **Durchreisen**, wo du Schiffe und mitgenommenes Deuterium wählst. Die Regeln stehen in den Kapiteln 26 und 27.
 
 ## 9 Spielzeit Bauzeit und Pausen
 
@@ -1287,9 +1287,9 @@ Prüfe den Status. Ein besiegtes Reich ist für diese Epoche ausgeschieden. Es k
 | **Blockade** | Feindliche Kontrolle des Orbits, die Verkehr behindern kann |
 | **Verband** | Bis zu 16 Angriffsflotten einer Allianz mit gemeinsamer Ankunft auf dasselbe Ziel |
 | **Verbandsangriff** | Der gemeinsame Kampf der Flotten eines Verbands |
-| **Mond** | Begleiter eines Planeten, der nach einer großen Schlacht entstehen kann; Flottenhafen, Depot und Standort von Tiefenphalanx und Sprungtor |
+| **Mond** | Begleiter eines Planeten, der nach einer großen Schlacht entstehen kann; Flottenhafen, Depot und Standort von Tiefenphalanx und Hyperraumtor-Generator |
 | **Tiefenphalanx** | Mondgebäude, das die Flüge eines Planeten in Reichweite zeigt |
-| **Hyperraumloch** | Öffentlicher Durchgang zwischen zwei Sprungtoren, 300 Spielsekunden offen |
+| **Hyperraumloch** | Öffentlicher Durchgang zwischen zwei Hyperraumtor-Generatoren, 300 Spielsekunden offen |
 | **Weltenkrümmer** | Megaschiff aus dem Werftdock eines Mondes, das Monde zerstören kann; Rufname Weltenkrümmer |
 | **Solarsatellit** | Stationäre Energieanlage im Orbit, deren Strom vom Sonnenabstand abhängt |
 | **Belagerung** | 48 Spielstunden Bodenkampf nach der Landung, bevor eine Kolonie übernommen werden kann |
@@ -1336,7 +1336,7 @@ Systemsonden entdecken Asteroidengürtel, natürliche Rohstoffringe und Bergungs
 
 ## 26 Monde
 
-**Gilt für neue Welten.** Monde, Mondgebäude, Sprungtore und Weltenkrümmer gibt es nur in Welten, die mit der Mondgeneration erzeugt wurden. Ältere Welten bleiben ohne Monde.
+**Gilt für neue Welten.** Monde, Mondgebäude, Hyperraumtor-Generatoren und Weltenkrümmer gibt es nur in Welten, die mit der Mondgeneration erzeugt wurden. Ältere Welten bleiben ohne Monde.
 
 ### Wie ein Mond entsteht
 
@@ -1377,7 +1377,7 @@ Jeder Mond hat einen Typ mit einem Vorteil und einem Nachteil. Die Zone des Plan
 
 ### Die sieben Mondgebäude
 
-Ein Mond hat keine Bevölkerung. Alle Mondgebäude laufen ohne Arbeiter und Fachkräfte, brauchen aber Energie: Sie kommt aus der Grundenergie der Mondbasis und aus Solarsatelliten. Fehlt Energie, sinkt die Wirkung anteilig. Sprungtor und Tiefenphalanx brauchen dagegen volle Versorgung und einen bezahlten Unterhalt, sonst lassen sie sich nicht auslösen.
+Ein Mond hat keine Bevölkerung. Alle Mondgebäude laufen ohne Arbeiter und Fachkräfte, brauchen aber Energie: Sie kommt aus der Grundenergie der Mondbasis und aus Solarsatelliten. Fehlt Energie, sinkt die Wirkung anteilig. Hyperraumtor-Generator und Tiefenphalanx brauchen dagegen volle Versorgung und einen bezahlten Unterhalt, sonst lassen sie sich nicht auslösen.
 
 Die Kosten der Stufe n betragen Grundkosten × Faktor^(n−1). Bezahlt wird aus dem **Bestand des Mondes**, nicht aus dem des Planeten. Die Mondbasis zählt für die Bauzeit wie ein Bauhof; eine Nanofabrik gibt es auf Monden nicht, Mondbauten dauern deshalb länger. Planetengebäude und Raketensilos kannst du auf einem Mond nicht bauen. Verteidigungsanlagen fertigst du im Werftdock.
 
@@ -1385,7 +1385,7 @@ Die Kosten der Stufe n betragen Grundkosten × Faktor^(n−1). Bezahlt wird aus 
 |---|---|---|---|---|---|---|
 | **Mondbasis** | IV | 10.000 Erz, 20.000 Kristall, 10.000 Deuterium | 1,45 | erzeugt Grundenergie, Stufe 1: 22 | – | +3 Felder je Stufe, Raumhafen und Bauhof des Mondes, Lager, Versorgungsfähre |
 | **Tiefenphalanx** | IV | 10.000 Erz, 20.000 Kristall, 5.000 Deuterium, 500 Elektronik | 1,5 | 40 | Mondbasis 1, Spionagetechnik 2, Überwachungstechnik 1 | scannt die Flüge eines Planeten in Reichweite |
-| **Sprungtor** | V | 500.000 Erz, 1.000.000 Kristall, 500.000 Deuterium, 20.000 Legierung, 10.000 Elektronik, 3.000 Xenokristall | 1,6 | 150 | Mondbasis 3, Hyperraumantrieb 3 | öffnet Hyperraumlöcher; höchstens Stufe 5 |
+| **Hyperraumtor-Generator** | V | 500.000 Erz, 1.000.000 Kristall, 500.000 Deuterium, 20.000 Legierung, 10.000 Elektronik, 3.000 Xenokristall | 1,6 | 150 | Mondbasis 3, Hyperraumantrieb 3 | öffnet Hyperraumlöcher; höchstens Stufe 5 |
 | **Regolithförderung** | IV | 4.000 Erz, 2.000 Kristall, 100 Legierung | 1,38 | 15 | Mondbasis 1 | fördert Erz und Kristall ohne Arbeiter |
 | **Kryolager** | IV | 5.000 Erz, 3.000 Kristall, 200 Legierung | 1,36 | 5 | Mondbasis 1 | Deuteriumlager, ein Viertel plünderungssicher |
 | **Werftdock** | IV | 20.000 Erz, 10.000 Kristall, 1.000 Legierung, 300 Elektronik | 1,35 | 30 | Mondbasis 2 | Mondwerft und Reparaturdock; ab Stufe 8 Weltenkrümmer (bis 21.10.2026: 10) |
@@ -1410,7 +1410,7 @@ Ein Mond hat keine Bevölkerung, keinen Wohnraum, keine Minen, keine Forschung, 
 
 ### Unterhalt
 
-Jeder Mond kostet täglich **150 Credits plus 20 Credits je Gebäudestufe** auf dem Mond, gezahlt aus der Reichskasse. Der Grüne Organikmond zahlt 25 % weniger. Bleibt der Unterhalt aus, arbeiten alle Mondgebäude nur mit halber Wirkung; Sprungtor und Tiefenphalanx sind dann gesperrt.
+Jeder Mond kostet täglich **150 Credits plus 20 Credits je Gebäudestufe** auf dem Mond, gezahlt aus der Reichskasse. Der Grüne Organikmond zahlt 25 % weniger. Bleibt der Unterhalt aus, arbeiten alle Mondgebäude nur mit halber Wirkung; Hyperraumtor-Generator und Tiefenphalanx sind dann gesperrt.
 
 **Beispiel:** Mondbasis 5, Regolithförderung 4, Kryolager 3 und Werftdock 2 sind zusammen 14 Stufen. Der Mond kostet 150 + 14 × 20 = 430 Credits am Tag.
 
@@ -1448,15 +1448,15 @@ Der Gescannte erfährt nichts von deinem Scan. Ein Phalanxbericht ist eine Momen
 
 **Für Agenten:** Mondflüge laufen über `flotte_senden` mit `zielart: mond` oder `startart: mond`; der Scan heißt `phalanx_scannen`.
 
-## 27 Sprungtor und Hyperraumloch
+## 27 Hyperraumtor-Generator und Hyperraumtor
 
-**Gilt für neue Welten mit Monden.** Ein Sprungtor springt nicht privat. Es reißt ein **öffentliches Hyperraumloch** zu einem anderen Sprungtor auf. Wer es öffnet, bewegt Flotten ohne Flugzeit, nimmt aber in Kauf, dass Fremde es in beide Richtungen mitbenutzen.
+**Gilt für neue Welten mit Monden.** Ein Hyperraumtor-Generator springt nicht privat. Er reißt neben seinem Mond ein **öffentliches Hyperraumtor** (Hyperraumloch) zu einem zweiten Hyperraumtor-Generator auf. Wer es öffnet, bewegt Flotten ohne Flugzeit, nimmt aber in Kauf, dass Fremde es in beide Richtungen mitbenutzen.
 
 ### Ein Loch öffnen
 
-Du öffnest das Loch auf der Mondseite unter dem Sprungtor mit **Hyperraumloch öffnen**. Dafür gilt:
+Du öffnest das Tor auf der Mondseite im Feld **Hyperraumtor-Generator**: Gegenstelle wählen, Schiffe wählen, dann **Tor öffnen und durchfliegen** – Öffnen und Durchreise laufen in einem Schritt, weil das Tor nur 300 Spielsekunden offen steht. **Nur Tor öffnen** öffnet ohne eigene Schiffe. Dafür gilt:
 
-- Die Gegenstelle ist ein anderes Sprungtor: dein eigenes oder das eines Allianzmitglieds oder Verteidigungsbündnispartners, der sein Tor für Partner freigegeben hat.
+- Die Gegenstelle ist ein anderer Hyperraumtor-Generator: dein eigener oder der eines Allianzmitglieds oder Verteidigungsbündnispartners, der sein Tor für Partner freigegeben hat.
 - Beide Tore haben volle Energie und bezahlten Unterhalt, sind nicht in der Abklingzeit, nicht blockiert, haben keine feindliche Flotte im Orbit und noch kein offenes Loch.
 - **Reichweite:** 15 Systeme je Stufe des schwächeren Tors im eigenen Sektor. Ein Sektorwechsel ist ab Torstufe 4 möglich und zählt als 30 Systeme plus Systemabstand.
 - **Kosten:** 20.000 Deuterium plus 2.000 je System Abstand aus dem Bestand deines Mondes.

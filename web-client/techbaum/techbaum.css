@@ -204,8 +204,8 @@ button,select,input{font:inherit;color:inherit}
 .d-held img{width:100%;height:100%;object-fit:contain;animation:schwebe 6s ease-in-out infinite;filter:drop-shadow(0 0 18px color-mix(in srgb,var(--bf) 45%,transparent))}
 .d-held.flaeche img{object-fit:cover;animation:none;filter:none}
 .d-held::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(95,225,255,.05) 0 1px,transparent 1px 3px);pointer-events:none;z-index:1}
-.d-held::after{content:"";position:absolute;left:0;right:0;height:40%;background:linear-gradient(180deg,transparent,rgba(95,225,255,.12),transparent);animation:scan 4s linear infinite;pointer-events:none}
-@keyframes scan{from{top:-40%}to{top:100%}}
+.d-held::after{content:"";position:absolute;left:0;right:0;height:40%;background:linear-gradient(180deg,transparent,rgba(95,225,255,.12),transparent);top:0;animation:scan 4s linear infinite;pointer-events:none;will-change:transform}
+@keyframes scan{from{transform:translateY(-100%)}to{transform:translateY(250%)}}
 @keyframes schwebe{50%{transform:translateY(-6px)}}
 .d-volk{position:absolute;left:8px;bottom:8px;z-index:2;display:flex;align-items:center;gap:6px;padding:3px 9px 3px 3px;border-radius:14px;background:rgba(2,8,14,.8);border:1px solid var(--volk);font:600 11px var(--titel);color:var(--volk)}
 .d-volk img{width:20px;height:20px;border-radius:50%}
@@ -545,8 +545,12 @@ details.akte p{margin:0 0 9px;color:#cfe1ee;font-size:13px}
 .welt.stand-an .knoten.st-erreicht .lvl:not(:empty){display:block}
 .welt.stand-an .knoten.st-erreicht .kachel{border-color:var(--gold);box-shadow:0 0 0 1px rgba(0,0,0,.6),0 0 18px rgba(255,196,107,.45)}
 .welt.stand-an .knoten.st-erreicht .name::before{content:"✓ ";color:var(--gold)}
-.welt.stand-an .knoten.st-moeglich .kachel{border-color:var(--cyan);animation:moeglich 2.4s ease-in-out infinite}
-@keyframes moeglich{50%{box-shadow:0 0 0 1px rgba(0,0,0,.6),0 0 26px rgba(95,225,255,.75)}}
+.welt.stand-an .knoten.st-moeglich .kachel{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(0,0,0,.6),0 0 12px rgba(95,225,255,.35)}
+/* Puls „jetzt möglich“ nur über die Deckkraft eines eigenen Leuchtrings (läuft im Compositor). Vorher pulsierte box-shadow
+   jeder möglichen Kachel: die ganze Weltebene wurde 60× je Sekunde neu gemalt und gerastert – am Handy Flackern (22.10.2026). */
+.welt.stand-an .knoten.st-moeglich::after{content:"";position:absolute;top:0;left:50%;width:84px;height:84px;margin-left:-42px;border-radius:9px;box-shadow:0 0 26px rgba(95,225,255,.75);opacity:0;pointer-events:none;will-change:opacity;animation:moeglich 2.4s ease-in-out infinite}
+.welt.stand-an .knoten.forschung.st-moeglich::after{border-radius:50%}
+@keyframes moeglich{50%{opacity:1}}
 .welt.stand-an .knoten.st-gesperrt .kachel img{filter:grayscale(1) brightness(.5)}
 .welt.stand-an .knoten.st-gesperrt .kachel{border-color:#2a3b49;box-shadow:none}
 .welt.stand-an .knoten.st-gesperrt .name{color:#7890a2}
@@ -610,7 +614,6 @@ details.akte p{margin:0 0 9px;color:#cfe1ee;font-size:13px}
   .leiste-bereiche,.daumen{display:none}
   .hinweis{top:auto;bottom:calc(max(4px,env(safe-area-inset-bottom)) + 70px);font-size:13px;max-width:calc(100% - 24px)}
   .app:has(.dossier:not([hidden])) .hinweis,.app:has(.plan:not([hidden])) .hinweis{top:calc(var(--kopf-unten) + 4px);bottom:auto}
-  .welt{will-change:transform}
   /* Schrift auf der Karte: bei Startmaßstab 0,95 mindestens 12 px */
   .knoten .name{font-size:13px}
   .knoten .info{font-size:12.5px}
@@ -682,4 +685,40 @@ details.akte p{margin:0 0 9px;color:#cfe1ee;font-size:13px}
   .plan-ziel small,.plan-stufe{font-size:12px}
   .plan-liste button{min-height:46px;font-size:14px}
   .plan-liste small{font-size:12px}
+}
+
+/* Flackern am Handy (22.10.2026): Bewegung nur im Compositor. Die Welt (10.800 × 2.500 px) ist eine eigene Ebene; nach
+   einem Zoom rastert techbaum.js sie einmal im neuen Maßstab (scharf() – sonst blieb sie im Startmaßstab gerastert, beim
+   Herauszoomen riesig, und das WebView verwarf Kacheln: Flackern). Klebende Köpfe sind eigene kleine Ebenen (transform). */
+.welt{will-change:transform}
+.band-kopf,.bereich-kopf{will-change:transform}
+@media (max-width:767px){
+  /* Glas über einer bewegten Ebene: Hintergrundunschärfe muss jedes Bild neu rechnen; Android-WebViews flackern dabei. */
+  .app{--glas:rgba(6,17,29,.93)}.glas{backdrop-filter:none;-webkit-backdrop-filter:none}
+  /* „Jetzt möglich“ ruhig leuchten statt 50 pulsierender Ebenen */
+  .welt.stand-an .knoten.st-moeglich::after{animation:none;opacity:.8;will-change:auto}
+}
+/* Wirkung der nächsten Ausbaustufe am Bauen-Knopf (management.js ausbauWirkungHtml) */
+.aw-wirkung{display:flex;flex-direction:column;gap:3px;margin:8px 0;padding:8px 10px;border-radius:8px;border:1px solid #e6c97a44;background:#1a160866;font-size:12px;color:#dfe8e6}
+.aw-wirkung b{color:#ecddad;font-variant-numeric:tabular-nums}.aw-wirkung small{color:#a8c5ca;font-size:11px}
+.aw-wirkung .aw-titel{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#cbb784}
+.aw-wirkung.minus{border-color:#e0707088;background:#2a0f0f66}.aw-wirkung.minus .aw-bilanz b{color:#f1a4a4}
+.aw-kachel{display:inline-block;margin-right:6px;font-size:11px;font-weight:600;color:#ecddad;white-space:nowrap}.aw-kachel.minus{color:#f1a4a4}
+@media (max-width:767px){
+  /* Ruckeln am Handy (Karl 22.10.2026, Emulator gemessen: Hauptthread ~80 % frei, aber nur ~19 Bilder/s beim Wischen): jede neue
+     Kachel der Weltebene musste ~400 weiche Schatten, 209 Schlagschatten-Filter und 133 Graustufen-Filter rastern. Am Handy
+     dieselbe Optik mit billigen Mitteln: harte Kanten statt Weichzeichner, Textschatten statt Filter, Dämpfen statt Graustufen. */
+  .knoten .kachel{box-shadow:0 0 0 1px rgba(0,0,0,.6);transition:none}
+  .welt.z-makro .knoten .kachel{box-shadow:0 0 0 2px color-mix(in srgb,var(--bf) 45%,transparent)}
+  .knoten.vor .kachel{box-shadow:0 0 0 2px rgba(255,196,107,.7)}
+  .knoten.nach .kachel{box-shadow:0 0 0 2px rgba(95,225,255,.65)}
+  .knoten.gewaehlt .kachel{box-shadow:0 0 0 2px var(--bf),0 0 0 5px color-mix(in srgb,var(--bf) 35%,transparent)}
+  .welt.volksfokus .knoten.volk-betroffen .kachel{box-shadow:0 0 0 2px var(--volk)}
+  .knoten .schloss{filter:none;text-shadow:0 0 2px #000,0 1px 2px #000}
+  .knoten.gesperrt .kachel img{filter:none;opacity:.3}
+  .band.gesperrt .band-kopf img{filter:none;opacity:.45}
+  .welt.stand-an .knoten.st-erreicht .kachel{box-shadow:0 0 0 1px rgba(0,0,0,.6),0 0 0 3px rgba(255,196,107,.45)}
+  .welt.stand-an .knoten.st-moeglich .kachel{box-shadow:0 0 0 1px rgba(0,0,0,.6),0 0 0 3px rgba(95,225,255,.35)}
+  .welt.stand-an .knoten.st-gesperrt .kachel img{filter:none;opacity:.3}
+  .welt.fokus .knoten:not(.gewaehlt):not(.vor):not(.nach),.welt.volksfokus .knoten:not(.volk-betroffen){filter:none}
 }
