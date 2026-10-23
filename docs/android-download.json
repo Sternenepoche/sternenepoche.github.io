@@ -1,25 +1,25 @@
 {
-  "version": "0.4.2",
-  "code": 22,
-  "datei": "Sternenepoche-0.4.2.apk",
-  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.2-20261022/Sternenepoche-0.4.2.apk",
-  "sha256": "f16fe6ed56a0946cb681ecd3b9593325e84a720e8349b9752b838e95bc47df46",
-  "bytes": 186800867,
+  "version": "0.4.3",
+  "code": 23,
+  "datei": "Sternenepoche-0.4.3.apk",
+  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.3-20261023/Sternenepoche-0.4.3.apk",
+  "sha256": "e6472c0d86154069a5ec3c5ad968f3dd40123614e5b66806aa92d7987c0ede6b",
+  "bytes": 186788579,
   "groesse_mb": 178.1,
   "abis": [
     "arm64-v8a",
     "x86_64"
   ],
-  "stand": "22.10.2026",
+  "stand": "23.10.2026",
   "min_android": "8.0",
-  "hinweis": "Bauen und Berichte am Handy: Kosten, Strom und eine große Bauuhr direkt auf jeder Kachel, Werften bauen parallel, Spionage-, Erkundungs-, Kampf-, Boden- und Mondberichte vollständig und ohne Lücken, flüssiger Technologiebaum und Flugkarten, kein schwarzer Bildschirm beim Start. Vollversion für alle Geräte, Lite nur für ARM-Handys.",
+  "hinweis": "Technologiebaum genau wie im Spiel: alle Namen, Werte und Regeltexte aus dem aktuellen Regelwerk, Expedition und Rettung neu, Miliz, Akademie, Stabilität, Sonne und Kolonieschiff berichtigt. Anfängerschutz und Bot-Schonzeit sind standardmäßig aus und beim Start einer Welt einschaltbar. Vollversion für alle Geräte, Lite nur für ARM-Handys.",
   "varianten": [
     {
       "art": "lite",
-      "datei": "Sternenepoche-0.4.2-lite.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.2-20261022/Sternenepoche-0.4.2-lite.apk",
-      "sha256": "29ae122cc6a7e756250423923e24c24668eab020a8ceef3bbe0a1db5e5a347ff",
-      "bytes": 97905229,
+      "datei": "Sternenepoche-0.4.3-lite.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.3-20261023/Sternenepoche-0.4.3-lite.apk",
+      "sha256": "5bc45d86507bc147dc5a472b2ab3e6585dcb3cd8f2b202034fe48d2817a901c6",
+      "bytes": 97909325,
       "groesse_mb": 93.4,
       "abis": [
         "arm64-v8a"
@@ -27,10 +27,10 @@
     },
     {
       "art": "voll",
-      "datei": "Sternenepoche-0.4.2.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.2-20261022/Sternenepoche-0.4.2.apk",
-      "sha256": "f16fe6ed56a0946cb681ecd3b9593325e84a720e8349b9752b838e95bc47df46",
-      "bytes": 186800867,
+      "datei": "Sternenepoche-0.4.3.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.3-20261023/Sternenepoche-0.4.3.apk",
+      "sha256": "e6472c0d86154069a5ec3c5ad968f3dd40123614e5b66806aa92d7987c0ede6b",
+      "bytes": 186788579,
       "groesse_mb": 178.1,
       "abis": [
         "arm64-v8a",

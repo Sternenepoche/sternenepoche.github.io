@@ -1,6 +1,6 @@
 # Sternenepoche – Lore-Gesamtwerk
 
-Die gesamte geltende Lore an einem Ort, erzeugt am 22.10.2026 20:29 aus `docs/LORE-BIBEL.md`, `content/beschreibungen.json`, `docs/rat/rat.json` und `web-client/audio/bots/texte.json`. **Nicht hier ändern:** Lore wird in diesen Quellen geändert und danach mit `python -X utf8 tools/content/lore_gesamtwerk.py` neu erzeugt.
+Die gesamte geltende Lore an einem Ort, erzeugt am 23.10.2026 02:56 aus `docs/LORE-BIBEL.md`, `content/beschreibungen.json`, `docs/rat/rat.json` und `web-client/audio/bots/texte.json`. **Nicht hier ändern:** Lore wird in diesen Quellen geändert und danach mit `python -X utf8 tools/content/lore_gesamtwerk.py` neu erzeugt.
 
 ## Teil I · Der Kanon (Lore-Bibel)
 
@@ -1758,7 +1758,7 @@ Ein ausgedientes Schiff gibt seine Beete an den Nachfolger weiter, und manche We
 
 *Raumfahrtanlage (Bauteilfertigung) · Werftstation im Orbit für Großbauteile, die in der Schwerkraft nicht entstehen können.*
 
-**Wozu.** Sie fertigt Antriebskerne und Habitatmodule für Kolonieschiffe und ist Voraussetzung vieler Großkampfschiffe.
+**Wozu.** Sie fertigt Antriebskerne und Habitatmodule in Serie, braucht für das Große Kolonieschiff und den Weltenkrümmer und ist Voraussetzung vieler Großkampfschiffe.
 
 **Stärke.** Schon Stufe 1 öffnet das Kolonieschiff, Stufe 2 die schweren Ausbaurümpfe und Stufe 3 den Zerstörer.
 
@@ -1781,7 +1781,7 @@ Den Betrieb tragen 20 Arbeiter, 15 Fachkräfte für Kernsteuerung und Druckprüf
 
 ##### Chronik
 
-Die Orbitalwerft entstand im Zeitalter des Sternenflugs aus der Not der Werften der Stufe 4, die Kolonieschiffe entwerfen konnten, aber keinen Antriebskern dafür am Boden zusammenbrachten. Davor halfen sich die Gründungen mit umgebauten Recyclern, deren Druckhüllen ab Werft 3 zu Habitatmodulen wurden, doch das waren Notlösungen ohne eigenen Kern. Mit der ersten Orbitalwerft flogen die Kleinen Kolonieschiffe, und aus einer Welt wurde ein Reich, und mit Stufe 2 folgte das Große Kolonieschiff. Im Imperium trug dieselbe Stufe die schweren Rümpfe und nach der Kuppelkrise die Bauteile für Planetenschild II und III, und auf Stufe 3 entstanden die Kerne des Zerstörers, der als Linienbrecher Kreuzer und Schlachtschiffe jagt.
+Die Orbitalwerft entstand im Zeitalter des Sternenflugs, als die Werften am Boden an die Grenze dessen stießen, was die Schwerkraft eines Planeten zulässt: Antriebskerne, versiegelte Fusionsblöcke für schwere Rümpfe, lassen sich nur in der Schwerelosigkeit montieren. Die Kleinen Kolonieschiffe flogen da schon, getragen von Habitatmodulen, die ab Werft 3 aus den Druckhüllen umgebauter Recycler entstanden; die Orbitalwerft machte daraus eine Serienfertigung, und mit Stufe 2 folgte das Große Kolonieschiff. Im Imperium trug dieselbe Stufe die schweren Rümpfe und nach der Kuppelkrise die Bauteile für Planetenschild II und III, und auf Stufe 3 entstanden die Kerne des Zerstörers, der als Linienbrecher Kreuzer und Schlachtschiffe jagt.
 
 ##### Volksakten
 
@@ -1909,7 +1909,7 @@ Kael Dornhag begann seinen Dornensommer hier, denn lange bevor die Phalanx den K
 
 **Stärke.** Ihre Stufe gibt die Fertigungsplätze für Bodentruppen vor, und die Stufen 1 bis 6 schalten nacheinander die zwölf Truppentypen frei, deren Angriff zusammen mit der Miliz die Garnison bildet.
 
-**Grenzen.** Ab Stufe IV baubar, schützt sie nur am Boden und hilft nichts gegen Bombardement aus dem Orbit.
+**Grenzen.** Ab Stufe III baubar, schützt sie nur am Boden und hilft nichts gegen Bombardement aus dem Orbit.
 
 > Raumschiffe können einen Planeten belagern, aber nur Truppen auf dem Boden können ihn halten oder nehmen. Die Kaserne ist laut, staubig und riecht nach Waffenöl, und aus ihr kommen die Garnison und die Zeughäuser, an denen im Ernstfall jeder Bewohner zur Miliz wird.
 
@@ -2105,7 +2105,7 @@ Mira Sennwurz hat ihre Theorie vom Wurzelwerk zwischen den Sternen im Archiv ihr
 
 **Stärke.** Jeder Anschluss erhält beim vollen Anteil 1.000.000 Energie je Stunde, nie Mangel und eine Strahlsynthese von 1.500.000 Deuterium und 3.000 Xenokristall je Stunde.
 
-**Grenzen.** Mindestens zehn Projektmitglieder einer Allianz, jedes mit eigenem Planeten im System, auf Stufe V, seit 14 Spieltagen in der Allianz und mit vollem Anteil von bis zu einer Milliarde Erz, Kristall und Deuterium, können sie in 30 Spieltagen bauen, wenn ihre Allianz alle zwölf Plätze des Systems hält; danach wirkt sie nur, solange die Allianz mindestens sechs Plätze hält.
+**Grenzen.** Mindestens zehn Projektmitglieder einer Allianz, jedes mit eigenem Planeten im System, auf Stufe V, seit 7 Spieltagen in der Allianz und mit vollem Anteil von bis zu einer Milliarde Erz, Kristall und Deuterium, können sie in 15 Spieltagen bauen, wenn ihre Allianz alle zwölf Plätze des Systems hält; danach wirkt sie nur, solange die Allianz mindestens sechs Plätze hält.
 
 > Wer am Rand eines Dyson-Systems landet, sieht keine Sonne mehr, sondern eine goldene Kugel, durch deren Fugen das Licht sickert. Kein Reich baut eine Sonne um – eine Allianz schon, und jedes ihrer Mitglieder trägt seinen Namen auf einem Paneel.
 
@@ -2118,7 +2118,7 @@ Mira Sennwurz hat ihre Theorie vom Wurzelwerk zwischen den Sternen im Archiv ihr
 
 Die Dysonsphäre ist keine starre Schale, die an der Gravitation zerbräche, sondern ein Schwarm: Milliarden sechseckiger Kollektorsatelliten mit goldbedampfter Kristallfolie laufen auf geneigten, synchronisierten Bahnen und fügen sich von außen betrachtet zu einer scheinbar geschlossenen Kugel. Jeder Kollektor wandelt das Licht mit derselben photovoltaischen Gitterfolie wie ein Solarkraftwerk, nur ohne Atmosphäre und Nacht dazwischen. Zwischen den Bahnen ziehen Spiegelsatelliten, die gebündeltes Licht auf die Kollektorfelder der Allianzwelten lenken; deshalb rechnen dort Solarkraftwerke und Solarsatelliten mit dem 1,6-Fachen ihres Sonnenfaktors.
 
-Bis zu vier Welten des Systems werden über eigene Spiegelketten direkt angeschlossen: Sie empfangen beim vollen Anteil 1.000.000 Energie je Stunde, ihre Verbraucher laufen nie im Mangel, und der Überschuss treibt eine Strahlsynthese, die 1.500.000 Deuterium und 3.000 Xenokristall je Stunde liefert, während Deuteriumsynthesizer und Xenoextraktor dreifach arbeiten. Gebaut wird in vier Abschnitten – Gerüst, Äquatorgürtel, Halbschale, Polkappen –, und erst wenn die letzte Kappe schließt, ist die Bahnrechnung stabil genug, um Licht zu verteilen. Die Bauzeit beträgt 30 Spieltage; fällt die Bedingung weg, dass die Allianz alle zwölf Plätze hält, stehen die Montagekräne still.
+Bis zu vier Welten des Systems werden über eigene Spiegelketten direkt angeschlossen: Sie empfangen beim vollen Anteil 1.000.000 Energie je Stunde, ihre Verbraucher laufen nie im Mangel, und der Überschuss treibt eine Strahlsynthese, die 1.500.000 Deuterium und 3.000 Xenokristall je Stunde liefert, während Deuteriumsynthesizer und Xenoextraktor dreifach arbeiten. Gebaut wird in vier Abschnitten – Gerüst, Äquatorgürtel, Halbschale, Polkappen –, und erst wenn die letzte Kappe schließt, ist die Bahnrechnung stabil genug, um Licht zu verteilen. Die Bauzeit beträgt 15 Spieltage; fällt die Bedingung weg, dass die Allianz alle zwölf Plätze hält, stehen die Montagekräne still.
 
 Bezahlt wird aus einer zweckgebundenen Projektkasse, in die jedes Mitglied genau einen Anteil zahlt, in Langzeitwelten je eine Milliarde Erz, Kristall und Deuterium. Ihre Schwäche ist nicht der Schwarm, den keine Flotte zerschießen kann, sondern die Ordnung darunter: Hält die Allianz weniger als sechs Plätze, verlieren die Spiegel ihre Empfänger, und die Sphäre verwaist.
 
@@ -2726,13 +2726,13 @@ Waffentechnik ist kein einzelnes Geschütz, sondern die Wissenschaft von der Ene
 
 Die erste Stufe ist ab der Industriezeit mit einem Labor der Stufe 2 zugänglich und kostet 800 Erz, 200 Kristall und 400 Forschungspunkte, und jede weitere Stufe verdoppelt den Aufwand. Der hohe Erzanteil steckt im Beschussstand, denn jede Messreihe endet damit, dass Probeplatten aus Legierung zerschossen werden, bis die Ballistiker die neue Durchschlagskurve kennen. Mehr Energie je Schuss ist auch der Weg über den Schwellreflex: Ein Treffer unter 1 % der vollen Schirmstärke des Ziels verpufft, und jede Stufe hebt leichte Waffen ein Stück näher an diese Grenze heran.
 
-Schützen kann Waffentechnik nichts, denn kein Rumpf wird durch sie zäher, und eine Flotte mit hartem Schlag und dünner Haut verliert ihre Schiffe trotzdem. Zugleich ist sie der Schlüssel fast aller Kriegsrümpfe nach dem Leichten Jäger, vom Abfangjäger auf Stufe 1 über den Sturmjäger auf Stufe 3, Raketenkreuzer und Flottenkreuzer auf Stufe 4, Bunkerbrecher und Sturmschlachtschiff auf Stufe 6 und das Belagerungsschlachtschiff auf Stufe 7 bis zu Hyperrakete und Weltenkrümmer auf Stufe 10.
+Schützen kann Waffentechnik nichts, denn kein Rumpf wird durch sie zäher, und eine Flotte mit hartem Schlag und dünner Haut verliert ihre Schiffe trotzdem. Zugleich ist sie der Schlüssel fast aller Kriegsrümpfe nach dem Leichten Jäger, vom Abfangjäger auf Stufe 1 über den Sturmjäger auf Stufe 3, Raketenkreuzer und Flottenkreuzer auf Stufe 4, Bunkerbrecher und Sturmschlachtschiff auf Stufe 6 und das Belagerungsschlachtschiff auf Stufe 7 bis zum Weltenkrümmer auf Stufe 8 und zur Hyperrakete auf Stufe 10.
 
 ##### Chronik
 
 Die ersten Stufen der Waffentechnik entstanden in der Industriezeit an den Lasergeschützen und Leichten Jägern der Glutjagd, als Krath-Schwärme und aurelianische Geleitzüge einander mit jedem Jahr ein wenig härter trafen. Erst Waffentechnik 1 erlaubte in der Orbitzeit den Abfangjäger, der eigens gebaut wurde, um andere Jäger zu jagen, und Stufe 3 öffnete im Sternenflug den Sturmjäger. In der Kuppelkrise wurde das Fach zur Grundlage der Belagerung, denn ohne Waffentechnik 6 gab es keinen Bunkerbrecher und ohne Stufe 7 kein Belagerungsschlachtschiff, das einfache Planetenschilde in wenigen Salven brach.
 
-Die höchsten Stufen gehören dem Imperium: Waffentechnik 10 ist die Schwelle zu Hyperrakete und Weltenkrümmer, und seit dem Fall von Kessa nennen manche Admiralitäten die zehnte Stufe nur noch die Mondstufe. Gewonnen hat das Wettrüsten trotzdem niemand, denn jede Stufe der einen Seite wurde mit Schildtechnik und Panzerung der anderen beantwortet.
+Die höchsten Stufen gehören dem Imperium: Waffentechnik 8 ist die Schwelle zum Weltenkrümmer und Waffentechnik 10 die zur Hyperrakete, und seit dem Fall von Kessa nennen manche Admiralitäten die achte Stufe nur noch die Mondstufe. Gewonnen hat das Wettrüsten trotzdem niemand, denn jede Stufe der einen Seite wurde mit Schildtechnik und Panzerung der anderen beantwortet.
 
 ##### Volksakten
 
@@ -3401,15 +3401,15 @@ Seitdem gehört die Kapsel zu jeder Bergung, auch wenn kein Veyari unter den Gef
 
 #### Kleines Kolonieschiff
 
-*Kolonieschiff-Klasse (leicht) · Unbewaffnete Siedlerarche mit zwei Habitatzylindern und zentralem Antriebskern.*
+*Kolonieschiff-Klasse (leicht) · Unbewaffnete Siedlerarche mit Habitatzylinder, Landemodulen und Impulsantrieb.*
 
 **Wozu.** Es gründet eine neue Kolonie und nimmt dafür 3.000 Siedler aus der Bevölkerung mit.
 
 **Stärke.** Es ist der einzige frühe Weg, das Reich zu vergrößern, und bringt neben den Siedlern auch Fracht für den Start mit.
 
-**Grenzen.** Es braucht Orbitalwerft, zwei Habitatmodule und einen Antriebskern und fliegt mit Tempo 2.500 so langsam, dass es Begleitschutz braucht.
+**Grenzen.** Es braucht Stufe III, Werft 3, Impulsantrieb 2, Astrophysik 1 und ein Habitatmodul und fliegt mit Tempo 2.500 so langsam, dass es Begleitschutz braucht.
 
-> Das Kleine Kolonieschiff ist die Arche, die eine Gründung zum Reich macht: zwei Habitatzylinder, ein Antriebskern aus der Orbitalwerft und 3.000 Siedler, die ihre Welt für einen Planeten verlassen, den sie nur aus Sondenberichten kennen. Es kriecht so langsam durch die Weite, dass jede Admiralität es mit Begleitschutz umgibt.
+> Das Kleine Kolonieschiff ist die Arche, die eine Gründung zum Reich macht: ein Habitatmodul, ein Impulsantrieb und 3.000 Siedler, die ihre Welt für einen Planeten verlassen, den sie nur aus Sondenberichten kennen. Es kriecht so langsam durch die Weite, dass jede Admiralität es mit Begleitschutz umgibt.
 
 - **Aurelianer:** Aurelianische Kolonisten der Klasse Spes reisen mit Startkapital und Siedlervertrag, und ihre neuen Welten haben einen Markt, bevor sie eine Kaserne haben. Am Abflugtag läuten auf der Heimatwelt die Kontorglocken, und jede Familie nimmt ein leeres Kontobuch für die erste Landnacht mit.
 - **Krath:** Bei den Krath trägt jedes Funkenschiff einen glühenden Span aus der Clanschmiede, mit dem auf neuem Boden der Erste Funke geschlagen wird. Die Arche fliegt inmitten einer Kriegerstaffel, die erst abdreht, wenn das Clanbanner steht.
@@ -3418,31 +3418,31 @@ Seitdem gehört die Kapsel zu jeder Bergung, auch wenn kein Veyari unter den Gef
 
 ##### Technisches Dossier
 
-Das Kleine Kolonieschiff ist ein 900 Meter langer Rumpf um einen zentralen Antriebskern, an dem zwei Habitatzylinder und die Landemodule hängen, die bei der Ankunft abgekoppelt werden und den Siedlern die ersten Nächte über Dach bieten. Antriebskern und Habitatmodule entstehen in der Orbitalwerft, weil ein versiegelter Fusionsblock dieser Größe und druckfeste Lebensräume für je 2.000 Menschen in der Schwerkraft eines Planeten nicht montiert werden können. Sein Impulsantrieb zündet Deuteriumkügelchen mit Kristall-Laserlinsen, und für die Masse einer ganzen Siedlung braucht er so viele Linsen, dass das Schiff 20.000 Kristall verschlingt, doppelt so viel wie Erz.
+Das Kleine Kolonieschiff ist ein 900 Meter langer Rumpf um einen Impulsantrieb, an dem ein Habitatzylinder und die Landemodule hängen, die bei der Ankunft abgekoppelt werden und den Siedlern die ersten Nächte über Dach bieten. Das Habitatmodul ist ein druckfester Lebensraum; ab Werft 3 entsteht es schon am Boden aus der Druckhülle eines Recyclers, später fertigt es die Orbitalwerft in Serie. Sein Impulsantrieb zündet Deuteriumkügelchen mit Kristall-Laserlinsen, die bereits im Schiffsrumpf der Werft verbaut sind; bezahlt werden nur noch 1.000 Legierung, 500 Elektronik und ein Habitatmodul.
 
 Trotzdem kommt die Arche nur auf Tempo 2.500 bei einem Verbrauch von 1.000, dem höchsten aller zivilen Schiffe nach dem Großen Kolonieschiff. An Bord reisen 3.000 Siedler aus der Bevölkerung der Heimatwelt, dazu 10.000 Fracht für den Start, und eine eigene Stammbesatzung gibt es nicht, weil die Siedler ihre Arche selbst fliegen. Die 30.000 Struktur und der Schirm von 100 sollen Trümmer und Strahlung abhalten, und die Abwehrtürme mit Angriff 50 schrecken Piraten, aber keine Kampfflotte.
 
-Die übrigen Kosten betragen 10.000 Erz, 10.000 Deuterium, 400 Legierung und 200 Elektronik, und gebaut wird ab Stufe IV in einer Werft der Stufe 4 mit Orbitalwerft 1. Jede neue Kolonie verlangt außerdem eine Stufe Astrophysik, denn ohne vermessene Bahnen findet keine Arche ihren Platz.
+Gebaut wird ab Stufe III in einer Werft der Stufe 3, sobald Impulsantrieb 2 und Astrophysik 1 erforscht sind; einen Antriebskern oder eine Orbitalwerft braucht die kleine Arche nicht. Jede neue Kolonie verlangt außerdem eine Stufe Astrophysik, denn ohne vermessene Bahnen findet keine Arche ihren Platz.
 
 ##### Chronik
 
-Das Kolonieschiff gehört zum Zeitalter des Sternenflugs, denn erst Orbitalwerft und ausgereifter Impulsantrieb machten möglich, was die Archen der Ersten Öffnung einmal geleistet hatten: eine ganze Gründung auf eine fremde Welt zu tragen. Mit ihm wird aus einer Welt ein Reich, und drei Kolonien sind die Bedingung für den Aufstieg zum Imperium. Seine Langsamkeit gab den ersten Kreuzern eine Begleitaufgabe abseits der Handelslinien, und bei Invasionen hält es zusammen mit den Truppentransportern den Orbit, um die Verwaltung einer eroberten Welt zu übernehmen. Das Große Kolonieschiff folgte, als Astrophysik, Logistik und eine zweite Stufe der Orbitalwerft eine Arche mit doppelter Siedlerzahl und mitgebrachten Minen erlaubten.
+Das Kolonieschiff gehört zum Zeitalter des Orbits, denn erst Werften der dritten Stufe, der Impulsantrieb und die vermessenen Bahnen der Astrophysik machten möglich, was die Archen der Ersten Öffnung einmal geleistet hatten: eine ganze Gründung auf eine fremde Welt zu tragen. Mit ihm wird aus einer Welt ein Reich, und drei Kolonien sind die Bedingung für den Aufstieg zum Imperium. Seine Langsamkeit gab den ersten Kreuzern eine Begleitaufgabe abseits der Handelslinien, und bei Invasionen hält es zusammen mit den Truppentransportern den Orbit, um die Verwaltung einer eroberten Welt zu übernehmen. Das Große Kolonieschiff folgte, als Astrophysik, Logistik und eine zweite Stufe der Orbitalwerft eine Arche mit doppelter Siedlerzahl und mitgebrachten Minen erlaubten.
 
 ##### Volksakten
 
-**Aurelianer-Akte.** Bei den Aurelianern heißt die Arche Klasse Spes, und keine Spes startet ohne einen Gründungsvertrag, den Haus Lazar aufsetzt und der Senat beglaubigt. Den Antriebskern liefert Haus Amaury, die Habitatzylinder verkleidet Haus Corvell in Normsektionen, und Haus Quirin versichert die ganze Kolonie vom ersten Tag an, auch wenn die Police anfangs mehr kostet, als die Welt einbringt. Jeder Siedler unterschreibt einen Vertrag mit Gewinnbeteiligung, und so hat eine aurelianische Kolonie einen Markt, bevor sie eine Kaserne hat.
+**Aurelianer-Akte.** Bei den Aurelianern heißt die Arche Klasse Spes, und keine Spes startet ohne einen Gründungsvertrag, den Haus Lazar aufsetzt und der Senat beglaubigt. Den Impulsantrieb liefert Haus Amaury, den Habitatzylinder verkleidet Haus Corvell in Normsektionen, und Haus Quirin versichert die ganze Kolonie vom ersten Tag an, auch wenn die Police anfangs mehr kostet, als die Welt einbringt. Jeder Siedler unterschreibt einen Vertrag mit Gewinnbeteiligung, und so hat eine aurelianische Kolonie einen Markt, bevor sie eine Kaserne hat.
 
 Weil der Laderaum dank Spantleichtbau ein Fünftel mehr fasst, packen die Häuser Musterkisten für den ersten Handel zwischen die Vorräte. Am Abflugtag läuten in Port Aurel die Kontorglocken, und jede Familie trägt ein leeres Kontobuch an Bord, dessen erste Seite sie in der Landnacht beschreibt.
 
 **Krath-Akte.** Die Krath nennen ihr Kolonieschiff Funkenschiff, denn es trägt in einer gepanzerten Esse einen glühenden Span aus der Clanschmiede, mit dem auf neuem Boden der Erste Funke geschlagen wird. Grothak hat mehr Funkenschiffe abfliegen sehen als jeder andere lebende Krath, und er verlangt bis heute, dass ihm jeder Clan meldet, ob der Span angekommen ist. Weil die Arche langsam ist und kaum Waffen trägt, fliegt sie inmitten einer Kriegerstaffel, die erst abdreht, wenn das Clanbanner steht.
 
-Die Schmiedekette stößt den Rumpf schneller aus als jede fremde Werft, doch auf Antriebskern und Habitatzylinder aus der Orbitalwerft warten die Clans geduldig, denn dort duldet ein Krath ausnahmsweise feine Technik. Für die Clans ist eine neue Kolonie kein Siedlerdorf, sondern ein Vorposten, auch wenn dort nie ein Feind stand.
+Die Schmiedekette stößt den Rumpf schneller aus als jede fremde Werft, doch beim Habitatmodul, dem druckfesten Lebensraum der Siedler, arbeiten die Clans geduldig, denn dort duldet ein Krath ausnahmsweise feine Technik. Für die Clans ist eine neue Kolonie kein Siedlerdorf, sondern ein Vorposten, auch wenn dort nie ein Feind stand.
 
 **Syntheten-Akte.** Das Kollektiv baut seine Arche als Revision Nullpunkt, weil eine neue Kolonie für die Syntheten der Ursprung eines neuen Koordinatensystems ist. Statt Vorratskammern und Wassertanks stapeln sie in den Habitatzylindern Kraftwerksmodule und Fertigungseinheiten, denn ihre Siedler essen nicht, brauchen aber vom ersten Tag an Strom. Jeder dieser Siedler ist eine Einheit mit geprägtem Saphirkern, und weil jede Kernprägung Zeit braucht, schickt das Kollektiv keine Nullpunkt fort, bevor eine Simulation jeden Handgriff der Landung durchgespielt hat.
 
 Die Einheit Ordo leitete die erste synthetische Kolonisierung und ließ das Startprotokoll der neuen Welt mit genau derselben Zeile beginnen wie das der Heimat. Erst wenn die erste Energieleitung steht, gilt die Kolonie als Rechenknoten des Reiches.
 
-**Veyari-Akte.** Die Veyari ziehen ihre Archen als Saatschiffe der Baureihe Eiche, und die Werftgärtner um Ilwen Tauhain lassen Rumpfschale und Habitatverkleidung aus derselben Zucht wachsen. Darum kostet eine Eiche ein Viertel weniger Erz, Kristall, Deuterium, Legierung und Elektronik als die Arche eines anderen Volkes, während Habitatmodule und Antriebskern aus der Orbitalwerft dieselben bleiben und die Schale um sie herum wächst. In den Habitatzylindern reisen Gärten, die auf der neuen Welt als erste Wurzeln schlagen, und weil Veyari-Farmen mehr tragen als die anderer Völker, ist die erste Ernte einer Eichenkolonie meist reicher als bei den Nachbarn.
+**Veyari-Akte.** Die Veyari ziehen ihre Archen als Saatschiffe der Baureihe Eiche, und die Werftgärtner um Ilwen Tauhain lassen Rumpfschale und Habitatverkleidung aus derselben Zucht wachsen. Darum kostet eine Eiche ein Viertel weniger Erz, Kristall, Deuterium, Legierung und Elektronik als die Arche eines anderen Volkes, während das Habitatmodul dasselbe bleibt und die Schale um es herum wächst. In den Habitatzylindern reisen Gärten, die auf der neuen Welt als erste Wurzeln schlagen, und weil Veyari-Farmen mehr tragen als die anderer Völker, ist die erste Ernte einer Eichenkolonie meist reicher als bei den Nachbarn.
 
 Beim Abflug pflanzt jede Familie daheim einen Baum, der für die Ausgewanderten weiterwachsen soll. In der Landnacht setzt jedes Kind der Arche seinen Ersten Samen und wartet.
 
@@ -3475,7 +3475,7 @@ Gebaut wird es ab Stufe IV in einer Werft der Stufe 6 mit Orbitalwerft 2, und vo
 
 ##### Chronik
 
-Das Große Kolonieschiff ist die jüngste Arche des Sternenflugs und entstand erst, als die zweite Stufe der Orbitalwerft, Logistik 3 und Impulsantrieb 4 zusammenkamen, lange nachdem das Kleine Kolonieschiff die ersten Kolonien gegründet hatte. Seine Erfinder wollten nicht schneller viele Welten besiedeln, sondern wichtige Welten schneller stark machen, und darum packten sie Erzmine und Kristallmine wieder in den Bauch, wie es die Archen der Ersten Öffnung getan hatten. Weil Astrophysik nur eine begrenzte Zahl von Kolonien erlaubt, beginnt mancher Weg ins Imperium mit weniger, aber reicheren Welten. Sein Frachtraum entspricht auf den Kubikmeter dem des Handelsfrachters, dessen Frachtmodule die Konstrukteure übernahmen.
+Das Große Kolonieschiff ist die jüngste Arche des Sternenflugs und entstand erst, als die zweite Stufe der Orbitalwerft, Logistik 3 und Impulsantrieb 4 zusammenkamen, lange nachdem das Kleine Kolonieschiff schon im Zeitalter des Orbits die ersten Kolonien gegründet hatte. Seine Erfinder wollten nicht schneller viele Welten besiedeln, sondern wichtige Welten schneller stark machen, und darum packten sie Erzmine und Kristallmine wieder in den Bauch, wie es die Archen der Ersten Öffnung getan hatten. Weil Astrophysik nur eine begrenzte Zahl von Kolonien erlaubt, beginnt mancher Weg ins Imperium mit weniger, aber reicheren Welten. Sein Frachtraum entspricht auf den Kubikmeter dem des Handelsfrachters, dessen Frachtmodule die Konstrukteure übernahmen.
 
 ##### Volksakten
 
@@ -4648,7 +4648,7 @@ Ist die Not vorüber, singen die Besatzungen die letzte Strophe, und die Zypress
 
 **Wozu.** Er jagt Schlachtschiffe und Kreuzer und bringt Linienfeuerkraft schneller und sparsamer über weite Strecken als jedes Schlachtschiff.
 
-**Stärke.** Mit 70.000 Struktur, 400 Schild und 1.200 Angriff bei Tempo 12.500 und nur 250 Verbrauch hat er Schnellfeuer 7 gegen Schlachtschiffe, 4 gegen Kreuzer und Schwere Jäger, 3 gegen Kleine und Große Transporter sowie 5 gegen Spionagesonden und Solarsonden.
+**Stärke.** Mit 70.000 Struktur, 400 Schild und 1.200 Angriff bei Tempo 12.500 und nur 250 Verbrauch hat er Schnellfeuer 7 gegen Schlachtschiffe, 4 gegen Kreuzer und Schwere Jäger, 3 gegen Kleine und Große Transporter sowie 5 gegen Spionagesonden und Solarsatelliten.
 
 **Grenzen.** Ab Stufe V mit Werft 7, Orbitalwerft 2, Hyperraumantrieb 3, Waffentechnik 5 und Panzerung 4 baubar, verliert er gegen Zerstörer mit Schnellfeuer 2, gegen Sturmschlachtschiffe und Schwere Jäger und wird von Weltenkrümmern mit Schnellfeuer 15 zerlegt.
 
@@ -4661,7 +4661,7 @@ Ist die Not vorüber, singen die Besatzungen die letzte Strophe, und die Zypress
 
 ##### Technisches Dossier
 
-Der Schlachtkreuzer ist ein 640 Meter langer, nadelschlanker Rumpf mit spitzem, gepanzertem Bug, einer durchgehenden Reihe kleiner Zwillingstürme über Rücken und Flanken, einer kompakten Brücke weit achtern und zwei großen Hyperraumgondeln. Die Gondeln tragen den Xenokristall-Resonator getrennt vom Rumpf, sodass das Kopplungsfeld den schlanken Körper gleichmäßig an die Kurzschicht legt, und darin liegt der Grund für Tempo 12.500 bei einem Verbrauch von nur 250, halb so viel, wie ein Schlachtschiff verbrennt. Mit 1.200 Angriff ist jeder einzelne Treffer leicht, doch die Feuerleitung ist auf die Silhouetten großer Rümpfe eingemessen, und die Nachführsalve schwenkt gegen Schlachtschiffe im Mittel siebenmal weiter, gegen Kreuzer und Schwere Jäger viermal, gegen Kleine und Große Transporter dreimal und gegen Spionagesonden und Solarsonden fünfmal.
+Der Schlachtkreuzer ist ein 640 Meter langer, nadelschlanker Rumpf mit spitzem, gepanzertem Bug, einer durchgehenden Reihe kleiner Zwillingstürme über Rücken und Flanken, einer kompakten Brücke weit achtern und zwei großen Hyperraumgondeln. Die Gondeln tragen den Xenokristall-Resonator getrennt vom Rumpf, sodass das Kopplungsfeld den schlanken Körper gleichmäßig an die Kurzschicht legt, und darin liegt der Grund für Tempo 12.500 bei einem Verbrauch von nur 250, halb so viel, wie ein Schlachtschiff verbrennt. Mit 1.200 Angriff ist jeder einzelne Treffer leicht, doch die Feuerleitung ist auf die Silhouetten großer Rümpfe eingemessen, und die Nachführsalve schwenkt gegen Schlachtschiffe im Mittel siebenmal weiter, gegen Kreuzer und Schwere Jäger viermal, gegen Kleine und Große Transporter dreimal und gegen Spionagesonden und Solarsatelliten fünfmal.
 
 Die vielen kleinen Türme arbeiten dort, wohin ein Schlachtschiff seine schweren Türme nicht schnell genug drehen kann, und darum zerlegt ein Schlachtkreuzer gerade die Schiffe, deren Einzeltreffer viel schwerer sind als seine. Struktur 70.000 und ein Schirm von 400 halten den langen Kiel zusammen, gegen Linienbrecher ist er aber zu leicht. Gegen Zerstörer, deren Nachführsalve auf ihn zweimal weiterschwenkt, verliert er ebenso wie gegen Sturmschlachtschiffe und Schwere Jäger im Schwarm, und die Weltenkrümmer zerlegen ihn mit einer Nachführsalve von 15.
 
@@ -6058,7 +6058,7 @@ Darum rechnen Syntheten ihre Garnisonen nicht auf den Sieg, sondern auf das Übe
 
 **Stärke.** Jede Stufe bringt 3 Felder bis zur Obergrenze des Mondes, Grundenergie 22 auf Stufe 1 (20 × Stufe × 1,1^Stufe), Lager mit halber Planetenkapazität und 2.000 Einheiten Versorgungsfähre je Stunde vom Planeten.
 
-**Grenzen.** Ab Stufe IV für 10.000 Erz, 20.000 Kristall und 10.000 Deuterium (Faktor 1,45) baubar, fördert sie selbst nichts, und jede Gebäudestufe des Mondes kostet 20 Credits Unterhalt am Tag zusätzlich zu 150 Grundunterhalt.
+**Grenzen.** Ab Stufe IV für 10.000 Erz, 20.000 Kristall und 10.000 Deuterium (Faktor 1,45) baubar, fördert sie selbst nichts, und jede Gebäudestufe des Mondes kostet 20 Credits Unterhalt am Tag zusätzlich zu 150 Grundunterhalt. Sie lässt sich auch auf einem vollen Mond ausbauen, eine Stufe zur Zeit, und schafft so neue Felder.
 
 > Ein junger Mond ist nichts als zusammengesackter Schlachtschrott, und die Mondbasis ist der erste Versuch, auf diesem Grabhügel Fuß zu fassen. Ihre Kuppeln sind niedrig, ihre Gänge eng und fast immer menschenleer, doch von hier aus wächst das zweite Standbein eines Reiches.
 
@@ -6215,7 +6215,7 @@ Die Ältesten erzählen Kessmar nicht als Verrat, sondern als vergessene Gärtne
 
 **Stärke.** Sie arbeitet ohne Arbeiter und unabhängig von Stabilität und Reichtum mit 15 Erz und 10 Kristall Grundertrag je Stunde, der mit jeder Stufe wächst, auf grauen Kratermonden 20 Prozent mehr von beidem und auf blauen Mineralmonden 40 Prozent mehr Kristall.
 
-**Grenzen.** Ab Stufe IV mit Mondbasis 1 für 4.000 Erz, 2.000 Kristall und 100 Legierung baubar, braucht sie 15 Energie aus Mondbasis und Solarsonden und fördert bei Energiemangel oder Unterhaltsverzug entsprechend weniger.
+**Grenzen.** Ab Stufe IV mit Mondbasis 1 für 4.000 Erz, 2.000 Kristall und 100 Legierung baubar, braucht sie 15 Energie aus Mondbasis und Solarsatelliten und fördert bei Energiemangel oder Unterhaltsverzug entsprechend weniger.
 
 > Mondregolith ist feiner als Mehl, scharfkantig wie Glas und klebt elektrisch an allem, darum verstopfen Förderanlagen öfter als jede Mine. Trotzdem ist er das Einzige, was ein Mond aus eigener Kraft hergibt, denn sein Staub ist zermahlener Schlachtschrott voller Erz und Kristall.
 
@@ -6311,15 +6311,15 @@ Das Viertel, das kein Plünderer erreicht, nennen die Veyari den Wurzelstock, we
 
 #### Werftdock
 
-*Mondgebäude (Mondwerft) · Werft auf dem Mond für Schiffe, Verteidigung, Solarsonden und das Megaschiff Weltenkrümmer.*
+*Mondgebäude (Mondwerft) · Werft auf dem Mond für Schiffe, Verteidigung, Solarsatelliten und das Megaschiff Weltenkrümmer.*
 
 **Wozu.** Es baut Schiffe und Verteidigung direkt auf dem Mond und repariert nach Kämpfen am Mond einen Teil der verlorenen eigenen Schiffe.
 
-**Stärke.** Als Reparaturdock stellt es 3 Prozent je Stufe, höchstens 30 Prozent, der verlorenen eigenen Schiffe für ein Zehntel ihrer Legierung und Elektronik und ein Zehntel ihrer Bauzeit wieder her (Erz, Kristall und Deuterium kostet die Reparatur nicht), und ab Stufe 10 baut es Weltenkrümmer.
+**Stärke.** Als Reparaturdock stellt es 3 Prozent je Stufe, höchstens 30 Prozent, der verlorenen eigenen Schiffe für ein Zehntel ihrer Legierung und Elektronik und ein Zehntel ihrer Bauzeit wieder her (Erz, Kristall und Deuterium kostet die Reparatur nicht), und ab Stufe 8 baut es Weltenkrümmer.
 
-**Grenzen.** Ab Stufe IV mit Mondbasis 2 für 20.000 Erz, 10.000 Kristall, 1.000 Legierung und 300 Elektronik baubar, braucht es 30 Energie, baut 25 Prozent langsamer als eine Planetenwerft, verlangt für jede Einheit eine Dockstufe in Höhe ihrer Werftstufe, für Verteidigung mindestens Stufe 1 (der Mond hat keine andere Fertigung, anders als ein Planet, der Verteidigung ohne Werft baut) und repariert keine Weltenkrümmer.
+**Grenzen.** Ab Stufe IV mit Mondbasis 2 für 20.000 Erz, 10.000 Kristall, 1.000 Legierung und 300 Elektronik baubar, braucht es 30 Energie, baut so schnell wie eine Planetenwerft, verlangt für jede Einheit eine Dockstufe in Höhe ihrer Werftstufe, für Verteidigung mindestens Stufe 1 (der Mond hat keine andere Fertigung, anders als ein Planet, der Verteidigung ohne Werft baut) und repariert keine Weltenkrümmer.
 
-> In der geringen Schwerkraft eines Mondes lassen sich Rümpfe bauen, die auf einem Planeten unter ihrem eigenen Gewicht zusammenbrächen. Das Werftdock macht aus einem Felsbrocken eine Flottenbasis, und auf seiner zehnten Stufe legt es den Kiel des größten Werks, das die Völker der Weite kennen.
+> In der geringen Schwerkraft eines Mondes lassen sich Rümpfe bauen, die auf einem Planeten unter ihrem eigenen Gewicht zusammenbrächen. Das Werftdock macht aus einem Felsbrocken eine Flottenbasis, und auf seiner achten Stufe legt es den Kiel des größten Werks, das die Völker der Weite kennen.
 
 - **Aurelianer:** Aurelianische Werftdocks der Serie Reparatio rechnen so knapp, dass selbst die Reparatur eines halben Geschwaders noch als Gewinn verbucht wird. Ein verlorenes Schiff für ein Zehntel seiner Legierung und Elektronik wieder flottzumachen, gilt in den Kontoren als das beste Geschäft, das ein Krieg zu bieten hat.
 - **Krath:** Die Krath nennen ihr Werftdock Leichtamboss und haben eigene Schmiedemeister abgestellt, damit seine Schmiedekette fast so schnell schlägt wie die einer Planetenwerft. Ein Dockmeister träumt vom Stapellauf eines Weltenkrümmers, denn der Clan, dem er gelingt, wird für immer in den Kriegsliedern genannt.
@@ -6328,7 +6328,7 @@ Das Viertel, das kein Plünderer erreicht, nennen die Veyari den Wurzelstock, we
 
 ##### Technisches Dossier
 
-Das Werftdock ist eine Mondwerft aus Hellingen, Portalkränen und Montagegerüsten, die meist in einen Kraterboden gesetzt wird, dessen Ringwall Schutz und Kranbahn zugleich bietet. Sein Vorteil ist die geringe Schwerkraft, denn ein langer Rumpf, der auf einer Planetenhelling unter seinem Eigengewicht durchhängen und reißen würde, liegt hier fast schwebend in seinen Stützen, und schwere Sektionen lassen sich mit kleinen Kränen bewegen. Sein Nachteil ist der Ort, denn ohne Arbeiter, ohne Nanofabrik und mit Bauteilen, die von der Orbitalwerft des Planeten geliefert werden müssen, baut das Dock 25 Prozent langsamer als eine Planetenwerft.
+Das Werftdock ist eine Mondwerft aus Hellingen, Portalkränen und Montagegerüsten, die meist in einen Kraterboden gesetzt wird, dessen Ringwall Schutz und Kranbahn zugleich bietet. Sein Vorteil ist die geringe Schwerkraft, denn ein langer Rumpf, der auf einer Planetenhelling unter seinem Eigengewicht durchhängen und reißen würde, liegt hier fast schwebend in seinen Stützen, und schwere Sektionen lassen sich mit kleinen Kränen bewegen. Sein Nachteil ist der Ort, denn ohne Arbeiter, ohne Nanofabrik und mit Bauteilen, die von der Orbitalwerft des Planeten geliefert werden müssen, verlangt das Dock für jede Einheit eigene Docks und Nachschub über Transporte; seine Bauzeit ist dafür so kurz wie die einer Planetenwerft.
 
 Für jede Einheit verlangt es eine Dockstufe in Höhe der Werftstufe, die sie auch am Boden bräuchte, sodass ein Zerstörer erst auf Dockstufe 8 und ein Weltenkrümmer erst auf Stufe 10 vom Stapel läuft. Es fertigt Schiffe, Verteidigungsanlagen und Solarsatelliten direkt auf dem Mond, wo keine fremde Phalanx die neuen Rümpfe abfliegen sieht. Als Reparaturdock fängt es nach Kämpfen am Mond einen Teil der verlorenen eigenen Schiffe auf: 3 Prozent je Stufe, höchstens 30 Prozent, werden aus geborgenen Wrackteilen für ein Zehntel ihrer Legierung und Elektronik und ein Zehntel ihrer Bauzeit wieder flottgemacht, Weltenkrümmer jedoch nie, weil keine Helling einen zerschossenen Kleinmond aufnehmen kann.
 
@@ -6421,7 +6421,7 @@ Die Kreise schützen mit dem Schleier weniger ihre Schiffe als ihre Ruhe, denn w
 
 **Wozu.** Er liefert Strom ohne Bauplatz: ab Zivilisationsstufe II über jedem eigenen Planeten mit Werft und vor allem für Monde, auf denen er neben der Mondbasis die einzige Energiequelle ist.
 
-**Stärke.** Jeder Satellit erzeugt 30 Energie mal Sonnenfaktor seiner Bahn, von 51 auf der innersten bis 6 auf der äußersten Bahn (100 Prozent auf Platz 6, 20 Prozent auf dem letzten Platz), plus 5 Prozent je Stufe Energietechnik und Volksbonus, kostet nur 2.000 Kristall und 500 Deuterium und braucht weder Besatzung, Feld noch Unterhalt.
+**Stärke.** Jeder Satellit erzeugt 33 Energie mal Sonnenfaktor seiner Bahn, von 39,6 auf der innersten bis 26,4 auf der äußersten Bahn (100 Prozent auf Platz 6, 120 Prozent auf Platz 1, 80 Prozent auf dem letzten Platz), plus 5 Prozent je Stufe Energietechnik und Volksbonus, kostet nur 2.000 Kristall und 500 Deuterium und braucht weder Besatzung, Feld noch Unterhalt.
 
 **Grenzen.** Als wehrlose Anlage mit 2.000 Struktur und 1 Schild fliegt er nie, reist durch kein Hyperraumloch, kämpft bei jeder Verteidigung mit, wird danach nicht wiederaufgebaut und hinterlässt 600 Kristall Trümmer, während Schlachtkreuzer Schnellfeuer 5 und Weltenkrümmer Schnellfeuer 64 gegen ihn haben.
 
@@ -6434,7 +6434,7 @@ Die Kreise schützen mit dem Schleier weniger ihre Schiffe als ihre Ruhe, denn w
 
 ##### Technisches Dossier
 
-Der Solarsatellit ist ein unbemanntes Kollektorsegel von 180 Metern Spannweite: Vier ausgeklappte Flügel aus photovoltaischer Gitterfolie aus Kristall wandeln Sonnenlicht in Strom, und eine Relaisschüssel bündelt ihn zu einem Mikrowellenstrahl, den eine Empfangsantenne am Boden wieder in Strom zurückverwandelt. Jeder Satellit liefert 30 Energie mal Sonnenfaktor seiner Bahn, auf Bahn 6 also genau 30, auf der innersten Bahn 51 und auf der äußersten nur 6, weil das Licht dort auf ein Fünftel geschwächt ankommt, und jede Stufe Energietechnik legt 5 Prozent darauf. Über einem Mond entscheidet zusätzlich der Boden unter der Empfangsantenne: Dunkle Basaltmare stauen Wärme in ihr und kosten 10 Prozent, die Magnetitkruste der Karminmonde streut den Strahl ebenso um 10 Prozent, und auf Rostmonden legt sich elektrisch geladener Staub auf Antenne und Segel und nimmt 20 Prozent, während eine Dysonsphäre der eigenen Allianz den Sonnenfaktor um das 1,6-Fache hebt.
+Der Solarsatellit ist ein unbemanntes Kollektorsegel von 180 Metern Spannweite: Vier ausgeklappte Flügel aus photovoltaischer Gitterfolie aus Kristall wandeln Sonnenlicht in Strom, und eine Relaisschüssel bündelt ihn zu einem Mikrowellenstrahl, den eine Empfangsantenne am Boden wieder in Strom zurückverwandelt. Jeder Satellit liefert 33 Energie mal Sonnenfaktor seiner Bahn, auf Bahn 6 also genau 33, auf der innersten Bahn 39,6 und auf der äußersten noch 26,4, weil das Licht dort auf vier Fünftel geschwächt ankommt, und jede Stufe Energietechnik legt 5 Prozent darauf. Über einem Mond entscheidet zusätzlich der Boden unter der Empfangsantenne: Dunkle Basaltmare stauen Wärme in ihr und kosten 10 Prozent, die Magnetitkruste der Karminmonde streut den Strahl ebenso um 10 Prozent, und auf Rostmonden legt sich elektrisch geladener Staub auf Antenne und Segel und nimmt 20 Prozent, während eine Dysonsphäre der eigenen Allianz den Sonnenfaktor um das 1,6-Fache hebt.
 
 Er braucht weder Besatzung noch Bauplatz noch Unterhalt und kostet nur 2.000 Kristall für die Folie und 500 Deuterium für den einen Aufstieg in den Orbit, den er in seinem Leben macht. Gebaut wird er ab Stufe II mit einer Werft der Stufe 1, über jedem eigenen Planeten und vor allem über Monden, auf denen er neben der Mondbasis die einzige Energiequelle ist. Seine Schwäche ist, dass er nichts anderes kann: Mit 2.000 Struktur und einem Schirm von 1 kennt er nicht einmal den Schwellreflex, jeder Splitter trifft, und er hat keinen Angriff, kein Triebwerk und reist durch kein Hyperraumloch.
 
@@ -6468,7 +6468,7 @@ Haus Quirin versichert Satelliten nicht, weil keine Bodenmannschaft sie nach ein
 
 **Wozu.** Es zerschlägt Großkampfverbände und zerstört nach einem vollständigen Sieg mit der Mission Mond zerstören feindliche Monde samt Hyperraumtor-Generator, Phalanx und Werftdock.
 
-**Stärke.** Mit 9.000.000 Struktur, 50.000 Schild und 200.000 Angriff auf vier Ziele je Runde hat es Schnellfeuer 64 gegen Sonden, Transporter, Recycler und Solarsonden, 50 gegen Leichte Jäger, Raketenwerfer und Lasergeschütze, 33 gegen Kreuzer, 30 gegen Schlachtschiffe, 25 gegen Bomber und Ionengeschütze, 15 gegen Schlachtkreuzer und Abfang-Schlachtkreuzer, 12 gegen Gaußkanonen, 8 gegen Schwere Schlachtkreuzer und 5 gegen Zerstörer; sein Frachtraum fasst 1.000.000, doch mit Verbrauch 2.500 trägt er je Deuterium nicht mehr als ein Großer Transporter.
+**Stärke.** Mit 9.000.000 Struktur, 50.000 Schild und 200.000 Angriff auf vier Ziele je Runde hat es Schnellfeuer 64 gegen Sonden, Transporter, Recycler und Solarsatelliten, 50 gegen Leichte Jäger, Raketenwerfer und Lasergeschütze, 33 gegen Kreuzer, 30 gegen Schlachtschiffe, 25 gegen Bomber und Ionengeschütze, 15 gegen Schlachtkreuzer und Abfang-Schlachtkreuzer, 12 gegen Gaußkanonen, 8 gegen Schwere Schlachtkreuzer und 5 gegen Zerstörer; sein Frachtraum fasst 1.000.000, doch mit Verbrauch 2.500 trägt er je Deuterium nicht mehr als ein Großer Transporter.
 
 **Grenzen.** Es entsteht nur im Werftdock Stufe 8 eines Mondes (Stufe V, Hyperraumantrieb 5, Waffentechnik 8) für 5 Millionen Erz, 4 Millionen Kristall, 1 Million Deuterium, 20.000 Xenokristall und 20 Antriebskerne, fliegt mit Tempo 100, passt durch kein Hyperraumloch, wird nie repariert und geht beim Zerstörungsversuch mit √d/2 Prozent ganz verloren, während der Mond mit (100 − √d)·√n Prozent bricht.
 
@@ -6491,7 +6491,7 @@ Er entsteht nur im Werftdock der Stufe 8 eines Mondes ab Stufe V mit Hyperrauman
 
 ##### Chronik
 
-Der Weltenkrümmer ist das letzte Werk des Imperiums und setzt fast alles voraus, was die Chronik vor ihm hervorbrachte: Hyperraumantrieb 6 für die Kopplung an die Kurzschicht, Waffentechnik 10 für die Lanze, Antriebskerne aus der Orbitalwerft und ein Werftdock der zehnten Stufe auf einem Mond, der selbst aus einer Schlacht entstand. Den ersten Kiel legte ein Reich, dessen Namen die Völker verschieden überliefern, und sicher ist nur, dass dieser erste Weltenkrümmer den Mond Kessa brach und die Trümmerwolke tagelang auf den Planeten darunter regnete. Seit dem Fall von Kessa heißt jede Kiellegung in den Admiralitäten die Mondfrage, und mit ihr stellt sich die Frage der ganzen Sternenepoche, ob die Völker, die mit der Scherlanze wiederholen, was die Vorgänger beim Ersten Bruch taten, klüger sind als die Gebrochenen.
+Der Weltenkrümmer ist das letzte Werk des Imperiums und setzt fast alles voraus, was die Chronik vor ihm hervorbrachte: Hyperraumantrieb 5 für die Kopplung an die Kurzschicht, Waffentechnik 8 für die Lanze, Antriebskerne aus der Orbitalwerft und ein Werftdock der achten Stufe auf einem Mond, der selbst aus einer Schlacht entstand. Den ersten Kiel legte ein Reich, dessen Namen die Völker verschieden überliefern, und sicher ist nur, dass dieser erste Weltenkrümmer den Mond Kessa brach und die Trümmerwolke tagelang auf den Planeten darunter regnete. Seit dem Fall von Kessa heißt jede Kiellegung in den Admiralitäten die Mondfrage, und mit ihr stellt sich die Frage der ganzen Sternenepoche, ob die Völker, die mit der Scherlanze wiederholen, was die Vorgänger beim Ersten Bruch taten, klüger sind als die Gebrochenen.
 
 Als Schutz blieben nur große Monde, deren Masse der Lanze widersteht, und Zerstörer, gegen die seine Feuerleitung am schlechtesten nachführt, während ihm der Hyperraumtor-Generator nichts nützt, weil er durch kein Loch passt und jeden Weg im Kriechgang gehen muss. Wird er selbst über einer Welt ohne Mond zerstört, bleiben so viele Trümmer, dass dort ein neuer Mond entstehen kann, und manche Admirale sagen, jeder Weltenkrümmer trage seinen Grabstein schon in sich.
 

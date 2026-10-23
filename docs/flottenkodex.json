@@ -1227,8 +1227,8 @@
       "klasse": "megaschiff",
       "label": "Weltenkrümmer",
       "voraussetzungen": {
-        "hyperraumantrieb": 6,
-        "waffentechnik": 10
+        "hyperraumantrieb": 5,
+        "waffentechnik": 8
       },
       "motiv": "a moon-sized battle station built from fused asteroid fragments with a colossal focusing dish",
       "neu": true,

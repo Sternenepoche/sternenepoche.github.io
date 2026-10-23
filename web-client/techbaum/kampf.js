@@ -183,7 +183,7 @@ function profil(A, vA) {
 function bodenProfil(A) {
   const reihe = Object.entries(A.konter || {}).map(([id, p]) => ({id, p})).sort((a, b) => b.p - a.p);
   const stufeP = p => p >= 2000 ? 'sg' : p > 1000 ? 'g' : p === 1000 ? 'n' : p >= 500 ? 's' : 'ss';
-  return `<div class="kp-zahlen"><div><b>${A.werte.angriff}</b><span>Schaden je Schuss</span></div><div><b>${A.werte.struktur}</b><span>Struktur</span></div>
+  return `<div class="kp-zahlen"><div><b>${fmt(A.werte.angriff, 2)}</b><span>Schaden je Schuss</span></div><div><b>${fmt(A.werte.struktur, 2)}</b><span>Struktur</span></div>
     <div><b>${A.werte.transportplaetze ?? '–'}</b><span>Transportplätze</span></div><div><b>${A.werte.angriff && A.werte.transportplaetze ? fmt(A.werte.angriff / A.werte.transportplaetze, 1) : '–'}</b><span>Schaden je Platz</span></div></div>
     <h4 class="kp-h">Schadensfaktor dieser Einheit gegen jeden Bodentyp</h4>
     <div class="kmatrix">${reihe.map(x => `<button type="button" class="km vt-${stufeP(x.p)}" data-geh="${esc(x.id)}">${K[x.id] ? avatar(K[x.id]) : ''}<span>${esc(name(x.id))}</span><b>×${fmt(x.p / 1000, 2)}</b></button>`).join('')}</div>

@@ -5,6 +5,8 @@
 window.TechbaumStart = (OPT = {}) => {
 const D = window.TECHBAUM, K = D.knoten, BASIS = OPT.basis ?? '../../web-client/', EINGEBETTET = !!OPT.eingebettet;
 const W = OPT.wurzel || document;
+// Zivilisationsstufen wie im Spiel (römisch).
+const ROEM = {1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V'};
 { const box = document.createElement('div'); box.innerHTML = GERUEST; (W === document ? document.body : W).append(...box.childNodes); }
 const $ = id => W.getElementById(id);
 // Eigenes Techbaum-Logo (Vierstern + Leiterbahn-Baum, docs/website/logo/techbaum-logo.json), als data:-URL eingebettet:
@@ -157,7 +159,7 @@ function baueKnoten() {
     const host = n.voraus.find(v => WIRT.has(v.id));
     const tor = host ? ({labor:'L', werft:'W', kaserne:'K', raketensilo:'S', werftdock:'D'}[host.id] + host.n) : '';
     el.innerHTML = `<span class="kachel"><img alt="" loading="lazy" decoding="async"></span>${tor ? `<span class="tor" title="${esc(name(host.id))} ${host.n}">${tor}</span>` : ''}<span class="vb" hidden></span><span class="schloss" aria-hidden="true">🔒</span><span class="lvl" aria-hidden="true"></span><span class="name">${esc(n.name)}</span><span class="info"></span>`;
-    el.setAttribute('aria-label', `${n.name}, ${TYP[n.typ]}, ab Zivilisationsstufe ${n.stufe}`);
+    el.setAttribute('aria-label', `${n.name}, ${TYP[n.typ]}, ab Zivilisationsstufe ${ROEM[n.stufe] || n.stufe}`);
     ebene.append(el); knotenEl[n.id] = el;
   }
 }
@@ -558,7 +560,7 @@ const summe = (a, b) => { for (const [g, v] of Object.entries(b || {})) a[g] = (
 function bisStufe(n, bis, von = 1) { const s = {}; let fp = 0; for (let l = von; l <= bis; l++) { summe(s, kostenStufe(n, l)); if (n.fp) fp += n.fp * Math.pow(n.faktor, l - 1); } return {kosten: s, fp}; }
 
 /* ---------- Dossier-Bausteine ---------- */
-const wertNamen = {angriff:'Angriff', schild:'Schild', struktur:'Struktur', tempo:'Tempo', ladung:'Fracht', verbrauch:'Treibstoff', besatzung:'Besatzung', schaden:'Schaden',
+const wertNamen = {angriff:'Angriff', schild:'Schild', struktur:'Struktur', waffenwert:'Waffenwert/Bewohner', ruestwert:'Rüstwert/Bewohner', tempo:'Tempo', ladung:'Fracht', verbrauch:'Treibstoff', besatzung:'Besatzung', schaden:'Schaden',
   transportplaetze:'Transportplätze', fertigungsplaetze:'Fertigungsplätze', personal:'Personal', dauer_sekunden:'Ausbildung', bauzeit_sekunden:'Bauzeit', plaetze:'Siloplätze',
   reichweite_je_silo:'Reichweite/Silo', abfangbedarf:'Abfangraketen nötig', arbeiter:'Arbeiter', fachkraefte:'Fachkräfte', energie:'Energie', ertrag:'Ertrag', max_stufe:'Höchststufe',
   mitglieder_min:'Mitglieder', bau_tage:'Bauzeit (Tage)', anschluesse:'Anschlüsse', sonnenfaktor:'Solarfaktor', strombad:'Strombad'};
@@ -583,7 +585,8 @@ function werteBlock(n) {
   const r = D.voelker[zustand.volk].regel, w = n.werte || {}, gruppe = EINHEIT.has(n.typ) ? 'einheit' : n.typ;
   const zeilen = Object.entries(w).filter(([, v]) => v != null && v !== 0 && typeof v === 'number').map(([k, v]) => {
     const feld = volkFeldFuerWert[k], f = feld && (EINHEIT.has(n.typ) || n.typ === 'rakete') ? r[feld] : 1;
-    const wert = Math.floor(v * f + 1e-9), max = MAXIMA[gruppe + ':' + k] || v;
+    // Kleine Bruchwerte (Miliz: Angriff 0,3 je Bewohner) nicht auf 0 abrunden.
+    const wert = Number.isInteger(v) || v >= 10 ? Math.floor(v * f + 1e-9) : Math.round(v * f * 100) / 100, max = MAXIMA[gruppe + ':' + k] || v;
     const breite = x => Math.max(3, Math.log1p(x) / Math.log1p(max * (f > 1 ? f : 1)) * 100);
     const anzeige = /sekunden/.test(k) ? zeit(v) : k === 'sonnenfaktor' || k === 'strombad' ? mal(v) : kurz(wert);
     return `<div class="wert"><span>${wertNamen[k] || k}</span><span class="balken">${f !== 1 ? `<i class="basis" data-st="width:${breite(v)}%"></i>` : ''}<i data-st="width:${breite(wert)}%"></i></span><b>${anzeige}${f !== 1 ? `<em class="${f > 1 ? 'plus' : 'minus'}">${prozent(f)}</em>` : ''}</b></div>`; });
@@ -925,7 +928,7 @@ const norm = s => String(s || '').toLocaleLowerCase('de').normalize('NFD').repla
 suche.addEventListener('input', () => {
   const q = norm(suche.value.trim()); if (!q) { treffer.hidden = true; return; }
   const liste = Object.values(K).map(n => ({n, p: norm(n.name).startsWith(q) ? 0 : norm(n.name).includes(q) ? 1 : norm((n.klasse || '') + ' ' + (n.rolle || '') + ' ' + TYP[n.typ]).includes(q) ? 2 : 9})).filter(x => x.p < 9).sort((a, b) => a.p - b.p).slice(0, 14);
-  treffer.innerHTML = liste.length ? liste.map(({n}) => `<li><button type="button" data-geh="${n.id}"><img alt="" src="${esc(bild(n.id))}" loading="lazy"><span>${esc(n.name)}<small>${esc(BEREICH[n.bereich].titel)} · ${esc(TYP[n.typ])} · Stufe ${n.stufe}</small></span></button></li>`).join('') : '<li data-st="padding:8px;color:var(--leise)">Nichts gefunden</li>';
+  treffer.innerHTML = liste.length ? liste.map(({n}) => `<li><button type="button" data-geh="${n.id}"><img alt="" src="${esc(bild(n.id))}" loading="lazy"><span>${esc(n.name)}<small>${esc(BEREICH[n.bereich].titel)} · ${esc(TYP[n.typ])} · Stufe ${ROEM[n.stufe] || n.stufe}</small></span></button></li>`).join('') : '<li data-st="padding:8px;color:var(--leise)">Nichts gefunden</li>';
   treffer.hidden = false;
 });
 suche.addEventListener('keydown', e => { if (e.key === 'Enter') treffer.querySelector('[data-geh]')?.click(); if (e.key === 'Escape') { suche.value = ''; treffer.hidden = true; } if (e.key === 'ArrowDown') { e.preventDefault(); treffer.querySelector('button')?.focus(); } });
