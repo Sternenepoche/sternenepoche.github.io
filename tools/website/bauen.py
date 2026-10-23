@@ -24,7 +24,7 @@ from site_policy import decorate  # noqa: E402
 import build_fleet_codex  # noqa: E402
 
 Q = ROOT / "docs/website"
-VERSION = "0.4.1"
+VERSION = "0.4.2"
 # Öffentliche Spieladresse; im Pages-Repo fehlt data/online (Betriebsdaten werden nie veröffentlicht).
 _URL = ROOT / "data/online/public-url.txt"
 SPIEL_URL = (_URL.read_text(encoding="utf-8").strip() if _URL.exists() else "https://sternenepoche.taila4f584.ts.net").rstrip("/") + "/"
