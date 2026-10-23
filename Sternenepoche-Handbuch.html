@@ -9,8 +9,8 @@
 <meta property="og:image" content="https://sternenepoche.github.io/docs/website/fotos/uebersicht.webp">
 <link rel="icon" type="image/png" href="docs/branding/favicon.png">
 <link rel="preload" href="web-client/fonts/oxanium-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="seite/kopf.css?v=565bd4bebd">
-<link rel="stylesheet" href="seite/stil.css?v=565bd4bebd">
+<link rel="stylesheet" href="seite/kopf.css?v=8fea47731b">
+<link rel="stylesheet" href="seite/stil.css?v=8fea47731b">
 
 <style id="site-ai-notice-style">.site-ai-notice{box-sizing:border-box;position:relative;z-index:6;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 12px;margin:0;padding:8px 16px;background:#10212d;color:#d3e3e8;border-bottom:1px solid #38515d;font:12px/1.6 system-ui,'Segoe UI',sans-serif;letter-spacing:0;text-align:center}
 .site-ai-notice .site-ai-tag{display:inline-block;padding:0 7px;border:1px solid #729e9c;border-radius:4px;color:#bce9de;font-weight:700;letter-spacing:.05em}
@@ -621,7 +621,7 @@
 <p>Die Rohstoffraten in der Oberfläche berücksichtigen bereits laufende Produktion und Verbrauch. Subtrahiere die Nahrung der Bevölkerung oder den Erzbedarf einer Gießerei nicht noch einmal von einer bereits angezeigten <strong>Nettorate</strong>.</p>
 <p class="beispiel"><strong>Beispiel:</strong> Eine Gießerei liefert eine Legierung und verbraucht dafür vier Erz. Deine Mine fördert zehn Erz im selben Zeitraum. Ohne andere Verbraucher bleiben sechs Erz übrig. Mehr verarbeitende Betriebe können deshalb einen vorher positiven Erzsaldo negativ machen.</p>
 <h3 id="nahrung-und-energie">Nahrung und Energie</h3>
-<p>Im Grundprofil verbrauchen 1.000 Einwohner <strong>40 Nahrung je Spielstunde</strong> und drei Konsumgüter. Nahrung wird aus Produktion und Vorräten gedeckt. Ein negativer Saldo ist eine Warnung, aber noch keine sofortige Niederlage.</p>
+<p>Im Grundprofil verbrauchen 1.000 Einwohner <strong>40 Nahrung je Spielstunde</strong> und ab Zivilisationsstufe III anderthalb Konsumgüter (davor keine). Nahrung wird aus Produktion und Vorräten gedeckt. Ein negativer Saldo ist eine Warnung, aber noch keine sofortige Niederlage.</p>
 <p class="beispiel"><strong>Beispiel:</strong> Bei 500 Nahrung und einer Nettorate von −25 je Stunde reicht der Vorrat unter unveränderten Bedingungen ungefähr 20 Spielstunden. Bevölkerungswachstum oder weitere Verbraucher können diese Zeit verkürzen.</p>
 <p>Energie ist eine laufende Bilanz. Wenn Anlagen und Bevölkerung mehr benötigen, als du erzeugst, sinkt die mögliche Wirtschaftsleistung. Syntheten benötigen zusätzlich Energie für ihre Bevölkerung.</p>
 <p class="beispiel"><strong>Beispiel:</strong> 80 erzeugte Energie bei 100 benötigter Energie bedeuten grundsätzlich nur 80 % Deckung. Eine weitere Mine kann den Mangel verschärfen. Prüfe zunächst Kraftwerke, Verbraucher und Arbeitsprioritäten.</p>
@@ -1784,15 +1784,15 @@
 </ul>
 <p class="beispiel"><strong>Beispiel:</strong> Eine gegnerische Flotte besteht vor allem aus Schlachtschiffen. Schlachtkreuzer sind dagegen stark. Bringt der Gegner Zerstörer mit, kippt das Bild; prüfe die Zusammensetzung im Kampfsimulator, bevor du baust.</p></section><section data-suche><h2 id="kapitel-29"><span class="nr">Kapitel 29</span>Wachstum, Energie und Grundausbildung</h2><figure class="foto glas kapitel-bild"><button type="button" data-gross="docs/website/fotos/versorgung.webp" data-titel="Wachstum, Energie und Grundausbildung" aria-label="Bild vergrößern: Wachstum, Energie und Grundausbildung"><img src="docs/website/fotos/versorgung.webp" alt="Spieloberfläche: Wachstum, Energie und Grundausbildung" width="1440" height="900" loading="lazy" decoding="async"><span class="lupe" aria-hidden="true">Vergrößern</span></button><figcaption><b>Wachstum, Energie und Grundausbildung</b><span class="leise">Echte Oberfläche</span></figcaption></figure><h3 id="wie-die-bevölkerung-wächst">Wie die Bevölkerung wächst</h3>
 <p>Jede Herkunftsgruppe auf einem Planeten wächst je Spieltag um</p>
-<p><strong>Grundwert 33,6 % × Volksfaktor × Klimafaktor × Personen × (1 − Bevölkerung / Wohnraum) × Versorgung × Stabilitätsfaktor</strong></p>
+<p><strong>Grundwert 90 % × Volksfaktor × Klimafaktor × Personen × (1 − Bevölkerung / Wohnraum) × Versorgung × Stabilitätsfaktor</strong></p>
 <ul>
 <li><strong>Volksfaktor:</strong> Aurelianer 1,0, Krath 1,0, Veyari 1,1, Syntheten 0,85.</li>
 <li><strong>Klimafaktor:</strong> hängt nur vom Abstand des Platzes zur Heimatbahn deines Volkes ab (Tabelle unten). Er wirkt nur auf positives Wachstum.</li>
 <li><strong>Versorgung:</strong> 1 bei voller Deckung mit Nahrung, bei Syntheten mit Energie. Bei Mangel sinkt sie bis −0,5; dann schrumpft die Gruppe.</li>
-<li><strong>Stabilitätsfaktor:</strong> 1 ab Stabilität 60, darunter linear weniger, 0 unter Stabilität 40.</li>
+<li><strong>Stabilitätsfaktor:</strong> 1 ab Stabilität 50, darunter linear weniger, 0 unter Stabilität 30.</li>
 <li>Auf natürlichen Xenokristall-Planeten wächst die Bevölkerung 30 % langsamer.</li>
 </ul>
-<p class="beispiel"><strong>Beispiel:</strong> Aurelianer starten mit 1.000 Einwohnern bei 1.970 Wohnraum und Stabilität 50, also Stabilitätsfaktor 0,5. Am ersten Tag kommen 1.000 × 0,336 × (1 − 1.000/1.970) × 0,5 ≈ 83 Einwohner hinzu.</p>
+<p class="beispiel"><strong>Beispiel:</strong> Aurelianer starten mit 1.400 Einwohnern bei 14.320 Wohnraum (2.000 Grundwohnraum, Wohnblock 1 vor Zivilisationsstufe III doppelt: 12.320) und Stabilität 50, also Stabilitätsfaktor 1 (volles Wachstum ab Stabilität 50). Vor Stufe III zählt das Wachstum doppelt. Am ersten Tag kommen 1.400 × 0,9 × 2 × (1 − 1.400/14.320) ≈ 2.274 Einwohner hinzu.</p>
 <h3 id="klimafaktor-je-volk-und-platz">Klimafaktor je Volk und Platz</h3>
 <p>Jedes Volk hat seine <strong>Heimatbahn</strong>: Aurelianer Platz 6, Krath Platz 3, Veyari Platz 8, Syntheten Platz 10. Dort und auf den direkten Nachbarplätzen beträgt der Klimafaktor 1,00; mit jedem weiteren Platz Abstand sinkt er auf 0,95, 0,85, 0,78, 0,70, 0,62, 0,55, 0,48 und 0,41. Platz 1 bis 3 sind Glutzone, 4 bis 8 Lebenszone, 9 bis 12 Frostzone. ⌂ markiert die Heimatbahn, TF die nötige Terraforming-Stufe.</p>
 <div class="tabelle" tabindex="0" role="region" aria-label="Tabelle"><table>
@@ -2353,7 +2353,7 @@
 </div>
 <p class="ki">Bild, Ton und Text der Sternenepoche sind KI-generiert. Stand 23.10.2026.</p>
 </div></footer>
-<script src="seite/seite.js?v=565bd4bebd" defer></script>
+<script src="seite/seite.js?v=8fea47731b" defer></script>
 
 <script id="site-ai-labels">// One small label per displayed image, including images added by the game UI.
 (() => {

@@ -1,6 +1,6 @@
 # Sternenepoche – Lore-Gesamtwerk
 
-Die gesamte geltende Lore an einem Ort, erzeugt am 23.10.2026 02:56 aus `docs/LORE-BIBEL.md`, `content/beschreibungen.json`, `docs/rat/rat.json` und `web-client/audio/bots/texte.json`. **Nicht hier ändern:** Lore wird in diesen Quellen geändert und danach mit `python -X utf8 tools/content/lore_gesamtwerk.py` neu erzeugt.
+Die gesamte geltende Lore an einem Ort, erzeugt am 23.10.2026 15:01 aus `docs/LORE-BIBEL.md`, `content/beschreibungen.json`, `docs/rat/rat.json` und `web-client/audio/bots/texte.json`. **Nicht hier ändern:** Lore wird in diesen Quellen geändert und danach mit `python -X utf8 tools/content/lore_gesamtwerk.py` neu erzeugt.
 
 ## Teil I · Der Kanon (Lore-Bibel)
 
@@ -1075,7 +1075,7 @@ Die Fachkräfte des Werks heißen Fadengärtner und sprechen mit den Fäden wie 
 
 Das Konsumgüterwerk ist eine Fabrik für Kleidung, Geräte, Möbel und Werkzeuge, also für all die kleinen Dinge, ohne die eine Kolonie nicht zur Heimat wird. Sein Rezept verlangt je Einheit 1 Erz, 1 Kristall und ein halbes Deuterium, wobei das Erz zu Blech, Draht und Beschlägen wird, der Kristall zu Glas, Keramik und einfachen Steuerchips und das Deuterium die Wasserstoffchemie für Polymere, Kunstfasern und Textilien liefert. In Hydrieranlagen wird schwerer Wasserstoff an Kohlenstoffketten angelagert, und so entstehen Kunststoffe, die langsamer altern als ihre leichten Gegenstücke.
 
-Die erste Ausbaustufe liefert 8 Konsumgüter Grundertrag und kostet 400 Erz und 300 Kristall, jede weitere das 1,35-Fache, bei 30 Arbeitern und 15 Strom für Pressen, Webstühle und Spritzguss. Der Bedarf ist stetig, denn je 1.000 Einwohner verbrauchen in der Stunde 3 Konsumgüter, und gedeckter Konsum hebt das Stabilitätsziel um bis zu 20 Punkte. Für den Aufstieg in den Sternenflug verlangt das Reich, dass mindestens 80 Prozent des Konsums gedeckt sind, weil Kolonisten, die ihre Welt verlassen sollen, zuerst eine Heimat brauchen, die sie halten wollen.
+Die erste Ausbaustufe liefert 8 Konsumgüter Grundertrag und kostet 400 Erz und 300 Kristall, jede weitere das 1,35-Fache, bei 30 Arbeitern und 15 Strom für Pressen, Webstühle und Spritzguss. Der Bedarf ist stetig, denn je 1.000 Einwohner verbrauchen ab Zivilisationsstufe III in der Stunde 1,5 Konsumgüter, und gedeckter Konsum hebt das Stabilitätsziel um bis zu 20 Punkte. Für den Aufstieg in den Sternenflug verlangt das Reich, dass mindestens 80 Prozent des Konsums gedeckt sind, weil Kolonisten, die ihre Welt verlassen sollen, zuerst eine Heimat brauchen, die sie halten wollen.
 
 Soziologie hebt das Stabilitätsziel zusätzlich um 2 Punkte je Stufe, ersetzt aber keine einzige warme Jacke. Das Werk baut nichts für den Krieg und ist trotzdem das Gebäude, das ein Reich am längsten zusammenhält.
 
@@ -1260,7 +1260,7 @@ Nach einem Überfall ist das Saatgut das Erste, was wieder ans Licht getragen wi
 
 **Wozu.** Er schafft Wohnraum, ohne den das logistische Bevölkerungswachstum abflacht und Stabilitätsboni verloren gehen.
 
-**Stärke.** Mit 700 Wohnraum Grundwert für 120 Erz und 40 Kristall ist er der billigste Weg zu mehr Einwohnern, und ab 20 Prozent freiem Wohnraum gibt es den vollen Stabilitätsbonus von 10 Punkten.
+**Stärke.** Mit 5.600 Wohnraum Grundwert für 120 Erz und 40 Kristall ist er der billigste Weg zu mehr Einwohnern, und ab 20 Prozent freiem Wohnraum gibt es den vollen Stabilitätsbonus von 10 Punkten.
 
 **Grenzen.** Er ist Voraussetzung für jeden Aufstieg nach Einwohnerzahl, belegt aber Felder, die später Industrie fehlen.
 

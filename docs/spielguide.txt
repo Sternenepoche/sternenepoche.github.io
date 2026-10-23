@@ -598,7 +598,7 @@ Die Rohstoffraten in der Oberfläche berücksichtigen bereits laufende Produktio
 
 ### Nahrung und Energie
 
-Im Grundprofil verbrauchen 1.000 Einwohner **40 Nahrung je Spielstunde** und drei Konsumgüter. Nahrung wird aus Produktion und Vorräten gedeckt. Ein negativer Saldo ist eine Warnung, aber noch keine sofortige Niederlage.
+Im Grundprofil verbrauchen 1.000 Einwohner **40 Nahrung je Spielstunde** und ab Zivilisationsstufe III anderthalb Konsumgüter (davor keine). Nahrung wird aus Produktion und Vorräten gedeckt. Ein negativer Saldo ist eine Warnung, aber noch keine sofortige Niederlage.
 
 **Beispiel:** Bei 500 Nahrung und einer Nettorate von −25 je Stunde reicht der Vorrat unter unveränderten Bedingungen ungefähr 20 Spielstunden. Bevölkerungswachstum oder weitere Verbraucher können diese Zeit verkürzen.
 
@@ -1552,15 +1552,15 @@ In Welten mit Monden gibt es eine eigene Klasse zwischen Kreuzer und Schlachtsch
 
 Jede Herkunftsgruppe auf einem Planeten wächst je Spieltag um
 
-**Grundwert 33,6 % × Volksfaktor × Klimafaktor × Personen × (1 − Bevölkerung / Wohnraum) × Versorgung × Stabilitätsfaktor**
+**Grundwert 90 % × Volksfaktor × Klimafaktor × Personen × (1 − Bevölkerung / Wohnraum) × Versorgung × Stabilitätsfaktor**
 
 - **Volksfaktor:** Aurelianer 1,0, Krath 1,0, Veyari 1,1, Syntheten 0,85.
 - **Klimafaktor:** hängt nur vom Abstand des Platzes zur Heimatbahn deines Volkes ab (Tabelle unten). Er wirkt nur auf positives Wachstum.
 - **Versorgung:** 1 bei voller Deckung mit Nahrung, bei Syntheten mit Energie. Bei Mangel sinkt sie bis −0,5; dann schrumpft die Gruppe.
-- **Stabilitätsfaktor:** 1 ab Stabilität 60, darunter linear weniger, 0 unter Stabilität 40.
+- **Stabilitätsfaktor:** 1 ab Stabilität 50, darunter linear weniger, 0 unter Stabilität 30.
 - Auf natürlichen Xenokristall-Planeten wächst die Bevölkerung 30 % langsamer.
 
-**Beispiel:** Aurelianer starten mit 1.000 Einwohnern bei 1.970 Wohnraum und Stabilität 50, also Stabilitätsfaktor 0,5. Am ersten Tag kommen 1.000 × 0,336 × (1 − 1.000/1.970) × 0,5 ≈ 83 Einwohner hinzu.
+**Beispiel:** Aurelianer starten mit 1.400 Einwohnern bei 14.320 Wohnraum (2.000 Grundwohnraum, Wohnblock 1 vor Zivilisationsstufe III doppelt: 12.320) und Stabilität 50, also Stabilitätsfaktor 1 (volles Wachstum ab Stabilität 50). Vor Stufe III zählt das Wachstum doppelt. Am ersten Tag kommen 1.400 × 0,9 × 2 × (1 − 1.400/14.320) ≈ 2.274 Einwohner hinzu.
 
 ### Klimafaktor je Volk und Platz
 

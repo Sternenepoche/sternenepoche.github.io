@@ -1,10 +1,10 @@
 {
-  "version": "0.4.4",
-  "code": 24,
-  "datei": "Sternenepoche-0.4.4.apk",
-  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.4-20261023/Sternenepoche-0.4.4.apk",
-  "sha256": "73b8036a27c593179fdd7be1b1e99c6626f191467069ee724267264a2c55740b",
-  "bytes": 186833635,
+  "version": "0.4.5",
+  "code": 25,
+  "datei": "Sternenepoche-0.4.5.apk",
+  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.5-20261023/Sternenepoche-0.4.5.apk",
+  "sha256": "8483a942cfc71d4557a936d3c8f5ed6b7c90ba57600b160d2e940640533185bd",
+  "bytes": 186829539,
   "groesse_mb": 178.2,
   "abis": [
     "arm64-v8a",
@@ -12,14 +12,14 @@
   ],
   "stand": "23.10.2026",
   "min_android": "8.0",
-  "hinweis": "Freier Start: Vor Zivilisationsstufe III drosselt fehlendes Personal kein Werk mehr; Bevölkerungswachstum, Wohnraum, Grundausbildung und Forschung zählen doppelt, Ausbildung kostet nichts. Ab Stufe III läuft ein Werk trotz Personalmangel mit mindestens 75 Prozent. Vollversion für alle Geräte, Lite nur für ARM-Handys.",
+  "hinweis": "Große Bevölkerung (neue Welten): Wohnblock fasst 8-mal so viele Einwohner, Wachstum 90 statt 33,6 Prozent je Tag, 1.400 Starteinwohner, Konsumgüter erst ab Stufe III und halbiert. Der Hinweis „Opferschutz aus“ in der Kopfzeile ist weg. Vollversion für alle Geräte, Lite nur für ARM-Handys.",
   "varianten": [
     {
       "art": "lite",
-      "datei": "Sternenepoche-0.4.4-lite.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.4-20261023/Sternenepoche-0.4.4-lite.apk",
-      "sha256": "bce94a67fb290b33749c9efc5e813e8467309c4868c0b1e1fbb2e338a5aed27c",
-      "bytes": 97909325,
+      "datei": "Sternenepoche-0.4.5-lite.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.5-20261023/Sternenepoche-0.4.5-lite.apk",
+      "sha256": "1bf3177d56b3bf8f0e9b9963e2e8e519fa17820a6ff9256a43a690bf431bf57a",
+      "bytes": 97913421,
       "groesse_mb": 93.4,
       "abis": [
         "arm64-v8a"
@@ -27,10 +27,10 @@
     },
     {
       "art": "voll",
-      "datei": "Sternenepoche-0.4.4.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.4-20261023/Sternenepoche-0.4.4.apk",
-      "sha256": "73b8036a27c593179fdd7be1b1e99c6626f191467069ee724267264a2c55740b",
-      "bytes": 186833635,
+      "datei": "Sternenepoche-0.4.5.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.5-20261023/Sternenepoche-0.4.5.apk",
+      "sha256": "8483a942cfc71d4557a936d3c8f5ed6b7c90ba57600b160d2e940640533185bd",
+      "bytes": 186829539,
       "groesse_mb": 178.2,
       "abis": [
         "arm64-v8a",
