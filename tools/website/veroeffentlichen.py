@@ -101,11 +101,9 @@ def vorbereiten():
     if not git("diff", "--cached", "--name-only").strip():
         print("Nichts zu committen – Stand ist schon vorbereitet.")
         return
-    git("commit", "-m", f"Rebuild the public website for Sternenepoche {VERSION_TEXT()}\n\n"
-        "New pages built by tools/website/bauen.py from today's sources: start page with the Weltenkruemmer film in front of\n"
-        "the planet, guide, handbook (32 chapters), codex with technical drawings, the complete technology tree, Weltenkruemmer\n"
-        "films, lore archive, playing with AI, downloads (Lite and full APK) and AI notice. Old screenshots are no longer packaged.\n\n"
-        "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
+    git("commit", "-m", f"Publish Sternenepoche {VERSION_TEXT()} website and Android downloads\n\n"
+        "Update the handbook and release information for colony planning, system scans, report history, "
+        "fleet loading and ship trade. Include verified mobile screenshots and both signed APK variants.")
     print(git("log", "--oneline", "-1"))
     print(git("diff", "--stat", "origin/main", "HEAD").splitlines()[-1])
 

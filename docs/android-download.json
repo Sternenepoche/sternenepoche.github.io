@@ -1,37 +1,37 @@
 {
-  "version": "0.4.5",
-  "code": 25,
-  "datei": "Sternenepoche-0.4.5.apk",
-  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.5-20261023/Sternenepoche-0.4.5.apk",
-  "sha256": "8483a942cfc71d4557a936d3c8f5ed6b7c90ba57600b160d2e940640533185bd",
-  "bytes": 186829539,
-  "groesse_mb": 178.2,
+  "version": "0.4.6",
+  "code": 26,
+  "datei": "Sternenepoche-0.4.6.apk",
+  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.6-20261024/Sternenepoche-0.4.6.apk",
+  "sha256": "5fb30080928ead18f30e61303c7c2e5d790ce1eaa3cf9eb1e9ddd95e3f662f18",
+  "bytes": 186989283,
+  "groesse_mb": 178.3,
   "abis": [
     "arm64-v8a",
     "x86_64"
   ],
-  "stand": "23.10.2026",
+  "stand": "24.10.2026",
   "min_android": "8.0",
-  "hinweis": "Große Bevölkerung (neue Welten): Wohnblock fasst 8-mal so viele Einwohner, Wachstum 90 statt 33,6 Prozent je Tag, 1.400 Starteinwohner, Konsumgüter erst ab Stufe III und halbiert. Der Hinweis „Opferschutz aus“ in der Kopfzeile ist weg. Vollversion für alle Geräte, Lite nur für ARM-Handys.",
+  "hinweis": "Kolonisation mit Siedlergruppen, Garnison und Startfracht; eigene Planetennamen; baubare Einheiten im Vordergrund. Kompakte Systemtabelle mit Direktspionage, Ein-Sonden-Systemscan, Abbauplanung und Aufklärungsarchiv. Rettung von Besatzungen aus Trümmerfeldern. Neue Reiche starten mit zwei Habitatmodulen; Bevölkerungswachstum 70 Prozent je Tag.",
   "varianten": [
     {
       "art": "lite",
-      "datei": "Sternenepoche-0.4.5-lite.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.5-20261023/Sternenepoche-0.4.5-lite.apk",
-      "sha256": "1bf3177d56b3bf8f0e9b9963e2e8e519fa17820a6ff9256a43a690bf431bf57a",
-      "bytes": 97913421,
-      "groesse_mb": 93.4,
+      "datei": "Sternenepoche-0.4.6-lite.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.6-20261024/Sternenepoche-0.4.6-lite.apk",
+      "sha256": "82bfbb66ea4252630f4574c63443b6c79b87874f123d42830c814e7216d236ea",
+      "bytes": 97995341,
+      "groesse_mb": 93.5,
       "abis": [
         "arm64-v8a"
       ]
     },
     {
       "art": "voll",
-      "datei": "Sternenepoche-0.4.5.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.5-20261023/Sternenepoche-0.4.5.apk",
-      "sha256": "8483a942cfc71d4557a936d3c8f5ed6b7c90ba57600b160d2e940640533185bd",
-      "bytes": 186829539,
-      "groesse_mb": 178.2,
+      "datei": "Sternenepoche-0.4.6.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.6-20261024/Sternenepoche-0.4.6.apk",
+      "sha256": "5fb30080928ead18f30e61303c7c2e5d790ce1eaa3cf9eb1e9ddd95e3f662f18",
+      "bytes": 186989283,
+      "groesse_mb": 178.3,
       "abis": [
         "arm64-v8a",
         "x86_64"

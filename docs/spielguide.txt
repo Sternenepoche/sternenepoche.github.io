@@ -410,6 +410,12 @@ Zu jeder Forschung zeigt ein bebilderter Baum die benötigten Gebäude und Techn
 
 ### Flotte
 
+In der Bestandsmatrix führt ein Tipp auf die Koordinaten direkt zum Versand von diesem Planeten oder Mond. Die Herkunft bleibt im Assistenten sichtbar. Unter **Zuladung** stehen Rohstoffe, Personen und Bodentruppen zusammen: eigene Kapazitätsanzeigen, verfügbare Mengen, Restbestände und Max-Schaltflächen helfen beim Beladen. Personenplätze und Truppenplätze sind vom Frachtraum getrennt. Monde haben keine zivile Bevölkerung oder planetare Garnison.
+
+**Transport** liefert die gewählte Zuladung; die Schiffe fliegen zurück. **Stationieren** verlegt Schiffe und Zuladung dauerhaft auf einen eigenen Planeten oder Mond. **Halten** unterstützt Verbündete im Orbit und lässt die Schiffe in deinem Besitz. Für einen Besitzerwechsel gibt es **Schiffe verschenken** und **Schiffe verkaufen**: Der Empfänger nimmt das Angebot im Flottenkommando an. Erst dann fliegen die verfügbaren Schiffe mit der angebotenen Zuladung los. Ein Bündnis ist für Handel und Geschenke nicht erforderlich. Kaufpreise werden bis zur Zustellung hinterlegt; scheitert die Zustellung oder wird die Flotte zurückgerufen, gehen die hinterlegten Credits an den Käufer zurück. Offene Angebote laufen nach einem Spieltag ab.
+
+Hinflug und Rückflug besitzen eigene Tempoeinstellungen. Die Vorschau nennt Dauer und Treibstoff für beide Strecken getrennt. Stationieren und Kolonisieren sind Einwegflüge. Bei Schiffsangeboten startet die Lieferung nach Annahme; Rückflugtreibstoff bleibt für eine gescheiterte Zustellung vorgesehen.
+
 Der Hangar zählt alle eigenen Schiffe im Reich genau einmal: stationierte Einheiten auf deinen Planeten plus Schiffe in fliegenden Flotten. Jede Schiffskarte zeigt Bild, Gesamtbestand, die Aufteilung und wichtige wirksame Werte. **Standorte & Auswahl** übernimmt die verfügbaren Schiffe eines Planeten in die Flugplanung; **Alle Schiffsdaten** öffnet den Codex. Flugkarten zeigen Route, Fortschritt, Countdown, Zusammensetzung und Fracht.
 
 **Hier findest du:** **Neue Flotte planen**, **Eigene Flotten** und erkannte gegnerische Bewegungen. Flottenkarten zeigen Kennung, Mission, Start, Ziel, Flugphase, Zeiten, Schiffe und Fracht.
@@ -422,6 +428,12 @@ Der Hangar zählt alle eigenen Schiffe im Reich genau einmal: stationierte Einhe
 
 ### Galaxie
 
+Der Systemscan zeigt beim Asteroidengürtel den Rohstoffumfang (klein, mittel oder groß) und die tatsächlichen Abbauraten je Schiff und Spielstunde. Die Klasse beschreibt den Rohstoffumfang; eine räumliche Ausdehnung wird im Spiel nicht simuliert.
+
+Die Systemkonsole verbindet Sektor- und Systemwahl mit den direkten Aktionen. **Systemscan** schickt genau eine Sonde und erfasst Besiedlung, Monde, Trümmer und Systemmerkmale. **Aktualisieren** lädt die verfügbaren Ergebnisse. Die kleinen Planetenbilder öffnen die bekannten Planetendaten. Der Asteroidengürtel hat eine eigene Zeile und einen direkten Einstieg in die Abbauplanung.
+
+Unter **Je Spionage** legst du die Anzahl der Sonden für Planetenspionage fest. Die Zahl bleibt gespeichert. Ein Tipp auf das violette Auge schickt diese Anzahl sofort los. Der separate Systemscan verwendet immer eine Sonde. Filter und der Sammelauftrag für einzelne Planetenscans stehen unter **Filter & weitere Aktionen**.
+
 **Hier findest du:** Die räumliche Ansicht **Galaxie → Sektor → Sonnensystem → Planet**. Sonnensysteme liegen als Sternpunkte im Sektor; im System bewegen sich Planeten optisch um ihre Sonne. **Galaxie**, **Zurück** und **Kamera zentrieren** helfen bei der Orientierung. **Umläufe pausieren** stoppt nur die sichtbare Animation.
 
 **So untersuchst du einen Ort:** Öffne ein System und klicke einen Planeten oder seinen Listeneintrag. Seine Infokarte zeigt eigenes Wissen oder den bekannten Sondenbericht. Schließe sie über das Kreuz, Escape oder einen Klick außerhalb. Über **Systemliste & direkter Zugang** kannst du einen Ort gezielt statt durch Kamerabewegung auswählen.
@@ -431,6 +443,10 @@ Der Hangar zählt alle eigenen Schiffe im Reich genau einmal: stationierte Einhe
 **Beispiel:** Du siehst eine Planetenbahn, aber keinen Typ und keine Bewohner. Das ist eine Informationsgrenze. Ein dargestellter Körper ist weder automatisch leer noch als Kolonie reserviert. Erst ein eigener Bericht hilft bei deiner Entscheidung.
 
 ### Kolonisation
+
+Der Kolonie-Assistent zeigt die Schiffe des Startplaneten, Siedler, verfügbare Bodentruppen und Rohstoffe gemeinsam. **Nur Bewohner**, **Nur Fachkräfte** und **Nur Forscher** nehmen ausschließlich die gewählte Gruppe mit; fehlt die erforderliche Siedlerzahl, weist die Planung darauf hin. Farben und Balken zeigen, was mitfliegt und was am Startplanet bleibt. **Aufbaupaket** und **Laderaum füllen** erleichtern die Startfracht.
+
+Vor dem Start erscheinen die bekannten Zielangaben und die vollständige Ladung. Prüfe die Koordinaten und bestätige sie mit dem Kontrollkästchen. Die Abschlussleiste bleibt außerhalb des scrollbaren Inhalts. Eigene Planeten benennst du über den Stift neben ihrem Namen; ein leerer Name stellt den Standardnamen wieder her.
 
 **Hier findest du:** Aktuelle Koloniezahl, durch Astrophysik erlaubte Kapazität, Verwaltungsgrenze, die Checkliste **Weg zur nächsten Kolonie**, laufende Besetzungen und **Integrität & Reparaturen** des ausgewählten eigenen Planeten.
 
@@ -481,6 +497,12 @@ Der Hangar zählt alle eigenen Schiffe im Reich genau einmal: stationierte Einhe
 **Hier findest du:** Den Briefwechsel zwischen Allianzen und gemeinsame Vertragsangebote. Nur die obersten vier Mitglieder beider beteiligten Allianzen sind berechtigt. Adressiert wird der Allianzname. Normale Mitglieder haben keinen Zugriff; nach Austritt oder Verlust des Leitungsrangs entfällt er ebenfalls.
 
 ### Berichte
+
+Die Systemansicht zeigt Scans vor den zugehörigen Begleitmeldungen. Gruppen fassen höchstens 20 Minuten Echtzeit zusammen; Planeten- und Spielerhistorie sind direkt erreichbar. Das Archiv hält je Reich bis zu 300 Planetenscans und 120 vollständige Systemaufnahmen vor. Ältere, bereits vor diesem Update ersetzte Einzelaufnahmen lassen sich nicht nachträglich wiederherstellen.
+
+Die Sammlung lässt sich nach **Systemen**, **Spielern** oder **Zeitverlauf** betrachten und nach Koordinate oder Name durchsuchen. Innerhalb eines Systems bündeln Zeitfenster bis zu 20 Minuten Echtzeit; Systemscan, Planetenspionage, Planetenerkundung und Mondberichte bleiben eigene Gruppen. Über **Historie** gelangst du zu den gespeicherten Beobachtungen eines Planeten oder Spielers. **Gesammelte Aufklärung** führt zum Systemarchiv, **System öffnen** zur Karte.
+
+Abbau und Trümmerbergung öffnen eine gemeinsame Einsatzplanung mit Flugzeit, Einsatzdauer, automatischer Rückkehr, Treibstoff, Laderaum und zusätzlichen Personenplätzen. Recycler bergen Rohstoffe; große Transporter und Bergungsschiffe helfen bei der Rettung von Besatzungen. Wartende Überlebende bleiben sichtbar, wenn die Rohstoffe bereits abgeholt wurden.
 
 **Hier findest du:** Reichsereignisse und bekannte Spionage- oder Kampfergebnisse. Hier prüfst du, was tatsächlich angekommen, geschehen oder beobachtet worden ist. Persönliche Post hat ihren eigenen Briefkasten.
 
@@ -1560,7 +1582,7 @@ Jede Herkunftsgruppe auf einem Planeten wächst je Spieltag um
 - **Stabilitätsfaktor:** 1 ab Stabilität 50, darunter linear weniger, 0 unter Stabilität 30.
 - Auf natürlichen Xenokristall-Planeten wächst die Bevölkerung 30 % langsamer.
 
-**Beispiel:** Aurelianer starten mit 1.400 Einwohnern bei 14.320 Wohnraum (2.000 Grundwohnraum, Wohnblock 1 vor Zivilisationsstufe III doppelt: 12.320) und Stabilität 50, also Stabilitätsfaktor 1 (volles Wachstum ab Stabilität 50). Vor Stufe III zählt das Wachstum doppelt. Am ersten Tag kommen 1.400 × 0,9 × 2 × (1 − 1.400/14.320) ≈ 2.274 Einwohner hinzu.
+**Beispiel:** Aurelianer starten mit 1.400 Einwohnern bei 14.320 Wohnraum (2.000 Grundwohnraum, Wohnblock 1 vor Zivilisationsstufe III doppelt: 12.320) und Stabilität 50, also Stabilitätsfaktor 1 (volles Wachstum ab Stabilität 50). Vor Stufe III zählt das Wachstum doppelt. Am ersten Tag kommen 1.400 × 0,7 × 2 × (1 − 1.400/14.320) ≈ 1.768 Einwohner hinzu.
 
 ### Klimafaktor je Volk und Platz
 

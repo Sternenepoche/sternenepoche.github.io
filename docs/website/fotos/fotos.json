@@ -1,10 +1,11 @@
 {
  "uebersicht.webp": {
-  "welt": "flotten",
+  "welt": "isolierte Spielprobe",
   "ziel": "reich",
-  "breite": 1440,
-  "hoehe": 900,
-  "zeit": "2026-10-21T10:22:21"
+  "breite": 396,
+  "hoehe": 841,
+  "zeit": "2026-10-24T14:37:57",
+  "version": "0.4.6"
  },
  "auftraege.webp": {
   "welt": "flotten",
@@ -84,18 +85,20 @@
   "zeit": "2026-10-21T10:23:01"
  },
  "galaxie.webp": {
-  "welt": "flotten",
-  "ziel": "karte",
-  "breite": 1440,
-  "hoehe": 900,
-  "zeit": "2026-10-21T10:23:05"
+  "welt": "isolierte Spielprobe",
+  "ziel": "karte/tabelle",
+  "breite": 396,
+  "hoehe": 841,
+  "zeit": "2026-10-24T14:37:57",
+  "version": "0.4.6"
  },
  "kolonisation.webp": {
-  "welt": "flotten",
-  "ziel": "kolonien",
-  "breite": 1440,
-  "hoehe": 900,
-  "zeit": "2026-10-21T10:23:09"
+  "welt": "isolierte Spielprobe",
+  "ziel": "kolonisation/zielpruefung",
+  "breite": 396,
+  "hoehe": 841,
+  "zeit": "2026-10-24T14:47:25",
+  "version": "0.4.6"
  },
  "imperium.webp": {
   "welt": "flotten",
@@ -126,11 +129,12 @@
   "zeit": "2026-10-21T10:23:23"
  },
  "berichte.webp": {
-  "welt": "flotten",
+  "welt": "isolierte Spielprobe",
   "ziel": "berichte",
-  "breite": 1440,
-  "hoehe": 900,
-  "zeit": "2026-10-21T10:23:26"
+  "breite": 396,
+  "hoehe": 841,
+  "zeit": "2026-10-24T14:37:57",
+  "version": "0.4.6"
  },
  "handel.webp": {
   "welt": "flotten",

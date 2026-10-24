@@ -24,7 +24,7 @@ from site_policy import decorate  # noqa: E402
 import build_fleet_codex  # noqa: E402
 
 Q = ROOT / "docs/website"
-VERSION = "0.4.5"
+VERSION = "0.4.6"
 # Öffentliche Spieladresse; im Pages-Repo fehlt data/online (Betriebsdaten werden nie veröffentlicht).
 _URL = ROOT / "data/online/public-url.txt"
 SPIEL_URL = (_URL.read_text(encoding="utf-8").strip() if _URL.exists() else "https://sternenepoche.taila4f584.ts.net").rstrip("/") + "/"
@@ -53,11 +53,11 @@ TRAILER = ROOT / "docs/website/medien/trailer"
 # Frische Fotos (docs/website/fotos, 18.10.2026) je Spielbereich – Name wie im Spielmenü (web-client/rahmen.js).
 BEREICHSFOTO = {"Übersicht": "uebersicht", "Anlagen": "anlagen", "Versorgung": "versorgung", "Forschung": "forschung",
                 "Schiffswerft": "werft", "Verteidigung": "verteidigung", "Truppen": "truppen", "Flotte": "flotte",
-                "Galaxie": "galaxie-3d", "Kolonisation": "kolonisation", "Kampf & Verbände": "kampfsimulator",
+                "Galaxie": "galaxie", "Kolonisation": "kolonisation", "Kampf & Verbände": "kampfsimulator",
                 "Handel": "handel", "Nachrichten": "briefkasten", "Allianz": "allianz", "Großprojekt": "grossprojekt",
-                "Berichte": "bericht", "Imperium": "imperium", "Technologiebaum": "techbaum-nah", "Rat": "rat",
+                "Berichte": "berichte", "Imperium": "imperium", "Technologiebaum": "techbaum-nah", "Rat": "rat",
                 "Pinwände": "pinwaende", "Mond": "mond"}
-KAPITELFOTO = {7: "uebersicht", 10: "produktion", 11: "forschung", 12: "galaxie-3d", 14: "flotte", 15: "kampfsimulator",
+KAPITELFOTO = {7: "uebersicht", 10: "produktion", 11: "forschung", 12: "galaxie", 14: "flotte", 15: "kampfsimulator",
                16: "kolonisation", 17: "handel", 19: "imperium", 20: "rat", 24: "auftraege", 26: "mond", 29: "versorgung",
                30: "lage", 31: "grossprojekt", 32: "flotte"}
 

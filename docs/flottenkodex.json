@@ -136,8 +136,8 @@
       "tempo": 15000,
       "verbrauch": 300,
       "besatzung": 30,
-      "ab_stufe": 4,
-      "werft": 4,
+      "ab_stufe": 3,
+      "werft": 3,
       "kosten": {
         "erz": 20000,
         "kristall": 7000,
