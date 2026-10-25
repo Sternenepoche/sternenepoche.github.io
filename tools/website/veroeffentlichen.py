@@ -36,6 +36,7 @@ ORDNER = [  # (Ordner, erlaubte Endungen, auszuschließende Namensteile)
     ("docs/website", {".css", ".js", ".webp", ".png", ".jpg", ".json", ".webm", ".mp4", ".ogg"}, ("kandidaten", "vorlage-stern", "-frei.png", "techbaum-1801")),
     ("docs/rat", {".js", ".json", ".glb", ".ogg", ".m4a", ".webp"}, ()),
     ("web-client/techbaum", {".css", ".js"}, ()),
+    ("web-client/kraefteatlas", {".css", ".js"}, ()),  # Kräfteatlas (tools/konter_matrix/uebersicht.py --web web-client)
     ("web-client/assets/klein", {".webp"}, ()),  # Vorschaubilder der Techbaum-Kacheln (techbaum_kleinbilder.py)
     ("web-client/fonts", {".woff2", ".txt"}, ()),
 ]
@@ -93,7 +94,7 @@ def vorbereiten():
     lauf("tools/website/bauen.py", "--pages")
     # Neue Dateien müssen versioniert sein, bevor build_pages sie als öffentlich anerkennt.
     git("add", "-A", "--", "index.html", "Sternenepoche-Start.html", "Sternenepoche-Handbuch.html", "Sternenepoche-Kodex.html",
-        "Technologiebaum.html", "Trailer.html", "Hoerchronik.html", "Weltenkruemmer.html", "Lore.html", "Harness-Cockpit.html", "Download.html", "KI-Hinweis.html",
+        "Technologiebaum.html", "Kraefteatlas.html", "Trailer.html", "Hoerchronik.html", "Weltenkruemmer.html", "Lore.html", "Harness-Cockpit.html", "Download.html", "KI-Hinweis.html",
         "sitemap.xml", "llms.txt", "seite", "docs", "tools", "content", "lore", "web-client", ".github")
     ziel = WT / ".pages-artifact" / ("pruefung-" + datetime.now().strftime("%Y%m%d-%H%M%S"))
     lauf("tools/build_pages.py", "--out", ziel)
@@ -102,8 +103,9 @@ def vorbereiten():
         print("Nichts zu committen – Stand ist schon vorbereitet.")
         return
     git("commit", "-m", f"Publish Sternenepoche {VERSION_TEXT()} website and Android downloads\n\n"
-        "Update the handbook and release information for colony planning, system scans, report history, "
-        "fleet loading and ship trade. Include verified mobile screenshots and both signed APK variants.")
+        "Update the handbook and release information for the mission sheet, stranded fleets, invasion waves, "
+        "colony slots and the counter balance with multi-fire. Include verified screenshots and both signed APK variants.\n\n"
+        "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
     print(git("log", "--oneline", "-1"))
     print(git("diff", "--stat", "origin/main", "HEAD").splitlines()[-1])
 
@@ -126,6 +128,11 @@ def workflow_anpassen():
             s = s.replace("public_files = {'index.html',", "public_files = {" + zusatz + "'index.html',", 1)
     if neu not in s or "'Trailer.html'" not in s:
         sys.exit("static.yml hat eine unerwartete Form – Website-Pfade bitte von Hand eintragen")
+    # Kräfteatlas (25.10.2026): Seite und Modul zählen als Website, nicht als Spielcode.
+    if "'Kraefteatlas.html'" not in s:
+        s = s.replace("'Technologiebaum.html',", "'Technologiebaum.html', 'Kraefteatlas.html',", 1)
+    if "'web-client/kraefteatlas/'" not in s:
+        s = s.replace("'web-client/techbaum/',", "'web-client/techbaum/', 'web-client/kraefteatlas/',", 1)
     w.write_text(s, encoding="utf-8")
 
 

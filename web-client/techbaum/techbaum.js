@@ -511,6 +511,12 @@ function aktionBlock(n) {
   return `<div class="d-aktion bereit"><div class="d-aktion-zeile">${menge}<button type="button" class="d-bauen" data-spiel-bauen="${esc(n.id)}"${aus ? ' disabled' : ''}>${esc(i.wort)}</button></div>
     ${guterListe(i.kosten)}${i.wirkung || ''}<small>${esc(i.ort)}${hinweis ? ' · ' + esc(hinweis) : ''}</small>${imSpiel}</div>`;
 }
+// Kräfteatlas: gemessene Konter dieses Eintrags (im Spiel OPT.atlas aus techbaum-start.js, auf der Website die Atlas-Seite).
+function atlasBlock(n) {
+  if (!OPT.atlas?.kennt?.(n.id)) return '';
+  const was = n.id === 'weltentruemmer' ? 'Gegen gleichen Wert gemessen' : n.typ === 'rakete' ? 'Was eine Rakete je Ziel zerstört' : 'Konter und Gefechte';
+  return `<button type="button" class="d-zweit d-atlas" data-atlas="${esc(n.id)}"><b>Kräfteatlas</b><small>${was} – mit der Kampfengine gemessen</small></button>`;
+}
 async function spielBauen(knopf) {
   const id = knopf.dataset.spielBauen, menge = Math.max(1, Math.floor(+($('d-menge')?.value || 1)));
   knopf.disabled = true; knopf.classList.add('laeuft'); knopf.textContent = 'Wird beauftragt …';
@@ -703,6 +709,7 @@ function dossierKnoten(n) {
     ${wkKnoepfe(n)}
     ${standBox(n)}
     ${aktionBlock(n)}
+    ${atlasBlock(n)}
     ${n.rolle ? `<p class="d-rolle">${esc(n.rolle)}</p>` : ''}
     ${kost}${wirk}${bed}${werte}${volk}` : `
     ${held}
@@ -711,6 +718,7 @@ function dossierKnoten(n) {
     ${titel}
     ${standBox(n)}
     ${aktionBlock(n)}
+    ${atlasBlock(n)}
     ${n.rolle ? `<p class="d-rolle">${esc(n.rolle)}</p>` : ''}
     ${werte}${bed}${volk}${kost}${wirk}`) + `
     ${abschnitt('Klima je Volk', habitatTabelle(n), 'Bevölkerungswachstum')}
@@ -762,7 +770,7 @@ function kontermatrix(einheiten) {
   const kopf = einheiten.map(B => `<th><button type="button" data-geh="${esc(B.id)}" title="${esc(B.name)}"><img alt="${esc(B.name)}" src="${esc(bild(B.id))}" loading="lazy"></button></th>`).join('');
   const zeilen = einheiten.map(A => `<tr><th><button type="button" data-geh="${esc(A.id)}" title="${esc(A.name)}"><img alt="" src="${esc(bild(A.id))}" loading="lazy"><span>${esc(A.name)}</span></button></th>${einheiten.map(B => {
     if (A === B) return '<td class="km-selbst"></td>';
-    const g = Kampf.gefecht(A, B, A.typ === 'boden' ? null : vA);
+    const g = Kampf.gefecht(A, B, A.typ === 'boden' ? null : vA, zustand.volk);
     return `<td class="vt-${g.urteil.k}" title="${esc(A.name)} gegen ${esc(B.name)}: ${g.urteil.t} – ${esc(B.name)} verliert ${Math.round(g.verlustB * 100)} %, ${esc(A.name)} verliert ${Math.round(g.verlustA * 100)} %"></td>`; }).join('')}</tr>`).join('');
   return `<div class="km-roll"><table class="kmatrix-t"><thead><tr><th></th>${kopf}</tr></thead><tbody>${zeilen}</tbody></table></div>
     <ul class="gf-legende">${Kampf.URTEILE.map(s => `<li class="vt-${s.k}"><i></i><b>${s.t}</b><small>${s.k === 'x' ? 'keine Seite richtet viel aus' : 'Zeile ' + s.lang}</small></li>`).join('')}</ul>
@@ -787,6 +795,7 @@ $('dossier-inhalt').addEventListener('scroll', e => { if (e.target.scrollTop > 4
 $('dossier').addEventListener('click', e => {
   const sb = e.target.closest('[data-spiel-bauen]'); if (sb) { if (!sb.disabled) spielBauen(sb); return; }
   const so = e.target.closest('[data-spiel-oeffnen]'); if (so) { OPT.spiel?.oeffnen?.(so.dataset.spielOeffnen, K[so.dataset.spielOeffnen]?.typ); return; }
+  const at = e.target.closest('[data-atlas]'); if (at) { OPT.atlas?.zeige?.(at.dataset.atlas); return; }
   const ha = e.target.closest('#halten'); if (ha) { if (istMobil()) planUmschalten(ha.dataset.ziel); return; }
   const wk = e.target.closest('[data-wk]'); if (wk) { window.Weltenkruemmer?.oeffnen(zustand.volk, true, wk.dataset.wk === 'film' ? {film: {mond: wk.dataset.mond}} : {}); return; }
   const bw = e.target.closest('[data-bild]'); if (bw) { $('d-bild').src = bw.dataset.bild; bw.parentElement.querySelectorAll('button').forEach(x => x.setAttribute('aria-selected', x === bw)); return; }
@@ -997,6 +1006,12 @@ if (EINGEBETTET) {
   stand.innerHTML = '<span class="lampe"></span>Mein Stand <small></small>'; stand.dataset.kurz = 'Stand';
   stand.addEventListener('click', () => { zustand.standAn = !(zustand.standAn !== false); stand.setAttribute('aria-pressed', zustand.standAn); welt.classList.toggle('stand-an', !!S && zustand.standAn); });
   const werkzeuge = W.querySelector('.kopf-werkzeuge'); werkzeuge.prepend(stand); werkzeuge.prepend(zu);
+}
+if (OPT.atlas) {
+  const at = document.createElement('button'); at.type = 'button'; at.className = 'schalter atlas-knopf'; at.dataset.kurz = '⚔'; at.textContent = 'Kräfteatlas';
+  at.title = 'Kräfteatlas: wer schlägt wen – gemessen mit der Kampfengine bei gleichem Wert'; at.setAttribute('aria-label', at.title);
+  at.addEventListener('click', () => OPT.atlas.oeffnen ? OPT.atlas.oeffnen(null) : OPT.atlas.zeige?.(null));
+  W.querySelector('.kopf-werkzeuge').append(at);
 }
 /* ---------- Handy: Menü (Volk, Anzeige, Regeln) und Dock (Stand, Weg, Bereiche) ---------- */
 const menueKnopf = document.createElement('button'); menueKnopf.type = 'button'; menueKnopf.className = 'schalter menue-knopf'; menueKnopf.id = 'menueknopf';

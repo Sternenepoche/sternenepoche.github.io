@@ -2,15 +2,18 @@
 // Kampfauswertung für die Techbaum-Testseite. Rechnet nach den Regeln des Kerns (crates/kern/src/kampf.rs, zielwahl.rs):
 // je Zielkanal voller Grundschaden × Zielfaktor (Primär ×2, Sekundär ×1,5 oder eigener Faktor > 1, Reserve ×1);
 // Schildschaden × Schildfaktor nur auf Primär-/Sekundärziele; Schuss unter 1 % des Schildwerts verpufft;
-// Schnellfeuer r nur auf Primär-/Sekundärziele: Folgeschuss mit (r−1)/r, höchstens 64 Schüsse je Kanal.
+// Schnellfeuer r nur auf Primär-/Sekundärziele: Folgeschuss mit (r−1)/r, höchstens 64 Schüsse je Kanal; mit Mehrfachfeuer
+// (neue Welten, D.kampfregeln.mehrfachfeuer) springt die Salve nach einem Abschuss auf das nächste Ziel derselben Art.
 // Bodenkampf: Angriff × Konterfaktor, kein Schild, ein Schuss je Runde, alle feuern gleichzeitig.
 // Darstellung als Gefechtsprognose: beide Seiten setzen gleich viel Güterwert ein, Runde für Runde bis zur Entscheidung.
 window.TechbaumKampf = ctx => {
 const {D, K, esc, fmt, kurz, bild, name} = ctx;
 const VERPUFF = D.kampfregeln?.verpuffen_anteil ?? 0.01;
 const RUNDEN_FLOTTE = D.kampfregeln?.runden || 6;
+const MEHRFACH = !!D.kampfregeln?.mehrfachfeuer;
 const BODEN_MIN = (D.bodenkampf?.rundenabstand_sekunden || 900) / 60, RUNDEN_BODEN = 192; // 48 Stunden Belagerung
 const FLOTTE = new Set(['schiff', 'megaschiff', 'verteidigung', 'schild', 'satellit']);
+const ZIVIL = new Set(['transporter', 'kolonie', 'erkundung', 'sonde', 'bergbau', 'bergung', 'truppen', 'terraforming', 'satellit']);
 const URTEILE = [
   {k: 'sg', t: 'klar überlegen', lang: 'gewinnt deutlich'},
   {k: 'g', t: 'überlegen', lang: 'gewinnt'},
@@ -54,16 +57,34 @@ const wertVon = n => n.wert || 1;
 function anteil(t, q) {
   if (!t || t.rang == null || t.verpufft || !(t.d > 0) || !(q > 0)) return 0;
   const schild = (t.S || 0) / (t.sf || 1);
+  // Mehrfachfeuer: reicht die Salve (Ø E Schüsse) für einen Abschuss mit k Schüssen, fallen je Zielkanal E / k Ziele.
+  if (MEHRFACH && t.r > 1) { const k = Math.max(1, Math.ceil((schild + t.H) / t.d)); if (t.E >= k) return Math.min(1, q * t.E / k); }
   const struktur = q < 1 ? q * Math.max(0, t.E * t.d - schild) : Math.max(0, q * t.E * t.d - schild);
   return Math.min(1, q, struktur / t.H);
 }
 /* ---------- Gefechtsprognose bei gleichem Einsatz ---------- */
-function gefecht(A, B, vA) {
+function gefecht(A, B, vA, volk) {
   const ab = treffer(A, B, vA, null), ba = treffer(B, A, null, vA);
   const wA = wertVon(A), wB = wertVon(B), boden = A.typ === 'boden';
   const q0ab = (ab.kan || 1) * wB / wA, q0ba = (ba.kan || 1) * wA / wB;
   const max = boden ? RUNDEN_BODEN : RUNDEN_FLOTTE;
   let a = 1, b = 1, endA = null, endB = null; const verlauf = [{a, b}];
+  // Echte Kampfengine (D.gefechte, tools/konter_matrix/src/bin/techbaum_gefechte.rs): Verluste und Runden je Volk; die
+  // Näherung unten bleibt nur der Rückfall für Paare ohne Messung.
+  const echt = !boden && D.gefechte?.[volk]?.[`${A.id}|${B.id}`];
+  if (echt) {
+    a = 1 - echt[0] / 100; b = 1 - echt[1] / 100;
+    const runden = Math.max(1, echt[2]);
+    if (echt[1] >= 100) endB = runden;
+    if (echt[0] >= 100) endA = runden;
+    verlauf.push({a, b});
+    const vB = 1 - b, vA_ = 1 - a;
+    let u;
+    if (vA_ < 0.02 && vB < 0.02) u = URTEIL.x;
+    else { const v = (vB + 0.005) / (vA_ + 0.005); u = v >= 3 ? URTEIL.sg : v >= 1.5 ? URTEIL.g : v > 2 / 3 ? URTEIL.n : v > 1 / 3 ? URTEIL.s : URTEIL.ss; }
+    const nA = wA >= wB ? 10 : 10 * wB / wA, nB = wA >= wB ? 10 * wA / wB : 10;
+    return {A, B, ab, ba, q0ab, q0ba, a, b, verlustA: vA_, verlustB: vB, endA, endB, runden, verlauf, urteil: u, nA, nB, boden, max, gemessen: true};
+  }
   for (let r = 1; r <= max; r++) {
     const kb = b * anteil(ab, q0ab * a / b), ka = a * anteil(ba, q0ba * b / a);
     b = Math.max(0, b - kb); a = Math.max(0, a - ka); verlauf.push({a, b});
@@ -140,17 +161,19 @@ function abschnitte(A, volk) {
   const vA = D.voelker[volk]?.regel, aus = [];
   if (FLOTTE.has(A.typ) || A.typ === 'boden') {
     const reihenfolge = {sg: 0, g: 1, n: 2, s: 3, ss: 4, x: 5};
-    const liste = gegnerVon(A).map(B => gefecht(A, B, A.typ === 'boden' ? null : vA))
+    const liste = gegnerVon(A).map(B => gefecht(A, B, A.typ === 'boden' ? null : vA, volk))
       .sort((p, q) => reihenfolge[p.urteil.k] - reihenfolge[q.urteil.k] || (q.verlustB - q.verlustA) - (p.verlustB - p.verlustA) || p.B.name.localeCompare(q.B.name));
-    const stark = liste.filter(x => ['sg', 'g'].includes(x.urteil.k)).sort((p, q) => q.verlustB - p.verlustB || p.verlustA - q.verlustA).slice(0, 6);
-    const gefahr = liste.filter(x => ['ss', 's'].includes(x.urteil.k)).sort((p, q) => q.verlustA - p.verlustA || p.verlustB - q.verlustB).slice(0, 6);
+    // Kampfeinheiten vor zivilen Schiffen: „stark gegen Bergungsschiff“ sagt nichts über Konter (Karl 25.10.2026: schlüssig).
+    const zivil = x => (x.B.typ === 'schiff' && ZIVIL.has(x.B.einheitklasse)) || (x.B.werte?.angriff || 0) <= 0 ? 1 : 0;
+    const stark = liste.filter(x => ['sg', 'g'].includes(x.urteil.k)).sort((p, q) => zivil(p) - zivil(q) || q.verlustB - p.verlustB || p.verlustA - q.verlustA).slice(0, 6);
+    const gefahr = liste.filter(x => ['ss', 's'].includes(x.urteil.k)).sort((p, q) => zivil(p) - zivil(q) || q.verlustA - p.verlustA || p.verlustB - q.verlustB).slice(0, 6);
     const lesen = `<p class="gf-lesen">Jede Zeile ist ein Gefecht, in dem beide Seiten <b>gleich viel Rohstoffwert</b> einsetzen (bis ${A.typ === 'boden' ? '48 Stunden Belagerung' : RUNDEN_FLOTTE + ' Kampfrunden'}). <span class="g">Grün</span> = ${esc(A.name)} gewinnt, <span class="r">Rot</span> = der Gegner gewinnt. Die Balken zeigen, wie viel jede Seite verliert.</p>`;
     if (A.typ !== 'boden') aus.push(['Kampfprofil', profil(A, vA), 'wen sie zuerst angreift']);
     else aus.push(['Bodenkampf', bodenProfil(A), `Runde alle ${fmt(BODEN_MIN)} Spielminuten`]);
     aus.push([`${esc(A.name)} ist stark gegen`, lesen + (stark.length ? `<ol class="gf-liste">${stark.map(gfZeile).join('')}</ol>` : `<p class="vt-hinweis">Gegen keine Einheit überlegen – ${A.werte?.angriff > 0 ? 'eine Unterstützungs- oder Masseneinheit.' : 'unbewaffnet.'}</p>`)]);
     aus.push([`Gefährlich für ${esc(A.name)}`, lesen + (gefahr.length ? `<ol class="gf-liste">${gefahr.map(gfZeile).join('')}</ol>` : '<p class="vt-hinweis">Keine Einheit ist bei gleichem Einsatz überlegen.</p>')]);
     aus.push(['Alle Gegner im Überblick', uebersicht(A, liste), `${liste.length} Gefechte`]);
-    const sf = schnellfeuer(A); if (sf) aus.push(['Schnellfeuer', sf, 'mehrere Schüsse auf dasselbe Ziel']);
+    const sf = schnellfeuer(A); if (sf) aus.push(['Schnellfeuer', sf, MEHRFACH ? 'mehrere Schüsse; nach einem Abschuss springt die Salve auf das nächste Ziel derselben Art' : 'mehrere Schüsse auf dasselbe Ziel']);
     const ein = schnellfeuerEin(A); if (ein) aus.push(['Schnellfeuer gegen diese Einheit', ein]);
     aus.push(['So wird gerechnet', methode(A)]);
   }
@@ -221,8 +244,8 @@ function methode(A) {
   const gew = Object.entries(D.gewichte || {}).map(([g, w]) => `${esc(name(g))} ${fmt(w, 1)}`).join(', ');
   if (A.typ === 'boden') return `<p class="vt-hinweis">Beide Seiten setzen gleich viel Rohstoffwert ein (Gewichte der Punktwertung: ${gew}). Je Bodenrunde schießt jede Einheit einmal: Schaden = Angriff × Konterfaktor, kein Schild, höchstens ein Abschuss je Schuss; alle feuern gleichzeitig. Die Rechnung läuft Runde für Runde, bis eine Seite fällt oder 48 Stunden Belagerung (192 Runden) vorbei sind. Urteil aus dem Verhältnis der Verluste: ab 3× klar überlegen, ab 1,5× überlegen, unter ⅓ klar unterlegen; richten beide Seiten unter 2 % aus, heißt es „kaum Wirkung“.</p>`;
   return `<p class="vt-hinweis">Beide Seiten setzen gleich viel Rohstoffwert ein (Gewichte der Punktwertung: ${gew}). Jede Einheit greift je Runde so viele verschiedene Ziele an, wie ihr Profil erlaubt, mit vollem Schaden × Zielfaktor (Primärziel ×2, Sekundärziel ×1,5 oder eigener Wert, sonst ×1) und Volksbonus des gewählten Volkes; Gegner mit Grundwerten.</p>
-    <p class="vt-hinweis">Der Schild fängt je Runde zuerst ab und erneuert sich; Schildbrecher wirken stärker auf Schilde. Ein Treffer unter ${fmt(VERPUFF * 100)} % des Schildwerts verpufft. Schnellfeuer r bringt im Mittel r Schüsse. Ein Zielkanal zerstört höchstens eine Einheit. Die Rechnung läuft Runde für Runde bis zur Vernichtung oder zum Kampfende nach ${RUNDEN_FLOTTE} Runden.</p>
-    <p class="vt-hinweis">Urteil aus dem Verhältnis der Verluste: ab 3× klar überlegen, ab 1,5× überlegen, zwischen ⅔ und 1,5 ausgeglichen, unter ⅓ klar unterlegen; verlieren beide unter 2 %, heißt es „kaum Wirkung“. Nicht eingerechnet: Explosionsregel unter ${fmt((D.kampfregeln?.explosion_unter ?? .7) * 100)} % Struktur, Forschungsstufen, gemischte Flotten, Verteidigungs-Wiederaufbau.</p>`;
+    <p class="vt-hinweis">Der Schild fängt je Runde zuerst ab und erneuert sich; Schildbrecher wirken stärker auf Schilde. Ein Treffer unter ${fmt(VERPUFF * 100)} % des Schildwerts verpufft. Schnellfeuer r bringt im Mittel r Schüsse${MEHRFACH ? '; nach einem Abschuss springt die Salve auf das nächste Ziel derselben Art (Mehrfachfeuer)' : '. Ein Zielkanal zerstört höchstens eine Einheit'}. ${D.gefechte ? `Die Ergebnisse stammen aus der Kampfengine des Spiels: ${RUNDEN_FLOTTE} Runden, Mittel aus 12 Zufallsgefechten je Paar und Volk, ohne Forschung.` : `Die Rechnung läuft Runde für Runde bis zur Vernichtung oder zum Kampfende nach ${RUNDEN_FLOTTE} Runden.`}</p>
+    <p class="vt-hinweis">Urteil aus dem Verhältnis der Verluste: ab 3× klar überlegen, ab 1,5× überlegen, zwischen ⅔ und 1,5 ausgeglichen, unter ⅓ klar unterlegen; verlieren beide unter 2 %, heißt es „kaum Wirkung“. Nicht eingerechnet: ${D.gefechte ? '' : `Explosionsregel unter ${fmt((D.kampfregeln?.explosion_unter ?? .7) * 100)} % Struktur, `}Forschungsstufen, gemischte Flotten, Verteidigungs-Wiederaufbau.</p>`;
 }
 return {abschnitte, gefecht, treffer, URTEILE};
 };

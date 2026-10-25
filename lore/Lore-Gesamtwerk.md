@@ -1,6 +1,6 @@
 # Sternenepoche – Lore-Gesamtwerk
 
-Die gesamte geltende Lore an einem Ort, erzeugt am 23.10.2026 15:01 aus `docs/LORE-BIBEL.md`, `content/beschreibungen.json`, `docs/rat/rat.json` und `web-client/audio/bots/texte.json`. **Nicht hier ändern:** Lore wird in diesen Quellen geändert und danach mit `python -X utf8 tools/content/lore_gesamtwerk.py` neu erzeugt.
+Die gesamte geltende Lore an einem Ort, erzeugt am 25.10.2026 22:12 aus `docs/LORE-BIBEL.md`, `content/beschreibungen.json`, `docs/rat/rat.json` und `web-client/audio/bots/texte.json`. **Nicht hier ändern:** Lore wird in diesen Quellen geändert und danach mit `python -X utf8 tools/content/lore_gesamtwerk.py` neu erzeugt.
 
 ## Teil I · Der Kanon (Lore-Bibel)
 
@@ -78,8 +78,14 @@ Ab acht Bahnen Abstand ist eine Welt ohne Terraforming unbewohnbar. Das trifft n
 Rand: **Krath auf Bahn 11 (Stufe 4) und Bahn 12 (Stufe 7), Syntheten auf Bahn 2 (Stufe 4) und Bahn 1 (Stufe 7)**. Auf einer
 unbewohnbaren Welt wächst niemand, und die Siedler schwinden um bis zu 2 % je Stunde. **Terraforming** nimmt mit jeder
 Stufe neun Hundertstel der Klimaabweichung weg, bis bei Stufe 10 nur noch ein Zehntel bleibt (Krath auf Bahn 12: ab
-Stufe 7 bewohnbar mit 78 %, bei Stufe 10 mit 94 %); dazu schafft jede Stufe 6 Felder auf jedem eigenen Planeten. Licht,
-Deuterium und Nahrung einer Bahn ändert es nicht.
+Stufe 7 bewohnbar mit 78 %, bei Stufe 10 mit 94 %). Licht, Deuterium und Nahrung einer Bahn ändert es nicht.
+**Seit 0.4.7 (24.10.2026)** ist Terraforming (ab Stufe III) zugleich die **Kolonieforschung**: zwei Kolonien sind frei, ab
+der dritten erlaubt jede Stufe eine weitere (höchstens 14). Felder schafft das Fach nicht mehr selbst, sondern die
+**Terraformer** (Schiff ab Stufe IV, wird beim Einsatz verbraucht): Ein Verband zieht zuerst das Klima eines eigenen
+Planeten oder freien Platzes für ein gewähltes Volk ganz zum Optimum – volles Klima hebt auch die Sperre der Randbahnen
+auf – und lässt die Welt danach um bis zu 40 Felder wachsen (30 auf dem ungünstigsten Platz eines Volkes). Jede Stufe
+Terraforming senkt die nötige Flotte: für den ungünstigsten Platz rund 163 Schiffe bei Stufe 1, 50 bei Stufe 10
+(`regeln/kernwerte.ron`, Block `terraform`).
 
 - **Nebelsysteme** liegen in einem auffällig *regelmäßigen* Raster: System 5, 15, 25 … – sechs je Sektor. Nur dort gibt es
   **Xenokristall**. Die Regelmäßigkeit ist das größte Rätsel der Astrophysik (siehe 3.2, „Zehnerraster“).
@@ -123,8 +129,8 @@ Epochen tauchen in Expeditionsberichten auf.
 |---|---|---|---|
 | I | Gründungszeit | Start | Landnacht, Solarfolie, Bohrturm, die erste Akademie in einer Halle aus Archenrumpf. Alles ist Bausatz und Improvisation. |
 | II | Industrie | 1.500 Einwohner, Erzmine 5, Kristallmine 5 | Die ersten Brecher laufen im Takt. Gießerei, Elektronikwerk, Fusion, erste Jäger und Frachter. |
-| III | Orbit | 4.000 Einwohner, Gießerei 3, Elektronikwerk 2, Energietechnik 3, Stabilität 55 | Der Himmel wird Arbeitsplatz: Markt, Phalanx, Silos, Bergbau im Gürtel. |
-| IV | Sternenflug | 40.000 Einwohner, Werft 4, Impulsantrieb 3, Astrophysik 1, Stabilität 60, Konsum 80 % | Impulsflotten, Orbitalwerft, Kolonieschiffe, Kreuzer, Gaußkanone, erster Planetenschild. Die ersten Monde (Kreuzerwinter) und Mondbasen. Kaserne, Bodentruppen und Truppentransporter – noch ohne Landung auf fremdem Boden, denn die braucht Bomber. Aus einer Welt wird ein Reich. |
+| III | Orbit | 4.000 Einwohner, Gießerei 3, Elektronikwerk 2, Energietechnik 3, Stabilität 55 | Der Himmel wird Arbeitsplatz: Markt, Phalanx, Silos, Bergbau im Gürtel, die ersten Impulskreuzer und kleinen Kolonieschiffe. |
+| IV | Sternenflug | 40.000 Einwohner, Werft 4, Impulsantrieb 3, Astrophysik 1, Stabilität 60, Konsum 80 % | Impulsflotten, Orbitalwerft, Große Kolonieschiffe, Terraformer, Gaußkanone, erster Planetenschild. Die ersten Monde (Kreuzerwinter) und Mondbasen. Kaserne, Bodentruppen und Truppentransporter – noch ohne Landung auf fremdem Boden, denn die braucht Bomber. Aus einer Welt wird ein Reich. |
 | V | Imperium | 200.000 Einwohner, Hyperraumantrieb 1, 3 Kolonien | Hyperraum, Schlachtschiffe, Flottenkreuzer, Plasmawerfer, Bomber (und mit ihnen die ersten Landungen), Zerstörer, Schlachtkreuzer, Planetenschild II und III, Orbitalring, Hyperraumtor-Generatoren, Weltenkrümmer; als Allianzwerk die Dysonsphäre. |
 
 Die Stufen sind **Kanon für den Klang**: Ein Text über eine Stufe-II-Anlage klingt nach Staub, Schweiß und Improvisation;
@@ -226,13 +232,15 @@ Weitere feste Begriffe:
   Feuerleitung ist auf diese Zielklasse so genau eingemessen, dass im Mittel sechs Schüsse auf eine Salve kommen.
   Nachführsalven sind *gezüchtete Spezialisierung* – jede Feuerleitung kennt nur ihre Zielklassen.
 - **Schadensfaktoren** (Profil `schadensfaktoren`) sind Wirksamkeit: Ein Faktor 2 gegen Jäger heißt, die Geschosse sind
-  für diese Rumpfstärke ausgelegt; 0,6 gegen Schlachtschiffe heißt, sie prallen von schwerer Panzerung zu oft ab.
-- **Zielwahl – erfassen kann jeder:** Jedes bewaffnete Schiff und jede Anlage kann jedes Ziel erfassen. Jede Feuerleitung
+  für diese Rumpfstärke ausgelegt, ein Faktor 3 ist eine Waffe, die eigens für diese Zielklasse gebaut wurde. Abschläge gibt
+  es nicht: Was nicht zu den eingemessenen Zielklassen gehört, trifft jede Waffe mit ihrem Grundschaden.
+- **Zielwahl – erfassen kann jeder:** Jedes bewaffnete Schiff kann jedes Ziel erfassen, jede Anlage jedes Schiff (Anlagen
+  stehen immer beim Verteidiger und schießen nie auf andere Anlagen). Jede Feuerleitung
   hat aber eingemessene Zielklassen: **Primärziele** wählt sie zuerst und trifft sie doppelt, **Sekundärziele** danach mit
   1,5-fachem Schaden (abweichende Faktoren im Profil), und nur auf diese Klassen schwenkt die Nachführsalve. Alles andere ist
   **Reserve**: Es wird nebenbei, zufällig und mit Grundschaden getroffen. Beispiel **Bomber**: Jede Flotte kann auf ihn
-  schießen, doch bevorzugt jagen ihn nur Schwere Jäger und Plasmawerfer (dreifach), Schlachtschiffe, Flottenkreuzer und
-  Abfang-Schlachtkreuzer (doppelt) und – gleich nach den Jägern – Trägerschlachtschiffe (1,5-fach). Für alle anderen ist er
+  schießen, doch bevorzugt jagen ihn nur Schwere Jäger, Plasmawerfer und Abfang-Schlachtkreuzer (dreifach), Flottenkreuzer
+  (doppelt) und – gleich nach ihren Hauptzielen – Abfangjäger, Trägerschlachtschiffe und Schlachtschiffe (1,5-fach). Für alle anderen ist er
   ein Reserveziel; darum gilt er in der Flottensprache als **schwer zu fassen**, nicht als unerfassbar.
 
 #### 4.5 Schilde
@@ -286,7 +294,7 @@ Weitere feste Begriffe:
   Prozent Chance, höchstens 20 %), sammelt sich die Wolke in der Einflusssphäre des Planeten und kollabiert zu einem Mond.
   Mehr Trümmer, größerer Mond (Durchmesser bis rund 8.944 km). Ein Mond erbt die Bahn und damit das Licht seines Planeten.
 - **Zeitfolge:** Die Trümmermengen dafür entstanden zum ersten Mal im **Kreuzerwinter** (Stufe IV): Die Gefechte der
-  ersten Impulskreuzer über den jungen Kolonien hinterließen die ersten, meist kleinen **Kreuzermonde** – der älteste heißt
+  Kreuzergeschwader über den jungen Kolonien hinterließen die ersten, meist kleinen **Kreuzermonde** – der älteste heißt
   **Raureif** –, und auf ihnen standen die ersten Mondbasen, Kühllager, Regolithförderungen, Werftdocks, Tiefenphalanxen
   und Ortungsschleier. **Narbe** (Schlacht am Zehnten Nebel, Stufe V) ist nicht der erste, sondern der größte und
   berühmteste Schlachtmond der Chronik, der erste der Hyperraumzeit.
@@ -421,7 +429,7 @@ erzählt sie anders; die folgenden **Ereignisse sind Kanon** und dürfen in jede
 | **Der Kodex der Häfen** | Nach Beinahe-Kollisionen über den ersten Raumhäfen einigen sich alle vier Völker auf gemeinsame Funk- und Anflugcodes. Der einzige Vertrag, den nie jemand gebrochen hat. | Raumhafen, Markt, Handelsfrachter |
 | **Die Halle der Vier Siegel** | Der erste Markt, auf dem alle vier Völker handeln, gegründet von Haus Solden am Rand des ersten Nebels. Ein Deuteriumpreis von dort gilt als Urpreis. | Markt, Deuteriumsynthesizer, Bunker |
 | **Die Glutjagd** | Frühe Krath-Raubzüge mit Leichten Jägern auf aurelianische Frachtlinien. Ursprung des Geleitschutzes und des Bunkers. | Leichter Jäger, Kleiner Transporter, Lasergeschütz, Bunker |
-| **Der Kreuzerwinter** | Die ersten Impulskreuzer (Stufe IV) machen die Jägerschwärme der Frühzeit in einer einzigen Epoche wertlos. Ihre Gefechte über den jungen Kolonien hinterlassen so viel Schrott, dass sich die ersten Monde der Chronik verdichten – kleine **Kreuzermonde**, der älteste heißt **Raureif**. Auf ihnen entstehen die ersten Mondbasen. | Kreuzer, Impulsantrieb, Abfangjäger, Raketenkreuzer, Mondbasis, Recycler |
+| **Der Kreuzerwinter** | Die Kreuzergeschwader des Sternenflugs (Stufe IV), gebaut seit der Orbitzeit, machen die Jägerschwärme der Frühzeit in einer einzigen Epoche wertlos. Ihre Gefechte über den jungen Kolonien hinterlassen so viel Schrott, dass sich die ersten Monde der Chronik verdichten – kleine **Kreuzermonde**, der älteste heißt **Raureif**. Auf ihnen entstehen die ersten Mondbasen. | Kreuzer, Impulsantrieb, Abfangjäger, Raketenkreuzer, Mondbasis, Recycler |
 | **Der Erste Sprung** | Vier Sekunden Hyperraum, drei Tage Sprungtaubheit. Alle vier Völker beanspruchen ihn: Kapitänin **Ilse Varenna** (Aurelianer, Haus Varro), **Rogh Ul-Tharn** (Krath, angeblich ohne Instrumente), Einheit **Kadenz** (Syntheten, Protokoll „Sprung 0001“), die unbemannte Saatkapsel **Erstling** (Veyari). | Hyperraumantrieb, Xenomaterialkunde, Schlachtschiff |
 | **Die Schlacht am Zehnten Nebel** | Erste große Schlacht mit Hyperraumschiffen; ihre Trümmer bilden **Narbe**, den größten und berühmtesten Schlachtmond der Chronik und den ersten der Hyperraumzeit (die ersten Monde überhaupt sind die Kreuzermonde des Kreuzerwinters). Ein synthetischer Schildkreuzer deckt dabei den Rückzug eines Krath-Clans (siehe 6.3). | Schlachtschiff, Schildkreuzer, Recycler |
 | **Die Bomberjahre** | Bomberverbände des Imperiums (Stufe V, Werft 7) tragen ganze Verteidigungsringe ab und senken zum ersten Mal Welten bis zur Dreißig-Grenze: Es beginnen die ersten Landungen auf fremdem Boden (**Rampenzeit**), in denen die älteren Bodentruppen des Sternenflugs ihre erste echte Probe bestehen. Die Verteidiger bauen nichts Neues, sondern messen ältere Werkzeuge auf Bomber ein: Schwerer Jäger und Flottenrakete (Orbit-Zeitalter), Flottenkreuzer (Werft 6) und Plasmawerfer aus den ersten Jahren des Imperiums. Berühmt werden sie alle erst jetzt; ein Kind dieser Jahre ist erst der Strategische Bomber an ihrem Ende. | Bomber, Schwerer Jäger, Flottenkreuzer, Plasmawerfer, Flottenrakete, Truppentransporter |
@@ -650,7 +658,7 @@ Bodentruppen: Sturmpanzer 9 m, Schwerer Kampfpanzer 14 m, Belagerungspanzer 18 m
 
 ## Teil II · Das Archiv aller Einträge
 
-119 Einträge: Rolle, Zweck, Stärke und Grenzen, Kurzlore aller Völker, technisches Dossier, Chronik, die Akten der vier Völker und Verweise.
+120 Einträge: Rolle, Zweck, Stärke und Grenzen, Kurzlore aller Völker, technisches Dossier, Chronik, die Akten der vier Völker und Verweise.
 
 ### Versorgung und Rohstoffe
 
@@ -1724,15 +1732,15 @@ Pathfinder-Kapitän Aru Distelgrund soll seinen Zweig von der längsten Reise zu
 
 ##### Technisches Dossier
 
-Die Werft ist eine Halle mit Docks, Montagekränen und Rumpfgerüsten, in der Schiffe und Verteidigungsanlagen nach einer festen Montagefolge entstehen: Kiel legen, Spanten setzen, Beplankung schließen, Antrieb einbauen, Waffen und Elektronik ausrüsten. Jede Stufe schafft einen Fertigungsplatz und erlaubt größere Rümpfe, und schwere Einheiten belegen mehrere Plätze, weil ihr Kiel über mehrere Docks reicht. Die Werftstufe bestimmt, welche Rumpfklassen überhaupt möglich sind: Stufe 1 baut Spionagesonde, Solarsatellit, Leichten Jäger und Kleinen Transporter, Stufe 2 Abfangjäger, Großen Transporter, Recycler und Bergbauschiff, Stufe 3 Schweren Jäger, Schnellfrachter und Truppentransporter.
+Die Werft ist eine Halle mit Docks, Montagekränen und Rumpfgerüsten, in der Schiffe und Verteidigungsanlagen nach einer festen Montagefolge entstehen: Kiel legen, Spanten setzen, Beplankung schließen, Antrieb einbauen, Waffen und Elektronik ausrüsten. Jede Stufe schafft einen Fertigungsplatz und erlaubt größere Rümpfe, und schwere Einheiten belegen mehrere Plätze, weil ihr Kiel über mehrere Docks reicht. Die Werftstufe bestimmt, welche Rumpfklassen überhaupt möglich sind: Stufe 1 baut Spionagesonde, Solarsatellit, Leichten Jäger und Kleinen Transporter, Stufe 2 Abfangjäger, Großen Transporter, Recycler und Bergbauschiff, Stufe 3 Schweren Jäger, Kreuzer, Kleines Kolonieschiff, Schnellfrachter und Truppentransporter.
 
-Mit Stufe 4 folgen Kreuzer, Sturmjäger, Kolonieschiff, Pathfinder und Handelsfrachter, mit Stufe 6 das Schlachtschiff, mit Stufe 8 der Zerstörer und mit Stufe 10 der Schwere Zerstörer, dazu die Freigabe für die Kiellegung des Weltenkrümmers im Werftdock eines Mondes. Die Spanne der Docks reicht damit von der 3 Meter langen Sonde bis zum Großen Kolonieschiff von 1.800 Metern, und ab einer gewissen Länge tragen nur noch Stützgerüste und Hebetürme den Rumpf, bis er aus eigener Kraft abhebt. Ab Stufe 3 kann eine Werft, solange keine Orbitalwerft steht, Recycler zu Habitatmodulen umbauen, eine Notlösung aus Sammelraum und Druckhülle.
+Mit Stufe 4 folgen Sturmjäger, Pathfinder und Handelsfrachter, mit Stufe 6 das Schlachtschiff, mit Stufe 8 der Zerstörer und mit Stufe 10 der Schwere Zerstörer, dazu die Freigabe für die Kiellegung des Weltenkrümmers im Werftdock eines Mondes. Die Spanne der Docks reicht damit von der 3 Meter langen Sonde bis zum Großen Kolonieschiff von 1.800 Metern, und ab einer gewissen Länge tragen nur noch Stützgerüste und Hebetürme den Rumpf, bis er aus eigener Kraft abhebt. Ab Stufe 3 kann eine Werft, solange keine Orbitalwerft steht, Recycler zu Habitatmodulen umbauen, eine Notlösung aus Sammelraum und Druckhülle.
 
 Den Betrieb tragen 20 Arbeiter und 15 Energie, gebaut wird sie aus 400 Erz und 200 Kristall, und jede Stufe kostet das 1,35-Fache der vorigen. Die Werft braucht einen Raumhafen und muss Stufe 4 erreichen, bevor eine Gründung ins Zeitalter des Sternenflugs aufsteigt.
 
 ##### Chronik
 
-Die Werft ist so alt wie der Raumhafen, auf dem sie steht, und ihre ersten Rümpfe in der Gründungszeit waren Spionagesonden, gefolgt von Leichten Jägern und Kleinen Transportern, die in der Glutjagd aufeinandertrafen. Mit Werft 4 entstand der Kreuzer, und der Kreuzerwinter bewies, dass die Werftstufe eines Reiches über seine Sicherheit entscheidet. Neben Werft 4 erwuchs die Orbitalwerft, denn Antriebskerne und Habitatmodule für Kolonien und Großkampfschiffe sprengten jede Halle am Boden. Im Imperium bauten Werften der Stufe 6 die ersten Schlachtschiffe, die am Zehnten Nebel kämpften, und mit Stufe 10 erreichte der Schiffbau den Schweren Zerstörer, das längste Kriegsschiff, das je in einem Planetendock lag.
+Die Werft ist so alt wie der Raumhafen, auf dem sie steht, und ihre ersten Rümpfe in der Gründungszeit waren Spionagesonden, gefolgt von Leichten Jägern und Kleinen Transportern, die in der Glutjagd aufeinandertrafen. Mit Werft 3 entstand der Kreuzer, und der Kreuzerwinter des Sternenflugs bewies, dass die Werftstufe eines Reiches über seine Sicherheit entscheidet. Neben Werft 4 erwuchs die Orbitalwerft, denn Antriebskerne und Habitatmodule für Kolonien und Großkampfschiffe sprengten jede Halle am Boden. Im Imperium bauten Werften der Stufe 6 die ersten Schlachtschiffe, die am Zehnten Nebel kämpften, und mit Stufe 10 erreichte der Schiffbau den Schweren Zerstörer, das längste Kriegsschiff, das je in einem Planetendock lag.
 
 ##### Volksakten
 
@@ -2328,7 +2336,7 @@ Sie schaltet nichts frei, ist aber für organische Völker billiger Pflichtstoff
 
 ##### Chronik
 
-Die Agrarwissenschaft gehört zu den vier Fächern, die schon das erste Labor einer Gründung erlaubt, und das hat einen einfachen Grund: Durch die Schwelle passen nur 800 Nahrung, der Bausatz für eine einzige Farm und das Saatgut im Gepäck der Siedler. Die Saat einer Gründung geht auf fremdem Boden oft schlecht auf, weil ihr die Bodenlebewesen der Heimat fehlen, und die ersten Ernten der Weite fielen darum fast überall kleiner aus, als die Ladelisten der Archen versprochen hatten. Mit dem Markt der Orbitzeit wurde Nahrung zur Handelsware, und Veyari-Ernten füllen seitdem die aurelianischen Märkte. Ihr großer Nachfolger ist das Terraforming der Sternenflugzeit, das nicht mehr den Ertrag eines Feldes hebt, sondern einer ganzen Welt neue Felder gibt.
+Die Agrarwissenschaft gehört zu den vier Fächern, die schon das erste Labor einer Gründung erlaubt, und das hat einen einfachen Grund: Durch die Schwelle passen nur 800 Nahrung, der Bausatz für eine einzige Farm und das Saatgut im Gepäck der Siedler. Die Saat einer Gründung geht auf fremdem Boden oft schlecht auf, weil ihr die Bodenlebewesen der Heimat fehlen, und die ersten Ernten der Weite fielen darum fast überall kleiner aus, als die Ladelisten der Archen versprochen hatten. Mit dem Markt der Orbitzeit wurde Nahrung zur Handelsware, und Veyari-Ernten füllen seitdem die aurelianischen Märkte. Ihr großer Nachfolger ist das Terraforming der Orbitzeit, das nicht mehr den Ertrag eines Feldes hebt, sondern das Klima ganzer Welten anpasst und mit seinen Terraformern einer Welt neue Felder gibt.
 
 ##### Volksakten
 
@@ -2475,7 +2483,7 @@ Seine Stufen öffnen Rumpf um Rumpf: Stufe 1 den Abfangjäger und die Interplane
 
 ##### Chronik
 
-Der Impulsantrieb ist die Technik der Orbitzeit, denn erst als eine Gründung Labore der Stufe 3 betrieb und genug Kristall für Linsen schleifen konnte, wurde aus der Fusion der Industriezeit ein Triebwerk. Das erste Kriegsschiff mit diesem Antrieb war nicht der Kreuzer, sondern der Abfangjäger, der schon mit Impulsantrieb 1 und einer Werft der Stufe 2 gebaut werden konnte und als Jägerjäger die Schwärme der Frühzeit ausdünnte. Mit der dritten Stufe öffnete sich der Sternenflug, und erst dort entstand der Kreuzer, dessen Geschwader im Kreuzerwinter die Jägerschwärme in einer einzigen Epoche wertlos machten.
+Der Impulsantrieb ist die Technik der Orbitzeit, denn erst als eine Gründung Labore der Stufe 3 betrieb und genug Kristall für Linsen schleifen konnte, wurde aus der Fusion der Industriezeit ein Triebwerk. Das erste Kriegsschiff mit diesem Antrieb war nicht der Kreuzer, sondern der Abfangjäger, der schon mit Impulsantrieb 1 und einer Werft der Stufe 2 gebaut werden konnte und als Jägerjäger die Schwärme der Frühzeit ausdünnte. Mit der dritten Stufe öffnete sich der Sternenflug, und dort wuchsen die Kreuzer der Orbitzeit zu den Geschwadern, die im Kreuzerwinter die Jägerschwärme in einer einzigen Epoche wertlos machten.
 
 Zugleich trugen Impulsrümpfe die ersten Kolonieschiffe zu fremden Welten, Schnellfrachter verbanden die jungen Kolonien mit ihrer Heimatwelt, und Pathfinder flogen weiter hinaus in die Weite. Der Hyperraumantrieb hat ihn als Antrieb der Großkampfschiffe abgelöst, doch für Frachter, Kolonieschiffe und Kreuzer ist er bis heute das Maß.
 
@@ -2485,7 +2493,7 @@ Zugleich trugen Impulsrümpfe die ersten Kolonieschiffe zu fremden Welten, Schne
 
 Ihre Impulskerne der Serie Agilitas tragen den Namen der Schnelligkeit, und Haus Quirin versichert jede Linie, die mit ihnen fährt, gegen versäumte Lieferfristen. Die Doktrin ist aurelianisch schlicht: Wer zuerst liefert, macht den Preis.
 
-**Krath-Akte.** Die Krath nennen den Impulsantrieb Sprung der Klinge, weil er ihre Raubzüge zum ersten Mal schneller machte, als ein Gegner sich rüsten konnte, und für Clans, die nach dem Laderaumrecht leben, begannen damit die großen Beutezüge, zuerst mit Abfangjägern und erst im Sternenflug mit Kreuzern. Mit den Kristall-Laserlinsen hatten sie anfangs Mühe, denn Linsen sind feine Technik, die keine Hammerprobe besteht, und die ersten Krath-Linsen stammten aus Beute oder wurden bei aurelianischen Händlern teuer gekauft. Linsenschleifer Ottak Groth löste das auf Krath-Art, indem er jede Linse in einen federnden Basaltstahlrahmen fasste, der den Schlag aufnimmt, und jedes Schiff eine ganze Kiste Ersatzlinsen mitführen ließ, sodass ein Linsenkranz im Feld in einer Wache getauscht ist.
+**Krath-Akte.** Die Krath nennen den Impulsantrieb Sprung der Klinge, weil er ihre Raubzüge zum ersten Mal schneller machte, als ein Gegner sich rüsten konnte, und für Clans, die nach dem Laderaumrecht leben, begannen damit die großen Beutezüge, zuerst mit Abfangjägern und danach mit Kreuzern. Mit den Kristall-Laserlinsen hatten sie anfangs Mühe, denn Linsen sind feine Technik, die keine Hammerprobe besteht, und die ersten Krath-Linsen stammten aus Beute oder wurden bei aurelianischen Händlern teuer gekauft. Linsenschleifer Ottak Groth löste das auf Krath-Art, indem er jede Linse in einen federnden Basaltstahlrahmen fasste, der den Schlag aufnimmt, und jedes Schiff eine ganze Kiste Ersatzlinsen mitführen ließ, sodass ein Linsenkranz im Feld in einer Wache getauscht ist.
 
 Die Impulsblöcke der Baureihe Klingenschmiede, die aus seiner Werkstatt hervorging, werden bis heute nur vom Meister an den Lehrling weitergegeben, und kein Bauplan davon liegt in einem Archiv. Beim ersten Probelauf lassen die Werftmeister die Magnetdüse rot glühen, und erst wenn sie danach noch hält, schlägt der Lehrling das Clanzeichen in den Rahmen.
 
@@ -2554,26 +2562,26 @@ Seither legt jede Besatzung vor dem ersten Sprung eines neuen Schiffs einen Same
 
 *Kolonialforschung · Forschung über Sternsysteme, Bahnen und Lebensbedingungen fremder Welten.*
 
-**Wozu.** Jede Stufe erlaubt eine weitere Kolonie, bis zu 14 Kolonien plus Heimatwelt.
+**Wozu.** Sie vermisst Bahnen und Lebensbedingungen und ist Voraussetzung für Kolonie- und Expeditionsschiffe: Kolonieschiff mit Stufe 1, Pathfinder und Bergungsschiff mit Stufe 2, Großes Kolonieschiff mit Stufe 3.
 
-**Stärke.** Sie ist die einzige Forschung, die das Reich räumlich wachsen lässt, und steigt mit Faktor 1,75 langsamer im Preis als die übrigen.
+**Stärke.** Ohne sie startet keine Arche und steigt keine Gründung in den Sternenflug auf, und mit Faktor 1,75 wird sie langsamer teurer als die meisten Fächer.
 
-**Grenzen.** Ab Stufe III verfügbar und für Stufe IV mindestens auf 1 nötig, bringt sie ohne Kolonieschiffe und Siedler aber nichts.
+**Grenzen.** Ab Stufe III verfügbar und für Stufe IV mindestens auf 1 nötig; Kolonieplätze gibt nicht sie, sondern Terraforming.
 
 > Die Astrophysik zeigte, dass es in der Weite mehr bewohnbare Welten gibt als Schiffe, um sie zu erreichen, und sie fand das Zehnerraster der Nebel, das bis heute niemand erklären kann. Jeder neue Eintrag in ihren Sternkatalogen ist ein Versprechen an die nächste Siedlergeneration.
 
 - **Aurelianer:** Aurelianische Astrophysiker kartieren Systeme zuerst nach Handelsrouten und erst dann nach Atmosphären. Ihre Sternkataloge erscheinen in goldgeprägten Bänden, und die besten Einträge werden unter den Handelshäusern versteigert, noch bevor ein Kolonieschiff startet.
 - **Krath:** Die Krath lesen Sternkarten wie Schlachtpläne und bewerten jede Welt danach, wie gut sie sich verteidigen lässt. Heiße Welten nahe der Sonne stehen bei ihnen oben auf der Liste, denn dort fühlen sich Siedler von Krath Ur zu Hause.
 - **Syntheten:** Syntheten suchen in der Astrophysik vor allem kalte Welten, auf denen ihre heiß laufenden Wandler leicht ihre Wärme loswerden. Das Zehnerraster führen sie als offene Hypothesenliste, und keine Einheit darf sie schließen, solange keine Hypothese sicher ist.
-- **Veyari:** Veyari lieben die Astrophysik, weil sie ihnen neue Gärten zeigt, und ihre günstigen Kolonieschiffe machen aus jeder Stufe schnell eine Siedlung. Am liebsten wählen sie Welten am kühleren Rand der Lebenszone, wo der Morgentau bis Mittag liegt.
+- **Veyari:** Veyari lieben die Astrophysik, weil sie ihnen neue Gärten zeigt, und ihre günstigen Kolonieschiffe machen aus jedem neuen Katalogeintrag schnell eine Siedlung. Am liebsten wählen sie Welten am kühleren Rand der Lebenszone, wo der Morgentau bis Mittag liegt.
 
 ##### Technisches Dossier
 
 Astrophysik ist die Vermessung der Weite: Spektrografen zerlegen das Licht jedes Sterns in seine Linien und verraten Temperatur, Alter und Strahlungsruhe, Bahnmechaniker berechnen die zwölf Bahnen eines Systems, und Planetologen lesen aus Rückstrahlung, Masse und Atmosphärenspektrum, welche Welt Leben trägt. Ihre Grundordnung ist die Zonenlehre, nach der die Glutzone der Bahnen 1 bis 3 kleine Welten mit kargen Böden trägt, die Lebenszone der Bahnen 4 bis 8 große, fruchtbare Welten und die Frostzone der Bahnen 9 bis 12 Eispanzer mit 1,5-fachem Deuterium, während die Solartabelle das Licht Bahn für Bahn misst, von 171 Prozent auf der innersten über 100 Prozent auf Bahn 6 bis zu 20 Prozent auf der äußersten. Jeder Sektor zählt 60 Systeme, jedes mit einem Asteroidengürtel, und ein Teil von ihnen sind Nebelsysteme, die einzigen Fundorte von natürlichem Xenokristall.
 
-Jede Forschungsstufe erlaubt dem Reich eine weitere Kolonie, weil eine Welt erst dann sicher besiedelt werden kann, wenn ihre Bahn, ihr Klima und ihre Versorgungswege so genau vermessen sind, dass Kolonieschiff, Frachter und Verwaltung sich darauf verlassen können, bis zu 14 Kolonien neben der Heimatwelt und damit 15 Planeten insgesamt. Ohne Kolonieschiffe und Siedler bringt das freilich nichts, denn ein Katalogeintrag ist noch keine Siedlung. Die erste Stufe kostet 4.000 Erz, 8.000 Kristall und 4.000 Deuterium bei 2.000 Forschungspunkten, und weil der Preis mit dem Faktor 1,75 statt 2 steigt, wird sie langsamer teurer als die übrigen Fächer.
+Ihre Kataloge sagen Kolonieschiff, Frachter und Verwaltung, wo eine Welt liegt und was sie trägt, doch wie viele Kolonien ein Reich halten kann, bestimmt nicht sie, sondern das Terraforming, denn ein Katalogeintrag ist noch keine Siedlung. Die erste Stufe kostet 4.000 Erz, 8.000 Kristall und 4.000 Deuterium bei 2.000 Forschungspunkten, und weil der Preis mit dem Faktor 1,75 statt 2 steigt, wird sie langsamer teurer als die übrigen Fächer. Erforschbar ist sie ab der Orbitzeit mit einem Labor der Stufe 3, Astrophysik 1 ist Pflicht für den Sternenflug, Stufe 2 öffnet Pathfinder und Bergungsschiff und Stufe 3 das Große Kolonieschiff.
 
-Erforschbar ist sie ab der Orbitzeit mit einem Labor der Stufe 3, Astrophysik 1 ist Pflicht für den Sternenflug, Stufe 2 öffnet Pathfinder und Bergungsschiff und Stufe 3 das Große Kolonieschiff. Ihr großes offenes Problem ist das Zehnerraster, denn die Nebel liegen in den Systemen 5, 15, 25 und so fort, so regelmäßig, dass die meisten Astrophysiker an Absicht glauben, und niemand weiß, wozu.
+Ihr großes offenes Problem ist das Zehnerraster, denn die Nebel liegen in den Systemen 5, 15, 25 und so fort, so regelmäßig, dass die meisten Astrophysiker an Absicht glauben, und niemand weiß, wozu.
 
 ##### Chronik
 
@@ -2595,7 +2603,7 @@ Ihre Theorie zum Zehnerraster ist eine Schlachtordnung: Die Gebrochenen hätten 
 
 Keine Einheit darf diese Liste schließen, solange keine Hypothese sicher ist, und so ist sie das älteste offene Protokoll des Kollektivs. Ob Hexaris, um den kalten Eisenkern einer zerbrochenen Welt gebaut, etwas mit dem Raster zu tun hat, beantwortet Parallaxe stets mit derselben freundlichen Formel: Keine Angabe.
 
-**Veyari-Akte.** Die Veyari lieben die Astrophysik, weil sie ihnen neue Gärten zeigt, und weil ihre Saatschiffe ein Viertel weniger kosten, wird bei ihnen aus jeder Stufe schneller eine Siedlung als bei anderen Völkern. Sie wählen am liebsten Welten am kühleren Rand der Lebenszone, wo die Böden fruchtbar sind und der Tau lange liegt, und ihre Kataloge verzeichnen neben Bahn und Licht auch den Geruch des Regens, den Pathfinder-Besatzungen gemeldet haben. Forscherin Mira Sennwurz liest das Zehnerraster als Wurzelwerk: Die Nebel seien Knoten eines Netzes, das in gleichen Abständen Saft gezogen habe, so wie ein Myzel seine Fruchtkörper in Reihen setzt, und der Bruch sei das Absterben dieses Netzes gewesen.
+**Veyari-Akte.** Die Veyari lieben die Astrophysik, weil sie ihnen neue Gärten zeigt, und weil ihre Saatschiffe ein Viertel weniger kosten, wird bei ihnen aus jeder vermessenen Welt schneller eine Siedlung als bei anderen Völkern. Sie wählen am liebsten Welten am kühleren Rand der Lebenszone, wo die Böden fruchtbar sind und der Tau lange liegt, und ihre Kataloge verzeichnen neben Bahn und Licht auch den Geruch des Regens, den Pathfinder-Besatzungen gemeldet haben. Forscherin Mira Sennwurz liest das Zehnerraster als Wurzelwerk: Die Nebel seien Knoten eines Netzes, das in gleichen Abständen Saft gezogen habe, so wie ein Myzel seine Fruchtkörper in Reihen setzt, und der Bruch sei das Absterben dieses Netzes gewesen.
 
 Die Kreise halten das für eine schöne Theorie und keine bewiesene, und Sennwurz selbst sagt, sie gieße sie nur, bis sie Früchte trage oder verdorre. Wenn eine neue Welt in den Katalog eines Hains eingetragen wird, pflanzen die Kinder der Heimatwelt einen Baum, der nach ihr heißt.
 
@@ -3018,7 +3026,7 @@ Die ersten Plasmaköpfe waren umgebaute Zündstrecken aus Fusionskraftwerken, di
 
 Spionagetechnik ist die Forschung hinter der Spionagesonde, einer nur drei Meter langen Kapsel mit Teleskop, Sensorschüssel und kompaktem Triebwerk, die mit Tempo 100.000 schneller fliegt als jedes andere Schiff. Ihr Fachgebiet hat drei Teile: die Sondenoptik, die aus größerer Entfernung schärfer sieht, die Datenkompression, mit der eine Sonde in einem einzigen kurzen Funkstoß mehr Messungen nach Hause schickt, und die Abwehr fremder Sonden durch Störsender und Täuschbilder über den eigenen Welten. Aufklärung folgt stets derselben Leiter: Zuerst kartiert ein Systemscan ein Sonnensystem und meldet Felder, Zone und Vorkommen freier Plätze, dann liest eine Planetensonde eine bewohnte Welt aus, und eine Flottensonde untersucht schließlich eine Flotte im Anflug.
 
-Was ein Planetenbericht zeigt, hängt an der Zahl der Sonden und am Abstand zwischen der eigenen Spionagetechnik und der des Ziels, denn ein knapper Bericht nennt nur Rohstoffe, ein besserer auch Flotte und Verteidigung, und erst ein tiefer Bericht zeigt Gebäude und Forschung. Darum wirkt jede Stufe doppelt, weil sie die eigenen Berichte mit derselben Handvoll Sonden reicher und die Berichte fremder Sonden über die eigenen Welten dürftiger macht. Bemerkt wird jede Spionage trotzdem, denn der Funkstoß einer Sonde ist im Orbit nicht zu überhören, und Kreuzer wie Schlachtschiffe holen die schildlosen Kapseln mit Nachführsalven vom Himmel.
+Was ein Planetenbericht zeigt, hängt an der Zahl der Sonden und am Abstand zwischen der eigenen Spionagetechnik und der des Ziels, denn ein knapper Bericht nennt nur Rohstoffe, ein besserer auch Flotte und Verteidigung, und erst ein tiefer Bericht zeigt Gebäude und Forschung. Darum wirkt jede Stufe doppelt, weil sie die eigenen Berichte mit derselben Handvoll Sonden reicher und die Berichte fremder Sonden über die eigenen Welten dürftiger macht. Bemerkt wird jede Spionage trotzdem, denn der Funkstoß einer Sonde ist im Orbit nicht zu überhören, und jede Flotte im Orbit holt die schildlosen Kapseln nebenbei vom Himmel.
 
 Die erste Stufe ist schon in der Gründungszeit mit einem Labor der Stufe 1 zugänglich und kostet nur 100 Erz, 300 Kristall, 100 Deuterium und 150 Forschungspunkte, womit sie die billigste Forschung mit dem größten Informationsgewinn ist; jede weitere Stufe verdoppelt den Aufwand. Spionagetechnik 1 ist die Grundlage von Überwachungs- und Abschirmtechnik, und ihre zweite Stufe gehört zu den Voraussetzungen der Tiefenphalanx.
 
@@ -3101,58 +3109,58 @@ In den Nebelsystemen fördern die Veyari mit leisen Bohrern, und eine neue Stufe
 
 #### Terraforming
 
-*Kolonialforschung (Planetengestaltung) · Forschung an Atmosphärenumwandlung, Bodenaufbereitung und Klimasteuerung.*
+*Kolonialforschung (Kolonieplätze und Planetengestaltung) · Forschung an Atmosphärenumwandlung, Bodenaufbereitung und Klimasteuerung, die zugleich die Verwaltung neuer Kolonien trägt.*
 
-**Wozu.** Sie macht jeden eigenen Planeten größer, indem sie unbrauchbares Gelände nutzbar macht.
+**Wozu.** Sie ist die Kolonieforschung: Zwei Kolonien sind ab Start frei, ab der dritten erlaubt jede Stufe eine weitere, bis zu 14 Kolonien neben der Heimatwelt.
 
-**Stärke.** Jede Stufe bringt 6 Felder auf jedem eigenen Planeten gleichzeitig, verkleinert die Klimaabweichung fremder Bahnen, bis bei Stufe 10 nur ein Zehntel bleibt, und öffnet Krath und Syntheten mit Stufe 4 und 7 die fernsten Bahnen am entgegengesetzten Rand.
+**Stärke.** Jede Stufe nimmt auf allen eigenen Welten neun Hundertstel der Klimaabweichung weg, bis bei Stufe 10 nur ein Zehntel bleibt, öffnet Krath und Syntheten mit Stufe 4 und 7 die fernsten Bahnen und senkt die Zahl der Terraformer je Projekt, für den ungünstigsten Platz eines Volkes von rund 163 bei Stufe 1 auf 50 bei Stufe 10.
 
-**Grenzen.** Ab Stufe IV mit Labor 6, kostet sie 50.000 Kristall, 100.000 Deuterium und 2.000 Elektronik schon auf Stufe 1 und ist damit eine Langzeitinvestition; Licht, Deuterium und Nahrung einer Bahn ändert sie nicht.
+**Grenzen.** Ab Stufe III mit Labor 3 kostet die erste Stufe 4.000 Erz, 8.000 Kristall, 4.000 Deuterium und 200 Elektronik bei Faktor 1,75; neue Felder schafft sie nicht selbst, die bringen erst Terraformer, und Licht, Deuterium und Nahrung einer Bahn ändert sie nicht.
 
-> Terraforming ist ein Generationenwerk: Seine Verfahren wurden über viele Epochen von Forschern verfeinert, die das Ergebnis nie selbst sahen, und doch wird es auf jeder Welt sichtbar, als Sumpf, der trocknet, als Hang, der Terrassen bekommt, als Salzpfanne, auf der Regen fällt. Wer einmal auf einer Welt stand, die er selbst urbar gemacht hat, versteht, warum Reiche sich das leisten.
+> Terraforming ist ein Generationenwerk, dessen Verfahren über viele Epochen verfeinert wurden, und es zeigt sich auf jeder Welt eines Reiches, als Sumpf, der trocknet, als Hang, der Terrassen bekommt, als Salzpfanne, auf der Regen fällt. Seit das Fach die Kolonieverwaltung trägt, führt keine Gründung mehr als zwei Kolonien, ohne die Kunst zu beherrschen, fremde Welten anzupassen.
 
-- **Aurelianer:** Aurelianer verkaufen neu gewonnenes Bauland parzelliert und mit Aussichtsgarantie, noch bevor der erste Regen fällt. Für sie zählt vor allem, dass jede Stufe auf allen eigenen Welten zugleich Platz schafft, und Platz ist das teuerste Gut eines Reiches.
-- **Krath:** Die Krath formen Welten nicht schöner, sondern nutzbarer, und bebauen jedes neu gewonnene Feld zuerst mit Kasernen und Werften. Auf kalten Welten graben sie neue Felder in den Fels und geben nie zu, dass ihnen dort kalt ist, auch wenn ihnen erst die siebte Stufe die äußerste Frostbahn öffnet.
-- **Syntheten:** Syntheten terraformen nüchtern und schätzen vor allem die zusätzlichen Felder auf jeder ihrer Welten. Dass Terraforming das schwache Licht ferner Eiswelten nicht heller macht, haben sie früh berechnet, und so bauen sie dort weiter auf Fusionskraftwerke.
+- **Aurelianer:** Aurelianer verkaufen neu gewonnenes Bauland parzelliert und mit Aussichtsgarantie, noch bevor der erste Regen fällt. Für sie zählt vor allem, dass jede Stufe eine weitere Kolonie erlaubt und die Terraformer-Verbände kleiner macht, denn Häfen, Märkte und Platz sind das teuerste Gut eines Reiches.
+- **Krath:** Die Krath formen Welten nicht schöner, sondern nutzbarer, und bebauen jedes neu gewonnene Feld zuerst mit Kasernen und Werften. Auf kalten Welten geben sie nie zu, dass ihnen dort kalt ist, auch wenn ihnen erst die siebte Stufe die äußerste Frostbahn öffnet.
+- **Syntheten:** Syntheten führen Terraforming als Kolonieprotokoll: Jede Stufe ist ein weiterer Kolonieplatz und ein Klimamodell, das auf allen ihren Welten zugleich wirkt. Dass das Fach das schwache Licht ferner Eiswelten nicht heller macht, haben sie früh berechnet, und so bauen sie dort weiter auf Fusionskraftwerke.
 - **Veyari:** Für Veyari ist Terraforming die höchste Form der Gartenkunst, und ihre Welten werden mit jeder Stufe ein wenig mehr Heimat. Jede gelungene Stufe feiern die Gärtner mit dem Fest der ersten Wolke, wenn über einem neu gewonnenen Feld zum ersten Mal Regen fällt.
 
 ##### Technisches Dossier
 
-Terraforming ist die Forschung an Atmosphärenumwandlung, Bodenaufbereitung und Klimasteuerung, und ihr Ziel ist nicht eine andere Welt, sondern mehr nutzbares Gelände auf derselben. Jeder Planet hat eine feste Zahl bebaubarer Felder, auf den kleinen Welten der Glutzone 80 bis 140, auf den großen der Lebenszone 150 bis 230, und der Rest ist Sumpf, Geröll, Salzpfanne oder Eis, auf dem kein Fundament steht. Jede Stufe macht auf jedem eigenen Planeten zugleich 6 Felder davon nutzbar, weil das Fach keine einzelne Baustelle ist, sondern ein Verfahren, das ein Reich mit denselben Anlagen auf allen Welten anwendet: Entwässerungsstollen, Bodenreaktoren, Hangterrassen und Wolkenimpfer.
+Terraforming ist die Forschung an Atmosphärenumwandlung, Bodenaufbereitung und Klimasteuerung, und ihre Messgröße ist die Klimaabweichung: Wie gut ein Volk auf einer Bahn wächst, hängt am Abstand zu seiner Heimatbahn, und jede Stufe nimmt auf allen eigenen Welten zugleich neun Hundertstel dieser Abweichung weg, bis bei Stufe 10 nur noch ein Zehntel bleibt. So siedeln Krath auf der äußersten Frostbahn ab Stufe 7 mit 78 Prozent und bei Stufe 10 mit 94 Prozent ihres Heimatwachstums, und die vierte und siebte Stufe öffnen den Randvölkern die Bahnen, die ohne das Fach unbewohnbar sind, den Krath die Bahnen 11 und 12, den Syntheten die Bahnen 2 und 1. Die Stufen wirken über Verfahren, nicht über einzelne Baustellen: Entwässerungsstollen, Bodenreaktoren, Hangterrassen und Wolkenimpfer laufen auf jeder Welt eines Reiches nach denselben Modellen, und ihre Grenze ist die Bahn selbst, denn Licht, Deuterium und Nahrung einer Bahn ändert das Fach nicht.
 
-Die Kosten verraten den Prozess, denn die erste Stufe verschlingt 50.000 Kristall, 100.000 Deuterium und 2.000 Elektronik. Das Deuterium ist Wasserstoffquelle und Prozesswärme zugleich, aus ihm werden Wasser für ausgedörrte Böden und Gase für dünne Atmosphären gewonnen, der Kristall geht in Katalysatorgitter und Spiegelfolien, und die Elektronik steuert Tausende verteilter Klimastationen, die ständig nachregeln müssen. Dazu kommen 8.000 Forschungspunkte, ein Labor der Stufe 6 und der Sternenflug als Voraussetzung, und weil sich Aufwand und Rechenzeit mit jeder Stufe verdoppeln, ist Terraforming die Langzeitinvestition schlechthin.
+Zugleich ist Terraforming die Kolonieforschung: Zwei Kolonien verwaltet eine Gründung ohne das Fach, ab der dritten verlangt jede weitere eine Stufe, bis zu 14 Kolonien neben der Heimatwelt und damit 15 Planeten insgesamt, weil erst angepasste Klimamodelle, Saatlinien und Versorgungspläne eine Siedlung auf fremdem Boden tragen. Neue Felder schafft die Forschung nicht selbst, die bringen die Terraformer, deren Bau ihre erste Stufe freigibt: Ein voller Verband zieht das Klima eines Platzes ganz zum Optimum und lässt die Welt danach um bis zu 40 Felder wachsen. Jede Stufe macht diese Verbände kleiner, denn mit besseren Katalysatoren und genaueren Modellen braucht ein Projekt auf dem ungünstigsten Platz eines Volkes bei Stufe 1 rund 163 Schiffe, bei Stufe 8 rund 65 und bei Stufe 10 nur noch 50.
 
-Zugleich ist Terraforming Klimaanpassung für Siedler fremder Bahnen: Wie gut ein Volk auf einer Bahn wächst, hängt am Abstand zu seiner Heimatbahn, und jede Stufe nimmt neun Hundertstel dieser Abweichung weg, bis bei Stufe 10 nur noch ein Zehntel bleibt, sodass Krath auf der äußersten Frostbahn ab Stufe 7 mit 78 Prozent und bei Stufe 10 mit 94 Prozent ihres Heimatwachstums siedeln. Ab acht Bahnen Abstand ist eine Welt ohne das Fach unbewohnbar, was nur die Randvölker am entgegengesetzten Rand trifft, Krath auf den Bahnen 11 und 12 und Syntheten auf den Bahnen 2 und 1, denen Stufe 4 und Stufe 7 diese Bahnen öffnen, während Licht und Rohstoffe einer Bahn bleiben, wie sie sind, denn eine Frostwelt behält ihr schwaches Licht und ihr reiches Eis. Keine andere Anlage, kein Schiff und keine Forschung setzt Terraforming voraus; sein einziger Lohn ist Platz, und der wächst auf jeder Welt eines Reiches gleichzeitig.
+Die Kosten verraten den Prozess: Die erste Stufe verlangt 4.000 Erz, 8.000 Kristall für Katalysatorgitter und Spiegelfolien, 4.000 Deuterium als Wasserstoffquelle und Prozesswärme und 200 Elektronik für die verteilten Klimastationen, dazu 2.000 Forschungspunkte. Erforschbar ist sie ab der Orbitzeit mit einem Labor der Stufe 3, und weil der Preis je Stufe nur mit dem Faktor 1,75 steigt, bleibt sie länger bezahlbar als die meisten Fächer, wie es ein Fach muss, von dem jede neue Kolonie abhängt.
 
 ##### Chronik
 
-Terraforming ist ein Fach des Sternenflugs und gehört zu den letzten großen Forschungen, bevor eine Gründung zum Imperium wird, denn es verlangt ein Labor der Stufe 6 und die Mittel eines Reichs mit vielen Welten. Seine Wurzeln liegen bei den Kolonieschiffen: Mit jeder Kolonie, die Astrophysik und Kolonieschiff möglich machten, wuchs das Wissen über fremde Böden und Atmosphären, bis es sich lohnte, die vorhandenen Welten zu erweitern, statt nur neue zu suchen. Die Völker streiten, wer die erste Stufe vollendete, doch die Chronik verzeichnet als ersten sichtbaren Erfolg einen Wolkenring über einer Kolonie der Lebenszone, der zum ersten Mal Regen über eine Salzpfanne brachte.
+Terraforming begann in der Orbitzeit, als die ersten Kolonieschiffe Siedler auf fremde Bahnen trugen und die Gründungen lernten, dass eine vermessene Welt noch keine bewohnte ist. Was als Notwissen über fremde Böden und dünne Luft anfing, wurde zur Kolonieforschung, denn eine dritte Kolonie und jede weitere hielten nur Reiche, die ihre Klimamodelle beherrschten, und weil das Imperium drei Kolonien verlangt, führt der Weg dorthin durch dieses Fach. Die Chronik verzeichnet als ersten sichtbaren Erfolg einen Wolkenring über einer Kolonie der Lebenszone, der zum ersten Mal Regen über eine Salzpfanne brachte.
 
-Im Imperium setzte der Orbitalring denselben Gedanken fort, nur dass er eine Welt nicht urbar macht, sondern ihr Fläche über dem Himmel hinzubaut, und seither gelten Terraforming und Orbitalring als zwei Antworten auf dieselbe Frage nach Platz. Für Krath und Syntheten wurde das Fach zudem zur Tür an den entgegengesetzten Rand ihres Systems, denn erst seine vierte und siebte Stufe machten dort die fernsten Bahnen für sie bewohnbar.
+Mit dem Sternenflug folgte der Terraformer, ein Schiff, das die Verfahren des Fachs in eine fremde Atmosphäre trägt und eine Welt nicht nur anpasst, sondern wachsen lässt. Im Imperium setzte der Orbitalring denselben Gedanken mit einem Bauwerk über dem Himmel fort, und seither gelten Terraformer und Orbitalring als zwei Antworten auf dieselbe Frage nach Platz.
 
 ##### Volksakten
 
-**Aurelianer-Akte.** Bei den Aurelianern ist neues Land eine Ware, bevor es trocken ist, denn Parzellen mit Aussichtsgarantie gehen in den Verkauf, ehe der erste Regen fällt, und die Grundbuchämter von Haus Solden führen jedes terraformte Feld vom Tag der ersten Vermessung an als Vermögenswert. Die Verfahren sind Patente eines Konsortiums aus Haus Corvell für die Großgeräte und Haus Tessaly für die Klimaelektronik, und jede Stufe wird an alle Kolonien einer Gründung zugleich lizenziert, weil sie ohnehin auf jeder Welt gleichzeitig wirkt. Für die Republik ist das die beste Rechnung des Fachs: Sechs Felder mehr auf jedem Planeten bedeuten in einem Reich mit vielen Kolonien ein Vielfaches davon, ohne dass ein einziges Kolonieschiff startet.
+**Aurelianer-Akte.** Bei den Aurelianern ist neues Land eine Ware, bevor es trocken ist, denn Parzellen mit Aussichtsgarantie gehen in den Verkauf, ehe der erste Regen fällt, und die Grundbuchämter von Haus Solden führen jede terraformte Parzelle vom Tag der ersten Vermessung an als Vermögenswert. Die Verfahren sind Patente eines Konsortiums aus Haus Corvell für die Großgeräte und Haus Tessaly für die Klimaelektronik, und jede Stufe wird an alle Kolonien einer Gründung zugleich lizenziert, weil sie ohnehin auf jeder Welt gleichzeitig wirkt. Für die Republik ist das Fach vor allem eine Kolonierechnung: Jede Stufe erlaubt eine weitere Kolonie und damit einen weiteren Hafen, ein weiteres Kontor und einen weiteren Markt, und jede Stufe macht die Terraformer-Verbände kleiner, die Haus Solden über Landanleihen finanziert.
 
 Die Landvermesserin Octavia Lazar, eine Gesandte, die einst Grenzstreitigkeiten zwischen Kolonien schlichtete, prägte den Grundsatz, dass neu gewonnenes Land zuerst den Siedlern gehört, die den Sumpf trockengelegt haben, und erst danach dem Haus, das die Pumpen bezahlte. Haus Quirin versichert jede Parzelle gegen Rückfall in den Sumpf und hat diese Police noch nie auszahlen müssen.
 
-**Krath-Akte.** Krath-Terraforming ist eher Bergbau als Gartenbau: Sie sprengen Geröllfelder flach, gießen Salzpfannen mit Basaltschotter aus und schlagen Terrassen in Hänge, die anderen Völkern zu steil wären. Krath Ur ist eine schwere Welt aus Basalt mit glühenden Spalten, und wer dort aufgewachsen ist, hält einen Hang für eine Einladung und einen Sumpf für eine Beleidigung. Jedes neu gewonnene Feld bebauen die Clans zuerst mit Kasernen und Werften, und Clan Groth weiht es mit dem Ersten Funken ein wie eine neue Welt, indem ein Krieger den ersten Hammerschlag auf den frischen Boden setzt.
+**Krath-Akte.** Krath-Terraforming ist eher Bergbau als Gartenbau: Sie sprengen Geröllfelder flach, gießen Salzpfannen mit Basaltschotter aus und schlagen Terrassen in Hänge, die anderen Völkern zu steil wären. Krath Ur ist eine schwere Welt aus Basalt mit glühenden Spalten, und wer dort aufgewachsen ist, hält einen Hang für eine Einladung und einen Sumpf für eine Beleidigung. Für die Clans ist das Fach zuerst das Recht zur Landnahme, denn ab der dritten Kolonie erlaubt erst jede neue Stufe einem Clan, eine weitere Welt zu halten, und Clan Groth weiht jede so gewonnene Kolonie mit dem Ersten Funken ein wie eine neue Heimat.
 
-Weil die Clans um 15 Prozent langsamer forschen und das Fach schon auf der ersten Stufe 100.000 Deuterium frisst, holen sie die Mittel oft aus Beute, und Murrka Ashgrat soll gesagt haben, jedes Feld auf ihren Welten sei mit dem Deuterium eines Nachbarn bewässert. Die äußersten Frostbahnen 11 und 12 öffnet den Clans erst die vierte und die siebte Stufe, weil Steinhaut im Dauerfrost spröde wird, und wer dort friert, sagt es nicht laut.
+Weil die Clans um 15 Prozent langsamer forschen, holen sie die Mittel oft aus Beute, und Murrka Ashgrat soll gesagt haben, jede Stufe auf ihren Tafeln sei mit dem Deuterium eines Nachbarn bezahlt. Die äußersten Frostbahnen 11 und 12 öffnet den Clans erst die vierte und die siebte Stufe, weil Steinhaut im Dauerfrost spröde wird, es sei denn, ein Glutpflug hat das Klima dort schon ganz umgestimmt, und wer dort friert, sagt es nicht laut.
 
-**Syntheten-Akte.** Syntheten terraformen nüchtern, und ihr Ziel sind kühle, trockene Ebenen, die sich mit Sechseckfundamenten lückenlos belegen lassen und ihren Gehäusen keine Feuchte zumuten. Das Kollektiv braucht keine Nahrung und gewinnt neue Felder darum nicht für Farmen, sondern für Kraftwerke, denn je mehr Syntheten auf einer Welt leben, desto mehr Strom verbrauchen sie. Dass Terraforming das schwache Licht ferner Frostwelten nicht heller macht, haben sie früh berechnet, und so stellen sie dort auf jedes neu gewonnene Feld zuerst ein Fusionskraftwerk.
+**Syntheten-Akte.** Syntheten terraformen nüchtern, und ihr Ziel sind kühle, trockene Ebenen, die sich mit Sechseckfundamenten lückenlos belegen lassen und ihren Gehäusen keine Feuchte zumuten. Das Kollektiv führt das Fach als Kolonieprotokoll, denn jede Stufe gibt ihm einen weiteren Kolonieplatz, und weil es keine Nahrung braucht, stellt es auf jede neue Welt zuerst Kraftwerke statt Farmen. Dass Terraforming das schwache Licht ferner Frostwelten nicht heller macht, haben sie früh berechnet, und so setzen sie dort Fusionskraftwerke auf das erste freie Feld.
 
-Mit 15 Prozent schnellerer Forschung simuliert das Kollektiv jede Stufe zuerst als Klimamodell der ganzen Welt, und die Einheit Isobare, die diese Modelle rechnet, gibt jedem Feld eine Kennung statt eines Namens, weil Namen sich nicht sortieren lassen. Für die Syntheten ist Terraforming die einzige Forschung, deren Ergebnis man vom Orbit aus sehen kann, und viele Einheiten betrachten die neuen Ebenen mit einer Zufriedenheit, die sie in ihren Protokollen als Messwert führen. Die beiden innersten Glutbahnen, auf denen ihre Wärmesenken versagen, öffnet dem Kollektiv erst die vierte und die siebte Stufe, und Isobare führt sie als einziges Gelände, das sich nicht berechnen, sondern nur erarbeiten ließ.
+Mit 15 Prozent schnellerer Forschung simuliert das Kollektiv jede Stufe zuerst als Klimamodell der ganzen Welt, und die Einheit Isobare, die diese Modelle rechnet, gibt jedem Feld eine Kennung statt eines Namens, weil Namen sich nicht sortieren lassen. Die beiden innersten Glutbahnen, auf denen ihre Wärmesenken versagen, öffnet dem Kollektiv erst die vierte und die siebte Stufe, und Isobare führt sie als einziges Gelände, das sich nicht berechnen, sondern nur erarbeiten ließ.
 
 **Veyari-Akte.** Die Veyari halten Terraforming für Gartenkunst im größten Maßstab, und sie beginnen eine Stufe nicht mit Maschinen, sondern mit Myzel: Gezüchtete Pilzgeflechte erschließen Geröll und Salzböden, binden Staub und bereiten den Grund vor, bevor die erste Pumpe läuft. Der Gärtner Thalen Vey-Oruun hat die Saatlinien seines Kreises von seiner Lehrerin übernommen und an seine Schüler weitergegeben, und weil jede Generation von Gärtnern auf der Arbeit der vorigen aufbaut, ist eine neue Stufe bei ihnen wirklich ein Generationenwerk. Gefeiert wird jede gelungene Stufe mit dem Fest der ersten Wolke, sobald über frisch gewonnenem Boden der erste Regen niedergeht, und die Kinder setzen dort einen Samen wie in der Landnacht.
 
-Mit 25 Prozent mehr Nahrung und 10 Prozent mehr Wachstum gewinnen die Veyari aus jedem neuen Feld besonders viel, denn sie bepflanzen es zuerst mit Farmen, die mehr Mäuler satt machen. Ihre Doktrin ist einfach: Eine Welt wird nicht erobert, sondern so lange gepflegt, bis sie bleibt.
+Mit 25 Prozent mehr Nahrung und 10 Prozent mehr Wachstum gewinnen die Veyari aus jeder neuen Kolonie besonders viel, und darum ist ihnen jede Stufe, die einen weiteren Kolonieplatz öffnet, eine neue Saat. Ihre Doktrin ist einfach: Eine Welt wird nicht erobert, sondern so lange gepflegt, bis sie bleibt.
 
-**Siehe auch:** [Astrophysik](#astrophysik) · [Kleines Kolonieschiff](#kleines-kolonieschiff) · [Orbitalring](#orbitalring) · [Fusionskraftwerk](#fusionskraftwerk) · [Farm](#farm)
+**Siehe auch:** [Terraformer](#terraformer) · [Kleines Kolonieschiff](#kleines-kolonieschiff) · [Astrophysik](#astrophysik) · [Orbitalring](#orbitalring) · [Fusionskraftwerk](#fusionskraftwerk) · [Farm](#farm)
 
 ### Zivile Schiffe
 
-[Spionagesonde](#spionagesonde) · [Kleiner Transporter](#kleiner-transporter) · [Großer Transporter](#großer-transporter) · [Bergbauschiff](#bergbauschiff) · [Recycler](#recycler) · [Kleines Kolonieschiff](#kleines-kolonieschiff) · [Großes Kolonieschiff](#großes-kolonieschiff) · [Truppentransporter](#truppentransporter) · [Schnellfrachter](#schnellfrachter) · [Schwerlastfrachter](#schwerlastfrachter) · [Handelsfrachter](#handelsfrachter) · [Pathfinder](#pathfinder) · [Bergungsschiff](#bergungsschiff)
+[Spionagesonde](#spionagesonde) · [Kleiner Transporter](#kleiner-transporter) · [Großer Transporter](#großer-transporter) · [Bergbauschiff](#bergbauschiff) · [Recycler](#recycler) · [Kleines Kolonieschiff](#kleines-kolonieschiff) · [Großes Kolonieschiff](#großes-kolonieschiff) · [Truppentransporter](#truppentransporter) · [Schnellfrachter](#schnellfrachter) · [Schwerlastfrachter](#schwerlastfrachter) · [Handelsfrachter](#handelsfrachter) · [Pathfinder](#pathfinder) · [Bergungsschiff](#bergungsschiff) · [Terraformer](#terraformer)
 
 #### Spionagesonde
 
@@ -3162,7 +3170,7 @@ Mit 25 Prozent mehr Nahrung und 10 Prozent mehr Wachstum gewinnen die Veyari aus
 
 **Stärke.** Mit Tempo 100.000 ist sie das schnellste Schiff des Spiels und kostet nur 300 Kristall ohne jede Besatzung.
 
-**Grenzen.** Sie ist das Auge jeder Flotte, hat aber keinen Schild und keinen Angriff, und Kreuzer wie Schlachtschiffe holen sie mit Schnellfeuer 5 vom Himmel.
+**Grenzen.** Sie ist das Auge jeder Flotte, hat aber keinen Schild und keinen Angriff, und jede bewaffnete Einheit trifft sie nebenbei, der Weltenkrümmer sogar mit Schnellfeuer 64.
 
 > Die Spionagesonde ist das älteste Schiff jeder Gründung: drei Meter Optik, Sensorschüssel und Brennkammer, gebaut, um einmal hinzusehen. Jedem großen Sieg der Weite ging eine Handvoll dieser Kapseln voraus, und niemand trauert einer verlorenen nach, außer dem Techniker, der sie verschraubt hat.
 
@@ -3175,7 +3183,7 @@ Mit 25 Prozent mehr Nahrung und 10 Prozent mehr Wachstum gewinnen die Veyari aus
 
 Die Spionagesonde ist ein drei Meter langer Zylinder, in dem ein Spiegelteleskop, eine aufklappbare Sensorschüssel und ein kompaktes Brennkammertriebwerk hintereinander liegen. Sie besteht allein aus 300 Kristall, denn Gehäuse, Optik und Rechner sind dasselbe Gitter in verschiedenen Schliffen, und ein Metallrumpf wäre nur Gewicht. Ihr Verbrennungsantrieb verbrennt Deuterium mit Oxidator und bringt die winzige Masse auf Tempo 100.000 bei einem Verbrauch von 1, schneller als jedes andere Schiff der Weite, und jede Stufe Verbrennungsantrieb legt ein Zehntel darauf.
 
-Eine Besatzung gibt es nicht, und Schild und Waffen fehlen ganz, weil jeder Emitter die Masse vervielfachen und die Sonde ihr Tempo kosten würde. Ihre 1.000 Struktur genügen gegen Staub und Mikrometeoriten, nicht gegen eine Feuerleitung: Kreuzer, Schlachtschiffe, Schlachtkreuzer und Abfang-Schlachtkreuzer führen ihre Nachführsalve gegen Sonden im Mittel fünfmal je Salve nach. Die Sonde arbeitet in drei Tiefen, vom Systemscan über die Planetensonde bis zur Flottensonde, und Spionagetechnik entscheidet, ob ein Bericht nur Lagerbestände oder auch Flotte und Verteidigung zeigt.
+Eine Besatzung gibt es nicht, und Schild und Waffen fehlen ganz, weil jeder Emitter die Masse vervielfachen und die Sonde ihr Tempo kosten würde. Ihre 1.000 Struktur genügen gegen Staub und Mikrometeoriten, nicht gegen eine Feuerleitung: Kein Kriegsschiff misst seine Türme eigens auf Sonden ein, doch jedes trifft sie nebenbei, und nur der Weltenkrümmer führt seine Nachführsalve gegen Sonden bis zu 64-mal je Salve nach. Die Sonde arbeitet in drei Tiefen, vom Systemscan über die Planetensonde bis zur Flottensonde, und Spionagetechnik entscheidet, ob ein Bericht nur Lagerbestände oder auch Flotte und Verteidigung zeigt.
 
 Als Bordsonde eines Pathfinders kehrt dieselbe Bauform dagegen nach jedem Scan in ihr Dock zurück, und bis zu 20 davon reisen in seinen Halterungen. Gebaut wird sie schon in Stufe I in einer Werft der Stufe 1, und für viele Gründungen war sie das erste Schiff, das den eigenen Himmel verließ.
 
@@ -3324,7 +3332,7 @@ Das Bergbauschiff ist ein 160 Meter langes Industrieschiff, dessen Bug zwei gege
 
 Jedes Sonnensystem hat einen Asteroidengürtel, erreichbar über Position 0, sodass jede Gründung einen Gürtel vor der Haustür hat; Trümmerfelder an Planeten sind dagegen Sache von Recyclern und Bergungsschiffen. Sein Verbrennungsantrieb ist auf Schub beim Rangieren zwischen den Brocken ausgelegt, nicht auf Reisetempo, darum kommt es nur auf Tempo 4.000 bei einem Verbrauch von 40. Eine Besatzung von 20 Köpfen bedient Fräsen, Greifer und Sortieranlage in Schichten.
 
-Mit 12.000 Struktur, einem Schirm von 20 und Angriff 5 übersteht es Steinschlag, aber keinen Überfall, und im Gürtel ist es ein leichtes Ziel, weil es verankert und ohne Fahrt arbeitet. Gebaut wird es ab Stufe III in einer Werft der Stufe 2 aus 8.000 Erz, 4.000 Kristall, 2.000 Deuterium und 100 Legierung.
+Mit 12.000 Struktur, einem Schirm von 20 und Angriff 5 übersteht es Steinschlag, aber keinen Überfall, und im Gürtel ist es ein leichtes Ziel, weil es verankert und ohne Fahrt arbeitet. Gebaut wird es ab Stufe II in einer Werft der Stufe 2 aus 8.000 Erz, 4.000 Kristall, 2.000 Deuterium und 100 Legierung.
 
 ##### Chronik
 
@@ -3407,7 +3415,7 @@ Seitdem gehört die Kapsel zu jeder Bergung, auch wenn kein Veyari unter den Gef
 
 **Stärke.** Es ist der einzige frühe Weg, das Reich zu vergrößern, und bringt neben den Siedlern auch Fracht für den Start mit.
 
-**Grenzen.** Es braucht Stufe III, Werft 3, Impulsantrieb 2, Astrophysik 1 und ein Habitatmodul und fliegt mit Tempo 2.500 so langsam, dass es Begleitschutz braucht.
+**Grenzen.** Es braucht Stufe III, Werft 3, Impulsantrieb 2 und ein Habitatmodul und fliegt mit Tempo 2.500 so langsam, dass es Begleitschutz braucht.
 
 > Das Kleine Kolonieschiff ist die Arche, die eine Gründung zum Reich macht: ein Habitatmodul, ein Impulsantrieb und 3.000 Siedler, die ihre Welt für einen Planeten verlassen, den sie nur aus Sondenberichten kennen. Es kriecht so langsam durch die Weite, dass jede Admiralität es mit Begleitschutz umgibt.
 
@@ -3418,11 +3426,11 @@ Seitdem gehört die Kapsel zu jeder Bergung, auch wenn kein Veyari unter den Gef
 
 ##### Technisches Dossier
 
-Das Kleine Kolonieschiff ist ein 900 Meter langer Rumpf um einen Impulsantrieb, an dem ein Habitatzylinder und die Landemodule hängen, die bei der Ankunft abgekoppelt werden und den Siedlern die ersten Nächte über Dach bieten. Das Habitatmodul ist ein druckfester Lebensraum; ab Werft 3 entsteht es schon am Boden aus der Druckhülle eines Recyclers, später fertigt es die Orbitalwerft in Serie. Sein Impulsantrieb zündet Deuteriumkügelchen mit Kristall-Laserlinsen, die bereits im Schiffsrumpf der Werft verbaut sind; bezahlt werden nur noch 1.000 Legierung, 500 Elektronik und ein Habitatmodul.
+Das Kleine Kolonieschiff ist ein 900 Meter langer Rumpf um einen Impulsantrieb, an dem ein Habitatzylinder und die Landemodule hängen, die bei der Ankunft abgekoppelt werden und den Siedlern die ersten Nächte über Dach bieten. Das Habitatmodul ist ein druckfester Lebensraum; ab Werft 3 entsteht es schon am Boden aus der Druckhülle eines Recyclers, im Sternenflug fertigt es die Orbitalwerft in Serie. Sein Impulsantrieb zündet Deuteriumkügelchen mit Kristall-Laserlinsen, die bereits im Schiffsrumpf der Werft verbaut sind; bezahlt werden nur noch 1.000 Legierung, 500 Elektronik und ein Habitatmodul.
 
 Trotzdem kommt die Arche nur auf Tempo 2.500 bei einem Verbrauch von 1.000, dem höchsten aller zivilen Schiffe nach dem Großen Kolonieschiff. An Bord reisen 3.000 Siedler aus der Bevölkerung der Heimatwelt, dazu 10.000 Fracht für den Start, und eine eigene Stammbesatzung gibt es nicht, weil die Siedler ihre Arche selbst fliegen. Die 30.000 Struktur und der Schirm von 100 sollen Trümmer und Strahlung abhalten, und die Abwehrtürme mit Angriff 50 schrecken Piraten, aber keine Kampfflotte.
 
-Gebaut wird ab Stufe III in einer Werft der Stufe 3, sobald Impulsantrieb 2 und Astrophysik 1 erforscht sind; einen Antriebskern oder eine Orbitalwerft braucht die kleine Arche nicht. Jede neue Kolonie verlangt außerdem eine Stufe Astrophysik, denn ohne vermessene Bahnen findet keine Arche ihren Platz.
+Gebaut wird ab Stufe III in einer Werft der Stufe 3, sobald Impulsantrieb 2 erforscht ist; Astrophysik, einen Antriebskern oder eine Orbitalwerft braucht die kleine Arche nicht. Zwei Kolonieplätze hat jede Gründung von Anfang an, doch ab der dritten verlangt jede neue Kolonie eine Stufe Terraforming, denn erst angepasste Klimamodelle tragen eine weitere Siedlung.
 
 ##### Chronik
 
@@ -3475,7 +3483,7 @@ Gebaut wird es ab Stufe IV in einer Werft der Stufe 6 mit Orbitalwerft 2, und vo
 
 ##### Chronik
 
-Das Große Kolonieschiff ist die jüngste Arche des Sternenflugs und entstand erst, als die zweite Stufe der Orbitalwerft, Logistik 3 und Impulsantrieb 4 zusammenkamen, lange nachdem das Kleine Kolonieschiff schon im Zeitalter des Orbits die ersten Kolonien gegründet hatte. Seine Erfinder wollten nicht schneller viele Welten besiedeln, sondern wichtige Welten schneller stark machen, und darum packten sie Erzmine und Kristallmine wieder in den Bauch, wie es die Archen der Ersten Öffnung getan hatten. Weil Astrophysik nur eine begrenzte Zahl von Kolonien erlaubt, beginnt mancher Weg ins Imperium mit weniger, aber reicheren Welten. Sein Frachtraum entspricht auf den Kubikmeter dem des Handelsfrachters, dessen Frachtmodule die Konstrukteure übernahmen.
+Das Große Kolonieschiff ist die jüngste Arche des Sternenflugs und entstand erst, als die zweite Stufe der Orbitalwerft, Logistik 3 und Impulsantrieb 4 zusammenkamen, lange nachdem das Kleine Kolonieschiff schon im Zeitalter des Orbits die ersten Kolonien gegründet hatte. Seine Erfinder wollten nicht schneller viele Welten besiedeln, sondern wichtige Welten schneller stark machen, und darum packten sie Erzmine und Kristallmine wieder in den Bauch, wie es die Archen der Ersten Öffnung getan hatten. Weil jede Kolonie über die zweite hinaus eine Stufe Terraforming verlangt, beginnt mancher Weg ins Imperium mit weniger, aber reicheren Welten. Sein Frachtraum entspricht auf den Kubikmeter dem des Handelsfrachters, dessen Frachtmodule die Konstrukteure übernahmen.
 
 ##### Volksakten
 
@@ -3720,7 +3728,7 @@ Sein Impulsantrieb bringt ihn auf Tempo 12.000 bei einem Verbrauch von 100, und 
 
 ##### Chronik
 
-Der Pathfinder entstand am Ende des Zeitalters des Orbits, als Astrophysik die Bahnen fremder Systeme vermessbar machte und die Werft der Stufe 4 einen Rumpf erlaubte, der genug Elektronik für zwanzig Sonden trug. Er ist älter als der Kreuzer, und Expeditionen fanden mit ihm Kreuzerrümpfe früherer Epochen, lange bevor die eigene Werft einen bauen konnte; ein solcher Fund darf fliegen, wenn er bemannt und betankt ist, schaltet aber keinen Nachbau frei. Aus derselben Forschung und denselben Docks ging das Bergungsschiff hervor, sein ungleicher Bruder, der holt, was der Pathfinder findet oder verliert. Die Spionagesonde lebt in seinen Halterungen weiter und wurde dort zum ersten Mal wiederverwendbar.
+Der Pathfinder entstand am Ende des Zeitalters des Orbits, als Astrophysik die Bahnen fremder Systeme vermessbar machte und die Werft der Stufe 4 einen Rumpf erlaubte, der genug Elektronik für zwanzig Sonden trug. Er ist jünger als der Kreuzer, doch Expeditionen fanden mit ihm Rümpfe früherer Epochen, oft schwerer als alles, was die eigene Werft bauen konnte; ein solcher Fund darf fliegen, wenn er bemannt und betankt ist, schaltet aber keinen Nachbau frei. Aus derselben Forschung und denselben Docks ging das Bergungsschiff hervor, sein ungleicher Bruder, der holt, was der Pathfinder findet oder verliert. Die Spionagesonde lebt in seinen Halterungen weiter und wurde dort zum ersten Mal wiederverwendbar.
 
 ##### Volksakten
 
@@ -3791,6 +3799,57 @@ Aru Distelgrund verdankt einem Liguster sein Leben, und seitdem fliegt keine sei
 
 **Siehe auch:** [Pathfinder](#pathfinder) · [Recycler](#recycler) · [Großer Transporter](#großer-transporter) · [Kreuzer](#kreuzer) · [Astrophysik](#astrophysik)
 
+#### Terraformer
+
+*Terraformer-Klasse (Einwegschiff) · Schweres, unbewaffnetes Planetenformungsschiff mit Atmosphärenprozessoren, Orbitalspiegeln, Krustenbohrsonden und Saatcontainern, das beim Einsatz verbraucht wird.*
+
+**Wozu.** Eine Flotte aus Terraformern zieht das Klima eines eigenen Planeten oder freien Platzes zum Optimum des gewählten Volkes und lässt die Welt danach um bis zu 40 Felder über ihre Grundgröße wachsen.
+
+**Stärke.** Volles Klima hebt auch die Siedelsperre lebensfeindlicher Bahnen auf, und jede Stufe Terraforming senkt die nötige Flotte: Für den ungünstigsten Platz eines Volkes braucht ein volles Projekt bei Stufe 1 rund 163 Schiffe, bei Stufe 10 nur 50.
+
+**Grenzen.** Ab Stufe IV mit Werft 4, Terraforming 1 und Impulsantrieb 3 kostet jedes Schiff 12.000 Erz, 9.000 Kristall, 6.000 Deuterium, 600 Legierung und 400 Elektronik, trägt weder Waffen noch Ladung, fliegt nur in reinen Terraformer-Verbänden und wird im Einsatz verbraucht; überzählige Schiffe kehren heim.
+
+> Ein eingesetzter Terraformer kehrt nicht heim: Er entfaltet über seiner Zielwelt Spiegel und Prozessoren, treibt seine Bohrsonden in die Kruste und geht Stück für Stück in dem Planeten auf, den er formt. Darum sagen Werftleute aller Völker, ein Terraformer werde nicht gebaut, sondern gepflanzt.
+
+- **Aurelianer:** Haus Corvell baut den Terraformer als Klasse Ubertas, und Haus Solden verkauft jedes Schiff als Landanleihe, noch bevor es startet. Zurückgezahlt wird in Feldern der Zielwelt, sobald ihre Kruste gewachsen ist.
+- **Krath:** Die Clans nennen ihn Glutpflug und schlagen die Namen der Werftschicht in seine Bohrlafetten, weil ein eingesetzter Glutpflug nie zu seiner Schmiede zurückkehrt. Ein Verband davon macht ihnen die eisigen Randbahnen bewohnbar, deren Frost die Steinhaut sonst spröde macht.
+- **Syntheten:** Das Kollektiv führt ihn als Revision Gradient und meldet vor jedem Start nicht, wie viele Schiffe aufbrechen, sondern wie viele zurückkehren werden. Nur die nötigen Terraformer gehen in der Welt auf, und diese Zahl rechnet die Einheit Isobare auf das Schiff genau.
+- **Veyari:** Die Haine ziehen ihn als Baureihe Erle, nach dem Pionierbaum, der auf nacktem Geröll als Erster wurzelt. Für jeden Verband, der in einer fremden Atmosphäre aufgeht, setzen die Kinder des Heimathains einen Erlensetzling.
+
+##### Technisches Dossier
+
+Der Terraformer ist ein Einwegschiff: ein breiter, unbewaffneter Arbeitsrumpf um einen Impulsantrieb, auf dessen Rücken vier Atmosphärenprozessoren stehen, an dessen Flanken zwei gefaltete Orbitalspiegel liegen und unter dessen Bug die Krustenbohrsonden hängen, dazu Reihen versiegelter Saatcontainer mit Mikroben, Myzel und Saatgut. Am Ziel geht jedes eingesetzte Schiff in seiner Aufgabe auf: Die Spiegel entfalten sich im Orbit und lenken Licht auf eine zu kalte Welt oder beschatten eine glühende, die Prozessoren sinken in die Atmosphäre und setzen ihre Gase um, und die Bohrsonden treiben Wärmeschächte und Sprengkammern in die Kruste, bis sich ganze Schollen heben. Jeder Verband arbeitet in fester Reihenfolge: Zuerst ziehen seine Schiffe das Klima des Platzes für das gewählte Volk zum Optimum, und erst wenn es ganz angepasst ist, formen die übrigen die Kruste, wobei schon das volle Klima die Siedelsperre der lebensfeindlichen Randbahnen aufhebt.
+
+Über die Grundgröße hinaus wachsen auf einem Platz im Klimaoptimum höchstens 40 Felder und auf dem ungünstigsten Platz eines Volkes nur 30, weil eine umgestimmte Welt einen Teil ihrer Kruste als Wärme- und Wasserpuffer für das neue Klima braucht. Auf diesem ungünstigsten Platz gehen 60 Prozent eines Projekts in das Klima und 40 Prozent in die Kruste, und wie viele Schiffe das sind, entscheidet die Forschung: bei Terraforming 1 rund 163, bei Stufe 5 rund 96 und bei Stufe 10 genau 50, davon 30 für das Klima und 20 für die Kruste, weil jede Stufe bessere Katalysatoren, dichtere Saatlinien und genauere Klimamodelle in dieselben Rümpfe bringt. Verbraucht werden nur die Schiffe, die der Platz noch braucht, der Rest fliegt heim, und ein Verband besteht ausschließlich aus Terraformern, die einen eigenen Planeten oder einen freien Platz in einem kartierten System anfliegen.
+
+Weil sich die Prozessoren auf jedes Volk einstimmen lassen, kann ein Verband eine Welt auch für Siedler eines anderen Volkes formen, doch ein Wechsel des Zielvolks beginnt das Klima von vorn, während gewachsene Felder bleiben. Gemessen wird der Rumpf mit 25.000 Struktur, einem Schirm von 50, ohne Angriff und ohne Laderaum, mit Tempo 3.500 bei einem Verbrauch von 400 und 40 Besatzungsmitgliedern, die den Anflug führen, bevor die Prozessoren den letzten Abstieg selbsttätig fliegen. Ein Schiff kostet 12.000 Erz, 9.000 Kristall für Spiegel und Katalysatorgitter, 6.000 Deuterium als Wasserstoff- und Wärmequelle, 600 Legierung und 400 Elektronik und entsteht ab Stufe IV in einer Werft der Stufe 4, sobald Terraforming 1 und Impulsantrieb 3 erforscht sind.
+
+##### Chronik
+
+Der Terraformer ist ein Schiff des Sternenflugs und entstand, als drei ältere Linien zusammenliefen: der Impulsantrieb der Kolonieschiffe, die Kristallfolien der Solarsatelliten, aus denen die Orbitalspiegel wurden, und die Bohrtechnik der Bergbauschiffe aus dem Asteroidengürtel. Möglich machte ihn erst das Fach Terraforming, das in der Orbitzeit als Kolonieforschung begonnen hatte und mit seiner ersten Stufe die Verfahren lieferte, die sich in einen Schiffsrumpf packen und in eine fremde Atmosphäre tragen lassen. Die Werften übernahmen viel vom Kolonieschiff, doch während eine Arche Siedler zu einer Welt bringt, bringt ein Terraformer die Welt zu ihren Siedlern.
+
+Berühmt wurde er in den Bomberjahren, als eroberte Welten ihr altes Klima behielten und erst ein Terraformer-Verband sie auf das Volk der neuen Herren umstimmte. Der Orbitalring des Imperiums gibt einer Welt Fläche über dem Himmel, aber kein Klima, und so setzen große Reiche beides ein, den Ring gegen die Enge und den Terraformer gegen die Fremde.
+
+##### Volksakten
+
+**Aurelianer-Akte.** Haus Corvell baut den aurelianischen Terraformer als Klasse Ubertas im Spantleichtbau, und weil jedes eingesetzte Schiff in seiner Welt aufgeht, ist es das einzige Großschiff der Republik, das schon beim Stapellauf vollständig abgeschrieben wird. Finanziert werden die Verbände über Landanleihen von Haus Solden: Jede Anleihe trägt die Rumpfnummer eines Schiffes und wird in Feldern der Zielwelt zurückgezahlt, sobald die Kruste gewachsen ist. Die Spiegelflügel schleift Haus Tessaly aus Kristall wie Laserlinsen, und Ingenieur Aldo Tessaly nannte einen Orbitalspiegel gern eine Linse, die ihr Ziel nie verfehlen kann, weil das Ziel ein ganzer Planet ist.
+
+Gern formen die Häuser auch Welten für Veyari-Partner um, denn ein Verband lässt sich auf das Klima eines anderen Volkes stimmen, und Haus Quirin versichert solche Aufträge mit der Klausel, dass ein Wechsel des Zielvolks das Klima von vorn beginnt, die gewachsenen Felder aber bleiben. Die Republik rechnet dabei nüchtern, denn jede Stufe Terraforming spart Schiffe, und jedes gesparte Schiff ist eine Anleihe, die niemand bedienen muss.
+
+**Krath-Akte.** Die Clans schmieden den Terraformer als Glutpflug in der Schmiedekette wie jedes andere Schiff und um 15 Prozent schneller als fremde Werften, nur dass ein eingesetzter Glutpflug nie zu seiner Schmiede zurückkehrt. Darum schlägt Clan Ashgrat die Namen der Werftschicht in die Bohrlafetten, damit sie mit der Kruste der neuen Welt verschmelzen, und Schmiedemeister Hrogar Ashgrat ließ jede Schneide der Spiralbohrer die Hammerprobe bestehen, bevor sie in einen Glutpflug durfte. Den Krath öffnet der Glutpflug, was ihnen die Forschung lange verwehrt: Die Frostbahnen am äußersten Rand, auf denen Steinhaut spröde wird, sind bewohnbar, sobald ein Verband das Klima ganz für sie umgestimmt hat, auch wenn das Fach selbst die vierte oder siebte Stufe noch nicht erreicht hat.
+
+Weil die Clans um 15 Prozent langsamer forschen, brauchen sie länger große Verbände als andere Völker, und Murrka Ashgrat nennt das einen fairen Tausch gegen die schnellere Schmiede. Ein Clan, der eine Frostwelt umgepflügt hat, entzündet dort den Ersten Funken ein zweites Mal, und der erste Hammerschlag fällt auf den Fels, den der Glutpflug gehoben hat.
+
+**Syntheten-Akte.** Im Kollektiv heißt der Terraformer Revision Gradient, weil er eine Welt nicht verwandelt, sondern an einem Gefälle entlangführt, vom gemessenen Klima zum Optimum, Promille für Promille. Seine Atmosphärenprozessoren sind gestapelte Sechseckmodule mit freiliegenden Saphirkernen, die Spiegelflügel sind mit genormten Sechseckkacheln belegt, und weil jedes Modul austauschbar ist, setzt die Werft aus den Teilen eines verworfenen Probelaufs den nächsten Verband zusammen. Die Einheit Isobare rechnet vor jedem Start das Klimamodell der Zielwelt und meldet dem Kollektiv nicht die Zahl der Schiffe, sondern die Zahl derer, die zurückkehren werden, denn nur die nötigen Terraformer gehen in der Welt auf.
+
+Mit 15 Prozent schnellerer Forschung erreicht das Kollektiv früher die Stufen, auf denen ein Projekt weniger Schiffe kostet, und genau darin sieht es den eigentlichen Ertrag des Fachs. Die innersten Glutbahnen, auf denen ihre Wärmesenken versagen, öffnet ihnen ein Gradient-Verband schon vor der vierten und siebten Stufe, sobald er das Klima ganz umgestimmt hat. Das erste Schiff der Revision wählte den Namen Gradient 1 „Fermate“, nach dem Haltezeichen über der letzten Note, und seither trägt fast jeder Gradient einen Namen, der von einem Ende erzählt.
+
+**Veyari-Akte.** Die Haine ziehen ihren Terraformer als Baureihe Erle, benannt nach dem Pionierbaum, der auf nacktem Geröll als Erster wurzelt und den Boden für alle anderen bereitet. Werftgärtnerin Ilwen Tauhain lässt die Atmosphärentürme als verglaste Perlschalenstängel wachsen, in denen Algen und Moose die ersten Gase der Zielwelt umsetzen, und die Spiegelflügel legen sich wie Blütenblätter in Schichten übereinander. In den Saatcontainern reisen Myzel, Moospolster und Setzlinge, und weil ein eingesetzter Terraformer nicht heimkehrt, gibt er seine Beete nicht an einen Nachfolger weiter, sondern an die Welt selbst.
+
+Für jeden Erle-Verband, der in einer fremden Atmosphäre aufgeht, setzen die Kinder des Heimathains einen Erlensetzling, und die Reihen dieser Bäume zählen die Welten, die der Hain umgestimmt hat. Mit 25 Prozent mehr Nahrung und 10 Prozent mehr Wachstum ernten die Veyari aus jeder geformten Welt mehr als andere Völker, doch ihre Doktrin bleibt Geduld: Lieber eine Stufe Terraforming abwarten und weniger Schiffe pflanzen, als einen Verband zu früh zu schicken.
+
+**Siehe auch:** [Terraforming](#terraforming) · [Kleines Kolonieschiff](#kleines-kolonieschiff) · [Bergbauschiff](#bergbauschiff) · [Solarsatellit](#solarsatellit) · [Orbitalring](#orbitalring) · [Bomber](#bomber)
+
 ### Kampfschiffe
 
 [Leichter Jäger](#leichter-jäger) · [Abfangjäger](#abfangjäger) · [Schwerer Jäger](#schwerer-jäger) · [Sturmjäger](#sturmjäger) · [Kreuzer](#kreuzer) · [Raketenkreuzer](#raketenkreuzer) · [Schildkreuzer](#schildkreuzer) · [Flottenkreuzer](#flottenkreuzer) · [Schlachtschiff](#schlachtschiff) · [Sturmschlachtschiff](#sturmschlachtschiff) · [Trägerschlachtschiff](#trägerschlachtschiff) · [Belagerungsschlachtschiff](#belagerungsschlachtschiff) · [Bomber](#bomber) · [Strategischer Bomber](#strategischer-bomber) · [Zerstörer](#zerstörer) · [Abfangzerstörer](#abfangzerstörer) · [Schwerer Zerstörer](#schwerer-zerstörer) · [Schlachtkreuzer](#schlachtkreuzer) · [Abfang-Schlachtkreuzer](#abfang-schlachtkreuzer) · [Schwerer Schlachtkreuzer](#schwerer-schlachtkreuzer)
@@ -3799,11 +3858,11 @@ Aru Distelgrund verdankt einem Liguster sein Leben, und seitdem fliegt keine sei
 
 *Jäger-Klasse (Schwarmjäger) · Kleiner, wendiger Jäger mit Einsitzerkanzel, gepfeilter Silhouette und zwei Bugkanonen.*
 
-**Wozu.** Er stellt billige Masse, die feindliches Feuer bindet und schwach geschützte Ziele überrennt.
+**Wozu.** Er stellt billige Masse, die Raketenkreuzer und Schlachtschiffe bedrängt und schwach geschützte Frachter überrennt.
 
-**Stärke.** Für 3.000 Erz und 1.000 Kristall gebaut, trifft er Raketenkreuzer mit 2,5-fachem Schaden und Frachter mühelos.
+**Stärke.** Für 3.000 Erz und 1.000 Kristall gebaut, trifft er mit 270 Angriff Raketenkreuzer 2,5-fach, Schlachtschiffe doppelt und alle Frachter und Recycler 1,5-fach.
 
-**Grenzen.** Er ist das Kanonenfutter der frühen Flotten, doch Kreuzer zerlegen ihn mit Schnellfeuer 6 und doppeltem Schaden, und gegen Kreuzer selbst wirkt er nur halb.
+**Grenzen.** Mit 4.000 Struktur ist er das Kanonenfutter der frühen Flotten: Kreuzer und Abfang-Schlachtkreuzer treffen ihn doppelt und schwenken im Mittel sechsmal je Salve von einem Leichten Jäger zum nächsten, Trägerschlachtschiffe treffen ihn dreifach, Abfangjäger und Lasergeschütze doppelt, und gegen Kreuzer selbst richtet er nur Grundschaden an.
 
 > Der Leichte Jäger war die erste Kampfmaschine, die in Serie gebaut wurde, und er wird bis heute fast unverändert gefertigt: sechzehn Meter Rumpf, zwei Bugkanonen, ein brüllendes Brennkammertriebwerk. Seine Piloten sind jung, ihre Lebenserwartung ist kurz, und ihre Lieder sind die besten der Flotte.
 
@@ -3816,9 +3875,9 @@ Aru Distelgrund verdankt einem Liguster sein Leben, und seitdem fliegt keine sei
 
 Der Leichte Jäger ist ein 16 Meter langer Pfeilrumpf um ein einziges Brennkammertriebwerk, in dem Deuterium mit Oxidator unter Hochdruck verbrennt und eine Nachbrennstufe den Schub für Ausweichmanöver liefert. Damit erreicht er Tempo 12.500 bei einem Verbrauch von nur 20, und seine 50 Ladung reichen für Munition, Atemluft und einen Notsender. Gebaut wird er ab Stufe II in einer Werft der Stufe 1 aus 3.000 Erz und 1.000 Kristall, ohne Legierung und ohne Elektronik, sodass jede Kolonie mit Mine und Werft ihn fertigen kann, sobald die ersten Brecher im Takt laufen.
 
-Die beiden Bugkanonen sind kristallgepumpte Laser mit zusammen 50 Angriff, ohne eigene Nachführsalve, und der Kanzelrechner verfolgt immer nur ein Ziel je Salve. Gegen Raketenkreuzer wirkt dieses Feuer 2,5-fach, weil die Jäger so nah heranfliegen, dass die schweren Raketen nicht mehr wenden können, und dann die ungepanzerten Startschächte bestreichen; gegen den Kiel eines Kreuzers wirkt es dagegen nur halb. Mit 4.000 Struktur und einem Schirm von 10 ist er gegen alles verwundbar, was auf leichte Rümpfe eingemessen ist: Kreuzer zerlegen ihn mit Nachführsalve 6 und doppeltem Schaden, und Lasergeschütze treffen ihn doppelt.
+Die beiden Bugkanonen sind kristallgepumpte Laser mit zusammen 270 Angriff, ohne eigene Nachführsalve, und der Kanzelrechner verfolgt immer nur ein Ziel je Salve. Gegen Raketenkreuzer wirkt dieses Feuer 2,5-fach, weil die Jäger so nah heranfliegen, dass die schweren Raketen nicht mehr wenden können, und dann die ungepanzerten Startschächte bestreichen; Schlachtschiffe trifft es doppelt, weil die Jäger unter deren schweren Türmen hindurchtauchen, die einem so kleinen Rumpf zu träge folgen, und Frachter wie Recycler 1,5-fach. Mit 4.000 Struktur und einem Schirm von 10 ist er gegen alles verwundbar, was auf leichte Rümpfe eingemessen ist: Kreuzer und Abfang-Schlachtkreuzer zerlegen ihn mit Nachführsalve 6 und doppeltem Schaden, Trägerschlachtschiffe treffen ihn dreifach und Lasergeschütze doppelt.
 
-Gegen starke Schirme scheitert er am Schwellreflex, denn an einem Planetenschild von 30.000 verpufft jeder Treffer unter 300, und die Kanonen eines Leichten Jägers bleiben weit darunter, ganz gleich, wie viele Jäger feuern. Er gilt als Einsitzer, weil nur einer fliegt; der zweite Kopf seiner Besatzung von 2 ist der Kanonenwart in der Klappnische hinter der Kanzel, der Linsen tauscht und Kondensatoren nachlädt.
+Gegen starke Schirme scheitert er am Schwellreflex, denn an einem Planetenschild von 30.000 verpufft jeder Treffer unter 300, und die 270 Angriff eines Leichten Jägers bleiben knapp darunter: Ohne geschärfte Waffentechnik ist es gleich, wie viele Jäger feuern. Er gilt als Einsitzer, weil nur einer fliegt; der zweite Kopf seiner Besatzung von 2 ist der Kanonenwart in der Klappnische hinter der Kanzel, der Linsen tauscht und Kondensatoren nachlädt.
 
 ##### Chronik
 
@@ -3848,11 +3907,11 @@ Die Haine fliegen Birken nie als Schwarm in die Breitseiten eines Gegners, sonde
 
 *Jäger-Klasse (Abfangjäger) · Schmaler Doppelrumpfjäger mit vier Nachführgeschützen und Impulsantrieb.*
 
-**Wozu.** Er bildet einen schnellen Abfangschirm gegen feindliche Jägerschwärme.
+**Wozu.** Er bildet einen schnellen Abfangschirm gegen feindliche Jäger aller Bauarten und stellt nebenbei Bomber.
 
-**Stärke.** Mit Tempo 18.000 und doppeltem Schaden gegen Leichte Jäger und Sturmjäger ist er der natürliche Jägerjäger.
+**Stärke.** Mit Tempo 18.000 und 1.200 Angriff trifft er Leichte Jäger, Sturmjäger und Schwere Jäger doppelt und beide Bomberklassen 1,5-fach und ist damit der natürliche Jägerjäger.
 
-**Grenzen.** Gegen Zerstörer wirkt er nur mit 0,4 und gegen Schlachtschiffe mit 0,5 seines Schadens, und Lasergeschütze treffen ihn doppelt.
+**Grenzen.** Er nimmt nur ein Ziel je Runde, und gegen ihn sind Kreuzer und Schildkreuzer eingemessen, die ihn doppelt treffen und im Mittel dreimal je Salve auf den nächsten Abfangjäger schwenken, dazu Trägerschlachtschiffe mit dreifachem und Abfangzerstörer, Abfang-Schlachtkreuzer und Lasergeschütze mit doppeltem Schaden.
 
 > Der Abfangjäger war die Antwort der Orbit-Zeit auf die Schwärme der Glutjagd: der erste Jäger mit Fusionspuls, schneller als alles, was er jagt. Seine Piloten zählen Abschüsse, nicht Einsätze, und sie sagen, ein Schwarm sei nur eine Liste, die man von oben abarbeitet.
 
@@ -3863,17 +3922,17 @@ Die Haine fliegen Birken nie als Schwarm in die Breitseiten eines Gegners, sonde
 
 ##### Technisches Dossier
 
-Der Abfangjäger ist ein 19 Meter langer Doppelrumpf: Zwei schmale Ausleger tragen je einen Impulsblock mit langer Magnetdüse, dazwischen hängt die Kanzel mit vier kompakten Nachführgeschützen. Im Impulsblock zünden Kristall-Laserlinsen Deuteriumkügelchen, und die Plasmawolke stößt sich an der Düse ab, was ihm Tempo 18.000 bei einem Verbrauch von nur 28 verleiht, mehr als jeder Kreuzer und jeder andere Jäger erreicht. Die vier Geschütze liefern zusammen 110 Angriff und sind auf die Rumpfstärke leichter Jäger eingemessen, sodass sie Leichte Jäger und Sturmjäger doppelt treffen.
+Der Abfangjäger ist ein 19 Meter langer Doppelrumpf: Zwei schmale Ausleger tragen je einen Impulsblock mit langer Magnetdüse, dazwischen hängt die Kanzel mit vier kompakten Nachführgeschützen. Im Impulsblock zünden Kristall-Laserlinsen Deuteriumkügelchen, und die Plasmawolke stößt sich an der Düse ab, was ihm Tempo 18.000 bei einem Verbrauch von nur 28 verleiht, mehr als jeder Kreuzer und jeder andere Jäger erreicht. Die vier Geschütze liefern zusammen 1.200 Angriff und sind auf die Rumpfstärke von Jägern eingemessen, sodass sie Leichte Jäger, Sturmjäger und Schwere Jäger doppelt treffen.
 
-Gegen schwere Panzerung prallen dieselben kleinen Geschosse ab, gegen Zerstörer bleibt nur der Faktor 0,4, gegen Schlachtschiffe 0,5. Mit 7.000 Struktur und einem Schirm von 80 übersteht er einen Streifschuss, aber kein gezieltes Feuer, und Lasergeschütze, die auf schnelle kleine Ziele eingemessen sind, treffen ihn doppelt. Gebaut wird er ab Stufe III in einer Werft der Stufe 2 aus 7.000 Erz, 3.500 Kristall, 500 Deuterium, 116 Legierung und 35 Elektronik und setzt Impulsantrieb 1 und Waffentechnik 1 voraus.
+Bomber und Strategische Bomber führt seine Feuerleitung als Sekundärziele und trifft sie 1,5-fach, alles Übrige aber nur mit Grundschaden, denn für schwere Panzerung sind seine kleinen Geschosse nicht ausgelegt. Mit 8.400 Struktur und einem Schirm von 96 übersteht er einen Streifschuss, aber kein gezieltes Feuer: Lasergeschütze, die auf schnelle kleine Ziele eingemessen sind, treffen ihn doppelt, Trägerschlachtschiffe dreifach, und Kreuzer und Schildkreuzer schwenken mit Nachführsalve 3 von einem Abfangjäger zum nächsten. Gebaut wird er ab Stufe III in einer Werft der Stufe 2 aus 7.000 Erz, 3.500 Kristall, 500 Deuterium, 116 Legierung und 35 Elektronik und setzt Impulsantrieb 1 und Waffentechnik 1 voraus.
 
 Seine Schwäche gegen Schwärme liegt nicht in der Wirkung, sondern in der Zahl: Ihm fehlt eine Nachführsalve, und so nimmt er sich je Salve nur ein Ziel vor, wo ein Schwarm Dutzende stellt. Drei Köpfe Besatzung genügen, Pilot, Waffenwart und ein Navigator, der in der Enge des Doppelrumpfs die Abfangbahn rechnet, und seine 100 Ladung tragen Ersatzlinsen statt Fracht.
 
 ##### Chronik
 
-Der Abfangjäger entstand in der Orbit-Zeit, eine ganze Stufe vor dem Kreuzer, als Impulsantrieb und Waffentechnik ihre erste Stufe erreichten und die Werften Stufe 2 bauten. Er war die Antwort auf die Glutjagd, denn zum ersten Mal gab es einen Jäger, der jeden Leichten Jäger einholen und mit doppelter Wirkung treffen konnte. In der Flottensprache zählt ein Jäger nicht als Kriegsschiff, und so nennt die Chronik den Kreuzer das erste Kriegsschiff mit Impulsantrieb, obwohl die Abfangjäger schon zuvor mit Fusionspuls flogen.
+Der Abfangjäger entstand früh in der Orbit-Zeit, eine Werftstufe vor dem Kreuzer, als Impulsantrieb und Waffentechnik ihre erste Stufe erreichten und die Werften Stufe 2 bauten. Er war die Antwort auf die Glutjagd, denn zum ersten Mal gab es einen Jäger, der jeden Leichten Jäger einholen und mit doppelter Wirkung treffen konnte. In der Flottensprache zählt ein Jäger nicht als Kriegsschiff, und so nennt die Chronik den Kreuzer das erste Kriegsschiff mit Impulsantrieb, obwohl die Abfangjäger schon zuvor mit Fusionspuls flogen.
 
-Die Schwärme beendete er dennoch nicht, weil er ihnen ohne Nachführsalve an Zahl unterlegen blieb, und erst der Kreuzerwinter nahm ihm diese Last ab. Im Sternenflug fand er eine zweite Aufgabe als Jäger der Sturmjäger, die gegen ihn nur die Hälfte ausrichten, und im Imperium wurde er selbst zum Ziel des Flottenkreuzers, der ihn 1,5-fach trifft.
+Die Schwärme beendete er dennoch nicht, weil er ihnen ohne Nachführsalve an Zahl unterlegen blieb, und erst der Kreuzerwinter nahm ihm diese Last ab. Im Sternenflug fand er eine zweite Aufgabe als Jäger der Sturmjäger, deren Torpedorümpfe er doppelt trifft, und im Imperium wurde er selbst zum Ziel des Flottenkreuzers, der ihn 1,5-fach trifft.
 
 ##### Volksakten
 
@@ -3887,7 +3946,7 @@ Yskra Ul-Tharn flog in ihrer Jugend einen Stiefel und soll an einem einzigen Tag
 
 **Syntheten-Akte.** Vektor, Revision 3, entstand auf dem Zeichentisch der Antriebseinheit Vektor-9, die betont, sie habe der Klasse nicht ihren Namen gegeben, sondern ihn von ihr geliehen. Ohne organische Besatzung fliegt er Kurven unter einem Andruck, der jeden anderen Piloten bewusstlos machen würde, und seine drei Einheiten sitzen in drei getrennten Waben, damit ein Treffer nie mehr als eine von ihnen erreicht. Im Sensorverbund teilen die Vektoren einer Staffel ihre Zielbahnen, und die Liste der verbleibenden Ziele wird nach jeder Salve neu verteilt, bis sie leer ist.
 
-Gegen Sturmjäger ist die Rechnung besonders eindeutig, weil deren Torpedorumpf gegen einen Vektor nur die Hälfte ausrichtet und dieser doppelt trifft. Gegen Lasergeschütze fliegen die Syntheten ihn nicht, und sie haben dafür eine Messreihe aus der Orbit-Zeit, die so kurz ist, dass sie sie ungern vorlesen.
+Gegen Sturmjäger ist die Rechnung besonders eindeutig, weil ein Vektor sie doppelt trifft, während ihre Panzerbrecher für Zerstörer gebaut sind und gegen ihn nur Grundschaden anrichten. Gegen Lasergeschütze fliegen die Syntheten ihn nicht, und sie haben dafür eine Messreihe aus der Orbit-Zeit, die so kurz ist, dass sie sie ungern vorlesen.
 
 **Veyari-Akte.** In den Werftgärten der Veyari wächst der Abfangjäger als Baureihe Lärche, benannt nach dem schnellsten Baum der Hochwälder, und seine beiden Ausleger wachsen als verzweigte Rippen aus einem gemeinsamen Wurzelstück, sodass die Schale den Doppelrumpf ohne eine einzige Naht trägt. Lärchen fliegen immer zu zweit, ein Treiber und ein Schläger, und die Paare werden schon in der Ausbildung nicht mehr getrennt. Die Perlschale ist leichter als Stahl, darum halten Lärchen weniger aus als fremde Abfangjäger, und Kael Dornhag lässt sie nie über feindliche Bodenstellungen fliegen, wo Lasergeschütze sie doppelt treffen.
 
@@ -3901,9 +3960,9 @@ Im Dornensommer waren es Lärchenpaare, die den anfliegenden Krath-Clan beschatt
 
 **Wozu.** Er fängt Bomber ab und überwindet Plasmawerfer, die anderen Jägern zu schaffen machen.
 
-**Stärke.** Er greift zwei getrennte Ziele je Runde an, trifft beide Bomberklassen dreifach und Plasmawerfer vierfach.
+**Stärke.** Er greift mit 460 Angriff zwei getrennte Ziele je Runde an, trifft beide Bomberklassen und Plasmawerfer dreifach und Belagerungsschlachtschiffe 1,5-fach.
 
-**Grenzen.** Mit Tempo 9.000 und 80 Treibstoffverbrauch ist er langsam und durstig, gegen alle Zerstörer wirkt er nur mit 0,4, und Schildkreuzer treffen ihn vierfach.
+**Grenzen.** Mit Tempo 9.000 und 80 Treibstoffverbrauch ist er langsam und durstig, Schildkreuzer und Abfangzerstörer treffen ihn dreifach, Abfangjäger doppelt, und Schildkreuzer und Schlachtkreuzer schwenken in einer Salve im Mittel drei- beziehungsweise viermal von einem Schweren Jäger zum nächsten.
 
 > Der Schwere Jäger ist im Grunde ein kleines Kanonenboot, das so tut, als wäre es ein Jäger: gepanzert, geschirmt, langsam und durstig, mit zwei Waffenstationen, die getrennt zielen. Gebaut wurde er in der Orbit-Zeit für Laserringe und Eskorten, doch berühmt machten ihn erst die Bomberjahre, in denen niemand sonst die großen Bomber so zuverlässig vom Himmel holte.
 
@@ -3914,17 +3973,17 @@ Im Dornensommer waren es Lärchenpaare, die den anfliegenden Krath-Clan beschatt
 
 ##### Technisches Dossier
 
-Der Schwere Jäger ist ein 34 Meter langer, gedrungener Panzerrumpf, der Impulsantrieb, Schildgenerator und zwei getrennt nachgeführte Rückenstationen auf engstem Raum vereint. Seine 16.000 Struktur und vor allem sein Schirm von 250 sind für einen Jäger gewaltig: Die Kristall-Emitterplatten über der Kanzel leiten Treffer in Kondensatorbänke ab, die zwischen den Salven wieder volllaufen, und ein Leichter Jäger muss sie mehrfach treffen, bevor der Schirm überhaupt bricht. Der Preis ist Masse, und so bringt der Impulsblock ihn nur auf Tempo 9.000 bei einem Verbrauch von 80, fast dreimal so viel wie ein Abfangjäger.
+Der Schwere Jäger ist ein 34 Meter langer, gedrungener Panzerrumpf, der Impulsantrieb, Schildgenerator und zwei getrennt nachgeführte Rückenstationen auf engstem Raum vereint. Seine 13.000 Struktur und vor allem sein Schirm von 200 sind für einen Jäger gewaltig: Die Kristall-Emitterplatten über der Kanzel leiten Treffer in Kondensatorbänke ab, die zwischen den Salven wieder volllaufen. Der Preis ist Masse, und so bringt der Impulsblock ihn nur auf Tempo 9.000 bei einem Verbrauch von 80, fast dreimal so viel wie ein Abfangjäger.
 
-Jede der beiden Stationen hat ihre eigene Feuerleitung, und so greift er mit zusammen 420 Angriff zwei getrennte Ziele je Salve an. Die Stationen sind auf große, träge Ziele eingemessen: Bomber und Strategische Bomber trifft er dreifach, Plasmawerfer vierfach, weil seine schweren Pulse in die offene Einschlusskammer schlagen, während die Plasmatori der Anlage dem kleinen Rumpf zu träge folgen und ihn nur mit 0,6 erreichen. Gegen die Panzerung aller Zerstörer bleibt ihm nur der Faktor 0,4, und Schildkreuzer, deren Punktverteidigung genau auf seine Silhouette eingemessen ist, treffen ihn vierfach.
+Jede der beiden Stationen hat ihre eigene Feuerleitung, und so greift er mit zusammen 460 Angriff zwei getrennte Ziele je Salve an. Die Stationen sind auf große, träge Ziele eingemessen: Bomber und Strategische Bomber trifft er dreifach, Plasmawerfer ebenfalls dreifach, weil seine schweren Pulse in die offene Einschlusskammer schlagen, während die Plasmatori der Anlage dem kleinen Rumpf zu träge folgen und ihn nur mit Grundschaden erreichen, und Belagerungsschlachtschiffe nimmt er als Sekundärziel 1,5-fach. Alle übrigen Ziele, auch die Panzerung der Zerstörer, trifft er nur mit Grundschaden, und Schildkreuzer, deren Punktverteidigung genau auf seine Silhouette eingemessen ist, treffen ihn dreifach und schwenken mit Nachführsalve 3 von einem Schweren Jäger zum nächsten; Abfangzerstörer treffen ihn ebenfalls dreifach, Abfangjäger doppelt.
 
 Die Kanzel ist ein Zweisitzer für Pilot und Kommandant, und die übrigen drei Köpfe seiner Besatzung von 5 bedienen die Stationen und den Schildgenerator. Gebaut wird er ab Stufe III in einer Werft der Stufe 3 aus 6.000 Erz, 4.000 Kristall, 1.000 Deuterium, 50 Legierung und 25 Elektronik, mit Impulsantrieb 2, Schildtechnik 3 und Waffentechnik 2, und der hohe Kristallanteil steckt in den Emitterplatten.
 
 ##### Chronik
 
-Der Schwere Jäger entstand in der Orbit-Zeit, als Schildtechnik 3 zum ersten Mal einen Schirm in Jägergröße erlaubte und die Werften der Stufe 3 einen Panzerrumpf um einen Impulsblock legen konnten. Er sollte leisten, was der Abfangjäger nicht konnte: durch die Laserringe der Industriezeit fliegen, die ihn nicht doppelt treffen, und zwei Ziele zugleich bekämpfen. Im Sternenflug antworteten die Werften mit dem Schildkreuzer, dessen Punktverteidigung ihn vierfach trifft, und der Schwere Jäger verschwand für eine Weile aus der ersten Linie.
+Der Schwere Jäger entstand in der Orbit-Zeit, als Schildtechnik 3 zum ersten Mal einen Schirm in Jägergröße erlaubte und die Werften der Stufe 3 einen Panzerrumpf um einen Impulsblock legen konnten. Er sollte leisten, was der Abfangjäger nicht konnte: durch die Laserringe der Industriezeit fliegen, die ihn nicht doppelt treffen, und zwei Ziele zugleich bekämpfen. Im Sternenflug antworteten die Werften mit dem Schildkreuzer, dessen Punktverteidigung ihn dreifach trifft und mit Nachführsalve von einem Panzerjäger zum nächsten schwenkt, und der Schwere Jäger verschwand für eine Weile aus der ersten Linie.
 
-Erst die Bomberjahre holten ihn zurück, denn die Verteidiger maßen die Stationen des alten Rumpfs auf Bomber neu ein, und als sie zusätzlich Plasmawerfer bauten, flogen Schwere Jäger auch in den Begleitstaffeln der Angreifer, weil sie diese Anlagen vierfach treffen. Seither steht er in der Chronik der Bomberjahre neben Flottenkreuzer und Plasmawerfer, und wie diese ist er kein Kind jener Jahre: Sein Rumpf ist sogar eine ganze Zivilisationsstufe älter, und die Bomberjahre gaben ihm nur seinen Ruhm.
+Erst die Bomberjahre holten ihn zurück, denn die Verteidiger maßen die Stationen des alten Rumpfs auf Bomber neu ein, und als sie zusätzlich Plasmawerfer bauten, flogen Schwere Jäger auch in den Begleitstaffeln der Angreifer, weil sie diese Anlagen dreifach treffen. Seither steht er in der Chronik der Bomberjahre neben Flottenkreuzer und Plasmawerfer, und wie diese ist er kein Kind jener Jahre: Sein Rumpf ist sogar eine ganze Zivilisationsstufe älter, und die Bomberjahre gaben ihm nur seinen Ruhm.
 
 ##### Volksakten
 
@@ -3940,7 +3999,7 @@ Dass er langsam ist und Treibstoff säuft, nehmen die Clans hin, und ein Amboss-
 
 Den Verbrauch von 80 halten die Rechner für den größten Fehler des Entwurfs, und jede neue Revision verspricht in ihrem Protokoll, ihn zu senken, ohne dass es bisher einer gelungen wäre. Ein Duett namens Sonate führt in seinem Protokoll eine Notiz, dass Schildkreuzer zu meiden seien, und die Notiz ist mit vier Ausrufezeichen versehen.
 
-**Veyari-Akte.** Roteiche nennen die Veyari ihren Schweren Jäger, und er ist das einzige Jägermuster, bei dem sie die Schwäche ihrer Perlschale nicht mit Geschwindigkeit, sondern mit Schild ausgleichen. Die Emitterplatten wachsen nicht auf dem Rumpf, sondern auf zwei gewölbten Schalen, die sich im Gefecht wie Käferflügel aufklappen und in Ruhe über der Kanzel zusammenfalten. Weil die Schale 15 Prozent weniger trägt als geschmiedeter Stahl, verlässt sich eine Roteiche ganz auf ihren Schirm und meidet Schildkreuzer, die sie vierfach treffen.
+**Veyari-Akte.** Roteiche nennen die Veyari ihren Schweren Jäger, und er ist das einzige Jägermuster, bei dem sie die Schwäche ihrer Perlschale nicht mit Geschwindigkeit, sondern mit Schild ausgleichen. Die Emitterplatten wachsen nicht auf dem Rumpf, sondern auf zwei gewölbten Schalen, die sich im Gefecht wie Käferflügel aufklappen und in Ruhe über der Kanzel zusammenfalten. Weil die Schale 15 Prozent weniger trägt als geschmiedeter Stahl, verlässt sich eine Roteiche ganz auf ihren Schirm und meidet Schildkreuzer, die sie dreifach treffen.
 
 Thalen Vey-Oruun, der in den Bomberjahren die Roteichen eines ganzen Kreises führte, ließ sie über den Feldern einer Kolonie kreisen und sagte, ein Bomber, der über reifes Korn fliegt, habe seine Ernte schon verloren. Jede Roteiche trägt in ihrer Kanzel ein kleines Beet mit Eichelkeimlingen, und wer aus dem Dienst geht, pflanzt den kräftigsten davon.
 
@@ -3952,9 +4011,9 @@ Thalen Vey-Oruun, der in den Bomberjahren die Roteichen eines ganzen Kreises fü
 
 **Wozu.** Er bricht Zerstörerlinien auf, an denen leichtere Jäger abprallen.
 
-**Stärke.** Er trifft Zerstörer dreifach und Schwere Zerstörer fünffach und erreicht mit 500 Angriff mehr als jeder andere Jäger.
+**Stärke.** Mit 1.300 Angriff schlägt er härter als jeder andere Jäger, trifft Zerstörer, Schwere Zerstörer und Abfangzerstörer dreifach und Belagerungs- und Sturmschlachtschiffe 1,5-fach.
 
-**Grenzen.** Er ist verwundbar gegen Abfangjäger und eskortierende Kreuzer, die ihn doppelt treffen, und richtet gegen Kreuzer selbst nur 0,4 seines Schadens an.
+**Grenzen.** Kreuzer, Abfangjäger und Lasergeschütze treffen ihn doppelt, Trägerschlachtschiffe und Abfang-Schlachtkreuzer dreifach, Kreuzer und Abfang-Schlachtkreuzer schwenken in einer Salve im Mittel drei- beziehungsweise viermal von einem Sturmjäger zum nächsten, und gegen Kreuzer selbst richtet er nur Grundschaden an.
 
 > Ein Sturmjäger fliegt jede Salve wie einen eigenen Angriff: hinein, Torpedo lösen, abdrehen, bevor die schweren Türme nachschwenken. Gebaut wurde er im Sternenflug gegen die Kreuzer, doch seine Panzerbrecher fanden ihr wahres Ziel erst in den Zerstörern des Imperiums, und die Staffeln, die es wieder hinausschaffen, werden in der ganzen Flotte gefeiert.
 
@@ -3965,11 +4024,11 @@ Thalen Vey-Oruun, der in den Bomberjahren die Roteichen eines ganzen Kreises fü
 
 ##### Technisches Dossier
 
-Der Sturmjäger ist ein 26 Meter langer Pfeilrumpf, der asymmetrisch wirkt, aber genau ausgewogen ist: Unter dem Rumpf liegen zwei Torpedoschienen mit schweren Panzerbrechern, deren Masse ein seitlich versetzter Impulsblock ausgleicht. Ein Torpedo ist eine kleine Rakete mit eigenem Antrieb und einem Gefechtskopf mit Verzögerungszünder, der erst zündet, wenn er sich durch eine dicke Panzerschicht gebohrt hat. Darum steigt seine Wirkung mit der Panzerung des Ziels: Zerstörer trifft er dreifach, Schwere Zerstörer fünffach, während er durch den dünnen Kiel eines Kreuzers glatt hindurchschlägt und dort nur 0,4 seines Schadens anrichtet.
+Der Sturmjäger ist ein 26 Meter langer Pfeilrumpf, der asymmetrisch wirkt, aber genau ausgewogen ist: Unter dem Rumpf liegen zwei Torpedoschienen mit schweren Panzerbrechern, deren Masse ein seitlich versetzter Impulsblock ausgleicht. Ein Torpedo ist eine kleine Rakete mit eigenem Antrieb und einem Gefechtskopf mit Verzögerungszünder, der erst zündet, wenn er sich durch eine dicke Panzerschicht gebohrt hat. Darum ist seine Feuerleitung auf die dicksten Panzer eingemessen: Zerstörer, Schwere Zerstörer und Abfangzerstörer trifft er dreifach, Belagerungs- und Sturmschlachtschiffe 1,5-fach, während er durch den dünnen Kiel eines Kreuzers glatt hindurchschlägt und dort nur Grundschaden anrichtet.
 
-Mit 500 Angriff schlägt er härter als jeder andere Jäger, und die schweren Türme der Zerstörer schwenken für seinen kleinen Rumpf zu langsam und erreichen ihn nur mit 0,4. Der Impulsblock bringt ihn auf Tempo 14.500 bei einem Verbrauch von 60, doch der Anflug verlangt eine gerade Bahn, und auf dieser Bahn ist er für jede Feuerleitung berechenbar, die auf leichte Rümpfe eingemessen ist. Abfangjäger und Kreuzer treffen ihn deshalb doppelt, und gegen einen Abfangjäger richten seine Torpedos selbst nur die Hälfte aus, weil ein Panzerbrecher in einem so leichten Ziel keinen Widerstand findet, an dem er zünden könnte.
+Mit 1.300 Angriff schlägt er härter als jeder andere Jäger, und die schweren Türme von Zerstörern und Schweren Zerstörern schwenken für seinen kleinen Rumpf zu langsam und erreichen ihn nur mit Grundschaden; allein der Abfangzerstörer erfasst ihn 1,5-fach. Der Impulsblock bringt ihn auf Tempo 14.500 bei einem Verbrauch von 60, doch der Anflug verlangt eine gerade Bahn, und auf dieser Bahn ist er für jede Feuerleitung berechenbar, die auf leichte Rümpfe eingemessen ist. Abfangjäger und Kreuzer treffen ihn deshalb doppelt, Trägerschlachtschiffe und Abfang-Schlachtkreuzer sogar dreifach, und gegen einen Abfangjäger richten seine Torpedos selbst nur Grundschaden aus, weil ein Panzerbrecher in einem so leichten Ziel keinen Widerstand findet, an dem er zünden könnte.
 
-Seine 11.000 Struktur und ein Schirm von 100 reichen, um einen Anflug zu überstehen, nicht, um im Feuer zu bleiben, und nach der Sechs-Salven-Grenze sind auch seine Wärmesenken gesättigt. Gebaut wird er ab Stufe IV in einer Werft der Stufe 4 aus 11.000 Erz, 5.500 Kristall, 720 Deuterium, 183 Legierung und 55 Elektronik, mit Impulsantrieb 3 und Waffentechnik 3, und seine Besatzung von 4 teilt sich in Pilot, Navigator und zwei Torpedowarte.
+Seine 20.000 Struktur und ein Schirm von 180 reichen, um einen Anflug zu überstehen, nicht, um im Feuer zu bleiben, und nach der Sechs-Salven-Grenze sind auch seine Wärmesenken gesättigt. Gebaut wird er ab Stufe IV in einer Werft der Stufe 4 aus 11.000 Erz, 5.500 Kristall, 720 Deuterium, 183 Legierung und 55 Elektronik, mit Impulsantrieb 3 und Waffentechnik 3, und seine Besatzung von 4 teilt sich in Pilot, Navigator und zwei Torpedowarte.
 
 ##### Chronik
 
@@ -3987,7 +4046,7 @@ Im Sternenflug verloren die Clans viele Felsbrecher an die Kreuzer, deren Breits
 
 **Syntheten-Akte.** Synkope, Revision 6, trägt ihren Namen, weil sie gegen den Takt der feindlichen Feuerleitung angreift: Ihre Anflugbahn wird so gerechnet, dass die schweren Türme eines Zerstörers sie erst im Augenblick des Abwurfs erfassen. Die vier Einheiten an Bord arbeiten in zwei Paaren, das eine fliegt und rechnet, das andere führt die Torpedos über einen Leitstrahl bis zum Aufschlag. Im Sensorverbund teilen sich mehrere Synkopen ein Ziel, sodass ihre Torpedos in derselben Mikrosekunde einschlagen.
 
-Die Syntheten haben gemessen, dass Abfangjäger die größte Gefahr für eine Synkope sind, und fliegen sie deshalb nie ohne Vektoren als Geleit. Die Einheit Axiom, die das Anflugmodell schrieb, hat die Rückkehr der Besatzung als eigene Zielgröße in die Rechnung aufgenommen und begründet das mit einem Satz, der im Kollektiv oft zitiert wird: „Ein Treffer ohne Heimkehr ist eine halbe Lösung.“
+Die Syntheten haben gemessen, dass unter allen Jägern allein der Abfangjäger eine Synkope doppelt trifft, und fliegen sie deshalb nie ohne Vektoren als Geleit. Die Einheit Axiom, die das Anflugmodell schrieb, hat die Rückkehr der Besatzung als eigene Zielgröße in die Rechnung aufgenommen und begründet das mit einem Satz, der im Kollektiv oft zitiert wird: „Ein Treffer ohne Heimkehr ist eine halbe Lösung.“
 
 **Veyari-Akte.** Bocksdorn heißt die Baureihe, und der Name sagt genau, was sie ist: ein Dorn, der in die Haut der Großen sticht und abbricht, bevor sie zuschlagen können. Die Panzerbrecher reifen in eigenen Brutkammern, in denen Schalenbildner um den Sprengkern eine harte Spitze aus Biomineral ablagern, Schicht für Schicht, bis sie dicht genug ist, um sich durch Zerstörerpanzerung zu bohren. Weil die Perlschale des Bocksdorns weniger aushält als Stahl, setzt der Kreis die Rümpfe nur gegen Ziele ein, die ihnen nicht folgen können, und hält Abfangjäger und Kreuzer mit Lärchen und Eschen von ihnen fern.
 
@@ -3999,11 +4058,11 @@ Die Piloten nennen den Abwurf das Säen, und wer seinen ersten Zerstörer getrof
 
 *Kreuzer-Klasse (Eskortkreuzer) · Mittlerer gepanzerter Kreuzer mit langem Mittelrumpf und Breitseitengeschützen.*
 
-**Wozu.** Er dient als Schwarmabwehr und Eskorte gegen leichte Jäger und schwache Verteidigung.
+**Wozu.** Er dient als Geleitkreuzer und Schwarmabwehr gegen Leichte Jäger, Sturmjäger und Abfangjäger.
 
-**Stärke.** Er hat Schnellfeuer 6 gegen Leichte Jäger, 10 gegen Raketenwerfer und 5 gegen Spionagesonden und trifft Leichte Jäger wie Sturmjäger doppelt.
+**Stärke.** Mit 2.200 Angriff und 29.000 Struktur trifft er Leichte Jäger, Sturmjäger und Abfangjäger doppelt sowie Schwere Jäger und Kleine und Große Transporter anderthalbfach und hat Schnellfeuer 6 gegen Leichte Jäger und 3 gegen Sturm- und Abfangjäger.
 
-**Grenzen.** Er ist schnell und vielseitig, verliert aber gegen schwere Schiffsartillerie, trifft Schlachtschiffe nur mit 0,6 und wird von Zerstörern mit Schnellfeuer 3 gejagt.
+**Grenzen.** Er ist schnell und vielseitig, verliert aber gegen schwere Schiffsartillerie, denn Schlachtschiffe treffen ihn doppelt, Zerstörer jagen ihn mit Schnellfeuer 3, Schlachtkreuzer mit Schnellfeuer 4 und Schwere Schlachtkreuzer mit Schnellfeuer 3, und Raketenwerfer, die ihn doppelt treffen, sowie Ionengeschütze halten ihn von fremden Planeten fern.
 
 > Der Kreuzer war das erste Kriegsschiff mit Impulsantrieb, das größer als ein Jäger war, und machte die Jägerschwärme der Frühzeit in einem einzigen Kreuzerwinter wertlos. Etwas in die Jahre gekommen, ist er doch noch immer das Schiff, das man zuerst schickt, wenn man nicht weiß, was einen erwartet.
 
@@ -4014,15 +4073,15 @@ Die Piloten nennen den Abwurf das Säen, und wer seinen ersten Zerstörer getrof
 
 ##### Technisches Dossier
 
-Der Kreuzer ist ein 240 Meter langer Impulsrumpf um einen durchgehenden Kiel, an dem Antriebsblock, Gefechtsdecks und Brücke hängen wie Wirbel an einer Wirbelsäule. Sein Fusionspulsantrieb zündet Deuteriumkügelchen mit Kristall-Laserlinsen und bringt ihn auf Tempo 15.000 bei einem Verbrauch von 300, schneller als jedes andere Kriegsschiff seiner Größe vor dem Hyperraum. Die Breitseite besteht aus vielen kleinen, schnell schwenkenden Laserpulstürmen, deren Feuerleitung auf leichte Rümpfe eingemessen ist: Gegen Leichte Jäger und Sturmjäger wirkt jeder Treffer doppelt.
+Der Kreuzer ist ein 240 Meter langer Impulsrumpf um einen durchgehenden Kiel, an dem Antriebsblock, Gefechtsdecks und Brücke hängen wie Wirbel an einer Wirbelsäule. Sein Fusionspulsantrieb zündet Deuteriumkügelchen mit Kristall-Laserlinsen und bringt ihn auf Tempo 15.000 bei einem Verbrauch von 300, schneller als jedes andere Kriegsschiff seiner Größe vor dem Hyperraum. Die Breitseite besteht aus vielen kleinen, schnell schwenkenden Laserpulstürmen mit 2.200 Angriff, deren Feuerleitung auf leichte Rümpfe eingemessen ist: Gegen Leichte Jäger, Sturmjäger und Abfangjäger wirkt jeder Treffer doppelt, gegen Schwere Jäger sowie Kleine und Große Transporter anderthalbfach.
 
-Nach jedem Abschuss schwenkt die Nachführsalve sofort weiter, im Mittel sechsmal je Salve gegen Leichte Jäger, zehnmal gegen Raketenwerfer und fünfmal gegen Spionagesonden. Genau diese Auslegung ist seine Grenze, denn dieselben leichten Pulse prallen von schwerer Panzerung ab und erreichen gegen Schlachtschiffe nur den Faktor 0,6. Mit 27.000 Struktur und einem dünnen Schirm von 50 ist er robust gegen Kleinkaliber, aber nicht gegen Linienartillerie.
+Nach jedem Abschuss schwenkt die Nachführsalve sofort weiter, im Mittel sechsmal je Salve gegen Leichte Jäger und dreimal gegen Sturm- und Abfangjäger. Genau diese Auslegung ist seine Grenze, denn auf schwere Panzerung ist seine Feuerleitung nicht eingemessen, und Schlachtschiffe erreicht er nur mit dem Grundschaden, während deren Türme ihn doppelt treffen. Mit 29.000 Struktur und einem dünnen Schirm von 54 ist er robust gegen Jägerkanonen, aber nicht gegen Linienartillerie und nicht gegen die Raketenwerfer der Verteidigungsringe, deren Gefechtsköpfe auf genau seine Rumpfstärke ausgelegt sind und ihn doppelt treffen.
 
-Seine 30 Köpfe Besatzung genügen, weil Feuerleitung und Schadenskontrolle weitgehend selbsttätig laufen. Gebaut wird er ab Stufe IV in einer Werft der Stufe 4 aus 20.000 Erz, 7.000 Kristall, 2.000 Deuterium, 300 Legierung und 100 Elektronik, und der hohe Kristallanteil steckt in Linsen und Turmoptik. Seine 800 Ladung füllen Ersatzläufe, Munition und Proviant für eine lange Patrouille, aber keine Fracht, die sich lohnt.
+Seine 30 Köpfe Besatzung genügen, weil Feuerleitung und Schadenskontrolle weitgehend selbsttätig laufen. Gebaut wird er ab Stufe III in einer Werft der Stufe 3 aus 20.000 Erz, 7.000 Kristall, 2.000 Deuterium, 300 Legierung und 100 Elektronik, und der hohe Kristallanteil steckt in Linsen und Turmoptik. Seine 800 Ladung füllen Ersatzläufe, Munition und Proviant für eine lange Patrouille, aber keine Fracht, die sich lohnt.
 
 ##### Chronik
 
-Der Kreuzer entstand im Zeitalter des Sternenflugs, als Werft 4 und ausgereifte Impulsantriebe zum ersten Mal ein Kriegsschiff erlaubten, das größer als ein Jäger und schneller als jeder Frachter war. Im Kreuzerwinter fegten die ersten Geschwader die Jägerschwärme der Glutjagd vom Himmel, und binnen einer Epoche bauten ihn alle vier Völker nach. Die Unterlegenen antworteten mit dem Raketenkreuzer, der aus der Distanz schlägt, und mit dem Sturmjäger, der unter den Breitseiten hindurchtaucht.
+Der Kreuzer entstand im Orbit-Zeitalter, gleichzeitig mit dem Abfangjäger, als Werft 3 und die ersten Impulsantriebe zum ersten Mal ein Kriegsschiff erlaubten, das größer als ein Jäger und schneller als die Transporter war, die es begleiten sollte. Berühmt wurde er im Kreuzerwinter des Sternenflugs, als seine Geschwader die Jägerschwärme der Glutjagd vom Himmel fegten, und binnen einer Epoche bauten ihn alle vier Völker nach. Die Unterlegenen antworteten mit dem Raketenkreuzer, der aus der Distanz schlägt, und mit dem Sturmjäger, der unter den Breitseiten hindurchtauchen sollte, doch die Feuerleitung des Kreuzers lernte, auch ihn doppelt zu treffen.
 
 Mit dem Hyperraum verlor der Kreuzer seinen Platz in der Linie: Zerstörer jagen ihn mit Schnellfeuer 3, und Schlachtschiffe zucken bei seinen Treffern kaum. Er blieb das Arbeitspferd der Eskorte und das Vorbild für Schildkreuzer und Flottenkreuzer, die seinen langen Kiel weitertragen.
 
@@ -4050,30 +4109,30 @@ Wenn eine Esche außer Dienst geht, verpflanzen die Gärtner ihre Beete auf den 
 
 *Kreuzer-Klasse (Raketenkreuzer) · Schlanker Kreuzer mit zwei langen gepanzerten Raketenmagazinen.*
 
-**Wozu.** Er bekämpft Schlachtschiffe aus der Distanz mit schweren Raketensalven.
+**Wozu.** Er bekämpft Sturm- und Trägerschlachtschiffe und andere Großkampfschiffe aus der Distanz mit schweren Raketensalven.
 
-**Stärke.** Mit 2.400 Angriff trifft er Schlachtschiffe und Sturmschlachtschiffe doppelt und kostet dabei nur einen Bruchteil eines Großkampfschiffs.
+**Stärke.** Mit 4.100 Angriff trifft er Sturm- und Trägerschlachtschiffe doppelt, Schlachtschiffe und Belagerungsschlachtschiffe 1,5-fach und kostet dabei nur einen Bruchteil eines Großkampfschiffs.
 
-**Grenzen.** Seine Nahabwehr ist schwach, Leichte Jäger treffen ihn 2,5-fach, Raketenwerfer doppelt, und gegen Leichte Jäger erreicht er selbst nur 0,4.
+**Grenzen.** Seine Nahabwehr ist schwach und trifft Jäger nur mit Grundschaden, während Leichte Jäger ihn 2,5-fach, Raketenwerfer doppelt und Schwere Schlachtkreuzer doppelt mit im Mittel drei Schüssen je Salve treffen.
 
 > Der Raketenkreuzer entstand im Sternenflug als Antwort auf den Kreuzer, ein schlanker Rumpf, der aus der Distanz schlägt, statt sich auf Breitseiten einzulassen. Im Imperium wurde er die Waffe der Kleineren gegen die Großen, eine Salve, die ein Schlachtschiff in Brand setzt, und seine größte Angst sind Jäger, die unter seinen Raketen hindurchtauchen.
 
 - **Aurelianer:** Aurelianer schätzen den Raketenkreuzer der Klasse Aequitas, weil er teure Schlachtschiffe mit vergleichsweise billigen Rümpfen in Schach hält. Ihre Buchhalter rechnen jede Salve gegen den Preis eines feindlichen Großkampfschiffs auf, und kein anderes Kriegsschiff weist bei ihnen eine so glänzende Bilanz aus.
-- **Krath:** Die Krath hielten Fernkampf lange für unehrenhaft, bis ein Raketenkreuzergeschwader das Schlachtschiff eines Clanführers in einem einzigen Gefecht versenkte, während dessen schwere Türme die schlanken Rümpfe kaum trafen. Seitdem bauen sie die Fernfaust selbst, und ihre Kapitäne bemalen jede Rakete mit einer Faust, damit der Treffer wenigstens wie ein Faustschlag aussieht.
+- **Krath:** Die Krath hielten Fernkampf lange für unehrenhaft, bis ein Raketenkreuzergeschwader das Schlachtschiff eines Clanführers in einem einzigen Gefecht versenkte, bevor dessen schwere Türme mehr als einen der schlanken Rümpfe erreichten. Seitdem bauen sie die Fernfaust selbst, und ihre Kapitäne bemalen jede Rakete mit einer Faust, damit der Treffer wenigstens wie ein Faustschlag aussieht.
 - **Syntheten:** Synthetische Raketenkreuzer der Klasse Parabel koordinieren ihre Salven so, dass alle Raketen eines Geschwaders im selben Augenblick einschlagen. Gegen Jäger geht diese Rechnung nicht auf, und deshalb fliegt keine Parabel ohne einen Begleitschwarm, der genau die Lücke in ihrer Nahabwehr füllt.
 - **Veyari:** Veyari-Raketenkreuzer der Baureihe Kiefer tragen ihre Sprengköpfe in Schalen, die sich wie Zapfen erst kurz vor dem Ziel öffnen. Zwischen den Feldzügen lagern die Magazine wie Saatgut, kühl und dunkel, und ihre Hüter singen ihnen nach alter Sitte ein Lied gegen das Verderben.
 
 ##### Technisches Dossier
 
-Der Raketenkreuzer ist ein 260 Meter langer, schlanker Rumpf um einen zentralen Kommandokiel, an dem links und rechts zwei lange, gepanzerte Raketenmagazine hängen wie Köcher an einem Gurt. Seine Waffe ist die Raketenbreitseite: Dutzende Lenkraketen mit eigenem Antrieb und schwerem Gefechtskopf verlassen die Startschächte in einer Welle, und der Flottenleitrechner, den Computertechnik 2 möglich machte, führt sie über die ganze Flugbahn ins Ziel. Mit 2.400 Angriff trägt eine Salve so viel Gewicht wie bei keinem anderen Schiff des Sternenflugs, und die Gefechtsköpfe sind auf große Rümpfe ausgelegt, sodass sie Schlachtschiffe und Sturmschlachtschiffe doppelt treffen.
+Der Raketenkreuzer ist ein 260 Meter langer, schlanker Rumpf um einen zentralen Kommandokiel, an dem links und rechts zwei lange, gepanzerte Raketenmagazine hängen wie Köcher an einem Gurt. Seine Waffe ist die Raketenbreitseite: Dutzende Lenkraketen mit eigenem Antrieb und schwerem Gefechtskopf verlassen die Startschächte in einer Welle, und der Flottenleitrechner, den Computertechnik 2 möglich machte, führt sie über die ganze Flugbahn ins Ziel. Mit 4.100 Angriff trägt eine Salve so viel Gewicht wie bei keinem anderen Schiff des Sternenflugs, und die Gefechtsköpfe sind auf große Rümpfe ausgelegt, sodass sie Sturm- und Trägerschlachtschiffe doppelt, Schlachtschiffe und Belagerungsschlachtschiffe 1,5-fach treffen.
 
-Gegen kleine Ziele ist dieselbe Auslegung ein Fehler, denn eine schwere Rakete wendet zu träge für einen Leichten Jäger und erreicht ihn nur mit 0,4. Umgekehrt fliegen Jäger so nah heran, dass seine Raketen nach dem Start nicht mehr wenden können, und weil er nur wenige Türme zur Punktverteidigung trägt, treffen ihn Leichte Jäger 2,5-fach und die Bodenraketen der Raketenwerfer doppelt, sobald ein Treffer die offenen Startschächte erreicht. Mit 32.000 Struktur und einem Schirm von 80 ist er etwas zäher als ein Kreuzer, aber nicht für die erste Linie gebaut, und der Impulsantrieb bringt die schweren Magazine nur auf Tempo 10.000 bei einem Verbrauch von 380.
+Gegen kleine Ziele ist dieselbe Auslegung ein Fehler, denn eine schwere Rakete wendet zu träge für einen Leichten Jäger und trifft ihn nur mit Grundschaden. Umgekehrt fliegen Jäger so nah heran, dass seine Raketen nach dem Start nicht mehr wenden können, und weil er nur wenige Türme zur Punktverteidigung trägt, treffen ihn Leichte Jäger 2,5-fach und die Bodenraketen der Raketenwerfer doppelt, sobald ein Treffer die offenen Startschächte erreicht. Mit 55.000 Struktur und einem Schirm von 140 ist er deutlich zäher als ein Kreuzer, aber nicht für die erste Linie gebaut, und der Impulsantrieb bringt die schweren Magazine nur auf Tempo 10.000 bei einem Verbrauch von 380.
 
 Gebaut wird er ab Stufe IV in einer Werft der Stufe 5 aus 32.000 Erz, 16.000 Kristall, 4.560 Deuterium, 533 Legierung und 160 Elektronik, mit Waffentechnik 4 und Computertechnik 2. Seine 40 Köpfe Besatzung sind zum größten Teil Magazinwarte, die nach jeder Salve die Schächte nachladen, und seine 1.000 Ladung füllen Ersatzraketen und Ersatzteile für die Startschächte.
 
 ##### Chronik
 
-Der Raketenkreuzer entstand im Sternenflug, als Waffentechnik 4 schwere Gefechtsköpfe und Computertechnik 2 die ersten Flottenleitrechner lieferte, und er war die Antwort der Unterlegenen auf den Kreuzer: Wer dessen Breitseiten nicht standhielt, wollte aus der Distanz schlagen. Sein Erfolg hatte eine Kehrseite, denn gegen seine langen Magazine wurden ausgerechnet die Leichten Jäger wieder gefährlich, die der Kreuzerwinter für wertlos erklärt hatte, und die billigen Raketenwerfer der Bodenverteidigung trafen ihn doppelt. Berühmt wurde er erst im Imperium, als die ersten Schlachtschiffe in die Linie kamen und sich zeigte, dass ein Raketenkreuzer sie doppelt trifft, während ihre schweren Türme ihn nur mit 0,7 erreichen. Seither stellt jede Admiralität Raketenkreuzer gegen Schlachtschiffe und Jäger zu deren Schutz, und die Großen antworteten mit dem Schweren Schlachtkreuzer, der Raketenkreuzer mit Nachführsalve 3 jagt.
+Der Raketenkreuzer entstand im Sternenflug, als Waffentechnik 4 schwere Gefechtsköpfe und Computertechnik 2 die ersten Flottenleitrechner lieferte, und er war die Antwort der Unterlegenen auf den Kreuzer: Wer dessen Breitseiten nicht standhielt, wollte aus der Distanz schlagen. Sein Erfolg hatte eine Kehrseite, denn gegen seine langen Magazine wurden ausgerechnet die Leichten Jäger wieder gefährlich, die der Kreuzerwinter für wertlos erklärt hatte, und die billigen Raketenwerfer der Bodenverteidigung trafen ihn doppelt. Berühmt wurde er erst im Imperium, als die großen Linienschiffe kamen und sich zeigte, dass seine Salven Sturm- und Trägerschlachtschiffe doppelt und Schlachtschiffe wie Belagerungsschlachtschiffe 1,5-fach treffen. Seither stellt jede Admiralität Raketenkreuzer gegen die Großkampfschiffe und Jäger zu deren Schutz, und die Großen antworteten mit dem Schweren Schlachtkreuzer, der Raketenkreuzer doppelt trifft und mit Nachführsalve 3 jagt.
 
 ##### Volksakten
 
@@ -4081,7 +4140,7 @@ Der Raketenkreuzer entstand im Sternenflug, als Waffentechnik 4 schwere Gefechts
 
 Weil die Aequitas gegen Jäger fast wehrlos ist, fliegt sie nie ohne Vigilantia-Staffeln, und die Geleitverträge von Haus Brann schreiben für jede Aequitas eine feste Zahl Abfangjäger vor. Severin Lazar soll bei einer Verhandlung über einen Grenzsektor nur die Zahl der Aequitas-Rümpfe in seinem Rücken genannt haben, und der Gegner unterschrieb, bevor er nachgerechnet hatte.
 
-**Krath-Akte.** Die Krath nennen den Raketenkreuzer Fernfaust, und lange wollte kein Clan ihn bauen, denn wer aus der Ferne schlägt, sieht seinem Gegner nicht in die Augen. Das änderte sich im Imperium, als ein Raketenkreuzergeschwader einer fremden Gründung das Schlachtschiff des Clanführers Brakk Vash in einem einzigen Gefecht versenkte, während dessen schwere Türme die schlanken Rümpfe kaum ankratzten, und Brakk danach in der Schmiedehalle sagte, Ehre sei gut, aber Treffer seien besser. Seitdem schmiedet Clan Vash die Magazine aus überbreiten Basaltstahlkästen, deren Klappen man im Gefecht mit dem Hammer schließt, wenn der Mechanismus klemmt.
+**Krath-Akte.** Die Krath nennen den Raketenkreuzer Fernfaust, und lange wollte kein Clan ihn bauen, denn wer aus der Ferne schlägt, sieht seinem Gegner nicht in die Augen. Das änderte sich im Imperium, als ein Raketenkreuzergeschwader einer fremden Gründung das Schlachtschiff des Clanführers Brakk Vash in einem einzigen Gefecht versenkte, bevor dessen schwere Türme mehr als zwei der schlanken Rümpfe gefasst hatten, und Brakk danach in der Schmiedehalle sagte, Ehre sei gut, aber Treffer seien besser. Seitdem schmiedet Clan Vash die Magazine aus überbreiten Basaltstahlkästen, deren Klappen man im Gefecht mit dem Hammer schließt, wenn der Mechanismus klemmt.
 
 Mit Glutladung tragen die Gefechtsköpfe mehr Sprengstoff als jede fremde Rakete, und jede wird mit einer Faust bemalt, damit der Treffer wenigstens wie ein Faustschlag aussieht. Gegen die Jäger, die ihr gefährlich werden, gibt der Clan jeder Fernfaust eine Rotte Stiefel mit, und ein Stiefelpilot, der seine Fernfaust verliert, zahlt seinen Anteil an der nächsten Beute an deren Besatzung.
 
@@ -4099,11 +4158,11 @@ Im Dornensommer lagen die Raketen nicht in Kiefern, sondern in Werfern am Boden,
 
 *Kreuzer-Klasse (Schildkreuzer) · Kompakter Eskortkreuzer mit drei überlappenden Schildprojektoren.*
 
-**Wozu.** Er schirmt Flottenverbände ab und vernichtet Schwere Jäger, die durch die Eskorte brechen.
+**Wozu.** Er schirmt Flottenverbände ab und vernichtet Schwere Jäger und Abfangjäger, die durch die Eskorte brechen.
 
-**Stärke.** Mit 3.000 Schild trägt er den stärksten Schirm aller Kreuzer, greift zwei Ziele je Runde an und trifft Schwere Jäger vierfach.
+**Stärke.** Mit 3.000 Schild trägt er den stärksten Schirm aller Kreuzer, greift mit 1.500 Angriff zwei Ziele je Runde an, trifft Schwere Jäger dreifach und Abfangjäger doppelt und hat gegen beide Schnellfeuer 3.
 
-**Grenzen.** Seine Durchschlagskraft gegen schwere Panzerung ist begrenzt, und gegen Zerstörer erreicht er nur die Hälfte seines Schadens.
+**Grenzen.** Leichte Jäger und Sturmjäger trifft er nur 1,5-fach, gegen schwere Panzerung bleibt ihm Grundschaden, und Ionengeschütze treffen ihn dreifach, Schlachtschiffe, Zerstörer, Schlachtkreuzer und Schwere Schlachtkreuzer 1,5-fach.
 
 > Der Schildkreuzer ist das Schiff, hinter dem man sich versteckt, und seine Besatzungen tragen das mit Würde, denn sein Schirm von 3.000 ist der stärkste aller Kreuzer. Wenn seine drei Emitterflossen flackern, weiß die ganze Flotte, dass es ernst wird.
 
@@ -4116,9 +4175,9 @@ Im Dornensommer lagen die Raketen nicht in Kiefern, sondern in Werfern am Boden,
 
 Der Schildkreuzer ist ein 280 Meter langer, gedrungener und breiter Rumpf, gebaut um drei hohe Emitterflossen, die einen Phasenschirm in drei überlappenden Sektoren aufspannen. Jede Flosse trägt ein Gitter aus Kristall-Emitterplatten, hinter dem Kondensatorbänke liegen, die Treffer als Energie aufnehmen, und zwischen den Salven füllen die Generatoren die Bänke wieder auf; Schildtechnik 5 verlangt er wegen dieses Gitters, Energietechnik 4 wegen der Generatoren. So trägt er einen Schirm von 3.000, den stärksten aller Kreuzer, und am Schwellreflex verpufft jeder Treffer unter 30 vollständig, sodass Splitter und Kleinstwaffen ihn nicht einmal ankratzen.
 
-Unter dem Schirm liegen 60.000 Struktur, mehr als doppelt so viel wie beim Kreuzer, und erst wenn eine Bank leer ist, erreicht ein Treffer überhaupt den Rumpf. Bewaffnet ist er mit zwei kurzen, getrennt gerichteten Türmen zur Punktverteidigung, die mit zusammen 1.200 Angriff zwei Ziele je Salve bekämpfen und auf die gedrungene Silhouette Schwerer Jäger eingemessen sind, die sie vierfach treffen. Gegen schwere Panzerung reicht diese Bewaffnung nicht, gegen Zerstörer bleibt nur die Hälfte, und für einen Verband liegt sein Wert weniger in dem, was er zerstört, als in dem Feuer, das auf ihn fällt und damit keinen schwächeren Rumpf trifft.
+Unter dem Schirm liegen 75.000 Struktur, mehr als doppelt so viel wie beim Kreuzer, und erst wenn eine Bank leer ist, erreicht ein Treffer überhaupt den Rumpf. Bewaffnet ist er mit zwei kurzen, getrennt gerichteten Türmen zur Punktverteidigung, die mit zusammen 1.500 Angriff zwei Ziele je Salve bekämpfen und auf die Silhouetten Schwerer Jäger und Abfangjäger eingemessen sind: Schwere Jäger treffen sie dreifach, Abfangjäger doppelt, und gegen beide schwenkt die Feuerleitung mit Nachführsalve 3 noch in derselben Salve auf das nächste Ziel, während Leichte Jäger und Sturmjäger als Sekundärziele 1,5-fach getroffen werden. Gegen schwere Panzerung reicht diese Bewaffnung nicht, gegen Zerstörer und Großkampfschiffe bleibt nur Grundschaden, und für einen Verband liegt sein Wert weniger in dem, was er zerstört, als in dem Feuer, das auf ihn fällt und damit keinen schwächeren Rumpf trifft.
 
-Die Generatoren und die Masse der Flossen drücken das Tempo auf 8.500 bei einem Verbrauch von 360, und seine 900 Ladung sind zum größten Teil Ersatzplatten für die Emittergitter. Gebaut wird er ab Stufe IV in einer Werft der Stufe 5 aus 40.000 Erz, 20.000 Kristall, 4.320 Deuterium, 666 Legierung und 200 Elektronik, und seine 45 Köpfe Besatzung sind zur Hälfte Schildwarte, die überhitzte Emitterplatten nach dem Gefecht tauschen.
+Seine empfindlichste Stelle ist das Gitter selbst, denn Ionengeschütze, deren Strahl die Phasenkohärenz eines Schirms stört, treffen ihn dreifach, während Schlachtschiffe, Zerstörer, Schlachtkreuzer und Schwere Schlachtkreuzer ihn 1,5-fach nehmen. Die Generatoren und die Masse der Flossen drücken das Tempo auf 8.500 bei einem Verbrauch von 360, und seine 900 Ladung sind zum größten Teil Ersatzplatten für die Emittergitter. Gebaut wird er ab Stufe IV in einer Werft der Stufe 5 aus 40.000 Erz, 20.000 Kristall, 4.320 Deuterium, 666 Legierung und 200 Elektronik, und seine 45 Köpfe Besatzung sind zur Hälfte Schildwarte, die überhitzte Emitterplatten nach dem Gefecht tauschen.
 
 ##### Chronik
 
@@ -4150,9 +4209,9 @@ Ihr Schirm leuchtet in einem sanften Cyangrün, weil die Schildwarte Leuchtprote
 
 **Wozu.** Er dient als Allzweck-Begleitschiff schwerer Flotten und als Bomberabwehr.
 
-**Stärke.** Er greift drei getrennte Ziele je Runde an, trifft beide Bomberklassen doppelt und Abfangjäger 1,5-fach.
+**Stärke.** Er greift mit 2.700 Angriff drei getrennte Ziele je Runde an, trifft beide Bomberklassen doppelt und Abfangjäger, Leichte Jäger und Sturmjäger 1,5-fach.
 
-**Grenzen.** Er ist teuer, langsamer als leichte Kreuzer und gegen Zerstörer mit nur 0,6 seines Schadens unterlegen.
+**Grenzen.** Er ist teuer und langsamer als leichte Kreuzer, gegen Zerstörer und andere schwere Rümpfe bleibt ihm Grundschaden, und Schlachtschiffe und Schwere Schlachtkreuzer treffen ihn doppelt, Letztere mit im Mittel drei Schüssen je Salve, Ionengeschütze 1,5-fach.
 
 > Der Flottenkreuzer ist das Schiff, das Admirale in ihre Verbände stellen, wenn sie nicht wissen, ob Jäger, Bomber oder Kreuzer kommen: drei Türme, drei Feuerleitkreise, drei Ziele je Salve. Gebaut im frühen Imperium als Begleiter der ersten Schlachtschifflinien, kann er gegen alles ein wenig, und berühmt machten ihn die Bomberjahre, weil er gegen Bomber sehr viel kann.
 
@@ -4163,15 +4222,15 @@ Ihr Schirm leuchtet in einem sanften Cyangrün, weil die Schildwarte Leuchtprote
 
 ##### Technisches Dossier
 
-Der Flottenkreuzer ist mit 340 Metern der größte mittlere Kreuzer, ein breitschultriger Rumpf, der den langen Kiel des Kreuzers weiterträgt und um ihn herum drei weit auseinanderstehende Langstreckentürme und einen kleinen zentralen Sensorturm anordnet. Jeder Turm hat seinen eigenen Feuerleitkreis, und weil Computertechnik 4 drei getrennte Zielrechner in einem Rumpf erlaubt, greift er mit zusammen 850 Angriff drei Ziele je Salve an. Die Türme sind auf große, langsame Rümpfe eingemessen, die sich nicht verstecken können: Bomber und Strategische Bomber trifft er doppelt, und gegen Abfangjäger wirkt er 1,5-fach, weil der Sensorturm deren Abfangbahnen früh genug liest.
+Der Flottenkreuzer ist mit 340 Metern der größte mittlere Kreuzer, ein breitschultriger Rumpf, der den langen Kiel des Kreuzers weiterträgt und um ihn herum drei weit auseinanderstehende Langstreckentürme und einen kleinen zentralen Sensorturm anordnet. Jeder Turm hat seinen eigenen Feuerleitkreis, und weil Computertechnik 4 drei getrennte Zielrechner in einem Rumpf erlaubt, greift er mit zusammen 2.700 Angriff drei Ziele je Salve an. Die Türme sind auf große, langsame Rümpfe eingemessen, die sich nicht verstecken können: Bomber und Strategische Bomber trifft er doppelt, und gegen Abfangjäger, Leichte Jäger und Sturmjäger wirkt er 1,5-fach, weil der Sensorturm deren Anflugbahnen früh genug liest.
 
-Gegen Zerstörer bleibt ihm nur 0,6, denn seine Geschosse sind für Bomberrümpfe ausgelegt, nicht für die Panzerung eines Linienbrechers, und auch dem Schweren Schlachtkreuzer, der ihn mit Nachführsalve 3 jagt, ist er nicht gewachsen. Angetrieben wird er von einem Hyperraumkern, einem Xenokristall-Resonator, der den Rumpf an die Kurzschicht koppelt, und dieser Kern wird in einer Orbitalwerft der Stufe 2 eingesetzt, weil er zu groß und zu heiß ist, um am Boden montiert zu werden. Die Masse von 65.000 Struktur, drei Turmgruppen und einem Schirm von 350 drückt das Tempo auf 7.500 bei einem Verbrauch von 650, und damit ist er langsamer als jeder leichte Kreuzer.
+Gegen Zerstörer bleibt ihm nur Grundschaden, denn seine Geschosse sind für Bomberrümpfe ausgelegt, nicht für die Panzerung eines Linienbrechers, und Schlachtschiffen, die ihn doppelt treffen, ist er ebenso wenig gewachsen wie dem Schweren Schlachtkreuzer, der ihn doppelt trifft und mit Nachführsalve 3 jagt. Angetrieben wird er von einem Hyperraumkern, einem Xenokristall-Resonator, der den Rumpf an die Kurzschicht koppelt, und dieser Kern wird in einer Orbitalwerft der Stufe 2 eingesetzt, weil er zu groß und zu heiß ist, um am Boden montiert zu werden. Die Masse von 110.000 Struktur, drei Turmgruppen und einem Schirm von 600 drückt das Tempo auf 7.500 bei einem Verbrauch von 650, und damit ist er langsamer als jeder leichte Kreuzer.
 
 Gebaut wird er ab Stufe V in einer Werft der Stufe 6 aus 65.000 Erz, 32.500 Kristall, 7.800 Deuterium, 1.083 Legierung, 325 Elektronik und 81 Xenokristall, mit Hyperraumantrieb 1, Computertechnik 4 und Waffentechnik 4. Seine 65 Köpfe Besatzung verteilen sich auf drei Turmgruppen, Brücke und Kern, und mit 1.600 Ladung ist er der Versorger seines Verbands, der Ersatzteile und Proviant für die kleineren Begleiter mitführt.
 
 ##### Chronik
 
-Der Flottenkreuzer entstand im frühen Imperium in Werften derselben sechsten Stufe wie das Schlachtschiff, als die ersten Hyperraumlinien ein Begleitschiff brauchten, das mit dem Hyperraum Schritt hielt und mit drei Türmen alles bekämpfte, was sich an die Linie heftete. Er übernahm den langen Kiel des Kreuzers und die Mehrfachzielrechner, die Computertechnik 4 möglich machte, und seine Türme jagten zuerst Abfangjäger und andere Jägerschwärme, bis die Werften der Bomberjahre ihre Feuerleitung auf die großen, langsamen Bomberrümpfe einmaßen, die sie seither doppelt trifft. In diesen Jahren flog er neben den Schlachtschiffen, die Bomber ebenfalls doppelt treffen, aber nur ein Ziel je Salve wählen, und zusammen mit dem Plasmawerfer am Boden und dem neu eingemessenen Schweren Jäger beendete er die Bomberjahre, sodass seither kein Bomberverband mehr ohne eigene Eskorte fliegt. Auch er blieb nicht ohne Gegenstück: Zerstörer halten seinen Türmen stand, und der Schwere Schlachtkreuzer wurde zu dem Schiff, das Flottenkreuzer am meisten fürchten.
+Der Flottenkreuzer entstand im frühen Imperium in Werften derselben sechsten Stufe wie das Schlachtschiff, als die ersten Hyperraumlinien ein Begleitschiff brauchten, das mit dem Hyperraum Schritt hielt und mit drei Türmen alles bekämpfte, was sich an die Linie heftete. Er übernahm den langen Kiel des Kreuzers und die Mehrfachzielrechner, die Computertechnik 4 möglich machte, und seine Türme jagten zuerst Abfangjäger und andere Jägerschwärme, bis die Werften der Bomberjahre ihre Feuerleitung auf die großen, langsamen Bomberrümpfe einmaßen, die sie seither doppelt trifft. In diesen Jahren flog er neben den Schlachtschiffen, die Bomber 1,5-fach treffen und nur ein Ziel je Salve wählen, und zusammen mit dem Plasmawerfer am Boden und dem neu eingemessenen Schweren Jäger beendete er die Bomberjahre, sodass seither kein Bomberverband mehr ohne eigene Eskorte fliegt. Auch er blieb nicht ohne Gegenstück: Zerstörer halten seinen Türmen stand, und der Schwere Schlachtkreuzer wurde zu dem Schiff, das Flottenkreuzer am meisten fürchten.
 
 ##### Volksakten
 
@@ -4197,11 +4256,11 @@ Den Hyperraumkern setzen die Werftgärtner nur ungern ein, denn Xenokristall lä
 
 *Schlachtschiff-Klasse (Linienschiff) · Massives Linienschiff mit Schichtpanzerung, mehreren schweren Türmen und Hyperraumantrieb.*
 
-**Wozu.** Es ist der Kern schwerer Flotten und schwere Allzweckartillerie gegen Schiffe aller Art.
+**Wozu.** Es ist der Kern schwerer Flotten und jagt als Linienschiff vor allem Kreuzer und Flottenkreuzer.
 
-**Stärke.** Mit 5.000 Angriff trifft es beide Bomberklassen doppelt, Kreuzer 1,5-fach und hat Schnellfeuer 5 gegen Spionagesonden.
+**Stärke.** Mit 4.500 Angriff, 230 Schild und 68.000 Struktur trifft es Kreuzer und Flottenkreuzer doppelt und Schildkreuzer, Raketenkreuzer, Bomber und Strategische Bomber 1,5-fach, alle anderen Ziele mit Grundschaden.
 
-**Grenzen.** Gegen Raketenkreuzer erreicht es nur 0,7 seines Schadens und braucht Jägereskorte, und Zerstörer, Raketenkreuzer und Gaußkanonen treffen es doppelt.
+**Grenzen.** Es nimmt nur ein Ziel je Runde, und Zerstörer und Schwere Zerstörer treffen es dreifach, Schlachtkreuzer, Schwere Schlachtkreuzer, Leichte Jäger, Gaußkanonen und Ionengeschütze doppelt, darum fliegt es am besten mit Sturmjägern gegen Zerstörer und Abfangjägern gegen Leichte Jäger.
 
 > Das Schlachtschiff war das erste Kriegsschiff, das um einen Hyperraumantrieb herum gebaut wurde, und seit der Schlacht am Zehnten Nebel kreist der Schrott seiner ersten Linien als Mond Narbe um eine Welt jenes Nebels. Bis heute ist die Zahl der eigenen Schlachtschiffe das Erste, was Gesandte am Verhandlungstisch wissen wollen.
 
@@ -4212,23 +4271,23 @@ Den Hyperraumkern setzen die Werftgärtner nur ungern ein, denn Xenokristall lä
 
 ##### Technisches Dossier
 
-Das Schlachtschiff ist ein 700 Meter langer Kastenrumpf aus Schichtpanzerung, in dessen Mitte ein Xenokristall-Resonator den ganzen Rumpf an die Kurzschicht koppelt, jene dünnere Lage des Raums, in der Entfernungen schrumpfen. Für diesen Resonator genügen 20 Xenokristall, der Rest der Rechnung ist schweres Material: 45.000 Erz, 15.000 Kristall, 1.000 Legierung und 300 Elektronik, gebaut ab dem Imperium in einer Werft der Stufe 6. Die Panzerung liegt in Lagen aus Legierungsplatten und Kristallkeramik, die zusammen 60.000 Struktur ergeben, während der Phasenschirm mit 200 eher Splitterschutz als Schild ist.
+Das Schlachtschiff ist ein 700 Meter langer Kastenrumpf aus Schichtpanzerung, in dessen Mitte ein Xenokristall-Resonator den ganzen Rumpf an die Kurzschicht koppelt, jene dünnere Lage des Raums, in der Entfernungen schrumpfen. Für diesen Resonator genügen 20 Xenokristall, der Rest der Rechnung ist schweres Material: 45.000 Erz, 15.000 Kristall, 1.000 Legierung und 300 Elektronik, gebaut ab dem Imperium in einer Werft der Stufe 6. Die Panzerung liegt in Lagen aus Legierungsplatten und Kristallkeramik, die zusammen 68.000 Struktur ergeben, während der Phasenschirm mit 230 eher Splitterschutz als Schild ist.
 
-Seine schweren Türme tragen Gauß-Massebeschleuniger und Plasmageschütze mit 5.000 Angriff, und ihre Feuerleitung ist auf große, langsame Rümpfe eingemessen: Kreuzer trifft sie 1,5-fach, beide Bomberklassen doppelt, und das Schlachtschiff gehört zu den wenigen Schiffen, deren Zielrechner Bomber bevorzugt wählen, statt sie wie die meisten Feuerleitungen nur nebenbei mit Grundschaden zu treffen. Gegen Spionagesonden schwenkt die Nachführsalve im Mittel fünfmal weiter, eine Gewohnheit, die Turmmannschaften Sondenputzen nennen. Die Kehrseite derselben Auslegung ist die Trägheit der schweren Türme: Der schlanke, nur 260 Meter lange Raketenkreuzer, der seine Torpedos aus großem Abstand setzt, ist für ihre Nachführung zu klein und zu wendig, sodass sie gegen ihn nur 0,7 ihres Schadens erreichen, und darum läuft kein Schlachtschiff ohne Jägereskorte aus.
+Seine schweren Türme tragen Gauß-Massebeschleuniger und Plasmageschütze mit 4.500 Angriff, und ihre Feuerleitung ist auf die mittelgroßen Rümpfe der Kreuzerklassen eingemessen: Kreuzer und Flottenkreuzer wählt sie zuerst und trifft sie doppelt, Schildkreuzer, Raketenkreuzer und beide Bomberklassen danach 1,5-fach, und alles andere nimmt sie nur nebenbei mit Grundschaden. Eine Nachführsalve kennt diese Feuerleitung nicht, denn die schweren Türme schwenken zu langsam, um nach einem Abschuss noch in derselben Salve ein zweites Ziel zu fassen, und so nimmt jedes Schlachtschiff ein Ziel je Runde. Die Kehrseite derselben Trägheit zeigt sich gegen kleine Rümpfe: Leichte Jäger, die in Schwärmen dicht am Rumpf kleben, treffen es doppelt, während die Türme ihnen kaum folgen, und darum läuft kein Schlachtschiff ohne Jägereskorte aus.
 
-Gegen die Achsgeschütze der Zerstörer, gegen Raketenkreuzer und gegen Gaußkanonen hilft die Schichtpanzerung wenig, denn alle drei treffen es doppelt, und fällt die Reststruktur unter 70 %, laufen die Risse des Kettenbruchs durch die Spanten. Mit Tempo 10.000 bei 500 Verbrauch gleitet es durch die Kurzschicht und zieht dabei eine Kielwelle, die jede Sensorphalanx lange vor der Ankunft liest. Seine 100 Köpfe Besatzung füllen die 1.500 Ladung mit Munition und Ersatzläufen, und nach sechs Salven sind auch seine Wärmesenken gesättigt, denn die Sechs-Salven-Grenze gilt für das größte Linienschiff wie für einen Jäger.
+Gegen die Achsgeschütze der Zerstörer und Schweren Zerstörer hilft die Schichtpanzerung wenig, denn beide treffen es dreifach, Schlachtkreuzer, Schwere Schlachtkreuzer, Gaußkanonen und Ionengeschütze doppelt, und fällt die Reststruktur unter 70 %, laufen die Risse des Kettenbruchs durch die Spanten. Mit Tempo 10.000 bei 500 Verbrauch gleitet es durch die Kurzschicht und zieht dabei eine Kielwelle, die jede Sensorphalanx lange vor der Ankunft liest. Seine 100 Köpfe Besatzung füllen die 1.500 Ladung mit Munition und Ersatzläufen, und nach sechs Salven sind auch seine Wärmesenken gesättigt, denn die Sechs-Salven-Grenze gilt für das größte Linienschiff wie für einen Jäger.
 
 ##### Chronik
 
-Das Schlachtschiff entstand, als der Erste Sprung bewiesen hatte, dass ein Rumpf vier Sekunden Hyperraum übersteht, und Hyperraumantrieb und Xenomaterialkunde einer Gründung den Weg ins Imperium öffneten. Es war das erste Kriegsschiff, das nicht mehr mit Impuls flog, und es nahm dem Kreuzer seinen Platz in der Linie und trifft ihn seither 1,5-fach. In der Schlacht am Zehnten Nebel standen sich zum ersten Mal ganze Schlachtschifflinien gegenüber, und aus ihren Trümmern verdichtete sich Narbe, der größte Schlachtmond der Chronik.
+Das Schlachtschiff entstand, als der Erste Sprung bewiesen hatte, dass ein Rumpf vier Sekunden Hyperraum übersteht, und Hyperraumantrieb und Xenomaterialkunde einer Gründung den Weg ins Imperium öffneten. Es war das erste Kriegsschiff, das nicht mehr mit Impuls flog, und es nahm dem Kreuzer seinen Platz in der Linie und trifft ihn seither doppelt. In der Schlacht am Zehnten Nebel standen sich zum ersten Mal ganze Schlachtschifflinien gegenüber, und aus ihren Trümmern verdichtete sich Narbe, der größte Schlachtmond der Chronik.
 
-Zwei seiner gefährlichsten Gegner sind älter als es selbst, nämlich Raketenkreuzer und Gaußkanonen aus dem Zeitalter des Sternenflugs, die es doppelt treffen. Gegen seine Linien bauten die Admiralitäten danach den Zerstörer, und der Schlachtkreuzer jagt es mit einer Nachführsalve von sieben.
+Zwei seiner gefährlichsten Gegner am Boden sind älter als es selbst, nämlich Ionengeschütze aus dem Orbit-Zeitalter und Gaußkanonen aus dem Zeitalter des Sternenflugs, die es beide doppelt treffen. Gegen seine Linien bauten die Admiralitäten danach den Zerstörer, der es dreifach trifft, und der Schlachtkreuzer jagt es mit einer Nachführsalve von sieben.
 
 ##### Volksakten
 
 **Aurelianer-Akte.** Bei den Aurelianern heißt das Schlachtschiff Klasse Auctoritas, und seit Kapitänin Ilse Varenna aus einer Nebenlinie von Haus Varro den Ersten Sprung für sich beansprucht, trägt jedes Typschiff der Serie ihr Wappen auf der Brücke. Haus Corvell baut die Auctoritas in Normsektionen, deren Spantleichtbau unter der Schichtpanzerung kaum zu sehen ist, und Haus Amaury liefert den Resonator als versiegelten Block mit Garantieschein. Weil aurelianische Geschütze gedrosselte Normkaliber sind, schlägt eine Auctoritas schwächer zu als ein Kar-Wall der Krath, und die Admiralität von Port Aurel gleicht das aus, indem sie nie weniger als drei Schlachtschiffe zugleich in eine Linie stellt.
 
-Dafür fasst ihr Laderaum dank Aurel-Norm ein Fünftel mehr Munition und Ersatzläufe als bei jedem anderen Volk. Haus Quirin versichert keine Auctoritas, die ohne Jägerschirm ausläuft, denn die Police kennt die Rechnung gegen Raketenkreuzer genau.
+Dafür fasst ihr Laderaum dank Aurel-Norm ein Fünftel mehr Munition und Ersatzläufe als bei jedem anderen Volk. Haus Quirin versichert keine Auctoritas, die ohne Jägerschirm ausläuft, denn die Police kennt die Rechnung gegen Leichte Jäger und Zerstörer genau.
 
 **Krath-Akte.** Ein Schlachtschiff ist für die Krath kein Gerät, sondern ein Stück Clanboden, und die Schmieden von Clan Ashgrat nennen ihre Baureihe die Wallschmiede. Der Rumpf besteht aus kantigen Panzerkeilen aus Basaltstahl, die Treffer zur Seite lenken, und die Antriebsblöcke liegen gepanzert außen, damit eine Werftschicht sie mit Kran und Hammer tauschen kann. Mit Glutladung schlagen die Türme um 15 % härter als die Norm, und die Läufe werden nach jedem Feldzug in der Schmiede neu gebohrt.
 
@@ -4236,7 +4295,7 @@ Auf den ältesten Kar-Wällen reicht die Namensplatte der Gefallenen vom Bug bis
 
 **Syntheten-Akte.** Das synthetische Schlachtschiff heißt Kardinal, und seine Revisionszählung beginnt mit den Messreihen der Kurzschicht, die Einheit Kadenz nach Protokoll „Sprung 0001“ abgelegt hat. Der Rumpf ist ein Stapel genormter Sechseckmodule aus Graphitlaminat, zwischen denen freiliegende Saphirkerne die Feuerleitung rechnen, und jeder Turm sitzt auf einem eigenen Modul, das nach einem Gefecht als Ganzes getauscht wird. Im Zentrum läuft ein Leitkern, der im Sensorverbund mit den Begleitschiffen rechnet und dem manche Admirale eine eigene Meinung zuschreiben.
 
-Kardinal 3 „Geduld“ führte am Zehnten Nebel jeden Befehl aus und hängte an jeden eine Berechnung, warum ein anderer weniger Verluste gekostet hätte. Ohne Jäger lassen die Syntheten keinen Kardinal auslaufen, denn ihre Wahrscheinlichkeitsrechnung gegen Raketenkreuzer ist seit Narbe dieselbe geblieben.
+Kardinal 3 „Geduld“ führte am Zehnten Nebel jeden Befehl aus und hängte an jeden eine Berechnung, warum ein anderer weniger Verluste gekostet hätte. Ohne Jäger lassen die Syntheten keinen Kardinal auslaufen, denn ihre Wahrscheinlichkeitsrechnung gegen Schwärme Leichter Jäger, die seine Türme unterlaufen, ist seit Narbe dieselbe geblieben.
 
 **Veyari-Akte.** Veyari-Schlachtschiffe der Baureihe Nussbaum wachsen auf Formgerüsten, die so groß sind, dass die Werftgärtner um Ilwen Tauhain die Perlschale über viele Jahreszeiten Schicht für Schicht ablagern lassen. Zwischen innerer und äußerer Schale liegen Habitatgärten, die Lebenserhaltung, Vorratskammer und Ruheraum zugleich sind, und viele Besatzungen dienen ein Leben lang auf demselben Nussbaum. Weil Perlschale leichter und weniger dicht ist als geschmiedeter Stahl, hält ein Nussbaum weniger aus als ein Kar-Wall der Krath, aber seine Risse wachsen in der Werft binnen Tagen zu.
 
@@ -4250,9 +4309,9 @@ Kael Dornhag stellt Nussbäume nie allein in die Linie, sondern lässt sie von J
 
 **Wozu.** Es stößt gegen Zerstörerlinien vor und bricht sie auf.
 
-**Stärke.** Mit 5.000 Angriff und 85.000 Struktur trifft es Zerstörer und Schwere Zerstörer doppelt.
+**Stärke.** Mit 8.700 Angriff, 480 Schild und 160.000 Struktur trifft es Zerstörer und Schwere Zerstörer dreifach und Abfangzerstörer und Schlachtschiffe 1,5-fach.
 
-**Grenzen.** Es verbraucht viel Treibstoff, deckt sich mit 0,6 gegen beide Bomberklassen nur schwach und wird von Raketenkreuzern doppelt getroffen.
+**Grenzen.** Es verbraucht viel Treibstoff, nimmt nur ein Ziel je Runde, wird von Raketenkreuzern, Gaußkanonen und Ionengeschützen doppelt und von Sturmjägern und Plasmawerfern 1,5-fach getroffen und verliert auch gegen Schwärme Leichter Jäger und gegen Kreuzer.
 
 > Das Sturmschlachtschiff ist ein Schlachtschiff mit einem einzigen Gedanken: in die feindliche Linie hineinfahren und als Letztes dort noch stehen. Seit die Zerstörer von den Docks liefen, schicken die Admiralitäten es genau dorthin, wo deren Achsgeschütze am dichtesten stehen.
 
@@ -4263,15 +4322,15 @@ Kael Dornhag stellt Nussbäume nie allein in die Linie, sondern lässt sie von J
 
 ##### Technisches Dossier
 
-Das Sturmschlachtschiff ist ein 780 Meter langer Schlachtschiffrumpf, dessen Bug zu einem verstärkten Keil ausgezogen ist, damit Treffer von vorn abgleiten statt einzuschlagen. Hinter dem Keil liegen zwei breite Hauptgeschütze in der Längsachse, schwere Gauß-Massebeschleuniger, die mit 5.000 Angriff auf die längsten und schwersten Rümpfe eingemessen sind, und darum trifft es Zerstörer und Schwere Zerstörer doppelt. Seine 85.000 Struktur und 250 Schild sind mehr, als das ältere Schlachtschiff trägt, und sie bedeuten vor allem eines: Es erreicht die Kettenbruchgrenze von 70 % erst tief in der gegnerischen Linie.
+Das Sturmschlachtschiff ist ein 780 Meter langer Schlachtschiffrumpf, dessen Bug zu einem verstärkten Keil ausgezogen ist, damit Treffer von vorn abgleiten statt einzuschlagen. Hinter dem Keil liegen zwei breite Hauptgeschütze in der Längsachse, schwere Gauß-Massebeschleuniger, die mit 8.700 Angriff auf die längsten und schwersten Rümpfe eingemessen sind, und darum trifft es Zerstörer und Schwere Zerstörer dreifach, Abfangzerstörer und Schlachtschiffe 1,5-fach. Seine 160.000 Struktur und 480 Schild sind weit mehr, als das ältere Schlachtschiff trägt, und sie bedeuten vor allem eines: Es erreicht die Kettenbruchgrenze von 70 % erst tief in der gegnerischen Linie.
 
-Der Preis ist Masse, und Masse frisst Treibstoff, denn der Xenokristall-Resonator muss ein schwereres Schiff an die Kurzschicht koppeln, daher Tempo 8.500 bei einem Verbrauch von 850. Die Werft verlangt Stufe 7 und eine Orbitalwerft der Stufe 2, die Forschung Hyperraumantrieb 2, Waffentechnik 6 und Panzerung 4, und die Rechnung lautet 85.000 Erz, 42.500 Kristall, 10.200 Deuterium, 1.416 Legierung, 425 Elektronik und 106 Xenokristall. Weil beide Hauptgeschütze starr im Rumpf liegen, folgen sie kleinen Zielen nur mit dem ganzen Schiff, und gegen Bomber und Strategische Bomber bleibt ihm nur der Faktor 0,6.
+Der Preis ist Masse, und Masse frisst Treibstoff, denn der Xenokristall-Resonator muss ein schwereres Schiff an die Kurzschicht koppeln, daher Tempo 8.500 bei einem Verbrauch von 850. Die Werft verlangt Stufe 7 und eine Orbitalwerft der Stufe 2, die Forschung Hyperraumantrieb 2, Waffentechnik 6 und Panzerung 4, und die Rechnung lautet 85.000 Erz, 42.500 Kristall, 10.200 Deuterium, 1.416 Legierung, 425 Elektronik und 106 Xenokristall. Weil beide Hauptgeschütze starr im Rumpf liegen, folgen sie kleinen Zielen nur mit dem ganzen Schiff, und Jäger, Bomber und alles andere, was nicht auf ihrer Zielliste steht, treffen sie nur mit Grundschaden, sodass Schwärme Leichter Jäger und Sturmjäger es zermürben können.
 
-Raketenkreuzer treffen es doppelt, denn ihre Torpedos kommen von der Seite, wo der Keil nicht schützt. An Bord dienen 130 Köpfe, und die 1.400 Ladung sind fast ganz Munition für die Achsgeschütze und Ersatzplatten für den Bug.
+Raketenkreuzer treffen es doppelt, denn ihre Torpedos kommen von der Seite, wo der Keil nicht schützt, und ebenso doppelt treffen es Gaußkanonen und Ionengeschütze vom Boden. An Bord dienen 130 Köpfe, und die 1.400 Ladung sind fast ganz Munition für die Achsgeschütze und Ersatzplatten für den Bug.
 
 ##### Chronik
 
-Das Sturmschlachtschiff entstand aus der Lehre der Schlacht am Zehnten Nebel, in der Schlachtschifflinien einander Salve um Salve beschossen, bis die Wärmesenken gesättigt waren, ohne dass eine Seite durchbrach. Die Admiralitäten verlangten ein Schiff, das in die Linie hineinfährt, und bekamen es, sobald Hyperraumantrieb 2 und Panzerung 4 einen schwereren Rumpf an die Kurzschicht koppeln ließen. Seine eigentliche Bestimmung fand es, als die Zerstörer mit Orbitalwerft 3 von den Docks liefen, denn seine eigenen Achsgeschütze, auf die längsten Rümpfe eingemessen, trafen den neuen Linienbrecher doppelt und danach ebenso den Schweren Zerstörer. Auch den Schlachtkreuzer hält es in Schach, doch gegen die Torpedos der Raketenkreuzer, ältere Schiffe aus dem Zeitalter des Sternenflugs, und gegen Bomber hat es nie eine Antwort gefunden.
+Das Sturmschlachtschiff entstand aus der Lehre der Schlacht am Zehnten Nebel, in der Schlachtschifflinien einander Salve um Salve beschossen, bis die Wärmesenken gesättigt waren, ohne dass eine Seite durchbrach. Die Admiralitäten verlangten ein Schiff, das in die Linie hineinfährt, und bekamen es, sobald Hyperraumantrieb 2 und Panzerung 4 einen schwereren Rumpf an die Kurzschicht koppeln ließen. Seine eigentliche Bestimmung fand es, als die Zerstörer mit Orbitalwerft 3 von den Docks liefen, denn seine eigenen Achsgeschütze, auf die längsten Rümpfe eingemessen, trafen den neuen Linienbrecher dreifach und danach ebenso den Schweren Zerstörer. Auch Abfangzerstörer und Schlachtschiffe trifft es anderthalbfach, doch gegen die Torpedos der Raketenkreuzer, ältere Schiffe aus dem Zeitalter des Sternenflugs, und gegen Schwärme Leichter Jäger hat es nie eine Antwort gefunden.
 
 ##### Volksakten
 
@@ -4299,9 +4358,9 @@ Orrin Moosgrund, der den einzigen Buchsbaum seines Hains durch eine Zerstörerli
 
 **Wozu.** Es schützt die Flotte vor Jägerschwärmen jeder Art.
 
-**Stärke.** Es greift vier getrennte Ziele je Runde an und trifft Leichte Jäger, Abfangjäger und Sturmjäger doppelt.
+**Stärke.** Es greift vier getrennte Ziele je Runde an, trifft Leichte Jäger, Abfangjäger und Sturmjäger dreifach und Bomber, Strategische Bomber und Schwere Jäger 1,5-fach.
 
-**Grenzen.** Mit nur 650 Angriff richtet es gegen schwere Linien wenig aus und erreicht gegen Zerstörer nur die Hälfte.
+**Grenzen.** Mit nur 2.000 Angriff je Schuss richtet es gegen schwere Linien wenig aus, und Raketenkreuzer, Gaußkanonen und Ionengeschütze treffen es doppelt, Schwere Zerstörer, Schlachtkreuzer, Schwere Schlachtkreuzer und Plasmawerfer 1,5-fach.
 
 > Das Trägerschlachtschiff ist ein Schwarm in einem Rumpf: Vier Abwehrtürme verfolgen vier Ziele zugleich, und wenn es seine Abwehr entfaltet, sieht der Himmel um es herum aus wie ein Feuerwerk. Jägerpiloten fürchten es mehr als jedes andere Schiff, weil sie nie wissen, aus welchem Winkel das nächste Geschütz feuert.
 
@@ -4312,15 +4371,15 @@ Orrin Moosgrund, der den einzigen Buchsbaum seines Hains durch eine Zerstörerli
 
 ##### Technisches Dossier
 
-Das Trägerschlachtschiff ist ein 820 Meter langer Schlachtschiffrumpf, durch den zwei geschlossene Korridore laufen, die Werftleute Hangardecks nennen, und auf dem vier kompakte Abwehrtürme sitzen, jeder mit eigener Feuerleitung. Diese vier Zielrechner arbeiten getrennt, darum greift es vier Ziele je Runde an, und jeder ist auf die kleinen, schnell schwenkenden Rümpfe der Jägerklassen eingemessen, sodass es Leichte Jäger, Abfangjäger und Sturmjäger doppelt trifft. Die Kehrseite steht in derselben Zeile der Werftakte, denn mit nur 650 Angriff je Schuss richtet es gegen schwere Linien wenig aus, und gegen Zerstörer erreicht es nur die Hälfte.
+Das Trägerschlachtschiff ist ein 820 Meter langer Schlachtschiffrumpf, durch den zwei geschlossene Korridore laufen, die Werftleute Hangardecks nennen, und auf dem vier kompakte Abwehrtürme sitzen, jeder mit eigener Feuerleitung. Diese vier Zielrechner arbeiten getrennt, darum greift es vier Ziele je Runde an, und jeder ist auf die kleinen, schnell schwenkenden Rümpfe der Jägerklassen eingemessen, sodass es Leichte Jäger, Abfangjäger und Sturmjäger dreifach trifft. Die Kehrseite steht in derselben Zeile der Werftakte, denn mit nur 2.000 Angriff je Schuss richtet es gegen schwere Linien wenig aus, und Raketenkreuzer, Gaußkanonen und Ionengeschütze treffen es doppelt.
 
-Bomber und Strategische Bomber stehen in seiner zweiten Zielreihe gleich nach den Jägern, und es trifft sie 1,5-fach, während die meisten Großkampfschiffe sie nur nebenbei mit Grundschaden nehmen. Struktur 75.000 und ein Schirm von 400 machen es zäh, und die Schildtechnik 5, die die Werft verlangt, steckt in den Emitterplatten über den vier Türmen. Computertechnik 6 ist die zweite Bedingung, denn vier unabhängige Feuerleitungen müssen ihre Ziele untereinander aufteilen, ohne dieselbe Bahn doppelt zu beschießen.
+Bomber, Strategische Bomber und Schwere Jäger stehen in seiner zweiten Zielreihe gleich nach den leichteren Jägerklassen, und es trifft sie 1,5-fach, während die meisten Großkampfschiffe sie nur nebenbei mit Grundschaden nehmen. Struktur 140.000 und ein Schirm von 770 machen es zäh, und die Schildtechnik 5, die die Werft verlangt, steckt in den Emitterplatten über den vier Türmen. Computertechnik 6 ist die zweite Bedingung, denn vier unabhängige Feuerleitungen müssen ihre Ziele untereinander aufteilen, ohne dieselbe Bahn doppelt zu beschießen.
 
 Gebaut wird es in einer Werft der Stufe 7 mit Orbitalwerft 2 aus 75.000 Erz, 37.500 Kristall, 9.000 Deuterium, 1.250 Legierung, 375 Elektronik und 93 Xenokristall. Mit Tempo 7.000 bei 750 Verbrauch ist es langsamer als die Schlachtschiffe, die es schützt, und seine 150 Köpfe Besatzung sind meist Turmmannschaften und Ladeschützen, denn die Korridore führen die Munitionsbahnen und Ersatzläufe für 2.000 Ladung Abwehrmunition.
 
 ##### Chronik
 
-Das Trägerschlachtschiff entstand aus einer Erfahrung, die jeder Turmmeister der Linie kannte: Ein Schlachtschiff wählt mit seinen trägen Türmen zwar bevorzugt Bomber, folgt aber kaum einem wendigen Jäger, und ein Schwarm, der dicht genug am Rumpf klebt, hält eine ganze Linie fest. Erst Computertechnik 6 und Schildtechnik 5 erlaubten vier Feuerleitungen auf einem Rumpf, und so lief es aus denselben Werften der Stufe 7 wie die ersten Bomber. Berühmt wurde es in den Bomberjahren, denn wo Bomberverbände mit Jägerschirm anflogen, zerriss das Trägerschlachtschiff den Schirm und nahm gleich nach dessen Jägern auch den Bomber selbst ins Visier. Seine Grenze lernten die Admiralitäten gegen Zerstörer, gegen die es nur die Hälfte erreicht, und Seite an Seite mit ihm fliegt meist der kleinere, schnellere Abfangzerstörer.
+Das Trägerschlachtschiff entstand aus einer Erfahrung, die jeder Turmmeister der Linie kannte: Ein Schlachtschiff wählt mit seinen trägen Türmen zwar bevorzugt Bomber, folgt aber kaum einem wendigen Jäger, und ein Schwarm, der dicht genug am Rumpf klebt, hält eine ganze Linie fest. Erst Computertechnik 6 und Schildtechnik 5 erlaubten vier Feuerleitungen auf einem Rumpf, und so lief es aus denselben Werften der Stufe 7 wie die ersten Bomber. Berühmt wurde es in den Bomberjahren, denn wo Bomberverbände mit Jägerschirm anflogen, zerriss das Trägerschlachtschiff den Schirm und nahm gleich nach dessen Jägern auch den Bomber selbst ins Visier. Seine Grenze lernten die Admiralitäten gegen die älteren Raketenkreuzer, deren Torpedos es doppelt treffen, und Seite an Seite mit ihm fliegt meist der kleinere, schnellere Abfangzerstörer.
 
 ##### Volksakten
 
@@ -4330,7 +4389,7 @@ Der Laderaum fasst dank Aurel-Norm ein Fünftel mehr, und die Häuser füllen ih
 
 **Krath-Akte.** Ein Krath, der auf einem Träger dient, sagt nicht gern, wo er dient, denn die Clans verachten Schiffe, die andere kämpfen lassen. Trotzdem lässt Clan Vash seit den Bomberjahren eine eigene Baureihe schmieden, die Nestschmiede, deren Schiffe man Glutnest nennt, weil ihre vier Türme in der Schlacht glühen wie Kohlen in der Esse. Vashkor, der zuvor über jeden Träger gespottet hatte, ließ das erste Glutnest bauen, nachdem ein Jägerschwarm drei seiner Kar-Wälle festgenagelt hatte, bis die Bomber heran waren.
 
-Die Turmmannschaften gelten im Kriegsrat als die Leisesten, aber auf ihren Namensplatten stehen auffällig wenige Gefallene, und die Clans wissen genau, warum. Mit Glutladung trifft jeder Turm um 15 % härter, was bei nur 650 Angriff weniger am Ziel als an den Läufen zu sehen ist, die nach jedem Feldzug glühend ausgebaut werden.
+Die Turmmannschaften gelten im Kriegsrat als die Leisesten, aber auf ihren Namensplatten stehen auffällig wenige Gefallene, und die Clans wissen genau, warum. Mit Glutladung trifft jeder Turm um 15 % härter, was bei nur 2.000 Angriff weniger am Ziel als an den Läufen zu sehen ist, die nach jedem Feldzug glühend ausgebaut werden.
 
 **Syntheten-Akte.** Quartett heißt das synthetische Trägerschlachtschiff, weil seine vier Abwehrtürme geführt werden wie die vier Stimmen eines Streichquartetts, von denen jede den anderen zuhört. Die Konstrukteurin Sekante, die die Nachführsalve an Jägerschwärmen eingemessen hat, schrieb für das Quartett ein Verteilprotokoll, nach dem jeder Turm seinen Zielkreis aus dem Sensorverbund übernimmt und keinen Jäger beschießt, den ein anderer schon erfasst hat. Vier Stimmen sind für das Kollektiv die kleinste Zahl, mit der sich ein anfliegender Schwarm vollständig abdecken lässt, und eine fünfte hätte nach Sekantes Rechnung mehr Wärme als Treffer erzeugt.
 
@@ -4348,9 +4407,9 @@ Kael Dornhag setzt Kirschen als Hecke um die Nussbäume seiner Linie, damit kein
 
 **Wozu.** Es zermürbt die stärksten Verteidigungen eines Planeten bis hin zum Planetenschild.
 
-**Stärke.** Mit 22.000 Angriff, 400.000 Struktur und 3.000 Schild greift es zwei Ziele je Runde an, trifft Gaußkanonen dreifach und Plasmawerfer und alle Planetenschilde doppelt.
+**Stärke.** Mit 5.900 Angriff, 1.000 Schild und 130.000 Struktur greift es zwei Ziele je Runde an und trifft Gaußkanonen, Plasmawerfer und Ionengeschütze 1,5-fach und alle drei Planetenschilde doppelt, mit Schnellfeuer 5 gegen Ionengeschütze und 2 gegen Gaußkanonen und Plasmawerfer.
 
-**Grenzen.** Mit Tempo 4.500 ist es langsam, gegen Zerstörer erreicht es nur die Hälfte, und Zerstörer treffen es fünffach, Schwere Zerstörer sogar sechsfach.
+**Grenzen.** Mit Tempo 4.500 ist es langsam und im Flottenkampf schwach, denn Zerstörer und Schwere Zerstörer treffen es dreifach und Sturmjäger, Schwere Jäger und Raketenkreuzer 1,5-fach, darum braucht es Geleit.
 
 > Wenn ein Belagerungsschlachtschiff in den Orbit einschwenkt, beginnen die Verteidiger zu rechnen, wie lange ihre Kuppel hält, nicht ob. In der Kuppelkrise brachen diese Schiffe den einfachen Planetenschild in wenigen Salven, und erst Planetenschild II und III machten aus der Frage wieder eine Rechnung über viele Runden.
 
@@ -4361,23 +4420,23 @@ Kael Dornhag setzt Kirschen als Hecke um die Nussbäume seiner Linie, damit kein
 
 ##### Technisches Dossier
 
-Das Belagerungsschlachtschiff ist mit 1.400 Metern das größte Schiff der Schlachtschiffklasse, ein Rumpf, der um zwei schwere, nach unten gerichtete Artillerieblöcke und tief eingelassene, gepanzerte Munitionsmagazine gebaut ist. Seine Planetenkanonen verschießen magnetisch eingeschlossene Plasmatori, deren Einschlussfeld durch Xenokristallgitter verdichtet wird, und darum verlangt die Werft neben Waffentechnik 7 auch Xenomaterialkunde 2. Mit 22.000 Angriff auf zwei Ziele je Runde liegt jeder Treffer weit über dem Schwellreflex, denn selbst ein Planetenschild III mit 100.000 Schirmstärke weist nur Treffer unter 1.000 ab.
+Das Belagerungsschlachtschiff ist mit 1.400 Metern das größte Schiff der Schlachtschiffklasse, ein Rumpf, der um zwei schwere, nach unten gerichtete Artillerieblöcke und tief eingelassene, gepanzerte Munitionsmagazine gebaut ist. Seine Planetenkanonen verschießen magnetisch eingeschlossene Plasmatori, deren Einschlussfeld durch Xenokristallgitter verdichtet wird, und darum verlangt die Werft neben Waffentechnik 7 auch Xenomaterialkunde 2. Mit 5.900 Angriff auf zwei Ziele je Runde liegt jeder Treffer weit über dem Schwellreflex, denn selbst ein Planetenschild III mit 100.000 Schirmstärke weist nur Treffer unter 1.000 ab.
 
-Die Feuerleitung ist auf feste Bodenziele eingemessen, sodass es Gaußkanonen dreifach und Plasmawerfer sowie alle drei Stufen des Planetenschilds doppelt trifft. Schützen muss es sich durch Masse, mit 400.000 Struktur, so viel wie kein anderes Schiff außer den Weltenkrümmern, und einem Schirm von 3.000. Diese Masse kostet Tempo, denn mit 4.500 bei 1.400 Verbrauch ist es eines der langsamsten Kriegsschiffe, und sein Resonator zieht eine Kielwelle, die jede Phalanx früh liest.
+Die Feuerleitung ist auf feste Bodenziele eingemessen: Gaußkanonen, Plasmawerfer und Ionengeschütze wählt sie zuerst, danach alle drei Stufen des Planetenschilds, die Anlagen 1,5-fach und die Schilde doppelt, und nach jedem Abschuss schwenkt ihre Nachführsalve bis zu fünfmal zum nächsten Ionengeschütz und zweimal zur nächsten Gaußkanone oder zum nächsten Plasmawerfer. Schützen muss es sich durch Masse, mit 130.000 Struktur und einem Schirm von 1.000, doch diese Panzerung ist auf das Abwehrfeuer vom Boden berechnet und nicht auf die Achsgeschütze einer Schlachtlinie. Diese Masse kostet Tempo, denn mit 4.500 bei 1.400 Verbrauch ist es eines der langsamsten Kriegsschiffe, und sein Resonator zieht eine Kielwelle, die jede Phalanx früh liest.
 
-Gegen Schiffe sind die nach unten gerichteten Geschütze nicht eingemessen, gegen Zerstörer erreichen sie nur die Hälfte, und weil der riesige Rumpf kaum ausweichen kann, treffen ihn Zerstörer fünffach und Schwere Zerstörer sechsfach. Gebaut wird es ab Werft 8 mit Orbitalwerft 2 aus 100.000 Erz, 50.000 Kristall, 16.800 Deuterium, 1.666 Legierung, 500 Elektronik und 125 Xenokristall, und seine 160 Köpfe Besatzung sind zum größten Teil Ladeschützen der Magazine, die mit 1.000 Ladung kaum Platz für anderes lassen.
+Gegen Schiffe sind die nach unten gerichteten Geschütze nicht eingemessen und treffen sie nur mit Grundschaden, und weil der riesige Rumpf kaum ausweichen kann, treffen ihn Zerstörer und Schwere Zerstörer dreifach, Sturmjäger, Schwere Jäger und Raketenkreuzer 1,5-fach. Gebaut wird es ab Werft 8 mit Orbitalwerft 2 aus 100.000 Erz, 50.000 Kristall, 16.800 Deuterium, 1.666 Legierung, 500 Elektronik und 125 Xenokristall, und seine 160 Köpfe Besatzung sind zum größten Teil Ladeschützen der Magazine, die mit 1.000 Ladung kaum Platz für anderes lassen.
 
 ##### Chronik
 
 Das Belagerungsschlachtschiff entstand, als die Planetenschilde aus dem Zeitalter des Sternenflugs jede Flotte über einer Welt festhielten, bis ihre Wärmesenken gesättigt waren und sie abdrehen musste. Mit Waffentechnik 7 und Xenomaterialkunde 2 gelang ein Rumpf, dessen Planetenkanonen die Kuppel schneller zermürbten, als ihre Generatoren die Bänke zwischen den Salven nachfüllen konnten, und so begann die Kuppelkrise. Der einfache Planetenschild brach damals in wenigen Salven, und die Antwort der Verteidiger waren Planetenschild II und III, deren Schirme das Feuer wieder über viele Runden binden, auch wenn das Schiff sie weiterhin doppelt trifft.
 
-Der ältere Bunkerbrecher, bis dahin eine Silorakete gegen Festungswelten, erlebte in diesen Jahren an der Seite der Belagerer seine größte Zeit, denn er trifft dieselben Ziele doppelt. Gegen die Belagerer selbst setzten die Admiralitäten auf Zerstörer, die es fünffach treffen, und danach auf den Schweren Zerstörer, der es sechsfach trifft.
+Der ältere Bunkerbrecher, bis dahin eine Silorakete gegen Festungswelten, erlebte in diesen Jahren an der Seite der Belagerer seine größte Zeit, denn er trifft Gaußkanonen, Plasmawerfer und alle Planetenschilde doppelt und damit fast dieselben Ziele. Gegen die Belagerer selbst setzten die Admiralitäten auf Zerstörer, die es dreifach treffen, und danach auf den Schweren Zerstörer, der es ebenfalls dreifach trifft und dabei zwei Ziele je Runde nimmt.
 
 ##### Volksakten
 
 **Aurelianer-Akte.** Die Aurelianer führen das Belagerungsschlachtschiff als Klasse Solutio, und in Port Aurel gilt es weniger als Kriegsschiff denn als Vollstreckungsbescheid mit Antrieb. Haus Varro lässt eine Solutio nur auslaufen, wenn der Senat einen Schuldtitel gegen die Welt darunter bestätigt hat, und Haus Solden rechnet vorher aus, ob die Forderung die 125 Xenokristall des Rumpfs überhaupt wert ist. Der Brauch der letzten Rechnung ist älter als diese Klasse und stammt aus der Zeit der Bunkerbrecher, doch erst die Solutio schickt sie auf Elfenbeinpapier, und Marek Solden behauptet, die Hälfte aller Belagerungen ende genau an dieser Stelle.
 
-Die gedrosselten Normkaliber kosten die Solutio ein Zehntel ihrer Wucht, was gegen eine Kuppel kaum zählt, weil jeder Treffer ohnehin weit über dem Schwellreflex liegt. Haus Quirin versichert sie nur im Verband mit Sturmschlachtschiffen, denn auf ihrer Police steht der Zerstörerfaktor fünf als erste Ausschlussklausel.
+Die gedrosselten Normkaliber kosten die Solutio ein Zehntel ihrer Wucht, was gegen eine Kuppel kaum zählt, weil jeder Treffer ohnehin weit über dem Schwellreflex liegt. Haus Quirin versichert sie nur im Verband mit Sturmschlachtschiffen, denn auf ihrer Police steht der Zerstörerfaktor drei als erste Ausschlussklausel.
 
 **Krath-Akte.** Torbrecher heißt das Belagerungsschlachtschiff bei den Krath, und die Baureihe aus den Schmieden von Clan Groth trägt den Namen Torschmiede, weil sie für nichts anderes gebaut wird als für das Tor einer Welt. Der uralte Grothak soll die Magazine so tief in den Rumpf gesenkt haben, dass ein Treffer, der bis zu ihnen durchschlägt, das Schiff ohnehin schon zerbrochen hat. Glutladung treibt die Planetenkanonen um 15 % über die Norm, und die Läufe sind nach einer Belagerung so ausgebrannt, dass sie nach der Heimkehr eingeschmolzen und neu gegossen werden.
 
@@ -4385,7 +4444,7 @@ Die Mannschaft eines Torbrechers wählt aus der Beute zuerst, als Lohn für die 
 
 **Syntheten-Akte.** Schwebung nennen die Syntheten ihr Belagerungsschiff, nach dem Ton, der entsteht, wenn zwei fast gleiche Frequenzen einander überlagern. Seine Sensoren tasten die Feldfrequenz eines Planetenschilds ab, die in den Pylonen am Boden nie ganz gleich läuft, und die Feuerleitung legt jede Salve auf den Augenblick, in dem die Kondensatorbänke am leersten sind. Die lange Anreise mit Tempo 4.500 nutzen die Kerne, um aus den Messreihen früherer Belagerungen die Feuerfolge vorauszurechnen, und Einheit Ordo, die einst den Verbund der Schwebung führte, nannte diese Zeit ihre liebste Phase eines Feldzugs.
 
-Ein beschädigtes Magazinmodul wird nach dem Gefecht nicht geflickt, sondern als Ganzes getauscht, was bei Munition, die einen Planetenschild bricht, auch die Besatzung beruhigt. Gegen Zerstörer hält das Kollektiv seine Schwebungen aus jeder Lage heraus, in der die Wahrscheinlichkeit eines Fünffachtreffers nicht vernachlässigbar ist, und das sind alle.
+Ein beschädigtes Magazinmodul wird nach dem Gefecht nicht geflickt, sondern als Ganzes getauscht, was bei Munition, die einen Planetenschild bricht, auch die Besatzung beruhigt. Gegen Zerstörer hält das Kollektiv seine Schwebungen aus jeder Lage heraus, in der die Wahrscheinlichkeit eines Dreifachtreffers nicht vernachlässigbar ist, und das sind alle.
 
 **Veyari-Akte.** Die Veyari ziehen ihr Belagerungsschiff als Baureihe Feige, nach einem Baum, der langsam wächst, alt wird und Mauern mit seinen Wurzeln sprengt. Die Planetenkanonen hängen in Rippen aus Perlschale, die die Schalenbildner entlang der Rückstoßpfade wachsen ließen wie Knochenbälkchen entlang einer Last, und das Xenokristallgitter des Plasmaeinschlusses ist das einzige Bauteil, das die Werftgärtner einsetzen statt ziehen. Mira Sennwurz, die im Xenokristall ein Wurzelwerk zwischen den Sternen vermutet, lehnte die Mitarbeit an der Feige ab und schrieb dem Kreis, man solle kein Wurzelwerk benutzen, um Gärten aufzubrechen.
 
@@ -4399,9 +4458,9 @@ Der Kreis zog sie dennoch, aber mit einer Doktrin, die jede Salve an Siedlungen 
 
 **Wozu.** Er bekämpft planetare Verteidigungsanlagen gezielt und senkt danach im gehaltenen Orbit die Integrität aller Gebäude Runde um Runde auf 30 Prozent, die Voraussetzung jeder Invasion.
 
-**Stärke.** Er greift vier Ziele je Runde an, hat Schnellfeuer 20 gegen Raketenwerfer und Lasergeschütze, 10 gegen Ionengeschütze und 5 gegen Gaußkanonen, und wirft mit zwei Bombenschächten 100 Bombenlast je 15 Spielminuten: zehn Bomber bringen eine Kolonie mit 50 Gebäudestufen in gut sechs Stunden auf 30 Prozent.
+**Stärke.** Er greift mit 2.100 Angriff vier Ziele je Runde an, trifft Raketenwerfer, Lasergeschütze und Ionengeschütze 1,5-fach, Gaußkanonen und Plasmawerfer 1,2-fach, hat Schnellfeuer 10 gegen Raketenwerfer, 8 gegen Lasergeschütze und 3 gegen Ionengeschütze und wirft mit zwei Bombenschächten 100 Bombenlast je 15 Spielminuten: zehn Bomber bringen eine Kolonie mit 50 Gebäudestufen in gut sechs Stunden auf 30 Prozent.
 
-**Grenzen.** Gegen Schiffe ist er schwach und trifft Schlachtschiffe nur halb, während Schwere Jäger und Plasmawerfer ihn dreifach, Schlachtschiffe und Flottenkreuzer doppelt treffen; ohne Bomber bleibt jede Bombardierung wirkungslos, und neue Verteidigung unterbricht sie; er fliegt von Anfang an mit Hyperraumantrieb und Grundtempo 5.000, also genauso schnell wie der Zerstörer.
+**Grenzen.** Gegen Schiffe ist er schwach und trifft sie nur mit Grundschaden, während Schwere Jäger, Plasmawerfer und Abfang-Schlachtkreuzer ihn dreifach, Flottenkreuzer doppelt und Schlachtschiffe, Trägerschlachtschiffe und Abfangjäger 1,5-fach treffen; ohne Bomber bleibt jede Bombardierung wirkungslos, und neue Verteidigung unterbricht sie; er fliegt von Anfang an mit Hyperraumantrieb und Grundtempo 5.000, also genauso schnell wie der Zerstörer.
 
 > Der Bomber ist das Werkzeug, mit dem man eine Verteidigung abträgt und eine Welt für die Landung vorbereitet: Erst fallen die Geschütze, dann sinken alle Gebäude bis zur Dreißig-Grenze. Seine Besatzungen sehen ihre Ziele selten, nur Lichtblitze auf der Oberfläche, die nacheinander erlöschen.
 
@@ -4412,9 +4471,9 @@ Der Kreis zog sie dennoch, aber mit einer Doktrin, die jede Salve an Siedlungen 
 
 ##### Technisches Dossier
 
-Der Bomber ist ein 560 Meter langer, schwer gepanzerter Belagerungsrumpf mit breiten Stabilisierungsflossen und zwei großen Bombenschächten im Bauch, aus denen Präzisionsbomben mit eigenen Steuerflächen fallen. Seine Feuerleitung ist auf Ziele eingemessen, die sich nicht bewegen: Ein Abwurffolgerechner führt die Bomben eine Geschützstellung entlang, greift vier Ziele je Salve an und schwenkt nach jedem Abschuss sofort zum nächsten Ziel derselben Art, mit einer Nachführsalve von 20 gegen Raketenwerfer und Lasergeschütze, 10 gegen Ionengeschütze und 5 gegen Gaußkanonen. Gegen Raketenwerfer, Laser- und Ionengeschütze wirkt jede Bombe doppelt, gegen Schiffe taugt sie kaum, denn eine fallende Bombe folgt keinem Ziel, das ausweicht, und Schlachtschiffe trifft er nur halb.
+Der Bomber ist ein 560 Meter langer, schwer gepanzerter Belagerungsrumpf mit breiten Stabilisierungsflossen und zwei großen Bombenschächten im Bauch, aus denen Präzisionsbomben mit eigenen Steuerflächen fallen. Seine Feuerleitung ist auf Ziele eingemessen, die sich nicht bewegen: Ein Abwurffolgerechner führt die Bomben eine Geschützstellung entlang, greift vier Ziele je Salve an und schwenkt nach jedem Abschuss sofort zum nächsten Ziel derselben Art, mit einer Nachführsalve von 10 gegen Raketenwerfer, 8 gegen Lasergeschütze und 3 gegen Ionengeschütze. Gegen Raketenwerfer, Laser- und Ionengeschütze wirkt jede Bombe 1,5-fach, gegen Gaußkanonen und Plasmawerfer 1,2-fach, gegen Schiffe taugt sie kaum, denn eine fallende Bombe folgt keinem Ziel, das ausweicht, und so trifft er jedes Schiff nur mit Grundschaden.
 
-Mit 75.000 Struktur und einem Schirm von 500 übersteht er das Feuer leichter Abwehr lange, und weil fast jede Feuerleitung ihn nur als Reserveziel mit Grundschaden nimmt, gilt er in der Flottensprache als schwer zu fassen, doch Schwere Jäger und Plasmawerfer jagen ihn bevorzugt und treffen ihn dreifach, Schlachtschiffe, Flottenkreuzer und Abfang-Schlachtkreuzer doppelt. Ist die Verteidigung gebrochen und der Orbit gehalten, beginnt seine zweite Arbeit, die Bombardierung: Sofort und danach alle 15 Minuten werfen die beiden Schächte 100 Bombenlast, die die Integrität aller Gebäude des Planeten gleichmäßig senkt, und zehn Bomber bringen eine Kolonie mit 50 Gebäudestufen in gut sechs Stunden auf 30 Prozent. An dieser Dreißig-Grenze hört jede Bombardierung auf, weil die Zielrechner darunter Trümmer und Bunker nicht mehr auseinanderhalten, und jede neue bewaffnete Verteidigung unterbricht sie, bis sie besiegt ist, während ein verlorenes Gefecht die Bombardierung ganz beendet.
+Mit 63.000 Struktur und einem Schirm von 420 übersteht er das Feuer leichter Abwehr lange, und weil fast jede Feuerleitung ihn nur als Reserveziel mit Grundschaden nimmt, gilt er in der Flottensprache als schwer zu fassen, doch Schwere Jäger, Plasmawerfer und Abfang-Schlachtkreuzer jagen ihn bevorzugt und treffen ihn dreifach, Flottenkreuzer doppelt, Schlachtschiffe, Trägerschlachtschiffe und Abfangjäger 1,5-fach. Ist die Verteidigung gebrochen und der Orbit gehalten, beginnt seine zweite Arbeit, die Bombardierung: Sofort und danach alle 15 Minuten werfen die beiden Schächte 100 Bombenlast, die die Integrität aller Gebäude des Planeten gleichmäßig senkt, und zehn Bomber bringen eine Kolonie mit 50 Gebäudestufen in gut sechs Stunden auf 30 Prozent. An dieser Dreißig-Grenze hört jede Bombardierung auf, weil die Zielrechner darunter Trümmer und Bunker nicht mehr auseinanderhalten, und jede neue bewaffnete Verteidigung unterbricht sie, bis sie besiegt ist, während ein verlorenes Gefecht die Bombardierung ganz beendet.
 
 Kein anderes Schiff kann diese Arbeit übernehmen, denn Kreuzer und Schlachtschiffe zielen auf Schiffe und Anlagen, und ohne Bomber bleibt jede Bombardierung wirkungslos. Der Hyperraumkern trägt die Masse auf Tempo 5.000 bei einem Verbrauch von 1.000, und weil die Zwei-Wege-Regel Hin- und Rückflug beim Start verlangt, ist jeder Bombereinsatz zuerst eine Treibstoffrechnung. Gebaut wird er ab Stufe V in einer Werft der Stufe 7 aus 50.000 Erz, 25.000 Kristall, 15.000 Deuterium, 1.000 Legierung, 500 Elektronik und 50 Xenokristall, und seine 80 Köpfe Besatzung sind zum größten Teil Bombenwarte, die die Schächte zwischen den Abwürfen nachladen.
 
@@ -4448,11 +4507,11 @@ Weil die Perlschale weniger trägt als Stahl, fliegt eine Wildbirne nie ohne Rot
 
 *Bomber-Klasse (strategischer Bomber) · Riesiger Langstreckenbomber mit Schildbrecher-Sprengköpfen.*
 
-**Wozu.** Er bricht Planetenschilde und Plasmawerfer, die alles andere abwehren, und bombardiert danach mit drei Penetratorschächten die Gebäude des Planeten bis auf 30 Prozent Integrität.
+**Wozu.** Er bricht Planetenschilde, Plasmawerfer und Gaußkanonen, die alles andere abwehren, und bombardiert danach mit drei Penetratorschächten die Gebäude des Planeten bis auf 30 Prozent Integrität.
 
-**Stärke.** Mit 13.000 Angriff greift er zwei Ziele je Runde an und trifft Plasmawerfer und alle drei Planetenschilde dreifach; als Bomber wirft er 150 Bombenlast je 15 Spielminuten, anderthalbmal so viel wie ein Bomber.
+**Stärke.** Mit 7.600 Angriff greift er zwei Ziele je Runde an und trifft alle drei Planetenschilde dreifach, Plasmawerfer und Gaußkanonen doppelt mit Schnellfeuer 3 und Ionengeschütze 1,5-fach; als Bomber wirft er 150 Bombenlast je 15 Spielminuten, anderthalbmal so viel wie ein Bomber.
 
-**Grenzen.** Er hat den höchsten Treibstoffbedarf seiner Klasse, braucht Abfangschutz und erreicht gegen Schlachtschiffe nur 0,6 und gegen Schwere Jäger nur die Hälfte seines Schadens; unter die Grenze von 30 Prozent Integrität bombardiert auch er nicht; in neuen Welten steigt sein Grundtempo ab Hyperraumantrieb 8 von 3.800 auf 5.000, so schnell wie der Zerstörer.
+**Grenzen.** Er hat den höchsten Treibstoffbedarf seiner Klasse und braucht Abfangschutz, denn gegen Schiffe richtet er nur Grundschaden an, während Schwere Jäger und Abfang-Schlachtkreuzer ihn dreifach, Flottenkreuzer doppelt und Abfangjäger, Schlachtschiffe und Trägerschlachtschiffe 1,5-fach treffen; unter die Grenze von 30 Prozent Integrität bombardiert auch er nicht; in neuen Welten steigt sein Grundtempo ab Hyperraumantrieb 8 von 3.800 auf 5.000, so schnell wie der Zerstörer.
 
 > Der Strategische Bomber ist die Antwort auf die Frage, was man gegen eine Kuppel tun soll, an der ganze Flotten zerschellen: ein 900 Meter langer Rumpf mit drei versiegelten Penetratorschächten voller Schildbrecher. Er wird selten gebaut, langsam eingesetzt und nie vergessen, und wo er die Kuppel gebrochen hat, bombardiert er die Welt danach selbst bis zur Dreißig-Grenze.
 
@@ -4465,15 +4524,15 @@ Weil die Perlschale weniger trägt als Stahl, fliegt eine Wildbirne nie ohne Rot
 
 Der Strategische Bomber ist ein 900 Meter langer, breiter Belagerungsrumpf mit starken Schildemitterschultern und drei versiegelten Penetratorschächten im Bauch, und er ist das größte Schiff seiner Klasse. Seine Schildbrecher arbeiten nach dem Prinzip des Bunkerbrechers: Ein harter Penetratorkopf durchschlägt die Hülle des Ziels, und die Hauptladung zündet erst dahinter, wo sie die meiste Wirkung hat. Gegen eine Kuppel kommt eine Vorstufe hinzu, eine Zelle aus Xenokristall, die beim Eintritt in den Schirm dessen Phasenkohärenz stört, wie es ein Ionenstrahl im Kleinen tut; wie genau sie das Feld aufreißt, ist ein offenes Forschungsproblem, dass sie es tut, ist gemessen, und dafür verlangt er Xenomaterialkunde 3.
 
-So trifft er alle drei Planetenschilde und den Plasmawerfer dreifach, und mit 13.000 Angriff liegt er weit über dem Schwellreflex jeder Kuppel, denn selbst an den 100.000 eines Planetenschilds der dritten Stufe verpufft nur, was unter 1.000 bleibt. Er greift zwei Ziele je Salve an, aber gegen Schiffe sind seine Schächte zu träge: Schlachtschiffe erreicht er nur mit 0,6, Schwere Jäger nur mit der Hälfte, und diese treffen ihn dreifach, ebenso wie der Plasmawerfer, dessen Plasmatori für so große Rümpfe gebaut sind. Nach dem Gefecht wird er zum Bomber der Belagerung: Seine drei Penetratorschächte werfen sofort und danach alle 15 Minuten 150 Bombenlast, anderthalbmal so viel wie ein Bomber, doch auch er hält an der Dreißig-Grenze von 30 Prozent Integrität, unter der kein Zielrechner Trümmer von Bunkern unterscheidet.
+So trifft er alle drei Planetenschilde dreifach, den Plasmawerfer und die Gaußkanone doppelt, wobei seine Nachführsalve bis zu dreimal von Anlage zu Anlage schwenkt, und das Ionengeschütz 1,5-fach, und mit 7.600 Angriff liegt er weit über dem Schwellreflex jeder Kuppel, denn selbst an den 100.000 eines Planetenschilds der dritten Stufe verpufft nur, was unter 1.000 bleibt. Er greift zwei Ziele je Salve an, aber gegen Schiffe sind seine Schächte zu träge und erreichen sie nur mit Grundschaden, während Schwere Jäger und Abfang-Schlachtkreuzer ihn dreifach treffen, Flottenkreuzer doppelt und Abfangjäger, Schlachtschiffe und Trägerschlachtschiffe 1,5-fach; für den Plasmawerfer dagegen, dessen Feuerleitung auf den kleineren Bomber eingemessen ist, bleibt er ein Reserveziel. Nach dem Gefecht wird er zum Bomber der Belagerung: Seine drei Penetratorschächte werfen sofort und danach alle 15 Minuten 150 Bombenlast, anderthalbmal so viel wie ein Bomber, doch auch er hält an der Dreißig-Grenze von 30 Prozent Integrität, unter der kein Zielrechner Trümmer von Bunkern unterscheidet.
 
-Mit 100.000 Struktur und einem Schirm von 650 hält er viel aus, doch er braucht Abfangschutz, und sein Hyperraumkern trägt ihn nur auf Tempo 3.800 bei einem Verbrauch von 1.700, dem höchsten seiner Klasse. Gebaut wird er ab Stufe V in einer Werft der Stufe 9 mit Orbitalwerft 2 aus 100.000 Erz, 50.000 Kristall, 20.400 Deuterium, 1.666 Legierung, 500 Elektronik und 125 Xenokristall, mit Hyperraumantrieb 3, Waffentechnik 8 und Xenomaterialkunde 3, und seine 110 Köpfe Besatzung sind zu einem großen Teil Waffentechniker für die Schildbrecher.
+Mit 110.000 Struktur und einem Schirm von 740 hält er viel aus, doch er braucht Abfangschutz, und sein Hyperraumkern trägt ihn nur auf Tempo 3.800 bei einem Verbrauch von 1.700, dem höchsten seiner Klasse. Gebaut wird er ab Stufe V in einer Werft der Stufe 9 mit Orbitalwerft 2 aus 100.000 Erz, 50.000 Kristall, 20.400 Deuterium, 1.666 Legierung, 500 Elektronik und 125 Xenokristall, mit Hyperraumantrieb 3, Waffentechnik 8 und Xenomaterialkunde 3, und seine 110 Köpfe Besatzung sind zu einem großen Teil Waffentechniker für die Schildbrecher.
 
 ##### Chronik
 
 Der Strategische Bomber entstand am Ende der Bomberjahre, als die Bomben seines Vorgängers an zwei Dingen scheiterten: am Plasmawerfer, der Bomber dreifach trifft, und an den Planetenschilden, unter denen die wichtigsten Welten ihre Verteidigung verbargen. In der Kuppelkrise hatten Belagerungsschiffe die einfachen Planetenschilde in wenigen Salven gebrochen, und die Verteidiger antworteten mit Planetenschild II und III; doch auch die dritte Kuppel, jünger als der Strategische Bomber, trifft er dreifach, und gerade an ihr wurde er berühmt. Erst Hyperraumantrieb 3, Waffentechnik 8 und Xenomaterialkunde 3 machten einen Rumpf möglich, der das Prinzip des Bunkerbrechers in den Orbit trug und mit Xenokristall verstärkte.
 
-Seither beginnt die Invasion einer geschirmten Welt mit ihm, denn er bricht die Kuppel und trägt danach die Bombardierung bis zur Dreißig-Grenze, bevor die Truppen landen. Die Antwort der Verteidiger ist dieselbe wie in den Bomberjahren: Schwere Jäger, Flottenkreuzer und Plasmawerfer, die auf seinen großen Rumpf warten.
+Seither beginnt die Invasion einer geschirmten Welt mit ihm, denn er bricht die Kuppel und trägt danach die Bombardierung bis zur Dreißig-Grenze, bevor die Truppen landen. Die Antwort der Verteidiger gleicht der aus den Bomberjahren nur zum Teil: Schwere Jäger, Abfang-Schlachtkreuzer und Flottenkreuzer warten auf seinen großen Rumpf, während der Plasmawerfer, dessen Feuerleitung auf den kleineren Bomber eingemessen ist, ihn nur mit Grundschaden trifft.
 
 ##### Volksakten
 
@@ -4501,9 +4560,9 @@ Weil die Perlschale weniger trägt als Stahl, fliegt eine Eibe im Ernstfall inmi
 
 **Wozu.** Er bricht feindliche Linien aus Kreuzern und Schlachtschiffen auf.
 
-**Stärke.** Mit 8.000 Angriff hat er Schnellfeuer 10 gegen Lasergeschütze, 3 gegen Kreuzer und 2 gegen Schlachtschiffe und trifft Belagerungsschlachtschiffe fünffach.
+**Stärke.** Mit 7.100 Angriff, 760 Schild und 170.000 Struktur trifft er Schlachtschiffe, Belagerungsschlachtschiffe und Schwere Schlachtkreuzer dreifach, Kreuzer, Schildkreuzer, Schlachtkreuzer und Abfang-Schlachtkreuzer 1,5-fach und hat Schnellfeuer 3 gegen Kreuzer und Schnellfeuer 2 gegen Schlachtschiffe und Schlachtkreuzer.
 
-**Grenzen.** Er ist sehr teuer, braucht Orbitalwerft 3 und 200 Xenokristall und ist anfällig gegen Sturmjäger, die ihn dreifach treffen, während er gegen sie nur 0,4 erreicht.
+**Grenzen.** Er ist sehr teuer, braucht Orbitalwerft 3 und 200 Xenokristall, nimmt nur ein Ziel je Runde und verliert gegen Sturmjäger und Sturmschlachtschiffe, die ihn dreifach treffen, während Gaußkanonen ihn doppelt treffen und Schwärme Leichter und Schwerer Jäger ihn zermürben.
 
 > Der Zerstörer ist ein Kilometer Xenokristall, Stahl und Absicht, gebaut um ein einziges Achsgeschütz, und nach seiner ersten Schlacht blieb von der feindlichen Linie nur ein Trümmerfeld. Er ist das Schiff, das Schlachtschiffkapitäne nachts wach hält.
 
@@ -4516,9 +4575,9 @@ Weil die Perlschale weniger trägt als Stahl, fliegt eine Eibe im Ernstfall inmi
 
 Der Zerstörer ist ein 1.000 Meter langer Rumpf um ein einziges Achsgeschütz, einen Strahlwerfer, der in der Längsachse liegt und mit dem ganzen Schiff gerichtet wird. Sein Reaktor ist ein Xenokristallgitter hinter violetten Sichtfenstern, das die Ladung für den Strahl verdichtet, und darum verschlingt jeder Rumpf 200 Xenokristall, mehr als jedes andere Kriegsschiff außer den Weltenkrümmern. Weil Gitter und Geschütz nur in Schwerelosigkeit ausgerichtet werden können, verlangt der Bau eine Orbitalwerft der Stufe 3 neben einer Werft der Stufe 8, und die Rechnung lautet 60.000 Erz, 50.000 Kristall, 15.000 Deuterium, 2.000 Legierung, 1.000 Elektronik und 200 Xenokristall.
 
-Mit 8.000 Angriff ist das Achsgeschütz auf die großen Rümpfe der Linie eingemessen, sodass es Kreuzer, Schlachtschiffe und Schwere Jäger doppelt und Belagerungsschlachtschiffe fünffach trifft, und die Nachführsalve schwenkt im Mittel dreimal gegen Kreuzer und zweimal gegen Schlachtschiffe weiter. Eine Nebenbatterie aus Pulsemittern, auf die Türme von Bodenstellungen eingemessen, erreicht gegen Lasergeschütze eine Nachführsalve von zehn. Struktur 110.000 und ein Schirm von 500 tragen ihn durch die Salven einer Schlachtlinie, und mit Tempo 5.000 bei 1.000 Verbrauch ist er schwerfällig.
+Mit 7.100 Angriff ist das Achsgeschütz auf die größten Rümpfe der Linie eingemessen, sodass es Schlachtschiffe, Belagerungsschlachtschiffe und Schwere Schlachtkreuzer dreifach trifft, und die Nachführsalve schwenkt im Mittel dreimal gegen Kreuzer und zweimal gegen Schlachtschiffe und Schlachtkreuzer weiter. In der zweiten Zielreihe stehen Kreuzer, Schildkreuzer, Schlachtkreuzer und Abfang-Schlachtkreuzer, die es 1,5-fach trifft, während Bodenstellungen und kleine Rümpfe nur nebenbei mit Grundschaden an die Reihe kommen. Struktur 170.000 und ein Schirm von 760 tragen ihn durch die Salven einer Schlachtlinie, und mit Tempo 5.000 bei 1.000 Verbrauch ist er schwerfällig.
 
-Seine Schwäche liegt im Schwenkbereich, denn ein Sturmjäger, der unter dem Achsgeschütz hindurchtaucht, ist zu klein und zu nah, als dass das ganze Schiff ihm folgen könnte, darum erreicht der Zerstörer gegen ihn nur 0,4, während Sturmjäger ihn dreifach treffen. Auch die Achsgeschütze der Sturmschlachtschiffe und die Gaußkanonen am Boden treffen ihn doppelt, und seine 120 Köpfe Besatzung pflegen ein Schiff, dessen 2.000 Ladung zu einem guten Teil Kühlmittel für die Wärmesenken des Geschützes sind.
+Seine Schwäche liegt im Schwenkbereich, denn ein Sturmjäger, der unter dem Achsgeschütz hindurchtaucht, ist zu klein und zu nah, als dass das ganze Schiff ihm folgen könnte, und so trifft der Sturmjäger ihn dreifach, während er selbst nur Grundschaden zurückgibt. Auch die Achsgeschütze der Sturmschlachtschiffe treffen ihn dreifach und die Gaußkanonen am Boden doppelt, und seine 120 Köpfe Besatzung pflegen ein Schiff, dessen 2.000 Ladung zu einem guten Teil Kühlmittel für die Wärmesenken des Geschützes sind.
 
 ##### Chronik
 
@@ -4550,9 +4609,9 @@ Thalen Vey-Oruun, der als erster Veyari eine Robinie gegen eine Schlachtschiffli
 
 **Wozu.** Er räumt Jägerschwärme aus dem Weg, die schwere Flotten bedrängen.
 
-**Stärke.** Mit Tempo 11.000 greift er drei Ziele je Runde an und trifft Schwere Jäger dreifach, Abfangjäger und Leichte Jäger doppelt.
+**Stärke.** Mit Tempo 11.000 und 2.300 Angriff greift er drei Ziele je Runde an, trifft Schwere Jäger dreifach, Abfangjäger doppelt und Leichte Jäger und Sturmjäger 1,5-fach.
 
-**Grenzen.** Gegen schwere Schlachtschiffe erreicht er nur die Hälfte seines Schadens und ist dort verwundbar.
+**Grenzen.** Sturmjäger treffen ihn dreifach und Sturmschlachtschiffe 1,5-fach, und gegen Schlachtschiffe und Flottenkreuzer, die er nur mit Grundschaden trifft, verliert er trotz 120.000 Struktur und 380 Schild.
 
 > Der Abfangzerstörer ist schneller, als ein Zerstörer sein dürfte, und tödlicher für Jäger, als ihnen lieb ist. Er wurde gebaut, als Jägerschwärme begannen, ganze Schlachtschiffverbände zu umschwirren und zu binden, und stand in den Registern der Admiralitäten noch vor dem Linienbrecher, der dem Wort Zerstörer seinen Schrecken gab.
 
@@ -4563,11 +4622,11 @@ Thalen Vey-Oruun, der als erster Veyari eine Robinie gegen eine Schlachtschiffli
 
 ##### Technisches Dossier
 
-Der Abfangzerstörer ist ein 760 Meter langer, schlanker und in Segmente gegliederter Rumpf, an dessen Heck übergroße Beschleunigungstriebwerke sitzen und auf dessen Rücken drei klar getrennte Nachführtürme stehen. Jeder Turm hat eine eigene Feuerleitung, darum greift er drei Ziele je Runde an, und alle drei sind auf Jägerrümpfe eingemessen, sodass er Schwere Jäger dreifach und Abfangjäger und Leichte Jäger doppelt trifft. Diese Zielrechner verlangen Computertechnik 5 und Waffentechnik 5, und ihre Kristalloptik erklärt einen guten Teil der Rechnung von 65.000 Erz, 32.500 Kristall, 7.800 Deuterium, 1.083 Legierung, 325 Elektronik und 81 Xenokristall.
+Der Abfangzerstörer ist ein 760 Meter langer, schlanker und in Segmente gegliederter Rumpf, an dessen Heck übergroße Beschleunigungstriebwerke sitzen und auf dessen Rücken drei klar getrennte Nachführtürme stehen. Jeder Turm hat eine eigene Feuerleitung, darum greift er drei Ziele je Runde an, und alle drei sind auf Jägerrümpfe eingemessen, sodass er Schwere Jäger dreifach, Abfangjäger doppelt und Leichte Jäger und Sturmjäger 1,5-fach trifft. Diese Zielrechner verlangen Computertechnik 5 und Waffentechnik 5, und ihre Kristalloptik erklärt einen guten Teil der Rechnung von 65.000 Erz, 32.500 Kristall, 7.800 Deuterium, 1.083 Legierung, 325 Elektronik und 81 Xenokristall.
 
-Kurios für Buchhalter ist, dass auf die Einheit genau dieselbe Rechnung für einen Flottenkreuzer fällig wird, der seine drei Ziele gegen Bomber führt, wo der Abfangzerstörer sie gegen Jäger führt. Der segmentierte Rumpf ist leicht genug, dass der Xenokristall-Resonator ihn auf Tempo 11.000 bringt, bei einem Verbrauch von 650, schneller als jedes Schlachtschiff, das er begleitet. Mit 3.000 Angriff je Schuss liegt jeder Treffer weit über dem Schwellreflex eines Jägerschirms, aber gegen die Schichtpanzerung schwerer Schlachtschiffe erreicht er nur die Hälfte und wird dort selbst verwundbar.
+Kurios für Buchhalter ist, dass auf die Einheit genau dieselbe Rechnung für einen Flottenkreuzer fällig wird, der seine drei Ziele gegen Bomber führt, wo der Abfangzerstörer sie gegen Jäger führt. Der segmentierte Rumpf ist leicht genug, dass der Xenokristall-Resonator ihn auf Tempo 11.000 bringt, bei einem Verbrauch von 650, schneller als jedes Schlachtschiff, das er begleitet. Mit 2.300 Angriff je Schuss liegt jeder Treffer weit über dem Schwellreflex eines Jägerschirms, aber gegen die Schichtpanzerung schwerer Schlachtschiffe bleibt ihm nur der Grundschaden, und dort wird er selbst verwundbar.
 
-Seine Struktur von 65.000 und ein Schirm von 200 genügen gegen Jägerwaffen, denn Schwere Jäger erreichen gegen ihn nur 0,4, nicht aber gegen Linienartillerie. Gebaut wird er in einer Werft der Stufe 7 mit Orbitalwerft 2, besetzt mit 90 Köpfen, und seine 1.000 Ladung sind Munition für drei Türme und Ersatzläufe für den Flankendienst.
+Seine Struktur von 120.000 und ein Schirm von 380 genügen gegen die meisten Jägerwaffen, nicht aber gegen Sturmjäger, deren Bordgeschütze auf Zerstörerrümpfe eingemessen sind und ihn dreifach treffen, und ebenso wenig gegen Linienartillerie. Gebaut wird er in einer Werft der Stufe 7 mit Orbitalwerft 2, besetzt mit 90 Köpfen, und seine 1.000 Ladung sind Munition für drei Türme und Ersatzläufe für den Flankendienst.
 
 ##### Chronik
 
@@ -4577,7 +4636,7 @@ Der Abfangzerstörer entstand, als Jägerschwärme begannen, ganze Schlachtschif
 
 **Aurelianer-Akte.** Haus Brann führt den Abfangzerstörer als Klasse Alacritas, und für den Geleitschutz der Republik ist er das Schiff, das man ruft, wenn ein Konvoi schon angegriffen wird. Seine Kapitäne tragen Vollmachten aller Häuser, deren Fracht im Konvoi reist, und entscheiden mitten im Gefecht über Bergungsrechte und Prämien, was Darius Brann die schnellste Rechtsprechung der Weite nennt. Weil eine Alacritas auf die Einheit so viel kostet wie ein Flottenkreuzer, streiten die Häuser in jedem Haushalt des Senats, ob man lieber Jäger oder Bomber fürchten soll, und Haus Solden bucht die Antwort meist zu gleichen Teilen.
 
-Die gedrosselten Normkaliber nehmen den drei Türmen ein Zehntel Wucht, doch gegen einen Jägerrumpf, den sie ohnehin doppelt oder dreifach treffen, merkt das kaum ein Kapitän. Am Bug jeder Alacritas steht in Messing der Wahlspruch der Serie: „Wer zuerst da ist, verhandelt nicht.“
+Die gedrosselten Normkaliber nehmen den drei Türmen ein Zehntel Wucht, doch gegen einen Jägerrumpf, den sie ohnehin anderthalb- bis dreifach treffen, merkt das kaum ein Kapitän. Am Bug jeder Alacritas steht in Messing der Wahlspruch der Serie: „Wer zuerst da ist, verhandelt nicht.“
 
 **Krath-Akte.** Flankendienst ist bei den Krath undankbare Arbeit, und die Abfangzerstörer, die ihn leisten, heißen Grathetzer, weil sie am Grat der Linie entlang jagen wie Hunde am Rand einer Herde. Clan Ul-Tharn schmiedet sie in der Gratschmiede aus dünneren Basaltstahlsegmenten, als ein Krath gern sieht, und jedes Segment muss trotzdem die Hammerprobe bestehen, bevor es an den Rumpf kommt. Jeder Grathetzer trägt einen roten Streifen, der an die Rücken erinnert, die er gedeckt hat, und unter dem Streifen stehen die Namen der Gefallenen, die er nicht decken konnte.
 
@@ -4585,7 +4644,7 @@ Drak Ul-Tharn ließ einmal einen Grathetzer-Kapitän im Kriegsrat vor allen Wall
 
 **Syntheten-Akte.** Triole heißt der synthetische Abfangzerstörer, weil er drei Schläge in die Zeit setzt, die andere Schiffe für zwei brauchen. Seine drei Zielsysteme verteilen sich nach einem Protokoll, das Konstrukteurin Sekante aus der Feuerleitung der Tangente weiterentwickelt hat: Bewertet wird nicht die Nähe eines Jägers, sondern der Schaden, den er anrichten kann. Im Sensorverbund mit den Schlachtschiffen des Verbands sieht eine Triole Jägerbahnen, bevor ihre eigenen Sensoren sie erfassen, und ihr Leichtrumpf aus Graphitlaminat lässt sie auf diese Bahnen einschwenken, bevor der Schwarm sein Ziel erreicht.
 
-Triole 8 „Synkope“ ist dafür bekannt, dass sie Schwere Jäger zuerst nimmt, weil die Rechnung dort den dreifachen Ertrag zeigt, und Abfangjäger danach, mit doppeltem. Gegen Schlachtschiffe schickt das Kollektiv keine Triole, denn ihr Halbwert gegen schwere Panzerung steht in jeder Simulation an erster Stelle.
+Triole 8 „Synkope“ ist dafür bekannt, dass sie Schwere Jäger zuerst nimmt, weil die Rechnung dort den dreifachen Ertrag zeigt, und Abfangjäger danach, mit doppeltem. Gegen Schlachtschiffe schickt das Kollektiv keine Triole, denn gegen schwere Panzerung bleibt ihr nur der Grundschaden, und das steht in jeder Simulation an erster Stelle.
 
 **Veyari-Akte.** Die Veyari ziehen ihren Abfangzerstörer als Baureihe Akazie, leicht, hell und schnell gewachsen, und die Werftgärtner lassen seine Segmente einzeln auf Formgerüsten reifen, bevor sie zu einem Rumpf verbunden werden. Zwischen den Segmenten bleiben schmale Gelenkfugen aus zähem Protein, die dem Rumpf in engen Wenden ein wenig nachgeben, und darum fliegen Akazien Schleifen, die einem starren Stahlrumpf die Spanten verziehen würden. Pathfinder-Kapitän Aru Distelgrund, der Vogelschwärme über den Heimatgärten wie über fremden Welten beobachtet hatte, gab den Wendemanövern der ersten Akazien die Namen dieser Vögel, und seine Liste lernen alle Kadetten auswendig.
 
@@ -4599,9 +4658,9 @@ In der Linie fliegen Akazien paarweise vor den schweren Schiffen, damit ein Schw
 
 **Wozu.** Er vernichtet Großkampfschiffe und schwere Bodenstellungen.
 
-**Stärke.** Mit 20.000 Angriff und 300.000 Struktur greift er zwei Ziele je Runde an und trifft Schlachtschiffe doppelt, Gaußkanonen dreifach und Belagerungsschlachtschiffe sechsfach.
+**Stärke.** Mit 8.100 Angriff, 790 Schild und 300.000 Struktur greift er zwei Ziele je Runde an, trifft Schlachtschiffe und Belagerungsschlachtschiffe dreifach sowie Gaußkanonen und Trägerschlachtschiffe anderthalbfach und setzt sich auch gegen Schwere Schlachtkreuzer, Zerstörer und Abfang-Schlachtkreuzer durch.
 
-**Grenzen.** Er ist teuer, mit Tempo 3.500 langsam und torpedoempfindlich, denn Sturmjäger treffen ihn fünffach, während er sie nur mit 0,4 erreicht.
+**Grenzen.** Er ist teuer und mit Tempo 3.500 langsam, und Sturmjäger, Sturmschlachtschiffe und Gaußkanonen treffen ihn dreifach, während er Leichte Jäger, Schwere Jäger und Kreuzer nur mit Grundschaden erreicht und von ihnen in der Masse zerlegt wird.
 
 > Der Schwere Zerstörer ist das größte Kriegsschiff, das eine Werft verlassen kann, und er braucht dafür die höchste Werftstufe, die ein Rumpf verlangt. Wenn seine beiden Achsgeschütze feuern, flackert in der ganzen Flotte das Licht, und die Gegner beginnen zu zählen, wie viele Großkampfschiffe sie noch haben.
 
@@ -4612,21 +4671,21 @@ In der Linie fliegen Akazien paarweise vor den schweren Schiffen, damit ein Schw
 
 ##### Technisches Dossier
 
-Der Schwere Zerstörer ist mit 1.600 Metern das längste Kriegsschiff, das aus einer Werft kommt, ein schwer gepanzerter Rumpf mit geschichteten Schulterplatten, zwei axialen Strahlgeschützen und einem tief eingelassenen Hochleistungsreaktor. Jedes der beiden Achsgeschütze hat seine eigene Feuerleitung, darum greift er zwei Ziele je Runde an, und mit 20.000 Angriff liefert er die höchste Durchschlagsleistung gegen Großschiffe, sodass er Schlachtschiffe doppelt, Gaußkanonen dreifach und Belagerungsschlachtschiffe sechsfach trifft. Um zwei solche Geschütze und ihren Reaktor zu tragen, verlangt er Werft 10, die höchste Werftstufe, die überhaupt ein Rumpf verlangt, dazu Orbitalwerft 2, Hyperraumantrieb 4, Waffentechnik 9 und Panzerung 6.
+Der Schwere Zerstörer ist mit 1.600 Metern das längste Kriegsschiff, das aus einer Werft kommt, ein schwer gepanzerter Rumpf mit geschichteten Schulterplatten, zwei axialen Strahlgeschützen und einem tief eingelassenen Hochleistungsreaktor. Jedes der beiden Achsgeschütze hat seine eigene Feuerleitung, darum greift er zwei Ziele je Runde an, und mit 8.100 Angriff je Schuss, eingemessen auf die Silhouetten der schwersten Rümpfe, trifft er Schlachtschiffe und Belagerungsschlachtschiffe dreifach sowie Gaußkanonen und Trägerschlachtschiffe anderthalbfach. Um zwei solche Geschütze und ihren Reaktor zu tragen, verlangt er Werft 10, die höchste Werftstufe, die überhaupt ein Rumpf verlangt, dazu Orbitalwerft 2, Hyperraumantrieb 4, Waffentechnik 9 und Panzerung 6.
 
-Die Rechnung lautet 150.000 Erz, 75.000 Kristall, 22.800 Deuterium, 2.500 Legierung, 750 Elektronik und 187 Xenokristall, und 180 Köpfe Besatzung halten ein Schiff in Gang, in dem der Reaktor mehr Raum einnimmt als alle Mannschaftsdecks zusammen. Seine 300.000 Struktur und ein Schirm von 800 machen ihn zu einer Festung, doch die Masse fordert ihren Preis, nämlich Tempo 3.500 bei einem Verbrauch von 1.900 und eine Kielwelle, die in der Kurzschicht kaum zu übersehen ist. Seine Schwäche ist die des Zerstörers, nur größer: Beide Geschütze liegen starr in der Längsachse, und ein Sturmjäger, der unter ihnen hindurchtaucht, ist so klein und so nah, dass der Schwere Zerstörer gegen ihn nur 0,4 erreicht, während die Torpedos der Sturmjäger ihn fünffach treffen.
+Die Rechnung lautet 150.000 Erz, 75.000 Kristall, 22.800 Deuterium, 2.500 Legierung, 750 Elektronik und 187 Xenokristall, und 180 Köpfe Besatzung halten ein Schiff in Gang, in dem der Reaktor mehr Raum einnimmt als alle Mannschaftsdecks zusammen. Seine 300.000 Struktur und ein Schirm von 790 machen ihn zu einer Festung, doch die Masse fordert ihren Preis, nämlich Tempo 3.500 bei einem Verbrauch von 1.900 und eine Kielwelle, die in der Kurzschicht kaum zu übersehen ist. Seine Schwäche ist die des Zerstörers, nur größer: Beide Geschütze liegen starr in der Längsachse, und ein Sturmjäger, der unter ihnen hindurchtaucht, ist so klein und so nah, dass ihn die Achsgeschütze nur nebenbei mit Grundschaden erfassen, während die Torpedos der Sturmjäger ihn dreifach treffen.
 
-Auch Sturmschlachtschiffe treffen ihn doppelt, weil ihre Achsgeschütze auf genau solche langen Rümpfe eingemessen sind, während Schwere Jäger mit 0,4 gegen ihn keine Bedrohung sind. Seine 2.400 Ladung sind Kühlmittel, Ersatzlinsen und Munition für sechs Salven, nach denen auch seine Wärmesenken gesättigt sind.
+Auch Sturmschlachtschiffe und Gaußkanonen treffen ihn dreifach, weil ihre Feuerleitung auf genau solche langen Rümpfe eingemessen ist, und Leichte Jäger, Schwere Jäger und Kreuzer, die er nur mit Grundschaden erreicht, tragen ihn im Schwarm Lage um Lage ab. Seine 2.400 Ladung sind Kühlmittel, Ersatzlinsen und Munition für sechs Salven, nach denen auch seine Wärmesenken gesättigt sind.
 
 ##### Chronik
 
-Der Schwere Zerstörer ist der letzte Rumpf, den eine Werft im Imperium freigibt, und er wuchs aus dem Bauplan des Zerstörers, als Hyperraumantrieb 4, Waffentechnik 9 und Panzerung 6 einen Rumpf mit zwei Achsgeschützen erlaubten. Gebaut wurde er gegen das Belagerungsschlachtschiff, das seit der Kuppelkrise ganze Welten erpresste und das er sechsfach trifft, und gegen die schweren Linien, deren Schlachtschiffe er doppelt trifft. Seine Gegner fanden die Antwort nicht in einem neuen Schiff, sondern in einem alten, denn Sturmjäger aus dem Zeitalter des Sternenflugs tauchen unter seine Geschütze und treffen ihn fünffach, und Sturmschlachtschiffe stellen sich ihm Bug an Bug. Größer als er ist nur, was aus dem Werftdock eines Mondes kommt, die Weltenkrümmer, deren Kiellegung die Admiralitäten die Mondfrage nennen.
+Der Schwere Zerstörer ist der letzte Rumpf, den eine Werft im Imperium freigibt, und er wuchs aus dem Bauplan des Zerstörers, als Hyperraumantrieb 4, Waffentechnik 9 und Panzerung 6 einen Rumpf mit zwei Achsgeschützen erlaubten. Gebaut wurde er gegen das Belagerungsschlachtschiff, das seit der Kuppelkrise ganze Welten erpresste, und gegen die Schlachtschiffe der schweren Linien, und beide trifft er dreifach. Seine Gegner fanden die Antwort nicht in einem neuen Schiff, sondern in einem alten, denn Sturmjäger aus dem Zeitalter des Sternenflugs tauchen unter seine Geschütze und treffen ihn dreifach, und Sturmschlachtschiffe stellen sich ihm Bug an Bug. Größer als er ist nur, was aus dem Werftdock eines Mondes kommt, die Weltenkrümmer, deren Kiellegung die Admiralitäten die Mondfrage nennen.
 
 ##### Volksakten
 
 **Aurelianer-Akte.** Die Republik besitzt nur wenige Schwere Zerstörer der Klasse Maiestas, denn eine Rechnung über 150.000 Erz und 187 Xenokristall genehmigt der Senat nur, wenn mehrere Häuser bürgen. Lieber leihen Aurelianer sich einen bei Verbündeten, und die Leihverträge, die Haus Lazar dafür aufsetzt, sind die längsten Dokumente in den Archiven von Port Aurel, weil sie für jeden Kratzer und jede verschossene Salve einen Schuldner benennen. Haus Corvell baut die eigenen Maiestas in einem Großdock der Werftstufe 10, und Ottilie Corvell hat die Schulterplatten so genormt, dass sie auch auf geliehene Krath-Rümpfe passen, was die Leihgeschäfte erleichtert.
 
-Die gedrosselten Normkaliber kosten die Achsgeschütze ein Zehntel ihrer Wucht, was bei einem Belagerungsschlachtschiff, das sie sechsfach treffen, niemand bemerkt. Den Jägerschirm gegen Sturmjäger stellt bei jeder Maiestas Haus Brann, und in Port Aurel sagt man, nirgends sei Geleitschutz so gut angelegt wie neben einem Schiff, das 187 Xenokristall gekostet hat.
+Die gedrosselten Normkaliber kosten die Achsgeschütze ein Zehntel ihrer Wucht, was bei einem Belagerungsschlachtschiff, das sie dreifach treffen, niemand bemerkt. Den Jägerschirm gegen Sturmjäger stellt bei jeder Maiestas Haus Brann, und in Port Aurel sagt man, nirgends sei Geleitschutz so gut angelegt wie neben einem Schiff, das 187 Xenokristall gekostet hat.
 
 **Krath-Akte.** Ur-Brand heißt der Schwere Zerstörer der Krath, und wer ihn kommandiert, gilt als Fürst seines Clans und spricht im Kriegsrat zuletzt, wenn alle anderen ihre Worte schon verbraucht haben. Für diesen Rumpf mussten die Krath länger forschen als andere Völker, denn ihr Wissen geht vom Meister zum Lehrling, feine Technik muss erst die Hammerprobe bestehen, und Waffentechnik 9 ist für sie ein langer Weg. Der uralte Grothak nahm den ersten Ur-Brand von Clan Groth selbst ab und schlug mit dem Hammer gegen beide Achsgeschütze, bis die Halle dröhnte.
 
@@ -4634,7 +4693,7 @@ Auf den Schulterplatten stehen die Namen aller Gefallenen des Clans, nicht nur d
 
 **Syntheten-Akte.** Die Syntheten führen den Schweren Zerstörer als Determinante, weil an ihm hängt, ob eine Schlacht überhaupt lösbar ist. Jedes der beiden Achsgeschütze wird von einem eigenen Saphirkern geführt, und ein dritter, der Leitkern, simuliert vor jeder Salve die möglichen Bahnen beider Ziele so oft, dass die Einheit Bastion, heute Gefechtsrechner des Kollektivs, von einer tausendfachen Vorschau spricht. Die langsame Anreise mit Tempo 3.500 kommt dem Verbund gelegen, denn bis das Schiff ankommt, hat er jede Bewegung des Gegners einmal durchgespielt.
 
-Die schnellere Forschung des Kollektivs verkürzte den Weg zu Waffentechnik 9, und doch rechnen die Syntheten jeden Bau zweimal, weil 187 Xenokristall in einem Rumpf eine Wette auf dessen Überleben sind. Gegen Sturmjäger reist eine Determinante nie ohne Geleit, denn der Faktor fünf ist die einzige Zahl, die ihr Leitkern ungern nennt.
+Die schnellere Forschung des Kollektivs verkürzte den Weg zu Waffentechnik 9, und doch rechnen die Syntheten jeden Bau zweimal, weil 187 Xenokristall in einem Rumpf eine Wette auf dessen Überleben sind. Gegen Sturmjäger reist eine Determinante nie ohne Geleit, denn der Faktor drei ist die einzige Zahl, die ihr Leitkern ungern nennt.
 
 **Veyari-Akte.** Veyari ziehen den Schweren Zerstörer als Baureihe Zypresse, und nur in Zeiten großer Not, denn ein Rumpf von dieser Länge braucht die Formgerüste mehrerer Haine und viele Jahreszeiten Geduld. Die Rippen wachsen entlang der Lastpfade beider Achsgeschütze wie das Wurzelwerk eines Baums, der zwei Stämme trägt, und die geschichteten Schulterplatten sind Perlschalen, die übereinander gelagert wurden wie Jahresringe. Jede Zypresse bekommt einen Namen aus den ältesten Liedern der Veyari, und als Kael Dornhag in einer Notzeit die Zypresse Lied der Wurzeln rief, sang der ganze Kreis beim Auslaufen die erste Strophe.
 
@@ -4648,9 +4707,9 @@ Ist die Not vorüber, singen die Besatzungen die letzte Strophe, und die Zypress
 
 **Wozu.** Er jagt Schlachtschiffe und Kreuzer und bringt Linienfeuerkraft schneller und sparsamer über weite Strecken als jedes Schlachtschiff.
 
-**Stärke.** Mit 70.000 Struktur, 400 Schild und 1.200 Angriff bei Tempo 12.500 und nur 250 Verbrauch hat er Schnellfeuer 7 gegen Schlachtschiffe, 4 gegen Kreuzer und Schwere Jäger, 3 gegen Kleine und Große Transporter sowie 5 gegen Spionagesonden und Solarsatelliten.
+**Stärke.** Mit 7.000 Angriff, 500 Schild und 88.000 Struktur bei Tempo 12.500 und nur 250 Verbrauch trifft er Schlachtschiffe doppelt sowie Kreuzer, Schildkreuzer, Flottenkreuzer, Schwere Jäger und Trägerschlachtschiffe anderthalbfach und hat Schnellfeuer 7 gegen Schlachtschiffe und 4 gegen Kreuzer und Schwere Jäger.
 
-**Grenzen.** Ab Stufe V mit Werft 7, Orbitalwerft 2, Hyperraumantrieb 3, Waffentechnik 5 und Panzerung 4 baubar, verliert er gegen Zerstörer mit Schnellfeuer 2, gegen Sturmschlachtschiffe und Schwere Jäger und wird von Weltenkrümmern mit Schnellfeuer 15 zerlegt.
+**Grenzen.** Ab Stufe V mit Werft 7, Orbitalwerft 2, Hyperraumantrieb 3, Waffentechnik 5 und Panzerung 4 baubar, verliert er gegen Zerstörer, die ihn anderthalbfach und mit Schnellfeuer 2 treffen, gegen Schwärme aus Leichten Jägern und Abfangjägern und gegen Raketenwerfer, Lasergeschütze und Gaußkanonen, und Weltenkrümmer zerlegen ihn mit Schnellfeuer 15.
 
 > Der Schlachtkreuzer ist der Traum jedes Admirals, der zu oft auf seine Schlachtschiffe warten musste: Feuerleitung gegen die Linie im Tempo eines Kreuzers. Die Admiralitäten nennen seine Klasse die Mondgeneration, weil viele ihrer ersten nadelschlanken Kiele in den Werftdocks der Schlachtmonde gelegt wurden.
 
@@ -4661,9 +4720,9 @@ Ist die Not vorüber, singen die Besatzungen die letzte Strophe, und die Zypress
 
 ##### Technisches Dossier
 
-Der Schlachtkreuzer ist ein 640 Meter langer, nadelschlanker Rumpf mit spitzem, gepanzertem Bug, einer durchgehenden Reihe kleiner Zwillingstürme über Rücken und Flanken, einer kompakten Brücke weit achtern und zwei großen Hyperraumgondeln. Die Gondeln tragen den Xenokristall-Resonator getrennt vom Rumpf, sodass das Kopplungsfeld den schlanken Körper gleichmäßig an die Kurzschicht legt, und darin liegt der Grund für Tempo 12.500 bei einem Verbrauch von nur 250, halb so viel, wie ein Schlachtschiff verbrennt. Mit 1.200 Angriff ist jeder einzelne Treffer leicht, doch die Feuerleitung ist auf die Silhouetten großer Rümpfe eingemessen, und die Nachführsalve schwenkt gegen Schlachtschiffe im Mittel siebenmal weiter, gegen Kreuzer und Schwere Jäger viermal, gegen Kleine und Große Transporter dreimal und gegen Spionagesonden und Solarsatelliten fünfmal.
+Der Schlachtkreuzer ist ein 640 Meter langer, nadelschlanker Rumpf mit spitzem, gepanzertem Bug, einer durchgehenden Reihe kleiner Zwillingstürme über Rücken und Flanken, einer kompakten Brücke weit achtern und zwei großen Hyperraumgondeln. Die Gondeln tragen den Xenokristall-Resonator getrennt vom Rumpf, sodass das Kopplungsfeld den schlanken Körper gleichmäßig an die Kurzschicht legt, und darin liegt der Grund für Tempo 12.500 bei einem Verbrauch von nur 250, halb so viel, wie ein Schlachtschiff verbrennt. Mit 7.000 Angriff je Schuss ist seine Feuerleitung auf die Silhouetten großer Rümpfe eingemessen, sie trifft Schlachtschiffe doppelt und Kreuzer, Schildkreuzer, Flottenkreuzer, Schwere Jäger und Trägerschlachtschiffe anderthalbfach, und die Nachführsalve schwenkt gegen Schlachtschiffe im Mittel siebenmal weiter, gegen Kreuzer und Schwere Jäger viermal.
 
-Die vielen kleinen Türme arbeiten dort, wohin ein Schlachtschiff seine schweren Türme nicht schnell genug drehen kann, und darum zerlegt ein Schlachtkreuzer gerade die Schiffe, deren Einzeltreffer viel schwerer sind als seine. Struktur 70.000 und ein Schirm von 400 halten den langen Kiel zusammen, gegen Linienbrecher ist er aber zu leicht. Gegen Zerstörer, deren Nachführsalve auf ihn zweimal weiterschwenkt, verliert er ebenso wie gegen Sturmschlachtschiffe und Schwere Jäger im Schwarm, und die Weltenkrümmer zerlegen ihn mit einer Nachführsalve von 15.
+Die vielen kleinen Türme arbeiten dort, wohin ein Schlachtschiff seine schweren Türme nicht schnell genug drehen kann, und darum zerlegt ein Schlachtkreuzer ganze Schlachtschifflinien, bevor sie ihre Artillerie auf ihn richten. Struktur 88.000 und ein Schirm von 500 halten den langen Kiel zusammen, gegen Linienbrecher ist er aber zu leicht. Gegen Zerstörer, die ihn anderthalbfach treffen und deren Nachführsalve auf ihn zweimal weiterschwenkt, verliert er ebenso wie gegen Schwärme aus Leichten Jägern und Abfangjägern und gegen die Raketenwerfer, Lasergeschütze und Gaußkanonen der Verteidigungsringe, auf die seine Feuerleitung nicht eingemessen ist, und die Weltenkrümmer zerlegen ihn mit einer Nachführsalve von 15.
 
 Gebaut wird er ab Werft 7 mit Orbitalwerft 2, Hyperraumantrieb 3, Waffentechnik 5 und Panzerung 4, und seine Rechnung verlangt wie bei allen Schlachtkreuzern mehr Kristall als Erz, nämlich 30.000 Erz, 40.000 Kristall, 15.000 Deuterium, 780 Legierung, 235 Elektronik und 58 Xenokristall, denn Turmoptik und Gondelresonatoren fressen Kristall. Seine 75 Köpfe Besatzung und 750 Ladung sind knapp bemessen, denn der schlanke Rumpf hat keinen Platz für Fracht.
 
@@ -4671,7 +4730,7 @@ Gebaut wird er ab Werft 7 mit Orbitalwerft 2, Hyperraumantrieb 3, Waffentechnik 
 
 Der Schlachtkreuzer ist jünger als das Schlachtschiff, das als erstes Kriegsschiff um einen Hyperraumantrieb gebaut wurde, denn erst Hyperraumantrieb 3 erlaubte Gondelresonatoren, die einen so langen, schlanken Rumpf gleichmäßig an die Kurzschicht koppeln. Den Grundriss seiner Klasse hatte der Abfang-Schlachtkreuzer vorgezeichnet, der schon mit Hyperraumantrieb 2 aus Werften der Stufe 6 kam, und der Linien-Schlachtkreuzer übertrug ihn auf die Jagd nach Schlachtschiffen. Viele seiner ersten Kiele lagen in den Werftdocks der Schlachtmonde, deren geringe Schwerkraft den nadelschlanken Rumpf nicht durchbiegen ließ, und darum führen ihn die Admiralitäten als Mondgeneration.
 
-Gegen ihn stellten sich Zerstörer und Sturmschlachtschiffe, und über ihm steht der Schwere Schlachtkreuzer, der ihn als Flaggschiff seiner Klasse schlägt. Ausgerechnet aus den Mondwerften, in denen seine ersten Kiele lagen, kam auch sein schlimmster Gegner, denn ein Weltenkrümmer zerlegt ihn mit einer Nachführsalve von 15.
+Gegen ihn stellten sich Zerstörer, Jägerschwärme und die Geschütze der Verteidigungsringe, und über ihm steht der Schwere Schlachtkreuzer, das Flaggschiff seiner Klasse, dessen Feuerleitung ihn anderthalbfach trifft. Ausgerechnet aus den Mondwerften, in denen seine ersten Kiele lagen, kam auch sein schlimmster Gegner, denn ein Weltenkrümmer zerlegt ihn mit einer Nachführsalve von 15.
 
 ##### Volksakten
 
@@ -4699,9 +4758,9 @@ Ihre Perlschale hält weniger aus als der Stahl der anderen, darum sucht Kael Do
 
 **Wozu.** Er fängt Jägerschwärme und Bomberverbände ab, bevor sie schwere Flotten oder Planeten erreichen.
 
-**Stärke.** Als schnellster Großkampfträger mit Tempo 16.000 greift er drei Ziele je Runde an und hat Schnellfeuer 6 gegen Leichte Jäger, 4 gegen Abfang- und Sturmjäger, 3 gegen Schwere Jäger und Bomber, 2 gegen Strategische Bomber und 5 gegen Spionagesonden.
+**Stärke.** Als schnellster Großkampfträger mit Tempo 16.000 greift er drei Ziele je Runde an, trifft Sturmjäger, Bomber und Strategische Bomber dreifach, Leichte Jäger und Abfangjäger doppelt sowie Schwere Jäger und Kreuzer anderthalbfach und hat Schnellfeuer 6 gegen Leichte Jäger, 4 gegen Abfang- und Sturmjäger, 3 gegen Schwere Jäger und Bomber und 2 gegen Strategische Bomber.
 
-**Grenzen.** Mit 50.000 Struktur, 250 Schild und nur 600 Angriff ist er dünn gepanzert und gegen Schlachtschiffe chancenlos, und er braucht Stufe V, Werft 6, Orbitalwerft 2, Hyperraumantrieb 2, Computertechnik 5 und Waffentechnik 5.
+**Grenzen.** Mit 69.000 Struktur, 350 Schild und 1.700 Angriff ist er der am leichtesten gepanzerte Schlachtkreuzer, verliert gegen Schlachtschiffe, Schildkreuzer, Flottenkreuzer, Zerstörer, Gaußkanonen und Raketenwerfer und braucht Stufe V, Werft 6, Orbitalwerft 2, Hyperraumantrieb 2, Computertechnik 5 und Waffentechnik 5.
 
 > Der Abfang-Schlachtkreuzer ist das schnellste Großkampfschiff der Weite und trägt mehr Geschütze als Panzerung. Seine Besatzungen wissen, dass er Jäger und Bomber vom Himmel fegt, gegen ein echtes Schlachtschiff aber nur die Flucht hilft.
 
@@ -4712,15 +4771,15 @@ Ihre Perlschale hält weniger aus als der Stahl der anderen, darum sucht Kael Do
 
 ##### Technisches Dossier
 
-Der Abfang-Schlachtkreuzer ist ein 520 Meter langer, stromlinienförmiger Keil mit zwei gepfeilten Auslegergondeln, übergroßen Hecktriebwerken und Bündeln von Steuerdüsen, über dessen ganzen Rumpf viele kleine, schnell nachführende Punktverteidigungstürme verteilt sind. Die Auslegergondeln tragen den Xenokristall-Resonator weit vom Rumpf, und weil kaum Panzerung an die Kurzschicht zu koppeln ist, erreicht er Tempo 16.000 bei nur 220 Verbrauch, schneller als jeder Sturmjäger und schneller als jedes andere Großkampfschiff. Die Türme laufen in drei Feuerleitkreisen, darum greift er drei Ziele je Runde an, und jeder Kreis ist auf kleine Rümpfe eingemessen: Die Nachführsalve schwenkt gegen Leichte Jäger im Mittel sechsmal weiter, gegen Abfang- und Sturmjäger viermal, gegen Schwere Jäger und Bomber dreimal, gegen Strategische Bomber zweimal und gegen Spionagesonden fünfmal.
+Der Abfang-Schlachtkreuzer ist ein 520 Meter langer, stromlinienförmiger Keil mit zwei gepfeilten Auslegergondeln, übergroßen Hecktriebwerken und Bündeln von Steuerdüsen, über dessen ganzen Rumpf viele kleine, schnell nachführende Punktverteidigungstürme verteilt sind. Die Auslegergondeln tragen den Xenokristall-Resonator weit vom Rumpf, und weil kaum Panzerung an die Kurzschicht zu koppeln ist, erreicht er Tempo 16.000 bei nur 220 Verbrauch, schneller als jeder Sturmjäger und schneller als jedes andere Großkampfschiff. Die Türme laufen in drei Feuerleitkreisen, darum greift er drei Ziele je Runde an, und jeder Kreis ist auf kleine Rümpfe eingemessen: Sturmjäger, Bomber und Strategische Bomber trifft er dreifach, Leichte Jäger und Abfangjäger doppelt und Schwere Jäger und Kreuzer anderthalbfach, und die Nachführsalve schwenkt gegen Leichte Jäger im Mittel sechsmal weiter, gegen Abfang- und Sturmjäger viermal, gegen Schwere Jäger und Bomber dreimal und gegen Strategische Bomber zweimal.
 
-Dafür braucht er Computertechnik 5, Waffentechnik 5 und Hyperraumantrieb 2, eine Werft der Stufe 6 und eine Orbitalwerft der Stufe 2, und die Rechnung lautet 25.000 Erz, 30.000 Kristall, 12.000 Deuterium, 610 Legierung, 185 Elektronik und 45 Xenokristall. Mit 600 Angriff je Schuss trifft jeder Turm leicht, was gegen Jäger genügt, gegen die Schichtpanzerung eines Schlachtschiffs aber kaum etwas ausrichtet. Seine 50.000 Struktur sind die geringste aller Großkampfschiffe, und mit einem Schirm von 250 ist er gegen ein Schlachtschiff chancenlos, denn dessen Türme brauchen nur wenige Treffer, um ihn unter die Kettenbruchgrenze von 70 % zu bringen.
+Dafür braucht er Computertechnik 5, Waffentechnik 5 und Hyperraumantrieb 2, eine Werft der Stufe 6 und eine Orbitalwerft der Stufe 2, und die Rechnung lautet 25.000 Erz, 30.000 Kristall, 12.000 Deuterium, 610 Legierung, 185 Elektronik und 45 Xenokristall. Mit 1.700 Angriff je Schuss trifft jeder Turm leicht, was gegen Jäger genügt, gegen die Schichtpanzerung eines Schlachtschiffs aber wenig ausrichtet. Seine 69.000 Struktur sind die geringste aller Schlachtkreuzer, und mit einem Schirm von 350 verliert er gegen Schlachtschiffe und Zerstörer, deren schwere Treffer ihn rasch unter die Kettenbruchgrenze von 70 % bringen, gegen Schildkreuzer und Flottenkreuzer, deren Schirme und Rümpfe seine leichten Türme nicht schnell genug zermürben, und gegen die Gaußkanonen und Raketenwerfer der Verteidigungsringe.
 
 Die Weltenkrümmer zerlegen ihn mit einer Nachführsalve von 15, und seine 60 Köpfe Besatzung und 600 Ladung zeigen, wie wenig Platz zwischen Türmen und Triebwerken bleibt.
 
 ##### Chronik
 
-Der Abfang-Schlachtkreuzer ist das älteste Schiff seiner Klasse, denn er kam schon mit Hyperraumantrieb 2 und Werft 6 von den Docks, bevor der Linien-Schlachtkreuzer und der Schwere Schlachtkreuzer folgten. Gebaut wurde er als schneller Schirm der jungen Schlachtschiffverbände gegen Jäger und gegen die Sonden, die jede Flotte vor dem Aufbruch ausspähten, und seine Nachführsalve von fünf gegen Spionagesonden nahm manchem Gegner die Augen, bevor die Linie überhaupt auslief. Berühmt wurde er in den Bomberjahren, als Bomberverbände ganze Verteidigungsringe abtrugen, denn kein anderes Schiff erreichte die Bomber so schnell, und seine Nachführsalve von drei gegen Bomber machte ihn zum Gartenwächter, Hetzhund und Schirm ganzer Welten. Neben ihm jagten Flottenkreuzer und Schwere Jäger die Bomber, doch gegen Schlachtschiffe blieb er so chancenlos wie am ersten Tag.
+Der Abfang-Schlachtkreuzer ist das älteste Schiff seiner Klasse, denn er kam schon mit Hyperraumantrieb 2 und Werft 6 von den Docks, bevor der Linien-Schlachtkreuzer und der Schwere Schlachtkreuzer folgten. Gebaut wurde er als schneller Schirm der jungen Schlachtschiffverbände gegen Jäger, und seine Feuerleitkreise, die Sturmjäger dreifach und Leichte Jäger doppelt treffen, rissen manchen Schwarm auseinander, bevor er die Linie erreichte. Berühmt wurde er in den Bomberjahren, als Bomberverbände ganze Verteidigungsringe abtrugen, denn kein anderes Schiff erreichte die Bomber so schnell, und seine Nachführsalve von drei gegen Bomber machte ihn zum Gartenwächter, Hetzhund und Schirm ganzer Welten. Neben ihm jagten Flottenkreuzer und Schwere Jäger die Bomber, doch gegen Schlachtschiffe blieb er so chancenlos wie am ersten Tag.
 
 ##### Volksakten
 
@@ -4746,11 +4805,11 @@ Weil Perlschale leichter ist als Stahl, haben Flügelnüsse noch weniger Haut al
 
 *Schlachtkreuzer-Klasse (Flaggschiff) · Massives Flaggschiff mit Kommandoturm, schweren Zwillings- und Drillingstürmen und geschichteten Rumpfplatten.*
 
-**Wozu.** Es führt große Verbände an, hält den Kern einer Flotte und bricht Linien- und Torpedokreuzer auf.
+**Wozu.** Es führt große Verbände an, hält den Kern einer Flotte und bricht Schlachtschiffe, Flottenkreuzer und Raketenkreuzer auf.
 
-**Stärke.** Mit 120.000 Struktur, 1.200 Schild und 2.500 Angriff hat es Schnellfeuer 5 gegen Schlachtschiffe, 3 gegen Flottenkreuzer, Raketenkreuzer und Kreuzer sowie 2 gegen Schildkreuzer und schlägt auch den Linien-Schlachtkreuzer.
+**Stärke.** Mit 160.000 Struktur, 1.600 Schild und 10.000 Angriff trifft es Schlachtschiffe, Flottenkreuzer und Raketenkreuzer doppelt sowie Kreuzer, Schildkreuzer, Trägerschlachtschiffe, Zerstörer, Schlachtkreuzer und Abfang-Schlachtkreuzer anderthalbfach und hat Schnellfeuer 5 gegen Schlachtschiffe, 3 gegen Flottenkreuzer, Raketenkreuzer und Kreuzer sowie 2 gegen Schildkreuzer.
 
-**Grenzen.** Mit Tempo 8.000 und 600 Verbrauch ist es langsam und teuer, braucht Stufe V, Werft 8, Orbitalwerft 3, Hyperraumantrieb 4, Waffentechnik 7, Panzerung 6 und Schildtechnik 5, und Zerstörer wie Schlachtschiffe halten gut dagegen.
+**Grenzen.** Mit Tempo 8.000 und 600 Verbrauch ist es langsam und teuer, braucht Stufe V, Werft 8, Orbitalwerft 3, Hyperraumantrieb 4, Waffentechnik 7, Panzerung 6 und Schildtechnik 5 und verliert gegen Zerstörer, die es dreifach treffen, gegen Schwärme aus Leichten Jägern und Abfangjägern sowie gegen Raketenwerfer, Lasergeschütze und Ionengeschütze.
 
 > Der Schwere Schlachtkreuzer ist ein Schiff, um das sich eine Flotte sammelt und an dem sie sich festhält. Jedes Volk hat darum gestritten, wer das erste fertigstellt, und jeder Stapellauf wird in den Admiralitäten wie ein Feiertag begangen.
 
@@ -4761,15 +4820,15 @@ Weil Perlschale leichter ist als Stahl, haben Flügelnüsse noch weniger Haut al
 
 ##### Technisches Dossier
 
-Der Schwere Schlachtkreuzer ist ein 880 Meter langer, dicker Rumpf unter geschichteten Panzerplatten, länger und weniger kastig als ein Schlachtschiff, mit zwei großen Drillingstürmen auf dem Vorschiff, mehreren Nebentürmen, einem schweren Antriebsblock und einem hohen, gepanzerten Kommandoturm mit Flaggbrücke und Antennenmast. Der Kommandoturm macht ihn zum Flaggschiff, denn dort laufen die Lagebilder der Flotte zusammen, und von dort führt ein Admiral große Verbände. Mit 2.500 Angriff je Schuss und einer Feuerleitung, die auf die Linie eingemessen ist, schwenkt seine Nachführsalve gegen Schlachtschiffe im Mittel fünfmal weiter, gegen Flottenkreuzer, Raketenkreuzer und Kreuzer dreimal und gegen Schildkreuzer zweimal, und auch den Linien-Schlachtkreuzer schlägt er.
+Der Schwere Schlachtkreuzer ist ein 880 Meter langer, dicker Rumpf unter geschichteten Panzerplatten, länger und weniger kastig als ein Schlachtschiff, mit zwei großen Drillingstürmen auf dem Vorschiff, mehreren Nebentürmen, einem schweren Antriebsblock und einem hohen, gepanzerten Kommandoturm mit Flaggbrücke und Antennenmast. Der Kommandoturm macht ihn zum Flaggschiff, denn dort laufen die Lagebilder der Flotte zusammen, und von dort führt ein Admiral große Verbände. Mit 10.000 Angriff je Schuss und einer Feuerleitung, die auf die Linie eingemessen ist, trifft er Schlachtschiffe, Flottenkreuzer und Raketenkreuzer doppelt und Kreuzer, Schildkreuzer, Trägerschlachtschiffe, Zerstörer, Schlachtkreuzer und Abfang-Schlachtkreuzer anderthalbfach, und seine Nachführsalve schwenkt gegen Schlachtschiffe im Mittel fünfmal weiter, gegen Flottenkreuzer, Raketenkreuzer und Kreuzer dreimal und gegen Schildkreuzer zweimal.
 
-Seine Stärke ist die Haut aus 120.000 Struktur und einem Schirm von 1.200, an dem Treffer unter 12 am Schwellreflex verpuffen, und bis zur Kettenbruchgrenze von 70 % braucht es viele schwere Treffer. Dafür verlangt die Werft Stufe 8 und eine Orbitalwerft der Stufe 3, die Forschung Hyperraumantrieb 4, Waffentechnik 7, Panzerung 6 und Schildtechnik 5, und die Rechnung lautet 60.000 Erz, 70.000 Kristall, 25.000 Deuterium, 1.450 Legierung, 435 Elektronik und 110 Xenokristall. Der hohe Kristallanteil steckt in den Emitterplatten des Schirms und in der Optik der Drillingstürme, der Xenokristall in einem Resonator, der einen so schweren Rumpf an die Kurzschicht koppeln muss.
+Seine Stärke ist die Haut aus 160.000 Struktur und einem Schirm von 1.600, an dem Treffer unter einem Hundertstel der Schirmstärke am Schwellreflex verpuffen, und bis zur Kettenbruchgrenze von 70 % braucht es viele schwere Treffer. Dafür verlangt die Werft Stufe 8 und eine Orbitalwerft der Stufe 3, die Forschung Hyperraumantrieb 4, Waffentechnik 7, Panzerung 6 und Schildtechnik 5, und die Rechnung lautet 60.000 Erz, 70.000 Kristall, 25.000 Deuterium, 1.450 Legierung, 435 Elektronik und 110 Xenokristall. Der hohe Kristallanteil steckt in den Emitterplatten des Schirms und in der Optik der Drillingstürme, der Xenokristall in einem Resonator, der einen so schweren Rumpf an die Kurzschicht koppeln muss.
 
-Diese Masse kostet Tempo, nämlich 8.000 bei 600 Verbrauch, langsamer als jeder andere Schlachtkreuzer, und Zerstörer wie Schlachtschiffe halten gut gegen ihn, weil ihre schweren Treffer seine Schichtplatten Lage um Lage abtragen. Die Weltenkrümmer zerlegen ihn mit einer Nachführsalve von acht, weniger als jeden anderen Schlachtkreuzer, und seine 150 Köpfe Besatzung und 1.500 Ladung reichen für die langen Feldzüge eines Flaggschiffs.
+Diese Masse kostet Tempo, nämlich 8.000 bei 600 Verbrauch, langsamer als jeder andere Schlachtkreuzer, und Zerstörer, deren Feuerleitung ihn dreifach trifft, tragen seine Schichtplatten Lage um Lage ab, während Schwärme aus Leichten Jägern und Abfangjägern sowie Raketenwerfer, Lasergeschütze und Ionengeschütze ihn durch schiere Zahl zermürben, weil seine Drillingstürme auf diese Ziele nicht eingemessen sind. Die Weltenkrümmer zerlegen ihn mit einer Nachführsalve von acht, weniger als jeden anderen Schlachtkreuzer, und seine 150 Köpfe Besatzung und 1.500 Ladung reichen für die langen Feldzüge eines Flaggschiffs.
 
 ##### Chronik
 
-Der Schwere Schlachtkreuzer ist das jüngste und schwerste Schiff seiner Klasse, denn erst Hyperraumantrieb 4, Panzerung 6 und eine Orbitalwerft der Stufe 3 erlaubten es, den schlanken Kiel des Linien-Schlachtkreuzers mit der Schichtpanzerung eines Flaggschiffs zu verbinden. Die Admiralitäten wollten ein Schiff, das große Verbände führt und dabei die Torpedokreuzer aufbricht, die seit dem Zeitalter des Sternenflugs jedes Schlachtschiff bedrohen, und bekamen eines, das Raketenkreuzer, Flottenkreuzer und Kreuzer mit einer Nachführsalve von drei zerlegt und auch Schildkreuzer nicht fürchtet. Um die Ehre des ersten Stapellaufs stritten alle vier Völker, wie sie schon um den Ersten Sprung gestritten hatten, und jede Admiralität feiert ihren als Feiertag. Gegen Zerstörer und Schlachtschiffe blieb er ein Gegner auf Augenhöhe, und dass ein Weltenkrümmer ihn nur mit einer Nachführsalve von acht zerlegt, langsamer als jeden anderen Schlachtkreuzer, gilt in seinen Messen als Ehre, über die niemand gern lacht.
+Der Schwere Schlachtkreuzer ist das jüngste und schwerste Schiff seiner Klasse, denn erst Hyperraumantrieb 4, Panzerung 6 und eine Orbitalwerft der Stufe 3 erlaubten es, den schlanken Kiel des Linien-Schlachtkreuzers mit der Schichtpanzerung eines Flaggschiffs zu verbinden. Die Admiralitäten wollten ein Schiff, das große Verbände führt und dabei die Torpedokreuzer aufbricht, die seit dem Zeitalter des Sternenflugs jedes Schlachtschiff bedrohen, und bekamen eines, das Raketenkreuzer, Flottenkreuzer und Kreuzer mit einer Nachführsalve von drei zerlegt und auch Schildkreuzer nicht fürchtet. Um die Ehre des ersten Stapellaufs stritten alle vier Völker, wie sie schon um den Ersten Sprung gestritten hatten, und jede Admiralität feiert ihren als Feiertag. Schlachtschiffe, die er doppelt trifft, lernten ihn als Schrecken der Linie fürchten, gegen Zerstörer aber, deren Feuerleitung ihn dreifach trifft, blieb er verwundbar, und dass ein Weltenkrümmer ihn nur mit einer Nachführsalve von acht zerlegt, langsamer als jeden anderen Schlachtkreuzer, gilt in seinen Messen als Ehre, über die niemand gern lacht.
 
 ##### Volksakten
 
@@ -4799,11 +4858,11 @@ Der Kommandoturm ist zugleich der Ort, an dem der Kreis der Flotte tagt, und Ent
 
 *Leichte Verteidigungsanlage · Robuste Bodenbatterie mit sechs Startrohren auf gepanzerter Drehplattform.*
 
-**Wozu.** Er stellt billige Masse gegen frühe Raubzüge und Raketenkreuzer.
+**Wozu.** Er stellt billige Masse gegen frühe Raubzüge, Kreuzer und Raketenkreuzer.
 
-**Stärke.** Für nur 2.000 Erz gebaut, trifft er Raketenkreuzer doppelt und ist ab Stufe II die günstigste Verteidigung überhaupt.
+**Stärke.** Für nur 2.000 Erz gebaut, trifft er mit 160 Angriff auf ein Ziel je Runde Kreuzer und Raketenkreuzer doppelt sowie Schildkreuzer, Flottenkreuzer und Leichte Jäger 1,5-fach und ist ab Stufe II die günstigste Verteidigung überhaupt.
 
-**Grenzen.** Gegen Leichte Jäger wirkt er nur halb, Kreuzer haben Schnellfeuer 10 und Bomber Schnellfeuer 20 gegen ihn, doch 70 Prozent der zerstörten Werfer werden nach dem Kampf wieder aufgebaut.
+**Grenzen.** Mit 3.000 Struktur und 30 Schild hält er wenig aus, Bomber treffen ihn 1,5-fach und führen mit Schnellfeuer 10 von Werfer zu Werfer nach, doch 70 Prozent der zerstörten Werfer werden nach dem Kampf wieder aufgebaut.
 
 > Der Raketenwerfer ist so alt wie die planetare Verteidigung selbst und so einfach gebaut, dass jede Kolonie ihn aus eigenem Erz fertigen kann. Allein ist er schwach, in Feldern zu Hunderten aber ein Wald aus Rohren, und seit dem Dornensommer weiß jeder Plünderer, dass so ein Wald auch unter Gras stehen kann.
 
@@ -4814,15 +4873,15 @@ Der Kommandoturm ist zugleich der Ort, an dem der Kreis der Flotte tagt, und Ent
 
 ##### Technisches Dossier
 
-Der Raketenwerfer ist eine gepanzerte Drehplattform mit sechs Startrohren, die einfach gelenkte Feststoffraketen mit Splittergefechtskopf verschießt, und damit die schlichteste Form des Prinzips Rakete: eigener Antrieb, eigener Sprengkopf und kein Zielrechner, der teurer wäre als das Geschoss. Gebaut wird er ab Stufe II allein aus 2.000 Erz, ohne Kristall, ohne Elektronik und ohne Forschung, was ihn zur günstigsten Verteidigung überhaupt macht. Die Messwerte sind bescheiden: 6.000 Struktur, ein Schirm von 60 und 240 Angriff auf ein einziges Ziel je Salve.
+Der Raketenwerfer ist eine gepanzerte Drehplattform mit sechs Startrohren, die einfach gelenkte Feststoffraketen mit Splittergefechtskopf verschießt, und damit die schlichteste Form des Prinzips Rakete: eigener Antrieb, eigener Sprengkopf und kein Zielrechner, der teurer wäre als das Geschoss. Gebaut wird er ab Stufe II allein aus 2.000 Erz, ohne Kristall, ohne Elektronik und ohne Forschung, was ihn zur günstigsten Verteidigung überhaupt macht. Die Messwerte sind bescheiden: 3.000 Struktur, ein Schirm von 30 und 160 Angriff auf ein einziges Ziel je Salve, und wie jede Anlage richtet er sein Feuer nur auf Schiffe.
 
-Gegen Raketenkreuzer wirkt jeder Treffer doppelt, weil deren offene Magazinbuchten und dünne Startschienen genau die Wandstärke haben, für die ein Splitterkopf ausgelegt ist. Gegen Leichte Jäger erreicht er dagegen nur die Hälfte, denn ein Jäger wendet schneller, als ein Feststoffmotor nachsteuern kann. Seine größte Schwäche ist die Plattform selbst: Die Ladeluken der sechs Rohre liegen offen, sodass die Feuerleitung eines Kreuzers mit Schnellfeuer 10 von Werfer zu Werfer springt und ein Bomber mit Schnellfeuer 20 und doppeltem Schaden ganze Felder abräumt.
+Gegen Kreuzer und Raketenkreuzer wirkt jeder Treffer doppelt, weil die Außenhaut der Impulskreuzer und die offenen Magazinbuchten der Raketenkreuzer genau die Wandstärke haben, für die ein Splitterkopf ausgelegt ist. Schildkreuzer, Flottenkreuzer und Leichte Jäger führt seine Feuerleitung als Sekundärziele mit 1,5-fachem Schaden, denn ein Splitterfeld erwischt auch einen Jäger, dem ein einzelner Feststoffmotor nicht nachsteuern könnte. Seine größte Schwäche ist die Plattform selbst: Die Ladeluken der sechs Rohre liegen offen, sodass ein Bomber ihn 1,5-fach trifft und mit Schnellfeuer 10 von Werfer zu Werfer nachführt, und gegen einen Bomberverband hält kein Werferfeld lange.
 
 Dafür ist kaum etwas an ihm unersetzlich, und nach dem Gefecht setzen Bodenmannschaften 70 Prozent der zerstörten Werfer wieder instand, weil Drehkranz, Rohre und Sockel aus demselben Guss stammen und vor Ort nachgeschmiedet werden können. Nur was dauerhaft verloren geht, bleibt zu 30 Prozent seiner Masse als Trümmer im Orbit.
 
 ##### Chronik
 
-Der Raketenwerfer entstand im Zeitalter der Industrie zusammen mit dem Lasergeschütz und ist damit die älteste Verteidigung der Weite, älter als jedes Silo und jeder Schirm. In der Glutjagd zeigte sich seine Grenze, denn gegen die Leichten Jäger der Krath-Raubzüge traf er nur halb, und die Kolonien stellten Lasergeschütze daneben. Im Kreuzerwinter fegten die ersten Kreuzer ganze Werferfelder leer, doch als im Sternenflug die Raketenkreuzer aufkamen, war es ausgerechnet das alte Rohr, das sie doppelt traf.
+Der Raketenwerfer entstand im Zeitalter der Industrie zusammen mit dem Lasergeschütz und ist damit die älteste Verteidigung der Weite, älter als jedes Silo und jeder Schirm. In der Glutjagd zeigte sich seine Grenze, denn gegen ganze Schwärme Leichter Jäger reichte ein Rohr, das nur ein Ziel je Salve erfasst, nicht aus, und die Kolonien stellten Lasergeschütze mit zwei Läufen daneben. Im Kreuzerwinter fand das alte Rohr dann seine eigentliche Beute, denn seine Splitterköpfe trafen die ersten Impulskreuzer doppelt, und als im Sternenflug die Raketenkreuzer aufkamen, traf es auch sie doppelt.
 
 Berühmt wurde er im Dornensommer, als Kael Dornhag Werferfelder unter Wiesen verbarg, sie mit Aufklärungsdrohnen und Sensorphalanx verband und erst zuschlagen ließ, als der Krath-Clan die vermeintlich verlassene Kolonie schon für leichte Beute hielt. In den Bomberjahren lernten die Völker schließlich, dass Masse allein gegen Flächenbomben nicht hilft.
 
@@ -4838,7 +4897,7 @@ Den Dornensommer erzählt man an den Schmiedefeuern nicht gern, aber man erzähl
 
 **Syntheten-Akte.** Das Kollektiv führt den Werfer als Klasse Polynom, Revision 3, und baut ihn aus genormten Sechseckmodulen, bei denen Rohrbündel, Drehkranz und Zündsteuerung einzeln tauschbar sind. Weil ein Polynom keinen eigenen Zielrechner trägt, schalten die Syntheten ihre Werfer im Sensorverbund zusammen und lassen benachbarte Batterien in berechneten Wellen feuern. Einheit Sextant, die dieses Rasterverfahren aufstellte, beschreibt das Polynom als eine Summe vieler einfacher Glieder, von denen keines allein etwas bedeutet und alle zusammen das Ergebnis tragen.
 
-Gegen Kreuzer und Bomber hält ihr Bericht nüchtern fest, dass ein Feld schnell abschmilzt, und ebenso nüchtern, dass 70 Prozent davon nach dem Gefecht wieder stehen. Das Kollektiv nennt das eine Verteidigung mit Rücklauf und hält sie für die ehrlichste Rechnung der Frühzeit.
+Gegen Bomber und Sturmjäger hält ihr Bericht nüchtern fest, dass ein Feld schnell abschmilzt, und ebenso nüchtern, dass 70 Prozent davon nach dem Gefecht wieder stehen. Das Kollektiv nennt das eine Verteidigung mit Rücklauf und hält sie für die ehrlichste Rechnung der Frühzeit.
 
 **Veyari-Akte.** Die Haine ziehen nur die Deckhaut des Werfers, denn ein Startrohr wird heißer, als gewachsenes Biomineral verträgt, und so sitzen die sechs geschmiedeten Rohre der Baureihe Seidelbast unter einem Geflecht aus Wurzeln, Gras und Perlschale. Diese Haut öffnet sich zum Schuss wie eine reife Samenkapsel und schließt sich danach wieder, doch sie hält weniger aus als Stahl, und ein Seidelbast fällt früher als ein Grakrohr. Kael Dornhag ließ die Kapseln im Dornensommer nicht in Reihen, sondern entlang des Wurzelnetzes der Wiesen setzen, sodass kein Feld wie eine Stellung aussah und ein Überflug nur Gras, Blüten und verlassene Beete zeigte, bis der Krath-Clan in die scheinbar verlassene Kolonie einflog.
 
@@ -4852,9 +4911,9 @@ Dann öffneten sich alle Kapseln zugleich zu einem einzigen, gut getimten Gegens
 
 **Wozu.** Er schützt den Planeten gegen Jägerschwärme und leichte Angreifer.
 
-**Stärke.** Er greift zwei getrennte Ziele je Runde an und trifft Leichte Jäger und Abfangjäger doppelt.
+**Stärke.** Er greift mit 91 Angriff zwei getrennte Ziele je Runde an, trifft Leichte Jäger, Abfangjäger und Sturmjäger doppelt sowie Schwere Jäger und Kreuzer 1,5-fach.
 
-**Grenzen.** Gegen schwere Schiffspanzerung ist er schwach, trifft Zerstörer nur mit 0,4 und Schlachtschiffe mit 0,5, und Zerstörer haben Schnellfeuer 10, Bomber 20 gegen ihn.
+**Grenzen.** Gegen alle anderen Schiffe macht er nur Grundschaden, der an sehr starken Schirmen verpufft, und Bomber treffen ihn 1,5-fach mit Schnellfeuer 8 und sind sein gefährlichster Gegner, doch 70 Prozent der zerstörten Türme werden nach dem Kampf wieder aufgebaut.
 
 > Das Lasergeschütz ist der Wachhund der Kolonie, klein, schnell und mit zwei Läufen, die zwei Jäger zugleich verfolgen. Es entstand in der Glutjagd über den Raumhäfen, und sein Flackern am Horizont ist für Siedler bis heute das Zeichen, dass der Himmel bewacht wird.
 
@@ -4865,17 +4924,17 @@ Dann öffneten sich alle Kapseln zugleich zu einem einzigen, gut getimten Gegens
 
 ##### Technisches Dossier
 
-Das Lasergeschütz ist ein kompakter Doppellaser auf gekühltem Sockel: In jedem Lauf wird ein Stab aus Gitterkristall durch Blitzentladungen gepumpt, und die Pulse verlassen ihn im Mikrosekundentakt durch geschliffene Kristalllinsen, die sie auf das Ziel bündeln. Die Kühlrippen am Turm sind kein Zierrat, denn jeder Puls hinterlässt Wärme im Kristall, und ein überhitzter Stab trübt sich und verliert die Bündelung. Gemessen werden 6.000 Struktur, ein Schirm von 75 und 300 Angriff, verteilt auf zwei getrennte Ziele je Salve, weil jeder Lauf eine eigene Feuerleitung besitzt.
+Das Lasergeschütz ist ein kompakter Doppellaser auf gekühltem Sockel: In jedem Lauf wird ein Stab aus Gitterkristall durch Blitzentladungen gepumpt, und die Pulse verlassen ihn im Mikrosekundentakt durch geschliffene Kristalllinsen, die sie auf das Ziel bündeln. Die Kühlrippen am Turm sind kein Zierrat, denn jeder Puls hinterlässt Wärme im Kristall, und ein überhitzter Stab trübt sich und verliert die Bündelung. Gemessen werden 3.300 Struktur, ein Schirm von 42 und 91 Angriff, verteilt auf zwei getrennte Ziele je Salve, weil jeder Lauf eine eigene Feuerleitung besitzt, und wie jede Anlage beschießt er nur Schiffe.
 
-Gegen Leichte Jäger und Abfangjäger wirkt jeder Treffer doppelt, denn deren dünne Rümpfe und kleine Schirme verdampfen schon unter einem kurzen Pulszug. Gegen schwere Schiffspanzerung kehrt sich dieser Vorteil um, weil ein Laser nur einen Fleck in die Oberfläche brennt, und gegen Zerstörer erreicht er 0,4, gegen Schlachtschiffe 0,5 seines Schadens. Die Feuerleitungen der Großschiffe kennen umgekehrt die kleinen Türme genau, sodass Zerstörer mit Schnellfeuer 10 und Bomber mit Schnellfeuer 20 ganze Ringe abarbeiten.
+Gegen Leichte Jäger, Abfangjäger und Sturmjäger wirkt jeder Treffer doppelt, denn deren dünne Rümpfe und kleine Schirme verdampfen schon unter einem kurzen Pulszug, und Schwere Jäger und Kreuzer nimmt die Feuerleitung als Sekundärziele mit 1,5-fachem Schaden. Gegen alle übrigen Rümpfe bleibt nur der Grundschaden, weil ein Laser in schwere Panzerung nur einen Fleck brennt. Die Feuerleitungen der Bomber kennen umgekehrt die kleinen Türme genau, sodass sie jeden 1,5-fach treffen und mit Schnellfeuer 8 ganze Ringe abarbeiten.
 
 Gegen sehr starke Schirme greift zudem der Schwellreflex: Der Schirm eines Weltenkrümmers von 50.000 weist jeden Einzeltreffer unter 500 vollständig ab, und ohne großen Forschungsvorsprung liegt jeder Laserpuls darunter. Gebaut wird das Geschütz ab Stufe II aus 1.500 Erz und 500 Kristall, wobei fast der ganze Kristall in Stäben und Linsen steckt, und wie jede Verteidigung setzen Bodenmannschaften nach dem Gefecht 70 Prozent der zerstörten Türme wieder instand.
 
 ##### Chronik
 
-Das Lasergeschütz entstand im Zeitalter der Industrie, gleichzeitig mit dem Raketenwerfer, aber als Antwort auf ein bestimmtes Übel: die Glutjagd. Als Krath-Clans mit Schwärmen Leichter Jäger aurelianische Frachtlinien überfielen, umringten die Kolonien ihre Raumhäfen mit Doppellasern, während Haus Brann im All den Geleitschutz aufbaute und der Bunker am Boden den Grundstock sicherte. Mit dem Impulsantrieb kamen die Abfangjäger, die eigentlich Jäger jagen sollten und nun selbst in die Pulse der alten Türme flogen.
+Das Lasergeschütz entstand im Zeitalter der Industrie, gleichzeitig mit dem Raketenwerfer, aber als Antwort auf ein bestimmtes Übel: die Glutjagd. Als Krath-Clans mit Schwärmen Leichter Jäger aurelianische Frachtlinien überfielen, umringten die Kolonien ihre Raumhäfen mit Doppellasern, während Haus Brann im All den Geleitschutz aufbaute und der Bunker am Boden den Grundstock sicherte. Mit dem Impulsantrieb kamen die Abfangjäger, die eigentlich Jäger jagen sollten und nun selbst in die Pulse der alten Türme flogen, und im Sternenflug erging es den Sturmjägern nicht besser.
 
-Erst im Zeitalter der Imperien verlor das Geschütz seinen Schrecken, als Zerstörer mit eingemessener Feuerleitung ganze Ringe abarbeiteten und in den Bomberjahren Flächenbomben die Laserfelder abtrugen. Es blieb dennoch auf jeder Welt stehen, denn gegen Jäger gibt es keine billigere Antwort.
+Erst in den Bomberjahren verlor das Geschütz seinen Schrecken, als Bomberverbände mit eingemessener Feuerleitung ganze Ringe abarbeiteten und Flächenbomben die Laserfelder abtrugen. Es blieb dennoch auf jeder Welt stehen, denn gegen Jäger gibt es keine billigere Antwort.
 
 ##### Volksakten
 
@@ -4901,11 +4960,11 @@ Weil die Sockel aus Perlschale weniger aushalten als geschmiedeter Stahl, stelle
 
 *Mittlere Verteidigungsanlage (Schildbrecher) · Ionenkanone mit markanter blauer Induktionsspule auf schwerem Sockel.*
 
-**Wozu.** Es zerschlägt die Schilde angreifender Schiffe, damit andere Geschütze den Rumpf treffen.
+**Wozu.** Es zerschlägt die Schirme angreifender Schiffe, allen voran von Schildkreuzern und Schlachtschiffen, damit andere Geschütze den Rumpf treffen.
 
-**Stärke.** Es macht doppelten Schaden auf Schilde und trägt selbst 1.500 Schild, den stärksten Schirm aller leichten und mittleren Anlagen.
+**Stärke.** Es macht doppelten Schaden auf Schilde, trifft Schildkreuzer dreifach, Schlachtschiffe, Sturm- und Trägerschlachtschiffe doppelt sowie Kreuzer, Flottenkreuzer, Zerstörer, Schwere Zerstörer und Schwere Schlachtkreuzer 1,5-fach und trägt mit 860 Schild den stärksten Schirm aller leichten und mittleren Anlagen.
 
-**Grenzen.** Gegen gepanzerte Rümpfe wirkt es geringer, und Bomber haben Schnellfeuer 10 und doppelten Schaden gegen es.
+**Grenzen.** Es erfasst mit 540 Angriff nur ein Ziel je Runde, und Bomber treffen es 1,5-fach mit Schnellfeuer 3, Belagerungsschlachtschiffe 1,5-fach mit Schnellfeuer 5 und Strategische Bomber ebenfalls 1,5-fach, sodass es ohne Deckung gegen Bomber und Belagerungsschlachtschiffe fällt.
 
 > Das Ionengeschütz brennt kaum Löcher in Rümpfe, es lässt Schirme zerfallen, indem es ihre Phasenkohärenz zerreißt. Erfahrene Angreifer zählen auf einem Spionagebericht zuerst die blauen Induktionsspulen, bevor sie über Schiffe nachdenken.
 
@@ -4916,15 +4975,15 @@ Weil die Sockel aus Perlschale weniger aushalten als geschmiedeter Stahl, stelle
 
 ##### Technisches Dossier
 
-Das Ionengeschütz beschleunigt schwere Ionen durch eine lange Induktionsspule, die als blauer Ring auf dem schweren Sockel sitzt, und schießt sie als gebündelten Strahl auf den Schirm des Ziels. Ein Phasenschirm hält nur, solange seine Emitterplatten im gemeinsamen Takt schwingen; die schweren Ionen laden das Feld ungleichmäßig auf, bringen die Platten aus dem Takt und zerstören so die Phasenkohärenz, sodass die Kondensatorbänke leerlaufen, ohne die Energie sauber abzuleiten. Darum wirkt das Geschütz doppelt auf Schilde, während der Strahl, der danach den Rumpf erreicht, wenig Hitze trägt und gegen gepanzerte Rümpfe geringer wirkt.
+Das Ionengeschütz beschleunigt schwere Ionen durch eine lange Induktionsspule, die als blauer Ring auf dem schweren Sockel sitzt, und schießt sie als gebündelten Strahl auf den Schirm des Ziels. Ein Phasenschirm hält nur, solange seine Emitterplatten im gemeinsamen Takt schwingen; die schweren Ionen laden das Feld ungleichmäßig auf, bringen die Platten aus dem Takt und zerstören so die Phasenkohärenz, sodass die Kondensatorbänke leerlaufen, ohne die Energie sauber abzuleiten. Darum wirkt das Geschütz doppelt auf Schilde, während der Strahl, der danach den Rumpf erreicht, wenig Hitze trägt.
 
-Gemessen werden 24.000 Struktur und 450 Angriff auf ein Ziel je Salve, vor allem aber ein eigener Schirm von 1.500, der stärkste aller leichten und mittleren Anlagen, denn wer Schirme brechen will, braucht selbst einen Emitterring, der die eigene Spule vor Rückkopplung schützt. Weil sein Schaden auf Schilden doppelt zählt, überwindet es auch den Schwellreflex starker Schirme leichter als ein Laser gleicher Stärke. Gebaut wird es ab Stufe III aus 5.000 Erz, 3.000 Kristall und 30 Elektronik, wobei die Elektronik den Takt der Spule regelt.
+Gemessen werden 14.000 Struktur und 540 Angriff auf ein Ziel je Salve, vor allem aber ein eigener Schirm von 860, der stärkste aller leichten und mittleren Anlagen, denn wer Schirme brechen will, braucht selbst einen Emitterring, der die eigene Spule vor Rückkopplung schützt. Seine Feuerleitung ist auf die großen Schirmträger eingemessen: Schildkreuzer trifft es dreifach, Schlachtschiffe, Sturm- und Trägerschlachtschiffe doppelt, weil ihre weitläufigen Emittergitter den Ionenstrom bis in die Bordnetze weiterleiten, und Kreuzer, Flottenkreuzer, Zerstörer, Schwere Zerstörer und Schwere Schlachtkreuzer nimmt es als Sekundärziele mit 1,5-fachem Schaden. Weil sein Schaden auf Schilden doppelt zählt, überwindet es auch den Schwellreflex starker Schirme leichter als ein Laser gleicher Stärke.
 
-Seine Schwäche liegt über ihm, denn Bomber haben Schnellfeuer 10 und doppelten Schaden gegen den massigen Sockel, der sich nicht schnell genug dreht, um einer Flächenbombe zu entgehen. Nach dem Gefecht setzen Bodenmannschaften wie bei jeder Verteidigung 70 Prozent der zerstörten Geschütze wieder instand, meist mit frisch gewickelten Spulen aus der Werkstatt der Kolonie.
+Gebaut wird es ab Stufe III aus 5.000 Erz, 3.000 Kristall und 30 Elektronik, wobei die Elektronik den Takt der Spule regelt. Seine Schwäche liegt über ihm, denn Bomber treffen den massigen Sockel, der sich nicht schnell genug dreht, um einer Flächenbombe zu entgehen, 1,5-fach und führen mit Schnellfeuer 3 von Geschütz zu Geschütz nach, und auch Belagerungsschlachtschiffe und Strategische Bomber haben es mit 1,5-fachem Schaden in ihrer Zielliste. Wie jede Anlage beschießt es nur Schiffe, und nach dem Gefecht setzen Bodenmannschaften 70 Prozent der zerstörten Geschütze wieder instand, meist mit frisch gewickelten Spulen aus der Werkstatt der Kolonie.
 
 ##### Chronik
 
-Das Ionengeschütz entstand im Zeitalter des Orbits, als Schildtechnik auch kleinen Rümpfen dichte Schirme gab und Schwere Jäger mit 250 Schild die Laserpulse der Frühzeit abschüttelten. Die Labore lernten damals, dass man einen Schirm nicht leer schießen muss, wenn man ihn aus dem Takt bringen kann, und aus dieser Einsicht wurde die blaue Spule. Im Sternenflug bewährte es sich gegen die Schildkreuzer, deren 3.000 Schild ohne Ionen kaum zu brechen waren, und mit der jüngeren Gaußkanone fand es seinen Partner: Ion öffnet, Gauß schlägt durch. In den Bomberjahren fiel es dagegen reihenweise unter Flächenbomben, weil sein schwerer Sockel nicht ausweichen kann.
+Das Ionengeschütz entstand im Zeitalter des Orbits, als Schildtechnik auch kleinen Rümpfen dichte Schirme gab und Schwere Jäger die Laserpulse der Frühzeit abschüttelten. Die Labore lernten damals, dass man einen Schirm nicht leer schießen muss, wenn man ihn aus dem Takt bringen kann, und aus dieser Einsicht wurde die blaue Spule. Im Sternenflug bewährte es sich gegen die Schildkreuzer, deren 3.000 Schild ohne Ionen kaum zu brechen waren und die es seither dreifach trifft, und mit der jüngeren Gaußkanone fand es seinen Partner: Ion öffnet, Gauß schlägt durch. In den Bomberjahren fiel es dagegen reihenweise unter Flächenbomben, weil sein schwerer Sockel nicht ausweichen kann.
 
 ##### Volksakten
 
@@ -4938,7 +4997,7 @@ Mit Glutladung gefahren schlägt der Strahl härter in die Schirme als bei jeder
 
 **Syntheten-Akte.** Die Syntheten nennen ihr Ionengeschütz Klasse Resonanz, Revision 5, und es ist das Geschütz, an dem das Kollektiv am meisten gelernt hat. Jede Resonanz zeichnet die Taktfrequenzen der Schirme auf, auf die sie feuert, und speist sie in eine gemeinsame Tabelle, sodass die nächste Spule schon weiß, wie ein bestimmter Schildtyp schwingt. Einheit Axiom, die diese Tabelle führt, hat festgehalten, dass kein Volk seine Schirme zweimal gleich baut und die Tabelle darum niemals fertig wird, was sie als angenehm beschreibt.
 
-Den eigenen Schirm von 1.500 halten die Syntheten für folgerichtig, denn wer Schilde versteht, baut auch gute. Gegen Bomber schreibt die Resonanz in ihr Lagebild nur eine Überlebenswahrscheinlichkeit, die so niedrig ist, dass das Kollektiv lieber Jäger und Flottenraketen schickt.
+Den eigenen Schirm von 860 halten die Syntheten für folgerichtig, denn wer Schilde versteht, baut auch gute. Gegen Bomber schreibt die Resonanz in ihr Lagebild nur eine Überlebenswahrscheinlichkeit, die so niedrig ist, dass das Kollektiv lieber Jäger und Flottenraketen schickt.
 
 **Veyari-Akte.** In den Hainen heißt das Ionengeschütz Baumfarn, und seine Spule ist tatsächlich einem Farnwedel nachgebildet: Die Wicklung liegt im Ruhezustand eingerollt und entrollt sich ein Stück, wenn das Feld beim Schuss die Windungen auseinanderdrückt. Sylvane Ithrel hat diese Form gewählt, weil eine eingerollte Spule kaum Platz braucht und sich unter einer Perlschalenkuppel gut verbergen lässt. Diese Kuppel hält weniger aus als geschmiedeter Stahl, und darum stehen Baumfarne bei den Veyari immer im Schatten größerer Anlagen.
 
@@ -4952,9 +5011,9 @@ Wenn sie feuern, glimmen die Wedel, und Kinder zählen die Schüsse an den aufle
 
 **Wozu.** Sie verschießt einen präzisen panzerbrechenden Schuss gegen Großkampfschiffe.
 
-**Stärke.** Mit 3.300 Angriff und 105.000 Struktur trifft sie Schlachtschiffe und Zerstörer doppelt.
+**Stärke.** Mit 2.100 Angriff auf ein Ziel je Runde und 71.000 Struktur trifft sie Schwere Zerstörer dreifach, Schlachtschiffe, Sturm- und Trägerschlachtschiffe und Zerstörer doppelt sowie alle drei Schlachtkreuzerklassen, Raketen-, Schild- und Flottenkreuzer 1,5-fach.
 
-**Grenzen.** Gegen Jägerschwärme wirkt sie nur halb, Belagerungsschlachtschiffe und Schwere Zerstörer treffen sie dreifach, Bunkerbrecher doppelt.
+**Grenzen.** Jäger trifft sie nur mit Grundschaden, Strategische Bomber und Bunkerbrecher treffen sie doppelt, Belagerungsschlachtschiffe und Schwere Zerstörer 1,5-fach und Bomber 1,2-fach, und gegen Strategische Bomber und Belagerungsschlachtschiffe, die mit Schnellfeuer 3 und 2 von Kanone zu Kanone nachführen, fällt sie.
 
 > Wenn eine Gaußkanone feuert, zittert der Boden im Umkreis von Kilometern, und das Legierungsgeschoss ist im Orbit, bevor der Knall die Siedlung erreicht. Sie entstand im Sternenflug gegen die schweren Impulsrümpfe ihrer Zeit, und als die ersten Schlachtschiffe kamen, war sie die erste Anlage, die ihren Kapitänen echte Sorgen machte.
 
@@ -4965,11 +5024,11 @@ Wenn sie feuern, glimmen die Wedel, und Kinder zählen die Schüsse an den aufle
 
 ##### Technisches Dossier
 
-Die Gaußkanone ist ein elektromagnetischer Massebeschleuniger: Zwei tragende Schienen führen ein Geschoss aus Legierung, und Spulenstufen entlang des Laufs ziehen es mit wandernden Magnetfeldern nacheinander nach vorn, bis es den Lauf schneller verlässt als jedes Geschoss einer Schiffskanone. Die Energie liefern Kondensatorbänke im Fundament, die sich in einem einzigen Schuss entladen, und der Rückstoß dieser Entladung zittert durch den Boden bis in die Siedlung. Mit 3.300 Angriff auf ein Ziel je Salve und 105.000 Struktur ist sie die erste Anlage, die schwere Panzerung durchschlägt, statt sie nur anzukratzen, und gegen Schlachtschiffe und Zerstörer wirkt jeder Treffer doppelt, weil ein massives Projektil die Spantenlage eines Großrumpfs durchschlägt und den Kettenbruch auslösen kann.
+Die Gaußkanone ist ein elektromagnetischer Massebeschleuniger: Zwei tragende Schienen führen ein Geschoss aus Legierung, und Spulenstufen entlang des Laufs ziehen es mit wandernden Magnetfeldern nacheinander nach vorn, bis es den Lauf schneller verlässt als jedes Geschoss einer Schiffskanone. Die Energie liefern Kondensatorbänke im Fundament, die sich in einem einzigen Schuss entladen, und der Rückstoß dieser Entladung zittert durch den Boden bis in die Siedlung. Mit 2.100 Angriff auf ein Ziel je Salve und 71.000 Struktur ist sie die erste Anlage, die schwere Panzerung durchschlägt, statt sie nur anzukratzen, und gegen Schlachtschiffe, Sturm- und Trägerschlachtschiffe und Zerstörer wirkt jeder Treffer doppelt, gegen Schwere Zerstörer sogar dreifach, weil ein massives Projektil die Spantenlage eines Großrumpfs durchschlägt und den Kettenbruch auslösen kann.
 
-Gegen Jägerschwärme wirkt sie nur halb, denn der lange Lauf schwenkt träge, und ein einzelnes schweres Geschoss gegen ein kleines Ziel ist Verschwendung. Ihr Schirm von 600 schützt die Spulen vor Splittern, nicht vor Belagerungsartillerie: Belagerungsschlachtschiffe und Schwere Zerstörer treffen sie dreifach, Bunkerbrecher doppelt, und Bomber räumen sie mit Schnellfeuer 5 ab, weil ein fest verankertes Fundament nicht ausweichen kann. Gebaut wird sie ab Stufe IV aus 20.000 Erz, 15.000 Kristall, 2.000 Deuterium und 200 Legierung; das Deuterium kühlt die supraleitenden Spulen, und die Legierung steckt in Schienen und erstem Magazin.
+Schlachtkreuzer aller drei Bauarten sowie Raketen-, Schild- und Flottenkreuzer führt ihre Feuerleitung als Sekundärziele mit 1,5-fachem Schaden, während Jäger auf keiner ihrer Listen stehen und nur Grundschaden nehmen, denn der lange Lauf schwenkt träge, und ein einzelnes schweres Geschoss gegen ein kleines Ziel ist Verschwendung. Ihr Schirm von 400 schützt die Spulen vor Splittern, nicht vor Belagerungsartillerie: Strategische Bomber und Bunkerbrecher treffen sie doppelt, Belagerungsschlachtschiffe und Schwere Zerstörer 1,5-fach und Bomber 1,2-fach, weil ein fest verankertes Fundament nicht ausweichen kann. Weil sie nur ein Ziel je Salve erfasst und wie jede Anlage nur Schiffe beschießt, kommen auch Abfangjäger in dichten Schwärmen an ihr vorbei.
 
-Wie jede Verteidigung wird sie nach dem Gefecht zu 70 Prozent von Bodenmannschaften wieder aufgerichtet, die zuerst die Schienen nachrichten und dann die Spulen tauschen.
+Gebaut wird sie ab Stufe IV aus 20.000 Erz, 15.000 Kristall, 2.000 Deuterium und 200 Legierung; das Deuterium kühlt die supraleitenden Spulen, und die Legierung steckt in Schienen und erstem Magazin. Wie jede Verteidigung wird sie nach dem Gefecht zu 70 Prozent von Bodenmannschaften wieder aufgerichtet, die zuerst die Schienen nachrichten und dann die Spulen tauschen.
 
 ##### Chronik
 
@@ -4985,7 +5044,7 @@ Weil die Normkaliber gedrosselt sind, schießt sie zehn Prozent unter der Norm u
 
 Die Namen gefallener Schützen werden in die Schienen geschlagen, damit jedes Geschoss an ihnen vorbeifliegt. Die Hammerprobe besteht die Kanone mühelos, und die Krath sagen gern, sie sei die einzige feine Technik, der sie je ganz vertraut hätten.
 
-**Syntheten-Akte.** Die Gaußkanone heißt im Kollektiv Klasse Gradient, Revision 7, und ihr Name beschreibt, was sie tut: Sie folgt dem steilsten Anstieg des Feldes, Spule für Spule, bis das Geschoss seine Endgeschwindigkeit erreicht. Die Spulen sind Sechseckringe, die einzeln ausgebaut werden können, und fällt eine Stufe aus, rechnet die Feuerleitung die übrigen neu, statt das Geschütz stillzulegen. Synthetische Gradienten berechnen jeden Schuss auf die Panzerplatte genau, und ihre Zielmodelle kennen nur zwei Zielklassen, für die sich ein Schuss lohnt, Schlachtschiffe und Zerstörer.
+**Syntheten-Akte.** Die Gaußkanone heißt im Kollektiv Klasse Gradient, Revision 7, und ihr Name beschreibt, was sie tut: Sie folgt dem steilsten Anstieg des Feldes, Spule für Spule, bis das Geschoss seine Endgeschwindigkeit erreicht. Die Spulen sind Sechseckringe, die einzeln ausgebaut werden können, und fällt eine Stufe aus, rechnet die Feuerleitung die übrigen neu, statt das Geschütz stillzulegen. Synthetische Gradienten berechnen jeden Schuss auf die Panzerplatte genau, und ihre Zielmodelle führen Schlachtschiffe und Zerstörer ganz oben, dahinter die Schlachtkreuzer und die schweren Kreuzerklassen.
 
 Einheit Moment hat dazu angemerkt, ein Gradient gegen einen Jägerschwarm sei genauso sinnvoll wie ein Rechenkern, der Kieselsteine zählt. Das Kollektiv stellt darum keine Gaußkanone ohne einen Ring kleinerer Anlagen auf, die ihr die Jäger abnehmen.
 
@@ -5001,28 +5060,28 @@ Vor jedem Schuss verstummen die Vögel an der Klippe. Weil Perlschale weniger au
 
 **Wozu.** Er ist die schwerste Bomberabwehr eines Planeten.
 
-**Stärke.** Er trifft Bomber und Strategische Bomber dreifach und gehört in Stufe V zu den teuersten und stärksten Anlagen.
+**Stärke.** Mit 8.200 Angriff, 1.900 Schild und 290.000 Struktur trifft er Bomber dreifach sowie Schlachtschiffe, Sturm- und Trägerschlachtschiffe 1,5-fach und gehört in Stufe V zu den teuersten und stärksten Anlagen.
 
-**Grenzen.** Er ist teuer, gegen Schwere Jäger mit 0,6 schwach, und Schwere Jäger treffen ihn vierfach, Strategische Bomber dreifach, Belagerungsschlachtschiffe und Bunkerbrecher doppelt.
+**Grenzen.** Er ist teuer, erfasst nur ein Ziel je Runde und trifft Strategische Bomber und Schwere Jäger nur mit Grundschaden, während Schwere Jäger ihn dreifach, Strategische Bomber und Bunkerbrecher doppelt und Belagerungsschlachtschiffe 1,5-fach treffen; Strategische Bomber führen dabei mit Schnellfeuer 3 nach, Belagerungsschlachtschiffe mit Schnellfeuer 2.
 
 > Der Plasmawerfer schleudert magnetisch eingeschlossene Plasmatori, die Bomberpanzerung im Ziel wie Wachs zerfließen lassen. Gebaut wurde er in den ersten Jahren des Imperiums gegen die Hyperraumlinien, berühmt aber in den Bomberjahren, und seitdem planen Staffeln ihre Anflüge um ihn herum.
 
 - **Aurelianer:** Aurelianer stellen Plasmawerfer der Serie Fortitudo vor ihre Tresorwelten und lassen die Kosten von mehreren Häusern mittragen. Jeder Werfer trägt eine Plakette mit den Namen der Häuser, die ihn bezahlt haben, in Gold auf Elfenbein.
-- **Krath:** Krath-Schützen am Glutschlund tragen ihre Glutnarben wie Orden und sehen im Bomber einen würdigen Gegner. Gegen Schwere Jäger, die ihren Werfer vierfach treffen, rufen sie dagegen ohne Scham nach eigener Deckung.
+- **Krath:** Krath-Schützen am Glutschlund tragen ihre Glutnarben wie Orden und sehen im Bomber einen würdigen Gegner. Gegen Schwere Jäger, die ihren Werfer dreifach treffen, rufen sie dagegen ohne Scham nach eigener Deckung.
 - **Syntheten:** Die Syntheten berechnen den Magneteinschluss ihrer Klasse Torus mit einer Sicherheitsreserve, die organische Ingenieure für Verschwendung halten, denn ein Torus, der vor dem Ziel zerfällt, verbrennt nicht den Bomber, sondern die eigene Kammer. Jede Abweichung im Feld wird gemeldet, bevor ein organisches Auge sie sehen könnte.
 - **Veyari:** Veyari-Plasmawerfer der Baureihe Magnolie leuchten nachts wie gefangene Sterne in gläsernen Blüten über den Kolonien. Die Haine bauten ihre ersten Magnolien erst, als Bomber die Gärten bedrohten, obwohl andere Völker den Werfer längst gegen Schlachtschifflinien aufgestellt hatten, und noch heute pflanzt man zu jedem neuen Werfer einen Baum für die Welt, die er schützt.
 
 ##### Technisches Dossier
 
-Der Plasmawerfer formt in einer leuchtenden Einschlusskammer ringförmige Plasmapakete, die Tori, die von ihrem eigenen Magnetfeld zusammengehalten werden, und schleudert sie mit einem Magnetbeschleuniger auf das Ziel. Erst dort bricht der Einschluss zusammen, und das Plasma entlädt seine Hitze auf einer Fläche, die keine Panzerplatte ableiten kann, sodass Panzerung wie Wachs zerfließt. Mit 3.000 Angriff auf ein Ziel je Salve, 75.000 Struktur und 500 Schild trägt er auffällig genau die Rumpfwerte des Bombers, den er jagt, und gegen Bomber und Strategische Bomber wirkt jeder Treffer dreifach, weil ihre großen Bombenschächte und Panzerflächen die Hitze nirgends abführen.
+Der Plasmawerfer formt in einer leuchtenden Einschlusskammer ringförmige Plasmapakete, die Tori, die von ihrem eigenen Magnetfeld zusammengehalten werden, und schleudert sie mit einem Magnetbeschleuniger auf das Ziel. Erst dort bricht der Einschluss zusammen, und das Plasma entlädt seine Hitze auf einer Fläche, die keine Panzerplatte ableiten kann, sodass Panzerung wie Wachs zerfließt. Gemessen werden 8.200 Angriff auf ein Ziel je Salve, 290.000 Struktur und 1.900 Schild, ein Mehrfaches dessen, was der Bomber trägt, den er jagt, und gegen Bomber wirkt jeder Treffer dreifach, weil ihre großen Bombenschächte und Panzerflächen die Hitze nirgends abführen.
 
-Der Preis ist gewaltig, nämlich 50.000 Erz, 50.000 Kristall, 30.000 Deuterium, 1.000 Legierung und 500 Elektronik, denn jeder Torus frisst Energie, und die Feldsteuerung der Kammer verschleißt Elektronik in einem Maß, das keine andere Anlage erreicht. Seine Schwäche ist die Trägheit: Ein Torus braucht Zeit, um sich zu formen, und gegen Schwere Jäger erreicht der Werfer nur 0,6 seines Schadens, während diese ihn vierfach treffen, weil ein einziger Treffer in die Spulen der Einschlusskammer das Feld kollabieren lässt. Strategische Bomber treffen ihn dreifach, Belagerungsschlachtschiffe und Bunkerbrecher doppelt, denn auch sie zielen auf die Kammer und ihre Spulen.
+Schlachtschiffe, Sturm- und Trägerschlachtschiffe nimmt die Feuerleitung als Sekundärziele mit 1,5-fachem Schaden, ein Erbe ihrer ersten Einmessung auf große, langsame Rümpfe, während der Strategische Bomber auf keiner ihrer Listen steht und nur Grundschaden nimmt. Der Preis ist gewaltig, nämlich 50.000 Erz, 50.000 Kristall, 30.000 Deuterium, 1.000 Legierung und 500 Elektronik, denn jeder Torus frisst Energie, und die Feldsteuerung der Kammer verschleißt Elektronik in einem Maß, das keine andere Anlage erreicht. Seine Schwäche ist die Trägheit: Ein Torus braucht Zeit, um sich zu formen, und Schwere Jäger, die er nur mit Grundschaden erreicht, treffen ihn dreifach, weil ein einziger Treffer in die Spulen der Einschlusskammer das Feld kollabieren lässt.
 
-Gebaut wird er erst in Stufe V, und nach einem Gefecht setzen Bodenmannschaften wie bei jeder Verteidigung 70 Prozent der zerstörten Werfer wieder instand.
+Strategische Bomber und Bunkerbrecher treffen ihn doppelt, Belagerungsschlachtschiffe 1,5-fach, denn auch sie zielen auf die Kammer und ihre Spulen. Gebaut wird er erst in Stufe V, er beschießt wie jede Anlage nur Schiffe, und nach einem Gefecht setzen Bodenmannschaften 70 Prozent der zerstörten Werfer wieder instand.
 
 ##### Chronik
 
-Der Plasmawerfer entstand in den ersten Jahren des Imperiums, als Schlachtschifflinien mit Hyperraumkernen über den Kolonien erschienen und die Festungen eine Batterie wollten, deren Plasmatori schwere Rümpfe zum Schmelzen bringen, und seine Feuerleitung war auf große, langsame Ziele eingemessen. Seine große Zeit kam in den Bomberjahren, als Bomberverbände mit Schnellfeuer 20 gegen Werfer und Laser und Schnellfeuer 10 gegen Ionengeschütze ganze Verteidigungsringe abtrugen und die Verteidiger seine Kammern auf die Bomberrümpfe einmaßen, die er seither dreifach trifft, während der Flottenkreuzer im All und die viel älteren Schweren Jäger und Flottenraketen aus dem Zeitalter des Orbits dieselbe Aufgabe fanden. Der Werfer hielt die Bomber auf, doch er brachte seine eigene Schwäche mit, denn die Schweren Jäger, die ihn decken sollen, sind in fremder Hand seine gefährlichsten Gegner. In der Kuppelkrise richteten schließlich Belagerungsschlachtschiffe, Strategische Bomber und die älteren Bunkerbrecher ihr Feuer gegen ihn als das lohnendste Ziel einer Festung.
+Der Plasmawerfer entstand in den ersten Jahren des Imperiums, als Schlachtschifflinien mit Hyperraumkernen über den Kolonien erschienen und die Festungen eine Batterie wollten, deren Plasmatori schwere Rümpfe zum Schmelzen bringen, und seine Feuerleitung war auf große, langsame Ziele eingemessen. Seine große Zeit kam in den Bomberjahren, als Bomberverbände mit Schnellfeuer 10 gegen Werfer, 8 gegen Laser und 3 gegen Ionengeschütze ganze Verteidigungsringe abtrugen und die Verteidiger seine Kammern auf die Bomberrümpfe einmaßen, die er seither dreifach trifft, während der Flottenkreuzer im All und die viel älteren Schweren Jäger und Flottenraketen aus dem Zeitalter des Orbits dieselbe Aufgabe fanden. Der Werfer hielt die Bomber auf, doch er brachte seine eigene Schwäche mit, denn die Schweren Jäger, die ihn decken sollen, sind in fremder Hand seine gefährlichsten Gegner. In der Kuppelkrise richteten schließlich Belagerungsschlachtschiffe, Strategische Bomber und die älteren Bunkerbrecher ihr Feuer gegen ihn als das lohnendste Ziel einer Festung.
 
 ##### Volksakten
 
@@ -5032,11 +5091,11 @@ Wegen der gedrosselten Normkaliber zündet ihr Torus schwächer als bei den Krat
 
 **Krath-Akte.** Den Plasmawerfer nennen die Krath Glutschlund, und Clan Ul-Tharn stellte die meisten auf, als seine Festungen in den Bomberjahren Ring um Ring unter Flächenbomben fielen. Die Einschlusskammer ist bei ihnen in einen Basaltstahlmantel gegossen, der die Hammerprobe besteht, aber die Feldspulen darin sind feine Technik, und das ärgert die Schmiede bis heute. Mit Glutladung gefahren wirft der Glutschlund heißere Tori als jede fremde Bauart, und seine Schützen tragen die Glutnarben ihrer Arbeit wie Orden.
 
-Im Bomber sehen sie einen würdigen Gegner, weil er offen anfliegt und offen stirbt. Gegen Schwere Jäger, die ihren Werfer vierfach treffen, rufen sie dagegen ohne Scham nach Deckung, und Yskra Ul-Tharn hat verfügt, dass kein Glutschlund ohne eine Staffel eigener Jäger in der Nähe steht.
+Im Bomber sehen sie einen würdigen Gegner, weil er offen anfliegt und offen stirbt. Gegen Schwere Jäger, die ihren Werfer dreifach treffen, rufen sie dagegen ohne Scham nach Deckung, und Yskra Ul-Tharn hat verfügt, dass kein Glutschlund ohne eine Staffel eigener Jäger in der Nähe steht.
 
-**Syntheten-Akte.** Im Kollektiv heißt der Plasmawerfer Klasse Torus, Revision 2, nach der Form, die sein Plasma annimmt, und er ist eines der wenigen Geschütze, bei denen die Syntheten bewusst Material verschwenden. Die Einschlusskammer ist mit einer Sicherheitsreserve berechnet, die organische Ingenieure für übertrieben halten, und jede Abweichung im Feld wird gemeldet, bevor ein organisches Auge sie sehen könnte. Einheit Ordo hat ausgerechnet, dass ein Torus dieselbe Struktur trägt wie der Bomber, den er jagt, und fand die Symmetrie so schön, dass sie in jeder Revision erhalten blieb.
+**Syntheten-Akte.** Im Kollektiv heißt der Plasmawerfer Klasse Torus, Revision 2, nach der Form, die sein Plasma annimmt, und er ist eines der wenigen Geschütze, bei denen die Syntheten bewusst Material verschwenden. Die Einschlusskammer ist mit einer Sicherheitsreserve berechnet, die organische Ingenieure für übertrieben halten, und jede Abweichung im Feld wird gemeldet, bevor ein organisches Auge sie sehen könnte. Einheit Ordo hat ausgerechnet, dass ein Torus mehr als viermal so viel Struktur trägt wie der Bomber, den er jagt, und hält diese Reserve für die einzige Verschwendung, die sich in jeder Revision rechnet.
 
-Im Sensorverbund melden die Phalanxen der Kolonie jeden Bomberanflug so früh, dass die Kammern ihre ersten Tori schon geformt haben, wenn die Staffel ankommt. Gegen Schwere Jäger rechnet das Kollektiv nicht mit dem Werfer, sondern mit eigenen Schildkreuzern, die genau diese Jäger vierfach treffen.
+Im Sensorverbund melden die Phalanxen der Kolonie jeden Bomberanflug so früh, dass die Kammern ihre ersten Tori schon geformt haben, wenn die Staffel ankommt. Gegen Schwere Jäger rechnet das Kollektiv nicht mit dem Werfer, sondern mit eigenen Schildkreuzern, die genau diese Jäger dreifach treffen und in Nachführsalven von Jäger zu Jäger schwenken.
 
 **Veyari-Akte.** Die Veyari haben den Plasmawerfer erst gebaut, als Bomber ihre Gärten bedrohten, und sie nennen ihn Baureihe Magnolie, weil seine Einschlusskammer in einer gläsernen Blüte aus geschmolzenem Kristall sitzt. Nachts leuchten die Magnolien wie gefangene Sterne über den Kolonien. Die Werftgärtnerin Ilwen Tauhain hat den Sockel als Perlschale gezogen, deren verzweigte Rippen die Hitze der Kammer in den Boden ableiten, doch Perlschale hält weniger aus als Stahl, und ein Treffer in die Rippen kostet mehr als bei anderen Völkern.
 
@@ -5473,7 +5532,7 @@ Im Dornensommer lagen Kael Dornhags Infanteristen so lange in den Hecken einer s
 
 **Wozu.** Er bricht durch Infanterielinien und Miliz und öffnet den Weg für die nachrückenden Truppen.
 
-**Stärke.** Mit 80 Angriff und 400 Struktur trifft er Sturminfanterie, Schwere Infanterie, Präzisionsinfanterie und Miliz doppelt.
+**Stärke.** Mit 75 Angriff und 395 Struktur trifft er Sturminfanterie, Schwere Infanterie, Präzisionsinfanterie und Miliz doppelt und bricht vor allem Linien aus Schwerer und Präzisionsinfanterie.
 
 **Grenzen.** Er belegt 10 Transportplätze, und Kampfdrohnen und Belagerungspioniere treffen ihn doppelt, Schwere Kampfpanzer 1,5-fach.
 
@@ -5486,9 +5545,9 @@ Im Dornensommer lagen Kael Dornhags Infanteristen so lange in den Hecken einer s
 
 ##### Technisches Dossier
 
-Der Sturmpanzer ist ein 9 Meter langer Kettenwagen mit flacher Wanne, einem Räumschild am Bug und einem Turm mit Schnellfeuerkanone, deren Magazin Splitter- und Kanistergranaten im Wechsel führt. Angetrieben wird er von einer Deuteriumturbine nach dem Brennkammerprinzip des Verbrennungsantriebs, die Strom für die Radnabenmotoren der Ketten erzeugt, und daher stehen 20 Deuterium neben 200 Legierung und 80 Elektronik auf seiner Kostenliste. Seine 400 Struktur sitzen vor allem in Bug und Turmfront, denn er wurde gebaut, um frontal in eine Infanterielinie zu fahren, und der Räumschild schiebt Gräben, Sperren und Deckungen beiseite, hinter denen Fußtruppen liegen.
+Der Sturmpanzer ist ein 9 Meter langer Kettenwagen mit flacher Wanne, einem Räumschild am Bug und einem Turm mit Schnellfeuerkanone, deren Magazin Splitter- und Kanistergranaten im Wechsel führt. Angetrieben wird er von einer Deuteriumturbine nach dem Brennkammerprinzip des Verbrennungsantriebs, die Strom für die Radnabenmotoren der Ketten erzeugt, und daher stehen 20 Deuterium neben 200 Legierung und 80 Elektronik auf seiner Kostenliste. Seine 395 Struktur sitzen vor allem in Bug und Turmfront, denn er wurde gebaut, um frontal in eine Infanterielinie zu fahren, und der Räumschild schiebt Gräben, Sperren und Deckungen beiseite, hinter denen Fußtruppen liegen.
 
-Mit 80 Angriff und einer Kanone, deren Granaten über einer Linie zerlegt werden, trifft er Sturminfanterie, Schwere Infanterie, Präzisionsinfanterie und Miliz doppelt, weil gegen weiche Ziele in Masse die Splitterwolke mehr zählt als die Durchschlagskraft. Seine Schwäche liegt oben und hinten, wo die Panzerung dünn bleiben muss, damit das Fahrzeug nicht zu schwer für die Rampe wird: Kampfdrohnen greifen aus dem Steilflug das Turmdach an, Belagerungspioniere setzen Haftladungen an Heck und Kettenlaufwerk, und beide treffen ihn doppelt. Gegen die Hauptkanone des Schweren Kampfpanzers, die für Panzerziele eingemessen ist, hält die Front nur bedingt, sie trifft ihn 1,5-fach.
+Mit 75 Angriff und einer Kanone, deren Granaten über einer Linie zerlegt werden, trifft er Sturminfanterie, Schwere Infanterie, Präzisionsinfanterie und Miliz doppelt, weil gegen weiche Ziele in Masse die Splitterwolke mehr zählt als die Durchschlagskraft. Seine Schwäche liegt oben und hinten, wo die Panzerung dünn bleiben muss, damit das Fahrzeug nicht zu schwer für die Rampe wird: Kampfdrohnen greifen aus dem Steilflug das Turmdach an, Belagerungspioniere setzen Haftladungen an Heck und Kettenlaufwerk, und beide treffen ihn doppelt. Gegen die Hauptkanone des Schweren Kampfpanzers, die für Panzerziele eingemessen ist, hält die Front nur bedingt, sie trifft ihn 1,5-fach.
 
 Drei Besatzungsmitglieder führen ihn, Fahrer, Richtschütze und Kommandant, und die Kaserne belegt für ihn drei Fertigungsplätze bei einer Grundzeit von 600 Sekunden. Im Truppentransporter belegt er 10 der 100 Truppenplätze, so viel wie zehn Sturminfanteristen, und jeder Landungsoffizier muss vor dem Start entscheiden, ob ein Panzer an der Rampe mehr wert ist als ein Zug Gewehre.
 
@@ -5524,7 +5583,7 @@ Gegen Milizen setzen die Veyari sie nur widerwillig ein, denn Bauern zu überrol
 
 **Wozu.** Sie greift feindliche Panzer mobil aus der Luft an.
 
-**Stärke.** Ohne Besatzung gebaut, trifft sie Sturmpanzer, Schwere Kampfpanzer, Belagerungspanzer und Flugabwehrpanzer doppelt.
+**Stärke.** Ohne Besatzung gebaut, trifft sie mit 55 Angriff und 195 Struktur Sturmpanzer, Schwere Kampfpanzer, Belagerungspanzer und Flugabwehrpanzer doppelt.
 
 **Grenzen.** Gegen Fußtruppen hat sie keinen Bonus, und Sturminfanterie trifft sie doppelt, Flugabwehrpanzer sogar dreifach.
 
@@ -5537,11 +5596,11 @@ Gegen Milizen setzen die Veyari sie nur widerwillig ein, denn Bauern zu überrol
 
 ##### Technisches Dossier
 
-Die Kampfdrohne ist ein 2 Meter langer Schwebekörper mit vier ummantelten Hubrotoren, einer kleinen Deuteriumturbine als Stromquelle und einem Bauchschacht, aus dem sie Hohlladungsgeschosse im Steilwinkel auf ihr Ziel abwirft. Ihr Messblatt nennt 30 Angriff und 100 Struktur bei Kosten von 50 Legierung, 100 Elektronik und 10 Deuterium, und der hohe Elektronikanteil steckt in Zielsuchkopf, Lagerechner und Datenfunk. Sie braucht kein Personal, denn sie fliegt mit eigenem Reflexrechner und erhält ihre Ziele über Funk von der Truppe am Boden, und die Kaserne belegt für sie zwei Fertigungsplätze bei 300 Sekunden Grundzeit, der Transporter zwei Plätze.
+Die Kampfdrohne ist ein 2 Meter langer Schwebekörper mit vier ummantelten Hubrotoren, einer kleinen Deuteriumturbine als Stromquelle und einem Bauchschacht, aus dem sie Hohlladungsgeschosse im Steilwinkel auf ihr Ziel abwirft. Ihr Messblatt nennt 55 Angriff und 195 Struktur bei Kosten von 50 Legierung, 100 Elektronik und 10 Deuterium, und der hohe Elektronikanteil steckt in Zielsuchkopf, Lagerechner und Datenfunk. Sie braucht kein Personal, denn sie fliegt mit eigenem Reflexrechner und erhält ihre Ziele über Funk von der Truppe am Boden, und die Kaserne belegt für sie zwei Fertigungsplätze bei 300 Sekunden Grundzeit, der Transporter zwei Plätze.
 
 Gegen Sturmpanzer, Schwere Kampfpanzer, Belagerungspanzer und Flugabwehrpanzer wirkt sie doppelt, weil jeder Kettenwagen seine dickste Panzerung an Front und Flanken trägt und das Dach dünn halten muss, damit er nicht unter seinem eigenen Gewicht im Boden versinkt. Genau dort greift sie an, aus einem Winkel, den kein Turm rechtzeitig erreicht, denn eine Panzerkanone ist zum Richten auf den Horizont gebaut und nicht zum Schwenken in den Zenit. Gegen Fußtruppen hat sie keinen Vorteil, denn ein Infanterist hat kein Dach, das man durchschlagen müsste, und der dünne Stachel einer Hohlladung ist an ihm verschwendet.
 
-Ihre Schwäche ist der Funk, an dem sie hängt: Der Störer der Sturminfanterie reißt die Verbindung ab, sodass diese sie doppelt trifft. Der Flugabwehrpanzer trifft sie sogar dreifach, weil Radar und Mehrfachgeschütze genau auf kleine, schnelle Ziele eingemessen sind und 100 Struktur keinem Splitterhagel lange standhalten.
+Ihre Schwäche ist der Funk, an dem sie hängt: Der Störer der Sturminfanterie reißt die Verbindung ab, sodass diese sie doppelt trifft. Der Flugabwehrpanzer trifft sie sogar dreifach, weil Radar und Mehrfachgeschütze genau auf kleine, schnelle Ziele eingemessen sind und 195 Struktur keinem Splitterhagel lange standhalten.
 
 ##### Chronik
 
@@ -5571,7 +5630,7 @@ Gegen Fußtruppen schickt sie keinen Sanddorn, denn eine Waffe für Panzer soll 
 
 **Wozu.** Sie bekämpft gegnerische Fußtruppen und hält Stellungen gegen Infanterieangriffe.
 
-**Stärke.** Mit 120 Struktur ist sie mehr als doppelt so robust wie Sturminfanterie und trifft Sturminfanterie, Pioniere, Präzisionsinfanterie und Miliz doppelt.
+**Stärke.** Mit 140 Struktur ist sie fast dreimal so robust wie Sturminfanterie und trifft mit 18 Angriff Sturminfanterie, Pioniere, Präzisionsinfanterie und Miliz doppelt.
 
 **Grenzen.** Sturmpanzer und Schwere Kampfpanzer treffen sie doppelt, Belagerungspanzer 2,5-fach und Präzisionsinfanterie dreifach.
 
@@ -5584,7 +5643,7 @@ Gegen Fußtruppen schickt sie keinen Sanddorn, denn eine Waffe für Panzer soll 
 
 ##### Technisches Dossier
 
-Die Schwere Infanterie steckt in einer Servo-Panzerrüstung: einem Außenskelett aus Legierungsstreben mit elektrischen Gelenkmotoren, an dem überlappende Panzerschalen hängen, und einem schweren Maschinengewehr, das ohne die Servos niemand im Laufen führen könnte. Die Rüstung kostet 50 Legierung und 25 Elektronik und kein Deuterium, denn die Gelenkmotoren laufen aus Akkupacks im Rückenpanzer, die in der Kaserne getauscht werden. Mit 120 Struktur ist sie mehr als doppelt so robust wie Sturminfanterie, ihr Angriff steht bei 18, und sie belegt zwei Fertigungsplätze, zwei Transportplätze und einen Rekruten bei 240 Sekunden Grundzeit.
+Die Schwere Infanterie steckt in einer Servo-Panzerrüstung: einem Außenskelett aus Legierungsstreben mit elektrischen Gelenkmotoren, an dem überlappende Panzerschalen hängen, und einem schweren Maschinengewehr, das ohne die Servos niemand im Laufen führen könnte. Die Rüstung kostet 50 Legierung und 25 Elektronik und kein Deuterium, denn die Gelenkmotoren laufen aus Akkupacks im Rückenpanzer, die in der Kaserne getauscht werden. Mit 140 Struktur ist sie fast dreimal so robust wie Sturminfanterie, ihr Angriff steht bei 18, und sie belegt zwei Fertigungsplätze, zwei Transportplätze und einen Rekruten bei 240 Sekunden Grundzeit.
 
 Das Maschinengewehr legt einen Feuerteppich, der auf leicht geschützte Ziele in Bewegung ausgelegt ist, und darum trifft sie Sturminfanterie, Belagerungspioniere, Präzisionsinfanterie und Miliz doppelt, eine andere Schwere Infanterie aber nur einfach, weil deren Schalen den Teppich abschütteln. Gegen Kanonen hilft keine Rüstung, die ein Körper tragen kann: Sturmpanzer und Schwere Kampfpanzer treffen sie doppelt, und der Mörser des Belagerungspanzers trifft sie 2,5-fach, weil sein Steilfeuer genau die Stellungen zerschlägt, in denen Schwere Infanterie am liebsten steht. Präzisionsinfanterie trifft sie dreifach, denn jede Servorüstung hat Gelenke, Sehschlitze und Kühlöffnungen, und ein Scharfschütze braucht nur eine davon.
 
@@ -5618,9 +5677,9 @@ Kreiswächter Corin Erlbruch hielt mit zwei Dutzend Korkeichen einen Hohlweg so 
 
 **Wozu.** Er ist die Panzerabwehr der Fußtruppen gegen schwere und Belagerungspanzer.
 
-**Stärke.** Er trifft Schwere Kampfpanzer und Belagerungspanzer dreifach, Sturmpanzer und Flugabwehrpanzer doppelt.
+**Stärke.** Mit 38 Angriff trifft er Schwere Kampfpanzer und Belagerungspanzer dreifach, Sturmpanzer und Flugabwehrpanzer doppelt.
 
-**Grenzen.** Mit 80 Struktur ist er empfindlich, Schwere Infanterie trifft ihn doppelt, Belagerungspanzer 2,5-fach und Präzisionsinfanterie dreifach.
+**Grenzen.** Seine 135 Struktur schützen ihn nicht vor Schwerer Infanterie, die ihn doppelt trifft, vor Belagerungspanzern (2,5-fach) und Präzisionsinfanterie (dreifach), und bei gleichem Ressourcenwert unterliegt er auch der Sturminfanterie.
 
 > Der Belagerungspionier kriecht dorthin, wo kein Panzer hinsehen kann, und hinterlässt eine Ladung, die auch die dickste Panzerung knackt. Je größer der Koloss, desto größer sein toter Winkel, und genau dort arbeiten Pioniere.
 
@@ -5631,9 +5690,9 @@ Kreiswächter Corin Erlbruch hielt mit zwei Dutzend Korkeichen einen Hohlweg so 
 
 ##### Technisches Dossier
 
-Der Belagerungspionier ist ein Fußtrupp mit leichter Splitterweste, einem Tornister voller Haftladungen, einem Satz Kettenminen und einem tragbaren Panzerbrecher, einem Schulterrohr, das ein Hohlladungsgeschoss mit Deuterium-Treibsatz verschießt. Daher stehen neben 70 Legierung und 50 Elektronik auch 5 Deuterium auf seiner Kostenliste, und die Ausbildung belegt zwei Fertigungsplätze bei 480 Sekunden Grundzeit, länger als bei jeder anderen Fußtruppe, weil Sprengen kein Drill ist, sondern Handwerk. Eine Hohlladung bündelt ihre Sprengkraft über eine kegelförmige Metalleinlage zu einem dünnen Stachel aus fließendem Metall, der Panzerplatten durchdringt, für die ein Vollgeschoss ein Vielfaches an Masse bräuchte.
+Der Belagerungspionier ist ein Fußtrupp mit Splitterweste, einem Tornister voller Haftladungen, einem Satz Kettenminen und einem tragbaren Panzerbrecher, einem Schulterrohr, das ein Hohlladungsgeschoss mit Deuterium-Treibsatz verschießt. Daher stehen neben 70 Legierung und 50 Elektronik auch 5 Deuterium auf seiner Kostenliste, und die Ausbildung belegt zwei Fertigungsplätze bei 480 Sekunden Grundzeit, länger als bei jeder anderen Fußtruppe, weil Sprengen kein Drill ist, sondern Handwerk. Eine Hohlladung bündelt ihre Sprengkraft über eine kegelförmige Metalleinlage zu einem dünnen Stachel aus fließendem Metall, der Panzerplatten durchdringt, für die ein Vollgeschoss ein Vielfaches an Masse bräuchte.
 
-Darum wächst ihr Vorteil mit der Größe des Ziels: Schwere Kampfpanzer und Belagerungspanzer trifft der Pionier dreifach, denn sie sind langsam, ihre Wanne ist breit, ihr toter Winkel an Kettenlaufwerk und Heck ist groß, und eine Haftladung lässt sich dort in Ruhe setzen. Sturmpanzer und Flugabwehrpanzer sind wendiger und kleiner, und gegen sie reicht es noch zum doppelten Treffer. Sein Angriff liegt bei 24, seine Struktur nur bei 80, weil niemand, der sich unter einen Panzer legen muss, eine schwere Rüstung tragen kann.
+Darum wächst ihr Vorteil mit der Größe des Ziels: Schwere Kampfpanzer und Belagerungspanzer trifft der Pionier dreifach, denn sie sind langsam, ihre Wanne ist breit, ihr toter Winkel an Kettenlaufwerk und Heck ist groß, und eine Haftladung lässt sich dort in Ruhe setzen. Sturmpanzer und Flugabwehrpanzer sind wendiger und kleiner, und gegen sie reicht es noch zum doppelten Treffer. Sein Angriff liegt bei 38 und seine Struktur bei 135, fast so viel wie bei der Schweren Infanterie, obwohl niemand, der sich unter einen Panzer legen muss, eine Servorüstung tragen kann: Unter der Weste liegen Sprengschutzplatten, die ihn vor der Wucht der eigenen Ladungen schützen, und er arbeitet aus Deckung und Erdloch heraus.
 
 Das Maschinengewehr der Schweren Infanterie trifft ihn doppelt, der Mörser des Belagerungspanzers 2,5-fach und Präzisionsinfanterie dreifach, weil ein Pionier bei der Arbeit stillhalten muss.
 
@@ -5663,9 +5722,9 @@ Die Wurzelgängerin Hedda Torfbruch zählt nicht die Panzer, die sie gestoppt ha
 
 **Wozu.** Sie fügt gegnerischen Fußtruppen hohen Schaden zu.
 
-**Stärke.** Sie trifft alle Fußtruppen und die Miliz dreifach und braucht nur einen Transportplatz.
+**Stärke.** Mit 85 Angriff und 145 Struktur, beides Höchstwerte unter den Fußtruppen, trifft sie alle Fußtruppen und die Miliz dreifach und braucht nur einen Transportplatz.
 
-**Grenzen.** Mit 35 Struktur ist sie die zerbrechlichste Truppe, gegen Panzer wirkt sie nur mit 0,25 und gegen Drohnen mit 0,5.
+**Grenzen.** Gegen Panzer wirkt sie nur mit 0,25 und gegen Drohnen mit 0,5, Sturmpanzer und Schwere Kampfpanzer treffen sie doppelt, und bei gleichem Ressourcenwert unterliegt sie auch Flugabwehr- und Belagerungspanzern.
 
 > Präzisionsinfanteristen sind geduldig, still und tödlich, und ein einziger Trupp kann eine ganze Infanteriekompanie in Deckung zwingen. Gegen Panzer aber sind ihre Pfeilgeschosse kaum mehr als Nadelstiche.
 
@@ -5676,9 +5735,9 @@ Die Wurzelgängerin Hedda Torfbruch zählt nicht die Panzer, die sie gestoppt ha
 
 ##### Technisches Dossier
 
-Die Präzisionsinfanterie arbeitet in Zweiertrupps mit einer elektromagnetischen Langwaffe, einem verkleinerten Gaußbeschleuniger, der ein nadelschlankes Pfeilgeschoss aus Legierung fast lautlos auf hohe Geschwindigkeit bringt, und einer Zielerfassung mit Ballistikrechner und Entfernungslaser. Darum kostet sie mehr Elektronik als Legierung, 60 zu 45, braucht kein Deuterium, aber zwei Fertigungsplätze bei 300 Sekunden Grundzeit, während sie im Transporter mit einem einzigen Platz auskommt. Ihr Angriff liegt bei 22, doch ihre Wirkung steckt im Treffpunkt: Gegen Sturminfanterie, Schwere Infanterie, Belagerungspioniere, andere Präzisionsschützen und Miliz wirkt sie dreifach, weil der Rechner die Fugen jeder Rüstung kennt, Sehschlitz, Halsring und Servogelenk, und das Pfeilgeschoss genau dort ankommt.
+Die Präzisionsinfanterie arbeitet in Zweiertrupps mit einer elektromagnetischen Langwaffe, einem verkleinerten Gaußbeschleuniger, der ein nadelschlankes Pfeilgeschoss aus Legierung fast lautlos auf hohe Geschwindigkeit bringt, und einer Zielerfassung mit Ballistikrechner und Entfernungslaser. Darum kostet sie mehr Elektronik als Legierung, 60 zu 45, braucht kein Deuterium, aber zwei Fertigungsplätze bei 300 Sekunden Grundzeit, während sie im Transporter mit einem einzigen Platz auskommt. Ihr Angriff liegt bei 85, doch ihre Wirkung steckt im Treffpunkt: Gegen Sturminfanterie, Schwere Infanterie, Belagerungspioniere, andere Präzisionsschützen und Miliz wirkt sie dreifach, weil der Rechner die Fugen jeder Rüstung kennt, Sehschlitz, Halsring und Servogelenk, und das Pfeilgeschoss genau dort ankommt.
 
-Gegen Panzer ist dieselbe Nadel nutzlos und wirkt nur mit 0,25, denn ein Pfeil, der für einen Halsring bemessen ist, zerschellt an einer Wannenplatte. Gegen Drohnen wirkt sie mit 0,5, weil ein kleines, ruckartig fliegendes Ziel für eine Waffe, die einen Atemzug lang zielt, zu flüchtig ist. Mit 35 Struktur ist sie die zerbrechlichste Truppe der Kaserne, denn wer tagelang liegen und lautlos kriechen muss, trägt kaum Panzerung.
+Gegen Panzer ist dieselbe Nadel nutzlos und wirkt nur mit 0,25, denn ein Pfeil, der für einen Halsring bemessen ist, zerschellt an einer Wannenplatte. Gegen Drohnen wirkt sie mit 0,5, weil ein kleines, ruckartig fliegendes Ziel für eine Waffe, die einen Atemzug lang zielt, zu flüchtig ist. Mit 145 Struktur hält ein Trupp dennoch mehr aus als jede andere Fußtruppe, obwohl er kaum Panzerung trägt, denn sein Schutz ist die Stellung: Tarnhülle, Abstand und ein Ausweichplatz, den er vor dem ersten Schuss gewählt hat, machen ihn schwer zu fassen.
 
 Wird ihr Versteck entdeckt, treffen Sturmpanzer, Schwere Infanterie und Schwere Kampfpanzer sie doppelt und andere Präzisionsschützen dreifach, denn im Duell gewinnt, wer zuerst sieht.
 
@@ -5704,9 +5763,9 @@ Die Präzisionsinfanterie entstand im Sternenflug mit Kaserne 3, als die Schwere
 
 **Wozu.** Er ist der Kern jeder Bodenarmee und bekämpft Fußtruppen wie Panzer gleichermaßen.
 
-**Stärke.** Mit 800 Struktur ist er die zäheste Bodeneinheit, trifft Fußtruppen und Miliz doppelt und Panzer 1,5-fach.
+**Stärke.** Mit 1.075 Struktur ist er die zäheste Bodeneinheit und trifft mit 125 Angriff Sturm-, Schwere und Präzisionsinfanterie sowie Miliz doppelt und alle Panzer 1,5-fach.
 
-**Grenzen.** Gegen Drohnen und Pioniere wirkt er nur halb, Kampfdrohnen treffen ihn doppelt, Belagerungsdrohnen und Pioniere dreifach, und er belegt 15 Transportplätze.
+**Grenzen.** Gegen Drohnen und Pioniere wirkt er nur halb, Kampfdrohnen treffen ihn doppelt, Belagerungspanzer 2,5-fach, Belagerungsdrohnen und Pioniere dreifach, und er belegt 15 Transportplätze.
 
 > Der Schwere Kampfpanzer ist die rollende Festung der Bodenarmeen, 14 Meter lang, teuer, schwer zu transportieren und kaum aufzuhalten. Sein Erscheinen verändert die Taktik beider Seiten, denn plötzlich zählt jeder Pionier und jede Drohne.
 
@@ -5717,7 +5776,7 @@ Die Präzisionsinfanterie entstand im Sternenflug mit Kaserne 3, als die Schwere
 
 ##### Technisches Dossier
 
-Der Schwere Kampfpanzer ist ein 14 Meter langer Kettenwagen mit doppelter Wanne und einem Turm mit Hauptkanone und zwei Sekundärwaffen, einem Maschinengewehr neben der Kanone und einem Granatwerfer auf dem Turmdach. Die Hauptkanone ist ein verkleinerter Gaußbeschleuniger, der ein Projektil aus Legierung ohne Treibladung durch die Panzerung eines anderen Kettenwagens jagt, und ihre Kondensatoren lädt eine große Deuteriumturbine, deren Bedarf die 60 Deuterium auf der Kostenliste neben 400 Legierung und 150 Elektronik erklärt. Mit 800 Struktur ist er die zäheste Bodeneinheit, mit 100 Angriff die zweitstärkste, und er trifft Fußtruppen und Miliz doppelt, weil Maschinengewehr und Granatwerfer für weiche Ziele da sind, während die Gaußkanone alle Panzer 1,5-fach trifft.
+Der Schwere Kampfpanzer ist ein 14 Meter langer Kettenwagen mit doppelter Wanne und einem Turm mit Hauptkanone und zwei Sekundärwaffen, einem Maschinengewehr neben der Kanone und einem Granatwerfer auf dem Turmdach. Die Hauptkanone ist ein verkleinerter Gaußbeschleuniger, der ein Projektil aus Legierung ohne Treibladung durch die Panzerung eines anderen Kettenwagens jagt, und ihre Kondensatoren lädt eine große Deuteriumturbine, deren Bedarf die 60 Deuterium auf der Kostenliste neben 400 Legierung und 150 Elektronik erklärt. Mit 1.075 Struktur ist er die zäheste Bodeneinheit, mit 125 Angriff steht er hinter Belagerungspanzer und Belagerungsdrohne an dritter Stelle, und er trifft Sturm-, Schwere und Präzisionsinfanterie sowie Miliz doppelt, weil Maschinengewehr und Granatwerfer für weiche Ziele da sind, während die Gaußkanone alle Panzer 1,5-fach trifft.
 
 Gegen Drohnen und Pioniere wirkt er nur halb, denn seine Kanone lässt sich weder steil genug heben noch tief genug senken, und ein Pionier, der unter der Mündung liegt, ist für sie unerreichbar. Genau dort liegt seine Verwundbarkeit: Belagerungspioniere und Belagerungsdrohnen treffen ihn dreifach, Kampfdrohnen doppelt und der Mörser des Belagerungspanzers 2,5-fach, weil ein großes, langsames Dach das leichteste Ziel für Steilfeuer ist. Vier Besatzungsmitglieder führen ihn, die Kaserne braucht vier Fertigungsplätze und eine Grundzeit von 900 Sekunden, und im Truppentransporter belegt er 15 Plätze, mehr als jede andere Bodeneinheit.
 
@@ -5749,9 +5808,9 @@ Der Kreis von Haldor Eichwall gab eine Tanne nur ein einziges Mal frei, als eine
 
 **Wozu.** Er zerstört schwere Verteidiger am Boden, die direkten Angriffen standhalten.
 
-**Stärke.** Mit 140 Angriff, dem höchsten aller Bodentruppen, trifft er Schwere Infanterie, Pioniere und Schwere Kampfpanzer 2,5-fach.
+**Stärke.** Mit 235 Angriff, dem höchsten aller Bodentruppen, trifft er Schwere Infanterie, Pioniere und Schwere Kampfpanzer 2,5-fach.
 
-**Grenzen.** Er braucht Kaserne 6 und Stufe V, wirkt gegen Drohnen nur mit 0,25 und wird von Drohnen doppelt, von Pionieren und Belagerungsdrohnen dreifach getroffen.
+**Grenzen.** Er braucht Kaserne 6 und Stufe V, hält mit 535 Struktur nur knapp halb so viel aus wie ein Schwerer Kampfpanzer, wirkt gegen Drohnen nur mit 0,25 und wird von Kampfdrohnen doppelt, von Pionieren und Belagerungsdrohnen dreifach getroffen.
 
 > Der Belagerungspanzer ist langsam, schwerfällig und laut, aber wenn er einmal auf seinen Stützen steht, hält keine eingegrabene Stellung lange stand. Seine Besatzungen nennen ihn liebevoll den Hammer, und die Verteidiger nennen ihn anders.
 
@@ -5762,9 +5821,9 @@ Der Kreis von Haldor Eichwall gab eine Tanne nur ein einziges Mal frei, als eine
 
 ##### Technisches Dossier
 
-Der Belagerungspanzer ist eine 18 Meter lange selbstfahrende Artillerie: ein langes Fahrgestell mit hydraulischen Stützen, die vor dem Schuss in den Boden gefahren werden, und ein schwerer Mörser, der seine Granaten im Steilfeuer fast senkrecht auf das Ziel fallen lässt. Mit 140 Angriff hat er den höchsten Angriffswert aller Bodentruppen, und er kostet 350 Legierung, 160 Elektronik und 50 Deuterium, wobei die Elektronik in Ballistikrechner und Bodenradar steckt, das eingegrabene Ziele unter Erde und Tarnung findet. Steilfeuer ist für Ziele gebaut, die sich kaum bewegen und nach vorn gut geschützt sind: Eingegrabene Schwere Infanterie, Belagerungspioniere im Erdloch und Schwere Kampfpanzer in Rampenstellung trifft er 2,5-fach, weil seine Granaten auf Dächer und Deckungen fallen, die nach vorn gebaut sind.
+Der Belagerungspanzer ist eine 18 Meter lange selbstfahrende Artillerie: ein langes Fahrgestell mit hydraulischen Stützen, die vor dem Schuss in den Boden gefahren werden, und ein schwerer Mörser, der seine Granaten im Steilfeuer fast senkrecht auf das Ziel fallen lässt. Mit 235 Angriff hat er den höchsten Angriffswert aller Bodentruppen, und er kostet 350 Legierung, 160 Elektronik und 50 Deuterium, wobei die Elektronik in Ballistikrechner und Bodenradar steckt, das eingegrabene Ziele unter Erde und Tarnung findet. Steilfeuer ist für Ziele gebaut, die sich kaum bewegen und nach vorn gut geschützt sind: Eingegrabene Schwere Infanterie, Belagerungspioniere im Erdloch und Schwere Kampfpanzer in Rampenstellung trifft er 2,5-fach, weil seine Granaten auf Dächer und Deckungen fallen, die nach vorn gebaut sind.
 
-Gegen Drohnen wirkt er nur mit 0,25, denn ein Mörser trifft nichts, was fliegt. Seine Struktur liegt nur bei 300, weniger als beim Sturmpanzer, weil Fahrgestell, Munitionsbunker und Rückstoßdämpfer das Gewicht schlucken, das sonst in Panzerplatten ginge. Kampfdrohnen treffen ihn doppelt, Belagerungspioniere und Belagerungsdrohnen dreifach, denn auf seinen Stützen kann er weder ausweichen noch seinen Mörser auf einen nahen Gegner richten.
+Gegen Drohnen wirkt er nur mit 0,25, denn ein Mörser trifft nichts, was fliegt. Seine Struktur liegt bei 535, mehr als beim Sturmpanzer, aber nur knapp halb so viel wie beim Schweren Kampfpanzer, weil Fahrgestell, Munitionsbunker und Rückstoßdämpfer das Gewicht schlucken, das sonst in Panzerplatten ginge. Kampfdrohnen treffen ihn doppelt, Belagerungspioniere und Belagerungsdrohnen dreifach, denn auf seinen Stützen kann er weder ausweichen noch seinen Mörser auf einen nahen Gegner richten.
 
 Drei Besatzungsmitglieder bedienen ihn, die Kaserne der Stufe 6 belegt vier Fertigungsplätze bei 900 Sekunden Grundzeit, und im Transporter braucht er 12 Plätze.
 
@@ -5790,9 +5849,9 @@ Der Belagerungspanzer ist die jüngste Bodentruppe der Weite und ein Kind des Im
 
 **Wozu.** Er schützt die eigenen Bodentruppen gegen Drohnen aller Art.
 
-**Stärke.** Er trifft Kampf-, Aufklärungs-, Belagerungs- und Reparaturdrohnen dreifach.
+**Stärke.** Mit 115 Angriff trifft er Kampf-, Aufklärungs-, Belagerungs- und Reparaturdrohnen dreifach und hält mit 800 Struktur nach dem Schweren Kampfpanzer am meisten aus.
 
-**Grenzen.** Er greift keine Raumflotten an, wirkt gegen Panzer nur halb und gegen Fußtruppen mit 0,75, und Kampfdrohnen und Pioniere treffen ihn doppelt.
+**Grenzen.** Er greift keine Raumflotten an, wirkt gegen Panzer nur halb und gegen Fußtruppen mit 0,75, Kampfdrohnen und Pioniere treffen ihn doppelt, und bei gleichem Ressourcenwert unterliegt er Schweren Kampfpanzern, die ihn 1,5-fach treffen, und Belagerungspanzern.
 
 > Der Flugabwehrpanzer ist der Grund, warum Drohnenlenker nervös werden, wenn sie ein bestimmtes Radarsignal empfangen. Er entstand, als Drohnenschwärme begannen, ganze Panzerverbände zu zerlegen, und sein Himmel endet über den Wolken, denn Raumflotten erreicht er nicht.
 
@@ -5803,9 +5862,9 @@ Der Belagerungspanzer ist die jüngste Bodentruppe der Weite und ein Kind des Im
 
 ##### Technisches Dossier
 
-Der Flugabwehrpanzer ist ein Kettenwagen mit flachem Turm, auf dem ein schwenkbares Phasenradar aus Kristallemittern und ein Vierling aus schnell feuernden Maschinenkanonen sitzen, deren Granaten mit Annäherungszündern in einer Splitterwolke vor dem Ziel zerplatzen. Das Prinzip stammt von der Punktverteidigung der Schiffe: viele kleine, schnell schwenkende Läufe, deren Feuerleitung auf kleine, schnelle Ziele eingemessen ist und nach jedem Abschuss sofort auf die nächste Drohne umschwenkt. Darum trifft er Kampf-, Aufklärungs-, Belagerungs- und Reparaturdrohnen dreifach, denn eine Drohne mit 45 bis 100 Struktur zerreißt in einer Splitterwolke, die einen Panzer nur verkratzt.
+Der Flugabwehrpanzer ist ein Kettenwagen mit flachem Turm, auf dem ein schwenkbares Phasenradar aus Kristallemittern und ein Vierling aus schnell feuernden Maschinenkanonen sitzen, deren Granaten mit Annäherungszündern in einer Splitterwolke vor dem Ziel zerplatzen. Das Prinzip stammt von der Punktverteidigung der Schiffe: viele kleine, schnell schwenkende Läufe, deren Feuerleitung auf kleine, schnelle Ziele eingemessen ist und nach jedem Abschuss sofort auf die nächste Drohne umschwenkt. Darum trifft er Kampf-, Aufklärungs-, Belagerungs- und Reparaturdrohnen dreifach, denn eine Drohne mit 45 bis 290 Struktur zerreißt in einer Splitterwolke, die einen Panzer nur verkratzt.
 
-Gegen Panzer wirkt er deshalb nur halb und gegen Fußtruppen und Miliz mit 0,75, weil sein Radar Kämpfer in Deckung schlecht sieht und seine Splitter für Rotoren, nicht für Westen bemessen sind. Raumflotten greift er nicht an, denn seine Läufe und sein Radar reichen in den niedrigen Himmel über dem Gefechtsfeld und nicht bis in den Orbit. Mit 55 Angriff und 350 Struktur ist er gepanzert wie ein Kampfwagen, aber sein Blick geht nach oben: Kampfdrohnen, die seinem Vierling entgehen, und Belagerungspioniere, die sich am Boden heranschleichen, treffen ihn doppelt.
+Gegen Panzer wirkt er deshalb nur halb und gegen Fußtruppen und Miliz mit 0,75, weil sein Radar Kämpfer in Deckung schlecht sieht und seine Splitter für Rotoren, nicht für Westen bemessen sind. Raumflotten greift er nicht an, denn seine Läufe und sein Radar reichen in den niedrigen Himmel über dem Gefechtsfeld und nicht bis in den Orbit. Mit 115 Angriff und 800 Struktur ist er gepanzert wie ein schwerer Kampfwagen und nach dem Schweren Kampfpanzer die zäheste Bodeneinheit, aber sein Blick geht nach oben: Kampfdrohnen, die seinem Vierling entgehen, und Belagerungspioniere, die sich am Boden heranschleichen, treffen ihn doppelt, und die Gaußkanone des Schweren Kampfpanzers trifft ihn 1,5-fach.
 
 Er kostet 240 Legierung, 140 Elektronik und 30 Deuterium, braucht drei Besatzungsmitglieder und drei Fertigungsplätze bei 660 Sekunden Grundzeit und belegt im Transporter 10 Plätze.
 
@@ -5876,9 +5935,9 @@ Die Veyari erzählen daraus eine Lehre über Geduld: Wer genug gesehen hat, brau
 
 **Wozu.** Sie ist spezialisiert auf schwere Panzer und Belagerungspanzer.
 
-**Stärke.** Sie trifft Schwere Kampfpanzer und Belagerungspanzer dreifach und braucht dafür keine Besatzung.
+**Stärke.** Mit 150 Angriff trifft sie Schwere Kampfpanzer und Belagerungspanzer dreifach und braucht dafür keine Besatzung.
 
-**Grenzen.** Gegen Fußtruppen wirkt sie nur halb, sie hat mit 80 Struktur wenig Schutz gegen Gegenfeuer, und Flugabwehrpanzer treffen sie dreifach.
+**Grenzen.** Gegen Fußtruppen und Miliz wirkt sie nur halb, Flugabwehrpanzer treffen sie dreifach, und mit 290 Struktur unterliegt sie bei gleichem Ressourcenwert auch Sturminfanterie, Schwerer Infanterie und Präzisionsinfanterie.
 
 > Die Belagerungsdrohne stürzt sich wie ein Falke auf die schwersten Panzer und setzt ihre Tandemladung an der dünnsten Stelle der Panzerung ab. Sie ist teuer, empfindlich und für ihre Gegner verheerend.
 
@@ -5889,15 +5948,15 @@ Die Veyari erzählen daraus eine Lehre über Geduld: Wer genug gesehen hat, brau
 
 ##### Technisches Dossier
 
-Die Belagerungsdrohne ist die schwere Schwester der Kampfdrohne: ein breiterer Schwebekörper mit sechs Hubrotoren, der unter dem Bauch eine Tandemhohlladung trägt, deren Vorladung die äußere Plattenschicht aufbricht, bevor die Hauptladung ihren Stachel durch die eigentliche Panzerung treibt. Mit 45 Angriff trifft sie Schwere Kampfpanzer und Belagerungspanzer dreifach, denn je dicker eine Platte, desto mehr lohnt die zweistufige Ladung, und je größer und langsamer ein Ziel, desto sicherer der Anflug. Gegen Sturmpanzer, Flugabwehrpanzer und andere Drohnen wirkt sie nur einfach, gegen Fußtruppen und Miliz nur halb, denn eine Ladung, die durch Basaltstahl gehen soll, ist an einem einzelnen Fußsoldaten verschwendet.
+Die Belagerungsdrohne ist die schwere Schwester der Kampfdrohne: ein breiterer Schwebekörper mit sechs Hubrotoren, der unter dem Bauch eine Tandemhohlladung trägt, deren Vorladung die äußere Plattenschicht aufbricht, bevor die Hauptladung ihren Stachel durch die eigentliche Panzerung treibt. Mit 150 Angriff trifft sie Schwere Kampfpanzer und Belagerungspanzer dreifach, denn je dicker eine Platte, desto mehr lohnt die zweistufige Ladung, und je größer und langsamer ein Ziel, desto sicherer der Anflug. Gegen Sturmpanzer, Flugabwehrpanzer und andere Drohnen wirkt sie nur einfach, gegen Fußtruppen und Miliz nur halb, denn eine Ladung, die durch Basaltstahl gehen soll, ist an einem einzelnen Fußsoldaten verschwendet.
 
-Den Endanflug fliegt sie mit Trägheitsnavigation und einer Bildsuche, die keinen Funk mehr braucht, und darum trifft der Drohnenstörer der Sturminfanterie sie nicht stärker als jedes andere Ziel. Ihre 80 Struktur sind der Preis der schweren Ladung, denn der Rahmen ist so leicht wie möglich gebaut, damit sie die Last überhaupt heben kann. Der Flugabwehrpanzer trifft sie dreifach, und eine Belagerungsdrohne, die sein Radar einmal erfasst hat, erreicht ihr Ziel selten.
+Den Endanflug fliegt sie mit Trägheitsnavigation und einer Bildsuche, die keinen Funk mehr braucht, und darum trifft der Drohnenstörer der Sturminfanterie sie nicht stärker als jedes andere Ziel. Ihre 290 Struktur liegen über denen der Kampfdrohne, weil der breitere Rahmen die schwere Ladung tragen muss, doch gebaut ist er so leicht wie möglich, damit sie die Last überhaupt heben kann. Der Flugabwehrpanzer trifft sie dreifach, und eine Belagerungsdrohne, die sein Radar einmal erfasst hat, erreicht ihr Ziel selten.
 
 Sie braucht kein Personal, kostet 100 Legierung, 160 Elektronik und 20 Deuterium und belegt drei Fertigungsplätze bei 480 Sekunden Grundzeit und drei Transportplätze.
 
 ##### Chronik
 
-Die Belagerungsdrohne entstand im Sternenflug mit Kaserne 5, auf derselben Kasernenstufe wie der Schwere Kampfpanzer, und sie war die Antwort der Drohnenbauer auf seine 800 Struktur, an denen eine gewöhnliche Kampfdrohne zu lange arbeitete. Dass sie im Imperium auch den Belagerungspanzer dreifach trifft, lag nicht an einer Absicht, sondern an seiner Bauart, denn auch er ist groß, langsam und nach oben dünn. Gegen sie half nur, was es schon gab: der Flugabwehrpanzer der Kaserne 4, den sie nie überlisten lernte. Die Krath sagen, mit ihr habe der Bodenkrieg aufgehört, eine Sache der Größe zu sein.
+Die Belagerungsdrohne entstand im Sternenflug mit Kaserne 5, auf derselben Kasernenstufe wie der Schwere Kampfpanzer, und sie war die Antwort der Drohnenbauer auf seine 1.075 Struktur, an denen eine gewöhnliche Kampfdrohne zu lange arbeitete. Dass sie im Imperium auch den Belagerungspanzer dreifach trifft, lag nicht an einer Absicht, sondern an seiner Bauart, denn auch er ist groß, langsam und nach oben dünn. Gegen sie half nur, was es schon gab: der Flugabwehrpanzer der Kaserne 4, den sie nie überlisten lernte. Die Krath sagen, mit ihr habe der Bodenkrieg aufgehört, eine Sache der Größe zu sein.
 
 ##### Volksakten
 
@@ -6423,7 +6482,7 @@ Die Kreise schützen mit dem Schleier weniger ihre Schiffe als ihre Ruhe, denn w
 
 **Stärke.** Jeder Satellit erzeugt 33 Energie mal Sonnenfaktor seiner Bahn, von 39,6 auf der innersten bis 26,4 auf der äußersten Bahn (100 Prozent auf Platz 6, 120 Prozent auf Platz 1, 80 Prozent auf dem letzten Platz), plus 5 Prozent je Stufe Energietechnik und Volksbonus, kostet nur 2.000 Kristall und 500 Deuterium und braucht weder Besatzung, Feld noch Unterhalt.
 
-**Grenzen.** Als wehrlose Anlage mit 2.000 Struktur und 1 Schild fliegt er nie, reist durch kein Hyperraumloch, kämpft bei jeder Verteidigung mit, wird danach nicht wiederaufgebaut und hinterlässt 600 Kristall Trümmer, während Schlachtkreuzer Schnellfeuer 5 und Weltenkrümmer Schnellfeuer 64 gegen ihn haben.
+**Grenzen.** Als wehrlose Anlage mit 2.000 Struktur und 1 Schild fliegt er nie, reist durch kein Hyperraumloch, kämpft bei jeder Verteidigung mit, wird danach nicht wiederaufgebaut und hinterlässt 600 Kristall Trümmer, während der Weltenkrümmer Schnellfeuer 64 gegen ihn hat.
 
 > Solarsatelliten sind die stillen Arbeiter des Orbits, zu Hunderten aufgereiht wie glitzernde Perlen um eine Welt, und sie senden ihren Strom als gebündelten Mikrowellenstrahl zum Boden. Sie fallen jedem Angreifer als Erste zum Opfer, und doch baut man sie immer wieder, weil nichts billiger Strom liefert.
 
@@ -6438,7 +6497,7 @@ Der Solarsatellit ist ein unbemanntes Kollektorsegel von 180 Metern Spannweite: 
 
 Er braucht weder Besatzung noch Bauplatz noch Unterhalt und kostet nur 2.000 Kristall für die Folie und 500 Deuterium für den einen Aufstieg in den Orbit, den er in seinem Leben macht. Gebaut wird er ab Stufe II mit einer Werft der Stufe 1, über jedem eigenen Planeten und vor allem über Monden, auf denen er neben der Mondbasis die einzige Energiequelle ist. Seine Schwäche ist, dass er nichts anderes kann: Mit 2.000 Struktur und einem Schirm von 1 kennt er nicht einmal den Schwellreflex, jeder Splitter trifft, und er hat keinen Angriff, kein Triebwerk und reist durch kein Hyperraumloch.
 
-Bei jeder Verteidigung seiner Welt kämpft er als Ziel mit, und Schlachtkreuzer haben Schnellfeuer 5, Weltenkrümmer Schnellfeuer 64 gegen ihn. Anders als Geschütze wird ein zerstörter Satellit nach dem Gefecht nicht wieder aufgebaut, weil sein Segel im Orbit zerreißt und keine Bodenmannschaft es erreicht, und von ihm bleiben 600 Kristall als Trümmer.
+Bei jeder Verteidigung seiner Welt kämpft er als Ziel mit, und der Weltenkrümmer hat Schnellfeuer 64 gegen ihn. Anders als Geschütze wird ein zerstörter Satellit nach dem Gefecht nicht wieder aufgebaut, weil sein Segel im Orbit zerreißt und keine Bodenmannschaft es erreicht, und von ihm bleiben 600 Kristall als Trümmer.
 
 ##### Chronik
 

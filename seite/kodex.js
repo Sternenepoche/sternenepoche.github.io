@@ -8,6 +8,8 @@ function zeichnung(key,faction){const b=wo(key);if(!['flotte','boden'].includes(
  const w=da.find(x=>x[0]===stil)||da[0];
  return `<section class="kodex-zeichnung"><h3>Technische Zeichnungen</h3><div class="kodex-stile" role="group" aria-label="Zeichnung wählen">${da.map(([s,t])=>`<button type="button" data-stil="${s}" aria-pressed="${s===w[0]}">${t}</button>`).join('')}</div><figure><button type="button" data-gross="${esc(w[2])}" data-titel="${esc(w[1]+' · '+name(key))}"><img src="${esc(w[2])}" alt="${esc(w[1]+': '+name(key))}" loading="lazy"></button><figcaption>${esc(w[1])} · ${esc(name(key))} · Bauart ${esc(VOLK[faction])}</figcaption></figure></section>`;}
 document.getElementById('detail').addEventListener('click',e=>{const s=e.target.closest('[data-stil]');if(s){stil=s.dataset.stil;render();}});
+function atlasVerweis(key){if(!window.KRAEFTEATLAS_INDEX?.ids?.includes(key))return '';
+ return `<p class="kodex-atlas"><a class="button" href="Kraefteatlas.html#e=${encodeURIComponent(key)}">Kräfteatlas: Konter und Gefechte · ${esc(name(key))}</a></p>`;}
 
 const data=JSON.parse(document.getElementById('fleet-data').textContent),el=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),fmt=n=>Number(n||0).toLocaleString('de-DE',{maximumFractionDigits:1}),ART=window.STERNEN_ART||{},names=ART.names||{};
 const VOLK={aurelianer:'Aurelianer',krath:'Krath',syntheten:'Syntheten',veyari:'Veyari'};
@@ -77,7 +79,7 @@ function render(){const faction=el('faction').value,f=data.factions[faction],que
  info();
  if(!k){el('detail').innerHTML='<div class="codex-copy">Keine passenden Einträge.</div>';return;}
  const inhalt={flotte:()=>flotte(k,faction),boden:()=>boden(k),raketen:()=>rakete(k),mond:()=>mond(k),wunder:()=>wunder(k,faction)}[bereich]();
- el('detail').innerHTML=picture(k,true)+`<div class="codex-copy">${inhalt}${zeichnung(k,faction)}${archiv(k,faction)}</div>`;}
+ el('detail').innerHTML=picture(k,true)+`<div class="codex-copy">${inhalt}${zeichnung(k,faction)}${atlasVerweis(k)}${archiv(k,faction)}</div>`;}
 const baum=()=>{const k=chosen.flotte;if(bereich==='flotte'&&k)window.PublicTechnologyTree?.select((['verteidigung','schild'].includes(data.units[k].klasse)?'defenses:':'ships:')+k);};
 const zeige=()=>el('detail').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'});
 function waehle(k){const b=wo(k);if(!b)return;if(b!==bereich){bereich=b;el('search').value='';}if(b==='flotte'&&el('class').value&&data.units[k].klasse!==el('class').value)el('class').value='';chosen[b]=k;render();baum();zeige();}

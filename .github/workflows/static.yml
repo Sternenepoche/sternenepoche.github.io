@@ -39,7 +39,7 @@ jobs:
           python3 - <<'PY'
           import os, subprocess
           before = os.environ.get('BEFORE', '')
-          public_files = {'Trailer.html', 'Hoerchronik.html', 'Technologiebaum.html', 'Weltenkruemmer.html', 'Lore.html', 'content/beschreibungen.json', 'web-client/ai-labels.js', 'web-client/three.min.js',
+          public_files = {'Trailer.html', 'Hoerchronik.html', 'Technologiebaum.html', 'Kraefteatlas.html', 'Weltenkruemmer.html', 'Lore.html', 'content/beschreibungen.json', 'web-client/ai-labels.js', 'web-client/three.min.js',
               'index.html', 'KI-Hinweis.html', 'Sternenepoche-Start.html',
               'Sternenepoche-Handbuch.html', 'Sternenepoche-Kodex.html', 'Harness-Cockpit.html',
               'Download.html', 'sitemap.xml', 'robots.txt', 'llms.txt', '_config.yml',
@@ -54,7 +54,7 @@ jobs:
               backend = True
           else:
               paths = subprocess.check_output(['git', 'diff', '--name-only', before, 'HEAD'], text=True).splitlines()
-              backend = any(p not in public_files and not p.startswith(('docs/', 'web-client/assets/', 'web-client/techbaum/', 'web-client/fonts/', 'seite/', 'tools/website/', 'lore/')) for p in paths)
+              backend = any(p not in public_files and not p.startswith(('docs/', 'web-client/assets/', 'web-client/techbaum/', 'web-client/kraefteatlas/', 'web-client/fonts/', 'seite/', 'tools/website/', 'lore/')) for p in paths)
           with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
               out.write('backend=' + str(backend).lower() + '\n')
           print('Game checks required:', backend)

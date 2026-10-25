@@ -38,6 +38,8 @@ FOTOS = [
     ("galaxie-3d", "flotten", "atlas", True),
     ("mond", "monde", "mond", True), ("grossprojekt", "dyson", "grossprojekt", True),
     ("lage", "lage", "reich", False),
+    # 0.4.8: Einsatzblatt (Flottenauftrag mit Lage und Simulation) und Invasion in Wellen (invasion_ui_fixture).
+    ("einsatz", "flotten", "einsatz:angriff", True), ("invasion", "invasion", "reich", True),
 ]
 
 
@@ -67,6 +69,17 @@ def seite(browser, server, groesse, fehler):
 
 
 def gehe(p, ziel):
+    if ziel.startswith("einsatz:"):
+        # Einsatzblatt wie aus der Galaxie „Angriff planen“: ausgespähtes Ziel, Vorlage, Simulation (Lage am Ziel).
+        k = p.evaluate("() => (view.berichte || []).map(b => b.ziel)[0] || ''")
+        p.evaluate("(o) => window.Einsatz?.oeffnen(o)", {"ziel": k, "mission": ziel.split(":")[1]}); time.sleep(2.5)
+        for _ in range(3):
+            if p.evaluate("() => document.getElementById('einsatz-blatt')?.dataset.esStufe") == "flotte":
+                break
+            p.evaluate("() => document.querySelector('#einsatz-blatt [data-es-weiter]')?.click()"); time.sleep(1.5)
+        p.evaluate("() => document.querySelector('#einsatz-blatt [data-es-vorlage]')?.click()"); time.sleep(1.5)
+        p.evaluate("() => document.querySelector('#einsatz-blatt [data-es-sim]')?.click()"); time.sleep(5)
+        return
     if ziel == "mond":
         # Seit 0.4.1 öffnet die Planetenwahl den Mond (Mondseite.oeffne); der alte Seitenleisten-Link bleibt Rückfall.
         k = p.evaluate("() => { const m = view.monde || {}; const l = [...(m.eigene || []), ...(m.monde || [])];"
@@ -83,8 +96,8 @@ def gehe(p, ziel):
         time.sleep(4); return
     if ziel == "bericht":
         # Einen Bericht in der Berichtansicht öffnen (erster Eintrag der Liste).
-        gehe(p, "berichte"); time.sleep(2)
-        p.evaluate("() => { const l = document.getElementById('berichte') || document;"
+        gehe(p, "briefkasten"); time.sleep(2)
+        p.evaluate("() => { const l = document.getElementById('messages') || document;"
                    " const b = l.querySelector('[data-report-open], [data-report], .report-row button, .report-row, li button, details summary');"
                    " b?.click(); }")
         time.sleep(2.5); return
@@ -191,13 +204,13 @@ def main():
                 for name, _, ziel, _ in auftrag:
                     try:
                         # Vorheriges Foto aufräumen: Techbaum-Dossier, Techinfo, Berichtansicht und andere Dialoge schließen.
-                        p.evaluate("() => { window.TechbaumSpiel?.schliessen?.(); document.querySelectorAll('dialog[open]').forEach(d => d.close()); }")
+                        p.evaluate("() => { window.TechbaumSpiel?.schliessen?.(); window.Einsatz?.schliessen?.(); document.querySelectorAll('dialog[open]').forEach(d => d.close()); }")
                         time.sleep(1.5)
                         gehe(p, ziel)
                     except Exception as e:
                         print("NICHT ERREICHT", name, str(e)[:120]); continue
                     time.sleep(3)
-                    if not ziel.startswith(("technik:", "archiv:", "info:", "atlas")):
+                    if not ziel.startswith(("technik:", "archiv:", "info:", "atlas", "einsatz:")):
                         p.evaluate("() => window.scrollTo(0, 0)")
                     datei = name + ("-handy" if groesse == HANDY else "") + ".webp"
                     Image.open(io.BytesIO(p.screenshot(timeout=150000))).convert("RGB").save(OUT / datei, "WEBP", quality=84, method=6)

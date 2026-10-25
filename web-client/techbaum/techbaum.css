@@ -722,3 +722,8 @@ details.akte p{margin:0 0 9px;color:#cfe1ee;font-size:13px}
   .welt.stand-an .knoten.st-gesperrt .kachel img{filter:none;opacity:.3}
   .welt.fokus .knoten:not(.gewaehlt):not(.vor):not(.nach),.welt.volksfokus .knoten:not(.volk-betroffen){filter:none}
 }
+/* Kräfteatlas-Sprung im Dossier (techbaum.js atlasBlock) */
+.d-atlas{display:grid;gap:2px;justify-items:start;text-align:left;min-height:48px;padding:7px 14px;margin:2px 0 4px;border-color:rgba(226,191,125,.55)}
+.d-atlas b{font:600 13px var(--titel);letter-spacing:.06em;color:var(--gold,#e2bf7d)}
+.d-atlas small{font-size:11.5px;color:inherit;opacity:.85}
+.d-atlas:hover{border-color:var(--gold,#e2bf7d)}

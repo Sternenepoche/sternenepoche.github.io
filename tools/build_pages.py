@@ -51,7 +51,7 @@ def prepare(out:Path):
     out.mkdir(parents=True,exist_ok=False)
     approved=[]
     tracked=set(subprocess.check_output(['git','ls-files','-z'],cwd=ROOT).decode('utf-8').split('\0'))
-    for name in ['Trailer.html','Hoerchronik.html','Technologiebaum.html','Weltenkruemmer.html','Lore.html','index.html','KI-Hinweis.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html','Sternenepoche-Kodex.html','Harness-Cockpit.html','Download.html','docs/android-download.json','_config.yml','llms.txt','robots.txt','sitemap.xml','docs/spielguide.json','docs/flottenkodex.json','docs/technologie-regeln.json','docs/spielguide.txt','docs/branding/sternenepoche-neuralstern-512.gif']:
+    for name in ['Trailer.html','Hoerchronik.html','Technologiebaum.html','Kraefteatlas.html','Weltenkruemmer.html','Lore.html','index.html','KI-Hinweis.html','Sternenepoche-Start.html','Sternenepoche-Handbuch.html','Sternenepoche-Kodex.html','Harness-Cockpit.html','Download.html','docs/android-download.json','_config.yml','llms.txt','robots.txt','sitemap.xml','docs/spielguide.json','docs/flottenkodex.json','docs/technologie-regeln.json','docs/spielguide.txt','docs/branding/sternenepoche-neuralstern-512.gif']:
         file=ROOT/name
         if file.is_file(): approved.append(file)
     # Deliberate file list: the sibling admin directory must never be packaged.
@@ -92,7 +92,7 @@ def prepare(out:Path):
     # Technologiebaum-Logo, der Technologiebaum selbst und die Oxanium-Schrift. Nur versionierte Dateien.
     web={'.css','.js','.webp','.png','.jpg','.webm','.mp4','.woff2'}
     for folder,endungen in [('seite',web),('docs/website/fotos',{'.webp'}),('docs/website/medien',web|{'.json','.ogg'}),
-                            ('docs/website/logo',{'.webp','.png'}),('web-client/techbaum',{'.css','.js'}),('web-client/assets/klein',{'.webp'}),('web-client/fonts',{'.woff2'})]:
+                            ('docs/website/logo',{'.webp','.png'}),('web-client/techbaum',{'.css','.js'}),('web-client/kraefteatlas',{'.css','.js'}),('web-client/assets/klein',{'.webp'}),('web-client/fonts',{'.woff2'})]:
         approved.extend(p for p in sorted((ROOT/folder).rglob('*')) if p.is_file() and p.suffix.lower() in endungen
                         and 'kandidaten' not in p.parts and (folder!='docs/website/logo' or p.name.startswith('techbaum-logo'))
                         and p.relative_to(ROOT).as_posix() in tracked and not p.is_symlink())

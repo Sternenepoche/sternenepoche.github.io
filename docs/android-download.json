@@ -1,37 +1,37 @@
 {
-  "version": "0.4.6",
-  "code": 26,
-  "datei": "Sternenepoche-0.4.6.apk",
-  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.6-20261024/Sternenepoche-0.4.6.apk",
-  "sha256": "5fb30080928ead18f30e61303c7c2e5d790ce1eaa3cf9eb1e9ddd95e3f662f18",
-  "bytes": 186989283,
-  "groesse_mb": 178.3,
+  "version": "0.4.8",
+  "code": 29,
+  "datei": "Sternenepoche-0.4.8.apk",
+  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.8-20261025/Sternenepoche-0.4.8.apk",
+  "sha256": "b7e99029cc943b5f1a0ff762695f2678a25c395e97b97fb44af070f123eae604",
+  "bytes": 191032035,
+  "groesse_mb": 182.2,
   "abis": [
     "arm64-v8a",
     "x86_64"
   ],
-  "stand": "24.10.2026",
+  "stand": "25.10.2026",
   "min_android": "8.0",
-  "hinweis": "Kolonisation mit Siedlergruppen, Garnison und Startfracht; eigene Planetennamen; baubare Einheiten im Vordergrund. Kompakte Systemtabelle mit Direktspionage, Ein-Sonden-Systemscan, Abbauplanung und Aufklärungsarchiv. Rettung von Besatzungen aus Trümmerfeldern. Neue Reiche starten mit zwei Habitatmodulen; Bevölkerungswachstum 70 Prozent je Tag.",
+  "hinweis": "Jeder Flottenauftrag über ein Einsatzblatt; „kein Rückflug“ und gestrandete Flotten, die man versorgt, weiterfliegt oder übergibt. Invasion in Wellen mit Verteidigungslinien, Miliz je Volk, „verwüstet“ und Reparieren für 75 Prozent der Stufe. Kolonieplätze über Terraforming, neu abgestimmte Kampfwerte mit Mehrfachfeuer, Bestandstabellen je Planet.",
   "varianten": [
     {
       "art": "lite",
-      "datei": "Sternenepoche-0.4.6-lite.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.6-20261024/Sternenepoche-0.4.6-lite.apk",
-      "sha256": "82bfbb66ea4252630f4574c63443b6c79b87874f123d42830c814e7216d236ea",
-      "bytes": 97995341,
-      "groesse_mb": 93.5,
+      "datei": "Sternenepoche-0.4.8-lite.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.8-20261025/Sternenepoche-0.4.8-lite.apk",
+      "sha256": "1608241ef05926d92e3c0e8afff9871a2e0ad75179f7d78e9da08943abca7131",
+      "bytes": 99994189,
+      "groesse_mb": 95.4,
       "abis": [
         "arm64-v8a"
       ]
     },
     {
       "art": "voll",
-      "datei": "Sternenepoche-0.4.6.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.6-20261024/Sternenepoche-0.4.6.apk",
-      "sha256": "5fb30080928ead18f30e61303c7c2e5d790ce1eaa3cf9eb1e9ddd95e3f662f18",
-      "bytes": 186989283,
-      "groesse_mb": 178.3,
+      "datei": "Sternenepoche-0.4.8.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.8-20261025/Sternenepoche-0.4.8.apk",
+      "sha256": "b7e99029cc943b5f1a0ff762695f2678a25c395e97b97fb44af070f123eae604",
+      "bytes": 191032035,
+      "groesse_mb": 182.2,
       "abis": [
         "arm64-v8a",
         "x86_64"

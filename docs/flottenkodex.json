@@ -79,7 +79,7 @@
     "leichter_jaeger": {
       "struktur": 4000,
       "schild": 10,
-      "angriff": 50,
+      "angriff": 270,
       "ladung": 50,
       "tempo": 12500,
       "verbrauch": 20,
@@ -93,7 +93,7 @@
       "antrieb": "verbrennungsantrieb",
       "braucht": {},
       "schnellfeuer": {},
-      "wirkung": "Günstiger Schwarmjäger; effizient gegen Raketenkreuzer und Frachter.",
+      "wirkung": "Günstiger Schwarmjäger: jagt Raketenkreuzer und Schlachtschiffe, plündert Frachter; verliert gegen Kreuzer, Lasergeschütze und Abfangschirme.",
       "klasse": "jaeger",
       "label": "Leichter Jäger",
       "voraussetzungen": {},
@@ -109,13 +109,13 @@
       "tempo": 4000,
       "verbrauch": 40,
       "besatzung": 20,
-      "ab_stufe": 3,
+      "ab_stufe": 2,
       "werft": 2,
       "kosten": {
-        "erz": 8000,
-        "kristall": 4000,
-        "deuterium": 2000,
-        "legierung": 100
+        "erz": 5000,
+        "kristall": 2500,
+        "deuterium": 1000,
+        "legierung": 50
       },
       "antrieb": "verbrennungsantrieb",
       "braucht": {},
@@ -129,9 +129,9 @@
       "max_anzahl": 0
     },
     "kreuzer": {
-      "struktur": 27000,
-      "schild": 50,
-      "angriff": 400,
+      "struktur": 29000,
+      "schild": 54,
+      "angriff": 2200,
       "ladung": 800,
       "tempo": 15000,
       "verbrauch": 300,
@@ -148,11 +148,11 @@
       "antrieb": "impulsantrieb",
       "braucht": {},
       "schnellfeuer": {
-        "spionagesonde": 5,
         "leichter_jaeger": 6,
-        "raketenwerfer": 10
+        "abfangjaeger": 3,
+        "sturmjaeger": 3
       },
-      "wirkung": "Schwarmabwehr und Eskorte gegen leichte Jäger; verliert gegen schwere Schiffsartillerie.",
+      "wirkung": "Geleitkreuzer gegen Jägerschwärme: Schnellfeuer gegen leichte, Sturm- und Abfangjäger; verliert gegen Schlachtschiffe, Zerstörer und Schlachtkreuzer.",
       "klasse": "kreuzer",
       "label": "Kreuzer",
       "voraussetzungen": {},
@@ -243,9 +243,9 @@
       "max_anzahl": 0
     },
     "schlachtschiff": {
-      "struktur": 60000,
-      "schild": 200,
-      "angriff": 5000,
+      "struktur": 68000,
+      "schild": 230,
+      "angriff": 4500,
       "ladung": 1500,
       "tempo": 10000,
       "verbrauch": 500,
@@ -261,10 +261,8 @@
       },
       "antrieb": "hyperraumantrieb",
       "braucht": {},
-      "schnellfeuer": {
-        "spionagesonde": 5
-      },
-      "wirkung": "Schwere Allzweckartillerie; trifft Bomber doppelt; braucht Jägereskorte gegen Torpedokreuzer.",
+      "schnellfeuer": {},
+      "wirkung": "Linienschiff gegen Kreuzer: jagt Kreuzer und Flottenkreuzer, erfasst Schild- und Raketenkreuzer und Bomber; verliert gegen Zerstörer, Schlachtkreuzer und Jägerschwärme.",
       "klasse": "schlachter",
       "label": "Schlachtschiff",
       "voraussetzungen": {},
@@ -273,9 +271,9 @@
       "max_anzahl": 0
     },
     "bomber": {
-      "struktur": 75000,
-      "schild": 500,
-      "angriff": 1000,
+      "struktur": 63000,
+      "schild": 420,
+      "angriff": 2100,
       "ladung": 500,
       "tempo": 5000,
       "verbrauch": 1000,
@@ -293,12 +291,11 @@
       "antrieb": "hyperraumantrieb",
       "braucht": {},
       "schnellfeuer": {
-        "raketenwerfer": 20,
-        "lasergeschuetz": 20,
-        "ionengeschuetz": 10,
-        "gausskanone": 5
+        "raketenwerfer": 10,
+        "lasergeschuetz": 8,
+        "ionengeschuetz": 3
       },
-      "wirkung": "Spezialisierte Bodenbekämpfung; jede bewaffnete Einheit trifft Bomber, schwere Jäger und Plasmawerfer dreifach, Schlachtschiffe und Flottenkreuzer doppelt.",
+      "wirkung": "Bodenbekämpfung: vier Ziele und Schnellfeuer gegen Raketenwerfer, Lasergeschütze und Ionengeschütze; im Flottenkampf schwach – braucht Geleit gegen Schwere Jäger und Flottenkreuzer.",
       "klasse": "bomber",
       "label": "Bomber",
       "voraussetzungen": {},
@@ -307,9 +304,9 @@
       "max_anzahl": 0
     },
     "zerstoerer": {
-      "struktur": 110000,
-      "schild": 500,
-      "angriff": 8000,
+      "struktur": 170000,
+      "schild": 760,
+      "angriff": 7100,
       "ladung": 2000,
       "tempo": 5000,
       "verbrauch": 1000,
@@ -331,10 +328,9 @@
       "schnellfeuer": {
         "kreuzer": 3,
         "schlachtschiff": 2,
-        "lasergeschuetz": 10,
         "schlachtkreuzer": 2
       },
-      "wirkung": "Linienbrecher gegen Kreuzer und Schlachtschiffe; anfällig gegen Sturmjäger.",
+      "wirkung": "Linienbrecher: dreifacher Schaden gegen Schlachtschiffe, Belagerer und Schwere Schlachtkreuzer, Schnellfeuer gegen Kreuzer; verliert gegen Sturmjäger und Sturmschlachtschiffe.",
       "klasse": "zerstoerer",
       "label": "Zerstörer",
       "voraussetzungen": {},
@@ -343,9 +339,9 @@
       "max_anzahl": 0
     },
     "raketenwerfer": {
-      "struktur": 6000,
-      "schild": 60,
-      "angriff": 240,
+      "struktur": 3000,
+      "schild": 30,
+      "angriff": 160,
       "ab_stufe": 2,
       "kosten": {
         "erz": 2000
@@ -353,7 +349,7 @@
       "antrieb": null,
       "braucht": {},
       "schnellfeuer": {},
-      "wirkung": "Günstige Masse gegen Torpedo- und Raketenkreuzer; leichte Laser-Jägerabwehr ergänzt sie.",
+      "wirkung": "Günstige Masse gegen Kreuzer und Raketenkreuzer; fällt gegen Bomber.",
       "klasse": "verteidigung",
       "label": "Raketenwerfer",
       "voraussetzungen": {},
@@ -367,9 +363,9 @@
       "max_anzahl": 0
     },
     "lasergeschuetz": {
-      "struktur": 6000,
-      "schild": 75,
-      "angriff": 300,
+      "struktur": 3300,
+      "schild": 42,
+      "angriff": 91,
       "ab_stufe": 2,
       "kosten": {
         "erz": 1500,
@@ -378,7 +374,7 @@
       "antrieb": null,
       "braucht": {},
       "schnellfeuer": {},
-      "wirkung": "Zwei getrennte Ziele gegen leichte Jäger; schwach gegen schwere Schiffspanzerung.",
+      "wirkung": "Zwei Ziele gegen leichte, Abfang- und Sturmjäger; fällt gegen Bomber.",
       "klasse": "verteidigung",
       "label": "Lasergeschütz",
       "voraussetzungen": {},
@@ -392,9 +388,9 @@
       "max_anzahl": 0
     },
     "ionengeschuetz": {
-      "struktur": 24000,
-      "schild": 1500,
-      "angriff": 450,
+      "struktur": 14000,
+      "schild": 860,
+      "angriff": 540,
       "ab_stufe": 3,
       "kosten": {
         "erz": 5000,
@@ -404,7 +400,7 @@
       "antrieb": null,
       "braucht": {},
       "schnellfeuer": {},
-      "wirkung": "Schildbrecher: doppelter Schaden auf Schilde; geringere Wirkung auf gepanzerte Rümpfe.",
+      "wirkung": "Schildbrecher: doppelter Schaden auf Schilde, dreifach gegen Schildkreuzer, jagt Schlachtschiffe; fällt gegen Bomber und Belagerungsschlachtschiffe.",
       "klasse": "verteidigung",
       "label": "Ionengeschütz",
       "voraussetzungen": {},
@@ -418,9 +414,9 @@
       "max_anzahl": 0
     },
     "gausskanone": {
-      "struktur": 105000,
-      "schild": 600,
-      "angriff": 3300,
+      "struktur": 71000,
+      "schild": 400,
+      "angriff": 2100,
       "ab_stufe": 4,
       "kosten": {
         "erz": 20000,
@@ -431,7 +427,7 @@
       "antrieb": null,
       "braucht": {},
       "schnellfeuer": {},
-      "wirkung": "Ein präziser panzerbrechender Schuss gegen Großschiffe; geringe Effizienz gegen Jägerschwärme.",
+      "wirkung": "Panzerbrechender Schuss gegen Schlachtschiffe und Zerstörer; fällt gegen Strategische Bomber und Belagerungsschlachtschiffe.",
       "klasse": "verteidigung",
       "label": "Gaußkanone",
       "voraussetzungen": {},
@@ -445,9 +441,9 @@
       "max_anzahl": 0
     },
     "plasmawerfer": {
-      "struktur": 75000,
-      "schild": 500,
-      "angriff": 3000,
+      "struktur": 290000,
+      "schild": 1900,
+      "angriff": 8200,
       "ab_stufe": 5,
       "kosten": {
         "erz": 50000,
@@ -459,7 +455,7 @@
       "antrieb": null,
       "braucht": {},
       "schnellfeuer": {},
-      "wirkung": "Schwere Bomberabwehr; teuer und besonders empfindlich gegen schwere Jäger und strategische Bomber.",
+      "wirkung": "Schwere Bomberabwehr (dreifacher Schaden), erfasst Schlachtschiffe; fällt gegen Strategische Bomber, schwere Jäger und Belagerungsschlachtschiffe.",
       "klasse": "verteidigung",
       "label": "Plasmawerfer",
       "voraussetzungen": {},
@@ -506,9 +502,9 @@
     "abfangjaeger": {
       "label": "Abfangjäger",
       "klasse": "jaeger",
-      "struktur": 7000,
-      "schild": 80,
-      "angriff": 110,
+      "struktur": 8400,
+      "schild": 96,
+      "angriff": 1200,
       "ladung": 100,
       "tempo": 18000,
       "verbrauch": 28,
@@ -526,7 +522,7 @@
       "braucht": {},
       "schnellfeuer": {},
       "max_anzahl": 0,
-      "wirkung": "Schneller Abfangschirm gegen leichte und Sturmjäger; schwach gegen Panzerverbände.",
+      "wirkung": "Jäger gegen Jäger: jagt leichte, Sturm- und schwere Jäger, erfasst Bomber; verliert gegen Kreuzer, Schildkreuzer und Trägerschlachtschiffe.",
       "voraussetzungen": {
         "impulsantrieb": 1,
         "waffentechnik": 1
@@ -537,9 +533,9 @@
     "schwerer_jaeger": {
       "label": "Schwerer Jäger",
       "klasse": "jaeger",
-      "struktur": 16000,
-      "schild": 250,
-      "angriff": 420,
+      "struktur": 13000,
+      "schild": 200,
+      "angriff": 460,
       "ladung": 120,
       "tempo": 9000,
       "verbrauch": 80,
@@ -557,7 +553,7 @@
       "braucht": {},
       "schnellfeuer": {},
       "max_anzahl": 0,
-      "wirkung": "Zwei getrennte Ziele pro Runde; fängt Bomber ab und überwindet Plasmaanlagen. Langsam, hoher Verbrauch; empfindlich gegen Zerstörer.",
+      "wirkung": "Zwei Ziele je Runde: fängt Bomber ab (dreifacher Schaden) und knackt Plasmawerfer; verliert gegen Schildkreuzer, Abfangjäger und Abfangzerstörer.",
       "voraussetzungen": {
         "impulsantrieb": 2,
         "schildtechnik": 3,
@@ -569,9 +565,9 @@
     "sturmjaeger": {
       "label": "Sturmjäger",
       "klasse": "jaeger",
-      "struktur": 11000,
-      "schild": 100,
-      "angriff": 500,
+      "struktur": 20000,
+      "schild": 180,
+      "angriff": 1300,
       "ladung": 80,
       "tempo": 14500,
       "verbrauch": 60,
@@ -589,7 +585,7 @@
       "braucht": {},
       "schnellfeuer": {},
       "max_anzahl": 0,
-      "wirkung": "Torpedojäger gegen Zerstörer; verwundbar gegen Abfangjäger und eskortierende Kreuzer.",
+      "wirkung": "Torpedojäger: dreifacher Schaden gegen alle Zerstörer, erfasst Belagerungs- und Sturmschlachtschiffe; verliert gegen Kreuzer, Trägerschlachtschiffe und Lasergeschütze.",
       "voraussetzungen": {
         "impulsantrieb": 3,
         "waffentechnik": 3
@@ -662,9 +658,9 @@
     "raketenkreuzer": {
       "label": "Raketenkreuzer",
       "klasse": "kreuzer",
-      "struktur": 32000,
-      "schild": 80,
-      "angriff": 2400,
+      "struktur": 55000,
+      "schild": 140,
+      "angriff": 4100,
       "ladung": 1000,
       "tempo": 10000,
       "verbrauch": 380,
@@ -682,7 +678,7 @@
       "braucht": {},
       "schnellfeuer": {},
       "max_anzahl": 0,
-      "wirkung": "Langstreckensalven gegen Schlachtschiffe; geringe Nahabwehr gegen Jägerschwärme.",
+      "wirkung": "Langstreckensalven gegen Sturm- und Trägerschlachtschiffe, erfasst Schlachtschiffe und Belagerer; verliert gegen leichte Jäger, Raketenwerfer und Schwere Schlachtkreuzer.",
       "voraussetzungen": {
         "waffentechnik": 4,
         "computertechnik": 2
@@ -693,9 +689,9 @@
     "schildkreuzer": {
       "label": "Schildkreuzer",
       "klasse": "kreuzer",
-      "struktur": 60000,
+      "struktur": 75000,
       "schild": 3000,
-      "angriff": 1200,
+      "angriff": 1500,
       "ladung": 900,
       "tempo": 8500,
       "verbrauch": 360,
@@ -711,9 +707,12 @@
         "elektronik": 200
       },
       "braucht": {},
-      "schnellfeuer": {},
+      "schnellfeuer": {
+        "abfangjaeger": 3,
+        "schwerer_jaeger": 3
+      },
       "max_anzahl": 0,
-      "wirkung": "Stark geschirmte Eskorte gegen schwere Jäger; begrenzte Durchschlagsleistung gegen schwere Panzerung.",
+      "wirkung": "Stark geschirmte Eskorte: zwei Ziele, dreifacher Schaden und Schnellfeuer gegen schwere Jäger und Abfangjäger; verliert gegen Schlachtschiffe, Zerstörer und Ionengeschütze.",
       "voraussetzungen": {
         "schildtechnik": 5,
         "energietechnik": 4
@@ -724,9 +723,9 @@
     "flottenkreuzer": {
       "label": "Flottenkreuzer",
       "klasse": "kreuzer",
-      "struktur": 65000,
-      "schild": 350,
-      "angriff": 850,
+      "struktur": 110000,
+      "schild": 600,
+      "angriff": 2700,
       "ladung": 1600,
       "tempo": 7500,
       "verbrauch": 650,
@@ -747,7 +746,7 @@
       },
       "schnellfeuer": {},
       "max_anzahl": 0,
-      "wirkung": "Größter mittlerer Kreuzer: drei getrennte Ziele, Bomberabwehr; teuer und langsamer als leichte Kreuzer.",
+      "wirkung": "Größter mittlerer Kreuzer: drei Ziele gegen Bomber und Jäger; verliert gegen Schlachtschiffe, Schwere Schlachtkreuzer und Ionengeschütze.",
       "voraussetzungen": {
         "hyperraumantrieb": 1,
         "computertechnik": 4,
@@ -759,9 +758,9 @@
     "sturmschlachtschiff": {
       "label": "Sturmschlachtschiff",
       "klasse": "schlachter",
-      "struktur": 85000,
-      "schild": 250,
-      "angriff": 5000,
+      "struktur": 160000,
+      "schild": 480,
+      "angriff": 8700,
       "ladung": 1400,
       "tempo": 8500,
       "verbrauch": 850,
@@ -782,7 +781,7 @@
       },
       "schnellfeuer": {},
       "max_anzahl": 0,
-      "wirkung": "Vorstoß gegen Zerstörer; hohe Treibstoffkosten und schwache Deckung gegen Bomber.",
+      "wirkung": "Vorstoß gegen Zerstörer: dreifacher Schaden gegen Zerstörer und Schwere Zerstörer; verliert gegen leichte Jäger, Raketenkreuzer und Gauß-/Ionengeschütze.",
       "voraussetzungen": {
         "hyperraumantrieb": 2,
         "waffentechnik": 6,
@@ -794,9 +793,9 @@
     "traegerschlachtschiff": {
       "label": "Trägerschlachtschiff",
       "klasse": "schlachter",
-      "struktur": 75000,
-      "schild": 400,
-      "angriff": 650,
+      "struktur": 140000,
+      "schild": 770,
+      "angriff": 2000,
       "ladung": 2000,
       "tempo": 7000,
       "verbrauch": 750,
@@ -817,7 +816,7 @@
       },
       "schnellfeuer": {},
       "max_anzahl": 0,
-      "wirkung": "Vier getrennte Ziele gegen Jägerschwärme; Bomber erfassbar; geringe Wirkung gegen schwere Linien.",
+      "wirkung": "Vier Ziele je Runde: dreifacher Schaden gegen leichte, Abfang- und Sturmjäger, erfasst Bomber; verliert gegen Raketenkreuzer, Schwere Zerstörer und Gauß-/Ionengeschütze.",
       "voraussetzungen": {
         "computertechnik": 6,
         "schildtechnik": 5
@@ -828,9 +827,9 @@
     "belagerungsschlachtschiff": {
       "label": "Belagerungsschlachtschiff",
       "klasse": "schlachter",
-      "struktur": 400000,
-      "schild": 3000,
-      "angriff": 22000,
+      "struktur": 130000,
+      "schild": 1000,
+      "angriff": 5900,
       "ladung": 1000,
       "tempo": 4500,
       "verbrauch": 1400,
@@ -849,9 +848,13 @@
       "braucht": {
         "orbitalwerft": 2
       },
-      "schnellfeuer": {},
+      "schnellfeuer": {
+        "ionengeschuetz": 5,
+        "gausskanone": 2,
+        "plasmawerfer": 2
+      },
       "max_anzahl": 0,
-      "wirkung": "Schwere Belagerungsartillerie gegen Bodenanlagen; langsam und empfindlich gegen Zerstörer.",
+      "wirkung": "Belagerungsartillerie mit Schnellfeuer gegen Ionengeschütze, Gaußkanonen und Plasmawerfer, trifft Planetenschilde doppelt; im Flottenkampf schwach – braucht Geleit gegen Zerstörer und Sturmjäger.",
       "voraussetzungen": {
         "waffentechnik": 7,
         "xenomaterialkunde": 2
@@ -862,9 +865,9 @@
     "strategischer_bomber": {
       "label": "Strategischer Bomber",
       "klasse": "bomber",
-      "struktur": 100000,
-      "schild": 650,
-      "angriff": 13000,
+      "struktur": 110000,
+      "schild": 740,
+      "angriff": 7600,
       "ladung": 600,
       "tempo": 3800,
       "verbrauch": 1700,
@@ -883,9 +886,12 @@
       "braucht": {
         "orbitalwerft": 2
       },
-      "schnellfeuer": {},
+      "schnellfeuer": {
+        "gausskanone": 3,
+        "plasmawerfer": 3
+      },
       "max_anzahl": 0,
-      "wirkung": "Schild- und Plasmabrecher; höchster Treibstoffbedarf, benötigt Abfangschutz.",
+      "wirkung": "Schild- und Plasmabrecher mit Schnellfeuer gegen Plasmawerfer und Gaußkanonen, trifft Planetenschilde dreifach; im Flottenkampf schwach – braucht Abfangschutz gegen Jäger und Flottenkreuzer.",
       "voraussetzungen": {
         "hyperraumantrieb": 3,
         "waffentechnik": 8,
@@ -897,9 +903,9 @@
     "abfangzerstoerer": {
       "label": "Abfangzerstörer",
       "klasse": "zerstoerer",
-      "struktur": 65000,
-      "schild": 200,
-      "angriff": 3000,
+      "struktur": 120000,
+      "schild": 380,
+      "angriff": 2300,
       "ladung": 1000,
       "tempo": 11000,
       "verbrauch": 650,
@@ -920,7 +926,7 @@
       },
       "schnellfeuer": {},
       "max_anzahl": 0,
-      "wirkung": "Drei getrennte Ziele gegen Jäger; verwundbar gegen schwere Schlachtschiffe.",
+      "wirkung": "Drei Ziele gegen Jäger: dreifacher Schaden gegen schwere Jäger, jagt Abfangjäger; verliert gegen Sturmjäger und Sturmschlachtschiffe.",
       "voraussetzungen": {
         "computertechnik": 5,
         "waffentechnik": 5
@@ -932,8 +938,8 @@
       "label": "Schwerer Zerstörer",
       "klasse": "zerstoerer",
       "struktur": 300000,
-      "schild": 800,
-      "angriff": 20000,
+      "schild": 790,
+      "angriff": 8100,
       "ladung": 2400,
       "tempo": 3500,
       "verbrauch": 1900,
@@ -954,7 +960,7 @@
       },
       "schnellfeuer": {},
       "max_anzahl": 0,
-      "wirkung": "Zwei getrennte Ziele; höchste Durchschlagsleistung gegen Großschiffe; teuer, langsam und torpedoempfindlich.",
+      "wirkung": "Zwei Ziele, dreifacher Schaden gegen Schlachtschiffe und Belagerungsschlachtschiffe; teuer und langsam, verliert gegen Sturmjäger und Sturmschlachtschiffe.",
       "voraussetzungen": {
         "hyperraumantrieb": 4,
         "waffentechnik": 9,
@@ -1236,9 +1242,9 @@
       "max_anzahl": 0
     },
     "schlachtkreuzer": {
-      "struktur": 70000,
-      "schild": 400,
-      "angriff": 1200,
+      "struktur": 88000,
+      "schild": 500,
+      "angriff": 7000,
       "ladung": 750,
       "tempo": 12500,
       "verbrauch": 250,
@@ -1257,15 +1263,11 @@
         "orbitalwerft": 2
       },
       "schnellfeuer": {
-        "spionagesonde": 5,
-        "kleiner_transporter": 3,
-        "grosser_transporter": 3,
         "kreuzer": 4,
         "schlachtschiff": 7,
-        "schwerer_jaeger": 4,
-        "solarsonde": 5
+        "schwerer_jaeger": 4
       },
-      "wirkung": "Linien-Schlachtkreuzer: schnell, sparsam, Schnellfeuer gegen Schlachtschiffe und Kreuzer; Zerstörer, Sturmschlachtschiffe, schwere Jäger und Weltenkrümmer kontern ihn",
+      "wirkung": "Linien-Schlachtkreuzer: Schnellfeuer gegen Schlachtschiffe, Kreuzer und schwere Jäger, schnell und sparsam; verliert gegen Zerstörer, Jägerschwärme und Anlagen.",
       "klasse": "schlachtkreuzer",
       "label": "Schlachtkreuzer",
       "voraussetzungen": {
@@ -1279,9 +1281,9 @@
       "max_anzahl": 0
     },
     "abfang_schlachtkreuzer": {
-      "struktur": 50000,
-      "schild": 250,
-      "angriff": 600,
+      "struktur": 69000,
+      "schild": 350,
+      "angriff": 1700,
       "ladung": 600,
       "tempo": 16000,
       "verbrauch": 220,
@@ -1300,7 +1302,6 @@
         "orbitalwerft": 2
       },
       "schnellfeuer": {
-        "spionagesonde": 5,
         "leichter_jaeger": 6,
         "bomber": 3,
         "abfangjaeger": 4,
@@ -1308,7 +1309,7 @@
         "sturmjaeger": 4,
         "strategischer_bomber": 2
       },
-      "wirkung": "Abfang-Schlachtkreuzer: schnellster Großkampfträger, drei Ziele je Runde, Schnellfeuer gegen Jäger und Bomber; dünne Panzerung",
+      "wirkung": "Schnellster Großkampfträger: drei Ziele und Schnellfeuer gegen alle Jäger und Bomber; verliert gegen Linienschiffe, Zerstörer und Gaußkanonen.",
       "klasse": "schlachtkreuzer",
       "label": "Abfang-Schlachtkreuzer",
       "voraussetzungen": {
@@ -1322,9 +1323,9 @@
       "max_anzahl": 0
     },
     "schwerer_schlachtkreuzer": {
-      "struktur": 120000,
-      "schild": 1200,
-      "angriff": 2500,
+      "struktur": 160000,
+      "schild": 1600,
+      "angriff": 10000,
       "ladung": 1500,
       "tempo": 8000,
       "verbrauch": 600,
@@ -1349,7 +1350,7 @@
         "schildkreuzer": 2,
         "flottenkreuzer": 3
       },
-      "wirkung": "Schwerer Schlachtkreuzer: langsames, schwer gepanzertes Flaggschiff gegen Linien- und Torpedokreuzer; Zerstörer und Schlachtschiffe halten dagegen",
+      "wirkung": "Flaggschiff gegen Schlachtschiffe, Flotten- und Raketenkreuzer; langsam und teuer, verliert gegen Zerstörer, Jägerschwärme und Anlagen.",
       "klasse": "schlachtkreuzer",
       "label": "Schwerer Schlachtkreuzer",
       "voraussetzungen": {
@@ -1361,6 +1362,37 @@
       "motiv": "a massive armored flagship battlecruiser with a command tower, heavy spinal cannon and layered hull plates",
       "neu": true,
       "antrieb": "hyperraumantrieb",
+      "max_anzahl": 0
+    },
+    "terraformer": {
+      "struktur": 25000,
+      "schild": 50,
+      "angriff": 0,
+      "ladung": 0,
+      "tempo": 3500,
+      "verbrauch": 400,
+      "besatzung": 40,
+      "ab_stufe": 4,
+      "werft": 4,
+      "kosten": {
+        "erz": 12000,
+        "kristall": 9000,
+        "deuterium": 6000,
+        "legierung": 600,
+        "elektronik": 400
+      },
+      "antrieb": "impulsantrieb",
+      "braucht": {},
+      "schnellfeuer": {},
+      "wirkung": "formt Klima und Kruste eines Planeten oder freien Platzes für dein Volk, bis zu +40 Felder; wird beim Einsatz verbraucht",
+      "klasse": "terraforming",
+      "label": "Terraformer",
+      "voraussetzungen": {
+        "terraforming": 1,
+        "impulsantrieb": 3
+      },
+      "motiv": "a bulky planetary terraforming ship with atmosphere processor towers, seeding pods, a deep crust drilling rig and radiator fins",
+      "neu": true,
       "max_anzahl": 0
     }
   },
@@ -1410,11 +1442,13 @@
     },
     "leichter_jaeger": {
       "klasse": "jaeger",
-      "rolle": "Günstiger Schwarmjäger; effizient gegen Raketenkreuzer und Frachter.",
+      "rolle": "Günstiger Schwarmjäger: jagt Raketenkreuzer und Schlachtschiffe, plündert Frachter; verliert gegen Kreuzer, Lasergeschütze und Abfangschirme.",
       "ziele": 1,
       "schadensfaktoren": {
         "kleiner_transporter": 1.5,
         "grosser_transporter": 1.5,
+        "recycler": 1.5,
+        "schlachtschiff": 2.0,
         "schnellfrachter": 1.5,
         "schwerlastfrachter": 1.5,
         "raketenkreuzer": 2.5,
@@ -1423,7 +1457,19 @@
       "voraussetzungen": {},
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "raketenkreuzer",
+        "schlachtschiff"
+      ],
+      "sekundaer": [
+        "kleiner_transporter",
+        "grosser_transporter",
+        "schnellfrachter",
+        "schwerlastfrachter",
+        "handelsfrachter",
+        "recycler"
+      ]
     },
     "bergbauschiff": {
       "klasse": "bergbau",
@@ -1443,18 +1489,30 @@
     },
     "kreuzer": {
       "klasse": "kreuzer",
-      "rolle": "Schwarmabwehr und Eskorte gegen leichte Jäger; verliert gegen schwere Schiffsartillerie.",
+      "rolle": "Geleitkreuzer gegen Jägerschwärme: Schnellfeuer gegen leichte, Sturm- und Abfangjäger; verliert gegen Schlachtschiffe, Zerstörer und Schlachtkreuzer.",
       "ziele": 1,
       "schadensfaktoren": {
+        "kleiner_transporter": 1.5,
+        "grosser_transporter": 1.5,
         "leichter_jaeger": 2.0,
-        "abfangjaeger": 1.5,
+        "abfangjaeger": 2.0,
         "schwerer_jaeger": 1.5,
         "sturmjaeger": 2.0
       },
       "voraussetzungen": {},
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "leichter_jaeger",
+        "sturmjaeger",
+        "abfangjaeger"
+      ],
+      "sekundaer": [
+        "schwerer_jaeger",
+        "kleiner_transporter",
+        "grosser_transporter"
+      ]
     },
     "recycler": {
       "klasse": "bergung",
@@ -1484,8 +1542,7 @@
         "sturmjaeger": 2.0
       },
       "voraussetzungen": {
-        "impulsantrieb": 2,
-        "astrophysik": 1
+        "impulsantrieb": 2
       },
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
@@ -1509,58 +1566,92 @@
     },
     "schlachtschiff": {
       "klasse": "schlachter",
-      "rolle": "Schwere Allzweckartillerie; trifft Bomber doppelt; braucht Jägereskorte gegen Torpedokreuzer.",
-      "ziele": 1,
-      "schadensfaktoren": {
-        "kreuzer": 1.5,
-        "bomber": 2.0,
-        "schildkreuzer": 1.5,
-        "flottenkreuzer": 1.5,
-        "strategischer_bomber": 2.0
-      },
-      "voraussetzungen": {},
-      "schildfaktor": 1.0,
-      "kolonie_minen": 0,
-      "siedler": 0
-    },
-    "bomber": {
-      "klasse": "bomber",
-      "rolle": "Spezialisierte Bodenbekämpfung. Bevorzugte Bomberabwehr erhält Zielboni; andere Gegner treffen mit Grundschaden.",
-      "ziele": 4,
-      "schadensfaktoren": {
-        "raketenwerfer": 2.0,
-        "lasergeschuetz": 2.0,
-        "ionengeschuetz": 2.0,
-        "gausskanone": 1.5,
-        "plasmawerfer": 1.5
-      },
-      "voraussetzungen": {},
-      "schildfaktor": 1.0,
-      "kolonie_minen": 0,
-      "siedler": 0
-    },
-    "zerstoerer": {
-      "klasse": "zerstoerer",
-      "rolle": "Linienbrecher gegen Kreuzer und Schlachtschiffe; anfällig gegen Sturmjäger.",
+      "rolle": "Linienschiff gegen Kreuzer: jagt Kreuzer und Flottenkreuzer, erfasst Schild- und Raketenkreuzer und Bomber; verliert gegen Zerstörer, Schlachtkreuzer und Jägerschwärme.",
       "ziele": 1,
       "schadensfaktoren": {
         "kreuzer": 2.0,
-        "schlachtschiff": 2.0,
-        "schwerer_jaeger": 2.0,
-        "belagerungsschlachtschiff": 5.0,
-        "schlachtkreuzer": 1.5
+        "bomber": 1.5,
+        "raketenkreuzer": 1.5,
+        "schildkreuzer": 1.5,
+        "flottenkreuzer": 2.0,
+        "strategischer_bomber": 1.5
       },
       "voraussetzungen": {},
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "kreuzer",
+        "flottenkreuzer"
+      ],
+      "sekundaer": [
+        "schildkreuzer",
+        "raketenkreuzer",
+        "bomber",
+        "strategischer_bomber"
+      ]
     },
-    "raketenwerfer": {
-      "klasse": "verteidigung",
-      "rolle": "Günstige Masse gegen Torpedo- und Raketenkreuzer; leichte Laser-Jägerabwehr ergänzt sie.",
+    "bomber": {
+      "klasse": "bomber",
+      "rolle": "Bodenbekämpfung: vier Ziele und Schnellfeuer gegen Raketenwerfer, Lasergeschütze und Ionengeschütze; im Flottenkampf schwach – braucht Geleit gegen Schwere Jäger und Flottenkreuzer.",
+      "ziele": 4,
+      "schadensfaktoren": {
+        "raketenwerfer": 1.5,
+        "lasergeschuetz": 1.5,
+        "ionengeschuetz": 1.5,
+        "gausskanone": 1.2,
+        "plasmawerfer": 1.2
+      },
+      "voraussetzungen": {},
+      "schildfaktor": 1.0,
+      "kolonie_minen": 0,
+      "siedler": 0,
+      "primaer": [
+        "raketenwerfer",
+        "lasergeschuetz",
+        "ionengeschuetz"
+      ],
+      "sekundaer": [
+        "gausskanone",
+        "plasmawerfer"
+      ]
+    },
+    "zerstoerer": {
+      "klasse": "zerstoerer",
+      "rolle": "Linienbrecher: dreifacher Schaden gegen Schlachtschiffe, Belagerer und Schwere Schlachtkreuzer, Schnellfeuer gegen Kreuzer; verliert gegen Sturmjäger und Sturmschlachtschiffe.",
       "ziele": 1,
       "schadensfaktoren": {
         "kreuzer": 1.5,
+        "schlachtschiff": 3.0,
+        "schildkreuzer": 1.5,
+        "belagerungsschlachtschiff": 3.0,
+        "schlachtkreuzer": 1.5,
+        "abfang_schlachtkreuzer": 1.5,
+        "schwerer_schlachtkreuzer": 3.0
+      },
+      "voraussetzungen": {},
+      "schildfaktor": 1.0,
+      "kolonie_minen": 0,
+      "siedler": 0,
+      "primaer": [
+        "belagerungsschlachtschiff",
+        "schlachtschiff",
+        "schwerer_schlachtkreuzer"
+      ],
+      "sekundaer": [
+        "schildkreuzer",
+        "kreuzer",
+        "schlachtkreuzer",
+        "abfang_schlachtkreuzer"
+      ]
+    },
+    "raketenwerfer": {
+      "klasse": "verteidigung",
+      "rolle": "Günstige Masse gegen Kreuzer und Raketenkreuzer; fällt gegen Bomber.",
+      "ziele": 1,
+      "schadensfaktoren": {
+        "leichter_jaeger": 1.5,
+        "kreuzer": 2.0,
         "raketenkreuzer": 2.0,
         "schildkreuzer": 1.5,
         "flottenkreuzer": 1.5
@@ -1568,49 +1659,80 @@
       "voraussetzungen": {},
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "kreuzer",
+        "raketenkreuzer"
+      ],
+      "sekundaer": [
+        "schildkreuzer",
+        "flottenkreuzer",
+        "leichter_jaeger"
+      ]
     },
     "lasergeschuetz": {
       "klasse": "verteidigung",
-      "rolle": "Zwei getrennte Ziele gegen leichte Jäger; schwach gegen schwere Schiffspanzerung.",
+      "rolle": "Zwei Ziele gegen leichte, Abfang- und Sturmjäger; fällt gegen Bomber.",
       "ziele": 2,
       "schadensfaktoren": {
         "leichter_jaeger": 2.0,
+        "kreuzer": 1.5,
         "abfangjaeger": 2.0,
         "schwerer_jaeger": 1.5,
-        "sturmjaeger": 1.5
+        "sturmjaeger": 2.0
       },
       "voraussetzungen": {},
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "leichter_jaeger",
+        "abfangjaeger",
+        "sturmjaeger"
+      ],
+      "sekundaer": [
+        "schwerer_jaeger",
+        "kreuzer"
+      ]
     },
     "ionengeschuetz": {
       "klasse": "verteidigung",
-      "rolle": "Schildbrecher: doppelter Schaden auf Schilde; geringere Wirkung auf gepanzerte Rümpfe.",
+      "rolle": "Schildbrecher: doppelter Schaden auf Schilde, dreifach gegen Schildkreuzer, jagt Schlachtschiffe; fällt gegen Bomber und Belagerungsschlachtschiffe.",
       "ziele": 1,
       "schadensfaktoren": {
         "kreuzer": 1.5,
         "schlachtschiff": 2.0,
         "zerstoerer": 1.5,
-        "schildkreuzer": 2.0,
+        "schildkreuzer": 3.0,
         "flottenkreuzer": 1.5,
         "sturmschlachtschiff": 2.0,
         "traegerschlachtschiff": 2.0,
-        "belagerungsschlachtschiff": 2.0,
-        "schwerer_zerstoerer": 1.5
+        "schwerer_zerstoerer": 1.5,
+        "schwerer_schlachtkreuzer": 1.5
       },
       "voraussetzungen": {},
       "schildfaktor": 2.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "schildkreuzer",
+        "schlachtschiff",
+        "sturmschlachtschiff",
+        "traegerschlachtschiff"
+      ],
+      "sekundaer": [
+        "kreuzer",
+        "flottenkreuzer",
+        "zerstoerer",
+        "schwerer_zerstoerer",
+        "schwerer_schlachtkreuzer"
+      ]
     },
     "gausskanone": {
       "klasse": "verteidigung",
-      "rolle": "Ein präziser panzerbrechender Schuss gegen Großschiffe; geringe Effizienz gegen Jägerschwärme.",
+      "rolle": "Panzerbrechender Schuss gegen Schlachtschiffe und Zerstörer; fällt gegen Strategische Bomber und Belagerungsschlachtschiffe.",
       "ziele": 1,
       "schadensfaktoren": {
-        "kreuzer": 1.5,
         "schlachtschiff": 2.0,
         "zerstoerer": 2.0,
         "raketenkreuzer": 1.5,
@@ -1618,30 +1740,53 @@
         "flottenkreuzer": 1.5,
         "sturmschlachtschiff": 2.0,
         "traegerschlachtschiff": 2.0,
-        "belagerungsschlachtschiff": 2.0,
-        "schwerer_zerstoerer": 2.0
+        "schwerer_zerstoerer": 3.0,
+        "schlachtkreuzer": 1.5,
+        "abfang_schlachtkreuzer": 1.5,
+        "schwerer_schlachtkreuzer": 1.5
       },
       "voraussetzungen": {},
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "schlachtschiff",
+        "sturmschlachtschiff",
+        "traegerschlachtschiff",
+        "zerstoerer",
+        "schwerer_zerstoerer"
+      ],
+      "sekundaer": [
+        "schlachtkreuzer",
+        "abfang_schlachtkreuzer",
+        "schwerer_schlachtkreuzer",
+        "raketenkreuzer",
+        "schildkreuzer",
+        "flottenkreuzer"
+      ]
     },
     "plasmawerfer": {
       "klasse": "verteidigung",
-      "rolle": "Schwere Bomberabwehr; teuer und besonders empfindlich gegen schwere Jäger und strategische Bomber.",
+      "rolle": "Schwere Bomberabwehr (dreifacher Schaden), erfasst Schlachtschiffe; fällt gegen Strategische Bomber, schwere Jäger und Belagerungsschlachtschiffe.",
       "ziele": 1,
       "schadensfaktoren": {
         "schlachtschiff": 1.5,
         "bomber": 3.0,
         "sturmschlachtschiff": 1.5,
-        "traegerschlachtschiff": 1.5,
-        "belagerungsschlachtschiff": 1.5,
-        "strategischer_bomber": 3.0
+        "traegerschlachtschiff": 1.5
       },
       "voraussetzungen": {},
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "bomber"
+      ],
+      "sekundaer": [
+        "schlachtschiff",
+        "sturmschlachtschiff",
+        "traegerschlachtschiff"
+      ]
     },
     "planetenschild": {
       "klasse": "schild",
@@ -1658,12 +1803,14 @@
     },
     "abfangjaeger": {
       "klasse": "jaeger",
-      "rolle": "Schneller Abfangschirm gegen leichte und Sturmjäger; schwach gegen Panzerverbände.",
+      "rolle": "Jäger gegen Jäger: jagt leichte, Sturm- und schwere Jäger, erfasst Bomber; verliert gegen Kreuzer, Schildkreuzer und Trägerschlachtschiffe.",
       "ziele": 1,
       "schadensfaktoren": {
         "leichter_jaeger": 2.0,
-        "schwerer_jaeger": 1.5,
-        "sturmjaeger": 2.0
+        "bomber": 1.5,
+        "schwerer_jaeger": 2.0,
+        "sturmjaeger": 2.0,
+        "strategischer_bomber": 1.5
       },
       "voraussetzungen": {
         "impulsantrieb": 1,
@@ -1671,15 +1818,25 @@
       },
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "leichter_jaeger",
+        "sturmjaeger",
+        "schwerer_jaeger"
+      ],
+      "sekundaer": [
+        "bomber",
+        "strategischer_bomber"
+      ]
     },
     "schwerer_jaeger": {
       "klasse": "jaeger",
-      "rolle": "Zwei getrennte Ziele pro Runde; fängt Bomber ab und überwindet Plasmaanlagen. Langsam, hoher Verbrauch; empfindlich gegen Zerstörer.",
+      "rolle": "Zwei Ziele je Runde: fängt Bomber ab (dreifacher Schaden) und knackt Plasmawerfer; verliert gegen Schildkreuzer, Abfangjäger und Abfangzerstörer.",
       "ziele": 2,
       "schadensfaktoren": {
         "bomber": 3.0,
-        "plasmawerfer": 4.0,
+        "plasmawerfer": 3.0,
+        "belagerungsschlachtschiff": 1.5,
         "strategischer_bomber": 3.0
       },
       "voraussetzungen": {
@@ -1689,16 +1846,26 @@
       },
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "bomber",
+        "strategischer_bomber"
+      ],
+      "sekundaer": [
+        "plasmawerfer",
+        "belagerungsschlachtschiff"
+      ]
     },
     "sturmjaeger": {
       "klasse": "jaeger",
-      "rolle": "Torpedojäger gegen Zerstörer; verwundbar gegen Abfangjäger und eskortierende Kreuzer.",
+      "rolle": "Torpedojäger: dreifacher Schaden gegen alle Zerstörer, erfasst Belagerungs- und Sturmschlachtschiffe; verliert gegen Kreuzer, Trägerschlachtschiffe und Lasergeschütze.",
       "ziele": 1,
       "schadensfaktoren": {
         "zerstoerer": 3.0,
-        "abfangzerstoerer": 1.5,
-        "schwerer_zerstoerer": 5.0
+        "sturmschlachtschiff": 1.5,
+        "belagerungsschlachtschiff": 1.5,
+        "abfangzerstoerer": 3.0,
+        "schwerer_zerstoerer": 3.0
       },
       "voraussetzungen": {
         "impulsantrieb": 3,
@@ -1706,7 +1873,16 @@
       },
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "zerstoerer",
+        "schwerer_zerstoerer",
+        "abfangzerstoerer"
+      ],
+      "sekundaer": [
+        "belagerungsschlachtschiff",
+        "sturmschlachtschiff"
+      ]
     },
     "schnellfrachter": {
       "klasse": "transporter",
@@ -1748,12 +1924,12 @@
     },
     "raketenkreuzer": {
       "klasse": "kreuzer",
-      "rolle": "Langstreckensalven gegen Schlachtschiffe; geringe Nahabwehr gegen Jägerschwärme.",
+      "rolle": "Langstreckensalven gegen Sturm- und Trägerschlachtschiffe, erfasst Schlachtschiffe und Belagerer; verliert gegen leichte Jäger, Raketenwerfer und Schwere Schlachtkreuzer.",
       "ziele": 1,
       "schadensfaktoren": {
-        "schlachtschiff": 2.0,
+        "schlachtschiff": 1.5,
         "sturmschlachtschiff": 2.0,
-        "traegerschlachtschiff": 1.5,
+        "traegerschlachtschiff": 2.0,
         "belagerungsschlachtschiff": 1.5
       },
       "voraussetzungen": {
@@ -1762,16 +1938,24 @@
       },
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "sturmschlachtschiff",
+        "traegerschlachtschiff"
+      ],
+      "sekundaer": [
+        "schlachtschiff",
+        "belagerungsschlachtschiff"
+      ]
     },
     "schildkreuzer": {
       "klasse": "kreuzer",
-      "rolle": "Stark geschirmte Eskorte gegen schwere Jäger; begrenzte Durchschlagsleistung gegen schwere Panzerung.",
+      "rolle": "Stark geschirmte Eskorte: zwei Ziele, dreifacher Schaden und Schnellfeuer gegen schwere Jäger und Abfangjäger; verliert gegen Schlachtschiffe, Zerstörer und Ionengeschütze.",
       "ziele": 2,
       "schadensfaktoren": {
         "leichter_jaeger": 1.5,
-        "abfangjaeger": 1.5,
-        "schwerer_jaeger": 4.0,
+        "abfangjaeger": 2.0,
+        "schwerer_jaeger": 3.0,
         "sturmjaeger": 1.5
       },
       "voraussetzungen": {
@@ -1780,11 +1964,19 @@
       },
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "schwerer_jaeger",
+        "abfangjaeger"
+      ],
+      "sekundaer": [
+        "leichter_jaeger",
+        "sturmjaeger"
+      ]
     },
     "flottenkreuzer": {
       "klasse": "kreuzer",
-      "rolle": "Größter mittlerer Kreuzer: drei getrennte Ziele, Bomberabwehr; teuer und langsamer als leichte Kreuzer.",
+      "rolle": "Größter mittlerer Kreuzer: drei Ziele gegen Bomber und Jäger; verliert gegen Schlachtschiffe, Schwere Schlachtkreuzer und Ionengeschütze.",
       "ziele": 3,
       "schadensfaktoren": {
         "leichter_jaeger": 1.5,
@@ -1800,17 +1992,26 @@
       },
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "bomber",
+        "strategischer_bomber"
+      ],
+      "sekundaer": [
+        "abfangjaeger",
+        "leichter_jaeger",
+        "sturmjaeger"
+      ]
     },
     "sturmschlachtschiff": {
       "klasse": "schlachter",
-      "rolle": "Vorstoß gegen Zerstörer; hohe Treibstoffkosten und schwache Deckung gegen Bomber.",
+      "rolle": "Vorstoß gegen Zerstörer: dreifacher Schaden gegen Zerstörer und Schwere Zerstörer; verliert gegen leichte Jäger, Raketenkreuzer und Gauß-/Ionengeschütze.",
       "ziele": 1,
       "schadensfaktoren": {
         "schlachtschiff": 1.5,
-        "zerstoerer": 2.0,
+        "zerstoerer": 3.0,
         "abfangzerstoerer": 1.5,
-        "schwerer_zerstoerer": 2.0
+        "schwerer_zerstoerer": 3.0
       },
       "voraussetzungen": {
         "hyperraumantrieb": 2,
@@ -1819,18 +2020,26 @@
       },
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "zerstoerer",
+        "schwerer_zerstoerer"
+      ],
+      "sekundaer": [
+        "abfangzerstoerer",
+        "schlachtschiff"
+      ]
     },
     "traegerschlachtschiff": {
       "klasse": "schlachter",
-      "rolle": "Vier getrennte Ziele gegen Jägerschwärme; Bomber erfassbar; geringe Wirkung gegen schwere Linien.",
+      "rolle": "Vier Ziele je Runde: dreifacher Schaden gegen leichte, Abfang- und Sturmjäger, erfasst Bomber; verliert gegen Raketenkreuzer, Schwere Zerstörer und Gauß-/Ionengeschütze.",
       "ziele": 4,
       "schadensfaktoren": {
-        "leichter_jaeger": 2.0,
+        "leichter_jaeger": 3.0,
         "bomber": 1.5,
-        "abfangjaeger": 2.0,
+        "abfangjaeger": 3.0,
         "schwerer_jaeger": 1.5,
-        "sturmjaeger": 2.0,
+        "sturmjaeger": 3.0,
         "strategischer_bomber": 1.5
       },
       "voraussetzungen": {
@@ -1839,15 +2048,26 @@
       },
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "leichter_jaeger",
+        "abfangjaeger",
+        "sturmjaeger"
+      ],
+      "sekundaer": [
+        "bomber",
+        "strategischer_bomber",
+        "schwerer_jaeger"
+      ]
     },
     "belagerungsschlachtschiff": {
       "klasse": "schlachter",
-      "rolle": "Schwere Belagerungsartillerie gegen Bodenanlagen; langsam und empfindlich gegen Zerstörer.",
+      "rolle": "Belagerungsartillerie mit Schnellfeuer gegen Ionengeschütze, Gaußkanonen und Plasmawerfer, trifft Planetenschilde doppelt; im Flottenkampf schwach – braucht Geleit gegen Zerstörer und Sturmjäger.",
       "ziele": 2,
       "schadensfaktoren": {
-        "gausskanone": 3.0,
-        "plasmawerfer": 2.0,
+        "ionengeschuetz": 1.5,
+        "gausskanone": 1.5,
+        "plasmawerfer": 1.5,
         "planetenschild": 2.0,
         "planetenschild_ii": 2.0,
         "planetenschild_iii": 2.0
@@ -1858,15 +2078,26 @@
       },
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "gausskanone",
+        "plasmawerfer",
+        "ionengeschuetz"
+      ],
+      "sekundaer": [
+        "planetenschild",
+        "planetenschild_ii",
+        "planetenschild_iii"
+      ]
     },
     "strategischer_bomber": {
       "klasse": "bomber",
-      "rolle": "Schild- und Plasmabrecher; höchster Treibstoffbedarf, benötigt Abfangschutz.",
+      "rolle": "Schild- und Plasmabrecher mit Schnellfeuer gegen Plasmawerfer und Gaußkanonen, trifft Planetenschilde dreifach; im Flottenkampf schwach – braucht Abfangschutz gegen Jäger und Flottenkreuzer.",
       "ziele": 2,
       "schadensfaktoren": {
-        "gausskanone": 1.5,
-        "plasmawerfer": 3.0,
+        "ionengeschuetz": 1.5,
+        "gausskanone": 2.0,
+        "plasmawerfer": 2.0,
         "planetenschild": 3.0,
         "planetenschild_ii": 3.0,
         "planetenschild_iii": 3.0
@@ -1878,14 +2109,24 @@
       },
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "planetenschild",
+        "planetenschild_ii",
+        "planetenschild_iii",
+        "plasmawerfer",
+        "gausskanone"
+      ],
+      "sekundaer": [
+        "ionengeschuetz"
+      ]
     },
     "abfangzerstoerer": {
       "klasse": "zerstoerer",
-      "rolle": "Drei getrennte Ziele gegen Jäger; verwundbar gegen schwere Schlachtschiffe.",
+      "rolle": "Drei Ziele gegen Jäger: dreifacher Schaden gegen schwere Jäger, jagt Abfangjäger; verliert gegen Sturmjäger und Sturmschlachtschiffe.",
       "ziele": 3,
       "schadensfaktoren": {
-        "leichter_jaeger": 2.0,
+        "leichter_jaeger": 1.5,
         "abfangjaeger": 2.0,
         "schwerer_jaeger": 3.0,
         "sturmjaeger": 1.5
@@ -1896,16 +2137,25 @@
       },
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "schwerer_jaeger",
+        "abfangjaeger"
+      ],
+      "sekundaer": [
+        "leichter_jaeger",
+        "sturmjaeger"
+      ]
     },
     "schwerer_zerstoerer": {
       "klasse": "zerstoerer",
-      "rolle": "Zwei getrennte Ziele; höchste Durchschlagsleistung gegen Großschiffe; teuer, langsam und torpedoempfindlich.",
+      "rolle": "Zwei Ziele, dreifacher Schaden gegen Schlachtschiffe und Belagerungsschlachtschiffe; teuer und langsam, verliert gegen Sturmjäger und Sturmschlachtschiffe.",
       "ziele": 2,
       "schadensfaktoren": {
-        "schlachtschiff": 2.0,
-        "gausskanone": 3.0,
-        "belagerungsschlachtschiff": 6.0
+        "schlachtschiff": 3.0,
+        "gausskanone": 1.5,
+        "traegerschlachtschiff": 1.5,
+        "belagerungsschlachtschiff": 3.0
       },
       "voraussetzungen": {
         "hyperraumantrieb": 4,
@@ -1914,7 +2164,15 @@
       },
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "belagerungsschlachtschiff",
+        "schlachtschiff"
+      ],
+      "sekundaer": [
+        "gausskanone",
+        "traegerschlachtschiff"
+      ]
     },
     "grosses_kolonieschiff": {
       "klasse": "kolonie",
@@ -2073,21 +2331,15 @@
     },
     "schlachtkreuzer": {
       "klasse": "schlachtkreuzer",
-      "rolle": "Linien-Schlachtkreuzer: jagt Schlachtschiffe und Kreuzer, schnell und sparsam; verliert gegen Zerstörer, Sturmschlachtschiffe und Jägerschwärme.",
+      "rolle": "Linien-Schlachtkreuzer: Schnellfeuer gegen Schlachtschiffe, Kreuzer und schwere Jäger, schnell und sparsam; verliert gegen Zerstörer, Jägerschwärme und Anlagen.",
       "ziele": 1,
       "schadensfaktoren": {
-        "spionagesonde": 1.5,
-        "kleiner_transporter": 1.5,
-        "grosser_transporter": 1.5,
-        "kreuzer": 2.0,
+        "kreuzer": 1.5,
         "schlachtschiff": 2.0,
-        "schwerer_jaeger": 2.0,
-        "schnellfrachter": 1.5,
-        "schildkreuzer": 2.0,
-        "flottenkreuzer": 2.0,
-        "sturmschlachtschiff": 2.0,
-        "traegerschlachtschiff": 2.0,
-        "solarsonde": 1.5
+        "schwerer_jaeger": 1.5,
+        "schildkreuzer": 1.5,
+        "flottenkreuzer": 1.5,
+        "traegerschlachtschiff": 1.5
       },
       "voraussetzungen": {
         "hyperraumantrieb": 3,
@@ -2096,21 +2348,30 @@
       },
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "schlachtschiff"
+      ],
+      "sekundaer": [
+        "kreuzer",
+        "schildkreuzer",
+        "flottenkreuzer",
+        "schwerer_jaeger",
+        "traegerschlachtschiff"
+      ]
     },
     "abfang_schlachtkreuzer": {
       "klasse": "schlachtkreuzer",
-      "rolle": "Abfang-Schlachtkreuzer: Jäger- und Bomberabwehr mit drei Zielen; schwach gegen Linienschiffe.",
+      "rolle": "Schnellster Großkampfträger: drei Ziele und Schnellfeuer gegen alle Jäger und Bomber; verliert gegen Linienschiffe, Zerstörer und Gaußkanonen.",
       "ziele": 3,
       "schadensfaktoren": {
-        "spionagesonde": 1.5,
         "leichter_jaeger": 2.0,
         "kreuzer": 1.5,
-        "bomber": 2.0,
+        "bomber": 3.0,
         "abfangjaeger": 2.0,
         "schwerer_jaeger": 1.5,
-        "sturmjaeger": 2.0,
-        "strategischer_bomber": 2.0
+        "sturmjaeger": 3.0,
+        "strategischer_bomber": 3.0
       },
       "voraussetzungen": {
         "hyperraumantrieb": 2,
@@ -2119,28 +2380,65 @@
       },
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
-      "siedler": 0
+      "siedler": 0,
+      "primaer": [
+        "leichter_jaeger",
+        "abfangjaeger",
+        "sturmjaeger",
+        "bomber",
+        "strategischer_bomber"
+      ],
+      "sekundaer": [
+        "schwerer_jaeger",
+        "kreuzer"
+      ]
     },
     "schwerer_schlachtkreuzer": {
       "klasse": "schlachtkreuzer",
-      "rolle": "Schwerer Schlachtkreuzer: Flaggschiff gegen Kreuzer und Torpedokreuzer; langsam, teuer, schwer zu knacken.",
+      "rolle": "Flaggschiff gegen Schlachtschiffe, Flotten- und Raketenkreuzer; langsam und teuer, verliert gegen Zerstörer, Jägerschwärme und Anlagen.",
       "ziele": 1,
       "schadensfaktoren": {
         "kreuzer": 1.5,
         "schlachtschiff": 2.0,
         "zerstoerer": 1.5,
         "raketenkreuzer": 2.0,
-        "schildkreuzer": 2.0,
+        "schildkreuzer": 1.5,
         "flottenkreuzer": 2.0,
-        "sturmschlachtschiff": 2.0,
         "traegerschlachtschiff": 1.5,
-        "schlachtkreuzer": 1.5
+        "schlachtkreuzer": 1.5,
+        "abfang_schlachtkreuzer": 1.5
       },
       "voraussetzungen": {
         "hyperraumantrieb": 4,
         "waffentechnik": 7,
         "schildtechnik": 5,
         "panzerung": 6
+      },
+      "schildfaktor": 1.0,
+      "kolonie_minen": 0,
+      "siedler": 0,
+      "primaer": [
+        "schlachtschiff",
+        "flottenkreuzer",
+        "raketenkreuzer"
+      ],
+      "sekundaer": [
+        "kreuzer",
+        "schildkreuzer",
+        "traegerschlachtschiff",
+        "zerstoerer",
+        "schlachtkreuzer",
+        "abfang_schlachtkreuzer"
+      ]
+    },
+    "terraformer": {
+      "klasse": "terraforming",
+      "rolle": "formt Klima und Kruste eines Planeten oder freien Platzes für dein Volk, bis zu +40 Felder; wird beim Einsatz verbraucht",
+      "ziele": 0,
+      "schadensfaktoren": {},
+      "voraussetzungen": {
+        "impulsantrieb": 3,
+        "terraforming": 1
       },
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
@@ -2158,7 +2456,8 @@
     "schlachtkreuzer": 3,
     "erkundung": 2,
     "satellit": 1,
-    "megaschiff": 1
+    "megaschiff": 1,
+    "terraforming": 1
   },
   "factions": {
     "aurelianer": {

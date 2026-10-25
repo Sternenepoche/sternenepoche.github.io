@@ -24,7 +24,7 @@ from site_policy import decorate  # noqa: E402
 import build_fleet_codex  # noqa: E402
 
 Q = ROOT / "docs/website"
-VERSION = "0.4.6"
+VERSION = "0.4.8"
 # Öffentliche Spieladresse; im Pages-Repo fehlt data/online (Betriebsdaten werden nie veröffentlicht).
 _URL = ROOT / "data/online/public-url.txt"
 SPIEL_URL = (_URL.read_text(encoding="utf-8").strip() if _URL.exists() else "https://sternenepoche.taila4f584.ts.net").rstrip("/") + "/"
@@ -39,6 +39,7 @@ NAV = [("index.html", "Start", "Überblick"), ("Trailer.html", "Trailer", "Der W
        ("Sternenepoche-Handbuch.html", "Handbuch", "Alle Regeln in 32 Kapiteln"),
        ("Sternenepoche-Kodex.html", "Kodex", "Einheiten, Werte, Zeichnungen"),
        ("Technologiebaum.html", "Technologiebaum", "Alle Völker auf einer Karte"),
+       ("Kraefteatlas.html", "Kräfteatlas", "Wer schlägt wen – gemessen"),
        ("Weltenkruemmer.html", "Weltenkrümmer", "Die vier Mondbrecher"),
        ("Lore.html", "Lore-Archiv", "Kanon, Archiv, Rat"),
        ("Hoerchronik.html", "Hörchronik", "Die Geschichte der Weite in fünf Folgen"),
@@ -59,7 +60,7 @@ BEREICHSFOTO = {"Übersicht": "uebersicht", "Anlagen": "anlagen", "Versorgung": 
                 "Pinwände": "pinwaende", "Mond": "mond"}
 KAPITELFOTO = {7: "uebersicht", 10: "produktion", 11: "forschung", 12: "galaxie", 14: "flotte", 15: "kampfsimulator",
                16: "kolonisation", 17: "handel", 19: "imperium", 20: "rat", 24: "auftraege", 26: "mond", 29: "versorgung",
-               30: "lage", 31: "grossprojekt", 32: "flotte"}
+               30: "invasion", 31: "grossprojekt", 32: "einsatz", 33: "flotte"}
 
 
 def lade(pfad):
@@ -282,11 +283,11 @@ class Bau:
  <p>Du führst Flotten über Sektoren hinweg, gewinnst Monde aus großen Schlachten, belagerst feindliche Kolonien und fasst mit deiner Allianz eine Sonne ein.
  Zu jeder Einheit gibt es Werte, Zeichnungen und ihre Geschichte. Alle Bilder sind Ansichten aus dem Spiel.</p></div>
  <div class="neu-raster">
- {karte("breit", f("flotte"), "Flottenführung", "Versand in drei Schritten", "Der Flottenversand führt dich von Ziel und Auftrag über die Flotte bis zu Zeit und Verband – mit Prüfung bei jedem Schritt.",
-   ["<b>Ziel &amp; Auftrag:</b> Schnellziele, Zielkarte und Aufklärungskette – unpassende Aufträge stehen abgeblendet mit Grund.",
-    "<b>Flotte:</b> Bedarfsrechner für Beute und Frachtraum, Simulation mit 64 Läufen samt Trümmerfeld und Mondchance.",
-    "<b>Zeit &amp; Verband:</b> zehn Tempostufen mit Ankunft und Deuterium, Ankunft koppeln, Terminflug bis 7 Spieltage voraus.",
-    "<b>Farbige Auftragszeichen</b> in acht Gruppen überall im Spiel; Verbände bis 16 Flotten aus deiner Allianz."],
+ {karte("breit", f("einsatz"), "Flottenführung", "Ein Blatt für jeden Auftrag", "Jeder Flottenauftrag läuft über das Einsatzblatt über der aktuellen Ansicht: Ziel, Auftrag, Flotte, Ladung und Start – mit Regelkarte und Vorbedingungen bei jedem Schritt.",
+   ["<b>Ziel &amp; Auftrag:</b> Suche nach Koordinate, System oder Spieler; unpassende Aufträge mit Grund, fehlende Aufklärung mit einem Knopf.",
+    "<b>Flotte:</b> Vorlagen je Auftrag, Simulation mit 64 Läufen samt Trümmerfeld und Mondchance.",
+    "<b>Start:</b> Hin- und Rückflugtempo getrennt, „kein Rückflug“, Ankunft planen oder an eine Flotte koppeln, Verbände bis 16 Flotten.",
+    "<b>Gestrandete Flotten</b> versorgen, weiterfliegen oder übergeben; Bestände je Planet für Flotte, Verteidigung, Truppen und Raketen."],
    "Sternenepoche-Handbuch.html#kapitel-32", "Kapitel 32 lesen")}
  {karte("", self.u("docs/website/medien/filme/krath.jpg"), "Megaschiff", "Weltenkrümmer", f"Eine mondgroße Kampfstation aus verschmolzenen Trümmern mit {zahl_de(wk['struktur'])} Struktur und {zahl_de(wk['angriff'])} Angriff auf vier Ziele je Runde. Sie entsteht im Werftdock eines Mondes.",
    ["Nach einem vollständigen Sieg bricht sie den Mond des Gegners.", "Drei Schlachtkreuzer ergänzen die Linie: Linien-, Abfang- und schwerer Schlachtkreuzer."],
@@ -294,8 +295,8 @@ class Bau:
  {karte("", f("mond"), "Monde", "Monde, Hyperraumtor, Phalanx", "Aus großen Schlachten entstehen Monde. Jeder der zehn Mondtypen hat einen eigenen Vor- und Nachteil, sieben Mondgebäude machen ihn zu Hafen, Werft und Torstation.",
    ["Der Hyperraumtor-Generator öffnet neben seinem Mond ein öffentliches Hyperraumtor zu einem zweiten Generator.", "Die Tiefenphalanx zeigt die Flüge eines Planeten in Reichweite."],
    "Sternenepoche-Handbuch.html#kapitel-26", "Kapitel 26 und 27")}
- {karte("", f("lage"), "Invasion", "Bomben, landen, belagern", "Eine Kolonie fällt in drei Abschnitten: Bomber senken alle Gebäude auf 30 % Integrität, Truppentransporter landen, dann 48 Spielstunden Belagerung.",
-   [f"{len(boden)} Bodentruppen mit Kontertabelle, Kaserne und Garnison.", "Verbündete schicken Bodenhilfe; einmal je Belagerung die Volksmiliz."],
+ {karte("", f("invasion"), "Invasion", "Bomben, landen, in Wellen erobern", "Bomber senken alle Gebäude auf 30 %, dann landen die Bodentruppen. Alle 12 Spielstunden greift eine Welle die nächste von vier Verteidigungslinien an; fällt der Rückhalt, ist der Planet verwüstet, und ein Kolonieschiff übernimmt ihn.",
+   [f"{len(boden)} Bodentruppen mit Kontertabelle, Kaserne und Garnison.", "Der Verteidiger verteilt Truppen und Miliz auf die Linien; Verbündete kämpfen auf beiden Seiten mit.", "Reparieren kostet 75 % der aktuellen Gebäudestufe."],
    "Sternenepoche-Handbuch.html#kapitel-30", "Kapitel 30 lesen")}
  {karte("", f("grossprojekt"), "Allianz-Großprojekt", "Die Dysonsphäre", f"Das größte Bauwerk des Spiels: Eine Allianz umschließt eine Sonne. Nach {dy['bau_sekunden'] // 86400} Spieltagen Bau liefert sie den {zahl_de(dy['sonnenfaktor'])}-fachen Sonnenfaktor und versorgt bis zu {dy['anschluesse']} angeschlossene Planeten.",
    [f"Allianzen mit bis zu {REGELN['allianz_max']} Mitgliedern.", "Die Sphäre wirkt, solange die Allianz sechs der zwölf Plätze hält."],
@@ -489,7 +490,7 @@ class Bau:
         js = build_fleet_codex.JS
         # Bildpfade relativ zur Seite; technische Zeichnungen je Einheit und Volk (Techinfo-Reiter „Technik“ im Spiel).
         js = js.replace("return 'web-client/'+im[", "return BASIS+'web-client/'+im[")
-        js = js.replace("${inhalt}${archiv(k,faction)}", "${inhalt}${zeichnung(k,faction)}${archiv(k,faction)}")
+        js = js.replace("${inhalt}${archiv(k,faction)}", "${inhalt}${zeichnung(k,faction)}${atlasVerweis(k)}${archiv(k,faction)}")
         zusatz = r"""
 const BASIS=document.getElementById('kodex').dataset.basis;
 let stil='blaupause';const STILE=[['blaupause','Blaupause'],['explosion','Explosionszeichnung'],['schnitt','Schnittzeichnung']];
@@ -500,6 +501,8 @@ function zeichnung(key,faction){const b=wo(key);if(!['flotte','boden'].includes(
  const w=da.find(x=>x[0]===stil)||da[0];
  return `<section class="kodex-zeichnung"><h3>Technische Zeichnungen</h3><div class="kodex-stile" role="group" aria-label="Zeichnung wählen">${da.map(([s,t])=>`<button type="button" data-stil="${s}" aria-pressed="${s===w[0]}">${t}</button>`).join('')}</div><figure><button type="button" data-gross="${esc(w[2])}" data-titel="${esc(w[1]+' · '+name(key))}"><img src="${esc(w[2])}" alt="${esc(w[1]+': '+name(key))}" loading="lazy"></button><figcaption>${esc(w[1])} · ${esc(name(key))} · Bauart ${esc(VOLK[faction])}</figcaption></figure></section>`;}
 document.getElementById('detail').addEventListener('click',e=>{const s=e.target.closest('[data-stil]');if(s){stil=s.dataset.stil;render();}});
+function atlasVerweis(key){if(!window.KRAEFTEATLAS_INDEX?.ids?.includes(key))return '';
+ return `<p class="kodex-atlas"><a class="button" href="Kraefteatlas.html#e=${encodeURIComponent(key)}">Kräfteatlas: Konter und Gefechte · ${esc(name(key))}</a></p>`;}
 """
         js = zusatz + js
         n = {"units": len(data["units"]), "boden": len(data["boden"]["typen"]), "raketen": len(data["raketen"]), "mond": len(data["mond"].get("gebaeude", {}))}
@@ -521,7 +524,7 @@ document.getElementById('detail').addEventListener('click',e=>{const s=e.target.
         (self.ziel / "seite/kodex.js").write_text(js, encoding="utf-8")
         doc = self.huelle("Sternenepoche-Kodex.html", "Kodex – Sternenepoche",
                           "Alle Einheiten der Sternenepoche je Volk: Werte, Konter, Voraussetzungen, technische Zeichnungen und Archiv.", inhalt,
-                          kopf_extra=f'<script src="{self.u("web-client/art.js")}"></script>',
+                          kopf_extra=f'<script src="{self.u("web-client/art.js")}"></script><script src="{self.u("web-client/kraefteatlas/index.js")}"></script>',
                           fuss_extra=f'<script id="fleet-data" type="application/json">{daten}</script><script src="seite/kodex.js?v={self.stand}"></script>')
         self.schreibe("Sternenepoche-Kodex.html", doc)
 
@@ -533,13 +536,46 @@ document.getElementById('detail').addEventListener('click',e=>{const s=e.target.
                           "Alle Technologiebäume der Sternenepoche auf einer Karte: Gebäude, Forschungen und Einheiten aller vier Völker mit Bildern und Voraussetzungen.",
                           inhalt, kopf_extra=f'<link rel="stylesheet" href="{b}techbaum/techbaum.css"><link rel="stylesheet" href="seite/techbaum.css?v={self.stand}">', koerper_klasse="seite-techbaum", nur_kopf=True,
                           fuss_extra=(f'<script src="{b}techbaum/daten.js"></script><script src="{b}techbaum/kampf.js"></script>'
+                                      f'<script src="{b}kraefteatlas/index.js"></script>'
                                       f'<script src="{b}techbaum/techbaum.js"></script><script src="seite/techbaum-start.js"></script>'))
         (self.ziel / "seite/techbaum-start.js").write_text(
             "// Karte beginnt unter KI-Hinweis und Kopfleiste der Website.\n"
             "const kopfhoehe = () => document.documentElement.style.setProperty('--kopfhoehe', document.querySelector('.sk-kopf').getBoundingClientRect().bottom + 'px');\n"
             "kopfhoehe(); addEventListener('resize', kopfhoehe);\n"
-            f"TechbaumStart({{wurzel: document, basis: {json.dumps(b)}}});\n", encoding="utf-8")
+            "// Kräfteatlas: eigene Seite; #e=<id> öffnet den Eintrag dort.\n"
+            "const atlas = {kennt: id => !!window.KRAEFTEATLAS_INDEX?.ids?.includes(id), zeige: id => { location.href = 'Kraefteatlas.html' + (id ? '#e=' + encodeURIComponent(id) : ''); }};\n"
+            f"TechbaumStart({{wurzel: document, basis: {json.dumps(b)}, atlas}});\n", encoding="utf-8")
         self.schreibe("Technologiebaum.html", doc)
+
+    # ===================================================================== Kräfteatlas
+    def kraefteatlas(self):
+        """Dasselbe Modul wie im Spiel (tools/konter_matrix/uebersicht.py → web-client/kraefteatlas/), im Shadow DOM unter der Kopfleiste."""
+        b = self.u("web-client/")
+        meta = json.loads((lambda s: s[s.index("{"):s.rindex("}") + 1])((ROOT / "web-client/kraefteatlas/index.js").read_text(encoding="utf-8")))
+        inhalt = ('<h1 class="sr-only">Kräfteatlas der Sternenepoche: wer schlägt wen</h1>'
+                  '<div id="atlas" class="atlas-buehne" aria-label="Kräfteatlas"></div>'
+                  '<noscript><p class="rahmen">Der Kräfteatlas braucht JavaScript.</p></noscript>')
+        doc = self.huelle("Kraefteatlas.html", "Kräfteatlas – Sternenepoche",
+                          "Wer schlägt wen: jede Kampfeinheit gegen jede bei gleichem Ressourcenwert, gemessen mit der Kampfengine des Spiels – "
+                          "Konter, Duell-Bilanz, Völker, Raketen, Bodentruppen und jedes Gefecht im Detail.",
+                          inhalt, kopf_extra=f'<link rel="stylesheet" href="seite/kraefteatlas.css?v={self.stand}">', koerper_klasse="seite-atlas", nur_kopf=True,
+                          fuss_extra=(f'<script src="{b}kraefteatlas/daten.js?v={meta["regeln"]}"></script><script src="{b}kraefteatlas/atlas.js?v={self.stand}"></script>'
+                                      f'<script src="seite/kraefteatlas-start.js?v={self.stand}"></script>'))
+        (self.ziel / "seite").mkdir(parents=True, exist_ok=True)
+        (self.ziel / "seite/kraefteatlas.css").write_text(
+            "/* Kräfteatlas-Seite: Modul unter KI-Hinweis und Kopfleiste, eigener Bildlauf (wie der Technologiebaum). */\n"
+            "html,body{background:#050a12;overscroll-behavior:none}\n"
+            ".atlas-buehne{position:fixed;left:0;right:0;bottom:0;top:var(--kopfhoehe,104px);contain:layout paint;z-index:1}\n"
+            ".sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}\n", encoding="utf-8")
+        (self.ziel / "seite/kraefteatlas-start.js").write_text(
+            "// Kräfteatlas unter KI-Hinweis und Kopfleiste der Website; Shadow DOM, damit Seiten- und Atlasgestaltung sich nicht mischen.\n"
+            "const kopfhoehe = () => document.documentElement.style.setProperty('--kopfhoehe', document.querySelector('.sk-kopf').getBoundingClientRect().bottom + 'px');\n"
+            "kopfhoehe(); addEventListener('resize', kopfhoehe);\n"
+            "const wurzel = document.getElementById('atlas').attachShadow({mode: 'open'}), css = document.createElement('link');\n"
+            f"css.rel = 'stylesheet'; css.href = {json.dumps(b + 'kraefteatlas/atlas.css?v=' + self.stand)};\n"
+            "css.onload = css.onerror = () => KraefteatlasStart({wurzel, basis: " + json.dumps(b) + ", eingebettet: false, vollbild: true});\n"
+            "wurzel.append(css);\n", encoding="utf-8")
+        self.schreibe("Kraefteatlas.html", doc)
 
     # ===================================================================== Lore
     def lore(self):
@@ -830,7 +866,7 @@ document.getElementById('detail').addEventListener('click',e=>{const s=e.target.
 <article class="download glas" id="cockpit"><span class="kennung">Windows</span><h3>Harness-Cockpit {esc(c["version"])}</h3><p>Dein Rat aus vier Agenten, eigener Harness und lokale Spielwelt.</p><p><a class="button secondary" href="{esc(c["url"])}">Für Windows laden ({esc(str(c["groesse_mb"]).replace(".", ","))} MB)</a></p><p class="pruefsumme">SHA-256 {esc(c["sha256"])}</p></article>
 </div>
 <h2 style="margin-top:56px">Aus dem Spiel</h2>
-<div class="galerie" style="margin-top:20px">{self.foto("flotte", "Flottenkommando", "Versand in drei Schritten, Verbände, Zusammenarbeit")}<div class="stapel">{self.foto("uebersicht-handy", "Auf dem Handy", "Menü unten, Lagebericht oben", "glas")}</div></div>
+<div class="galerie" style="margin-top:20px">{self.foto("flotte", "Flottenkommando", "Einsatzblatt, Bestände je Planet, Verbände und Zusammenarbeit")}<div class="stapel">{self.foto("uebersicht-handy", "Auf dem Handy", "Menü unten, Lagebericht oben", "glas")}</div></div>
 <p style="margin-top:20px"><a href="index.html#spiel">Mehr über das Spiel</a> · <a href="Sternenepoche-Handbuch.html">Handbuch</a></p></div>''')
         self.schreibe("Download.html", self.huelle("Download.html", "Download – Sternenepoche",
                       "Sternenepoche im Browser, als Android-App (Lite und Vollversion) und als Harness-Cockpit für Windows.", inhalt))
@@ -921,7 +957,7 @@ document.getElementById('detail').addEventListener('click',e=>{const s=e.target.
             for p in re.findall(r'"portraet":\s*"([^"]+)"', (ROOT / "docs/rat/rat.json").read_text(encoding="utf-8")):
                 (self.ziel / p).parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(ROOT / p, self.ziel / p)
-        for teil in (self.start, self.trailer, self.hoerchronik, self.guide, self.handbuch, self.kodex, self.techbaum, self.lore, self.weltenkruemmer, self.ki, self.download, self.kihinweis, self.verzeichnisse):
+        for teil in (self.start, self.trailer, self.hoerchronik, self.guide, self.handbuch, self.kodex, self.techbaum, self.kraefteatlas, self.lore, self.weltenkruemmer, self.ki, self.download, self.kihinweis, self.verzeichnisse):
             teil()
         return self.pruefen()
 

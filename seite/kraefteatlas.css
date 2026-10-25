@@ -1,0 +1,4 @@
+/* Kräfteatlas-Seite: Modul unter KI-Hinweis und Kopfleiste, eigener Bildlauf (wie der Technologiebaum). */
+html,body{background:#050a12;overscroll-behavior:none}
+.atlas-buehne{position:fixed;left:0;right:0;bottom:0;top:var(--kopfhoehe,104px);contain:layout paint;z-index:1}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}

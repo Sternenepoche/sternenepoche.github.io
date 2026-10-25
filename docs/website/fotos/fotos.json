@@ -317,5 +317,33 @@
   "breite": 1440,
   "hoehe": 900,
   "zeit": "2026-10-23T04:19:40"
+ },
+ "einsatz.webp": {
+  "welt": "flotten",
+  "ziel": "einsatz:angriff",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-25T22:54:00"
+ },
+ "einsatz-handy.webp": {
+  "welt": "flotten",
+  "ziel": "einsatz:angriff",
+  "breite": 390,
+  "hoehe": 844,
+  "zeit": "2026-10-25T22:54:18"
+ },
+ "invasion.webp": {
+  "welt": "invasion",
+  "ziel": "reich",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-25T22:54:27"
+ },
+ "invasion-handy.webp": {
+  "welt": "invasion",
+  "ziel": "reich",
+  "breite": 390,
+  "hoehe": 844,
+  "zeit": "2026-10-25T22:54:36"
  }
 }

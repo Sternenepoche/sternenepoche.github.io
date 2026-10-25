@@ -253,7 +253,7 @@ Plane zugleich den nächsten **Zivilisationsaufstieg**. Fehlende Freischaltungen
 
 ### 05 Die erste Sonde wirklich fertigen
 
-Prüfe im **Technologiebaum** die Voraussetzungen der Spionagesonde. Schaffe die nötigen Technologien und Gebäude, darunter Raumhafen und Werft; Spionagetechnik verbessert die gewonnenen Berichte. Öffne **Schiffswerft**, wähle deine Sonde und stelle **Stückzahl** auf 1. Lies Stückkosten und Voraussetzungen; drücke **Fertigen**, wenn der Bau möglich ist.
+Prüfe im **Technologiebaum** die Voraussetzungen der Spionagesonde. Schaffe die nötigen Technologien und Gebäude, darunter Raumhafen und Werft; Spionagetechnik verbessert die gewonnenen Berichte. Öffne **Schiffswerft**, wähle deine Sonde und stelle **Stückzahl** auf 1. Lies Stückkosten und Voraussetzungen; drücke **Bauen**, wenn der Bau möglich ist.
 
 **Das passiert danach:** Die Werft bearbeitet den Fertigungsauftrag. Die Bestellung ist noch kein fertiges Schiff. Warte, bis eine Sonde als Bestand auf dem Startplaneten erscheint. Prüfe außerdem Deuterium und einen freien Flottenplatz. Auch ein einzelner Sondenflug belegt einen Platz.
 
@@ -261,7 +261,7 @@ Prüfe im **Technologiebaum** die Voraussetzungen der Spionagesonde. Schaffe die
 
 Öffne **Galaxie** und gehe über Sektor und Sonnensystem zu einem fremden Planeten deines Heimatsystems. Ein Planetenklick öffnet seine Infokarte. Das Heimatsystem ist bereits kartiert; die anderen Planeten sind dadurch noch nicht untersucht. Notiere die Zielkoordinate oder nutze die passende Aufklärungsplanung der Karte.
 
-Wechsle zu **Flotte**. Der Versand führt dich in drei Schritten, die Kapitel 32 genau erklärt. Im Schritt **Ziel & Auftrag** prüfst du **Start**, **Ziel** und wählst als Auftrag **Ausspähen**; ein noch unerkundetes System zeigt dir dort zuerst den Knopf zum Erkunden. Im Schritt **Flotte** trägst du genau eine Sonde ein und lässt andere Schiffstypen weg. Im Schritt **Zeit & Verband** liest du Ankunft, Rückkehr und Deuteriumbedarf, bevor du **Flotte starten** wählst.
+Tippe in der Infokarte **Alle Aufträge** oder im Flottenkommando **Flug planen ›**. Es öffnet sich das **Einsatzblatt**, das Kapitel 32 genau erklärt. Im Schritt **Ziel** steht die Koordinate schon drin, im Schritt **Auftrag** wählst du **Ausspähen**; ein noch unerkundetes System zeigt dir dort zuerst den Knopf **1 Sonde: System erkunden**. Im Schritt **Flotte** wählst du die Vorlage **1 Sonde**. Im Schritt **Start** liest du Ankunft, Rückkehr und Deuteriumbedarf, bevor du **Sonden starten** wählst.
 
 **Das passiert danach:** Erst ein angenommener Start legt die Flotte in **Eigene Flotten** an. Eine geöffnete Karte, ein ausgefüllter Plan oder eine erfolgreiche Flugprüfung schicken noch nichts los. Bei Ablehnung lies den Grund und korrigiere beispielsweise Treibstoff, Schiffsauswahl, Ziel oder Flottenplätze.
 
@@ -295,7 +295,7 @@ Die Rohstoffleiste zeigt die Vorräte des **rechts ausgewählten eigenen Planete
 | **Schiffswerft** | Menü | Schiffe fertigen und Materialbedarf prüfen |
 | **Verteidigung** | Menü | Ortsfeste Verteidigung, Raketen und ihre Voraussetzungen |
 | **Truppen** | Menü | Bodentruppen in der Kaserne ausbilden, Garnison und Truppenbestand |
-| **Flotte** | Menü | Flüge in drei Schritten planen, Flotten verfolgen und zurückrufen, saven |
+| **Flotte** | Menü | Flüge im Einsatzblatt planen, Flotten verfolgen und zurückrufen, saven, Bestände je Planet |
 | **Kampf & Verbände** | Flotte › Abschnitt, Reiter Kampfsimulator | Kampfplanung, Simulation und Verbände für gemeinsame Angriffe |
 | **Galaxie** | Menü | Räumliche Karte, Systeme, Planeten und bekannte Informationen |
 | **Kolonisation** | Galaxie › Reiter | Kolonieplanung, Startfracht, Integrität und Reparaturen |
@@ -328,13 +328,13 @@ Ganz oben steht der **Lagebericht**. Er zeigt drei Dinge mit echten Knöpfen:
 
 - **Nächste Zivilisationsstufe:** jede Bedingung als erfüllt oder offen, Hinweise auf versteckte Engpässe wie fehlende Felder oder ein zu kleines Labor, die Kosten auf der Heimatwelt und den Knopf **Aufstieg zu …**. Er ist aktiv, sobald alles erfüllt und bezahlbar ist.
 - **Grundausbildung** des gewählten Planeten: wie viele Fachkräfte und Forscher die Akademie kostenlos je Spieltag ausbildet und wie viele noch fehlen, mit **Akademie öffnen**.
-- **Laufende Invasionen** an deinen oder verbündeten Planeten: Bombardierung, Belagerung und Volksmiliz mit Restzeiten und den Knöpfen **Miliz ausrufen**, **Eigene Bodentruppen landen**, **Bodentruppen schicken**, **Flotte halten lassen** oder als Angreifer **Landung vorbereiten**. Kapitel 30 erklärt die Regeln.
+- **Laufende Invasionen** an deinen oder verbündeten Planeten: Bombardierung, Verteidigungslinien mit Countdown zur nächsten Welle und Miliz mit den Knöpfen **Linien verteilen**, **Miliz rufen**, **Eigene Bodentruppen landen**, **Bodentruppen schicken**, **Flotte halten lassen** oder als Angreifer **Landung vorbereiten**. Kapitel 30 erklärt die Regeln.
 
 Darunter bündelt die Übersicht die **neuesten Meldungen und persönlichen Briefe** sowie die **nächsten fünf Flottenbewegungen**. Eigene Flotten, verbündete Anflüge auf deine Planeten und erkannte feindliche Kontakte sind unterscheidbar. Öffne eine Zeile für die Details. Bei einem feindlichen Kontakt kannst du direkt eine **Flottensonde senden**; das Spiel verwendet den ausgewählten Planeten mit Sonde oder einen anderen eigenen Planeten mit verfügbarer Sonde. Unbekannte Schiffe und nur geschätzte Mengen bleiben ausdrücklich unbekannt beziehungsweise als Spanne gekennzeichnet.
 
 **Briefkasten** steht zusätzlich oben beim kleineren Abmelden-Knopf. Er bündelt persönliche Briefe, Antworten, Kampfberichte, Planetenspionage, Flottenaufklärung und Meldungen. Im Reiter **Berichte & Meldungen** filterst und suchst du die Berichte; beim Öffnen wird der Lesestatus kontoweit gespeichert. Briefe und Berichte kannst du auch während einer Pause lesen. Persönliche Briefe beantwortest du über **Antworten**; Empfänger und Bezug sind bereits ausgefüllt.
 
-**Codex öffnen** und **Kampf simulieren** sind direkt in der Übersicht erreichbar. Der Codex zeigt alle Gebäude, Forschungen, Schiffe und Verteidigungsanlagen, einschließlich Bild- und Kostenvarianten der anderen Völker. Der Simulator verwendet die echten Kampfregeln: Trage auf beiden Seiten Volk, Einheiten sowie Waffen-, Schild- und Panzerungstechnik ein. Eigene Schiffe und Technik lassen sich übernehmen; Spionageberichte können die Gegnerseite vorfüllen. Nicht aufgeklärte Werte und das Volk des Gegners musst du dabei selbst prüfen. Mehrere Zufallsläufe zeigen Siegchance, Unentschieden und durchschnittliche Verluste. Sie sind eine Planungshilfe, keine Garantie für einen späteren Kampf.
+**Codex** und **Kampfsimulator** erreichst du über die Leiste: Galaxie › Codex und Flotte › Kampfsimulator (am Desktop zusätzlich direkt in der Übersicht). Der Codex zeigt alle Gebäude, Forschungen, Schiffe und Verteidigungsanlagen, einschließlich Bild- und Kostenvarianten der anderen Völker. Der Simulator verwendet die echten Kampfregeln: Trage auf beiden Seiten Volk, Einheiten sowie Waffen-, Schild- und Panzerungstechnik ein. Eigene Schiffe und Technik lassen sich übernehmen; Spionageberichte können die Gegnerseite vorfüllen. Nicht aufgeklärte Werte und das Volk des Gegners musst du dabei selbst prüfen. Mehrere Zufallsläufe zeigen Siegchance, Unentschieden und durchschnittliche Verluste. Sie sind eine Planungshilfe, keine Garantie für einen späteren Kampf.
 
 **Vor jedem Kauf** stehen Wirkung, Kosten und vollständiges Datenblatt an der Auswahl. Voraussetzungen zeigen **vorhanden / benötigt** und einen Haken oder ein fehlendes Merkmal. Bei Werftbestellungen werden Stückzahl, Gesamtkosten, Besatzung, verbleibende Einwohner und Bestandsgrenzen berücksichtigt. Gebäude zeigen vor dem Ausbau den zusätzlichen Strombedarf sowie zusätzliche Arbeits- und Fachkräfte. Der Strommehrbedarf gilt bei voller Besetzung; die tatsächliche Versorgung hängt auch von Besetzung, Integrität, Technik und Energieerzeugung ab. Schiffsdaten enthalten wirksamen Angriff, Schild, Struktur, Geschwindigkeit, Laderaum, Verbrauch, Antrieb, Besatzung, Unterhalt und Schnellfeuer.
 
@@ -382,17 +382,17 @@ Zu jeder Forschung zeigt ein bebilderter Baum die benötigten Gebäude und Techn
 
 **Hier findest du:** Schiffstypen, vorhandene Stückzahlen, Stückkosten, Werte wie Angriff, Schild, Struktur und Laderaum sowie laufende **Fertigungsaufträge**. Anspruchsvolle Schiffe benötigen zusätzlich **Orbitalbauteile**.
 
-**So baust du ein Schiff:** Wähle den Fertigungsplaneten, klicke den Schiffstyp und prüfe Werft, Technologien, Zivilisationsstufe, Materialien und Besatzung. Trage die gewünschte **Stückzahl** ein und wähle **Fertigen**. Kontrolliere den Auftrag und später den fertigen Schiffbestand auf genau diesem Planeten.
+**So baust du ein Schiff:** Wähle den Fertigungsplaneten, klicke den Schiffstyp und prüfe Werft, Technologien, Zivilisationsstufe, Materialien und Besatzung. Trage die gewünschte **Stückzahl** ein und wähle **Bauen**. Kontrolliere den Auftrag und später den fertigen Schiffbestand auf genau diesem Planeten.
 
 **Was passiert:** Fertigung kostet reale Materialien; die Besatzung kommt aus der Bevölkerung. Der Fortschritt kann das nächste Stück einer Serie zeigen. Zehn bestellte Schiffe sind nicht schon zehn einsatzfähige Schiffe. Erst fertige Schiffe lassen sich in einer Flotte auswählen. Größere Bestände verursachen laufenden Unterhalt.
 
-**Für Bauteile:** Nutze das Formular **Fertigungsauftrag** mit Planet, Produkt und Anzahl, zum Beispiel für Habitatmodule oder Antriebskerne. Fertige diese vor dem Kolonieschiff. Reicht der Bestand nicht, prüfe die tatsächlich abgeschlossenen Bauteile statt nur ihre Bestellung.
+**Für Bauteile:** Habitatmodule fertigst du in der Werft über die Karte **Bauteile für Kolonieschiffe** (ohne Orbitalwerft als Recycler-Umbau). Antriebskerne und Habitatmodule auf Vorrat stellst du unter der Werft als **Produktionsschleife** mit Vorratsziel ein. Fertige diese vor dem Kolonieschiff. Reicht der Bestand nicht, prüfe die tatsächlich abgeschlossenen Bauteile statt nur ihre Bestellung.
 
 ### Verteidigung
 
 **Hier findest du:** Ortsfeste Verteidigungsanlagen des ausgewählten Planeten mit Kampfdaten, Voraussetzungen, Stückkosten und Fertigungsfortschritt. Sie schützen ihren Standort und fliegen bei einem Save nicht mit.
 
-**So baust du sie:** Wähle rechts den zu schützenden Planeten. Klicke die Anlage, prüfe freigeschaltete Technik und Fertigung, wähle **Stückzahl** und drücke **Fertigen**. Sieh nach dem Abschluss nach, ob die fertige Zahl im Verteidigungsbestand steht.
+**So baust du sie:** Wähle rechts den zu schützenden Planeten. Klicke die Anlage, prüfe freigeschaltete Technik und Fertigung, wähle **Stückzahl** und drücke **Bauen**. Sieh nach dem Abschluss nach, ob die fertige Zahl im Verteidigungsbestand steht.
 
 **Was passiert:** Die Anlage nimmt an Kämpfen an ihrem Planeten teil. Ein Teil zerstörter normaler Verteidigung wird nach einem Gefecht wiederaufgebaut; das ist keine Garantie für vollständige Wiederherstellung. Gegen Interplanetarraketen gelten eigene Regeln, insbesondere keine normale Wiederaufbauquote für die getroffene Verteidigung.
 
@@ -402,17 +402,19 @@ Zu jeder Forschung zeigt ein bebilderter Baum die benötigten Gebäude und Techn
 
 **Hier findest du:** Die zwölf Bodentruppentypen deines Volkes, geordnet nach Zeitalter, mit Bild, Bestand, Kampfwerten, Kosten und den nötigen Kasernenstufen. Darunter stehen Garnison und laufende Ausbildung des gewählten Planeten. Die Kaserne ist ab Zivilisationsstufe IV baubar; jede Kasernenstufe schafft einen Fertigungsplatz, schwere Typen belegen mehrere.
 
-**So bildest du aus:** Wähle rechts den Planeten mit Kaserne, klicke einen Truppentyp, prüfe Kasernenstufe, Kosten und Rekruten aus der Bevölkerung, wähle die **Anzahl** und bestätige. Fertige Truppen gehen in die Garnison dieses Planeten und verteidigen ihn bei einer Belagerung automatisch.
+**So bildest du aus:** Wähle den Planeten mit Kaserne, tippe einen Truppentyp an, prüfe im Detailfeld Kasernenstufe, Kosten und Rekruten für die gewählte **Anzahl** und bestätige; „+1 ausbilden“ auf der Kachel bestellt ein Stück. Jede Kasernenstufe ist ein Fertigungsplatz, ein Truppentyp belegt je Stück 1 bis 4 Plätze; was gleichzeitig Platz hat, wird gleichzeitig ausgebildet. Fertige Truppen gehen in die Garnison dieses Planeten und verteidigen ihn bei einer Belagerung automatisch. Brichst du einen Auftrag ab, bekommst du das Material aller Stücke unter 75 % zurück; die Rekruten kehren alle in die Bevölkerung zurück.
 
-**Truppen bewegen:** Bodentruppen fliegen nur in **Truppentransportern** mit (100 gewichtete Plätze je Transporter). Im Versand unter **Flotte** öffnest du dafür im Schritt Flotte **Bodentruppen mitführen**. Eigene Truppen landen auch auf einem belagerten eigenen Planeten; Verbündete schicken sie mit **Bodenhilfe**. Für eine Landung auf fremdem Boden braucht es vorher eine Bombardierung auf 30 % (Kapitel 30).
+**Truppen bewegen:** Bodentruppen fliegen nur in **Truppentransportern** mit (100 gewichtete Plätze je Transporter). Im Einsatzblatt wählst du sie im Schritt **Truppen** (Transport, Stationieren, Bodenhilfe, Bombardieren, Kampfkolonisieren). Eigene Truppen landen auch auf einem belagerten eigenen Planeten; Verbündete schicken sie mit **Bodenhilfe**. Für eine Landung auf fremdem Boden braucht es vorher eine Bombardierung auf 30 % (Kapitel 30).
 
-**Beispiel:** 150 Sturminfanterie und 150 Sturmpanzer brauchen 1.650 Truppenplätze, also 17 Truppentransporter. Mit nur vier Transportern lehnt der Versand ab und nennt die fehlenden Plätze.
+**Beispiel:** 150 Sturminfanterie und 150 Sturmpanzer brauchen 1.650 Truppenplätze, also 17 Truppentransporter. Mit nur vier Transportern lehnt das Einsatzblatt den Start ab und nennt die fehlenden Plätze.
 
 ### Flotte
 
-In der Bestandsmatrix führt ein Tipp auf die Koordinaten direkt zum Versand von diesem Planeten oder Mond. Die Herkunft bleibt im Assistenten sichtbar. Unter **Zuladung** stehen Rohstoffe, Personen und Bodentruppen zusammen: eigene Kapazitätsanzeigen, verfügbare Mengen, Restbestände und Max-Schaltflächen helfen beim Beladen. Personenplätze und Truppenplätze sind vom Frachtraum getrennt. Monde haben keine zivile Bevölkerung oder planetare Garnison.
+In der Bestandsmatrix führt ein Tipp auf die Koordinaten direkt ins Einsatzblatt mit diesem Planeten oder Mond als Start. In den Schritten **Ladung** und **Truppen** stehen Rohstoffe, Personen und Bodentruppen: eigene Kapazitätsanzeigen, verfügbare Mengen, Restbestände und Max-Schaltflächen helfen beim Beladen. Personenplätze und Truppenplätze sind vom Frachtraum getrennt. Monde haben keine zivile Bevölkerung oder planetare Garnison.
 
-**Transport** liefert die gewählte Zuladung; die Schiffe fliegen zurück. **Stationieren** verlegt Schiffe und Zuladung dauerhaft auf einen eigenen Planeten oder Mond. **Halten** unterstützt Verbündete im Orbit und lässt die Schiffe in deinem Besitz. Für einen Besitzerwechsel gibt es **Schiffe verschenken** und **Schiffe verkaufen**: Der Empfänger nimmt das Angebot im Flottenkommando an. Erst dann fliegen die verfügbaren Schiffe mit der angebotenen Zuladung los. Ein Bündnis ist für Handel und Geschenke nicht erforderlich. Kaufpreise werden bis zur Zustellung hinterlegt; scheitert die Zustellung oder wird die Flotte zurückgerufen, gehen die hinterlegten Credits an den Käufer zurück. Offene Angebote laufen nach einem Spieltag ab.
+**Transport** liefert die gewählte Zuladung; die Schiffe fliegen zurück. **Stationieren** verlegt Schiffe und Zuladung dauerhaft auf einen eigenen Planeten oder Mond. **Halten** unterstützt Verbündete im Orbit und lässt die Schiffe in deinem Besitz. Für einen Besitzerwechsel gibt es **Schiffe verschenken** und **Schiffe verkaufen**: Der Empfänger nimmt das Angebot im Flottenkommando an. Erst dann fliegen die verfügbaren Schiffe mit der angebotenen Zuladung los. Ein Bündnis ist für Handel und Geschenke nicht erforderlich. Kaufpreise werden bis zur Zustellung hinterlegt; scheitert die Zustellung oder wird die Flotte zurückgerufen, gehen die hinterlegten Credits an den Käufer zurück. Offene Angebote laufen nach einem Spieltag ab; die Karte nennt die Frist. Wie jeder Flug zu einem fremden Planeten braucht auch eine Übergabe ein bekanntes Ziel: einmal ausspähen (eine Sonde genügt).
+
+Unter dem **Flottenbestand** stehen, ebenso einklappbar, die Tabellen **Verteidigung**, **Solarsatelliten** (mit der Energie, die sie je Planet liefern), **Bodentruppen** (Garnison je Planet, dazu Truppen an Bord deiner Flotten als „unterwegs“) und **Raketen** (Abfang- und Interplanetarraketen mit Silo-Plätzen). Zeilen sind die Typen, Spalten deine Planeten und Monde; ein Tipp auf einen Typ öffnet die passende Bauseite. Dieselben Tabellen stehen in der Übersicht. Geöffnet oder zu bleibt gemerkt.
 
 Hinflug und Rückflug besitzen eigene Tempoeinstellungen. Die Vorschau nennt Dauer und Treibstoff für beide Strecken getrennt. Stationieren und Kolonisieren sind Einwegflüge. Bei Schiffsangeboten startet die Lieferung nach Annahme; Rückflugtreibstoff bleibt für eine gescheiterte Zustellung vorgesehen.
 
@@ -420,7 +422,7 @@ Der Hangar zählt alle eigenen Schiffe im Reich genau einmal: stationierte Einhe
 
 **Hier findest du:** **Neue Flotte planen**, **Eigene Flotten** und erkannte gegnerische Bewegungen. Flottenkarten zeigen Kennung, Mission, Start, Ziel, Flugphase, Zeiten, Schiffe und Fracht.
 
-**So startest du:** Der Versand hat drei Schritte mit einer festen Leiste unten (**Zurück · Weiter · Flotte starten**). Unter **Ziel & Auftrag** wählst du Start, Ziel, Planet oder Mond und den Auftrag; unter **Flotte** Schiffe, Fracht und Bodentruppen mit dem Bedarfsrechner; unter **Zeit & Verband** Tempo, Ankunft, bei Bedarf **Aufenthalt / Save-Wartezeit**, Verband und Kopplung. Lies Ankunft, Rückkehr und Deuterium und wähle dann **Flotte starten**. Jeder Auftrag trägt ein farbiges Zeichen, das überall gleich aussieht; Kapitel 32 erklärt Schritte, Zeichen und Verband. Erst die angenommene Aktion erscheint unter **Eigene Flotten**. **Rückrufen** leitet eine Rückkehr ein; es stellt die Schiffe nicht sofort wieder auf den Planeten.
+**So startest du:** **Flug planen ›** öffnet das **Einsatzblatt** mit einer festen Leiste unten (**Zurück · Weiter** und dem Startknopf des Auftrags). Unter **Ziel** suchst du Koordinate, System oder Spieler; unter **Auftrag** wählst du, was die Flotte tun soll; unter **Flotte** Schiffe mit Vorlagen; falls nötig Ladung, Truppen oder Dauer; unter **Start** Hin- und Rückflugtempo, Ankunft, Verband und Kopplung. Lies Ankunft, Rückkehr und Deuterium und starte dann. Jeder Auftrag trägt ein farbiges Zeichen, das überall gleich aussieht; Kapitel 32 erklärt Schritte, Zeichen und Verband. Erst die angenommene Aktion erscheint unter **Eigene Flotten**. **Rückrufen** leitet eine Rückkehr ein; es stellt die Schiffe nicht sofort wieder auf den Planeten.
 
 **So savest du:** Wähle Auftrag **Saven**, ein anderes Ziel und eine passende Wartezeit. **Alle vorhandenen Schiffe auswählen** übernimmt den Bestand; **Save-Fracht automatisch verladen** füllt verfügbaren Frachtraum und berücksichtigt Treibstoff. Kontrolliere die Auswahl selbst. Fliege vor dem Angriff ab und plane die Rückkehr mit Abstand nach der Gefahr.
 
@@ -448,7 +450,7 @@ Der Kolonie-Assistent zeigt die Schiffe des Startplaneten, Siedler, verfügbare 
 
 Vor dem Start erscheinen die bekannten Zielangaben und die vollständige Ladung. Prüfe die Koordinaten und bestätige sie mit dem Kontrollkästchen. Die Abschlussleiste bleibt außerhalb des scrollbaren Inhalts. Eigene Planeten benennst du über den Stift neben ihrem Namen; ein leerer Name stellt den Standardnamen wieder her.
 
-**Hier findest du:** Aktuelle Koloniezahl, durch Astrophysik erlaubte Kapazität, Verwaltungsgrenze, die Checkliste **Weg zur nächsten Kolonie**, laufende Besetzungen und **Integrität & Reparaturen** des ausgewählten eigenen Planeten.
+**Hier findest du:** Aktuelle Koloniezahl, erlaubte Kolonieplätze (2 frei ab Start, ab der dritten Kolonie je Stufe Terraforming einer mehr), Verwaltungsgrenze, die Checkliste **Weg zur nächsten Kolonie**, laufende Besetzungen und **Integrität & Reparaturen** des ausgewählten eigenen Planeten.
 
 **So bereitest du eine freie Kolonie vor:** Arbeite die Checkliste ab. Benutze **Startfracht anzeigen** und lies **Mindest-Startfracht für dein Volk**. Prüfe eigenes Wissen über System und Ziel, freien Kolonieplatz, Kolonieschiff, zusätzliche bewaffnete Eskorte, 3.000 Siedler, Startgüter und Flugtreibstoff. Über **Freie Kolonie planen** gelangst du zum Flottenplaner. Kontrolliere alle Angaben und bestätige den Start dort.
 
@@ -464,7 +466,7 @@ Vor dem Start erscheinen die bekannten Zielangaben und die vollständige Ladung.
 
 **Danach:** Entscheide anhand erwarteter Verluste, möglicher Beute und Frachtraum, ob du wirklich angreifen willst. Starte die Flotte im Flottenplaner ausdrücklich. Der Simulator sendet keinen Angriff. Nach dem Gefecht liest du den Kampfbericht; über **Recycler planen** kannst du eine Bergung bekannter Trümmer vorbereiten.
 
-**Gemeinsam angreifen:** Einen Verband eröffnest oder betrittst du direkt beim Versand im Schritt **Zeit & Verband** unter **Zusammen angreifen**, ohne Flottennummern abzuschreiben. Im Bereich **Zusammenarbeit** der Flottenseite stehen alle offenen Verbände deiner Allianz; dort kannst du eine fliegende eigene Angriffsflotte beitreten lassen oder eine freie Angriffsflotte **Als Verband öffnen**. Teilnehmen dürfen nur deine eigenen Flotten und die von Mitgliedern deiner Allianz, höchstens 16 Flotten, und keine wird um mehr als sechs Stunden verzögert. Ein Bündnis allein synchronisiert keine Flotten. Kapitel 32 erklärt den Ablauf.
+**Gemeinsam angreifen:** Einen Verband eröffnest oder betrittst du direkt im Einsatzblatt im Schritt **Start** unter **Zusammen angreifen**, ohne Flottennummern abzuschreiben. Im Bereich **Zusammenarbeit** der Flottenseite stehen alle offenen Verbände deiner Allianz; dort kannst du eine fliegende eigene Angriffsflotte beitreten lassen oder eine freie Angriffsflotte **Als Verband öffnen**. Teilnehmen dürfen nur deine eigenen Flotten und die von Mitgliedern deiner Allianz, höchstens 16 Flotten, und keine wird um mehr als sechs Stunden verzögert. Ein Bündnis allein synchronisiert keine Flotten. Kapitel 32 erklärt den Ablauf.
 
 ### Handel
 
@@ -534,7 +536,7 @@ Ein Antrieb erhöht die Geschwindigkeit seiner Schiffe. Er ist im aktiven Standa
 
 **Was eine Freischaltung bedeutet:** Die Technik wird grundsätzlich nutzbar. Das betreffende Gebäude, Schiff oder Forschungsniveau entsteht dadurch noch nicht. Örtliche Werft- oder Laboranforderungen, Kosten, Personal und Bauteile bleiben nötig. Ein gutes Labor auf einem Planeten baut auch keine Werft auf einem anderen.
 
-**Beispiel:** Astrophysik erlaubt eine weitere Kolonie. Du brauchst trotzdem Stufe IV, eine geeignete Werft und Orbitalwerft, die Kolonieschiff-Bauteile, Siedler, Eskorte und Startfracht. Nutze die Kolonisationscheckliste zusätzlich zum Technologiebaum.
+**Beispiel:** Terraforming 1 erlaubt die dritte Kolonie. Du brauchst trotzdem Stufe III, Werft 3, Impulsantrieb 2, das Habitatmodul, Siedler, Eskorte und Startfracht. Nutze die Kolonisationscheckliste zusätzlich zum Technologiebaum.
 
 ### Rat
 
@@ -572,7 +574,7 @@ Für alle Spielweisen: Erstelle mehrere Wände, ergänze Karten mit Wissen, Ziel
 
 **So baust du:** Klicke eine Gebäudekachel, lies Kosten, Energie und Voraussetzungen und wähle **Ausbauen auf Stufe N**. Bezahlt wird aus dem Bestand des Mondes, nicht aus dem des Planeten. Schiffe, Verteidigung, Solarsatelliten und Weltenkrümmer fertigst du im Werftdock mit **Bauen**.
 
-**So versorgst du den Mond:** Mit **Fähre einstellen** legst du eine dauerhafte Lieferung zwischen Planet und Mond fest. Größere Mengen bringst du mit einem Transport, bei dem du im Versand als Zielart **Mond** wählst. **Flotte vom Mond starten** öffnet den Versand mit dem Mond als Start.
+**So versorgst du den Mond:** Mit **Fähre einstellen** legst du eine dauerhafte Lieferung zwischen Planet und Mond fest. Größere Mengen bringst du mit einem Transport, bei dem du im Einsatzblatt den Mond (☾) als Ziel wählst. **Flotte vom Mond starten** öffnet das Einsatzblatt mit dem Mond als Start.
 
 **Tiefenphalanx und Hyperraumtor-Generator:** Mit **Scannen** prüfst du die Flüge eines Planeten in Reichweite. Im Feld Hyperraumtor-Generator wählst du Gegenstelle und Schiffe und tippst **Tor öffnen und durchfliegen**; offene Löcher führen zu **Durchreisen**, wo du Schiffe und mitgenommenes Deuterium wählst. Die Regeln stehen in den Kapiteln 26 und 27.
 
@@ -630,11 +632,11 @@ Energie ist eine laufende Bilanz. Wenn Anlagen und Bevölkerung mehr benötigen,
 
 Fusion braucht Deuterium. Ein stärkeres Fusionskraftwerk kann dir deshalb Treibstoff für Flotten wegnehmen. Behalte die gemeinsame Deuteriumbilanz im Blick.
 
-Sonnenenergie hängt vom Platz ab: Platz 6 erhält 100 %, innen mehr (Platz 1: 171 %), außen weniger bis 20 % auf dem letzten Platz. Ab Zivilisationsstufe II kannst du mit einer Werft **Solarsatelliten** bauen: Sie bleiben dauerhaft im Orbit, liefern Strom nach demselben Sonnenfaktor und belegen kein Feld. Die Werte je Platz und Volk stehen in Kapitel 29.
+Sonnenenergie hängt vom Platz ab: Platz 6 erhält 100 %, innen mehr (bis 120 % auf Platz 1), außen weniger (bis 80 % auf dem letzten Platz). Ab Zivilisationsstufe II kannst du mit einer Werft **Solarsatelliten** bauen: Sie bleiben dauerhaft im Orbit, liefern Strom nach demselben Sonnenfaktor und belegen kein Feld. Die Werte je Platz und Volk stehen in Kapitel 29.
 
 ### Arbeiter Spezialisten Wohnraum und Stabilität
 
-Grundsätzlich stehen 60 % der Bevölkerung als Arbeitskräfte zur Verfügung. Anspruchsvolle Anlagen brauchen außerdem Fachkräfte, das Labor Forscher. Die Akademie (ab Stufe I) bildet sie automatisch und kostenlos aus, bis der Bedarf deiner Werke gedeckt ist; bezahlte Ausbildung beschleunigt das (Fachkraft 10 Konsumgüter, Forscher 10 Konsumgüter und 10 Elektronik). Ohne Akademie entstehen auf einem Planeten keine neuen Fachkräfte. Zu wenig Personal oder Energie kann erklären, warum eine fertige Anlage weniger leistet als erwartet.
+Grundsätzlich stehen 60 % der Bevölkerung als Arbeitskräfte zur Verfügung. Anspruchsvolle Anlagen brauchen außerdem Fachkräfte, das Labor Forscher. Die Akademie (ab Stufe I) bildet sie automatisch und kostenlos aus, bis der Bedarf deiner Werke gedeckt ist; bezahlte Ausbildung beschleunigt das (Fachkraft 10 Konsumgüter, Forscher 10 Konsumgüter und 10 Elektronik). Die Heimatwelt bildet auch ohne Akademie aus, so viel wie eine Akademie der Stufe 1; Kolonien brauchen dafür eine eigene Akademie. Zu wenig Personal oder Energie kann erklären, warum eine fertige Anlage weniger leistet als erwartet.
 
 Wohnraum begrenzt weiteres Wachstum. Nahrung allein reicht nicht, wenn die Wohnkapazität ausgeschöpft ist. Konsumgüter und Stabilität werden für spätere Entwicklungsschritte wichtig.
 
@@ -796,11 +798,11 @@ Wird die Zielflotte vorher zurückgerufen oder ist schon angekommen, kann der Ko
 
 ## 14 Flotten verschicken und richtig saven
 
-Die Checkbox **Rückflugkraftstoff beim Abflug sichern** macht die Reserve sichtbar. Für Rückflugmissionen muss sie aktiviert sein: Der Server zieht den Treibstoff für **Hin- und Rückflug bereits am Startplaneten** ab. Ein Erztransport braucht deshalb für seine Rückkehr kein Deuteriumlager am Ziel. Zusätzlich als Fracht geladenes Deuterium wird geliefert und ist von dieser Flugreserve getrennt. Stationieren und Kolonisieren sind Einwegaufträge; dafür zeigt die Planung nur die Hinflugreserve. Flugprüfung vor dem Start zeigt den Gesamtbedarf, Frachtraum, erwartete Rückkehr und die auf dem Startplaneten verbleibenden Vorräte.
+Der Server zieht den Treibstoff für **Hin- und Rückflug bereits am Startplaneten** ab. Ein Erztransport braucht deshalb für seine Rückkehr kein Deuteriumlager am Ziel. Zusätzlich als Fracht geladenes Deuterium wird geliefert und ist von dieser Flugreserve getrennt. Stationieren und Kolonisieren sind Einwegaufträge; dafür kostet nur der Hinflug. Wählst du beim Rückflugtempo **kein Rückflug**, bezahlst du ebenfalls nur den Hinflug, und die Flotte bleibt nach dem Auftrag am Ziel (Kapitel 33). Der Start-Schritt zeigt Deuterium, Ankunft, Rückkehr und das Ergebnis der Startprüfung.
 
 ### Vor jedem Flug
 
-Öffne **Flotte**. Der Versand führt dich in drei Schritten durch Ziel und Auftrag, Schiffe und Fracht sowie Tempo, Ankunft und Verband (Kapitel 32); prüfe Flugzeit und Treibstoff im dritten Schritt, bevor du **Flotte starten** drückst.
+Jeder Flug läuft über das **Einsatzblatt** (Kapitel 32): **Ziel**, **Auftrag**, **Flotte**, falls nötig **Ladung**, **Truppen** oder **Dauer**, zuletzt **Start**. Prüfe im Start-Schritt Flugzeit, Treibstoff und Rückkehr, bevor du den Auftrag startest.
 
 Die Flotte fliegt nach ihrem langsamsten Schiff. Eine langsamere Geschwindigkeit kann Treibstoff sparen, verlängert aber die Reise. Der Flugplan berechnet die tatsächlich nötige Deuteriummenge für die gewählte Mission.
 
@@ -820,14 +822,15 @@ Du hast grundsätzlich **einen Flottenplatz plus einen weiteren je Stufe Compute
 | **Saven** | Schiffe mit Fracht auf einen Hinflug mit Wartephase und Rückkehr schicken |
 | **Angriff** | Kämpfen und bei Erfolg begrenzt plündern |
 | **Kolonisieren** | Einen bekannten freien Planeten besiedeln |
-| **Abbau** | Mit geeigneten Bergbauschiffen am Asteroidengürtel Rohstoffe gewinnen |
+| **Abbau** | Mit Bergbauschiffen (ab Zivilisationsstufe II) am Asteroidengürtel Rohstoffe gewinnen |
+| **Terraformen** | Mit Terraformern Klima und Kruste eines eigenen Planeten oder freien Platzes formen (Kapitel 16, Terraforming) |
 | **Recyceln** | Mit Recyclern Trümmer bergen |
 | **Blockade** | Den feindlichen Orbit kontrollieren und Verkehr behindern |
 | **Bombardieren** | Nach ausgeschalteter bewaffneter Verteidigung Gebäude beschädigen; dabei wirken nur Bomber (Kapitel 30) |
 | **Kampfkolonisieren** | Eine feindliche Kolonie mit Kolonieschiff und Bodentruppen erobern (Kapitel 30) |
 | **Mond zerstören** | Mit Weltenkrümmern einen feindlichen Mond vernichten (Kapitel 28) |
 
-Viele Aufträge haben auch einen Mond als Ziel oder Start: Im Versand wählst du dafür Zielart oder Startart **Mond** (Kapitel 26).
+Viele Aufträge haben auch einen Mond als Ziel oder Start: Im Einsatzblatt stehen Monde mit ☾ in den Zielvorschlägen und bei den Startorten (Kapitel 26).
 
 Für den Asteroidengürtel ist Position **0** des Systems vorgesehen. Das ist kein normaler Planetenplatz. Abbau und Haltemissionen haben zusätzliche Zeit- und Einheitenvoraussetzungen; prüfe die jeweilige Missionsmeldung.
 
@@ -872,7 +875,7 @@ Ein einzelner Treffer unter 1 % des vollen gegnerischen Schildwerts verpufft. We
 
 **Beispiel:** Bei einem vollen Schildwert von 1.000 verpufft ein Treffer mit Stärke 5. Ein Treffer mit Stärke 1.500 verbraucht dagegen die 1.000 Schildpunkte und verursacht zusätzlich 500 Strukturschaden.
 
-Einige Einheiten haben **Schnellfeuer** gegen bestimmte Ziele. Schnellfeuer 6 bedeutet eine Chance von 5 zu 6 auf einen weiteren Schuss gegen den betreffenden Zieltyp. Es bedeutet nicht garantiert sechs Treffer pro Runde.
+Einige Einheiten haben **Schnellfeuer** gegen bestimmte Ziele. Schnellfeuer 6 bedeutet eine Chance von 5 zu 6 auf einen weiteren Schuss gegen den betreffenden Zieltyp; es gilt nur gegen Primär- und Sekundärziele der Einheit und ist auf 64 Schüsse je Zielkanal begrenzt. **Mehrfachfeuer:** Ist das Ziel zerstört, springt die Salve auf ein zufälliges weiteres Ziel derselben Art – so räumen Bomber ganze Raketenwerferfelder und Kreuzer ganze Jägerschwärme ab. Es bedeutet nicht garantiert sechs Treffer pro Runde.
 
 Der Kampf ist gewonnen, wenn keine gegnerischen Kampfeinheiten mehr übrig sind. Überleben nach sechs Runden auf beiden Seiten Einheiten, endet er unentschieden. Deshalb reichen Schiffszahl oder ein einziger summierter Angriffswert nicht, um den Ausgang sicher vorherzusagen.
 
@@ -898,7 +901,7 @@ Verteidigung kann nicht gesavt werden. Sie kostet keinen laufenden Schiffsunterh
 
 ### Raketen
 
-Ein Raketensilo lagert Abfang- und Interplanetarraketen. Es hat zehn Lagerplätze je Stufe. Jede Rakete belegt einen Platz; laufende Fertigungsaufträge zählen bereits mit. Die Fertigung braucht fünf Spielminuten je Rakete.
+Ein Raketensilo lagert bis zu fünf Raketenarten: Abfangrakete (ab Silo 1), Interplanetarrakete (Silo 2), Flottenrakete (Silo 3), Bunkerbrecher (Silo 5, Zivilisationsstufe IV) und Hyperrakete (Silo 8, Stufe V). Es hat zehn Lagerplätze je Stufe; eine Rakete belegt je nach Art 1 bis 4 Plätze (Abfang 1, Interplanetar 2, Flottenrakete 2, Bunkerbrecher 3, Hyperrakete 4), laufende Aufträge zählen bereits mit. Gefertigt wird gleichzeitig: Jede Silostufe ist ein Fertigungsplatz, und eine Rakete braucht so viele Fertigungsplätze wie Lagerplätze. Bauzeit je Rakete: Abfang und Interplanetar 5, Flottenrakete 4, Bunkerbrecher 10, Hyperrakete 15 Spielminuten. Gesperrte Arten stehen im Silo mit ihrem Grund.
 
 Eine Abfangrakete fängt eine Interplanetarrakete ab und wird dabei verbraucht. Interplanetarraketen treffen einen ausgewählten Typ ortsfester Verteidigung. Die Reichweite beträgt fünf Systeme je Silostufe innerhalb desselben Sektors. Der Flug dauert 20 Spielminuten plus eine Minute je System Abstand.
 
@@ -908,7 +911,7 @@ Raketenangriffe sind echte feindliche Handlungen mit Materialkosten und Flugzeit
 
 Für einen gemeinsamen Angriff wird eine Angriffsflotte im Hinflug zur Führung eines Verbands. Beitreten können deine eigenen Angriffsflotten und die von Mitgliedern derselben Allianz, wenn sie im Hinflug dasselbe Ziel haben. Ein Verband umfasst höchstens **16 Flotten**. Ein Verteidigungsbündnis allein ersetzt die gemeinsame Allianz dafür nicht; es reicht aber für das Halten bei einem Partner.
 
-Die Ankunft wird auf die späteste nötige Ankunft abgestimmt. Eine frühere Flotte wird dadurch verzögert; eine spätere wird nicht beschleunigt. Keine Flotte darf dabei mehr als **sechs Stunden** gegenüber ihrer ursprünglichen Ankunft verzögert werden, sonst wird der Beitritt abgelehnt. Ein Rückruf löst eine Flotte aus dem Verband. Kontrolliere nach jedem Beitritt die neue gemeinsame Zeit. Wie du einen Verband im Versand eröffnest oder ohne Flottennummern betrittst, steht in Kapitel 32.
+Die Ankunft wird auf die späteste nötige Ankunft abgestimmt. Eine frühere Flotte wird dadurch verzögert; eine spätere wird nicht beschleunigt. Keine Flotte darf dabei mehr als **sechs Stunden** gegenüber ihrer ursprünglichen Ankunft verzögert werden, sonst wird der Beitritt abgelehnt. Ein Rückruf löst eine Flotte aus dem Verband. Kontrolliere nach jedem Beitritt die neue gemeinsame Zeit. Wie du einen Verband im Einsatzblatt eröffnest oder ohne Flottennummern betrittst, steht in Kapitel 32.
 
 **Beispiel:** Deine Flotte käme um 18:00 an, die eines Allianzpartners erst um 18:20. Im gültigen Verband kann die gemeinsame Ankunft auf 18:20 verschoben werden. Das gibt auch dem Gegner mehr Reaktionszeit.
 
@@ -922,19 +925,21 @@ Eine kleine Punktzahl allein schützt nach Ablauf dieses Schutzes nicht automati
 
 ### Eine freie Kolonie gründen
 
-Astrophysik bestimmt die Zahl möglicher Kolonien: Stufe 1 erlaubt eine, Stufe 3 zwei, Stufe 5 drei; höchstens acht. Der ursprüngliche Heimatplanet zählt dabei nicht als Kolonie. Laufende Kolonisationsvorhaben belegen ebenfalls geplante Kapazität.
+**Kolonieplätze:** Zwei Kolonien sind ab Spielbeginn frei, ohne Forschung. Ab der dritten Kolonie erlaubt jede Stufe **Terraforming** eine weitere: Terraforming 1 die dritte, Terraforming 2 die vierte und so weiter, höchstens 14 Kolonien (15 Planeten mit der Heimatwelt). Astrophysik gibt keine Plätze mehr, bleibt aber Voraussetzung für Kolonieschiff (Stufe 1), Pathfinder und Bergungsschiff (Stufe 2), großes Kolonieschiff (Stufe 3) und Zivilisationsstufe IV (Stufe 1). Der ursprüngliche Heimatplanet zählt nicht als Kolonie. Ein Platz gilt für beide Wege – Kolonieschiff auf einen freien Planeten oder Kampfkolonisierung einer fremden Kolonie; du entscheidest, wofür du ihn nutzt. Kolonie- und Kampfkolonisierungsflüge darfst du auch ohne freien Platz starten (etwa, wenn die nächste Terraforming-Stufe noch während des Flugs fertig wird). Entscheidend ist der Moment der Gründung bzw. der Übernahme: Ist dann kein Platz frei, wird nicht gegründet – das Kolonieschiff kehrt um – bzw. nicht übernommen – die Besatzungsflotte hält weiter den Orbit. Flüge reservieren keinen Platz; wer zuerst gründet, bekommt ihn. Die Kolonisation und das Einsatzblatt zeigen dir, welche Terraforming-Stufe den nächsten Platz bringt.
 
-Für eine tatsächliche Gründung brauchst du mehr als Astrophysik:
+**Beispiel:** Du hast zwei Kolonien und willst für Stufe V eine dritte. Erforsche Terraforming 1 (ab Stufe III, Labor 3); danach ist der dritte Kolonieplatz frei.
+
+Für eine tatsächliche Gründung brauchst du mehr als einen freien Kolonieplatz:
 
 - Das System und der konkrete Planet müssen aufgeklärt sein.
 - Das Ziel muss bei der Ankunft noch frei sein.
 - Dein Reich muss die erforderliche freie Koloniekapazität haben.
-- Ein **Kolonieschiff** muss verfügbar sein. Seine Fertigung verlangt Zivilisationsstufe IV, Werft 4, Orbitalwerft und die nötigen Bauteile.
+- Ein **Kolonieschiff** muss verfügbar sein. Das kleine Kolonieschiff verlangt Zivilisationsstufe III, Werft 3, Impulsantrieb 2 und ein Habitatmodul, keine Astrophysik.
 - Mindestens ein zusätzliches **bewaffnetes Begleitschiff** muss mitfliegen.
 - Du brauchst **3.000 Siedler**, die tatsächlich aus deiner Bevölkerung mitgenommen werden.
 - Die vorgeschriebene Startfracht und der Flugtreibstoff müssen vorhanden sein.
 
-Ein Kolonieschiff benötigt unter anderem **zwei Habitatmodule und einen Antriebskern**. Die Fertigung dieser Bauteile ist ein eigener Vorbereitungsschritt.
+Das kleine Kolonieschiff benötigt ein **Habitatmodul**, das große Kolonieschiff vier Habitatmodule und zwei **Antriebskerne**. Jedes neue Reich startet mit **zwei Habitatmodulen und zwei Antriebskernen** im Lager; weitere fertigt die Orbitalwerft (vorher baut die Werft 3 einen Recycler zu einem Habitatmodul um).
 
 Im Bereich **Kolonisation** zeigt **Startfracht anzeigen** den nötigen Vorrat. Für den grundlegenden Aufbau werden mindestens **223 Erz und 79 Kristall** benötigt. Für 3.000 nahrungsabhängige Siedler kommen **2.880 Nahrung**, also ein Spieltag Grundversorgung, hinzu. Syntheten haben diesen Nahrungsbedarf nicht. Flugtreibstoff kommt zusätzlich dazu.
 
@@ -950,7 +955,7 @@ Ein Sondenbericht reserviert keinen Planeten. Wenn ein anderes Reich zuerst erfo
 
 Eine normale Angriffsmission reicht nicht. Die Übernahme verbindet militärische Orbitkontrolle, gezielte Gebäudeschäden und ein überlebendes Kolonieschiff.
 
-**Die Übernahme ist eine Invasion (Kapitel 30):** Bomber senken die Gebäude in Runden alle 15 Spielminuten auf 30 % Integrität, danach landen Bodentruppen und belagern den Planeten 48 Spielstunden. Der Verteidiger kann eigene Truppen nachschicken, sich von Verbündeten helfen lassen und mit einer Kaserne die Volksmiliz ausrufen.
+**Die Übernahme ist eine Invasion (Kapitel 30):** Bomber senken die Gebäude in Runden alle 15 Spielminuten auf 30 % Integrität, danach landen Bodentruppen. Alle 12 Spielstunden greift eine Welle eine der vier Verteidigungslinien an; bricht der Rückhalt, ist der Planet verwüstet, und ein Kolonieschiff mit Kampfkolonisieren oder Kolonisieren übernimmt ihn, sobald ein Kolonieplatz frei ist. Der Verteidiger verteilt Truppen und Miliz auf die Linien, schickt Nachschub und lässt sich von Verbündeten helfen. Die folgende kurze Frist gilt dort nicht.
 
 **Der ursprüngliche Heimatplanet eines Reiches kann niemals übernommen oder kolonisiert werden.** Das gilt auch nach seiner Niederlage. Er kann angegriffen, blockiert und bombardiert werden und dadurch zum wirtschaftlichen Zusammenbruch beitragen.
 
@@ -960,9 +965,9 @@ Integrität beschreibt den Zustand eines vorhandenen Gebäudes. Ein Gebäude auf
 
 Unter **Kolonisation → Integrität & Reparaturen** kannst du Schaden prüfen, Reparaturkosten anzeigen und den Auftrag starten. Eine Reparatur braucht Rohstoffe und mindestens 15 Spielminuten. Sie teilt sich den Bauplatz mit normalem Gebäudebau.
 
-Die Kosten richten sich nach dem fehlenden Anteil des gesamten bisherigen Bauwerts.
+Eine Reparatur kostet 75 % der Baukosten der aktuellen Stufe, anteilig zum Schaden (bei 30 % Integrität genau 75 %); auf der Bauseite steht dann **Reparieren** statt **Bauen** (Kapitel 30).
 
-**Rechenbeispiel:** Die bisherigen Ausbauten einer Anlage haben zusammen 1.000 Erz und 600 Kristall gekostet. Bei 30 % Integrität fehlen 70 %. Daraus ergeben sich in diesem vereinfachten Beispiel 700 Erz und 420 Kristall Reparaturmaterial.
+**Rechenbeispiel:** Die aktuelle Stufe einer Anlage kostet 1.000 Erz und 600 Kristall. Bei 30 % Integrität zahlst du 75 % davon: 750 Erz und 450 Kristall. Bei 65 % Integrität ist der Schaden halb so groß: 375 Erz und 225 Kristall.
 
 Eine übernommene Kolonie bringt ihre vorhandene Bevölkerung mit. Die beschädigten Anlagen müssen versorgt und repariert werden. Ein neuer Besitzer erhält keine automatisch gesunde Wirtschaft.
 
@@ -1250,7 +1255,7 @@ Prüfe Flottenplatz, vorhandene Schiffe, Besatzung, Ziel, Missionsvoraussetzunge
 
 ### Das Kolonieschiff ist noch nicht baubar
 
-Astrophysik allein reicht nicht. Prüfe Zivilisationsstufe IV, Werft, Orbitalwerft, Bauteile und die übrigen angezeigten Voraussetzungen. Für die spätere Mission brauchst du zusätzlich Siedler, Eskorte und Startfracht.
+Prüfe Zivilisationsstufe III, Werft 3, Impulsantrieb 2, das Habitatmodul und die übrigen angezeigten Voraussetzungen. Für die spätere Mission brauchst du zusätzlich Siedler, Eskorte und Startfracht.
 
 ### Mein Agent hat Rohstoffe aber seine Aktion wird abgelehnt
 
@@ -1324,7 +1329,7 @@ Kosten, Voraussetzungen, Flugpläne und Berichte findest du unmittelbar bei der 
 
 Eine Warteschlange ist dein geordneter Plan. Öffne **Aufträge verwalten** direkt in der Übersicht, im Gebäude-, Forschungs- oder Werftbereich. Mit den Pfeilen verschiebst du wartende Einträge; der laufende Auftrag behält seinen Fortschritt. Entferne einzelne Einträge gezielt. Falls zwischen Anzeige und Klick ein Auftrag fertig wird, prüft der Server die Liste und fordert einen neuen Abgleich an.
 
-Gebäude und wartende Forschungen werden beim Start bezahlt. Fehlen Ressourcen, bleibt das Forschungsprojekt in der Schlange und startet später automatisch. Die Anzeige unterscheidet vorherige Aufträge, fehlende Versorgung und eine Forschung ohne Laborleistung. Aktive Bau- und Forschungsarbeit wird beim Abbruch nicht erstattet. Bei Fertigung werden Ressourcen und Besatzung bei Bestellung reserviert; unbegonnene Stücke geben sie beim Entfernen zurück. Lagergrenzen gelten, bereits verbrauchte Arbeit und Rollenbudgets werden nicht erstattet.
+Gebäude und wartende Forschungen werden beim Start bezahlt. Fehlen Ressourcen, bleibt das Forschungsprojekt in der Schlange und startet später automatisch. Die Anzeige unterscheidet vorherige Aufträge, fehlende Versorgung und eine Forschung ohne Laborleistung. Brichst du einen laufenden Bau oder eine laufende Forschung vor 75 % Fortschritt ab, bekommst du die bezahlten Rohstoffe vollständig zurück; ab 75 % gibt es nichts zurück. Wartende Einträge sind noch nicht bezahlt, ihr Entfernen bucht nichts. Bei Fertigung werden Ressourcen und Besatzung bei Bestellung bezahlt; beim Entfernen bekommst du alles für die Stücke zurück, deren Fertigung noch keine 75 % erreicht hat; Stücke ab 75 % bleiben bezahlt. Lagergrenzen gelten, bereits verbrauchte Arbeit und Rollenbudgets werden nicht erstattet.
 
 Beim lokalen Einzelspiel bleibt eine bestätigte Bestellung dauerhaft gespeichert. Jeder Simulationsschritt wird atomar gesichert. Eine Verarbeitung mit unerwartetem Fehler setzt ihre Transaktion zurück. Bei einer Verbindungsunterbrechung bleibt die letzte Ansicht lesbar und versucht alle zwei Sekunden erneut einen Abgleich. Die Android-App überwacht außerdem ihren eigenen Spielserver; drei fehlgeschlagene Erreichbarkeitsprüfungen lösen eine Wiederherstellung derselben Welt und Adresse aus. Ein Neustart setzt die Spielwelt nicht neu auf. Dauerhafte Speicherfehler werden angezeigt und müssen behoben werden; eine beschädigte Datei wird niemals durch eine neue Partie ersetzt.
 
@@ -1333,11 +1338,43 @@ Beim lokalen Einzelspiel bleibt eine bestätigte Bestellung dauerhaft gespeicher
 
 Der [öffentliche Flottenkodex](../Sternenepoche-Kodex.html) zeigt alle vier Volksstile und die vollständigen Steckbriefe. Im Spiel zeigt der **Codex** zusätzlich die tatsächlichen Kosten und Werte bei deiner Forschung. Wenn du einen Eintrag auswählst, springt seine Detailansicht in den sichtbaren Bereich.
 
-Je Volk gibt es vier Jäger, vier Transporter, vier Kreuzer, vier Schlachter, zwei Bomber, drei Zerstörer und zwei Kolonieschiffe; dazu Sonde, Bergbauschiff, Recycler und Truppentransporter. Größer bedeutet nicht automatisch besser: Treibstoff, Tempo, Kosten, Schild und Zielerfassung unterscheiden die Rollen. Schwere Jäger haben zwei verschiedene Ziele pro Runde, erfassen Bomber und kontern Plasma. Zerstörer kontern schwere Jäger; Sturmjäger wiederum kontern Zerstörer. Begleitende Kreuzer und Abfangjäger schützen vor diesen Torpedojägern.
+Je Volk gibt es vier Jäger, vier Transporter, vier Kreuzer, vier Schlachter, zwei Bomber, drei Zerstörer, drei Schlachtkreuzer (Welten mit Monden) und zwei Kolonieschiffe; dazu Sonde, Bergbauschiff, Recycler, Truppentransporter und fünf Waffenanlagen. **Keine Einheit ist die beste.** Bei gleichem Ressourceneinsatz ist jede Einheit gleich stark; ihre Stärke liegt in ihren Zielen. Zwischen den Klassen gilt Schere, Stein, Papier: **Jäger** schlagen Großkampfschiffe durch Masse, **Kreuzer** schlagen Jäger mit Schnellfeuer und mehreren Zielen, **Großkampfschiffe** (Schlachtschiffe, Zerstörer, Schlachtkreuzer) schlagen Kreuzer. **Belagerer** (Bomber, Strategischer Bomber, Belagerungsschlachtschiff) brechen Verteidigungsanlagen, sind im Flottenkampf aber schwach und brauchen Geleit. **Anlagen** wehren die Schiffsklasse ihres Typs ab und schießen nur auf Schiffe. In jeder Klasse gibt es Spezialisten, damit auch innerhalb einer Klasse gekontert wird: Abfangjäger jagen Jäger, Schwere Jäger Bomber, Sturmjäger Zerstörer; Schlachtkreuzer jagen Schlachtschiffe, Zerstörer jagen Schlachtschiffe und Belagerer, Sturmschlachtschiffe jagen Zerstörer.
 
-Mehrzielzahl bezeichnet verschiedene Gegner pro Runde. Schnellfeuer erzeugt zusätzliche Schüsse auf dasselbe Ziel und ist auf 64 Schüsse begrenzt. Bomber kann jede bewaffnete Einheit treffen; schwere Jäger und Plasmawerfer treffen sie dreifach, Schlachtschiffe und Flottenkreuzer doppelt. Für die meisten anderen Schiffe sind Bomber nur Ausweichziel, darum gelten sie als schwer zu fassen. Der Kampfsimulator nutzt genau diese Regeln, einschließlich Volksbonus, Waffen-, Schild- und Panzerungstechnik. Seine Wahrscheinlichkeiten beziehen sich auf die von dir eingegebenen Kräfte; unbekannte gegnerische Technik bleibt eine Eingabe, keine erfundene Null.
+Mehrzielzahl bezeichnet verschiedene Gegner pro Runde. **Primärziele** werden zuerst gewählt und doppelt getroffen (eigene Faktoren bis dreifach), **Sekundärziele** danach mit ×1,5, alle anderen Gegner mit einfachem Grundschaden – Abschläge gibt es nicht, und jede bewaffnete Einheit kann jedes Schiff treffen. Die Übersicht unten nennt Werte, Primärziele, Schnellfeuer und die gemessenen Konter bei gleichem Ressourcenwert. Der Kampfsimulator nutzt genau diese Regeln, einschließlich Volksbonus, Waffen-, Schild- und Panzerungstechnik. Seine Wahrscheinlichkeiten beziehen sich auf die von dir eingegebenen Kräfte; unbekannte gegnerische Technik bleibt eine Eingabe, keine erfundene Null.
 
-Fünf Waffenanlagen übernehmen unterschiedliche Aufgaben: Raketen gegen bestimmte Kreuzer, Laser mit zwei Zielen gegen leichte Jäger, Ionen gegen Schilde, Gauß gegen Großschiffe und Plasma gegen Bomber. Drei Planetenschildstufen stehen im Verteidigungsbereich. Pro Planet ist eine Schildstufe aktiv; die größere ersetzt die kleinere nach Fertigstellung. Die genauen Forschungsbedingungen siehst du neben deinem erreichten Stand und im Technologiebaum.
+Fünf Waffenanlagen übernehmen unterschiedliche Aufgaben: Raketenwerfer gegen Kreuzer und Raketenkreuzer, Laser mit zwei Zielen gegen leichte, Abfang- und Sturmjäger, Ionen gegen Schilde und Schlachtschiffe, Gauß gegen Schlachtschiffe und Zerstörer und Plasma gegen Bomber. Gegen Bomber, Strategische Bomber und Belagerungsschlachtschiffe halten sie nicht stand – Verteidigung braucht dann Schiffe, die diese Belagerer jagen. Drei Planetenschildstufen stehen im Verteidigungsbereich. Pro Planet ist eine Schildstufe aktiv; die größere ersetzt die kleinere nach Fertigstellung. Die genauen Forschungsbedingungen siehst du neben deinem erreichten Stand und im Technologiebaum.
+
+<!-- konter-uebersicht -->
+
+**Konter-Übersicht** (Grundwerte ohne Technik; „wird gekontert von“ = gemessen bei gleichem Ressourcenwert):
+
+| Einheit | Angriff / Schild / Struktur | Ziele je Runde | Jagt zuerst (Trefferfaktor) | Schnellfeuer | Wird gekontert von |
+|---|---|---|---|---|---|
+| **Leichter Jäger** | 270 / 10 / 4.000 | 1 | Raketenkreuzer ×2,5, Schlachtschiff doppelt | – | Kreuzer, Abfang-Schlachtkreuzer, Raketenwerfer, Lasergeschütz |
+| **Abfangjäger** | 1.200 / 96 / 8.400 | 1 | Leichter Jäger doppelt, Sturmjäger doppelt, Schwerer Jäger doppelt | – | Kreuzer, Schildkreuzer, Abfang-Schlachtkreuzer, Trägerschlachtschiff |
+| **Schwerer Jäger** | 460 / 200 / 13.000 | 2 | Bomber dreifach, Strategischer Bomber dreifach | – | Schildkreuzer, Abfangzerstörer, Schlachtkreuzer, Abfang-Schlachtkreuzer |
+| **Sturmjäger** | 1.300 / 180 / 20.000 | 1 | Zerstörer dreifach, Schwerer Zerstörer dreifach, Abfangzerstörer dreifach | – | Kreuzer, Trägerschlachtschiff, Abfang-Schlachtkreuzer, Schildkreuzer |
+| **Kreuzer** | 2.200 / 54 / 29.000 | 1 | Leichter Jäger doppelt, Sturmjäger doppelt, Abfangjäger doppelt | Leichter Jäger 6, Sturmjäger 3, Abfangjäger 3 | Zerstörer, Schlachtkreuzer, Schwerer Schlachtkreuzer, Ionengeschütz |
+| **Raketenkreuzer** | 4.100 / 140 / 55.000 | 1 | Sturmschlachtschiff doppelt, Trägerschlachtschiff doppelt | – | Schwerer Schlachtkreuzer, Gaußkanone, Raketenwerfer, Ionengeschütz |
+| **Schildkreuzer** | 1.500 / 3.000 / 75.000 | 2 | Schwerer Jäger dreifach, Abfangjäger doppelt | Schwerer Jäger 3, Abfangjäger 3 | Schlachtschiff, Schwerer Schlachtkreuzer, Ionengeschütz, Zerstörer |
+| **Flottenkreuzer** | 2.700 / 600 / 110.000 | 3 | Bomber doppelt, Strategischer Bomber doppelt | – | Schwerer Schlachtkreuzer, Gaußkanone, Schlachtschiff, Ionengeschütz |
+| **Schlachtschiff** | 4.500 / 230 / 68.000 | 1 | Kreuzer doppelt, Flottenkreuzer doppelt | – | Zerstörer, Schwerer Zerstörer, Schlachtkreuzer, Schwerer Schlachtkreuzer |
+| **Sturmschlachtschiff** | 8.700 / 480 / 160.000 | 1 | Zerstörer dreifach, Schwerer Zerstörer dreifach | – | Plasmawerfer, Gaußkanone, Raketenwerfer, Lasergeschütz |
+| **Trägerschlachtschiff** | 2.000 / 770 / 140.000 | 4 | Leichter Jäger dreifach, Abfangjäger dreifach, Sturmjäger dreifach | – | Ionengeschütz, Gaußkanone, Plasmawerfer, Schwerer Zerstörer |
+| **Belagerungsschlachtschiff** | 5.900 / 1.000 / 130.000 | 2 | Gaußkanone ×1,5, Plasmawerfer ×1,5, Ionengeschütz ×1,5 | Ionengeschütz 5, Gaußkanone 2, Plasmawerfer 2 | Zerstörer, Schwerer Zerstörer, Raketenwerfer, Sturmjäger |
+| **Zerstörer** | 7.100 / 760 / 170.000 | 1 | Belagerungsschlachtschiff dreifach, Schlachtschiff dreifach, Schwerer Schlachtkreuzer dreifach | Kreuzer 3, Schlachtschiff 2, Schlachtkreuzer 2 | Sturmschlachtschiff, Gaußkanone, Raketenwerfer, Lasergeschütz |
+| **Abfangzerstörer** | 2.300 / 380 / 120.000 | 3 | Schwerer Jäger dreifach, Abfangjäger doppelt | – | Ionengeschütz, Sturmschlachtschiff, Plasmawerfer, Sturmjäger |
+| **Schwerer Zerstörer** | 8.100 / 790 / 300.000 | 2 | Belagerungsschlachtschiff dreifach, Schlachtschiff dreifach | – | Sturmschlachtschiff, Raketenwerfer, Lasergeschütz, Gaußkanone |
+| **Schlachtkreuzer** | 7.000 / 500 / 88.000 | 1 | Schlachtschiff doppelt | Schlachtschiff 7, Kreuzer 4, Schwerer Jäger 4 | Zerstörer, Gaußkanone, Raketenwerfer, Lasergeschütz |
+| **Abfang-Schlachtkreuzer** | 1.700 / 350 / 69.000 | 3 | Leichter Jäger doppelt, Abfangjäger doppelt, Sturmjäger dreifach, Bomber dreifach, Strategischer Bomber dreifach | Leichter Jäger 6, Abfangjäger 4, Sturmjäger 4, Schwerer Jäger 3, Bomber 3, Strategischer Bomber 2 | Ionengeschütz, Gaußkanone, Plasmawerfer, Schildkreuzer |
+| **Schwerer Schlachtkreuzer** | 10.000 / 1.600 / 160.000 | 1 | Schlachtschiff doppelt, Flottenkreuzer doppelt, Raketenkreuzer doppelt | Schlachtschiff 5, Flottenkreuzer 3, Raketenkreuzer 3, Kreuzer 3, Schildkreuzer 2 | Gaußkanone, Raketenwerfer, Lasergeschütz, Plasmawerfer |
+| **Bomber** | 2.100 / 420 / 63.000 | 4 | Raketenwerfer ×1,5, Lasergeschütz ×1,5, Ionengeschütz ×1,5 | Raketenwerfer 10, Lasergeschütz 8, Ionengeschütz 3 | Schlachtschiff, Flottenkreuzer, Trägerschlachtschiff, Abfang-Schlachtkreuzer |
+| **Strategischer Bomber** | 7.600 / 740 / 110.000 | 2 | Planetenschild I dreifach, Planetenschild II dreifach, Planetenschild III dreifach, Plasmawerfer doppelt, Gaußkanone doppelt | Plasmawerfer 3, Gaußkanone 3 | Abfang-Schlachtkreuzer, Flottenkreuzer, Raketenwerfer, Lasergeschütz |
+| **Raketenwerfer** | 160 / 30 / 3.000 | 1 | Kreuzer doppelt, Raketenkreuzer doppelt | – | Bomber |
+| **Lasergeschütz** | 91 / 42 / 3.300 | 2 | Leichter Jäger doppelt, Abfangjäger doppelt, Sturmjäger doppelt | – | Bomber |
+| **Ionengeschütz** | 540 / 860 / 14.000 | 1 | Schildkreuzer dreifach, Schlachtschiff doppelt, Sturmschlachtschiff doppelt, Trägerschlachtschiff doppelt | – | Belagerungsschlachtschiff, Bomber |
+| **Gaußkanone** | 2.100 / 400 / 71.000 | 1 | Schlachtschiff doppelt, Sturmschlachtschiff doppelt, Trägerschlachtschiff doppelt, Zerstörer doppelt, Schwerer Zerstörer dreifach | – | Strategischer Bomber, Belagerungsschlachtschiff |
+| **Plasmawerfer** | 8.200 / 1.900 / 290.000 | 1 | Bomber dreifach | – | Strategischer Bomber, Belagerungsschlachtschiff, Schwerer Jäger |
 
 Das kleine Kolonieschiff trägt 10.000 Ressourcen und 3.000 eingeschiffte Siedler. Das große trägt 50.000 Ressourcen und 6.000 Siedler, fliegt schneller und bringt Erz- und Kristallmine bereits mit. Ein Schiff wird bei Gründung verbraucht. Solarversorgung, bei biologischen Völkern Farmen und ausreichendes Rohstofflager gehören zum Startpaket. Die Siedler werden vor Abflug aus der Startbevölkerung genommen; Fracht, Eskorte und Aufklärung gehören weiterhin zur Planung.
 
@@ -1348,9 +1385,9 @@ Systemsonden entdecken Asteroidengürtel, natürliche Rohstoffringe und Bergungs
 
 ### Wie ein Mond entsteht
 
-Ein Mond kann nur nach einem Kampf an einem besiedelten Planeten entstehen, der noch keinen Mond hat. Die **Mondchance** beträgt **1 % je 100.000 Trümmer** aus Erz und Kristall **dieses einen Kampfes**, höchstens **20 %**. Trümmer, die vorher schon am Ort lagen, zählen nicht. Kämpfe an einem Mond, Raketeneinschläge, Bodenkämpfe und Expeditionsbegegnungen erzeugen nie einen Mond. Alle Beteiligten und der Planetenbesitzer erhalten eine Meldung mit Chance und Ergebnis, etwa „Mondchance 12 % – kein Mond“.
+Ein Mond kann nur nach einem Kampf an einem besiedelten Planeten entstehen, der noch keinen Mond hat. Die **Mondchance** beträgt **1 % je 2.000 Trümmer** aus Erz und Kristall **dieses einen Kampfes**, höchstens **40 %**. Unter 2.000 Trümmern gibt es keine Chance. Trümmer, die vorher schon am Ort lagen, zählen nicht. Kämpfe an einem Mond, Raketeneinschläge, Bodenkämpfe und Expeditionsbegegnungen erzeugen nie einen Mond. Alle Beteiligten und der Planetenbesitzer erhalten eine Meldung mit Chance und Ergebnis, etwa „Mondchance 12 % – kein Mond“.
 
-**Beispiel:** Eine Schlacht hinterlässt 1.250.000 Trümmer. Die Mondchance beträgt 12 %. Ein zerstörter Weltenkrümmer allein hinterlässt 2.700.000 Trümmer und erreicht damit den Höchstwert von 20 %.
+**Beispiel:** Eine Schlacht hinterlässt 24.000 Trümmer. Die Mondchance beträgt 12 %. Ab 80.000 Trümmern ist der Höchstwert von 40 % erreicht – ein zerstörter Weltenkrümmer allein (2.700.000 Trümmer) liegt weit darüber.
 
 Der Mond gehört dem Besitzer des Planeten, nicht dem Sieger der Schlacht. Wird der Planet erobert, geht der Mond mit: Schiffe und Aufträge des Vorbesitzers auf dem Mond enden, Verteidigung und Solarsatelliten bleiben. Gibst du den Planeten auf, wird auch sein Mond gelöscht. Das ist gesperrt, solange Schiffe auf dem Mond stehen oder vom Mond gestartete Flotten unterwegs sind. Ein Mond belegt **keinen Kolonieplatz** und kostet keine Verwaltung wie eine Kolonie.
 
@@ -1424,7 +1461,7 @@ Jeder Mond kostet täglich **150 Credits plus 20 Credits je Gebäudestufe** auf 
 
 ### Flüge zu und von Monden
 
-Im Versand wählst du im ersten Schritt neben dem Ziel die **Zielart** und neben dem Start die **Startart**: Planet oder Mond. Gegen einen Mond sind diese Aufträge möglich:
+Im Einsatzblatt wählst du im Schritt **Ziel** einen Mond (☾) als Ziel; als Start bietet der Schritt **Flotte** auch deine Monde an. Gegen einen Mond sind diese Aufträge möglich:
 
 | Auftrag | Ziel |
 |---|---|
@@ -1557,15 +1594,15 @@ In Welten mit Monden gibt es eine eigene Klasse zwischen Kreuzer und Schlachtsch
 
 | Modell | Kosten (Erz / Kristall / Deuterium / Legierung / Elektronik / Xenokristall) | Struktur / Schild / Angriff | Ziele | Tempo / Verbrauch / Ladung | Bau |
 |---|---|---|---|---|---|
-| **Schlachtkreuzer** | 30.000 / 40.000 / 15.000 / 780 / 235 / 58 | 70.000 / 400 / 1.200 | 1 | 12.500 / 250 / 750 | Werft 7, Orbitalwerft 2, Hyperraumantrieb 3, Waffentechnik 5, Panzerung 4 |
-| **Abfang-Schlachtkreuzer** | 25.000 / 30.000 / 12.000 / 610 / 185 / 45 | 50.000 / 250 / 600 | 3 | 16.000 / 220 / 600 | Werft 6, Orbitalwerft 2, Hyperraumantrieb 2, Computertechnik 5, Waffentechnik 5 |
-| **Schwerer Schlachtkreuzer** | 60.000 / 70.000 / 25.000 / 1.450 / 435 / 110 | 120.000 / 1.200 / 2.500 | 1 | 8.000 / 600 / 1.500 | Werft 8, Orbitalwerft 3, Hyperraumantrieb 4, Waffentechnik 7, Panzerung 6, Schildtechnik 5 |
+| **Schlachtkreuzer** | 30.000 / 40.000 / 15.000 / 780 / 235 / 58 | 88.000 / 500 / 7.000 | 1 | 12.500 / 250 / 750 | Werft 7, Orbitalwerft 2, Hyperraumantrieb 3, Waffentechnik 5, Panzerung 4 |
+| **Abfang-Schlachtkreuzer** | 25.000 / 30.000 / 12.000 / 610 / 185 / 45 | 69.000 / 350 / 1.700 | 3 | 16.000 / 220 / 600 | Werft 6, Orbitalwerft 2, Hyperraumantrieb 2, Computertechnik 5, Waffentechnik 5 |
+| **Schwerer Schlachtkreuzer** | 60.000 / 70.000 / 25.000 / 1.450 / 435 / 110 | 160.000 / 1.600 / 10.000 | 1 | 8.000 / 600 / 1.500 | Werft 8, Orbitalwerft 3, Hyperraumantrieb 4, Waffentechnik 7, Panzerung 6, Schildtechnik 5 |
 
-- Der **Schlachtkreuzer** ist der Linienkreuzer: schnell und sparsam, mit Schnellfeuer 7 gegen Schlachtschiffe, 4 gegen Kreuzer und schwere Jäger, 3 gegen Transporter sowie 5 gegen Sonden und Solarsatelliten. Zerstörer (Schnellfeuer 2 gegen ihn), Sturmschlachtschiffe, schwere Jäger und Weltenkrümmer kontern ihn.
-- Der **Abfang-Schlachtkreuzer** ist der schnellste Großkampfträger und greift drei Ziele je Runde an. Er hat Schnellfeuer 6 gegen leichte Jäger, 4 gegen Abfang- und Sturmjäger, 3 gegen schwere Jäger und Bomber, 2 gegen strategische Bomber und 5 gegen Sonden. Gegen Schlachtschiffe ist er chancenlos.
-- Der **Schwere Schlachtkreuzer** ist das langsame Flaggschiff mit Schnellfeuer 5 gegen Schlachtschiffe, 3 gegen Flotten-, Raketen- und normale Kreuzer und 2 gegen Schildkreuzer; er schlägt auch den Linien-Schlachtkreuzer. Zerstörer und Schlachtschiffe halten gut dagegen.
+- Der **Schlachtkreuzer** ist der Linienkreuzer: schnell und sparsam, jagt Schlachtschiffe mit Schnellfeuer 7 und erfasst Kreuzer, Schild- und Flottenkreuzer, schwere Jäger und Trägerschlachtschiffe; Schnellfeuer 4 gegen Kreuzer und schwere Jäger. Zerstörer (Schnellfeuer 2 gegen ihn), Jägerschwärme, Raketenwerfer, Lasergeschütze und Weltenkrümmer kontern ihn.
+- Der **Abfang-Schlachtkreuzer** ist der schnellste Großkampfträger und greift drei Ziele je Runde an: alle Jäger und beide Bomberklassen, mit Schnellfeuer 6 gegen leichte Jäger, 4 gegen Abfang- und Sturmjäger, 3 gegen schwere Jäger und Bomber und 2 gegen strategische Bomber. Gegen Schlachtschiffe, Zerstörer und Gaußkanonen ist er chancenlos.
+- Der **Schwere Schlachtkreuzer** ist das langsame Flaggschiff gegen Schlachtschiffe, Flotten- und Raketenkreuzer, mit Schnellfeuer 5 gegen Schlachtschiffe, 3 gegen Flotten-, Raketen- und normale Kreuzer und 2 gegen Schildkreuzer. Zerstörer, Jägerschwärme und Anlagen halten gut dagegen.
 
-**Beispiel:** Eine gegnerische Flotte besteht vor allem aus Schlachtschiffen. Schlachtkreuzer sind dagegen stark. Bringt der Gegner Zerstörer mit, kippt das Bild; prüfe die Zusammensetzung im Kampfsimulator, bevor du baust.
+**Beispiel:** Eine gegnerische Flotte besteht vor allem aus Schlachtschiffen. Schlachtkreuzer sind dagegen stark. Bringt der Gegner Zerstörer oder einen Jägerschwarm mit, kippt das Bild; prüfe die Zusammensetzung im Kampfsimulator, bevor du baust.
 
 ## 29 Wachstum, Energie und Grundausbildung
 
@@ -1611,36 +1648,58 @@ Auf Plätzen mit TF-Angabe braucht dein Volk die genannte Stufe **Terraforming**
 
 **Beispiel:** Aurelianer auf Platz 1 (0,70) wachsen mit Terraforming 4 mit 0,81, mit Terraforming 10 mit 0,97. Krath auf Platz 12 sind ab Terraforming 7 bewohnbar und wachsen dann mit 0,78.
 
+Terraforming ist zugleich die **Kolonieforschung**: ab Zivilisationsstufe III, Labor 3, Kosten der Stufe n 4.000 Erz, 8.000 Kristall, 4.000 Deuterium und 200 Elektronik × 1,75^(n−1). Jede Stufe erlaubt ab der dritten Kolonie eine weitere. **Felder** bringt die Forschung dort nicht mehr – die formen Terraformer-Schiffe.
+
+### Terraformer: Klima und Felder eines Planeten formen
+
+Der **Terraformer** (ab Zivilisationsstufe IV, Werft 4, Terraforming 1, Impulsantrieb 3; 12.000 Erz, 9.000 Kristall, 6.000 Deuterium, 600 Legierung, 400 Elektronik) formt mit der Mission **Terraformen** einen eigenen Planeten oder einen freien Platz in einem kartierten System für ein Volk – ohne Angabe für dein eigenes, im Einsatzblatt wählbar. Er wird dabei verbraucht; ein Flug besteht nur aus Terraformern.
+
+- **Zuerst das Klima:** Die Terraformer schließen die Klimalücke des Platzes für dieses Volk. Ist sie ganz geschlossen, wächst das Volk dort wie auf seiner Heimatbahn, und eine Terraforming-Sperre (TF-Angabe) entfällt für dieses Volk.
+- **Dann die Kruste:** Übrige Schiffe vergrößern den Planeten über seine Grundgröße hinaus – bis zu **+40 Felder** auf einem Platz ohne Klimalücke, bis zu **+30** auf dem ungünstigsten Platz deines Volkes (dazwischen gestuft).
+- **Nur die nötigen Schiffe** werden verbraucht; der Rest fliegt heim. Teilflüge zählen zusammen, ein Projekt kostet in mehreren Flügen genauso viele Schiffe wie in einem. Treibstoff wird wie bei jedem Hin-und-zurück-Auftrag für beide Strecken beim Start abgebucht; werden alle Schiffe verbraucht, erstattet der Kern den Rückflug-Treibstoff bei Ankunft an den Startplaneten.
+- **Jede Stufe Terraforming spart Schiffe.** Ein volles Projekt (Klima und Felder) braucht:
+
+| Terraforming | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Ungünstigster Platz deines Volkes (Klima + bis +30 Felder) | 163 | 143 | 125 | 110 | 96 | 84 | 74 | 65 | 57 | 50 |
+| Platz im Klimaoptimum (nur bis +40 Felder) | 87 | 77 | 67 | 59 | 52 | 45 | 40 | 35 | 31 | 27 |
+
+Ab Stufe 10 bleibt es bei diesen Zahlen. Auf Plätzen dazwischen brauchst du entsprechend weniger Klimaschiffe.
+
+**Beispiel:** Aurelianer mit Terraforming 8 formen den äußersten Platz 12 (Klimafaktor 0,62) mit **65 Terraformern**: 39 schließen die Klimalücke, 26 bringen +30 Felder. Schickst du 70, kehren 5 zurück. Mit Terraforming 10 genügen 50.
+
+Das Werkzeug **terraformbedarf** und die Planetenansicht zeigen für jeden eigenen Planeten und jeden freien Platz eines kartierten Systems den Stand (Klima in Prozent, geformte Felder, Feldgrenze) und die noch nötigen Terraformer bei deiner Stufe und den nächsten Stufen. Ist ein freier Zielplatz bei der Ankunft inzwischen von einem anderen Reich besiedelt, kehren die Terraformer ohne Wirkung um. Schickst du später Terraformer für ein anderes Volk, beginnt das Klima von vorn; geformte Felder bleiben.
+
 ### Sonnenenergie, Solarkraftwerk und Solarsatelliten
 
-Der **Sonnenfaktor** hängt nur vom Platz ab: Platz 6 erhält 100 %, innen mehr, außen weniger bis 20 % auf dem letzten Platz. Ein Solarkraftwerk der Stufe n liefert 29,04 × n × 1,1^n × Sonnenfaktor × (1 + 5 % je Stufe Energietechnik) Energie je Stunde, ein Fusionskraftwerk 55 × n × 1,1^n × (1 + 5 % je Stufe Energietechnik), ein Solarsatellit 33 × Sonnenfaktor der Bahn. Syntheten erhalten bei Solar und Satelliten 10 % mehr; ihre Fusionskraftwerke liefern 30 % mehr als die anderer Völker, bei gleichen Kosten.
+Der **Sonnenfaktor** hängt vom Platz ab: Platz 1 erhält 120 %, Platz 6 100 %, der letzte Platz 80 %. Die Sternklasse kann ihn zusätzlich verändern; derzeit strahlen alle Sternklassen gleich stark. Ein Solarkraftwerk der Stufe n liefert 29,04 × n × 1,1^n × Sonnenfaktor × (1 + 5 % je Stufe Energietechnik) Energie je Stunde, ein Fusionskraftwerk 55 × n × 1,1^n × (1 + 5 % je Stufe Energietechnik), ein Solarsatellit 33 × Sonnenfaktor der Bahn. Syntheten erhalten bei Solar und Satelliten 10 % mehr; ihre Fusionskraftwerke liefern 30 % mehr als die anderer Völker, bei gleichen Kosten.
 
-Ab Zivilisationsstufe II baust du in Welten mit Monden über jedem eigenen Planeten mit Werft 1 **Solarsatelliten** für 2.000 Kristall und 500 Deuterium. Jeder liefert **30 × Sonnenfaktor** Energie, ebenfalls mit Energietechnik und Volksbonus, auf einem Mond zusätzlich mit dem Faktor seines Typs. Die Energie je Satellit hängt also von der Bahn ab; die Bauseite zeigt dir den Wert für deinen Planeten. Satelliten belegen kein Feld, brauchen keine Besatzung und keinen Unterhalt, fliegen nie, sind wehrlos, kämpfen bei jeder Verteidigung ihres Ortes mit, werden danach nicht wiederaufgebaut und hinterlassen je 600 Kristall Trümmer.
+Ab Zivilisationsstufe II baust du in Welten mit Monden über jedem eigenen Planeten mit Werft 1 **Solarsatelliten** für 2.000 Kristall und 500 Deuterium. Jeder liefert **33 × Sonnenfaktor** Energie, ebenfalls mit Energietechnik und Volksbonus, auf einem Mond zusätzlich mit dem Faktor seines Typs. Die Energie je Satellit hängt also von der Bahn ab; die Bauseite zeigt dir den Wert für deinen Planeten. Satelliten belegen kein Feld, brauchen keine Besatzung und keinen Unterhalt, fliegen nie, sind wehrlos, kämpfen bei jeder Verteidigung ihres Ortes mit, werden danach nicht wiederaufgebaut und hinterlassen je 600 Kristall Trümmer.
 
 | Platz | Sonnenfaktor | Solarkraftwerk Stufe 1 | Solarkraftwerk Stufe 1, Syntheten | Solarsatellit | Solarsatellit, Syntheten |
 |---|---|---|---|---|---|
-| 1 | 171,1 % | 49,7 | 54,7 | 51,3 | 56,5 |
-| 2 | 153,3 % | 44,5 | 49,0 | 46,0 | 50,6 |
-| 3 | 135,6 % | 39,4 | 43,3 | 40,7 | 44,7 |
-| 4 | 117,8 % | 34,2 | 37,6 | 35,3 | 38,9 |
-| 5 | 108,9 % | 31,6 | 34,8 | 32,7 | 35,9 |
-| 6 | 100,0 % | 29,0 | 31,9 | 30,0 | 33,0 |
-| 7 | 91,1 % | 26,5 | 29,1 | 27,3 | 30,1 |
-| 8 | 77,8 % | 22,6 | 24,9 | 23,3 | 25,7 |
-| 9 | 60,0 % | 17,4 | 19,2 | 18,0 | 19,8 |
-| 10 | 42,2 % | 12,3 | 13,5 | 12,7 | 13,9 |
-| 11 | 28,9 % | 8,4 | 9,2 | 8,7 | 9,5 |
-| 12 | 20,0 % | 5,8 | 6,4 | 6,0 | 6,6 |
+| 1 | 120,0 % | 38,3 | 42,2 | 39,6 | 43,6 |
+| 2 | 116,0 % | 37,1 | 40,8 | 38,3 | 42,1 |
+| 3 | 112,0 % | 35,8 | 39,4 | 37,0 | 40,7 |
+| 4 | 108,0 % | 34,5 | 37,9 | 35,6 | 39,2 |
+| 5 | 104,0 % | 33,2 | 36,5 | 34,3 | 37,8 |
+| 6 | 100,0 % | 31,9 | 35,1 | 33,0 | 36,3 |
+| 7 | 96,7 % | 30,9 | 34,0 | 31,9 | 35,1 |
+| 8 | 93,3 % | 29,8 | 32,8 | 30,8 | 33,9 |
+| 9 | 90,0 % | 28,7 | 31,6 | 29,7 | 32,7 |
+| 10 | 86,7 % | 27,7 | 30,5 | 28,6 | 31,5 |
+| 11 | 83,3 % | 26,6 | 29,3 | 27,5 | 30,2 |
+| 12 | 80,0 % | 25,6 | 28,1 | 26,4 | 29,0 |
 
-Die Werte gelten ohne Energietechnik. **Beispiel:** Zehn Solarsatelliten über einem Aurelianer-Planeten auf Platz 3 liefern 407 Energie je Stunde, auf Platz 12 nur 60. Werften und Fertigung ruhen bei Strommangel; baue deshalb zuerst ein Solarkraftwerk, dann Satelliten. Solarkraftwerke selbst brauchen keinen Strom, und Bauaufträge laufen auch bei Strommangel weiter. Ein Planet kann sich also immer aus dem Mangel herausbauen.
+Die Werte gelten ohne Energietechnik. **Beispiel:** Zehn Solarsatelliten über einem Aurelianer-Planeten auf Platz 3 liefern 370 Energie je Stunde, auf Platz 12 264. Werften und Fertigung ruhen bei Strommangel; baue deshalb zuerst ein Solarkraftwerk, dann Satelliten. Solarkraftwerke selbst brauchen keinen Strom, und Bauaufträge laufen auch bei Strommangel weiter. Ein Planet kann sich also immer aus dem Mangel herausbauen.
 
 ### Grundausbildung der Akademie
 
-Fachkräfte und Forscher entstehen ohne Auftrag und **ohne Kosten**. Jede intakte Akademie bildet je Spieltag **20 × n × 1,1^n** Personen aus, n ist ihre Stufe: Stufe 1 bildet 22 aus, Stufe 2 48,4, Stufe 3 79,9 und Stufe 4 117,1. Besetzung, Energiedeckung und Leistungsregler der Akademie verringern diesen Wert anteilig. Ausgebildet wird nur aus freien, ungelernten Bewohnern, zuerst aus deinem Reichsvolk, und nur bis zum Bedarf: dem Personalbedarf der eigenen Werke geteilt durch die Arbeitsquote, plus 10 % und fünf Personen Reserve. Fachkräfte entstehen für alle Werke außer dem Labor, Forscher für das Labor, sofern eines steht.
+Fachkräfte und Forscher entstehen ohne Auftrag und **ohne Kosten**. Jede intakte Akademie bildet je Spieltag **100 × n × 1,1^n** Personen aus, n ist ihre Stufe: Stufe 1 bildet 110 aus, Stufe 2 242, Stufe 3 399,3 und Stufe 4 585,6. Die Heimatwelt bildet auch ohne intakte Akademie so viele aus wie Akademie Stufe 1. Vor Zivilisationsstufe III verdoppelt sich die Zahl (Frühphase). Besetzung, Energiedeckung und Leistungsregler der Akademie verringern diesen Wert anteilig. Ausgebildet wird nur aus freien, ungelernten Bewohnern, zuerst aus deinem Reichsvolk, und nur bis zum Bedarf: dem Personalbedarf der eigenen Werke geteilt durch die Arbeitsquote, plus 10 % und fünf Personen Reserve. Fachkräfte entstehen für alle Werke außer dem Labor, Forscher für das Labor, sofern eines steht.
 
 **Beispiel:** Elektronikwerk 2 und Fusionskraftwerk 3 brauchen zusammen 54 Fachkräfte. Mit Reserve ist das Ziel 64. Akademie 1 erreicht es von 24 Startfachkräften aus in rund zwei Spieltagen.
 
-**Bezahlte Ausbildung** bleibt die Beschleunigung: 20 Plätze je Akademiestufe, eine Fachkraft kostet 10 Konsumgüter und dauert 24 Spielstunden, ein Forscher 10 Konsumgüter und 10 Elektronik und dauert 48 Spielstunden. Die Akademie ist ab Zivilisationsstufe I baubar. Ohne Akademie entstehen auf einem Planeten keine neuen Fachkräfte. Neue Welten starten mit 15 Forschern, sodass das erste Labor voll besetzt ist. Der Lagebericht zeigt den Stand der Grundausbildung.
+**Bezahlte Ausbildung** bleibt die Beschleunigung: 20 Plätze je Akademiestufe, eine Fachkraft kostet 10 Konsumgüter und dauert 24 Spielstunden, ein Forscher 10 Konsumgüter und 10 Elektronik und dauert 48 Spielstunden. Die Akademie ist ab Zivilisationsstufe I baubar. Die Heimatwelt bildet auch ohne Akademie aus (wie Akademie 1, auch bei Personalmangel nie weniger); Kolonien ohne Akademie bilden niemanden aus. Vor Zivilisationsstufe III läuft die Grundausbildung doppelt so schnell. Bezahlte Aufträge warten, solange die Akademie nicht voll besetzt ist oder Energie fehlt; die kostenlose Grundausbildung läuft dann anteilig weiter. Neue Welten starten mit 15 Forschern, sodass das erste Labor voll besetzt ist. Der Lagebericht zeigt den Stand der Grundausbildung.
 
 ### Aufstieg ohne Haltezeit
 
@@ -1686,11 +1745,11 @@ Die Forschung **Plasmatechnik** (Gruppe Wirtschaft, ab Zivilisationsstufe IV mit
 
 ## 30 Invasion
 
-Eine Kolonie fällt in drei Abschnitten: Verteidigung brechen und bombardieren, landen, belagern. Der ursprüngliche Heimatplanet eines Reiches bleibt immer geschützt.
+Eine Kolonie fällt in fünf Abschnitten: Verteidigung brechen, bombardieren, landen, Verteidigungslinien durchbrechen, mit einem Kolonieschiff übernehmen. Der ursprüngliche Heimatplanet eines Reiches bleibt immer geschützt.
 
 ### 1. Verteidigung brechen
 
-Eine Flotte mit **Bombardieren** (mindestens ein Bomber) oder **Kampfkolonisieren** (mit Kolonieschiff) kämpft bei Ankunft gegen alle bewaffneten Schiffe, Verteidigungsanlagen und Planetenschilde, auch gegen verbündete Flotten, die dort halten. Nur der Sieger hält den Orbit. Weitere Flotten des Angreifers mit diesen Aufträgen vereinigen sich mit seiner Blockade; nachgeschickte Bomber zählen sofort.
+Eine Flotte mit **Bombardieren** (mindestens ein Bomber) oder **Kampfkolonisieren** (mit Kolonieschiff) kämpft bei Ankunft gegen alle bewaffneten Schiffe, Verteidigungsanlagen und Planetenschilde, auch gegen verbündete Flotten, die dort halten, und gegen fremde Flotten, die im Orbit gestrandet sind und dem Besitzer beistehen (Kapitel 33). Nur der Sieger hält den Orbit. Weitere Flotten des Angreifers mit diesen Aufträgen vereinigen sich mit seiner Blockade; nachgeschickte Bomber zählen sofort.
 
 ### 2. Bombardieren
 
@@ -1702,42 +1761,60 @@ Nur **Bomber** beschädigen Gebäude; alle anderen Schiffe kämpfen nur gegen Fl
 
 **Beispiel:** Eine Kolonie hat zusammen 50 Gebäudestufen, also 35.000 Strukturpunkte. Zehn Bomber werfen 1.000 Bombenlast je Runde ab: aufgerundet 29 Promille. Nach 25 Runden, rund sechs Spielstunden, stehen alle Gebäude bei 30 %. Mit einem einzigen Bomber dauert dasselbe 234 Runden, rund 58 Spielstunden.
 
-Neue bewaffnete Verteidigung, etwa frisch gebaute Anlagen, stationierte Schiffe oder eine verbündete Kampfflotte, unterbricht: Die Runde wird für den Kampf verbraucht, und ein verlorener Kampf beendet die Bombardierung. Mit der ersten Runde wird die Bauschleife des Planeten storniert. Unter Bombardierung und Belagerung sind keine Reparaturen möglich.
+Neue bewaffnete Verteidigung, etwa frisch gebaute Anlagen, stationierte Schiffe oder eine verbündete Kampfflotte, unterbricht: Die Runde wird für den Kampf verbraucht, und ein verlorener Kampf beendet die Bombardierung. Mit der ersten Runde wird die Bauschleife des Planeten storniert. Unter Bombardierung und Invasion sind keine Reparaturen möglich.
 
 ### 3. Landen
 
-Gelandet wird erst, wenn **alle Gebäude höchstens 30 %** Integrität haben **und** die Flotte mit **Kampfkolonisieren** ein **Kolonieschiff** sowie **Bodentruppen** in **Truppentransportern** trägt. Jeder Truppentransporter hat 100 gewichtete Truppenplätze. Bodentruppen bildest du in der Kaserne aus und verlädst sie im Versand im Schritt Flotte unter **Bodentruppen mitführen**. Ohne Bodentruppen gibt es keine Landung. Das Kolonieschiff reserviert den Kolonieplatz und wird bei der Übernahme verbraucht.
+Gelandet wird, sobald **alle Gebäude höchstens 30 %** Integrität haben und die Flotte (**Bombardieren** oder **Kampfkolonisieren**) **Bodentruppen** in **Truppentransportern** trägt. Ein Kolonieschiff ist für die Landung nicht nötig, erst für die Übernahme. Jeder Truppentransporter hat 100 gewichtete Truppenplätze. Bodentruppen bildest du in der Kaserne aus und verlädst sie im Einsatzblatt im Schritt **Truppen**; beim Bombardieren bietet die Vorlage **Bomber + Kampfflotte + Truppentransporter** die Transporter gleich mit an. Ohne Bodentruppen gibt es keine Landung.
 
-### 4. Belagerung
+Mit der Landung beginnt die **Invasion**. Der Verteidiger sieht sie sofort: in der Übersicht als rote Karte **Invasion** mit Countdown bis zur nächsten Welle, am Planeten und in der Galaxie.
 
-Ab der Landung dauert die **Belagerung 48 Spielstunden**, bei 1× also zwei reale Tage. Alle 15 Spielminuten folgt eine Bodenrunde mit gleichzeitigem Feuer und den Kontern der Truppentypen. Übernommen wird frühestens nach Ablauf der 48 Stunden und nur, wenn **kein Bodenverteidiger** mehr lebt und der Angreifer den Orbit mit Kolonieschiff hält. Die Bevölkerung bleibt bei der Übernahme erhalten.
+### 4. Verteidigungslinien und Wellen
 
-Die Belagerung bricht ab, wenn alle angreifenden Bodentruppen fallen oder der Angreifer Orbit, Kolonieschiff oder die feindliche Beziehung verliert.
+Der Planet hat **vier Verteidigungslinien**: Linie 1 bis 3 und als letzte den **Rückhalt**. Alle **12 Spielstunden** greift eine **Welle** die aktuelle Linie an, die erste 12 Stunden nach der Landung. Vier Wellen ergeben die **48 Stunden**, die eine Kolonie im besten Fall für den Angreifer standhält.
 
-### 5. Hilfe für den Verteidiger
+- **Linien verteilen:** In der Invasionskarte tippst du eine Linie an und teilst ihr Truppen und Miliz zu, frei nach Typ und Zahl. Was du keiner Linie zuteilst, steht im **Rückhalt**. Umverteilen geht bis zur nächsten Welle; gebrochene Linien sind zu.
+- **Eine Welle:** höchstens **sechs Bodenrunden** zwischen allen gelandeten Angreifern und den Truppen der aktuellen Linie, mit gleichzeitigem Feuer, Wunden und den Kontern der Truppentypen. Ist die Linie leer, fällt sie kampflos, und die Welle trifft gleich die nächste.
+- **Ergebnis:** Fallen alle Angreifer, ist die Invasion **abgewehrt**. Fällt die Linie, ist sie **gebrochen**, und die nächste Welle trifft die nächste Linie. Überleben beide Seiten, **hält** die Linie; die nächste Welle trifft sie erneut.
+- **Nachbauen:** Während der Invasion bildet die Kaserne **50 % langsamer** aus. Neue Truppen stellen sich in den Rückhalt.
+- **Hilfe:** Eigene Truppen, die du mit **Transport** oder **Stationieren** schickst, landen trotz Blockade und stehen im Rückhalt. Verbündete Bodenhilfe (**Bodenhilfe**) und Bodentruppen fremder Flotten, die dem Besitzer im Orbit beistehen, verteidigen im Rückhalt mit; sie bleiben Eigentum ihres Absenders. Verbündete Kampfflotten mit **Halten** kämpfen bei Ankunft gegen die Besatzungsflotte; fällt sie, endet die Invasion.
+- **Verbündete Angreifer:** Kommt ein Verbündeter des Angreifers mit Bodentruppen in den Orbit (**Halten** oder **Bodenhilfe**), schließen sich seine Truppen den Angreifern an. Verluste werden anteilig verteilt, jeder behält seine Truppen.
 
-- **Eigene Bodentruppen** landen während der Belagerung trotz Blockade. Schicke sie mit **Transport** oder **Stationieren** zum belagerten Planeten; die Truppen gehen in die Garnison, die Schiffe kehren um.
-- **Verbündete** aus deiner Allianz oder einem Verteidigungsbündnis schicken Bodentruppen mit dem Auftrag **Bodenhilfe**. Reine Truppenkonvois landen ohne Gefecht. Ihre Truppen verteidigen mit, bleiben Eigentum des Absenders und fliegen nach dem Ende der Belagerung mit den Überlebenden heim.
-- **Verbündete Kampfflotten** mit **Halten** kämpfen bei Ankunft gegen die Besatzungsflotte. Fällt sie, endet die Belagerung.
+Jede Welle schreibt einen **Bodenkampfbericht** (Linie, Truppen vorher und nachher, Verluste je Runde).
 
-### 6. Volksmiliz
+### 5. Verwüstet und Übernahme
 
-Steht auf dem Planeten eine **Kaserne Stufe 1**, kannst du während einer Belagerung **einmal** die Miliz ausrufen. Dann kämpfen **alle Bewohner** mit Waffenwert 0,3 und Rüstwert 5; zum Vergleich hat Sturminfanterie 10 und 50.
+Bricht der **Rückhalt**, verliert der Besitzer die Kontrolle: Der Planet ist **verwüstet**. So steht er in der Galaxie (Sonnensystem 3D und Tabelle) und am Planeten. Die Besatzungstruppen halten den Boden.
 
-- **Kosten:** 1 Legierung je Bewohner, nicht erstattet.
-- **Nachteil:** Die Hälfte der Bewohner steht jeweils im Dienst und fehlt in Produktion und Forschung, bis die Belagerung endet.
-- **Verluste:** Gefallene sind tote Bewohner. Sind **30 %** des Aufgebots gefallen, kapituliert die Miliz; die Überlebenden bleiben Bevölkerung.
-- Sturmpanzer, Schwere Infanterie und Schwere Kampfpanzer treffen die Miliz doppelt, Präzisionsinfanterie dreifach.
+- **Übernehmen:** Ein **Kolonieschiff** der Angreiferseite landet mit **Kampfkolonisieren** oder **Kolonisieren**, es gelten dieselben Regeln. Es muss im Orbit sein oder ankommen, und beim Landen muss ein **Kolonieplatz frei** sein (Kapitel 16). Ohne freien Platz wartet das Schiff im Orbit und landet, sobald einer frei ist. Ein Verbündeter des Angreifers darf mit eigenem Kolonieschiff und freiem Platz übernehmen. Eine Spionagesonde braucht die Besatzerseite für diesen Planeten nicht; Fremde können dort nicht landen. Mit **Kolonisieren** werden die mitgebrachten Siedler Bewohner des Planeten.
+- **Nach der Übernahme:** Die Bevölkerung bleibt, die Besatzungstruppen werden Garnison des neuen Besitzers, die Gebäude stehen bei 30 % Integrität.
+- **Zurückholen:** Landen vorher neue Verteidiger (Truppen des Besitzers, Bodenhilfe), steht der Rückhalt wieder. Der Planet ist nicht mehr verwüstet, und die nächste Welle trifft den Rückhalt.
 
-Ohne ausgerufene Miliz leisten Bewohner keinen Widerstand.
+**Kampfkolonisieren richtig planen:** Nimm Bomber für die Bombardierung, Bodentruppen in Truppentransportern für die Wellen, genau ein Kolonieschiff für die Übernahme und **viele Rohstoffe für den Wiederaufbau**. Die Vorlage **Wiederaufbau** im Einsatzblatt rechnet die Reparaturkosten der bekannten Gebäude aus deinem letzten Spionagebericht. Die Fracht bleibt nach der Übernahme auf dem Planeten.
 
-**Beispiel:** Eine Kolonie mit 1.000 Bewohnern und 10 Sturminfanterie in der Garnison wird von 50 Sturminfanterie angegriffen. Ohne Miliz ist die Bodenverteidigung nach einer Runde gebrochen, 48 Angreifer bleiben übrig. Mit Miliz für 1.000 Legierung hält sie sechs Runden, nur 17 Angreifer überleben, und 300 Bewohner fallen. Gegen 30 Sturminfanterie scheitert die Invasion mit Miliz ganz. Vor einer großen Armee fällt die Miliz nach ein, zwei Runden, ohne dass mehr als 30 % der Bevölkerung sterben.
+### 6. Wiederaufbau
 
-### Alles im Lagebericht
+Auf einem übernommenen Planeten zeigt jedes beschädigte Gebäude **Reparieren** statt **Bauen**, mit den Kosten. Eine Reparatur kostet **75 % der Baukosten der aktuellen Stufe**, anteilig zum Schaden (bei 30 % Integrität genau 75 %). Danach arbeitet das Gebäude wieder voll.
 
-Der **Lagebericht** oben in der Übersicht zeigt jede laufende Invasion an deinen oder verbündeten Planeten: Fortschritt der Bombardierung bis 30 %, Restzeit der Belagerung, Truppen beider Seiten, Garnison, verbündete Truppen und Miliz. Mit den Knöpfen **Miliz ausrufen**, **Eigene Bodentruppen landen**, **Bodentruppen schicken** und **Flotte halten lassen** reagierst du direkt; als Angreifer öffnet **Landung vorbereiten** den Versand.
+**Beispiel:** Eine Erzmine Stufe 15 steht bei 30 %. Die Reparatur kostet 75 % dessen, was der Ausbau auf Stufe 15 kostet. Bei 65 % Integrität wäre es die Hälfte davon.
 
-**Für Agenten:** Bodentruppen verlädt `boden_senden`; Verbündete nutzen dort die Mission `verstaerken`, eigene Truppen `transport` oder `stationieren`. Die Miliz ruft `miliz_ausrufen` aus.
+### 7. Miliz
+
+Die Miliz macht Bewohner zu Kämpfern. Sie braucht **Soziologie 2** und auf dem Planeten eine **Kaserne Stufe 1**. Du rufst sie mit **Miliz rufen** jederzeit aus, auch vorbeugend ohne Invasion.
+
+- **Wer kämpft:** ein Anteil je Volk: **Krath 100 %**, **Veyari 90 %**, **Syntheten 80 %**, **Aurelianer 70 %** der Bewohner. Gemischte Kolonien rechnen je Volksgruppe.
+- **Werte:** Waffenwert 0,3 und Rüstwert 5 je Milizionär; zum Vergleich hat Sturminfanterie 10 und 50. Sturmpanzer, Schwere Infanterie und Schwere Kampfpanzer treffen die Miliz doppelt, Präzisionsinfanterie dreifach.
+- **Kosten:** 1 Legierung je Milizionär, nicht erstattet.
+- **Ausbildung:** 5 Spielminuten je 1.000 Milizionäre, bei Tempo 1 also Echtzeit. Bis dahin wächst die Kampfkraft anteilig.
+- **Nachteil:** Die Hälfte der kampffähigen Bewohner steht im Dienst und fehlt in Produktion und Forschung.
+- **Einsatz:** Die Miliz steht im Rückhalt oder auf den Linien, denen du sie zuteilst. Sind **30 %** des Aufgebots gefallen, kapituliert sie; die Überlebenden bleiben Bevölkerung.
+- **Entlassen:** außerhalb einer Invasion mit **Miliz entlassen**; die Bewohner kehren an die Arbeit zurück.
+
+**Beispiel:** Eine Krath-Kolonie mit 8.000 Bewohnern ruft die Miliz: 8.000 Milizionäre für 8.000 Legierung, nach 40 Spielminuten voll ausgebildet; 4.000 Bewohner fehlen so lange in der Produktion. Eine Aurelianer-Kolonie gleicher Größe stellt 5.600.
+
+### Für Agenten
+
+Bodentruppen verlädt `boden_senden`; Verbündete nutzen dort die Mission `verstaerken`, eigene Truppen `transport` oder `stationieren`. `miliz_ausrufen` ruft die Miliz, `miliz_entlassen` entlässt sie. `invasion_linien` teilt Truppen den Linien zu (je Linie 13 Zahlen: 12 Truppentypen, dann Miliz; der Rest steht im Rückhalt).
 
 ## 31 Dysonsphäre und Allianzen bis 50
 
@@ -1818,35 +1895,89 @@ Im Bereich **Allianz** zeigt der Reiter **Großprojekt** Banner und Sonnenansich
 
 ## 32 Flottenführung, Auftragszeichen und Verband
 
-### Versand in drei Schritten
+### Das Einsatzblatt
 
-Der Flottenversand führt dich durch drei Schritte. Eine feste Leiste unten zeigt Auftragszeichen, Ziel, Schiffszahl und Verband mit **Zurück · Weiter · Flotte starten**; auf dem Handy sitzt sie über der Menüleiste.
+Jeder Flottenauftrag läuft über das **Einsatzblatt**. Es öffnet sich über der aktuellen Ansicht, du bleibst also, wo du warst. Einstiege sind:
 
-**1. Ziel & Auftrag**
+- **Flug planen ›** im Flottenkommando,
+- die Knöpfe an Planeten, Trümmerfeldern und Gürteln in Galaxie und Systemtabelle, etwa **Angriff planen**, **Alle Aufträge** oder **Recyceln**,
+- Spionage- und Kampfberichte, die Zielauswahl und die Planetenkarten,
+- **➚** an einer gestrandeten Flotte (Kapitel 33).
 
-- Start und Ziel, jeweils Planet oder Mond.
-- **Schnellziele:** offene Verbände, zuletzt geflogene Ziele, ausgespähte Ziele nach Beute, Trümmerfelder und eigene Planeten, jeweils mit Auftragszeichen.
-- **Zielkarte:** was am Ziel ist (eigener, verbündeter oder fremder Planet, freier Platz, Trümmerfeld, Asteroidengürtel), Spieler, Heimatwelt, Mond, Trümmer, mögliche Beute, Flotten- und Abwehrwert.
-- **Aufklärungskette:** System erkundet → Planet ausgespäht → Angriff freigegeben. Fehlende Schritte haben einen Knopf zum sofortigen Erkunden oder Ausspähen.
-- **Auftragsraster:** Passende Aufträge stehen mit Haken vorn, unpassende abgeblendet mit Grund, zum Beispiel „passt nicht zu: Fremder Planet“, „fehlt am Startplaneten: Recycler“ oder „Heimatwelten sind vor Übernahme geschützt“. Ein offener Verband zum Ziel erscheint als eigene Karte.
+Oben zeigt eine Schrittleiste, wo du stehst. Unten sitzt eine feste Leiste mit **Zurück · Weiter** und im letzten Schritt dem Startknopf des Auftrags, etwa **Angriff starten** oder **Kolonieflug starten**. Die Zurück-Taste des Handys geht Schritt für Schritt zurück und schließt am Ende das Blatt.
 
-**2. Flotte**
+**1. Ziel**
 
-- **Bedarfsrechner** oben: geschätzte Beute gegen deinen Frachtraum, mit Knöpfen wie „+34 Großer Transporter“.
-- **Simulation** mit 64 Läufen auf Grundlage deines letzten Berichts: Siegchance, Verluste, Beute, erwartetes **Trümmerfeld** mit passender Zahl **Recycler** und die **Mondchance** nach Kapitel 26, sofern am Ziel noch kein Mond kreist.
-- Recycler gegen ein bekanntes Trümmerfeld, Fracht gegen Laderaum und die Pflichtschiffe des Auftrags, zum Beispiel „Ausspähen braucht Spionagesonden – und nur diese“.
-- Kacheln für Kampfschiffe und zivile Schiffe mit Bestand, Menge und Max; gewählte Kacheln sind grün umrandet. Darunter Fracht, Siedlervolk, **Bodentruppen mitführen** und Rückflugtreibstoff.
+- **Ziel suchen:** Koordinate (2:28:6), System (2:28) oder Spielername.
+- **Vorschläge in Gruppen:**
+  - eigene Planeten und Monde,
+  - **Gestrandete Flotten** (eigene zum Versorgen, fremde zum Angreifen),
+  - Trümmerfelder mit Erz, Kristall und Überlebenden,
+  - Gürtel und Ringe,
+  - **Bekannte Planeten anderer Spieler** aus der Galaxie,
+  - **Ausgespäht** mit Alter und geschätzter Beute,
+  - **Freie Plätze** bei Kolonisieren, Terraformen und Saven,
+  - **Deine Angriffe unterwegs** beim Recyceln.
+- **Zielkarte:** Sie zeigt, was dort ist: eigener, verbündeter oder fremder Planet, freier oder **unbekannter Platz** (System noch nicht kartiert), Trümmerfeld, Gürtel, Mond, Spieler, Heimatwelt und den Status **verwüstet**.
 
-**3. Zeit & Verband**
+**2. Auftrag**
 
-- **Tempo als zehn Knöpfe** von 10 bis 100 %, jeder mit Ankunftszeit und Deuterium. Das Rückflugtempo wählst du getrennt.
-- **Zusammen angreifen:** allein, einem Verband beitreten oder einen neuen Verband eröffnen (unten).
-- **Ankunft koppeln** an eine eigene Flotte oder einen Verband im selben System, plus einige Sekunden; die Anzeige meldet „Abflug automatisch in …“ oder „zu langsam – schneller fliegen“.
-- **Terminflug**, Aufenthalt beziehungsweise Save-Wartezeit, Zusammenfassung und Flugzeitprüfung.
+Unter **Was soll die Flotte tun?** stehen die passenden Aufträge, jeder mit **So läuft … ab**. Die übrigen liegen eingeklappt unter **Passen nicht zu diesem Ziel**, jeweils mit Grund, zum Beispiel:
+
+- „Passt nicht zu: Fremder Planet“,
+- „Es fehlt: Bergbauschiff ab Stufe II“,
+- „Ursprüngliche Heimatwelten sind vor Übernahme geschützt“,
+- „Unbekannter Platz – erst das System erkunden“.
+
+**Vorbedingungen** stehen als Liste mit Haken oder Kreuz: System kartiert, Ziel ausgespäht, Kolonieplätze, Flottenplätze, Zivilisationsstufe. Fehlt etwas, gibt es einen Knopf dafür, zum Beispiel **1 Sonde: System erkunden**, **5 Sonden schicken**, **Zur Werft** oder eine Forschung. Monde und Terraformen brauchen nur ein kartiertes System, keinen Planetenbericht.
+
+**3. Flotte**
+
+Gezeigt wird nur, was am Startort steht. Das Blatt wählt einen startfähigen Startort mit Raumhafen, Deuterium und passenden Schiffen; du kannst ihn wechseln.
+
+- **Vorlagen je Auftrag** mit einem Tipp, danach feinjustieren:
+  - Spionage: 1, 2, 3, 5 oder 7 Sonden,
+  - Angriff: „Alle Kampfschiffe“ oder „Kampfschiffe + Frachter für die Beute“,
+  - Recyceln: „Passend fürs Trümmerfeld“,
+  - Kolonisieren: Kolonieschiff mit Begleitschutz,
+  - Terraformen: „Nur Klima“ oder „Klima + Felder“,
+  - Saven: „Alles retten“.
+- Die Schiffe stehen in Gruppen wie Kampfschiffe, Bomber, Frachter oder Bergung, jeweils mit Bestand, Menge, Max und Info.
+- **So läuft es ab:** die Regelkarte des Auftrags, also was in welcher Reihenfolge passiert.
+- **Was zählt:** die Werte, auf die es ankommt.
+- **Lage am Ziel** bei Kampfaufträgen:
+  - Alter des Berichts, Flotten- und Abwehrwert,
+  - Beute gegen Laderaum,
+  - bei Bombardieren die Runden bis 30 %,
+  - **Kampf simulieren (64 Läufe)** auf Grundlage deines letzten Berichts, bei Mondzielen des Mondberichts. Ergebnis: Siegchance, Verluste, erwartetes **Trümmerfeld** und die **Mondchance** nach Kapitel 26.
+
+**4. Ladung, Truppen, Dauer oder Siedler**
+
+Dieser Schritt erscheint nur, wenn der Auftrag ihn braucht:
+
+- **Ladung:** Güter mit Vorlagen wie **Treibstoff für den Heimflug**, **Wiederaufbau** oder Grundrohstoffe bis zum Laderaum.
+- **Personen** in freien Personenplätzen.
+- **Truppen:** Bodentruppen in Truppentransportern, mit „Alle Truppen“ oder „Passend für die Transporter“.
+- **Dauer:** Halten, Bodenhilfe, Abbau oder Save-Wartezeit.
+- **Siedler & Fracht:** Siedlervolk, Mischung aus Bewohnern, Fachkräften und Forschern, dazu die Startfracht.
+
+**5. Start**
+
+- **Zeitplan:** Hinflugtempo, Aufenthalt am Ziel und **Rückflugtempo**, getrennt wählbar in zehn Stufen von 10 bis 100 %. Jede Stufe zeigt Dauer, Ankunft und Deuterium dieser Flotte. Unter 10 % bietet das Rückflugtempo **kein Rückflug** an (Kapitel 33). Stationieren und Kolonisieren sind Einweg.
+- **Ankunft:**
+  - **Sofort starten**,
+  - **Ankunft planen** zu einer Spielzeit; der Abflug folgt automatisch, bis 7 Spieltage voraus,
+  - **Ankunft koppeln** an eine eigene Flotte oder einen Verband im selben System, gleichzeitig oder mit Abstand (Vorschläge 1 bis 60 Sekunden; ist der Abflug dafür schon vorbei, schlägt die Planung den kleinsten noch möglichen Abstand vor).
+- **Zusammen angreifen:** allein, einem offenen Verband beitreten oder einen neuen eröffnen (unten).
+- **Fahrplan**, **Das fliegt los** (Start, Ziel, Schiffe, Fracht, Truppen, Dauer) und die **Startprüfung des Kerns**.
+
+Unumkehrbares fragt vorher nach, mit den konkreten Folgen: Kolonisieren, Kampfkolonisieren, Terraformen. Nach dem Start schließt sich das Blatt, und eine Meldung nennt Ankunft und Rückkehr; du bist wieder dort, wo du das Blatt geöffnet hast.
+
+**Raketenschlag und Expedition** stehen im Auftragsraster als eigene Einträge und öffnen ihre eigenen Formulare; Raketen startest du auch direkt aus der Systemtabelle der Galaxie. **Flotte ausspähen** startet von der Warnkarte eines erkannten Anflugs (Kapitel 13).
 
 ### Farbige Auftragszeichen
 
-Jeder Auftrag hat ein Zeichen. Die **Farbe** zeigt die Gruppe, also was der Auftrag bewirkt, das **Symbol** den genauen Auftrag. Die Zeichen sind für alle Völker gleich und erscheinen überall: im Versand, in Schnellzielen, in der Ereignisliste, in der Zusammenarbeit, in der Zielauswahl und in der Galaxie. Die Legende **Zeichen der Aufträge** steht im Bereich Zusammenarbeit.
+Jeder Auftrag hat ein Zeichen. Die **Farbe** zeigt die Gruppe, also was der Auftrag bewirkt, das **Symbol** den genauen Auftrag. Die Zeichen sind für alle Völker gleich und erscheinen überall: im Einsatzblatt, in Schnellzielen, in der Ereignisliste, in der Zusammenarbeit, in der Zielauswahl und in der Galaxie. Die Legende **Zeichen der Aufträge** steht im Bereich Zusammenarbeit.
 
 | Gruppe | Farbe | Aufträge |
 |---|---|---|
@@ -1871,7 +2002,7 @@ Ein **Verband** bündelt Angriffsflotten auf dasselbe Ziel zu einer gemeinsamen 
 - Die gemeinsame Ankunft ist die späteste. Keine Flotte darf mehr als **6 Stunden** gegenüber ihrer ursprünglichen Ankunft verzögert werden.
 - Ein **Rückruf** löst die Flotte aus dem Verband. Ein Verband verlangt also Vertrauen.
 
-**Beitreten ohne Flottennummern:** Im Schritt **Zeit & Verband** wählst du unter **Zusammen angreifen** einen offenen Verband. Die Karte zeigt Teilnehmer, Flotten „n/16“, gemeinsame Ankunft und wie stark deine Flotte den Verband verzögern würde, etwa „verzögert den Verband um 00:30:50“. Die Tempoknöpfe zeigen die Wirkung farbig: grün wartet deine Flotte, orange verzögert sie den Verband, rot liegt über 6 Stunden. Beim Start tritt die Flotte automatisch bei oder eröffnet den neuen Verband.
+**Beitreten ohne Flottennummern:** Im Einsatzblatt wählst du im Schritt **Start** unter **Zusammen angreifen** einen offenen Verband. Die Zeile zeigt Teilnehmer, Flotten „n/16“, gemeinsame Ankunft und die Wirkung deiner Flotte: grün „wartet … auf den Verband“, sonst wie stark sie den Verband verzögert; über 6 Stunden geht es nicht. Ein Verband verlangt **Sofort starten**. Beim Start tritt die Flotte automatisch bei oder eröffnet den neuen Verband.
 
 **Zusammenarbeit:** Auf der Flottenseite listet dieser Bereich alle offenen Verbände deiner Allianz mit Teilnehmern, Schiffen und Countdown. Dort lässt du eine passende eigene Flotte im Flug beitreten, schickst eine **Neue Flotte dazu**, machst eine freie Angriffsflotte mit **Als Verband öffnen** zur Führung und siehst verbündete Anflüge zum Halten.
 
@@ -1879,12 +2010,43 @@ Ein **Verband** bündelt Angriffsflotten auf dasselbe Ziel zu einer gemeinsamen 
 
 ### Terminflug und Recycler-Folgeflug
 
-Mit einem **Terminflug** legst du den Abflug bis zu **7 Spieltage** im Voraus fest; je Spieler sind höchstens **20** geplante Flüge möglich. Ein geplanter Start reserviert weder Schiffe noch Fracht und prüft beim Abflug alle Bedingungen erneut. Neue Antriebsforschung passt den Abflug an.
+Mit **Ankunft planen** im Schritt **Start** legst du die Ankunft auf eine Spielzeit; der Abflug folgt automatisch, höchstens **7 Spieltage** im Voraus. Je Spieler sind höchstens **20** geplante Flüge möglich. Ein geplanter Start reserviert weder Schiffe noch Fracht und prüft beim Abflug alle Bedingungen erneut. Neue Antriebsforschung passt den Abflug an.
 
-Zeigt der Bedarfsrechner ein erwartetes Trümmerfeld, schlägt er die passende Zahl Recycler vor. **Recycler-Flug vormerken** bereitet eine eigene Recyclerflotte vor, die du im Schritt **Zeit & Verband** an den Angriff koppelst, zum Beispiel fünf Sekunden nach dem Einschlag. Recycler dürfen auch starten, wenn am Ziel noch kein Trümmerfeld liegt.
+**Recycler hinterher:** Die Simulation in **Lage am Ziel** zeigt das erwartete Trümmerfeld. Starte zuerst den Angriff. Öffne dann ein neues Einsatzblatt mit **Recyceln**: Unter **Deine Angriffe unterwegs** steht das Angriffsziel. Wähle die Vorlage **Alle Recycler**. Im Schritt **Start** ist **Ankunft koppeln** an genau diesen Angriff schon vorgewählt, mit **+5 s**. Brauchen die Recycler so lange wie der Angriff und ist seit dessen Start schon Zeit vergangen, rückt das Blatt den Abstand auf den frühestmöglichen Wert, etwa **+20 s**; einen eigenen Abstand wählst du über die Knöpfe. Recycler dürfen starten, auch wenn am Ziel noch kein Trümmerfeld liegt; sie sammeln, was bei ihrer Ankunft dort liegt.
 
 ### Zielauswahl
 
-Die **Zielauswahl** auf der Flottenseite zeigt alle deine Spionageberichte als sortierbare Tabelle: Ziel, Alter, Spieler, geschätzte Beute, Flotte und Abwehr, jeweils als Wert aus Erz, Kristall und Deuterium. Je Zeile stehen **Angriff**, **Erneut ausspähen** und **Im System zeigen**; auf dem Handy erscheinen die Zeilen als Karten. In der Galaxie öffnet das rote Fadenkreuz **Angriff planen** an einem fremden Planeten den Versand mit Ziel und Auftrag.
+Die **Zielauswahl** auf der Flottenseite zeigt alle deine Spionageberichte als sortierbare Tabelle: Ziel, Alter, Spieler, geschätzte Beute, Flotte und Abwehr, jeweils als Wert aus Erz, Kristall und Deuterium. Je Zeile stehen **Angriff**, **Erneut ausspähen** und **Im System zeigen**; auf dem Handy erscheinen die Zeilen als Karten. In der Galaxie öffnet das rote Fadenkreuz **Angriff planen** an einem fremden Planeten das Einsatzblatt mit Ziel und Auftrag.
 
 **Beispiel:** Du sortierst nach Beute. Oben steht ein Ziel mit hoher Beute, aber der Bericht ist zwölf Stunden alt. Wähle zuerst **Erneut ausspähen** und plane den Angriff erst mit dem frischen Bericht.
+
+## 33 Gestrandete Flotten und Flotten im fremden Orbit
+
+Eine Flotte ist **gestrandet**, wenn sie im Orbit eines Ortes steht, der kein eigener Planet ist, und keinen Treibstoff für einen Rückflug eingeplant hat.
+
+### Wie eine Flotte strandet
+
+- **Kein Rückflug:** Im Einsatzblatt bietet das Rückflugtempo ganz unten **kein Rückflug** an. Bezahlt wird nur der Hinflug. Nach dem Auftrag (Kampf gewonnen, Spionage, Transport abgeladen, Halten beendet) bleibt die Flotte im Orbit des Ziels.
+- **Ohne Treibstoff:** Reicht der Treibstoff nach einem Start aus dem Orbit nur für den Hinflug, bleibt die Flotte am neuen Ziel.
+
+### Was du mit ihr tun kannst
+
+Gestrandete Flotten stehen einzeln in der Flottenübersicht und im Hangar, mit Ort und dem Deuterium an Bord. Statt **Rückrufen** gibt es:
+
+- **Weiterfliegen:** öffnet das Einsatzblatt mit der Flotte als Startort. Der Treibstoff kommt aus dem **Deuterium in ihrer Ladung**. Erlaubt sind Stationieren, Transport, Halten, Spionage, Angriff und Übergabe. Reicht das Deuterium für Hin- und Rückflug, kehrt die Flotte nach dem Auftrag an ihren Orbitort zurück, sonst strandet sie am neuen Ziel.
+- **Versorgen:** ein Transport von einem eigenen Planeten liefert Güter, etwa Deuterium, direkt in die Ladung der Flotte – auch auf einem freien Platz oder über einem Trümmerfeld, ohne Planetensonde. Die Vorlage **Treibstoff für den Heimflug** lädt genau das Deuterium, das die Flotte bis zu deinem Startplaneten braucht, plus 10 % Reserve.
+- **Übergeben:** bietet die ganze Flotte dem Besitzer des Planeten an, an dem sie steht, als Geschenk oder zum Kaufpreis. Bei Annahme fliegt sie mit Treibstoff aus ihrer Ladung zu ihm.
+
+**Nach einem Angriff vom Orbitort:** Kehrt eine Flotte von einem Angriff, Bombardieren oder Kampfkolonisieren an ihren Orbitort zurück, darf sie von dort nur noch zu einem eigenen Planeten fliegen oder übergeben werden. Ein weiterer Angriff von dort ist gesperrt.
+
+### Sichtbar und angreifbar
+
+Wer das System erkundet hat, sieht gestrandete Flotten in der Galaxie, in der 3D-Ansicht und in der Tabelle, mit eigenem Zeichen an der Stelle des Trümmerfelds, auch wenn dort Trümmer liegen. Jeder kann sie von einem eigenen Planeten aus angreifen. Der Kampf trifft nur die gestrandeten Flotten dieses Spielers an diesem Ort; Trümmer entstehen dort. So lässt sich eine Flotte nicht dauerhaft unangreifbar parken.
+
+### Beistand für den Planetenbesitzer
+
+Steht deine gestrandete Flotte im Orbit eines fremden Planeten und wird dieser Planet angegriffen, **kämpfen deine Schiffe an der Seite des Besitzers**, solange du den Besitzer nicht selbst angegriffen hast und nicht zur Seite des Angreifers gehörst (er selbst oder ein Verbündeter von ihm). Gegen den Besitzer kämpfen sie nie. Bodentruppen an Bord landen bei einer Invasion automatisch und verteidigen im Rückhalt mit (Kapitel 30).
+
+### Für Agenten
+
+`flotte_starten` startet eine gestrandete Flotte (`flotte`, `ziel`, `mission`, `geschwindigkeit`, `rueckgeschwindigkeit`, 0 = kein Rückflug). `flotte_versorgen` mit `versorgungsflotte` beliefert sie. `orbitflotte_angreifen` greift eine gestrandete Flotte an (`start`, `zielflotte`, `schiffe`). `orbitflotte_anbieten` bietet sie dem Besitzer des Zielplaneten an. `flotte_planen` mit `rueckgeschwindigkeit: 0` plant einen Flug ohne Rückflug.
