@@ -50,6 +50,7 @@ MUSTER = [
     (r"\s*\([^()]*\b(?:bis|seit) \d{1,2}\.\d{1,2}\.\d{4}[^()]*\)", ""),
     (r"^\*\*Stand des [^*]+:\*\*[^\n]*Android 0\.\d[^\n]*\n", ""),
     (r" ?Die folgende kurze Frist und die frühere Miliz gelten dort nicht mehr\.", ""),
+    (r" ?Die folgende kurze Frist gilt dort nicht\.", ""),
     (r",? in neuen Welten,?(?= )", ""),
 ]
 # Abschnitt mit der Übernahmeregel älterer Welten (Kapitel 16) bis zum Hinweis auf den Heimatplaneten.

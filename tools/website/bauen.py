@@ -22,9 +22,23 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
 from site_policy import decorate  # noqa: E402
 import build_fleet_codex  # noqa: E402
+sys.path.insert(0, str(ROOT / "tools/website"))
+import silben  # noqa: E402  weiche Trennstellen wie im Spiel (Szenentitel des Trailers)
 
 Q = ROOT / "docs/website"
-VERSION = "0.4.8"
+VERSION = "0.4.9"
+# Was seit der letzten veröffentlichten Website (0.4.6) neu ist – erscheint auf Start- und Downloadseite (Karl 26.10.2026:
+# „prüfe die Inhalte der Webseite auf Aktualität und bring es auf den neuesten Stand“).
+NEU_IN_VERSION = [
+    "<b>Kräfteatlas:</b> Wer schlägt wen – jede Kampfeinheit gegen jede, mit der echten Kampfengine bei gleichem Ressourcenwert gemessen, jedes Gefecht Runde für Runde. Im Spiel unter Forschung und im Technologiebaum, hier als <a href=\"Kraefteatlas.html\">eigene Seite</a>.",
+    "<b>Einsatzblatt:</b> Jeder Flottenauftrag in einem Blatt – Ziel, Auftrag, Flotte, Ladung und Start, mit Lage am Ziel und Simulation.",
+    "<b>Invasion in Wellen:</b> Vier Verteidigungslinien, alle 12 Spielstunden eine Welle; die Miliz kämpft je nach Volk, beschädigte Gebäude lassen sich reparieren.",
+    "<b>Mond direkt antippen:</b> Der Mond auf der Planetenkugel öffnet die Mondseite, am Handy hat die Planetenleiste einen Knopf „Mond“ – ein Tipp auf den Planeten bleibt beim Planeten.",
+    "<b>Planetenzähler:</b> „Planeten 2 / 15“ zählt die Heimatwelt mit und nennt freigeschaltete und freie Plätze.",
+    "<b>Kleines Kolonieschiff</b> schon mit Impulsantrieb 2, ohne Astrophysik.",
+    "<b>Allianz und Handel:</b> Einladungen lassen sich ablehnen; nicht verbrauchtes Rollenbudget einer Kauforder fließt zurück.",
+    "<b>Geprüft per Tipp:</b> Jede Funktion wurde in der Oberfläche durchgespielt, über 300 Stellen sind korrigiert – vom Raketensimulator bis zur Rohstoffleiste am Handy.",
+]
 # Öffentliche Spieladresse; im Pages-Repo fehlt data/online (Betriebsdaten werden nie veröffentlicht).
 _URL = ROOT / "data/online/public-url.txt"
 SPIEL_URL = (_URL.read_text(encoding="utf-8").strip() if _URL.exists() else "https://sternenepoche.taila4f584.ts.net").rstrip("/") + "/"
@@ -151,6 +165,8 @@ class Bau:
         h = markdown.markdown(text, extensions=["tables", "sane_lists", "toc"],
                               extension_configs={"toc": {"slugify": lambda v, s: slug(v)}})
         h = h.replace("<table>", '<div class="tabelle" tabindex="0" role="region" aria-label="Tabelle"><table>').replace("</table>", "</table></div>")
+        # Lange Adressen und Befehle in <code> brachen am Handy mitten im Wort (26.10.2026): Umbruchstellen hinter / . = setzen.
+        h = re.sub(r"<code>(.*?)</code>", lambda m: "<code>" + re.sub(r"([/.=])(?=[^/.=\s<])", r"\1<wbr>", m[1]) + "</code>", h, flags=re.S)
         h = re.sub(r"<p>(?=<strong>(?:Beispiel|Zeitbeispiel|Frachtbeispiel|Rechenbeispiel))", '<p class="beispiel">', h)
 
         def link(m):
@@ -205,7 +221,7 @@ class Bau:
 <div><a class="sk-marke" href="index.html"><img src="{self.u('docs/branding/sternenepoche-mark.png')}" alt="" width="30" height="30">STERNENEPOCHE</a>
 <p style="margin-top:12px">Weltraumstrategie in einer gemeinsamen Galaxie – im Browser, als Android-App und mit deinem eigenen KI-Rat.</p></div>
 <div><h4>Spielen</h4><ul><li><a href="{SPIEL_URL}">Im Browser spielen</a></li><li><a href="Download.html">Android-App</a></li><li><a href="Harness-Cockpit.html">Harness-Cockpit</a></li><li><a href="Sternenepoche-Start.html">Erste Schritte</a></li></ul></div>
-<div><h4>Nachschlagen</h4><ul><li><a href="Sternenepoche-Handbuch.html">Handbuch</a></li><li><a href="Sternenepoche-Kodex.html">Kodex</a></li><li><a href="Technologiebaum.html">Technologiebaum</a></li><li><a href="Lore.html">Lore-Archiv</a></li><li><a href="Hoerchronik.html">Hörchronik</a></li></ul></div>
+<div><h4>Nachschlagen</h4><ul><li><a href="Sternenepoche-Handbuch.html">Handbuch</a></li><li><a href="Sternenepoche-Kodex.html">Kodex</a></li><li><a href="Technologiebaum.html">Technologiebaum</a></li><li><a href="Kraefteatlas.html">Kräfteatlas</a></li><li><a href="Lore.html">Lore-Archiv</a></li><li><a href="Hoerchronik.html">Hörchronik</a></li></ul></div>
 <div><h4>Projekt</h4><ul><li><a href="Trailer.html">Trailer</a></li><li><a href="Weltenkruemmer.html">Weltenkrümmer</a></li><li><a href="KI-Hinweis.html">KI-Hinweis</a></li><li><a href="https://github.com/Sternenepoche/sternenepoche.github.io">Quellcode</a></li></ul></div>
 </div>
 <p class="ki">Bild, Ton und Text der Sternenepoche sind KI-generiert. Stand {jetzt}.</p>
@@ -276,6 +292,7 @@ class Bau:
                     f'<a class="weiter" href="{link}">{linktext} →</a></div></article>')
         f = self.ausschnitt
         wk = KODEX["units"]["weltentruemmer"]
+        atlas_n = len(json.loads((lambda s: s[s.index("{"):s.rindex("}") + 1])((ROOT / "web-client/kraefteatlas/index.js").read_text(encoding="utf-8")))["ids"])
         dy = REGELN["dyson"]["regeln"]
         neu = f"""
 <section class="abschnitt" id="spiel" aria-labelledby="spiel-titel"><div class="rahmen">
@@ -307,6 +324,9 @@ class Bau:
    [f'Zum Hören: die <a href="Hoerchronik.html">Hörchronik</a> – {self.hc_kurz()}.'], "Lore.html", "Zum Lore-Archiv")}
  {karte("", f("techbaum-karte"), "Gesamtkarte", "Technologiebaum", f"Alle Gebäude, {forschungen} Forschungen und Einheiten aller Völker auf einer Karte, mit Bildern, Voraussetzungen und Kampfauswertung – auf- und zuklappbar.",
    [], "Technologiebaum.html", "Technologiebaum öffnen")}
+ {karte("", f("kraefteatlas"), "Gemessen", "Kräfteatlas: wer schlägt wen", f"Jede Kampfeinheit gegen jede – {atlas_n} Schiffe, Abwehranlagen, Raketen, Bodentruppen und der Weltenkrümmer, mit der echten Kampfengine bei gleichem Ressourcenwert gemessen. Jedes Gefecht lässt sich Runde für Runde öffnen.",
+   ["Klassenmatrix, Duell-Bilanz und Volk gegen Volk.", "Im Spiel unter Forschung und im Technologiebaum, bei jeder Kampfeinheit verlinkt."],
+   "Kraefteatlas.html", "Kräfteatlas öffnen")}
  {karte("halb", f("versorgung"), "Wirtschaft", "Wachstum, Klima und Sonne", "Jedes Volk hat seine Heimatbahn. Der Klimafaktor eines Platzes bestimmt das Wachstum, der Sonnenfaktor die Energie aus Solarkraftwerk und Solarsatelliten.",
    ["In jedem Sonnensystem liegt ein Asteroidengürtel für Bergbauschiffe.", "Die Akademie bildet Fachkräfte und Forscher kostenlos aus.", "Plasmatechnik steigert die Förderung, Antriebsforschung bringt stärkere Antriebe."],
    "Sternenepoche-Handbuch.html#kapitel-29", "Kapitel 29 lesen")}
@@ -327,8 +347,9 @@ class Bau:
    <ul class="tb-liste"><li><b>Pfade:</b> Wähle ein Ziel, und die Karte zeigt den Weg dorthin über alle Voraussetzungen.</li>
    <li><b>Dossier:</b> Motiv, Blaupause, Schnitt und Explosion, Werte mit Volksbonus, Kosten und Konter.</li>
    <li><b>Meine Stufe &amp; Volksänderungen:</b> Was ist bei deiner Zivilisationsstufe offen, was macht dein Volk anders?</li>
+   <li><b>Kräfteatlas:</b> Bei jeder Kampfeinheit ein Knopf zu den gemessenen Kontern – wen sie schlägt und von wem sie geschlagen wird.</li>
    <li><b>Suche, Minikarte, Klappen</b> – auf dem Handy mit zwei Fingern zoomen.</li></ul>
-   <div class="knopfreihe"><a class="button" href="Technologiebaum.html">Technologiebaum öffnen</a></div></div>
+   <div class="knopfreihe"><a class="button" href="Technologiebaum.html">Technologiebaum öffnen</a><a class="button secondary" href="Kraefteatlas.html">Kräfteatlas öffnen</a></div></div>
   <div class="tb-bilder">{self.foto("techbaum-nah", "Technologiebaum · Dossier", "Weltenkrümmer der Syntheten mit Pfad und Werten")}
    {self.foto("techbaum-karte", "Kampfflotte und Verteidigung", "Ansicht der Syntheten")}</div>
  </div></div></section>"""
@@ -376,10 +397,15 @@ class Bau:
  <p>Die Website liest dieselben Quellen wie das Spiel: Regelwerte aus dem Kern, Texte und Archiv aus dem Inhaltskatalog, Bilder aus dem Bildverzeichnis.</p></div>
  <div class="neu-raster">
  {karte("", f("uebersicht"), "Einstieg", "Spielguide", f"Die erste Spielsitzung in acht Schritten und alle {len(BEREICHSFOTO)} Spielbereiche mit Bild und Bedienweg.", [], "Sternenepoche-Start.html", "Zum Spielguide")}
- {karte("", f("forschung"), "Regeln", "Handbuch", f"{len(kapitel_liste())} Kapitel: Wirtschaft, Forschung, Flüge, Kampf, Monde, Invasion, Dysonsphäre, Flottenführung – mit Rechenbeispielen.", [], "Sternenepoche-Handbuch.html", "Zum Handbuch")}
+ {karte("", f("forschung"), "Regeln", "Handbuch", f"{sum(1 for n_, _, _ in kapitel_liste() if n_ != 23)} Kapitel: Wirtschaft, Forschung, Flüge, Kampf, Monde, Invasion, Dysonsphäre, Flottenführung – mit Rechenbeispielen.", [], "Sternenepoche-Handbuch.html", "Zum Handbuch")}
  {karte("", f("codex"), "Einheiten", "Kodex", f"{len(units)} Einheiten je Volk, {len(boden)} Bodentruppen, Raketen, Mondanlagen und Dysonsphäre – Werte, Konter und Zeichnungen.", [], "Sternenepoche-Kodex.html", "Zum Kodex")}
+ {karte("", f("kraefteatlas"), "Konter", "Kräfteatlas", f"Wer schlägt wen: {atlas_n} Einheiten gegeneinander gemessen, mit Klassenmatrix, Duell-Bilanz und jedem Gefecht im Detail.", [], "Kraefteatlas.html", "Zum Kräfteatlas")}
  </div></div></section>"""
-        inhalt = buehne + neu + techbaum + galerie + voelker + rat + wege + wissen
+        neu_version = (f'<section class="abschnitt" id="neu-in-version" aria-labelledby="nv-titel"><div class="rahmen"><div class="abschnitt-kopf"><div><span class="kennung">Neu in {VERSION}</span>'
+                       f'<h2 id="nv-titel">Was sich geändert hat.</h2></div><p>Die wichtigsten Neuerungen seit der letzten Ausgabe. Alles Weitere im <a href="Sternenepoche-Handbuch.html">Handbuch</a>.</p></div>'
+                       f'<div class="glas" style="padding:20px 26px"><ul class="neu-liste">{"".join(f"<li>{x}</li>" for x in NEU_IN_VERSION)}</ul>'
+                       f'<p style="margin-top:14px"><a class="weiter" href="Download.html#neu">Zur App {VERSION} →</a></p></div></div></section>')
+        inhalt = buehne + neu_version + neu + techbaum + galerie + voelker + rat + wege + wissen
         doc = self.huelle("index.html", "Sternenepoche – Weltraumstrategie für Menschen und KI",
                           f"Sternenepoche: Online-Weltraumstrategie in einer gemeinsamen Galaxie. Flottenführung, Monde, Weltenkrümmer, Invasion, Dysonsphäre – im Browser, als Android-App und mit eigenem KI-Rat.",
                           inhalt, kopf_extra=f'<link rel="preload" as="image" href="{self.u("docs/artwork/hero-ozeanwelt.webp")}">',
@@ -508,7 +534,7 @@ function atlasVerweis(key){if(!window.KRAEFTEATLAS_INDEX?.ids?.includes(key))ret
         n = {"units": len(data["units"]), "boden": len(data["boden"]["typen"]), "raketen": len(data["raketen"]), "mond": len(data["mond"].get("gebaeude", {}))}
         inhalt = (self.seitenkopf("Kodex · Werte aus dem Spielkern", "Jede Einheit. Jeder Wert. Jede Zeichnung.",
                                   f"{n['units']} Schiffe, Verteidigungen, Schilde, Satelliten und Megaschiffe je Volk, {n['boden']} Bodentruppen mit Kontertabelle, {n['raketen']} Raketen, {n['mond']} Mondanlagen und die Dysonsphäre. "
-                                  "Zu jeder Einheit: Werte deines Volkes, Konter, Voraussetzungen, technische Zeichnungen in drei Stilen und das Archiv mit Dossier, Chronik und Volksakten.",
+                                  "Zu jeder Einheit: Werte deines Volkes, Konter, Voraussetzungen, technische Zeichnungen in drei Stilen und das Archiv mit Dossier, Chronik und Volksakten. Wer wen im Gefecht wirklich schlägt, misst der Kräfteatlas.",
                                   self.art("backgrounds", "hangar"), "Kodex")
                   + f'''<div class="rahmen" id="kodex" data-basis="{self.basis}" style="padding-block:28px 90px">
 <nav aria-label="Bereiche"><ul id="bereiche" class="codex-bereiche"></ul></nav>
@@ -517,7 +543,7 @@ function atlasVerweis(key){if(!window.KRAEFTEATLAS_INDEX?.ids?.includes(key))ret
 <div class="codex-layout"><section id="detail" class="codex-detail glas" aria-live="polite"></section><section><p id="result-count" class="leise"></p>
 <div id="gallery" class="codex-gallery" aria-label="Einträge auswählen"></div></section></div>
 <section id="bereich-info" class="codex-info glas" hidden></section>
-<p style="margin-top:28px" class="leise">Die Werte stammen aus dem Regelexport des Spielkerns. Wie alles zusammenhängt, zeigt der <a href="Technologiebaum.html">Technologiebaum</a>.</p>
+<p style="margin-top:28px" class="leise">Die Werte stammen aus dem Regelexport des Spielkerns. Wie alles zusammenhängt, zeigt der <a href="Technologiebaum.html">Technologiebaum</a>; wer wen schlägt, gemessen mit der Kampfengine, der <a href="Kraefteatlas.html">Kräfteatlas</a>.</p>
 </div>''')
         daten = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
         (self.ziel / "seite").mkdir(parents=True, exist_ok=True)
@@ -661,7 +687,8 @@ function atlasVerweis(key){if(!window.KRAEFTEATLAS_INDEX?.ids?.includes(key))ret
                   + f'<div class="rahmen" style="padding-block:28px 40px"><div class="wk-liste">{"".join(karten)}</div></div>'
                   + f'<div class="rahmen lesen" style="grid-template-columns:minmax(0,1fr)"><article class="text"><h2 id="regeln"><span class="nr">Handbuch · Kapitel 28</span>Bau, Werte und Mondzerstörung</h2>{self.md(regeln)}'
                   + f'<h2 id="dossier"><span class="nr">Archiv</span>Technisches Dossier und Chronik</h2>{"".join(f"<p>{esc(s)}</p>" for s in re.split(r"(?<=[.!?])\s+(?=[A-ZÄÖÜ])", e["archiv"]["technik"]) if s)}'
-                  + f'<h3>Chronik</h3><p>{esc(e["archiv"].get("geschichte", ""))}</p></article></div>')
+                  + f'<h3>Chronik</h3><p>{esc(e["archiv"].get("geschichte", ""))}</p>'
+                    '<p><a class="button" href="Kraefteatlas.html#e=weltentruemmer">Im Kräfteatlas: Weltenkrümmer gegen den gleichen Wert</a></p></article></div>')
         self.schreibe("Weltenkruemmer.html", self.huelle("Weltenkruemmer.html", "Weltenkrümmer – Sternenepoche",
                       "Die Weltenkrümmer der vier Völker im Film: Verwandlung, Strahl und Mondzerstörung – mit Werten, Regeln und Archiv.", inhalt))
 
@@ -678,7 +705,7 @@ function atlasVerweis(key){if(!window.KRAEFTEATLAS_INDEX?.ids?.includes(key))ret
         szenen = t["szenen"]
         marken = "".join(f'<i style="left:{100 * s["t"] / t["dauer"]:.2f}%"></i>' for s in szenen[1:])
         karten = "".join(f'<li><button type="button"><img src="{m}{s["bild"]}" alt="" width="480" height="270" loading="lazy" decoding="async">'
-                         f'<span>{int(s["t"]) // 60}:{int(s["t"]) % 60:02d}</span><b>{esc(s["titel"])}</b></button></li>' for s in szenen)
+                         f'<span>{int(s["t"]) // 60}:{int(s["t"]) % 60:02d}</span><b>{silben.html(esc(s["titel"]))}</b></button></li>' for s in szenen)
         spiel = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg>'
         vollbild = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v2H6v4H4zm10 0h6v6h-2V6h-4zM4 14h2v4h4v2H4zm14 0h2v6h-6v-2h4z"/></svg>'
         quellen = json.dumps({"1080": m + "trailer-1080.mp4", "720": m + "trailer-720.mp4"})
@@ -835,7 +862,7 @@ function atlasVerweis(key){if(!window.KRAEFTEATLAS_INDEX?.ids?.includes(key))ret
         lite = apk("lite", f"Android {av} Lite", 88, "Für Handys und Tablets",
                    "Das ganze Spiel für Android-Handys und -Tablets.",
                    ["Nur arm64-v8a – praktisch alle Android-Handys und -Tablets",
-                    "Alle Völker, Technologiebaum, Weltenkrümmer in 3D, technische Zeichnungen, Einzel- und Hostspiel",
+                    "Alle Völker, Technologiebaum, Kräfteatlas, Weltenkrümmer in 3D, technische Zeichnungen, Einzel- und Hostspiel",
                     "Lokale KI-Modelle in drei Varianten (basis, dotprod, i8mm) – die App wählt die schnellste passende"])
         voll = apk("voll", f"Android {av} Vollversion", 168, "Für alle Android-Geräte",
                    "Das ganze Spiel für jedes Android-Gerät, auch mit Intel- oder AMD-Prozessor.",
@@ -846,7 +873,7 @@ function atlasVerweis(key){if(!window.KRAEFTEATLAS_INDEX?.ids?.includes(key))ret
         vergleich = f"""<div class="tabelle" tabindex="0" role="region" aria-label="Vergleich Lite und Vollversion"><table>
 <thead><tr><th></th><th>Lite</th><th>Vollversion</th></tr></thead><tbody>
 <tr><td>Geräte</td><td>Android-Handys und -Tablets (arm64-v8a)</td><td>dazu x86_64: Android-Emulator, Chromebooks, Tablets mit Intel/AMD</td></tr>
-<tr><td>Spielinhalt</td><td colspan="2">das ganze Spiel: alle Völker, Technologiebaum, Weltenkrümmer in 3D, technische Zeichnungen, Einzel- und Hostspiel</td></tr>
+<tr><td>Spielinhalt</td><td colspan="2">das ganze Spiel: alle Völker, Technologiebaum, Kräfteatlas, Weltenkrümmer in 3D, technische Zeichnungen, Einzel- und Hostspiel</td></tr>
 <tr><td>Lokale KI-Modelle</td><td>arm64: basis, dotprod, i8mm</td><td>arm64: basis, dotprod, i8mm · x86_64: basis</td></tr>
 <tr><td>Download</td><td>{groesse_lite}</td><td>{groesse_voll}</td></tr>
 <tr><td>Arbeitsspeicher und Tempo im Spiel</td><td colspan="2">auf einem Handy gleich</td></tr>
@@ -859,6 +886,7 @@ function atlasVerweis(key){if(!window.KRAEFTEATLAS_INDEX?.ids?.includes(key))ret
 <h2 id="android">Android-App {av}</h2>
 <p class="einleitung">Zwei Fassungen mit demselben Spiel. Für Handy und Tablet nimmst du <b>Lite</b>, für den Android-Emulator am PC, ein Chromebook oder ein Tablet mit Intel- oder AMD-Prozessor die <b>Vollversion</b>.</p>
 <div class="downloads zwei" style="margin-top:22px">{lite}{voll}</div>
+<h3 id="neu" style="margin-top:36px">Neu in {VERSION}</h3><div class="glas" style="padding:20px 26px;margin-top:14px"><ul class="neu-liste">{"".join(f"<li>{x}</li>" for x in NEU_IN_VERSION)}</ul></div>
 <h3 style="margin-top:36px">Die beiden Fassungen</h3>{vergleich}
 <h2 style="margin-top:56px">Weitere Wege</h2>
 <div class="downloads zwei" style="margin-top:22px">
@@ -905,6 +933,7 @@ function atlasVerweis(key){if(!window.KRAEFTEATLAS_INDEX?.ids?.includes(key))ret
                    f"- [Handbuch als Text]({url}docs/spielguide.txt): vollständige Regelquelle mit Beispielen.",
                    f"- [Handbuch als JSON]({url}docs/spielguide.json): Kapitel mit Markdowntexten.",
                    f"- [Flottenkodex]({url}docs/flottenkodex.json) und [Regelreferenz]({url}docs/technologie-regeln.json): Werte aus dem Spielkern.",
+                   f"- [Kräfteatlas-Messung]({url}web-client/kraefteatlas/daten.js): jede Kampfeinheit gegen jede, gemessen mit der Kampfengine bei gleichem Ressourcenwert.",
                    f"- [Harness-API]({SPIEL_URL}api/harness/v1/info): Endpunkte, Quoten und Regeln des laufenden Servers.", "",
                    "## Einordnung",
                    "Bildschirmfotos stammen aus isolierten Prüfwelten mit dem aktuellen Spielstand, nicht aus Live-Partien. Konkrete Kosten und Voraussetzungen zeigt das Spiel bei jeder Aktion. Eigene Programme spielen ausschließlich über die Harness-API."]

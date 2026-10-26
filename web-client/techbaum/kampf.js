@@ -1,4 +1,6 @@
 'use strict';
+// Einheitennamen in schmalen Balkenzeilen weich trennen (silbenTrennen aus techbaum.js, sonst unverändert).
+const trennK = s => { const e = String(s ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c])); return window.silbenTrennen ? window.silbenTrennen(e).replace(/\u00ad/g, '&shy;') : e; };
 // Kampfauswertung für die Techbaum-Testseite. Rechnet nach den Regeln des Kerns (crates/kern/src/kampf.rs, zielwahl.rs):
 // je Zielkanal voller Grundschaden × Zielfaktor (Primär ×2, Sekundär ×1,5 oder eigener Faktor > 1, Reserve ×1);
 // Schildschaden × Schildfaktor nur auf Primär-/Sekundärziele; Schuss unter 1 % des Schildwerts verpufft;
@@ -125,8 +127,8 @@ function gfZeile(x) {
   return `<li class="gf vt-${u.k}" data-gruppe="${gruppe}">
     <button type="button" class="gf-kopf" data-geh="${esc(B.id)}">${avatar(B)}<span class="gf-name"><b>${esc(B.name)}</b><small>${einsatz}</small></span><span class="gf-urteil">${u.t}</span></button>
     <div class="gf-zeilen">
-      <div class="gf-balken gegner"><span class="gf-l">${esc(B.name)} verliert</span><span class="gf-bar"><i data-st="width:${Math.max(x.verlustB > 0 ? 2 : 0, x.verlustB * 100)}%"></i></span><b>${pct(x.verlustB)}</b></div>
-      <div class="gf-balken eigen"><span class="gf-l">${esc(A.name)} verliert</span><span class="gf-bar"><i data-st="width:${Math.max(x.verlustA > 0 ? 2 : 0, x.verlustA * 100)}%"></i></span><b>${pct(x.verlustA)}</b></div>
+      <div class="gf-balken gegner"><span class="gf-l">${trennK(B.name)} verliert</span><span class="gf-bar"><i data-st="width:${Math.max(x.verlustB > 0 ? 2 : 0, x.verlustB * 100)}%"></i></span><b>${pct(x.verlustB)}</b></div>
+      <div class="gf-balken eigen"><span class="gf-l">${trennK(A.name)} verliert</span><span class="gf-bar"><i data-st="width:${Math.max(x.verlustA > 0 ? 2 : 0, x.verlustA * 100)}%"></i></span><b>${pct(x.verlustA)}</b></div>
       <p class="gf-satz">${ausgang}. <span>${esc(A.name)}: ${esc(grund(x.ab))}.</span> <span>${esc(B.name)}: ${esc(grund(x.ba))}.</span></p>
     </div>
     <details class="gf-detail"><summary>Alle Zahlen dieses Gefechts</summary>${detail(x)}</details></li>`;

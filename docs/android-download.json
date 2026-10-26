@@ -1,24 +1,24 @@
 {
-  "version": "0.4.8",
-  "code": 29,
-  "datei": "Sternenepoche-0.4.8.apk",
-  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.8-20261025/Sternenepoche-0.4.8.apk",
-  "sha256": "b7e99029cc943b5f1a0ff762695f2678a25c395e97b97fb44af070f123eae604",
+  "version": "0.4.9",
+  "code": 30,
+  "datei": "Sternenepoche-0.4.9.apk",
+  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.9-20261026/Sternenepoche-0.4.9.apk",
+  "sha256": "15197205217aabb0c543598408da0acb35e9891ed1450f7b96749fd6c22e3b0c",
   "bytes": 191032035,
   "groesse_mb": 182.2,
   "abis": [
     "arm64-v8a",
     "x86_64"
   ],
-  "stand": "25.10.2026",
+  "stand": "26.10.2026",
   "min_android": "8.0",
-  "hinweis": "Jeder Flottenauftrag über ein Einsatzblatt; „kein Rückflug“ und gestrandete Flotten, die man versorgt, weiterfliegt oder übergibt. Invasion in Wellen mit Verteidigungslinien, Miliz je Volk, „verwüstet“ und Reparieren für 75 Prozent der Stufe. Kolonieplätze über Terraforming, neu abgestimmte Kampfwerte mit Mehrfachfeuer, Bestandstabellen je Planet.",
+  "hinweis": "Kräfteatlas im Spiel: wer schlägt wen, gemessen mit der Kampfengine, unter Forschung und im Technologiebaum. Am Handy ohne Überlappungen, lange Namen an Wortfugen getrennt, Invasion in Wellen in Kodex, Technologiebaum und Archiv, Raketensimulator mit Spanne bei unbekannter Panzerung. Dazu alles aus 0.4.8: Einsatzblatt, gestrandete Flotten, Invasion in Wellen.",
   "varianten": [
     {
       "art": "lite",
-      "datei": "Sternenepoche-0.4.8-lite.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.8-20261025/Sternenepoche-0.4.8-lite.apk",
-      "sha256": "1608241ef05926d92e3c0e8afff9871a2e0ad75179f7d78e9da08943abca7131",
+      "datei": "Sternenepoche-0.4.9-lite.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.9-20261026/Sternenepoche-0.4.9-lite.apk",
+      "sha256": "5e0302432a01a3f1fc63531cec464344cb2dfe79edd9b8b9b0202af6241a6777",
       "bytes": 99994189,
       "groesse_mb": 95.4,
       "abis": [
@@ -27,9 +27,9 @@
     },
     {
       "art": "voll",
-      "datei": "Sternenepoche-0.4.8.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.8-20261025/Sternenepoche-0.4.8.apk",
-      "sha256": "b7e99029cc943b5f1a0ff762695f2678a25c395e97b97fb44af070f123eae604",
+      "datei": "Sternenepoche-0.4.9.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.9-20261026/Sternenepoche-0.4.9.apk",
+      "sha256": "15197205217aabb0c543598408da0acb35e9891ed1450f7b96749fd6c22e3b0c",
       "bytes": 191032035,
       "groesse_mb": 182.2,
       "abis": [

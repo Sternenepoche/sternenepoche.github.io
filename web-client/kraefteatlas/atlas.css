@@ -86,9 +86,12 @@ h3.block,.block-h{display:flex;justify-content:space-between;align-items:baselin
 @keyframes abtasten{to{transform:translateY(100%)}}
 @keyframes schweben{50%{transform:translateY(-4px)}}
 .buehne .titel{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:26px 16px 12px;background:linear-gradient(180deg,transparent,#040a13f0 58%)}
-.buehne .titel h2,.buehne .titel h1{margin:3px 0 0;font:700 24px/1.12 var(--schrift);color:#fff;text-shadow:0 2px 14px #000}
+.buehne{container-type:inline-size}
+.buehne .titel h2,.buehne .titel h1{margin:3px 0 0;font:700 min(24px,5.4cqw)/1.12 var(--schrift);color:#fff;text-shadow:0 2px 14px #000}
 .pille{display:inline-flex;align-items:center;gap:6px;margin:6px 6px 0 0;padding:3px 10px;border-radius:999px;background:#050b14b8;border:1px solid #e2bf7d59;font-size:12px;color:#cdb98f}
 .pille b{color:var(--gold2);font-variant-numeric:tabular-nums}
+/* Kennzeile der Messung: am Handy umbrechen statt rechts abschneiden (Karl 26.10.2026: „ohne Abstriche“, Fehlerbild Überlappung) */
+#kopf-meta{display:inline-block;max-width:100%;border-radius:14px;line-height:1.7}
 .duell{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;min-height:230px}
 .duell .seite{height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:0 12px 12px;min-width:0}
 .duell .seite img{width:100%;height:150px;object-fit:contain;mix-blend-mode:lighten;animation:schweben 7s ease-in-out infinite}
@@ -146,7 +149,7 @@ select{background:#0b1a2b;color:var(--text);border:1px solid var(--linie);border
 .leistezeile{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin:12px 0}
 
 /* ---------- Reiter mit gleitendem Zeiger */
-nav.reiter{position:sticky;top:0;z-index:6;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin:0 0 4px;padding:6px 6px 0;border-bottom:1px solid var(--linie);background:linear-gradient(#050a12f5,#050a12e8)}
+nav.reiter{position:sticky;top:0;z-index:6;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin:0 0 4px;padding:6px 6px 0;border-bottom:1px solid var(--linie);background:#050a12}
 nav.reiter::-webkit-scrollbar{display:none}
 nav.reiter button{flex:none;min-height:46px;padding:0 15px;border:0;border-radius:10px 10px 0 0;background:none;color:var(--leise);font:600 13.5px/1 var(--schrift);cursor:pointer;white-space:nowrap}
 nav.reiter button[aria-selected=true]{color:#fff}
@@ -222,6 +225,11 @@ b.gut{color:var(--gut2)}b.schlecht{color:var(--rot2)}
 .kgrid button.h{cursor:pointer}.kgrid button.h:hover{color:var(--gold2)}
 .kgrid .h.oben{flex-direction:column;justify-content:flex-end;text-align:center;padding:0 2px 6px;font-size:11.5px}
 .kgrid .h img{width:48px;height:30px;border-radius:7px;object-fit:contain;background:radial-gradient(ellipse at 50% 60%,#1b3550,#050b14);border:1px solid var(--linie);flex:none}
+/* Matrizen am Handy (Karl 26.10.2026: Spaltenköpfe lagen übereinander, Zeilennamen unter den Zellen): Spalten so breit wie ihr Kopf –
+   ganze Wörter, die Spalte wächst mit (Android trennte mit hyphens:auto sonst unnötig „Zerstö-rer“) –, Zellen mindestens 52 px, der Zeilenkopf bleibt beim
+   Querwischen links stehen (deckend, damit die Zellen darunter verschwinden statt durchzuscheinen). */
+.kgrid .k{min-width:52px}
+.kgrid>.h:not(.oben){position:sticky;left:0;z-index:1;background:#081422;box-shadow:8px 0 8px -8px #000c}
 
 /* ---------- Duell-Bilanz: ein Kästchen je Gegner, Siege rechts, Niederlagen links */
 .bilanz{background:#050b14b3;border:1px solid var(--linie);border-radius:14px;padding:6px 10px 10px}
@@ -282,10 +290,12 @@ b.gut{color:var(--gut2)}b.schlecht{color:var(--rot2)}
 .achse .m.d{background:var(--gold);border-radius:2px;transform:rotate(45deg);box-shadow:0 0 0 2px #050a12}
 .achse .bar{position:absolute;top:7px;height:10px;border-radius:5px}
 .ticks{display:grid;grid-template-columns:minmax(130px,240px) minmax(90px,1fr) minmax(56px,132px);gap:12px;align-items:end;padding:0 6px 5px;margin-bottom:4px;border-bottom:1px solid var(--linie);font-size:11px;color:var(--leise)}
-.ticks div{position:relative;height:30px}
+.ticks div{position:relative;height:42px}
 .ticks div span{position:absolute;bottom:0;transform:translateX(-50%);white-space:nowrap;font-variant-numeric:tabular-nums}
 .ticks div span.ende{bottom:15px;font:600 10px/1 var(--schrift);letter-spacing:.1em;text-transform:uppercase}
 .ticks div span.ende.l{transform:none;color:var(--rot2)}.ticks div span.ende.r{transform:translateX(-100%);color:var(--gut2)}
+.ticks div{container-type:inline-size}
+@container (max-width:170px){.ticks div span.ende.l{bottom:27px}}
 .ticks>span{font:600 10px/1.2 var(--schrift);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}.ticks>span:last-child{text-align:right}
 .liste .pr,.liste .ticks{grid-template-columns:minmax(130px,200px) minmax(90px,1fr) 64px}
 
@@ -398,7 +408,8 @@ svg text{font-family:Oxanium,"Segoe UI",sans-serif}
   .pr,.ticks{grid-template-columns:118px 1fr 64px;gap:6px}.pr .v small{display:none}.pr .n img{width:26px;height:26px}
   .kacheln{grid-template-columns:repeat(2,minmax(0,1fr))}.ugrid{grid-template-columns:86px repeat(3,minmax(0,1fr));gap:5px}.ugrid .h img{display:none}
   .uk{padding:7px}.uk .z1{font-size:15px}.lz{grid-template-columns:54px 1fr}.lz small{grid-column:1 / -1}.streu{grid-template-columns:1fr}
-  .duell .seite img{height:96px}.duell{min-height:180px}.duell .name{font-size:14px}.kpi b{font-size:21px}.buehne .titel h1,.buehne .titel h2{font-size:20px}}
+  .duell .seite img{height:96px}.duell{min-height:180px}.duell .name{font-size:14px}.kpi b{font-size:21px}.buehne .titel h1,.buehne .titel h2{font-size:min(20px,5.4cqw)}
+  .kgrid>.h:not(.oben){flex-direction:column;align-items:flex-start;justify-content:center;gap:3px;padding:3px 6px}.kgrid .h img{width:40px;height:25px}}
 @media print{body::before{display:none}nav.reiter{position:static}section[data-tab]{display:block}}
 
 /* ---------- Modul: Vollbild im Spiel (Overlay neben dem Technologiebaum) */
@@ -406,5 +417,10 @@ svg text{font-family:Oxanium,"Segoe UI",sans-serif}
 .atlas-zu{position:fixed;top:max(10px,env(safe-area-inset-top));right:12px;z-index:40;min-height:44px;min-width:44px;padding:0 16px;border-radius:999px;border:1px solid #e2bf7d99;
   background:#081320ee;color:var(--gold2);font:600 13px/1 var(--schrift);letter-spacing:.06em;cursor:pointer;box-shadow:0 6px 18px #0009}
 .atlas-zu:hover,.atlas-zu:focus-visible{background:#1a2a3cee;outline:none;border-color:var(--gold2)}
-.vollbild.mit-zu .wrap{padding-top:58px}
+.atlas-seite{--zu-h:calc(max(10px,env(safe-area-inset-top)) + 54px)}
+.vollbild.mit-zu .wrap{padding-top:var(--zu-h)}
+.atlas-zu-leiste{display:none}
+.vollbild.mit-zu .atlas-zu-leiste{display:block;position:sticky;top:0;height:var(--zu-h);margin-bottom:calc(-1 * var(--zu-h));background:#050a12;border-bottom:1px solid var(--linie);z-index:30}
+.vollbild.mit-zu nav.reiter{top:var(--zu-h)}
+.blatt-offen .atlas-zu-leiste{display:none}
 .blatt-offen .atlas-zu{display:none}

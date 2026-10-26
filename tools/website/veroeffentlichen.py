@@ -25,7 +25,7 @@ UMGEBUNG = dict(os.environ, MSYS_NO_PATHCONV="1", PYTHONUTF8="1")
 
 DATEIEN = [
     "tools/website/bauen.py", "tools/website/fotos.py", "tools/website/kopfvideo.py", "tools/website/pruefen.py",
-    "tools/website/techbaum_logo.py", "tools/website/veroeffentlichen.py", "tools/website/heute.py", "tools/website/trailer_web.py", "tools/website/hoerchronik_web.py", "tools/build_pages.py", "tools/build_fleet_codex.py",
+    "tools/website/techbaum_logo.py", "tools/website/veroeffentlichen.py", "tools/website/heute.py", "tools/website/silben.py", "tools/website/trailer_web.py", "tools/website/hoerchronik_web.py", "tools/build_pages.py", "tools/build_fleet_codex.py",
     "tools/website_content.py", "tools/site_policy.py", "tools/player_publication_test.py",
     "docs/action-surfaces.css", "docs/HANDBUCH.md", "docs/AGENTEN-SCHNITTSTELLE.md", "docs/flottenkodex.json", "docs/technologie-regeln.json",
     "docs/android-download.json", "docs/cockpit-download.json", "docs/artwork/hero-ozeanwelt.webp",
@@ -126,7 +126,8 @@ def workflow_anpassen():
             s = s.replace("public_files = {'Technologiebaum.html',", "public_files = {'Trailer.html', 'Hoerchronik.html', 'Technologiebaum.html',", 1)
         else:
             s = s.replace("public_files = {'index.html',", "public_files = {" + zusatz + "'index.html',", 1)
-    if neu not in s or "'Trailer.html'" not in s:
+    # Seit 0.4.8 steht der Kräfteatlas schon in der Liste (unten ergänzt) – für die Formprüfung herausrechnen.
+    if neu not in s.replace("'web-client/kraefteatlas/', ", "") or "'Trailer.html'" not in s:
         sys.exit("static.yml hat eine unerwartete Form – Website-Pfade bitte von Hand eintragen")
     # Kräfteatlas (25.10.2026): Seite und Modul zählen als Website, nicht als Spielcode.
     if "'Kraefteatlas.html'" not in s:

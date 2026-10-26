@@ -17,6 +17,55 @@ function stileSetzen(el) { for (const teil of el.getAttribute('data-st').split('
 function stileUnter(el) { if (el.hasAttribute?.('data-st')) stileSetzen(el); for (const x of el.querySelectorAll?.('[data-st]') || []) stileSetzen(x); }
 new MutationObserver(ms => { for (const m of ms) for (const n of m.addedNodes) if (n.nodeType === 1) stileUnter(n); }).observe($('app'), {childList: true, subtree: true});
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+// Lange Namen (Kachel 112 px) nach Fugen und Silben weich trennen – gleiche Regeln wie window.Silben im Spiel.
+// Weiche Trennstellen für lange deutsche Wörter (Karl 25./26.10.2026: nie mitten im Wort umbrechen; Edge am Desktop trennt mit
+// hyphens:auto nicht). Erst Wortfugen bekannter Grundwörter (…schiff, …kraftwerk), dann Silben je Teil: Vokalgruppen bleiben
+// zusammen, von mehreren Konsonanten wandert ein gültiger Silbenanfang (bl, br, schl …) oder der letzte Konsonant in die nächste
+// Silbe; ch, ck, sch, ph, th, qu bleiben ganz. Mindestens zwei Buchstaben vor und nach jeder Trennstelle. Ergebnis mit U+00AD.
+const SILBEN_FUGEN = ['synthesizer', 'kolonisieren', 'wissenschaft', 'transporter', 'verbrauch', 'kapazität', 'infanterie', 'generator',
+  'zerstörer', 'kraftwerk', 'förderung', 'abkommen', 'spionage', 'schlacht', 'frachter', 'satellit', 'extraktor', 'geschütz', 'schleier',
+  'krümmer', 'kreuzer', 'antrieb', 'technik', 'bündnis', 'phalanx', 'zentrum', 'pionier', 'kaution', 'brecher', 'gebäude', 'archiv',
+  'punkte', 'gürtel', 'schlucht', 'rakete', 'drohne', 'panzer', 'kräfte', 'werfer', 'schiff', 'stoff', 'lager', 'kunde', 'sonde', 'frost',
+  'werft', 'werk', 'welt', 'mond', 'pakt', 'netz', 'dock'];
+const SILBEN_VOKAL = /[aeiouäöüy]/i, SILBEN_DOPPEL = ['au', 'äu', 'eu', 'ei', 'ai', 'ey', 'ie', 'aa', 'ee', 'oo'];
+const SILBEN_ANFANG = ['schl', 'schm', 'schn', 'schr', 'schw', 'sch', 'bl', 'br', 'dr', 'fl', 'fr', 'gl', 'gr', 'kl', 'kn', 'kr', 'pf',
+  'pl', 'pr', 'tr', 'zw', 'ch', 'ck', 'ph', 'th', 'qu'];
+function silbenTeil(w) {
+  if (w.length < 6) return w;
+  const k = w.toLocaleLowerCase('de'), stellen = [];
+  let i = 0;
+  while (i < k.length && !SILBEN_VOKAL.test(k[i])) i++;
+  while (i < k.length) {
+    let e = i + 1;                                           // Vokalgruppe [i, e)
+    while (e < k.length && SILBEN_VOKAL.test(k[e]) && SILBEN_DOPPEL.includes(k.slice(e - 1, e + 1))) e++;
+    let n = e;                                               // Konsonanten [e, n)
+    while (n < k.length && !SILBEN_VOKAL.test(k[n])) n++;
+    if (n >= k.length) break;                                // kein Vokal mehr: Wortende
+    let s;
+    if (n === e) s = e;                                      // Vokal trifft Vokal (De·u? nein: Doppellaut oben) → zwischen beide
+    else {
+      const c = k.slice(e, n), a = SILBEN_ANFANG.find(x => c.endsWith(x) && (c.length > x.length || x !== 'ck'));
+      s = n - (a ? a.length : 1);
+      if (a === 'ck') s = n - 1;                             // Zu·cker: k beginnt die Silbe
+    }
+    if (s >= 2 && k.length - s >= 2) stellen.push(s);
+    i = n;
+  }
+  let r = '', z = 0;
+  for (const s of stellen) { r += w.slice(z, s) + '­'; z = s; }
+  return r + w.slice(z);
+}
+function silbenWort(w) {
+  if (w.length < 10) return w;
+  const k = w.toLocaleLowerCase('de');
+  const f = SILBEN_FUGEN.find(x => k.endsWith(x) && w.length - x.length >= 3);
+  if (f) return silbenWort(w.slice(0, w.length - f.length)) + '­' + silbenTeil(w.slice(w.length - f.length));
+  return silbenTeil(w);
+}
+const silbenTrennen = s => String(s ?? '').replace(/[A-Za-zÄÖÜäöüß]{10,}/g, silbenWort);
+function trennen(name) { return silbenTrennen(name); }
+window.silbenTrennen = window.silbenTrennen || silbenTrennen;  // auch für kampf.js
+const escT = s => esc(trennen(s)).replace(/­/g, '&shy;');
 const fmt = (n, st = 1) => Number(n || 0).toLocaleString('de-DE', {maximumFractionDigits: st});
 const kurz = n => n >= 1e9 ? fmt(n / 1e9, 2) + ' Mrd.' : n >= 1e6 ? fmt(n / 1e6, 2) + ' Mio.' : fmt(n, n < 10 ? 2 : 0);
 const mal = f => '×' + fmt(f, 2);
@@ -158,7 +207,7 @@ function baueKnoten() {
     el.type = 'button'; el.className = 'knoten ' + n.typ; el.dataset.id = n.id; el.style.setProperty('--bf', b.farbe);
     const host = n.voraus.find(v => WIRT.has(v.id));
     const tor = host ? ({labor:'L', werft:'W', kaserne:'K', raketensilo:'S', werftdock:'D'}[host.id] + host.n) : '';
-    el.innerHTML = `<span class="kachel"><img alt="" loading="lazy" decoding="async"></span>${tor ? `<span class="tor" title="${esc(name(host.id))} ${host.n}">${tor}</span>` : ''}<span class="vb" hidden></span><span class="schloss" aria-hidden="true">🔒</span><span class="lvl" aria-hidden="true"></span><span class="name">${esc(n.name)}</span><span class="info"></span>`;
+    el.innerHTML = `<span class="kachel"><img alt="" loading="lazy" decoding="async"></span>${tor ? `<span class="tor" title="${esc(name(host.id))} ${host.n}">${tor}</span>` : ''}<span class="vb" hidden></span><span class="schloss" aria-hidden="true">🔒</span><span class="lvl" aria-hidden="true"></span><span class="name">${escT(n.name)}</span><span class="info"></span>`;
     el.setAttribute('aria-label', `${n.name}, ${TYP[n.typ]}, ab Zivilisationsstufe ${ROEM[n.stufe] || n.stufe}`);
     ebene.append(el); knotenEl[n.id] = el;
   }
@@ -696,7 +745,7 @@ function dossierKnoten(n) {
   const anteile = n.anteile ? `<div class="tabelle-roll"><table class="tabelle"><thead><tr><th>Epoche</th><th>Anteil je Gut</th></tr></thead><tbody>${n.anteile.map(z => `<tr><td>${z.tage} Tage</td><td>${kurz(z.anteil)}</td></tr>`).join('')}</tbody></table></div>` : '';
   const gewichte = n.gewichte ? `<div class="kp-zahlen">${Object.entries(n.gewichte).map(([z, w]) => `<div><b>${w}</b><span>${esc(name('zone_' + z))}</span></div>`).join('')}</div><p class="vp-hinweis">Relative Häufigkeit nach Zone des Planeten.</p>` : '';
   const held = `<div class="d-held${flaeche ? ' flaeche' : ''}${['planet', 'mondtyp'].includes(n.typ) ? ' kugel' : ''}"><img id="d-bild" alt="${esc(n.name)}" src="${esc(bild(n.id))}">${eigenesBild ? `<span class="d-volk">${V.emblem ? `<img alt="" src="${esc(BASIS + V.emblem)}">` : ''}${esc(V.name)}-Motiv</span>` : ''}</div>`;
-  const titel = `<div class="d-titel"><small>${esc(b.titel)} · ${esc(n.klasse || TYP[n.typ])}</small><h2>${esc(n.name)}</h2></div>`;
+  const titel = `<div class="d-titel"><small>${esc(b.titel)} · ${esc(n.klasse || TYP[n.typ])}</small><h2>${escT(n.name)}</h2></div>`;
   const werte = abschnitt('Werte', werteBlock(n), EINHEIT.has(n.typ) ? 'Grundwerte mit Volksbonus' : '') + kampf;
   const bed = abschnitt('Bedingungen', bedingungen(n, n.stufe), 'alles, was erfüllt sein muss'), volk = abschnitt('Volk · ' + esc(V.name), volkText);
   const kost = abschnitt(EINHEIT.has(n.typ) || ['boden', 'rakete', 'bauteil'].includes(n.typ) ? 'Baukosten' : n.typ === 'wunder' ? 'Anteil je Mitglied (365 Tage)' : 'Kosten Stufe 1', guterListe(kosten, n.kosten), n.typ === 'boden' ? 'je Einheit' : '');

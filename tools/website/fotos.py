@@ -40,6 +40,8 @@ FOTOS = [
     ("lage", "lage", "reich", False),
     # 0.4.8: Einsatzblatt (Flottenauftrag mit Lage und Simulation) und Invasion in Wellen (invasion_ui_fixture).
     ("einsatz", "flotten", "einsatz:angriff", True), ("invasion", "invasion", "reich", True),
+    # 0.4.9: Kräfteatlas im Spiel (Vollbild über Forschung), für Startseite und Nachschlagen (Karl 26.10.2026).
+    ("kraefteatlas", "flotten", "kraefteatlas", True),
 ]
 
 
@@ -69,6 +71,12 @@ def seite(browser, server, groesse, fehler):
 
 
 def gehe(p, ziel):
+    if ziel == "kraefteatlas":
+        # Wie ein Spieler: Forschung, Knopf „Kräfteatlas“; das Foto zeigt Kopf und Klassenmatrix.
+        gehe(p, "forschen"); time.sleep(1.5)
+        p.evaluate("() => document.querySelector('#forschen .kraefteatlas-knopf')?.click()"); time.sleep(9)
+        p.evaluate("() => document.querySelector('#kraefteatlas-overlay')?.shadowRoot?.querySelector('#klassen')?.scrollIntoView({block: 'center'})")
+        time.sleep(2); return
     if ziel.startswith("einsatz:"):
         # Einsatzblatt wie aus der Galaxie „Angriff planen“: ausgespähtes Ziel, Vorlage, Simulation (Lage am Ziel).
         k = p.evaluate("() => (view.berichte || []).map(b => b.ziel)[0] || ''")
@@ -113,18 +121,22 @@ def gehe(p, ziel):
         if not p.locator("text=DOSSIER").first.is_visible():  # Dossier liegt im Shadow DOM; der Locator durchdringt es
             p.evaluate("(k) => document.querySelector(`[data-bs-techinfo='${k}']`)?.click()", teile[1]); time.sleep(3)
         if p.evaluate("() => !!window.TechbaumSpiel && document.querySelector('#techinfo[open]') === null"):
+            # Reiter im Dossier des Technologiebaums (Shadow DOM): den sichtbaren Knopf mit genau diesem Text antippen –
+            # der Playwright-Locator traf am 26.10.2026 einen verdeckten gleichnamigen Knopf, das Foto zeigte dann nur das Motiv.
+            tippe = """([text, art]) => { const r = document.getElementById('techbaum-overlay')?.shadowRoot; if (!r) return false;
+                const b = [...r.querySelectorAll(art)].find(x => x.textContent.trim() === text && x.getClientRects().length);
+                if (!b) return false; b.scrollIntoView({block: 'center'}); b.click(); return true; }"""
             if teile[0] == "technik":
-                knopf = p.locator("button", has_text={"blaupause": "Blaupause", "explosion": "Explosion", "schnitt": "Schnitt"}[teile[2]]).last
-                try:
-                    knopf.click(timeout=4000)
-                except Exception as e:
-                    print("Zeichnungsreiter nicht gefunden:", str(e)[:80])
+                text = {"blaupause": "Blaupause", "explosion": "Explosion", "schnitt": "Schnitt"}[teile[2]]
+                if not p.evaluate(tippe, [text, "button"]):
+                    print("Zeichnungsreiter nicht gefunden:", text)
             else:
-                try:
-                    p.locator("text=Archiv").last.click(timeout=4000); time.sleep(1)
-                    p.locator("summary", has_text="Chronik").last.click(timeout=4000)
-                except Exception as e:
-                    print("Archiv nicht gefunden:", str(e)[:80])
+                if not p.evaluate(tippe, ["Archiv", "button"]):
+                    print("Archiv nicht gefunden")
+                time.sleep(1)
+                p.evaluate("""() => { const r = document.getElementById('techbaum-overlay')?.shadowRoot;
+                    const s = r && [...r.querySelectorAll('summary')].find(x => /Chronik/.test(x.textContent) && x.getClientRects().length);
+                    if (s) { s.click(); s.scrollIntoView({block: 'start'}); } }""")
             time.sleep(2.5); return
         p.evaluate("(k) => document.querySelector(`[data-bs-techinfo='${k}'][data-bs-reiter='techinfo'], [data-bs-techinfo='${k}']`)?.click()", teile[1])
         if not p.evaluate("(k) => !!document.querySelector(`[data-bs-techinfo='${k}']`)", teile[1]):
@@ -204,7 +216,7 @@ def main():
                 for name, _, ziel, _ in auftrag:
                     try:
                         # Vorheriges Foto aufräumen: Techbaum-Dossier, Techinfo, Berichtansicht und andere Dialoge schließen.
-                        p.evaluate("() => { window.TechbaumSpiel?.schliessen?.(); window.Einsatz?.schliessen?.(); document.querySelectorAll('dialog[open]').forEach(d => d.close()); }")
+                        p.evaluate("() => { window.KraefteatlasSpiel?.schliessen?.(); window.TechbaumSpiel?.schliessen?.(); window.Einsatz?.schliessen?.(); document.querySelectorAll('dialog[open]').forEach(d => d.close()); }")
                         time.sleep(1.5)
                         gehe(p, ziel)
                     except Exception as e:

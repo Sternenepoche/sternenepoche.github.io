@@ -117,7 +117,7 @@ button,select,input{font:inherit;color:inherit}
 .bereich-kopf .kn{margin-left:auto;display:flex;gap:4px;flex:none}
 .kn button{width:30px;height:30px;border-radius:5px;border:1px solid color-mix(in srgb,var(--bf) 45%,transparent);background:rgba(3,10,18,.65);cursor:pointer;color:var(--bf);font-size:14px;line-height:1}
 .kn button:hover{background:color-mix(in srgb,var(--bf) 22%,transparent)}
-.bahn-titel{position:absolute;top:50px;font:600 10.5px var(--titel);letter-spacing:.14em;text-transform:uppercase;color:var(--sehr-leise);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-left:2px;border-left:2px solid color-mix(in srgb,var(--bf) 40%,transparent)}
+.bahn-titel{position:absolute;top:47px;font:600 10.5px/1.2 var(--titel);letter-spacing:.1em;text-transform:uppercase;color:var(--sehr-leise);padding-top:1px;padding-left:2px;border-left:2px solid color-mix(in srgb,var(--bf) 40%,transparent)}
 .bereich.zu{background:linear-gradient(180deg,color-mix(in srgb,var(--bf) 14%,transparent),color-mix(in srgb,var(--bf) 4%,transparent))}
 .bereich.zu .bereich-kopf{flex-direction:column;align-items:center;padding:8px 0;height:auto}
 .bereich.zu .bereich-kopf h2{writing-mode:vertical-rl;transform:rotate(180deg);font-size:14px;margin-top:6px;order:2}
@@ -166,7 +166,7 @@ button,select,input{font:inherit;color:inherit}
 /* Semantischer Zoom: Makro – nur Symbole; Detail – mehr Text */
 .welt.z-makro .knoten .name,.welt.z-makro .knoten .tor,.welt.z-makro .bahn-titel,.welt.z-makro .bereich-kopf p{display:none}
 .welt.z-makro .knoten .kachel{box-shadow:0 0 22px color-mix(in srgb,var(--bf) 45%,transparent)}
-.welt.z-makro .bereich-kopf h2{font-size:26px}
+.welt.z-makro .bereich-kopf h2{font-size:26px;white-space:normal;overflow:visible;text-overflow:clip}
 .welt.z-makro .linie{stroke-width:3}
 .welt.z-detail .knoten .info{display:block}
 
@@ -619,7 +619,8 @@ details.akte p{margin:0 0 9px;color:#cfe1ee;font-size:13px}
   .knoten .info{font-size:12.5px}
   .knoten .tor{height:20px;font-size:12px;line-height:18px}
   .knoten .lvl{height:19px;font-size:12px;line-height:17px;top:68px}
-  .bahn-titel{font-size:12.5px;top:55px}
+  /* Schmale Bahnen am Handy: Titel in zwei Zeilen statt „CREDITS & FORS…“ (Überlappungsprüfung 26.10.2026) */
+  .bahn-titel{font-size:11.5px;line-height:1.05;letter-spacing:.06em;top:50px;white-space:normal;overflow:visible;text-overflow:clip}
   .welt.z-makro .linie.plan{stroke-width:12}
   .welt.z-makro .knoten.geplant .kachel{outline:8px solid var(--gold);outline-offset:6px}
   .bereich-kopf p{font-size:13px}

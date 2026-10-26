@@ -10,7 +10,7 @@ const stileUnter = el => { if (el.hasAttribute && el.hasAttribute('data-st')) st
 const seite = document.createElement('div'); seite.className = 'atlas-seite' + (OPT.vollbild ? ' vollbild' : '') + (OPT.schliessen ? ' mit-zu' : '');
 new MutationObserver(ms => { for (const m of ms) for (const n of m.addedNodes) if (n.nodeType === 1) stileUnter(n); }).observe(seite, {childList: true, subtree: true});
 seite.innerHTML = MARKUP; stileUnter(seite);
-if (OPT.schliessen) { const zu = document.createElement('button'); zu.type = 'button'; zu.className = 'atlas-zu'; zu.textContent = '✕ Schließen'; zu.setAttribute('aria-label', 'Kräfteatlas schließen'); zu.addEventListener('click', () => OPT.schliessen()); seite.prepend(zu); }
+if (OPT.schliessen) { const zu = document.createElement('button'); zu.type = 'button'; zu.className = 'atlas-zu'; zu.textContent = '✕ Schließen'; zu.setAttribute('aria-label', 'Kräfteatlas schließen'); zu.addEventListener('click', () => OPT.schliessen()); const leiste = document.createElement('div'); leiste.className = 'atlas-zu-leiste'; seite.prepend(leiste); seite.prepend(zu); }
 wurzel.append(seite);
 const roh = window.KRAEFTEATLAS_DATEN, pfad = u => !u || u.startsWith('data:') ? u : basis + u;
 const bilder = {volk: Object.fromEntries(Object.entries(roh.bilder.volk).map(([v, m]) => [v, Object.fromEntries(Object.entries(m).map(([k, u]) => [k, pfad(u)]))])),
@@ -271,12 +271,17 @@ function linien(serien, xl, opt = {}) {
   let s = `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(opt.label || "Verlauf")}">`;
   for (let k = 0; k <= 4; k++) { const v = ymax * k / 4; s += `<line x1="${l}" x2="${W - r}" y1="${y(v)}" y2="${y(v)}" stroke="#97abc026"/><text x="${l - 7}" y="${y(v) + 4}" text-anchor="end" font-size="11" fill="#97abc0">${pct(v)}</text>`; }
   xl.forEach((t, i) => { s += `<text x="${x(i)}" y="${H - 10}" text-anchor="middle" font-size="11" fill="#97abc0">${esc(t)}</text>`; });
+  // Namen am Linienende: mindestens 15 Einheiten auseinander und über der Achsenbeschriftung – enden beide Linien gleich
+  // (Duell zweier gleicher Truppen bis 0 %), lagen die Namen sonst übereinander und auf „W7 W8“ (Prüfung 26.10.2026).
+  const oben = o + 10, unten = H - u - 6, ly = serien.map(se => Math.min(unten, Math.max(oben, y(se.werte[se.werte.length - 1]) - 9)));
+  const folge = ly.map((_, i) => i).sort((a, b) => ly[a] - ly[b]);
+  for (let j = 1; j < folge.length; j++) ly[folge[j]] = Math.max(ly[folge[j]], ly[folge[j - 1]] + 15);
+  const ueber = ly[folge[folge.length - 1]] - unten;
+  if (ueber > 0) folge.forEach(i => { ly[i] = Math.max(oben, ly[i] - ueber); });
   serien.forEach((se, k) => {
     s += `<polyline fill="none" stroke="${se.farbe}" stroke-width="2.4" stroke-linejoin="round" points="${se.werte.map((v, i) => x(i) + "," + y(v)).join(" ")}"/>`;
     se.werte.forEach((v, i) => { s += `<circle cx="${x(i)}" cy="${y(v)}" r="5" fill="${se.farbe}" stroke="#060d18" stroke-width="2" data-tip="${esc(se.tips ? se.tips[i] : se.name + ": " + pct(v))}"/>`; });
-    const lv = se.werte[se.werte.length - 1], andere = serien[1 - k] ? serien[1 - k].werte[serien[1 - k].werte.length - 1] : -1;
-    const dy = Math.abs(y(lv) - y(andere)) < 14 ? (k === 0 ? -9 : 17) : -9;
-    s += `<text x="${W - r}" y="${y(lv) + dy}" text-anchor="end" font-size="12" font-weight="700" fill="${se.farbe}">${esc(se.name)}</text>`;
+    s += `<text x="${W - r}" y="${ly[k]}" text-anchor="end" font-size="12" font-weight="700" fill="${se.farbe}">${esc(se.name)}</text>`;
   });
   return s + "</svg>";
 }
@@ -471,7 +476,7 @@ const ANSICHT = {
   klassenV(g1, g2, L, R) {
     const a = D.gruppen.find(g => g.key === g1), b = D.gruppen.find(g => g.key === g2);
     let s = `<h2 data-st="margin:6px 0 4px;font:700 20px var(--schrift)">${esc(a.name)} (${esc(VN(L))}) gegen ${esc(b.name)} (${esc(VN(R))})</h2><p class="leise">Jede Zelle ein Gefecht aus Sicht der Zeile; klein darunter der Volkseffekt gegenüber dem Gleichstand.</p>
-      <div class="kgrid" data-st="grid-template-columns:minmax(150px,auto) repeat(${b.e.length},minmax(58px,1fr))"><span></span>${b.e.map(z => `<span class="h oben">${imgV(z, R)}${esc(E[z].name)}</span>`).join("")}`;
+      <div class="kgrid" data-st="grid-template-columns:auto repeat(${b.e.length},minmax(auto,1fr))"><span></span>${b.e.map(z => `<span class="h oben">${imgV(z, R)}${esc(E[z].name)}</span>`).join("")}`;
     for (const x of a.e) {
       s += `<span class="h">${imgV(x, L)}${esc(E[x].name)}</span>`;
       for (const z of b.e) { const tv = TV(x, z, L, R); if (tv === null) { s += "<span></span>"; continue; } const dd = tv - T(x, z);
@@ -507,7 +512,7 @@ const ANSICHT = {
   klassen(g1, g2) {
     const a = D.gruppen.find(g => g.key === g1), b = D.gruppen.find(g => g.key === g2);
     let s = `<h2 data-st="margin:6px 0 4px;font:700 20px var(--schrift)">${esc(a.name)} gegen ${esc(b.name)}</h2><p class="leise">Jede Zelle ein Gefecht, aus Sicht der Zeile. Antippen für das Gefecht im Detail.</p>
-      <div class="kgrid" data-st="grid-template-columns:minmax(150px,auto) repeat(${b.e.length},minmax(52px,1fr))"><span></span>${b.e.map(z => `<button class="h oben" data-open="einheit:${z}">${img(z)}${esc(E[z].name)}</button>`).join("")}`;
+      <div class="kgrid" data-st="grid-template-columns:auto repeat(${b.e.length},minmax(auto,1fr))"><span></span>${b.e.map(z => `<button class="h oben" data-open="einheit:${z}">${img(z)}${esc(E[z].name)}</button>`).join("")}`;
     for (const x of a.e) {
       s += `<button class="h" data-open="einheit:${x}">${img(x)}${esc(E[x].name)}</button>`;
       for (const z of b.e) { const t = T(x, z); s += t === null ? "<span></span>" : x === z ? `<button class="k" data-st="background:#12233a" data-open="paar:${x}:${z}">=</button>` : `<button class="k" data-st="background:${farbe(t)};${dunkel(t) ? "color:#04121d" : ""}" data-open="paar:${x}:${z}" data-tip="${esc(N(x) + " gegen " + N(z) + ": " + tx(t))}">${tf(t)}</button>`; }
@@ -630,7 +635,7 @@ function ueberblick() {
   segment("#rad-stufe", "stufe", rad, radZeichnen);
   radZeichnen();
   const G = D.gruppen;
-  let h = `<div class="kgrid" data-st="grid-template-columns:minmax(120px,auto) repeat(${G.length},minmax(54px,1fr))"><span class="h oben" data-st="align-items:flex-start;text-align:left">Zeile ↓ gegen Spalte →</span>${G.map(g => `<span class="h oben">${img(g.e[0])}${esc(g.name)}</span>`).join("")}`;
+  let h = `<div class="kgrid" data-st="grid-template-columns:auto repeat(${G.length},minmax(auto,1fr))"><span class="h oben" data-st="align-items:flex-start;text-align:left">Zeile ↓ gegen Spalte →</span>${G.map(g => `<span class="h oben">${img(g.e[0])}${esc(g.name)}</span>`).join("")}`;
   for (const a of G) {
     h += `<span class="h">${img(a.e[0])}${esc(a.name)}</span>`;
     for (const b of G) {
@@ -670,7 +675,7 @@ function ueberblick() {
 }
 function belagerung(el, txt) {
   const vert = [...VERT];
-  let h = `<div class="kgrid" data-st="grid-template-columns:minmax(170px,auto) repeat(${vert.length},minmax(60px,1fr))"><span class="h oben" data-st="align-items:flex-start;text-align:left">Belagerer ↓ gegen Anlage →</span>${vert.map(d => `<button class="h oben" data-open="einheit:${d}">${img(d)}${esc(E[d].name)}</button>`).join("")}`;
+  let h = `<div class="kgrid" data-st="grid-template-columns:auto repeat(${vert.length},minmax(auto,1fr))"><span class="h oben" data-st="align-items:flex-start;text-align:left">Belagerer ↓ gegen Anlage →</span>${vert.map(d => `<button class="h oben" data-open="einheit:${d}">${img(d)}${esc(E[d].name)}</button>`).join("")}`;
   for (const b of D.belagerer) {
     h += `<button class="h" data-open="einheit:${b}">${img(b)}${esc(E[b].name)}</button>`;
     for (const d of vert) { const t = T(b, d), p = paar(b, d); h += `<button class="k" data-st="background:${farbe(t)};${dunkel(t) ? "color:#04121d" : ""}" data-open="paar:${b}:${d}" data-tip="${esc(E[b].name + " gegen " + E[d].name + ": " + tx(t) + " · Verlust " + pct(p.verlust[0]) + " / " + pct(p.verlust[1]))}">${tf(t)}</button>`; }
@@ -827,7 +832,7 @@ function bilanzSchiffe() {
 function verteidigung() {
   $("#kacheln-vert").innerHTML = `<div class="kacheln" data-st="grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px">${[...VERT].map(karte).join("")}</div>`;
   const G = D.gruppen.filter(g => g.key !== "verteidigung");
-  let h = `<div class="kgrid" data-st="grid-template-columns:minmax(150px,auto) repeat(${G.length},minmax(56px,1fr))"><span class="h oben" data-st="align-items:flex-start;text-align:left">Anlage ↓ gegen Klasse →</span>${G.map(g => `<span class="h oben">${img(g.e[0])}${esc(g.name)}</span>`).join("")}`;
+  let h = `<div class="kgrid" data-st="grid-template-columns:auto repeat(${G.length},minmax(auto,1fr))"><span class="h oben" data-st="align-items:flex-start;text-align:left">Anlage ↓ gegen Klasse →</span>${G.map(g => `<span class="h oben">${img(g.e[0])}${esc(g.name)}</span>`).join("")}`;
   for (const d of VERT) {
     h += `<button class="h" data-open="einheit:${d}">${img(d)}${esc(E[d].name)}</button>`;
     for (const g of G) { const v = g.e.map(s => T(d, s)), t = v.reduce((a, b) => a + b, 0) / v.length; h += `<button class="k" data-st="background:${farbe(t, 2.5)};${dunkel(t, 2.5) ? "color:#04121d" : ""}" data-open="klassen:verteidigung:${g.key}" data-tip="${esc(E[d].name + " gegen " + g.name + ": Ø " + tx(t))}">${tf(t)}</button>`; }
@@ -948,7 +953,7 @@ function voelkerZeichnen() {
   // Klassenmatrix
   const G = D.gruppen;
   $("#vk-klassen-titel").textContent = `${VN(L)} gegen ${VN(Rv)}`;
-  let h = `<div class="kgrid" data-st="grid-template-columns:minmax(130px,auto) repeat(${G.length},minmax(60px,1fr))"><span class="h oben" data-st="align-items:flex-start;text-align:left;color:${VFARBE(L)}">${esc(VN(L))} ↓<br><span data-st="color:${VFARBE(Rv)}">${esc(VN(Rv))} →</span></span>${G.map(g => `<span class="h oben">${imgV(g.e[0], Rv)}${esc(g.name)}</span>`).join("")}`;
+  let h = `<div class="kgrid" data-st="grid-template-columns:auto repeat(${G.length},minmax(auto,1fr))"><span class="h oben" data-st="align-items:flex-start;text-align:left;color:${VFARBE(L)}">${esc(VN(L))} ↓<br><span data-st="color:${VFARBE(Rv)}">${esc(VN(Rv))} →</span></span>${G.map(g => `<span class="h oben">${imgV(g.e[0], Rv)}${esc(g.name)}</span>`).join("")}`;
   for (const a of G) {
     h += `<span class="h">${imgV(a.e[0], L)}${esc(a.name)}</span>`;
     for (const b of G) {

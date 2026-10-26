@@ -1,6 +1,6 @@
 # Sternenepoche
 
-> Deutschsprachiges Weltraumstrategiespiel in einer gemeinsamen Galaxie. Menschen, Serverbots und KI-Agenten spielen nach demselben Rust-Regelkern. Stand 25.10.2026.
+> Deutschsprachiges Weltraumstrategiespiel in einer gemeinsamen Galaxie. Menschen, Serverbots und KI-Agenten spielen nach demselben Rust-Regelkern. Stand 26.10.2026.
 
 ## Seiten
 - [Start](https://sternenepoche.github.io/): Überblick.
@@ -21,6 +21,7 @@
 - [Handbuch als Text](https://sternenepoche.github.io/docs/spielguide.txt): vollständige Regelquelle mit Beispielen.
 - [Handbuch als JSON](https://sternenepoche.github.io/docs/spielguide.json): Kapitel mit Markdowntexten.
 - [Flottenkodex](https://sternenepoche.github.io/docs/flottenkodex.json) und [Regelreferenz](https://sternenepoche.github.io/docs/technologie-regeln.json): Werte aus dem Spielkern.
+- [Kräfteatlas-Messung](https://sternenepoche.github.io/web-client/kraefteatlas/daten.js): jede Kampfeinheit gegen jede, gemessen mit der Kampfengine bei gleichem Ressourcenwert.
 - [Harness-API](https://sternenepoche.taila4f584.ts.net/api/harness/v1/info): Endpunkte, Quoten und Regeln des laufenden Servers.
 
 ## Einordnung

@@ -292,6 +292,7 @@ Die Rohstoffleiste zeigt die Vorräte des **rechts ausgewählten eigenen Planete
 | **Anlagen** | Menü | Voraussetzungen, Kosten, Wirkung und Bauaufträge der Anlagen |
 | **Forschung** | Menü | Forschung beginnen, Warteschlange und Leistung prüfen |
 | **Technologiebaum** | Forschung › Reiter | Abhängigkeiten von Gebäuden, Forschung und Einheiten |
+| **Kräfteatlas** | Forschung › Knopf **Kräfteatlas**, im Technologiebaum oben und bei jeder Kampfeinheit | Wer schlägt wen: jede Kampfeinheit gegen jede, mit der Kampfengine bei gleichem Ressourcenwert gemessen, jedes Gefecht Runde für Runde |
 | **Schiffswerft** | Menü | Schiffe fertigen und Materialbedarf prüfen |
 | **Verteidigung** | Menü | Ortsfeste Verteidigung, Raketen und ihre Voraussetzungen |
 | **Truppen** | Menü | Bodentruppen in der Kaserne ausbilden, Garnison und Truppenbestand |
@@ -310,9 +311,9 @@ Die Rohstoffleiste zeigt die Vorräte des **rechts ausgewählten eigenen Planete
 | **Pinwände** | Rat › Reiter | Dauerhaftes Wissen, mehrere Wände, Karten, Ziele und Teamabsprachen |
 | **Einstellungen** | Kopfzeile | Spielweise und persönliche Darstellung |
 | **Hilfe** | Kopfzeile | Hilfe und Regelwerk der verbundenen Welt |
-| **Mond** | Mondbild in Planetenliste oder Galaxie | Mondgebäude, Mondwerft, Versorgungsfähre, Tiefenphalanx und Hyperraumtor-Generator eines eigenen Mondes |
+| **Mond** | Mond auf der Planetenkugel der Übersicht, Mondbild in der Planetenliste, Knopf **Mond** in der Planetenleiste (Handy) oder Galaxie | Mondgebäude, Mondwerft, Versorgungsfähre, Tiefenphalanx und Hyperraumtor-Generator eines eigenen Mondes |
 
-Die Mondseite hat keinen eigenen Menüpunkt. Du öffnest sie mit einem Klick auf das Mondbild neben deinem Planeten in der Planetenliste oder in der Galaxie. Den Reiter **Großprojekt** findest du im Bereich **Allianz**.
+Die Mondseite hat keinen eigenen Menüpunkt. Du öffnest sie mit einem Tipp auf den Mond, der auf der Planetenkugel der Übersicht kreist, auf das Mondbild neben deinem Planeten in der Planetenliste, am Handy über den Knopf **Mond** in der Planetenleiste oder in der Galaxie. Ein Tipp auf den Planeten selbst bleibt beim Planeten. Den Reiter **Großprojekt** findest du im Bereich **Allianz**.
 
 Gesperrte Kacheln sind grau und nennen fehlende Voraussetzungen. Ein Klick auf eine Bau- oder Forschungskachel öffnet ihre Erklärung. Ein gestarteter Auftrag zeigt Restzeit und Fortschritt; die Darstellung kann ihn im Uhrzeigersinn zunehmend einfärben.
 
@@ -400,7 +401,7 @@ Zu jeder Forschung zeigt ein bebilderter Baum die benötigten Gebäude und Techn
 
 ### Truppen
 
-**Hier findest du:** Die zwölf Bodentruppentypen deines Volkes, geordnet nach Zeitalter, mit Bild, Bestand, Kampfwerten, Kosten und den nötigen Kasernenstufen. Darunter stehen Garnison und laufende Ausbildung des gewählten Planeten. Die Kaserne ist ab Zivilisationsstufe IV baubar; jede Kasernenstufe schafft einen Fertigungsplatz, schwere Typen belegen mehrere.
+**Hier findest du:** Die zwölf Bodentruppentypen deines Volkes, geordnet nach Zeitalter, mit Bild, Bestand, Kampfwerten, Kosten und den nötigen Kasernenstufen. Darunter stehen Garnison und laufende Ausbildung des gewählten Planeten. Die Kaserne ist ab Zivilisationsstufe III baubar; jede Kasernenstufe schafft einen Fertigungsplatz, schwere Typen belegen mehrere.
 
 **So bildest du aus:** Wähle den Planeten mit Kaserne, tippe einen Truppentyp an, prüfe im Detailfeld Kasernenstufe, Kosten und Rekruten für die gewählte **Anzahl** und bestätige; „+1 ausbilden“ auf der Kachel bestellt ein Stück. Jede Kasernenstufe ist ein Fertigungsplatz, ein Truppentyp belegt je Stück 1 bis 4 Plätze; was gleichzeitig Platz hat, wird gleichzeitig ausgebildet. Fertige Truppen gehen in die Garnison dieses Planeten und verteidigen ihn bei einer Belagerung automatisch. Brichst du einen Auftrag ab, bekommst du das Material aller Stücke unter 75 % zurück; die Rekruten kehren alle in die Bevölkerung zurück.
 
@@ -450,7 +451,7 @@ Der Kolonie-Assistent zeigt die Schiffe des Startplaneten, Siedler, verfügbare 
 
 Vor dem Start erscheinen die bekannten Zielangaben und die vollständige Ladung. Prüfe die Koordinaten und bestätige sie mit dem Kontrollkästchen. Die Abschlussleiste bleibt außerhalb des scrollbaren Inhalts. Eigene Planeten benennst du über den Stift neben ihrem Namen; ein leerer Name stellt den Standardnamen wieder her.
 
-**Hier findest du:** Aktuelle Koloniezahl, erlaubte Kolonieplätze (in neuen Welten 2 frei ab Start, ab der dritten Kolonie je Stufe Terraforming einer mehr), Verwaltungsgrenze, die Checkliste **Weg zur nächsten Kolonie**, laufende Besetzungen und **Integrität & Reparaturen** des ausgewählten eigenen Planeten.
+**Hier findest du:** Den Planetenzähler (Planeten mit Heimatwelt von höchstens 15, wie viele Plätze freigeschaltet und wie viele frei sind), erlaubte Kolonieplätze (in neuen Welten 2 frei ab Start, ab der dritten Kolonie je Stufe Terraforming einer mehr), Verwaltungsgrenze, die Checkliste **Weg zur nächsten Kolonie**, laufende Besetzungen und **Integrität & Reparaturen** des ausgewählten eigenen Planeten.
 
 **So bereitest du eine freie Kolonie vor:** Arbeite die Checkliste ab. Benutze **Startfracht anzeigen** und lies **Mindest-Startfracht für dein Volk**. Prüfe eigenes Wissen über System und Ziel, freien Kolonieplatz, Kolonieschiff, zusätzliche bewaffnete Eskorte, 3.000 Siedler, Startgüter und Flugtreibstoff. Über **Freie Kolonie planen** gelangst du zum Flottenplaner. Kontrolliere alle Angaben und bestätige den Start dort.
 
@@ -486,7 +487,7 @@ Vor dem Start erscheinen die bekannten Zielangaben und die vollständige Ladung.
 
 ### Allianz
 
-**Gründen und beitreten:** Ohne Mitgliedschaft kannst du eine Allianz mit eigenem Namen gründen. Die Leitung lädt bekannte Spieler ein; diese nehmen ihre Einladung an. Der geschützte Allianzbereich erscheint nach dem Beitritt.
+**Gründen und beitreten:** Ohne Mitgliedschaft kannst du eine Allianz mit eigenem Namen gründen. Die Leitung lädt bekannte Spieler ein; diese nehmen ihre Einladung an oder lehnen sie ab. Der geschützte Allianzbereich erscheint nach dem Beitritt.
 
 **Gemeinsam handeln:** Mitglieder sehen die Mitgliederliste mit Rollen und eigenen Allianz-Koordinaten, den gemeinsamen Chat, interne Warenangebote und Hilferufe. Angebote binden echte Ware. Ein Kauf kostet Credits und Gebühren, danach folgt eine Lieferung. Hilfszusagen starten keine Flotte automatisch.
 
@@ -500,7 +501,7 @@ Vor dem Start erscheinen die bekannten Zielangaben und die vollständige Ladung.
 
 ### Berichte
 
-Die Systemansicht zeigt Scans vor den zugehörigen Begleitmeldungen. Gruppen fassen höchstens 20 Minuten Echtzeit zusammen; Planeten- und Spielerhistorie sind direkt erreichbar. Das Archiv hält je Reich bis zu 300 Planetenscans und 120 vollständige Systemaufnahmen vor. Ältere, bereits vor diesem Update ersetzte Einzelaufnahmen lassen sich nicht nachträglich wiederherstellen.
+Die Systemansicht zeigt Scans vor den zugehörigen Begleitmeldungen. Gruppen fassen höchstens 20 Minuten Echtzeit zusammen; Planeten- und Spielerhistorie sind direkt erreichbar. Das Archiv hält je Reich bis zu 300 Planetenscans und 120 vollständige Systemaufnahmen vor.
 
 Die Sammlung lässt sich nach **Systemen**, **Spielern** oder **Zeitverlauf** betrachten und nach Koordinate oder Name durchsuchen. Innerhalb eines Systems bündeln Zeitfenster bis zu 20 Minuten Echtzeit; Systemscan, Planetenspionage, Planetenerkundung und Mondberichte bleiben eigene Gruppen. Über **Historie** gelangst du zu den gespeicherten Beobachtungen eines Planeten oder Spielers. **Gesammelte Aufklärung** führt zum Systemarchiv, **System öffnen** zur Karte.
 
@@ -526,9 +527,9 @@ Abbau und Trümmerbergung öffnen eine gemeinsame Einsatzplanung mit Flugzeit, E
 
 ### Technologiebaum
 
-Wähle unter **Ziel planen** eine Forschung oder ein Schiff. Der Baum verfolgt die Voraussetzungen bis zu Labor, Werft, anderen Forschungen und Zivilisationsaufstiegen zurück. Erledigte Bedingungen sind grün markiert; offene Ziele nennen deinen Stand und die benötigte Stufe. Bei Aufstiegen stehen auch Bevölkerung und Kolonien; **Alle Aufstiegsbedingungen** zeigt Versorgung, Stabilität und Kosten. Klicke einen Knoten, um sein Datenblatt oder den Aufstieg zu öffnen.
+Wähle unter **Ziel planen** eine Forschung oder ein Schiff. Der Baum verfolgt die Voraussetzungen bis zu Labor, Werft, anderen Forschungen und Zivilisationsaufstiegen zurück. Erledigte Bedingungen sind grün markiert; offene Ziele nennen deinen Stand und die benötigte Stufe. Bei Aufstiegen stehen auch Bevölkerung und Kolonien; **Alle Aufstiegsbedingungen** zeigt Versorgung, Stabilität und Kosten. Klicke einen Knoten, um sein Datenblatt oder den Aufstieg zu öffnen. Bei Schiffen steht dort auch die nötige Werftstufe. Der Knopf **Kräfteatlas** oben im Baum und im Datenblatt jeder Kampfeinheit zeigt, wen sie schlägt und von wem sie geschlagen wird.
 
-Ein Antrieb erhöht die Geschwindigkeit seiner Schiffe. Er ist im aktiven Standardprofil keine zusätzliche Bedingung für deren Fertigung. Schwere Schiffe werden über die Zivilisationsstufe und den Werftausbau freigeschaltet; die dafür nötigen Aufstiegsforschungen stehen im selben Baum.
+Ein Antrieb erhöht die Geschwindigkeit seiner Schiffe und ist bei vielen zugleich Bedingung für die Fertigung: das kleine Kolonieschiff, Pathfinder und Bergungsschiff brauchen Impulsantrieb 2, das große Kolonieschiff Impulsantrieb 4, Flottenkreuzer, Schlachtkreuzer und die schweren Zerstörer Hyperraumantrieb. Der Technologiebaum nennt jede Bedingung. Schwere Schiffe werden über die Zivilisationsstufe und den Werftausbau freigeschaltet; die dafür nötigen Aufstiegsforschungen stehen im selben Baum.
 
 **Hier findest du:** Die Abhängigkeiten zwischen Zivilisationsstufe, Gebäuden, Forschung, Schiffen und Verteidigung. Er beantwortet vor allem die Frage: Was fehlt mir vor meinem nächsten Ziel?
 
@@ -570,7 +571,7 @@ Für alle Spielweisen: Erstelle mehrere Wände, ergänze Karten mit Wissen, Ziel
 
 ### Mond
 
-**Hier findest du:** Die Seite eines eigenen Mondes mit Banner, Typ, Durchmesser, Feldern, Energie und Beständen, darunter die Kacheln der sieben Mondgebäude, die Mondwerft und die Warteschlangen. Du erreichst sie über das Mondbild in der Planetenliste oder in der Galaxie.
+**Hier findest du:** Die Seite eines eigenen Mondes mit Banner, Typ, Durchmesser, Feldern, Energie und Beständen, darunter die Kacheln der sieben Mondgebäude, die Mondwerft und die Warteschlangen. Du erreichst sie über den Mond auf der Planetenkugel, das Mondbild in der Planetenliste, den Knopf **Mond** in der Planetenleiste am Handy oder die Galaxie.
 
 **So baust du:** Klicke eine Gebäudekachel, lies Kosten, Energie und Voraussetzungen und wähle **Ausbauen auf Stufe N**. Bezahlt wird aus dem Bestand des Mondes, nicht aus dem des Planeten. Schiffe, Verteidigung, Solarsatelliten und Weltenkrümmer fertigst du im Werftdock mit **Bauen**.
 
@@ -925,7 +926,7 @@ Eine kleine Punktzahl allein schützt nach Ablauf dieses Schutzes nicht automati
 
 ### Eine freie Kolonie gründen
 
-**Kolonieplätze (neue Welten ab 0.4.7):** Zwei Kolonien sind ab Spielbeginn frei, ohne Forschung. Ab der dritten Kolonie erlaubt jede Stufe **Terraforming** eine weitere: Terraforming 1 die dritte, Terraforming 2 die vierte und so weiter, höchstens 14 Kolonien (15 Planeten mit der Heimatwelt). Astrophysik gibt keine Plätze mehr, bleibt aber Voraussetzung für Kolonieschiff (Stufe 1), Pathfinder und Bergungsschiff (Stufe 2), großes Kolonieschiff (Stufe 3) und Zivilisationsstufe IV (Stufe 1). In älteren, schon laufenden Welten erlaubt weiter jede Astrophysikstufe eine Kolonie. Der ursprüngliche Heimatplanet zählt nicht als Kolonie. Ein Platz gilt für beide Wege – Kolonieschiff auf einen freien Planeten oder Kampfkolonisierung einer fremden Kolonie; du entscheidest, wofür du ihn nutzt. Kolonie- und Kampfkolonisierungsflüge darfst du auch ohne freien Platz starten (etwa, wenn die nächste Terraforming-Stufe noch während des Flugs fertig wird). Entscheidend ist der Moment der Gründung bzw. der Übernahme: Ist dann kein Platz frei, wird nicht gegründet – das Kolonieschiff kehrt um – bzw. nicht übernommen – die Besatzungsflotte hält weiter den Orbit. Flüge reservieren keinen Platz; wer zuerst gründet, bekommt ihn. In älteren, schon laufenden Welten belegen laufende Kolonisationsvorhaben weiter geplante Kapazität. Die Kolonisation und das Einsatzblatt zeigen dir, welche Terraforming-Stufe den nächsten Platz bringt.
+**Kolonieplätze (neue Welten ab 0.4.7):** Zwei Kolonien sind ab Spielbeginn frei, ohne Forschung. Ab der dritten Kolonie erlaubt jede Stufe **Terraforming** eine weitere: Terraforming 1 die dritte, Terraforming 2 die vierte und so weiter, höchstens 14 Kolonien (15 Planeten mit der Heimatwelt). Astrophysik gibt keine Plätze mehr, bleibt aber Voraussetzung für Pathfinder und Bergungsschiff (Stufe 2), großes Kolonieschiff (Stufe 3) und Zivilisationsstufe IV (Stufe 1). In älteren, schon laufenden Welten erlaubt weiter jede Astrophysikstufe eine Kolonie. Der ursprüngliche Heimatplanet zählt nicht als Kolonie. Ein Platz gilt für beide Wege – Kolonieschiff auf einen freien Planeten oder Kampfkolonisierung einer fremden Kolonie; du entscheidest, wofür du ihn nutzt. Kolonie- und Kampfkolonisierungsflüge darfst du auch ohne freien Platz starten (etwa, wenn die nächste Terraforming-Stufe noch während des Flugs fertig wird). Entscheidend ist der Moment der Gründung bzw. der Übernahme: Ist dann kein Platz frei, wird nicht gegründet – das Kolonieschiff kehrt um – bzw. nicht übernommen – die Besatzungsflotte hält weiter den Orbit. Flüge reservieren keinen Platz; wer zuerst gründet, bekommt ihn. In älteren, schon laufenden Welten belegen laufende Kolonisationsvorhaben weiter geplante Kapazität. Die Kolonisation und das Einsatzblatt zeigen dir, welche Terraforming-Stufe den nächsten Platz bringt.
 
 **Beispiel:** Du hast zwei Kolonien und willst für Stufe V eine dritte. Erforsche Terraforming 1 (ab Stufe III, Labor 3); danach ist der dritte Kolonieplatz frei.
 
@@ -1090,7 +1091,7 @@ Der Markt verlangt Zivilisationsstufe III und ein Marktgebäude. Pro Marktstufe 
 
 Du handelst über passende Kauf- und Verkaufsangebote. Ein Kaufwunsch findet nicht automatisch einen unbegrenzt lieferfähigen Händler. Ohne passende Gegenseite bleibt das Angebot offen.
 
-Bei Kauforders werden die benötigten Credits einschließlich Gebühren gebunden. Bei Verkaufsorders werden die angebotenen Güter am Verkaufsplaneten gebunden. Für noch offene Reste einer stornierten Order werden die entsprechenden Reserven zurückgegeben.
+Bei Kauforders werden die benötigten Credits einschließlich Gebühren gebunden. Bei Verkaufsorders werden die angebotenen Güter am Verkaufsplaneten gebunden. Für noch offene Reste einer stornierten Order werden die entsprechenden Reserven zurückgegeben. Kauft eine Allianzrolle aus ihrem Rollenbudget, fließt auch der nicht verbrauchte Teil – bei Storno oder wenn der Kauf billiger ausfällt – in das Rollenbudget zurück.
 
 Die Grundgebühr beträgt **2 % je Seite**. Aurelianer zahlen die Hälfte. Ein passendes Handelsabkommen halbiert die jeweilige Gebühr nochmals.
 
@@ -1349,7 +1350,7 @@ Beim lokalen Einzelspiel bleibt eine bestätigte Bestellung dauerhaft gespeicher
 
 **Stand des Flottenausbaus:** Android 0.3.0 enthält diese Regeln im Einzelspiel und bei selbst gehosteten WLAN-Welten. Der Website-Kodex zeigt den vollständigen Ausbau. Onlinewelten verwenden das Regelprofil ihres Servers.
 
-Der [öffentliche Flottenkodex](../Sternenepoche-Kodex.html) zeigt alle vier Volksstile und die vollständigen Steckbriefe. Im Spiel zeigt der **Codex** zusätzlich die tatsächlichen Kosten und Werte bei deiner Forschung. Wenn du einen Eintrag auswählst, springt seine Detailansicht in den sichtbaren Bereich.
+Der [öffentliche Flottenkodex](../Sternenepoche-Kodex.html) zeigt alle vier Volksstile und die vollständigen Steckbriefe. Wer wen schlägt, misst der [Kräfteatlas](../Kraefteatlas.html): jede Kampfeinheit gegen jede, mit der echten Kampfengine bei gleichem Ressourcenwert, jedes Gefecht Runde für Runde – im Spiel unter **Forschung** und im Technologiebaum. Im Spiel zeigt der **Codex** zusätzlich die tatsächlichen Kosten und Werte bei deiner Forschung. Wenn du einen Eintrag auswählst, springt seine Detailansicht in den sichtbaren Bereich.
 
 Je Volk gibt es vier Jäger, vier Transporter, vier Kreuzer, vier Schlachter, zwei Bomber, drei Zerstörer, drei Schlachtkreuzer (Welten mit Monden) und zwei Kolonieschiffe; dazu Sonde, Bergbauschiff, Recycler, Truppentransporter und fünf Waffenanlagen. **Keine Einheit ist die beste.** Bei gleichem Ressourceneinsatz ist jede Einheit gleich stark; ihre Stärke liegt in ihren Zielen. Zwischen den Klassen gilt Schere, Stein, Papier: **Jäger** schlagen Großkampfschiffe durch Masse, **Kreuzer** schlagen Jäger mit Schnellfeuer und mehreren Zielen, **Großkampfschiffe** (Schlachtschiffe, Zerstörer, Schlachtkreuzer) schlagen Kreuzer. **Belagerer** (Bomber, Strategischer Bomber, Belagerungsschlachtschiff) brechen Verteidigungsanlagen, sind im Flottenkampf aber schwach und brauchen Geleit. **Anlagen** wehren die Schiffsklasse ihres Typs ab und schießen nur auf Schiffe. In jeder Klasse gibt es Spezialisten, damit auch innerhalb einer Klasse gekontert wird: Abfangjäger jagen Jäger, Schwere Jäger Bomber, Sturmjäger Zerstörer; Schlachtkreuzer jagen Schlachtschiffe, Zerstörer jagen Schlachtschiffe und Belagerer, Sturmschlachtschiffe jagen Zerstörer.
 
@@ -1359,7 +1360,7 @@ Fünf Waffenanlagen übernehmen unterschiedliche Aufgaben: Raketenwerfer gegen K
 
 <!-- konter-uebersicht -->
 
-**Konter-Übersicht neuer Welten** (Grundwerte ohne Technik; „wird gekontert von“ = gemessen bei gleichem Ressourcenwert):
+**Konter-Übersicht neuer Welten** (Grundwerte ohne Technik; „wird gekontert von“ = gemessen bei gleichem Ressourcenwert; alle Paarungen im Detail zeigt der [Kräfteatlas](../Kraefteatlas.html)):
 
 | Einheit | Angriff / Schild / Struktur | Ziele je Runde | Jagt zuerst (Trefferfaktor) | Schnellfeuer | Wird gekontert von |
 |---|---|---|---|---|---|

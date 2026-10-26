@@ -1,6 +1,6 @@
 # Sternenepoche – Lore-Gesamtwerk
 
-Die gesamte geltende Lore an einem Ort, erzeugt am 25.10.2026 22:12 aus `docs/LORE-BIBEL.md`, `content/beschreibungen.json`, `docs/rat/rat.json` und `web-client/audio/bots/texte.json`. **Nicht hier ändern:** Lore wird in diesen Quellen geändert und danach mit `python -X utf8 tools/content/lore_gesamtwerk.py` neu erzeugt.
+Die gesamte geltende Lore an einem Ort, erzeugt am 26.10.2026 02:47 aus `docs/LORE-BIBEL.md`, `content/beschreibungen.json`, `docs/rat/rat.json` und `web-client/audio/bots/texte.json`. **Nicht hier ändern:** Lore wird in diesen Quellen geändert und danach mit `python -X utf8 tools/content/lore_gesamtwerk.py` neu erzeugt.
 
 ## Teil I · Der Kanon (Lore-Bibel)
 
@@ -50,7 +50,7 @@ Systemgrößen werden auf diese zwölf Referenzbahnen abgebildet):
 
 | Bahn | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Licht | 171 % | 153 % | 136 % | 118 % | 109 % | 100 % | 91 % | 78 % | 60 % | 42 % | 29 % | 20 % |
+| Licht | 120 % | 116 % | 112 % | 108 % | 104 % | 100 % | 97 % | 93 % | 90 % | 87 % | 83 % | 80 % |
 
 **Heimatbahnen und Klima.** Jede Arche setzt ihre Gründung auf der Bahn ab, deren Klima der Ursprungswelt im Alten Raum
 am nächsten kommt; dort wächst ein Volk am besten. Das ist Kanon der Herkunft, keine Willkür:
@@ -64,7 +64,7 @@ am nächsten kommt; dort wächst ein Volk am besten. Das ist Kanon der Herkunft,
   Lebenszone dauert ein Umlauf länger, und lange Umläufe bedeuten lange Jahreszeiten – die Hochwälder und Myzelnetze
   brauchen genau diesen Takt.
 - **Syntheten, Bahn 10:** Hexaris ist um einen kalten Eisenkern gebaut, und synthetische Wandler laufen so heiß, dass sie
-  Kälte zum Abführen ihrer Wärme suchen. Die Frostzone kühlt; dafür empfängt Bahn 10 nur 42 % Licht. In der innersten
+  Kälte zum Abführen ihrer Wärme suchen. Die Frostzone kühlt; dafür empfängt Bahn 10 nur 87 % Licht. In der innersten
   Glut versagen ihre Wärmesenken – diese Bahnen sind ihnen ohne Terraforming verschlossen.
 
 **Klimafaktor** (Wachstum relativ zur Heimatbahn; er hängt nur vom Abstand der Bahn zur Heimatbahn ab):
@@ -79,7 +79,7 @@ Rand: **Krath auf Bahn 11 (Stufe 4) und Bahn 12 (Stufe 7), Syntheten auf Bahn 2 
 unbewohnbaren Welt wächst niemand, und die Siedler schwinden um bis zu 2 % je Stunde. **Terraforming** nimmt mit jeder
 Stufe neun Hundertstel der Klimaabweichung weg, bis bei Stufe 10 nur noch ein Zehntel bleibt (Krath auf Bahn 12: ab
 Stufe 7 bewohnbar mit 78 %, bei Stufe 10 mit 94 %). Licht, Deuterium und Nahrung einer Bahn ändert es nicht.
-**Seit 0.4.7 (24.10.2026)** ist Terraforming (ab Stufe III) zugleich die **Kolonieforschung**: zwei Kolonien sind frei, ab
+Terraforming (ab Stufe III) ist zugleich die **Kolonieforschung**: zwei Kolonien sind frei, ab
 der dritten erlaubt jede Stufe eine weitere (höchstens 14). Felder schafft das Fach nicht mehr selbst, sondern die
 **Terraformer** (Schiff ab Stufe IV, wird beim Einsatz verbraucht): Ein Verband zieht zuerst das Klima eines eigenen
 Planeten oder freien Platzes für ein gewähltes Volk ganz zum Optimum – volles Klima hebt auch die Sperre der Randbahnen
@@ -89,8 +89,8 @@ Terraforming senkt die nötige Flotte: für den ungünstigsten Platz rund 163 Sc
 
 - **Nebelsysteme** liegen in einem auffällig *regelmäßigen* Raster: System 5, 15, 25 … – sechs je Sektor. Nur dort gibt es
   **Xenokristall**. Die Regelmäßigkeit ist das größte Rätsel der Astrophysik (siehe 3.2, „Zehnerraster“).
-- **Asteroidengürtel** umgeben jedes Sonnensystem (Position 0, Band zwischen der siebten und achten Bahn; seit 20.10.2026,
-  vorher jedes fünfte). Bergbauschiffe holen dort Erz und Kristall ohne Mine. Ein Gürtel ist kein Nebel (der liegt nur in
+- **Asteroidengürtel** umgeben jedes Sonnensystem (Position 0, Band zwischen der siebten und achten Bahn).
+  Bergbauschiffe holen dort Erz und Kristall ohne Mine. Ein Gürtel ist kein Nebel (der liegt nur in
   Nebelsystemen) und kein Trümmerfeld (Wrackreste an Planeten, geborgen von Recyclern und Bergungsschiffen).
 - **Monde** entstehen nicht von selbst: Sie sind **verdichtete Schlachttrümmer** (siehe 4.9). Jeder Mond der Weite ist
   ein Denkmal einer Schlacht.
@@ -103,11 +103,12 @@ Standardjahr (365 Tage). Durch die geöffnete Schwelle ziehen die **Archen** –
 **Gründung** (im Spiel: ein Reich) tragen.
 
 **Was durch die Schwelle passt** (das ist die Startausstattung jedes Reichs, Regelwerk `welt`):
-1.000 Siedler, darunter 30 ausgebildete Fachkräfte und so viele Forscher, dass das erste Labor voll besetzt ist;
-Bausätze für eine Erzmine, eine Kristallmine, eine Farm, ein Solarfeld, einen Wohnblock und ein Lager; 2.000 Erz,
-1.200 Kristall, 400 Deuterium, 800 Nahrung und 2.000 Credits. Die Arche selbst wird beim Landen zerlegt – ihr Rumpf wird
-der erste Lagerboden, ihre Folie das erste Solarfeld. **Syntheten** brauchen Strom statt Nahrung und landen auf der
-lichtarmen Bahn 10; ihre Archen tragen darum Folie für ein **Solarkraftwerk der Stufe 5** statt eines einzelnen Felds
+1.400 Siedler, darunter 30 ausgebildete Fachkräfte und so viele Forscher, dass das erste Labor voll besetzt ist;
+Bausätze für eine Erzmine, eine Kristallmine, eine Farm, ein Solarkraftwerk der Stufe 2, einen Wohnblock und ein Lager;
+2.000 Erz, 1.200 Kristall, 400 Deuterium, 800 Nahrung, zwei Habitatmodule, zwei Antriebskerne und 2.000 Credits. Schiffe
+bringt keine Gründung mit: Die Arche selbst wird beim Landen zerlegt – ihr Rumpf wird der erste Lagerboden, ihre Folie
+das erste Solarkraftwerk. **Syntheten** brauchen Strom statt Nahrung und landen auf der
+lichtärmeren Bahn 10; ihre Archen tragen darum Folie für ein **Solarkraftwerk der Stufe 5** statt der Stufe 2
 („Kaltstartfolie“), damit die Gründung in der ersten Nacht nicht stillsteht.
 
 **Was nicht durch die Schwelle passt:** alles, was auf **Xenokristall** beruht. Beim Durchgang „verlischt“ jedes
@@ -129,8 +130,8 @@ Epochen tauchen in Expeditionsberichten auf.
 |---|---|---|---|
 | I | Gründungszeit | Start | Landnacht, Solarfolie, Bohrturm, die erste Akademie in einer Halle aus Archenrumpf. Alles ist Bausatz und Improvisation. |
 | II | Industrie | 1.500 Einwohner, Erzmine 5, Kristallmine 5 | Die ersten Brecher laufen im Takt. Gießerei, Elektronikwerk, Fusion, erste Jäger und Frachter. |
-| III | Orbit | 4.000 Einwohner, Gießerei 3, Elektronikwerk 2, Energietechnik 3, Stabilität 55 | Der Himmel wird Arbeitsplatz: Markt, Phalanx, Silos, Bergbau im Gürtel, die ersten Impulskreuzer und kleinen Kolonieschiffe. |
-| IV | Sternenflug | 40.000 Einwohner, Werft 4, Impulsantrieb 3, Astrophysik 1, Stabilität 60, Konsum 80 % | Impulsflotten, Orbitalwerft, Große Kolonieschiffe, Terraformer, Gaußkanone, erster Planetenschild. Die ersten Monde (Kreuzerwinter) und Mondbasen. Kaserne, Bodentruppen und Truppentransporter – noch ohne Landung auf fremdem Boden, denn die braucht Bomber. Aus einer Welt wird ein Reich. |
+| III | Orbit | 4.000 Einwohner, Gießerei 3, Elektronikwerk 2, Energietechnik 3, Stabilität 55 | Der Himmel wird Arbeitsplatz: Markt, Phalanx, Silos, Bergbau im Gürtel, die ersten Impulskreuzer und kleinen Kolonieschiffe. Die erste Kaserne mit den ersten Bodentruppen (Sturminfanterie, Schwere Infanterie, Kampf- und Aufklärungsdrohne) bewacht die Kolonien. |
+| IV | Sternenflug | 40.000 Einwohner, Werft 4, Impulsantrieb 3, Astrophysik 1, Stabilität 60, Konsum 80 % | Impulsflotten, Orbitalwerft, Große Kolonieschiffe, Terraformer, Gaußkanone, erster Planetenschild. Die ersten Monde (Kreuzerwinter) und Mondbasen. Truppentransporter, Panzer und die schwereren Bodentruppen – noch ohne Landung auf fremdem Boden, denn die braucht Bomber. Aus einer Welt wird ein Reich. |
 | V | Imperium | 200.000 Einwohner, Hyperraumantrieb 1, 3 Kolonien | Hyperraum, Schlachtschiffe, Flottenkreuzer, Plasmawerfer, Bomber (und mit ihnen die ersten Landungen), Zerstörer, Schlachtkreuzer, Planetenschild II und III, Orbitalring, Hyperraumtor-Generatoren, Weltenkrümmer; als Allianzwerk die Dysonsphäre. |
 
 Die Stufen sind **Kanon für den Klang**: Ein Text über eine Stufe-II-Anlage klingt nach Staub, Schweiß und Improvisation;
@@ -187,11 +188,11 @@ dürfen Theorien der Völker erzählen, nie eine Wahrheit festlegen.
 
 #### 4.2 Energie
 
-- **Solarkraft:** Photovoltaische Gitterfolie aus Kristall, 26,4 Strom Grundertrag je Stufe 1. Der Ertrag hängt am
-  Sonnenlicht der Bahn (Tabelle in 1.1): 100 % auf Bahn 6, 171 % auf der innersten und 20 % auf der äußersten Bahn.
+- **Solarkraft:** Photovoltaische Gitterfolie aus Kristall, 29,04 Strom Grundwert (Stufe 1: 31,9). Der Ertrag hängt am
+  Sonnenlicht der Bahn (Tabelle in 1.1): 100 % auf Bahn 6, 120 % auf der innersten und 80 % auf der äußersten Bahn.
 - **Fusion:** Deuterium-Deuterium-Fusion in magnetisch eingeschlossenem Plasma. Viel Strom, verbraucht Deuterium.
 - **Solarsatelliten** (Kennung `solarsonde`, ab Stufe II): Kollektorsegel im Orbit, die Strom als gebündelten
-  Mikrowellenstrahl an eine Empfangsantenne am Boden senden – 30 Energie mal Sonnenfaktor der Bahn (51 innen, 6 außen).
+  Mikrowellenstrahl an eine Empfangsantenne am Boden senden – 33 Energie mal Sonnenfaktor der Bahn (39,6 innen, 26,4 außen).
   Billigster Strom, aber wehrlos. Über Monden entscheidet zusätzlich der Boden unter der Antenne: Dunkle Basaltmare
   (`basalt_dunkel`) stauen Wärme in der Empfangsantenne (−10 %), die Magnetitkruste der Karminmonde (`karmin_rot`) streut
   den Strahl (−10 %), und auf Rostmonden (`rost_staub`) legt sich elektrisch geladener Staub auf Antenne und Segel (−20 %).
@@ -355,7 +356,7 @@ Weitere feste Begriffe:
 - **Gemischte Bevölkerung:** Gerettete und Umsiedler behalten ihre Herkunft. In vielen Kolonien leben Menschen aus mehr als
   einem Volk – die Weite mischt.
 
-#### 4.11 Invasion (neue Welten, `docs/INVASION.md`)
+#### 4.11 Invasion (neue Welten: Invasion v2, `docs/HANDBUCH.md` Kapitel 30)
 
 - **Verteidigung brechen:** Nur wer den Orbit nach dem Gefecht hält, blockiert den Planeten.
 - **Bombardierung:** Nur Bomber wirken. Erste Bombenrunde sofort, dann alle 15 Spielminuten. **Bombenlast** je Runde:
@@ -364,26 +365,39 @@ Weitere feste Begriffe:
 - **Die Dreißig-Grenze:** Unter 30 % Integrität bombardiert niemand. Technisch erkennen die Zielrechner unter dieser
   Schwelle Trümmer und Bunker nicht mehr auseinander; politisch gilt sie wie der Kodex der Häfen: Wer eine Welt erobern
   will, braucht sie bewohnbar – die Bevölkerung bleibt nach einer Übernahme.
-- **Landung:** erst wenn alle Gebäude auf 30 % stehen, mit Kolonieschiff und Bodentruppen in Truppentransportern
-  (**100 Truppenplätze** je Transporter; Sturminfanterie belegt 1, Sturmpanzer 10).
-- **Zeitfolge am Boden:** Kaserne (Stufe IV) und Truppentransporter (Stufe IV, Kaserne 1, Werft 3) sind älter als der
-  Bomber (Stufe V, Werft 7). Im Sternenflug dienten Bodentruppen darum der **Garnison**, dem Verlegen zwischen eigenen
-  Welten und der Bodenhilfe für Verbündete; alle Truppentypen der Kasernenstufen 1 bis 5 entstanden in diesem Zeitalter,
-  geprüft in scharfen Manövern. **Landungen auf fremdem Boden gibt es erst seit den Bomberjahren** – die ersten Jahre
-  nennen Veteranen die **Rampenzeit**. Nur der Belagerungspanzer (Kaserne 6) ist ein Kind des Imperiums.
-- **Belagerung:** 48 Spielstunden ab Landung, Bodenrunden alle 15 Spielminuten. Eigener Nachschub und verbündete
-  Truppen (gleiche Allianz oder Verteidigungsbündnis, Auftrag „verstärken“) landen trotz Blockade, kämpfen mit, bleiben
-  Eigentum ihres Reichs und fliegen danach heim. Übernahme nur, wenn kein Bodenverteidiger mehr lebt. **Heimatwelten
-  sind nie einnehmbar.**
-- **Miliz** (freigeschaltet mit Kaserne 1): ruft alle Bewohner zu den Zeughäusern; jeder erhält Waffenwert 0,3 und
-  Rüstwert 5, kostet 1 Legierung, die Hälfte der Bewohner fehlt derweil an Maschinen und in Laboren; nach 30 % Gefallenen
+- **Landung:** sobald alle Gebäude höchstens 30 % Integrität haben, mit Bodentruppen in Truppentransportern einer
+  Flotte mit Bombardieren oder Kampfkolonisieren (**100 Truppenplätze** je Transporter; Sturminfanterie belegt 1,
+  Sturmpanzer 10). Ein Kolonieschiff braucht es erst für die Übernahme.
+- **Zeitfolge am Boden:** Kaserne (Stufe III) und Truppentransporter (Stufe IV, Kaserne 1, Werft 3) sind älter als der
+  Bomber (Stufe V, Werft 7). Die ersten Bodentruppen (Sturminfanterie, Schwere Infanterie, Kampf- und Aufklärungsdrohne;
+  Kasernenstufen 1 und 2) stammen aus der Orbitzeit, die Truppentypen der Kasernenstufen 3 bis 5 aus dem Sternenflug.
+  Bis zu den Bomberjahren dienten Bodentruppen darum der **Garnison**, dem Verlegen zwischen eigenen Welten und der
+  Bodenhilfe für Verbündete, geprüft in scharfen Manövern. **Landungen auf fremdem Boden gibt es erst seit den
+  Bomberjahren** – die ersten Jahre nennen Veteranen die **Rampenzeit**. Nur der Belagerungspanzer (Kaserne 6) ist ein
+  Kind des Imperiums.
+- **Linien und Wellen:** Der Planet hat **vier Verteidigungslinien**, die letzte ist der **Rückhalt**. Alle 12
+  Spielstunden greift eine **Welle** die aktuelle Linie an (die erste zwölf Stunden nach der Landung), mit höchstens sechs
+  Bodenrunden im Abstand von 15 Spielminuten, gleichzeitigem Feuer und Kontern; leere Linien fallen kampflos. Der
+  Verteidiger verteilt Garnison und Miliz frei auf die Linien. Eigener Nachschub (landet trotz Blockade), verbündete
+  Bodenhilfe (gleiche Allianz oder Verteidigungsbündnis, Auftrag „verstärken“; bleibt Eigentum ihres Reichs) und neu
+  Ausgebildetes stehen im Rückhalt. Die Kaserne bildet während einer Invasion mit 50 % Tempo aus.
+- **Verwüstet und Übernahme:** Fällt der Rückhalt, ist der Planet **verwüstet**: Der Besitzer verliert die Kontrolle,
+  die Besatzungstruppen halten den Boden, und ein Kolonieschiff der Besatzer übernimmt, sobald ein Kolonieplatz frei ist;
+  die Bevölkerung bleibt. Landen vorher neue Verteidiger, steht der Rückhalt wieder. **Ursprüngliche Heimatwelten sind
+  geschützt.**
+- **Reparatur:** Ein beschädigtes Gebäude kostet bis 75 % der Baukosten seiner aktuellen Stufe, anteilig zum Schaden;
+  unter Bombardierung und Invasion wird nicht repariert.
+- **Miliz** (freigeschaltet mit Kaserne 1 und Soziologie 2): jederzeit ausrufbar, auch vorbeugend, und außerhalb einer
+  Invasion wieder entlassbar; Ausbildung fünf Spielminuten je 1.000 Milizionäre. Es kämpft ein Anteil der Bewohner je
+  Volk: Krath 100 %, Veyari 90 %, Syntheten 80 %, Aurelianer 70 %. Jeder Milizionär erhält Waffenwert 0,3 und Rüstwert 5
+  und kostet 1 Legierung, die Hälfte des Aufgebots fehlt derweil an Maschinen und in Laboren; nach 30 % Gefallenen
   kapituliert die Miliz, damit die Überlebenden ihre Welt weiter bewohnen.
 
 #### 4.12 Allianzen und Verband
 
 - **Allianz (Bund):** bis zu **50 Reiche**. Die obersten vier Mitglieder bilden die Leitung (einladen, Diplomatie,
   Großprojekte). Verbündet sind Reiche derselben Allianz oder eines Verteidigungsbündnisses. Auf diesem Bundesrecht beruhen:
-  keine Torwache gegeneinander und Halten am Partnermond, **Bodenhilfe** in einer Belagerung (4.11), der **Verband** und die
+  keine Torwache gegeneinander und Halten am Partnermond, **Bodenhilfe** in einer Invasion (4.11), der **Verband** und die
   **Dysonsphäre**. Lore: Seit die Flottenleitrechner der Häuser, Clans, Haine und Revisionen über gemeinsame Hafencodes
   (Kodex der Häfen) sprechen, lassen sich große Bünde führen; die Grenze von fünfzig nennen alle Völker die **Bundeszahl** –
   so viele Stimmen fasst ein Bundesrat, ohne dass er nur noch tagt.
@@ -402,9 +416,9 @@ Weitere feste Begriffe:
   auf geneigten, synchronisierten Bahnen, dazwischen **Spiegelsatelliten**, die gebündeltes Licht zu den Welten der
   Eigner-Allianz lenken. Von außen eine goldene Kugel, durch deren Fugen das Licht sickert. Eine Sphäre je System.
 - **Bau:** Eine Allianz besiedelt **alle zwölf Plätze** eines Systems; **mindestens zehn Projektmitglieder** mit eigenem
-  Planeten dort, jedes auf Stufe V, seit 14 Spieltagen in der Allianz und mit vollem eigenem Anteil (in Langzeitwelten je eine
+  Planeten dort, jedes auf Stufe V, seit 7 Spieltagen in der Allianz und mit vollem eigenem Anteil (in Langzeitwelten je eine
   Milliarde Erz, Kristall und Deuterium; kürzere Epochen zahlen einen kleineren Anteil mit verhältnisgleich kleinerer
-  Wirkung). Bauzeit **30 Spieltage** in vier sichtbaren Abschnitten: Gerüst, Äquatorgürtel, Halbschale, Polkappen. Fällt
+  Wirkung). Bauzeit **15 Spieltage** in vier sichtbaren Abschnitten: Gerüst, Äquatorgürtel, Halbschale, Polkappen. Fällt
   eine Bedingung weg, ruhen die Kräne.
 - **Wirkung:** Solarkraftwerke und Solarsatelliten der Eigner-Allianz im System rechnen mit dem **1,6-Fachen** ihres
   Sonnenfaktors. Bis zu **vier Anschlüsse** (höchstens einer je Reich) erhalten beim vollen Anteil 1.000.000 Energie je
@@ -432,12 +446,12 @@ erzählt sie anders; die folgenden **Ereignisse sind Kanon** und dürfen in jede
 | **Der Kreuzerwinter** | Die Kreuzergeschwader des Sternenflugs (Stufe IV), gebaut seit der Orbitzeit, machen die Jägerschwärme der Frühzeit in einer einzigen Epoche wertlos. Ihre Gefechte über den jungen Kolonien hinterlassen so viel Schrott, dass sich die ersten Monde der Chronik verdichten – kleine **Kreuzermonde**, der älteste heißt **Raureif**. Auf ihnen entstehen die ersten Mondbasen. | Kreuzer, Impulsantrieb, Abfangjäger, Raketenkreuzer, Mondbasis, Recycler |
 | **Der Erste Sprung** | Vier Sekunden Hyperraum, drei Tage Sprungtaubheit. Alle vier Völker beanspruchen ihn: Kapitänin **Ilse Varenna** (Aurelianer, Haus Varro), **Rogh Ul-Tharn** (Krath, angeblich ohne Instrumente), Einheit **Kadenz** (Syntheten, Protokoll „Sprung 0001“), die unbemannte Saatkapsel **Erstling** (Veyari). | Hyperraumantrieb, Xenomaterialkunde, Schlachtschiff |
 | **Die Schlacht am Zehnten Nebel** | Erste große Schlacht mit Hyperraumschiffen; ihre Trümmer bilden **Narbe**, den größten und berühmtesten Schlachtmond der Chronik und den ersten der Hyperraumzeit (die ersten Monde überhaupt sind die Kreuzermonde des Kreuzerwinters). Ein synthetischer Schildkreuzer deckt dabei den Rückzug eines Krath-Clans (siehe 6.3). | Schlachtschiff, Schildkreuzer, Recycler |
-| **Die Bomberjahre** | Bomberverbände des Imperiums (Stufe V, Werft 7) tragen ganze Verteidigungsringe ab und senken zum ersten Mal Welten bis zur Dreißig-Grenze: Es beginnen die ersten Landungen auf fremdem Boden (**Rampenzeit**), in denen die älteren Bodentruppen des Sternenflugs ihre erste echte Probe bestehen. Die Verteidiger bauen nichts Neues, sondern messen ältere Werkzeuge auf Bomber ein: Schwerer Jäger und Flottenrakete (Orbit-Zeitalter), Flottenkreuzer (Werft 6) und Plasmawerfer aus den ersten Jahren des Imperiums. Berühmt werden sie alle erst jetzt; ein Kind dieser Jahre ist erst der Strategische Bomber an ihrem Ende. | Bomber, Schwerer Jäger, Flottenkreuzer, Plasmawerfer, Flottenrakete, Truppentransporter |
+| **Die Bomberjahre** | Bomberverbände des Imperiums (Stufe V, Werft 7) tragen ganze Verteidigungsringe ab und senken zum ersten Mal Welten bis zur Dreißig-Grenze: Es beginnen die ersten Landungen auf fremdem Boden (**Rampenzeit**), in denen die älteren Bodentruppen aus Orbitzeit und Sternenflug ihre erste echte Probe bestehen. Die Verteidiger bauen nichts Neues, sondern messen ältere Werkzeuge auf Bomber ein: Schwerer Jäger und Flottenrakete (Orbit-Zeitalter), Flottenkreuzer (Werft 6) und Plasmawerfer aus den ersten Jahren des Imperiums. Berühmt werden sie alle erst jetzt; ein Kind dieser Jahre ist erst der Strategische Bomber an ihrem Ende. | Bomber, Schwerer Jäger, Flottenkreuzer, Plasmawerfer, Flottenrakete, Truppentransporter |
 | **Die Kuppelkrise** | Belagerungsschlachtschiffe (Stufe V) brechen den einfachen Planetenschild in wenigen Salven. Antwort: Planetenschild II und III. Der ältere Bunkerbrecher (Stufe IV), bis dahin eine Silowaffe gegen Festungswelten, erlebt auf der Angreiferseite seine größte Zeit. | Belagerungsschlachtschiff, Planetenschild II/III, Bunkerbrecher |
-| **Der Dornensommer** | Im Sternenflug, als die ersten Kasernen Aufklärungsdrohnen stellen, will ein Krath-Clan eine Veyari-Kolonie plündern und findet sie verlassen – bis Kael Dornhags Verteidigung aus Aufklärung, Minenfeldern aus Raketenwerfern und einem einzigen gut getimten Gegenschlag zuschlägt. Seither halten die Krath die Veyari nicht mehr für weich. | Kael Dornhag, Raketenwerfer, Aufklärungsdrohne, Sensorphalanx |
+| **Der Dornensommer** | Im Sternenflug, als die Kasernen schon Aufklärungsdrohnen stellen, will ein Krath-Clan eine Veyari-Kolonie plündern und findet sie verlassen – bis Kael Dornhags Verteidigung aus Aufklärung, Minenfeldern aus Raketenwerfern und einem einzigen gut getimten Gegenschlag zuschlägt. Seither halten die Krath die Veyari nicht mehr für weich. | Kael Dornhag, Raketenwerfer, Aufklärungsdrohne, Sensorphalanx |
 | **Die Torzeit** | Die ersten Hyperraumtor-Generatoren verbinden Monde. Bald zeigt sich, dass ein Loch keine Seiten kennt: Beim **Verrat von Kessmar** strömt durch ein frisch geöffnetes Tor die Flotte des Gegners. | Hyperraumtor-Generator, Tiefenphalanx, Ortungsschleier |
 | **Der Fall von Kessa** | Der erste Weltenkrümmer der Chronik bricht den Mond Kessa. Die Trümmerwolke regnet tagelang auf den Planeten darunter. Seither heißt jede Kiellegung eines Weltenkrümmers in den Admiralitäten *die Mondfrage*. | Weltenkrümmer, Werftdock, Xenokristall, Erster Bruch |
-| **Das Erste Licht** | Ein Bund aus Reichen aller vier Völker besiedelt alle zwölf Bahnen eines Systems und schließt nach dreißig Bautagen die letzte Polkappe der ersten Dysonsphäre. Die Sonne glüht nur noch durch die Fugen. Seither misst man den Rang eines Bundes an seinen Sphären, und jede Allianz weiß, dass man ein Dyson-System nicht zerstören, nur erobern kann. | Dysonsphäre, Solarsatellit, Versorgungsnetz, Orbitalring, Allianz |
+| **Das Erste Licht** | Ein Bund aus Reichen aller vier Völker besiedelt alle zwölf Bahnen eines Systems und schließt nach fünfzehn Bautagen die letzte Polkappe der ersten Dysonsphäre. Die Sonne glüht nur noch durch die Fugen. Seither misst man den Rang eines Bundes an seinen Sphären, und jede Allianz weiß, dass man ein Dyson-System nicht zerstören, nur erobern kann. | Dysonsphäre, Solarsatellit, Versorgungsnetz, Orbitalring, Allianz |
 
 
 ### 6. Die vier Völker
@@ -868,9 +882,9 @@ Orrin Moosgrund, der die Myzelimpfung für die Böden der Weite angepasst hat, s
 
 **Wozu.** Fast jedes Gebäude braucht Strom, und fehlt er, arbeiten alle Anlagen nur noch anteilig.
 
-**Stärke.** Es liefert 26,4 Strom Grundertrag ohne Brennstoff und nur mit 4 Arbeitern, mal Sonnenfaktor des Platzes: 100 Prozent auf Platz 6, bis 171 Prozent innen und 20 Prozent auf dem letzten Platz.
+**Stärke.** Es liefert 29,04 Strom Grundertrag (Stufe 1: 31,9) ohne Brennstoff und nur mit 4 Arbeitern, mal Sonnenfaktor des Platzes: 100 Prozent auf Platz 6, bis 120 Prozent innen und 80 Prozent auf dem letzten Platz.
 
-**Grenzen.** Es ist die günstige Grundversorgung, verliert nach außen aber Sonne bis auf 20 Prozent auf dem letzten Platz und wird später vom Fusionskraftwerk überholt.
+**Grenzen.** Es ist die günstige Grundversorgung, verliert nach außen aber Sonne bis auf 80 Prozent auf dem letzten Platz und wird später vom Fusionskraftwerk überholt.
 
 > Keine Gründung bringt einen Reaktor durch die Schwelle, wohl aber gefaltete Solarfolie, und die Haut der Arche wird in der Landnacht zum ersten Solarfeld entrollt. Viele Kolonien behalten diese alten Felder aus Sentimentalität, lange nachdem Fusionskraftwerke den Hauptstrom liefern.
 
@@ -881,11 +895,11 @@ Orrin Moosgrund, der die Myzelimpfung für die Böden der Weite angepasst hat, s
 
 ##### Technisches Dossier
 
-Das Solarkraftwerk ist ein Feld aus photovoltaischer Gitterfolie, in der dünne Schichten aus Kristall im Licht des Zentralsterns Ladungen trennen und Gleichstrom liefern, den Wechselrichter in das Kolonienetz speisen. Die Folie ist auf leichte Gestelle gespannt, die dem Stern nachgeführt werden, und ein zentraler Turm sammelt Leitungen, Messtechnik und den Pufferspeicher für die Nacht. Die erste Ausbaustufe liefert 26,4 Strom Grundertrag, braucht keinen Brennstoff und nur 4 Arbeiter, die vor allem Staub von der Folie kehren und gerissene Bahnen tauschen.
+Das Solarkraftwerk ist ein Feld aus photovoltaischer Gitterfolie, in der dünne Schichten aus Kristall im Licht des Zentralsterns Ladungen trennen und Gleichstrom liefern, den Wechselrichter in das Kolonienetz speisen. Die Folie ist auf leichte Gestelle gespannt, die dem Stern nachgeführt werden, und ein zentraler Turm sammelt Leitungen, Messtechnik und den Pufferspeicher für die Nacht. Die erste Ausbaustufe liefert 31,9 Strom aus 29,04 Grundertrag, braucht keinen Brennstoff und nur 4 Arbeiter, die vor allem Staub von der Folie kehren und gerissene Bahnen tauschen.
 
-Sie kostet 75 Erz und 30 Kristall, und jede weitere Stufe, ein weiterer Ring Folie um den Turm, kostet das 1,42-Fache der vorigen. Entscheidend ist der Sonnenfaktor des Platzes, denn auf Bahn 6 gilt der volle Ertrag, auf den innersten Bahnen steigt er bis 171 Prozent, und auf der äußersten Bahn bleiben nur 20 Prozent. Energietechnik hebt die Stromerzeugung mit besseren Wandlern um 5 Prozent je Stufe, und Syntheten gewinnen weitere 10 Prozent, weil ihre Wandler heißer laufen dürfen.
+Sie kostet 75 Erz und 30 Kristall, und jede weitere Stufe, ein weiterer Ring Folie um den Turm, kostet das 1,42-Fache der vorigen. Entscheidend ist der Sonnenfaktor des Platzes, denn auf Bahn 6 gilt der volle Ertrag, auf den innersten Bahnen steigt er bis 120 Prozent, und auf der äußersten Bahn bleiben 80 Prozent. Energietechnik hebt die Stromerzeugung mit besseren Wandlern um 5 Prozent je Stufe, und Syntheten gewinnen weitere 10 Prozent, weil ihre Wandler heißer laufen dürfen.
 
-Strom ist das Blut der Kolonie, denn fehlt er, arbeiten alle Anlagen nur noch anteilig. Gegen das Fusionskraftwerk, das unabhängig vom Licht 50 Strom liefert, verliert das Solarfeld in der Industriezeit an Bedeutung, doch es bleibt die günstige Grundversorgung jeder Gründung, die keinen Brennstoff verlangt.
+Strom ist das Blut der Kolonie, denn fehlt er, arbeiten alle Anlagen nur noch anteilig. Gegen das Fusionskraftwerk, das unabhängig vom Licht 55 Strom Grundertrag liefert, verliert das Solarfeld in der Industriezeit an Bedeutung, doch es bleibt die günstige Grundversorgung jeder Gründung, die keinen Brennstoff verlangt.
 
 ##### Chronik
 
@@ -1066,7 +1080,7 @@ Die Fachkräfte des Werks heißen Fadengärtner und sprechen mit den Fäden wie 
 
 *Verarbeitungsbetrieb · Fabrik für Kleidung, Geräte, Möbel und all die kleinen Dinge des Alltags.*
 
-**Wozu.** Die Bevölkerung verbraucht je 1.000 Einwohner 3 Konsumgüter pro Stunde, und gedeckter Konsum hebt das Stabilitätsziel um bis zu 20 Punkte.
+**Wozu.** Die Bevölkerung verbraucht je 1.000 Einwohner 1,5 Konsumgüter pro Stunde, und gedeckter Konsum hebt das Stabilitätsziel um bis zu 20 Punkte.
 
 **Stärke.** Es liefert 8 Konsumgüter Grundertrag aus je 1 Erz, 1 Kristall und einem halben Deuterium und hält so Wachstum und Laune zugleich hoch.
 
@@ -1915,11 +1929,11 @@ Kael Dornhag begann seinen Dornensommer hier, denn lange bevor die Phalanx den K
 
 **Wozu.** Sie stellt die Garnison gegen Invasionen und ist Voraussetzung für Truppentransporter und alle Bodentruppen.
 
-**Stärke.** Ihre Stufe gibt die Fertigungsplätze für Bodentruppen vor, und die Stufen 1 bis 6 schalten nacheinander die zwölf Truppentypen frei, deren Angriff zusammen mit der Miliz die Garnison bildet.
+**Stärke.** Ihre Stufe gibt die Fertigungsplätze für Bodentruppen vor, die Stufen 1 bis 6 schalten nacheinander die zwölf Truppentypen frei, deren Angriff zusammen mit der Miliz die Garnison bildet, und während einer Invasion bildet sie mit halbem Tempo weiter aus.
 
 **Grenzen.** Ab Stufe III baubar, schützt sie nur am Boden und hilft nichts gegen Bombardement aus dem Orbit.
 
-> Raumschiffe können einen Planeten belagern, aber nur Truppen auf dem Boden können ihn halten oder nehmen. Die Kaserne ist laut, staubig und riecht nach Waffenöl, und aus ihr kommen die Garnison und die Zeughäuser, an denen im Ernstfall jeder Bewohner zur Miliz wird.
+> Raumschiffe können einen Planeten blockieren und bombardieren, aber nur Truppen auf dem Boden können ihn halten oder nehmen. Die Kaserne ist laut, staubig und riecht nach Waffenöl, und aus ihr kommen die Garnison und die Zeughäuser, an denen im Ernstfall die Bewohner zur Miliz werden.
 
 - **Aurelianer:** Aurelianer werben Söldner für ihre Kasernen und zahlen pünktlich, was ihre Truppen loyaler macht, als Spötter glauben. Jeder Söldnervertrag enthält eine Klausel zur Versorgung der Hinterbliebenen, die noch kein Handelshaus gebrochen hat.
 - **Krath:** Die Kaserne ist das Herz jeder Krath-Siedlung, und Kinder wachsen dort mit dem Takt der Exerzierplätze auf. Wer zehn Einsätze überlebt, bekommt einen Namen statt einer Nummer, und auf dem Exerzierplatz wird dieser Name zum ersten Mal ausgerufen.
@@ -1930,13 +1944,13 @@ Kael Dornhag begann seinen Dornensommer hier, denn lange bevor die Phalanx den K
 
 Die Kaserne ist eine befestigte Ausbildungs- und Unterkunftsanlage aus Mannschaftsblöcken, Exerzierplatz, Schießbahnen, Fahrzeughallen und Zeughäusern, in der Bodentruppen ausgebildet und ihre Fahrzeuge montiert werden. Jede Stufe schafft einen Fertigungsplatz, und schwere Typen belegen mehrere Plätze, weil ein Kampfpanzer Halle, Kran und Prüfbahn länger braucht als ein Trupp Infanterie. Die Stufen 1 bis 6 schalten nacheinander zwölf Truppentypen frei: Stufe 1 die Sturminfanterie, Stufe 2 Schwere Infanterie, Kampfdrohne und Aufklärungsdrohne, Stufe 3 Präzisionsinfanterie, Belagerungspionier und den 9 Meter langen Sturmpanzer, Stufe 4 Flugabwehrpanzer und Reparaturdrohne, Stufe 5 Schweren Kampfpanzer und Belagerungsdrohne und Stufe 6 den 18 Meter langen Belagerungspanzer.
 
-Schon Stufe 1 öffnet zudem die Zeughäuser für die Miliz: In einer Belagerung ruft sie alle Bewohner zu den Waffen, jeden mit Waffenwert 0,3 und Rüstwert 5 für 1 Legierung, während die Hälfte von ihnen derweil an Maschinen und in Laboren fehlt. Nach 30 Prozent Gefallenen kapituliert die Miliz, damit die Überlebenden ihre Welt weiter bewohnen können. Die ausgebildete Garnison verteidigt bei einer Invasion selbsttätig, und eine Welt fällt erst, wenn nach einer Belagerung von 48 Stunden kein Bodenverteidiger mehr lebt, während Heimatwelten nie einnehmbar sind.
+Schon Stufe 1 öffnet zudem die Zeughäuser für die Miliz, sobald das Reich Soziologie 2 erforscht hat: Sie ruft je nach Volk 70 bis 100 Prozent der Bewohner zu den Waffen, jeden mit Waffenwert 0,3 und Rüstwert 5 für 1 Legierung, während die Hälfte von ihnen derweil an Maschinen und in Laboren fehlt. Nach 30 Prozent Gefallenen kapituliert die Miliz, damit die Überlebenden ihre Welt weiter bewohnen können. Die ausgebildete Garnison verteidigt bei einer Invasion auf vier Verteidigungslinien, deren aktuelle alle 12 Spielstunden eine Welle angreift, und eine Welt ist erst verwüstet, wenn der Rückhalt als letzte Linie fällt, während Heimatwelten nie einnehmbar sind.
 
-Verlegen lassen sich Truppen nur mit Truppentransportern zu je 100 Truppenplätzen, von denen Sturminfanterie einen und ein Sturmpanzer zehn belegt, und gegen Bomber im Orbit hilft keine Kaserne. Den Betrieb tragen 20 Arbeiter und 10 Energie, gebaut wird sie ab Stufe IV aus 3.000 Erz, 1.000 Kristall und 200 Legierung, die in Hallenkränen, Panzertoren und Prüfbahnen steckt, und jede Stufe kostet das 1,29-Fache der vorigen.
+Während einer Invasion bildet die Kaserne mit halbem Tempo aus, und jede neue Truppe stellt sich in den Rückhalt. Verlegen lassen sich Truppen nur mit Truppentransportern zu je 100 Truppenplätzen, von denen Sturminfanterie einen und ein Sturmpanzer zehn belegt, und gegen Bomber im Orbit hilft keine Kaserne. Den Betrieb tragen 20 Arbeiter und 10 Energie, gebaut wird sie ab Stufe III aus 3.000 Erz, 1.000 Kristall und 200 Legierung, die in Hallenkränen, Panzertoren und Prüfbahnen steckt, und jede Stufe kostet das 1,29-Fache der vorigen.
 
 ##### Chronik
 
-In der Gründungszeit hatte keine Kolonie eine Bodenverteidigung, denn Plünderer nahmen aus dem Orbit, was ungeschützt im Lager lag, und flogen wieder ab. Die Kaserne entstand im Sternenflug, als aus Gründungen Reiche mit Kolonien wurden und die Stäbe begannen, Welten nicht nur plündern, sondern nehmen zu wollen, und sie brachte zweierlei: die Zeughäuser, an denen sich jeder Bewohner zur Miliz rüsten kann, und die Sturminfanterie als erste ausgebildete Truppe. Mit ihr wurde der Truppentransporter möglich, der eine Kaserne voraussetzt, doch auf fremden Boden brachte er die Truppen erst, als im Imperium der Bomber eine Welt bis zur Dreißig-Grenze brechen konnte. Panzer und Drohnen folgten Stufe um Stufe, bis im Imperium der Belagerungspanzer selbst befestigte Stellungen aufbrach, und doch ist in der Chronik keine Heimatwelt je eingenommen worden.
+In der Gründungszeit hatte keine Kolonie eine Bodenverteidigung, denn Plünderer nahmen aus dem Orbit, was ungeschützt im Lager lag, und flogen wieder ab. Die Kaserne entstand in der Orbitzeit, als die ersten Kolonieschiffe aus Gründungen Reiche mit Kolonien machten und die Stäbe begannen, Welten nicht nur plündern, sondern nehmen zu wollen, und sie brachte zweierlei: die Zeughäuser, an denen sich jeder Bewohner zur Miliz rüsten kann, und die Sturminfanterie als erste ausgebildete Truppe. Mit ihr wurde der Truppentransporter des Sternenflugs möglich, der eine Kaserne voraussetzt, doch auf fremden Boden brachte er die Truppen erst, als im Imperium der Bomber eine Welt bis zur Dreißig-Grenze brechen konnte. Panzer und Drohnen folgten Stufe um Stufe, bis im Imperium der Belagerungspanzer selbst befestigte Stellungen aufbrach, und doch ist in der Chronik keine Heimatwelt je eingenommen worden.
 
 ##### Volksakten
 
@@ -1944,7 +1958,7 @@ In der Gründungszeit hatte keine Kolonie eine Bodenverteidigung, denn Plündere
 
 Darius Brann verlangt, dass jeder Rekrut vor dem ersten Einsatz einen Lehrgang im Vertragsrecht besucht, weil ein Soldat, der seinen Vertrag kennt, weiß, wofür er steht und wofür nicht. Die Kompanien tragen Glücksnamen wie Victoria oder Felix, und ihre Ausrüstung ist genormt bis zum letzten Stiefel, damit eine Einheit in jeder Kolonie aus jedem Kontorlager nachgerüstet werden kann.
 
-**Krath-Akte.** Die Kaserne ist das Herz jeder Krath-Siedlung, oft größer als die Wohnblöcke um sie herum, und die Kinder wachsen mit dem Takt der Exerzierplätze auf. Jungkrath arbeiten ein Jahr im Stollen, bevor sie eine Waffe tragen, und kommen danach als Nummern in die Kaserne, und wer zehn Einsätze überlebt, wird auf dem Exerzierplatz zum ersten Mal mit Namen ausgerufen. Wird eine Krath-Welt belagert, steht kein Bewohner abseits: Die Zeughäuser liegen in der Kaserne, jede Familie kennt ihren Platz, und Eroberer berichten, dass jeder Keller einzeln genommen werden musste.
+**Krath-Akte.** Die Kaserne ist das Herz jeder Krath-Siedlung, oft größer als die Wohnblöcke um sie herum, und die Kinder wachsen mit dem Takt der Exerzierplätze auf. Jungkrath arbeiten ein Jahr im Stollen, bevor sie eine Waffe tragen, und kommen danach als Nummern in die Kaserne, und wer zehn Einsätze überlebt, wird auf dem Exerzierplatz zum ersten Mal mit Namen ausgerufen. Wird eine Krath-Welt angegriffen, steht kein Bewohner abseits, denn ins Hammeraufgebot tritt jeder: Die Zeughäuser liegen in der Kaserne, jede Familie kennt ihren Platz, und Eroberer berichten, dass jeder Keller einzeln genommen werden musste.
 
 Kriegsführerin Yskra Ul-Tharn ließ in die Mauer ihrer ersten Kaserne die Nummern aller Rekruten schlagen und daneben Platz für ihre Namen, und viele dieser Felder sind inzwischen gefüllt. Die Panzer der Krath sind Schmiedebau wie ihre Schiffe, kantige Keile mit außenliegendem Antrieb, die eine Werkstattschicht in einer Nacht wieder fahrtüchtig macht.
 
@@ -2577,7 +2591,7 @@ Seither legt jede Besatzung vor dem ersten Sprung eines neuen Schiffs einen Same
 
 ##### Technisches Dossier
 
-Astrophysik ist die Vermessung der Weite: Spektrografen zerlegen das Licht jedes Sterns in seine Linien und verraten Temperatur, Alter und Strahlungsruhe, Bahnmechaniker berechnen die zwölf Bahnen eines Systems, und Planetologen lesen aus Rückstrahlung, Masse und Atmosphärenspektrum, welche Welt Leben trägt. Ihre Grundordnung ist die Zonenlehre, nach der die Glutzone der Bahnen 1 bis 3 kleine Welten mit kargen Böden trägt, die Lebenszone der Bahnen 4 bis 8 große, fruchtbare Welten und die Frostzone der Bahnen 9 bis 12 Eispanzer mit 1,5-fachem Deuterium, während die Solartabelle das Licht Bahn für Bahn misst, von 171 Prozent auf der innersten über 100 Prozent auf Bahn 6 bis zu 20 Prozent auf der äußersten. Jeder Sektor zählt 60 Systeme, jedes mit einem Asteroidengürtel, und ein Teil von ihnen sind Nebelsysteme, die einzigen Fundorte von natürlichem Xenokristall.
+Astrophysik ist die Vermessung der Weite: Spektrografen zerlegen das Licht jedes Sterns in seine Linien und verraten Temperatur, Alter und Strahlungsruhe, Bahnmechaniker berechnen die zwölf Bahnen eines Systems, und Planetologen lesen aus Rückstrahlung, Masse und Atmosphärenspektrum, welche Welt Leben trägt. Ihre Grundordnung ist die Zonenlehre, nach der die Glutzone der Bahnen 1 bis 3 kleine Welten mit kargen Böden trägt, die Lebenszone der Bahnen 4 bis 8 große, fruchtbare Welten und die Frostzone der Bahnen 9 bis 12 Eispanzer mit 1,5-fachem Deuterium, während die Solartabelle das Licht Bahn für Bahn misst, von 120 Prozent auf der innersten über 100 Prozent auf Bahn 6 bis zu 80 Prozent auf der äußersten. Jeder Sektor zählt 60 Systeme, jedes mit einem Asteroidengürtel, und ein Teil von ihnen sind Nebelsysteme, die einzigen Fundorte von natürlichem Xenokristall.
 
 Ihre Kataloge sagen Kolonieschiff, Frachter und Verwaltung, wo eine Welt liegt und was sie trägt, doch wie viele Kolonien ein Reich halten kann, bestimmt nicht sie, sondern das Terraforming, denn ein Katalogeintrag ist noch keine Siedlung. Die erste Stufe kostet 4.000 Erz, 8.000 Kristall und 4.000 Deuterium bei 2.000 Forschungspunkten, und weil der Preis mit dem Faktor 1,75 statt 2 steigt, wird sie langsamer teurer als die übrigen Fächer. Erforschbar ist sie ab der Orbitzeit mit einem Labor der Stufe 3, Astrophysik 1 ist Pflicht für den Sternenflug, Stufe 2 öffnet Pathfinder und Bergungsschiff und Stufe 3 das Große Kolonieschiff.
 
@@ -3509,13 +3523,13 @@ Thalen Vey-Oruun, der die erste Zeder seines Kreises führte, ließ nach der Lan
 
 *Truppentransporter (Invasionsunterstützung) · Gepanzertes Landungsschiff mit breiter Rampe und verstärkten Abstiegstriebwerken.*
 
-**Wozu.** Er bringt Bodentruppen zur Invasion, als Nachschub auf eigene belagerte Planeten und zur Verstärkung verbündeter Planeten; gelandet wird erst, wenn alle Gebäude des Ziels auf 30 Prozent Integrität bombardiert sind.
+**Wozu.** Er bringt Bodentruppen zur Invasion, als Nachschub auf eigene angegriffene Planeten und zur Verstärkung verbündeter Planeten; gelandet wird erst, wenn alle Gebäude des Ziels auf 30 Prozent Integrität bombardiert sind.
 
-**Stärke.** Ein Transporter hat 100 Truppenplätze (Sturminfanterie 1, Sturmpanzer 10) und ist mit 15.000 Struktur robuster als jeder Frachter seiner Größe; Nachschub und reine Truppenkonvois von Verbündeten landen während einer Belagerung trotz Blockade.
+**Stärke.** Ein Transporter hat 100 Truppenplätze (Sturminfanterie 1, Sturmpanzer 10) und ist mit 15.000 Struktur robuster als jeder Frachter seiner Größe; eigener Nachschub landet während einer Invasion trotz Blockade und stellt sich in den Rückhalt.
 
-**Grenzen.** Ohne Kaserne nicht baubar und mit 10 Angriff wehrlos, muss er hinter der Kampfflotte fliegen; ohne Kolonieschiff in der kampfkolonisieren-Flotte und ohne Bodentruppen an Bord beginnt keine Belagerung.
+**Grenzen.** Ohne Kaserne nicht baubar und mit 10 Angriff wehrlos, muss er hinter der Kampfflotte fliegen; ohne Bodentruppen an Bord einer Bombardieren- oder Kampfkolonisieren-Flotte gibt es keine Landung, und ein Kolonieschiff braucht es erst für die Übernahme.
 
-> Der Truppentransporter ist ein gepanzertes Landungsschiff mit breiter Rampe und verstärkten Abstiegstriebwerken, gebaut, um Bodentruppen auf eine Welt zu bringen, deren Himmel schon gefallen ist. Er landet erst, wenn die Bomber alle Gebäude auf die Dreißig-Grenze gebracht haben, und dann beginnt eine Belagerung von zwei Tagen.
+> Der Truppentransporter ist ein gepanzertes Landungsschiff mit breiter Rampe und verstärkten Abstiegstriebwerken, gebaut, um Bodentruppen auf eine Welt zu bringen, deren Himmel schon gefallen ist. Er landet erst, wenn die Bomber alle Gebäude auf die Dreißig-Grenze gebracht haben, und dann greifen seine Truppen die Verteidigungslinien Welle um Welle an, alle zwölf Stunden eine.
 
 - **Aurelianer:** Aurelianische Transporter der Klasse Tenacitas tragen oft angeworbene Truppen und sind innen überraschend bequem, weil zufriedene Söldner besser kämpfen. An der Rampe steht ein Zahlmeister, der die Prämie für jede gehaltene Landezone notiert.
 - **Krath:** Krath-Truppen stehen bei der Landung eines Sturzkeils aufrecht, und wer sich festhält, steigt als Letzter aus. Die Innenwände sind bedeckt mit den Namen der Gefallenen früherer Landungen, und jeder Rampenführer kennt sie auswendig.
@@ -3526,13 +3540,13 @@ Thalen Vey-Oruun, der die erste Zeder seines Kreises führte, ließ nach der Lan
 
 Der Truppentransporter ist ein 260 Meter langer, gepanzerter Landungsrumpf, dessen Bug sich zu einer breiten Rampe öffnet und dessen Unterseite verstärkte Abstiegstriebwerke trägt, die ihn durch eine Atmosphäre bis auf den Boden bremsen. Im Inneren liegen 100 Truppenplätze in Gestellen und Kammern, und ein Sturminfanterist belegt einen davon, ein neun Meter langer Sturmpanzer zehn. Die Truppen zählen als Besatzung, denn wer an Bord geht, bedient auch Schleusen, Rampe und Abwehr, und für Fracht bleiben nur 2.000, genug für Munition, Verpflegung und Ersatzteile der Landung.
 
-Mit 15.000 Struktur ist er robuster als jeder Frachter seiner Größe, weil sein Rumpf Abstieg und Landung unter Beschuss überstehen muss, doch der Schirm von 30 und Angriff 10 machen ihn im Orbit wehrlos. Sein Impulsantrieb bringt ihn auf Tempo 6.000 bei einem Verbrauch von 200, und gebaut wird er ab Stufe IV in einer Werft der Stufe 3 aus 8.000 Erz, 4.000 Kristall, 2.000 Deuterium und 200 Legierung, sobald eine Kaserne steht. Gelandet wird erst, wenn die Bomber alle Gebäude des Ziels auf 30 Prozent Integrität gebracht haben und ein Kolonieschiff in der Flotte den Orbit hält, und ohne Bodentruppen an Bord beginnt keine Belagerung.
+Mit 15.000 Struktur ist er robuster als jeder Frachter seiner Größe, weil sein Rumpf Abstieg und Landung unter Beschuss überstehen muss, doch der Schirm von 30 und Angriff 10 machen ihn im Orbit wehrlos. Sein Impulsantrieb bringt ihn auf Tempo 6.000 bei einem Verbrauch von 200, und gebaut wird er ab Stufe IV in einer Werft der Stufe 3 aus 8.000 Erz, 4.000 Kristall, 2.000 Deuterium und 200 Legierung, sobald eine Kaserne steht. Gelandet wird erst, wenn die Bomber alle Gebäude des Ziels auf 30 Prozent Integrität gebracht haben und die Flotte mit Bombardieren oder Kampfkolonisieren den Orbit hält, und ohne Bodentruppen an Bord gibt es keine Landung, während ein Kolonieschiff erst für die Übernahme gebraucht wird.
 
-Danach dauert die Belagerung 48 Spielstunden mit Bodenrunden alle 15 Spielminuten, und übernommen wird die Welt nur, wenn kein Verteidiger mehr lebt. Als Nachschub für eine eigene belagerte Welt oder als reiner Truppenkonvoi für Verbündete landet er sogar durch eine Blockade, doch seine Fracht bleibt dann an Bord.
+Danach greifen die gelandeten Truppen alle 12 Spielstunden in einer Welle von höchstens sechs Bodenrunden die aktuelle von vier Verteidigungslinien an, und erst wenn der Rückhalt als letzte fällt, ist die Welt verwüstet und kann von einem Kolonieschiff übernommen werden. Als Nachschub für eine eigene angegriffene Welt oder als Bodenhilfe für Verbündete landet er sogar durch eine Blockade, und seine Truppen verstärken dann den Rückhalt.
 
 ##### Chronik
 
-Der Truppentransporter entstand im Zeitalter des Sternenflugs, sobald Kasernen Bodentruppen ausbildeten und Impulsrümpfe sie zwischen Welten tragen konnten. Anfangs verlegte er vor allem Garnisonen zwischen eigenen Kolonien und brachte Verstärkung zu bedrohten Verbündeten, denn ohne Bomber blieb jede feindliche Welt zu wehrhaft für eine Landung. Erst in den Bomberjahren, als Bomberverbände ganze Verteidigungsringe abtrugen, wurde er zum Werkzeug der Eroberung, und die Dreißig-Grenze, unter die niemand bombardiert, wurde so unverbrüchlich wie der Kodex der Häfen. Seitdem fliegt er hinter der Kampfflotte und neben dem Kolonieschiff, das die Verwaltung der eroberten Welt übernimmt, und Sturminfanterie wie Sturmpanzer kennen seine Rampe besser als jeden Kasernenhof.
+Der Truppentransporter entstand im Zeitalter des Sternenflugs, als die Kasernen der Orbitzeit schon Bodentruppen ausbildeten und Impulsrümpfe sie zwischen Welten tragen konnten. Anfangs verlegte er vor allem Garnisonen zwischen eigenen Kolonien und brachte Verstärkung zu bedrohten Verbündeten, denn ohne Bomber blieb jede feindliche Welt zu wehrhaft für eine Landung. Erst in den Bomberjahren, als Bomberverbände ganze Verteidigungsringe abtrugen, wurde er zum Werkzeug der Eroberung, und die Dreißig-Grenze, unter die niemand bombardiert, wurde so unverbrüchlich wie der Kodex der Häfen. Seitdem fliegt er hinter der Kampfflotte und neben dem Kolonieschiff, das die Verwaltung der eroberten Welt übernimmt, und Sturminfanterie wie Sturmpanzer kennen seine Rampe besser als jeden Kasernenhof.
 
 ##### Volksakten
 
@@ -3544,13 +3558,13 @@ Darius Brann hält die Dreißig-Grenze für den klügsten Vertrag nach dem Kodex
 
 In den Kammern stehen Sturmpanzer neben Infanterie, und weil ein Panzer zehn Plätze belegt, streiten die Rampenführer vor jeder Landung, ob ein Panzer zehn Krieger wert ist. Erst wenn das Zeichen kommt, öffnet sich die Rampe, und dann brüllt der ganze Laderaum den Schlachtruf des Clans.
 
-**Syntheten-Akte.** Das Kollektiv baut seinen Truppentransporter als Revision Projektion, und in seinen Ladegestellen hängen Kampfkörper, dicht wie Bauteile in einem Lager. Während des Anflugs laden die Einheiten ihre Kampfroutinen und gleichen Lagekarten ab, sodass beim Aufsetzen jede schon ihren Abschnitt kennt und die Rampe nur Sekunden offen steht. Die Einheit Stakkato hat die Belagerungslehre des Kollektivs geschrieben: Sie rechnet die 48 Spielstunden nicht als Wartezeit, sondern als eine Folge von Bodenrunden, in der jede Runde einen Messwert über die Verteidigung liefert.
+**Syntheten-Akte.** Das Kollektiv baut seinen Truppentransporter als Revision Projektion, und in seinen Ladegestellen hängen Kampfkörper, dicht wie Bauteile in einem Lager. Während des Anflugs laden die Einheiten ihre Kampfroutinen und gleichen Lagekarten ab, sodass beim Aufsetzen jede schon ihren Abschnitt kennt und die Rampe nur Sekunden offen steht. Die Einheit Stakkato hat die Wellenlehre des Kollektivs geschrieben: Sie rechnet jede Welle als eine Folge von höchstens sechs Bodenrunden, in der jede Runde einen Messwert über die Verteidigung liefert, und die zwölf Stunden bis zur nächsten Welle nicht als Wartezeit, sondern als Zeit, diese Werte auszuwerten.
 
 Eine Landung gilt erst als Erfolg, wenn alle Gestelle leer sind und kein Kampfkörper an Bord zurückbleibt. Die Syntheten halten die Dreißig-Grenze für selbstverständlich, weil ihre Zielrechner unter dieser Schwelle Trümmer und Bunker ohnehin nicht mehr unterscheiden können.
 
 **Veyari-Akte.** Die Veyari ziehen ihre Landungsschiffe als Baureihe Rotdorn, und der Name ist eine Warnung: Ein Garten, der sich wehrt, hat Dornen. Sie landen ihre Truppen bevorzugt in Wäldern und Mooren, wo ihre Infanterie sich zu Hause fühlt, und der Abstieg zieht einen Schleier aus Sporen hinter sich her, der die Landezone für kurze Zeit verhüllt. Bevor die Rampe fällt, nennt der Landungsführer laut jeden Garten der Zielwelt, den kein Trupp betreten darf.
 
-Häufiger als zur Eroberung fliegen Rotdorne jedoch als Nachschub, denn eigene Truppen landen auch durch eine Blockade, und Kael Dornhag hat auf diese Weise mehr als eine belagerte Kolonie gehalten. Die Perlschale ist leichter als Stahl und hält weniger aus, darum warten die Rotdorne hinter der Hecke der Kampfflotte, bis der Orbit sicher ist.
+Häufiger als zur Eroberung fliegen Rotdorne jedoch als Nachschub, denn eigene Truppen landen auch durch eine Blockade, und Kael Dornhag hat auf diese Weise mehr als eine angegriffene Kolonie gehalten. Die Perlschale ist leichter als Stahl und hält weniger aus, darum warten die Rotdorne hinter der Hecke der Kampfflotte, bis der Orbit sicher ist.
 
 **Siehe auch:** [Kaserne](#kaserne) · [Bomber](#bomber) · [Kleines Kolonieschiff](#kleines-kolonieschiff) · [Sturminfanterie](#sturminfanterie) · [Sturmpanzer](#sturmpanzer)
 
@@ -5498,11 +5512,11 @@ Die Sturminfanterie ist die leichteste ausgebildete Bodentruppe: ein Kämpfer in
 
 Der Störer ist der eigentliche Grund ihrer Ausbildung: Er überflutet die Steuer- und Datenkanäle in seinem Umkreis mit Rauschen, sodass Kampf-, Aufklärungs- und Reparaturdrohnen ihre Verbindung verlieren, taumeln und für ein gewöhnliches Gewehr zu leichten Zielen werden. Darum trifft Sturminfanterie diese drei Drohnenarten doppelt, die Belagerungsdrohne aber nicht, denn deren Endanflug läuft auf Trägheitsnavigation und hört auf keinen Funk mehr. Die Weste hält Splitter und Streifschüsse, aber keine Kanonengranate, und Sturmpanzer, Schwere Infanterie und Schwere Kampfpanzer treffen sie doppelt, weil ihre Waffen auf weiche Ziele in Masse ausgelegt sind.
 
-Präzisionsinfanterie trifft sie sogar dreifach, denn ein gezielter Schuss sucht die Fugen an Hals, Hüfte und Optik, die eine leichte Weste offen lassen muss, damit man in ihr noch rennen kann. Sie ist darum keine Waffe für den Durchbruch, sondern für das Halten: Eine Welt fällt erst, wenn kein Bodenverteidiger mehr lebt, und jeder billige Sturminfanterist ist ein Gegner mehr, den ein Invasor in den Bodenrunden der Belagerung einzeln niederkämpfen muss.
+Präzisionsinfanterie trifft sie sogar dreifach, denn ein gezielter Schuss sucht die Fugen an Hals, Hüfte und Optik, die eine leichte Weste offen lassen muss, damit man in ihr noch rennen kann. Sie ist darum keine Waffe für den Durchbruch, sondern für das Halten: Eine Verteidigungslinie bricht erst, wenn ihr letzter Verteidiger fällt, jeder billige Sturminfanterist ist ein Gegner mehr, den ein Invasor einzeln niederkämpfen muss, und was eine Welle in ihren höchstens sechs Bodenrunden nicht schafft, muss die nächste nach zwölf Stunden erneut versuchen.
 
 ##### Chronik
 
-Die Sturminfanterie ist der älteste ausgebildete Truppentyp der Weite: Sie entstand mit der ersten Kaserne im Zeitalter des Sternenflugs, als aus Gründungen Reiche mit Kolonien wurden und jede Kompanie zunächst nur ihre eigene Welt bewachte. Ihren Drohnenstörer brachten die Gründungen als Wissen aus dem Alten Raum mit, und als mit Kaserne 2 die ersten Kampf- und Aufklärungsdrohnen der Weite aufstiegen, wussten deren Konstrukteure, dass sie gegen dieses Rauschen nie ganz gewinnen würden. Im selben Zeitalter trug der Truppentransporter sie zwischen den eigenen Welten und zu bedrohten Verbündeten, doch fremden Boden betrat sie erst in den Bomberjahren, als Bomber die ersten Welten bis zur Dreißig-Grenze brachen und neben ihr die Sturmpanzer aus den Rampen rollten, die einst gebaut worden waren, um genau solche Linien zu brechen.
+Die Sturminfanterie ist der älteste ausgebildete Truppentyp der Weite: Sie entstand mit der ersten Kaserne in der Orbitzeit, als die ersten Kolonieschiffe aus Gründungen Reiche mit Kolonien machten und jede Kompanie zunächst nur ihre eigene Welt bewachte. Ihren Drohnenstörer brachten die Gründungen als Wissen aus dem Alten Raum mit, und als mit Kaserne 2 die ersten Kampf- und Aufklärungsdrohnen der Weite aufstiegen, wussten deren Konstrukteure, dass sie gegen dieses Rauschen nie ganz gewinnen würden. Im folgenden Zeitalter, dem Sternenflug, trug der Truppentransporter sie zwischen den eigenen Welten und zu bedrohten Verbündeten, doch fremden Boden betrat sie erst in den Bomberjahren, als Bomber die ersten Welten bis zur Dreißig-Grenze brachen und neben ihr die Sturmpanzer aus den Rampen rollten, die einst gebaut worden waren, um genau solche Linien zu brechen.
 
 Die Schwere Infanterie wurde ihre gepanzerte Schwester, die Präzisionsinfanterie ihr gefährlichster Jäger. Seit dem Dornensommer erzählen die Krath, dass eine Linie aus Sturminfanterie im Wald weniger wert ist als ein einziger Veyari, der weiß, wo er liegt.
 
@@ -5604,7 +5618,7 @@ Ihre Schwäche ist der Funk, an dem sie hängt: Der Störer der Sturminfanterie 
 
 ##### Chronik
 
-Die Kampfdrohne ist älter als jeder Panzer der Weite: Sie entstand im Sternenflug mit Kaserne 2, eine Kasernenstufe vor dem ersten Kettenwagen, als die Gießereien ihre Legierung noch für Rümpfe und Kolonieschiffe brauchten, die Elektronikwerke aber genug Bauteile für einen Schwarm lieferten. Ihre Vorfahren waren die Vermessungs- und Sprengdrohnen der Erzminen, und ihr Hohlladungsstachel, eigentlich ein Werkzeug zum Öffnen von Felsadern, sprengte zunächst Barrikaden und Bunkerdeckel, bis er ein Ziel fand, das ihn wirklich brauchte. Als mit Kaserne 3 die ersten Sturmpanzer in die Garnisonen rollten, wartete sie schon, und die Verluste in den scharfen Manövern dieser Jahre führten mit Kaserne 4 zum Flugabwehrpanzer, lange bevor die Bomberjahre die erste echte Landezone brachten. Die Aufklärungsdrohne derselben Kasernenstufe wurde ihre Partnerin, und mit Kaserne 5 folgte die Belagerungsdrohne als schwere Schwester für die dicksten Panzer.
+Die Kampfdrohne ist älter als jeder Panzer der Weite: Sie entstand in der Orbitzeit mit Kaserne 2, eine Kasernenstufe und ein Zeitalter vor dem ersten Kettenwagen, als die Gießereien ihre Legierung noch für Rümpfe und Kolonieschiffe brauchten, die Elektronikwerke aber genug Bauteile für einen Schwarm lieferten. Ihre Vorfahren waren die Vermessungs- und Sprengdrohnen der Erzminen, und ihr Hohlladungsstachel, eigentlich ein Werkzeug zum Öffnen von Felsadern, sprengte zunächst Barrikaden und Bunkerdeckel, bis er ein Ziel fand, das ihn wirklich brauchte. Als im Sternenflug mit Kaserne 3 die ersten Sturmpanzer in die Garnisonen rollten, wartete sie schon, und die Verluste in den scharfen Manövern dieser Jahre führten mit Kaserne 4 zum Flugabwehrpanzer, lange bevor die Bomberjahre die erste echte Landezone brachten. Die Aufklärungsdrohne derselben Kasernenstufe wurde ihre Partnerin, und mit Kaserne 5 folgte die Belagerungsdrohne als schwere Schwester für die dicksten Panzer.
 
 ##### Volksakten
 
@@ -5651,7 +5665,7 @@ Ihre Stärke ist das Halten: Eine Linie aus Servorüstungen hält einen Ansturm 
 
 ##### Chronik
 
-Die Schwere Infanterie entstand im Sternenflug mit Kaserne 2 als gepanzerte Schwester der Sturminfanterie, als die Garnisonen eine Truppe brauchten, die eine Stellung gegen Fußtruppen und Bürgeraufgebote halten konnte. Sie ist älter als Belagerungspionier und Präzisionsinfanterie, und dass sie beide doppelt trifft, lag an ihrem Maschinengewehr, nicht an einer Absicht. Die Antwort auf sie kam noch im selben Zeitalter mit Kaserne 3: Die Präzisionsinfanterie suchte die Fugen ihrer Rüstung, und der Sturmpanzer brach ihre Linien mit Splittergranaten. Erst im Zeitalter des Imperiums zielte der Belagerungspanzer mit seinem Mörser ausdrücklich auf eingegrabene Schwere Infanterie, und seine Besatzungen nennen sie bis heute den härtesten Boden der Weite.
+Die Schwere Infanterie entstand in der Orbitzeit mit Kaserne 2 als gepanzerte Schwester der Sturminfanterie, als die Garnisonen eine Truppe brauchten, die eine Stellung gegen Fußtruppen und Bürgeraufgebote halten konnte. Sie ist älter als Belagerungspionier und Präzisionsinfanterie, und dass sie beide doppelt trifft, lag an ihrem Maschinengewehr, nicht an einer Absicht. Die Antwort auf sie kam im folgenden Zeitalter, dem Sternenflug, mit Kaserne 3: Die Präzisionsinfanterie suchte die Fugen ihrer Rüstung, und der Sturmpanzer brach ihre Linien mit Splittergranaten. Erst im Zeitalter des Imperiums zielte der Belagerungspanzer mit seinem Mörser ausdrücklich auf eingegrabene Schwere Infanterie, und seine Besatzungen nennen sie bis heute den härtesten Boden der Weite.
 
 ##### Volksakten
 
@@ -5829,7 +5843,7 @@ Drei Besatzungsmitglieder bedienen ihn, die Kaserne der Stufe 6 belegt vier Fert
 
 ##### Chronik
 
-Der Belagerungspanzer ist die jüngste Bodentruppe der Weite und ein Kind des Imperiums: Erst Kaserne 6 und die Industrie der fünften Zivilisationsstufe trugen ein Fahrgestell, das einen solchen Mörser aushält. Er entstand in der Zeit der Kuppelkrise, als Belagerungsschlachtschiffe den einfachen Planetenschild in wenigen Salven brachen und die Invasoren nach der Landung auf Garnisonen trafen, die sich mit Schwerer Infanterie, Pionieren und Schweren Kampfpanzern eingegraben hatten. Die Belagerungsschlachtschiffe öffneten den Himmel, der Belagerungspanzer die Stellungen darunter, und in den zwei Tagen einer Belagerung zählt jede Stellung, die früher fällt. Eine eigene Antwort brauchten seine Gegner nicht zu erfinden, denn Kampfdrohne, Belagerungsdrohne und Pionier waren älter als er und trafen ihn von Anfang an, und so fährt kein Hammer ohne Flugabwehrpanzer an seiner Seite.
+Der Belagerungspanzer ist die jüngste Bodentruppe der Weite und ein Kind des Imperiums: Erst Kaserne 6 und die Industrie der fünften Zivilisationsstufe trugen ein Fahrgestell, das einen solchen Mörser aushält. Er entstand in der Zeit der Kuppelkrise, als Belagerungsschlachtschiffe den einfachen Planetenschild in wenigen Salven brachen und die Invasoren nach der Landung auf Garnisonen trafen, die sich mit Schwerer Infanterie, Pionieren und Schweren Kampfpanzern eingegraben hatten. Die Belagerungsschlachtschiffe öffneten den Himmel, der Belagerungspanzer die Stellungen darunter, und in den Wellen einer Invasion zählt jede Verteidigungslinie, die eine Welle früher bricht. Eine eigene Antwort brauchten seine Gegner nicht zu erfinden, denn Kampfdrohne, Belagerungsdrohne und Pionier waren älter als er und trafen ihn von Anfang an, und so fährt kein Hammer ohne Flugabwehrpanzer an seiner Seite.
 
 ##### Volksakten
 
@@ -5911,7 +5925,7 @@ Der Flugabwehrpanzer trifft sie dreifach, und kluge Verteidiger holen zuerst die
 
 ##### Chronik
 
-Die Aufklärungsdrohne entstand im Sternenflug mit Kaserne 2, gleich alt wie die Kampfdrohne, und sie übertrug, was die Sensorphalanx im Großen tat, auf das Gefechtsfeld: Wer zuerst sieht, schießt besser. Berühmt wurde sie im Dornensommer, als Kael Dornhag eine scheinbar verlassene Veyari-Kolonie mit Aufklärung, Minenfeldern aus Raketenwerfern und einem einzigen gut getimten Gegenschlag gegen einen plündernden Krath-Clan hielt. Seither halten die Krath die Veyari nicht mehr für weich, und jede Kaserne der Weite bildet ihre Truppen darauf aus, die feindlichen Augen zuerst zu blenden. Die Sturminfanterie mit ihrem Störer war ohnehin älter als sie, und mit Kaserne 4 rückte der Flugabwehrpanzer heran, der ihre Schwärme dreifach trifft.
+Die Aufklärungsdrohne entstand in der Orbitzeit mit Kaserne 2, gleich alt wie die Kampfdrohne, und sie übertrug, was die Sensorphalanx im Großen tat, auf das Gefechtsfeld: Wer zuerst sieht, schießt besser. Berühmt wurde sie erst im Sternenflug, im Dornensommer, als Kael Dornhag eine scheinbar verlassene Veyari-Kolonie mit Aufklärung, Minenfeldern aus Raketenwerfern und einem einzigen gut getimten Gegenschlag gegen einen plündernden Krath-Clan hielt. Seither halten die Krath die Veyari nicht mehr für weich, und jede Kaserne der Weite bildet ihre Truppen darauf aus, die feindlichen Augen zuerst zu blenden. Die Sturminfanterie mit ihrem Störer war ohnehin älter als sie, und im Sternenflug rückte mit Kaserne 4 der Flugabwehrpanzer heran, der ihre Schwärme dreifach trifft.
 
 ##### Volksakten
 
@@ -5997,7 +6011,7 @@ Mit 90 Struktur und ohne Waffe ist sie ein leichtes Ziel, und weil sie ihre Scha
 
 ##### Chronik
 
-Die Reparaturdrohne entstand im Sternenflug mit Kaserne 4, im selben Zeitalter wie der Flugabwehrpanzer, als die ersten Panzerverbände lernten, dass ein angeschlagener Sturmpanzer beim nächsten Treffer bricht, wenn niemand seine Wunden schließt. Sie übertrug die Arbeit der Werkstattkompanien auf eine Drohne, die mitten im Feuer arbeitet, und machte teure Kettenwagen haltbarer, ohne eine einzige Platte dicker zu machen. Ihr wichtigster Kunde kam mit Kaserne 5: Der Schwere Kampfpanzer steht ganz oben auf ihrer Schadensliste, und Veteranen sagen, ein Steinvater ohne Schmiedegeister sei nur ein langsames Ziel. In den zwei Tagen einer Belagerung, in denen Bodenrunde auf Bodenrunde folgt, zählt ihre Arbeit mehr als in jedem kurzen Gefecht, doch ihre Grenze hat sich nie verschoben, denn was einmal zerstört ist, holt keine Drohne zurück.
+Die Reparaturdrohne entstand im Sternenflug mit Kaserne 4, im selben Zeitalter wie der Flugabwehrpanzer, als die ersten Panzerverbände lernten, dass ein angeschlagener Sturmpanzer beim nächsten Treffer bricht, wenn niemand seine Wunden schließt. Sie übertrug die Arbeit der Werkstattkompanien auf eine Drohne, die mitten im Feuer arbeitet, und machte teure Kettenwagen haltbarer, ohne eine einzige Platte dicker zu machen. Ihr wichtigster Kunde kam mit Kaserne 5: Der Schwere Kampfpanzer steht ganz oben auf ihrer Schadensliste, und Veteranen sagen, ein Steinvater ohne Schmiedegeister sei nur ein langsames Ziel. In den Wellen einer Invasion, in denen bis zu sechs Bodenrunden aufeinander folgen und eine Linie nach der anderen gehalten werden muss, zählt ihre Arbeit mehr als in jedem kurzen Gefecht, doch ihre Grenze hat sich nie verschoben, denn was einmal zerstört ist, holt keine Drohne zurück.
 
 ##### Volksakten
 
@@ -6013,46 +6027,46 @@ Die Reparaturdrohne entstand im Sternenflug mit Kaserne 4, im selben Zeitalter w
 
 #### Miliz
 
-*Volksaufgebot (Bürgerwehr aller Bewohner) · Alle Bewohner eines belagerten Planeten, mit Waffen und Schutzwesten aus den Zeughäusern ausgerüstet.*
+*Volksaufgebot (Bürgerwehr der Bewohner) · Der kampffähige Teil der Bewohner eines Planeten, mit Waffen und Schutzwesten aus den Zeughäusern ausgerüstet und auf die Verteidigungslinien verteilt.*
 
-**Wozu.** Sie verteidigt einen Planeten während der 48-stündigen Belagerung, solange keine Garnison oder Verbündete mehr am Boden stehen, und macht kleine Invasionen verlustreich oder aussichtslos.
+**Wozu.** Sie verstärkt Garnison und Rückhalt gegen die Angriffswellen einer Invasion, lässt sich schon vorbeugend ausrufen und macht kleine Invasionen verlustreich oder aussichtslos.
 
-**Stärke.** Freigeschaltet mit Kaserne Stufe 1, ruft miliz_ausrufen während einer Belagerung sofort alle Bewohner auf: jeder erhält Waffenwert 0,3 und Rüstwert 5; 1000 Bewohner mit 10 Soldaten halten 50 Sturminfanterie sechs statt einer Bodenrunde auf und schlagen 30 Sturminfanterie ganz zurück.
+**Stärke.** Freigeschaltet mit Kaserne Stufe 1 und Soziologie 2, ruft miliz_ausrufen jederzeit den kampffähigen Anteil der Bewohner auf (Krath 100, Veyari 90, Syntheten 80, Aurelianer 70 Prozent), der in fünf Spielminuten je 1.000 Milizionäre ausgebildet ist; jeder erhält Waffenwert 0,3 und Rüstwert 5, und der Verteidiger teilt das Aufgebot frei auf die Linien auf.
 
-**Grenzen.** Ein Milizionär hat nur 3 Prozent der Waffen- und 10 Prozent der Rüstwerte einer Sturminfanterie, Sturmpanzer, Schwere Infanterie und Schwere Kampfpanzer treffen sie doppelt, Präzisionsinfanterie dreifach; sie kostet 1 Legierung je Bewohner, die Hälfte der Bewohner fehlt im Dienst in Produktion und Forschung, und nach 30 Prozent Gefallenen kapituliert sie.
+**Grenzen.** Ein Milizionär hat nur 3 Prozent der Waffen- und 10 Prozent der Rüstwerte einer Sturminfanterie, Sturmpanzer, Schwere Infanterie und Schwere Kampfpanzer treffen sie doppelt, Präzisionsinfanterie dreifach; sie kostet 1 Legierung je Milizionär, die Hälfte des Aufgebots fehlt in Produktion und Forschung, während einer Invasion lässt sie sich nicht entlassen, und nach 30 Prozent Gefallenen kapituliert sie.
 
-> Wenn die Landungsschiffe aufsetzen, legen Bergleute, Bauern und Lagerarbeiter ihre Werkzeuge ab und greifen zu dem, was die Zeughäuser hergeben. Sie kämpfen in Schichten, die Hälfte an den Barrikaden, die andere an den Maschinen, und wenn drei von zehn gefallen sind, hissen sie die weiße Fahne, damit die Überlebenden ihre Welt weiter bewohnen.
+> Wenn die Landungsschiffe aufsetzen, legen Bergleute, Bauern und Lagerarbeiter ihre Werkzeuge ab und greifen zu dem, was die Zeughäuser hergeben. Sie kämpfen in Schichten, die Hälfte in den Gräben der Verteidigungslinien, die andere an den Maschinen, und wenn drei von zehn gefallen sind, hissen sie die weiße Fahne, damit die Überlebenden ihre Welt weiter bewohnen.
 
-- **Aurelianer:** Aurelianische Milizen heißen Kontorwehr und sind nach Zunft und Kontor gegliedert, sodass mancher Lagerverwalter im Ernstfall die eigenen Packer kommandiert. Jedes ausgegebene Gewehr wird quittiert und nach der Belagerung wieder verbucht.
-- **Krath:** Bei einer Krath-Miliz gibt es keine ungeübten Bürger, nur Krieger, die gerade etwas anderes gearbeitet haben. Wer sich dem Hammeraufgebot verweigert, verliert das Recht, beim Clanfest zu sprechen.
-- **Syntheten:** Synthetische Milizen bestehen aus Wartungs- und Arbeitseinheiten, die für die Dauer der Belagerung ihre ruhenden Kampfroutinen laden. Die Kapitulationsgrenze gilt dem Kollektiv nicht als Niederlage, sondern als Rettung aller Kerne, die danach noch rechnen.
+- **Aurelianer:** Aurelianische Milizen heißen Kontorwehr und sind nach Zunft und Kontor gegliedert, sodass mancher Lagerverwalter im Ernstfall die eigenen Packer kommandiert. Sieben von zehn Bürgern treten an, und jedes ausgegebene Gewehr wird quittiert und nach der Invasion wieder verbucht.
+- **Krath:** Bei einer Krath-Miliz gibt es keine ungeübten Bürger, nur Krieger, die gerade etwas anderes gearbeitet haben, und ins Hammeraufgebot tritt jeder Bewohner. Wer sich ihm verweigert, verliert das Recht, beim Clanfest zu sprechen.
+- **Syntheten:** Synthetische Milizen bestehen aus Wartungs- und Arbeitseinheiten, die für die Dauer einer Invasion ihre ruhenden Kampfroutinen laden, und acht von zehn Einheiten tragen eine solche Routine. Die Kapitulationsgrenze gilt dem Kollektiv nicht als Niederlage, sondern als Rettung aller Kerne, die danach noch rechnen.
 - **Veyari:** Veyari-Gärtner verteidigen ihre Welt als Heckenwehr mit genauer Kenntnis jedes Grabens und jeder Hecke, und Angreifer verirren sich gern in ihren Feldern. Nach dem Abzug pflanzen sie dort neu, wo gekämpft wurde.
 
 ##### Technisches Dossier
 
-Die Miliz ist keine ausgebildete Truppe, sondern ein Volksaufgebot: Ruft ein belagerter Planet sie aus, gehen alle Bewohner zu den Zeughäusern und erhalten eine Schutzweste aus Legierungsblech und ein einfaches Gewehr, für jeden Bewohner 1 Legierung, die nach der Belagerung nicht zurückkommt. Freigeschaltet wird sie mit der ersten Stufe der Kaserne, denn erst deren Zeughaus lagert Waffen für eine ganze Bevölkerung, und ausrufen lässt sie sich nur während einer laufenden Belagerung. Jeder Milizionär trägt einen Waffenwert von 0,3 und einen Rüstwert von 5, nur 3 Prozent der Feuerkraft und 10 Prozent der Rüstung einer Sturminfanterie, weil eine Blechweste keine Splitterweste und ein Zeughausgewehr kein Sturmgewehr ist.
+Die Miliz ist keine ausgebildete Truppe, sondern ein Volksaufgebot: Ruft ein Planet sie aus, gehen die kampffähigen Bewohner zu den Zeughäusern und erhalten eine Schutzweste aus Legierungsblech und ein einfaches Gewehr, für jeden Milizionär 1 Legierung, die nicht zurückkommt. Freigeschaltet wird sie mit der ersten Stufe der Kaserne, deren Zeughaus die Waffen lagert, und mit Soziologie 2, denn ohne Melderegister und Schichtpläne lässt sich keine Bevölkerung geordnet aufbieten. Wie groß das Aufgebot ist, hängt vom Volk ab: Bei den Krath tritt jeder Bewohner an, bei den Veyari treten neun von zehn an, bei den Syntheten acht und bei den Aurelianern sieben, und gemischte Kolonien rechnen jede Volksgruppe für sich.
 
-Gerade ihre Masse macht sie wirksam: Eine Kolonie mit 1.000 Bewohnern und 10 ausgebildeten Soldaten hält mit ausgerufener Miliz 50 Sturminfanteristen sechs statt einer Bodenrunde auf und schlägt 30 ganz zurück. Ihr Preis ist die Arbeit, denn die Hälfte der Bewohner steht jeweils im Dienst und fehlt an Maschinen und in Laboren, und ihre Gefallenen sind keine Truppen, sondern tote Bewohner. Sturmpanzer, Schwere Infanterie und Schwere Kampfpanzer treffen sie doppelt, Präzisionsinfanterie dreifach, denn Splitter und gezielte Schüsse finden an ihr keinen Widerstand.
+Ausrufen lässt sie sich jederzeit, auch vorbeugend vor einer Landung, die Ausbildung dauert fünf Spielminuten je 1.000 Milizionäre, in denen ihre Kampfkraft anteilig wächst, und entlassen wird sie nur außerhalb einer Invasion. Jeder Milizionär trägt einen Waffenwert von 0,3 und einen Rüstwert von 5, nur 3 Prozent der Feuerkraft und 10 Prozent der Rüstung einer Sturminfanterie, weil eine Blechweste keine Splitterweste und ein Zeughausgewehr kein Sturmgewehr ist. Gerade ihre Masse macht sie wirksam, denn der Verteidiger teilt sie wie die Garnison frei auf die vier Verteidigungslinien auf, und wen er keiner Linie zuweist, der steht im Rückhalt, den eine Welle als letzten erreicht.
 
-Nach 30 Prozent Gefallenen kapituliert das Aufgebot, damit die Überlebenden ihre Welt weiter bewohnen können, und ohne ausgerufene Miliz leisten unbewaffnete Bewohner gegen ausgebildete Bodentruppen keinen Widerstand.
+Ihr Preis ist die Arbeit, denn die Hälfte des Aufgebots steht jeweils im Dienst und fehlt an Maschinen und in Laboren, und ihre Gefallenen sind keine Truppen, sondern tote Bewohner. Sturmpanzer, Schwere Infanterie und Schwere Kampfpanzer treffen sie doppelt, Präzisionsinfanterie dreifach, denn Splitter und gezielte Schüsse finden an ihr keinen Widerstand. Nach 30 Prozent Gefallenen kapituliert das Aufgebot, die Überlebenden bleiben Bevölkerung ihrer Welt, und ohne ausgerufene Miliz leisten unbewaffnete Bewohner gegen ausgebildete Bodentruppen keinen Widerstand.
 
 ##### Chronik
 
-Die Miliz ist so alt wie die Kaserne: Bevor das erste Zeughaus im Zeitalter des Sternenflugs Waffen für eine ganze Bevölkerung lagerte, hatten die Gründungen nur Bausätze und Werkzeug, und niemand hätte einen Siedler gegen ausgebildete Truppen schicken wollen. Wirklich gebraucht wurde sie erst in den Bomberjahren, als Bomber die ersten Welten bis zur Dreißig-Grenze brachen, Truppentransporter landeten und eine Kolonie zwei Tage Belagerung überstehen musste, bis Nachschub oder Verbündete kamen. Seitdem fürchtet jede Miliz den Sturmpanzer und die Präzisionsinfanterie, die ihre Linien zerreißen, und jede Garnison rechnet sie als letzten Ring der Verteidigung mit. Ihre Kapitulationsgrenze von 30 Prozent folgt derselben Überlegung wie die Dreißig-Grenze der Bomber, denn wer eine Welt erobern will, braucht sie bewohnt, und darum hat sie bis heute kein Volk angefochten.
+Die Miliz ist so alt wie die Kaserne: Bevor das erste Zeughaus in der Orbitzeit Waffen für eine ganze Bevölkerung lagerte, hatten die Gründungen nur Bausätze und Werkzeug, und niemand hätte einen Siedler gegen ausgebildete Truppen schicken wollen. Wirklich gebraucht wurde sie erst in den Bomberjahren, als Bomber die ersten Welten bis zur Dreißig-Grenze brachen, Truppentransporter landeten und eine Kolonie Welle um Welle, alle zwölf Stunden eine, ihre Verteidigungslinien halten musste, bis Nachschub oder Verbündete im Rückhalt standen. Seitdem fürchtet jede Miliz den Sturmpanzer und die Präzisionsinfanterie, die ihre Linien zerreißen, jede Garnison rechnet sie als letzte Reserve des Rückhalts mit, und manche Grenzwelt ruft ihr Aufgebot schon aus, wenn fremde Bomber erst am Rand ihres Systems auftauchen. Ihre Kapitulationsgrenze von 30 Prozent folgt derselben Überlegung wie die Dreißig-Grenze der Bomber, denn wer eine Welt erobern will, braucht sie bewohnt, und darum hat sie bis heute kein Volk angefochten.
 
 ##### Volksakten
 
-**Aurelianer-Akte.** Aurelianische Milizen heißen Kontorwehr und sind nach Zunft und Kontor gegliedert, sodass mancher Lagerverwalter im Ernstfall die eigenen Packer kommandiert und eine Gießereischicht als Kompanie in den Graben geht. Die Zeughäuser der Handelshäuser geben Waffen nur gegen Unterschrift aus, und nach der Belagerung wird jedes Gewehr wieder eingesammelt und verbucht, die Legierung der Ausrüstung aber trägt das Kontor, nicht der Bürger. Die Schichtpläne schreibt das Kontor so, dass immer die Hälfte an den Maschinen bleibt, und Haus Solden verbucht den Ausfall als Versicherungsfall bei Haus Quirin.
+**Aurelianer-Akte.** Aurelianische Milizen heißen Kontorwehr und sind nach Zunft und Kontor gegliedert, sodass mancher Lagerverwalter im Ernstfall die eigenen Packer kommandiert und eine Gießereischicht als Kompanie in den Graben geht. Nur sieben von zehn Bürgern treten an, weil Schreibstuben, Hafenämter und Kontore auch unter Beschuss weiterlaufen müssen, und die Zeughäuser der Handelshäuser geben Waffen nur gegen Unterschrift aus, sammeln jedes Gewehr nach der Invasion wieder ein und verbuchen die Legierung der Ausrüstung beim Kontor, nicht beim Bürger. Die Schichtpläne schreibt das Kontor so, dass immer die Hälfte des Aufgebots an den Maschinen bleibt, und Haus Solden verbucht den Ausfall als Versicherungsfall bei Haus Quirin.
 
-Die Lagerverwalterin Fiora Amsel führte ihre Packer durch eine ganze Belagerung und reichte danach eine Inventurliste ein, auf der zwei Gewehre fehlten und kein einziger Name. Wer in der Kontorwehr gedient hat, erhält ein Ehrensiegel für sein Kontorschild, das auf aurelianischen Märkten als Ausweis von Verlässlichkeit gilt.
+Die Lagerverwalterin Fiora Amsel hielt mit ihren Packern eine Verteidigungslinie durch drei Angriffswellen und reichte danach eine Inventurliste ein, auf der zwei Gewehre fehlten und kein einziger Name. Wer in der Kontorwehr gedient hat, erhält ein Ehrensiegel für sein Kontorschild, das auf aurelianischen Märkten als Ausweis von Verlässlichkeit gilt.
 
-**Krath-Akte.** Bei einer Krath-Miliz gibt es keine ungeübten Bürger, nur Krieger, die gerade etwas anderes gearbeitet haben, und das Aufgebot heißt bei ihnen Hammeraufgebot. Wenn die Landungsschiffe aufsetzen, hängen Schmiede und Erzschürfer ihre Werkzeuge an die Wand und holen die Gewehre aus dem Zeughaus des Clans, und Jungkrath nach ihrem Stollenjahr laufen als Erste zu den Barrikaden. Das Messblatt sagt über eine Krath-Miliz nichts anderes als über jede andere, aber die Clans erzählen, eine Welt mit Hammeraufgebot habe noch nie leicht gefallen.
+**Krath-Akte.** Bei einer Krath-Miliz gibt es keine ungeübten Bürger, nur Krieger, die gerade etwas anderes gearbeitet haben, und das Aufgebot heißt bei ihnen Hammeraufgebot. Wenn die Landungsschiffe aufsetzen, hängen Schmiede und Erzschürfer ihre Werkzeuge an die Wand und holen die Gewehre aus dem Zeughaus des Clans, und Jungkrath nach ihrem Stollenjahr laufen als Erste zu den Barrikaden. Das Messblatt gibt einem Krath-Milizionär keinen besseren Waffenwert als jedem anderen, doch ein Hammeraufgebot ist vollzählig, weil jeder Bewohner antritt, und die Clans erzählen, eine Welt mit Hammeraufgebot habe noch nie leicht gefallen.
 
-Dass auch ein Hammeraufgebot nach drei Gefallenen von zehn die Waffen streckt, ist für die Krath keine Schande, denn ein Clan, der seine Schmiede verliert, hat niemanden mehr, der neue Waffen schlägt. Die alte Schmiedin Grenna Groth hat drei Belagerungen in derselben Schürze überstanden und weigert sich, sie zu waschen.
+Dass auch ein Hammeraufgebot nach drei Gefallenen von zehn die Waffen streckt, ist für die Krath keine Schande, denn ein Clan, der seine Schmiede verliert, hat niemanden mehr, der neue Waffen schlägt. Die alte Schmiedin Grenna Groth hat drei Invasionen in derselben Schürze überstanden und weigert sich, sie zu waschen.
 
-**Syntheten-Akte.** Die synthetische Miliz besteht aus Wartungs- und Arbeitseinheiten, die für die Dauer der Belagerung ein Reserveprotokoll mit Kampfroutinen laden, das jede Einheit seit ihrer Kernprägung ruhend mitführt. Das Kollektiv teilt die Schichten auf die Mikrosekunde genau, sodass immer die Hälfte an den Fertigungsstraßen bleibt, und weil Syntheten keine Nahrung, wohl aber Strom brauchen, gehen zuerst die Wartungseinheiten der Kraftwerke zurück an ihre Plätze. Weil jede Einheit ein Selbst mit langer Prägung ist, gilt dem Kollektiv ein gefallener Milizionär als schwerer Verlust, und die Kapitulationsgrenze ist für Syntheten die vernünftigste Zeile des ganzen Aufgebots. Die Wartungseinheit Muffe hat nach einer Belagerung protokolliert, das Laden der Kampfroutine habe sich angefühlt wie das Tragen eines fremden Werkzeugs und das Löschen danach wie ein Aufatmen.
+**Syntheten-Akte.** Die synthetische Miliz besteht aus Wartungs- und Arbeitseinheiten, die für die Dauer einer Invasion ein Reserveprotokoll mit Kampfroutinen laden, das acht von zehn Einheiten seit ihrer Kernprägung ruhend mitführen, während Leitrechner und Netzknoten ohne dieses Protokoll an ihren Plätzen bleiben. Das Kollektiv teilt die Schichten auf die Mikrosekunde genau, sodass immer die Hälfte des Aufgebots an den Fertigungsstraßen bleibt, und weil Syntheten keine Nahrung, wohl aber Strom brauchen, gehen zuerst die Wartungseinheiten der Kraftwerke zurück an ihre Plätze. Weil jede Einheit ein Selbst mit langer Prägung ist, gilt dem Kollektiv ein gefallener Milizionär als schwerer Verlust, und die Kapitulationsgrenze ist für Syntheten die vernünftigste Zeile des ganzen Aufgebots. Die Wartungseinheit Muffe hat nach einer Invasion protokolliert, das Laden der Kampfroutine habe sich angefühlt wie das Tragen eines fremden Werkzeugs und das Löschen danach wie ein Aufatmen.
 
-**Veyari-Akte.** Die Veyari nennen ihre Miliz Heckenwehr, und sie besteht aus Gärtnern, Pflückern und Feldarbeitern, die ihre Welt mit genauer Kenntnis jedes Grabens und jeder Hecke verteidigen. Ihre Waffen sind schlicht, aber sie wissen, welcher Pfad im Morgennebel versinkt und welche Wiese ein Moor verbirgt, und Angreifer verirren sich gern in ihren Feldern. Weil das Wachstum der Veyari ihre Kolonien rasch füllt, ist eine Heckenwehr oft größer, als ein Invasor erwartet, und die Veyari sagen, jedes Kind am Tisch sei ein Grund mehr, die Hecke zu halten.
+**Veyari-Akte.** Die Veyari nennen ihre Miliz Heckenwehr, und sie besteht aus Gärtnern, Pflückern und Feldarbeitern, die ihre Welt mit genauer Kenntnis jedes Grabens und jeder Hecke verteidigen. Ihre Waffen sind schlicht, aber sie wissen, welcher Pfad im Morgennebel versinkt und welche Wiese ein Moor verbirgt, und Angreifer verirren sich gern in ihren Feldern. Weil das Wachstum der Veyari ihre Kolonien rasch füllt, ist eine Heckenwehr oft größer, als ein Invasor erwartet, denn neun von zehn Veyari treten an, und sie sagen, jedes Kind am Tisch sei ein Grund mehr, die Hecke zu halten.
 
 Die Feldmeisterin Wenna Distelhain führte im Dornensommer die Bauern, die den plündernden Clan in die Moore lockten. Nach dem Abzug der Invasoren gehen sie gemeinsam über die Felder und pflanzen dort neu, wo gekämpft wurde.
 
@@ -6062,46 +6076,46 @@ Die Feldmeisterin Wenna Distelhain führte im Dornensommer die Bauern, die den p
 
 *Planetare Bodenverteidigung (Gesamtstärke) · Die gesamte Bodenverteidigung eines Planeten aus stationierten Bodentruppen, verbündeten Hilfstruppen und ausgerufener Miliz.*
 
-**Wozu.** Sie entscheidet die Belagerung: nach Bombardierung auf 30 Prozent Integrität und Landung übernimmt der Angreifer frühestens nach 48 Spielstunden und nur, wenn kein Bodenverteidiger mehr lebt.
+**Wozu.** Sie entscheidet die Invasion: Nach Bombardierung auf 30 Prozent Integrität und Landung verteilt der Verteidiger sie auf vier Verteidigungslinien, deren aktuelle alle 12 Spielstunden eine Angriffswelle trifft, und erst wenn der Rückhalt als letzte Linie fällt, ist der Planet verwüstet.
 
-**Stärke.** Bodenrunden alle 15 Spielminuten mit gleichzeitigem Feuer und Konterfaktoren; eigene Bodentruppen landen während der Belagerung trotz Blockade, Verbündete verstärken mit eigenen Truppen, die ihr Eigentum bleiben und danach heimkehren.
+**Stärke.** Jede Welle kämpft höchstens sechs Bodenrunden im Abstand von 15 Spielminuten mit gleichzeitigem Feuer und Konterfaktoren; eigener Nachschub landet trotz Blockade im Rückhalt, verbündete Bodenhilfe verteidigt dort mit Truppen, die ihr Eigentum bleiben, und die Kaserne bildet während der Invasion mit halbem Tempo weiter aus.
 
-**Grenzen.** Sie schützt nur am Boden, wehrt keine Flotte, kein Bombardement und keine Blockade ab, und der ursprüngliche Heimatplanet kann ohnehin nicht erobert werden.
+**Grenzen.** Sie schützt nur am Boden, wehrt keine Flotte, kein Bombardement und keine Blockade ab, eine leere Linie fällt kampflos, und der ursprüngliche Heimatplanet kann ohnehin nicht erobert werden.
 
-> Die Garnison ist kein einzelnes Regiment, sondern alles, was ein Planet am Boden aufbieten kann, von Panzern in Bereitschaft über die Truppen der Verbündeten bis zu Bürgern mit ausgegebenen Gewehren. Zwei Tage hat ein belagerter Planet, um sie zu stärken, und manche Invasion endete in den Gräben vor der Hauptstadt.
+> Die Garnison ist kein einzelnes Regiment, sondern alles, was ein Planet am Boden aufbieten kann, von Panzern in Bereitschaft über die Truppen der Verbündeten bis zu Bürgern mit ausgegebenen Gewehren. Zwölf Stunden liegen zwischen zwei Angriffswellen, um sie neu auf die Linien zu verteilen, und manche Invasion endete am Rückhalt vor der Hauptstadt.
 
 - **Aurelianer:** Aurelianische Garnisonen stehen unter Garnisonsvertrag und wissen genau, was ihnen eine gehaltene Welt einbringt. Ihre Gouverneure lassen die Stärke der Garnison öffentlich aushängen, denn die beste Garnison ist die, die nie kämpfen muss.
-- **Krath:** Die Krath messen den Rang eines Gouverneurs an der Stärke seiner Bannerwacht, nicht an seinen Minen. Kommt ein befreundeter Clan zu Hilfe, landet er unter eigenem Banner und fliegt mit seinen Überlebenden wieder heim.
+- **Krath:** Die Krath messen den Rang eines Gouverneurs an der Stärke seiner Bannerwacht, nicht an seinen Minen. Kommt ein befreundeter Clan zu Hilfe, steht er unter eigenem Banner im Rückhalt und nimmt seine Überlebenden wieder mit heim.
 - **Syntheten:** Synthetische Garnisonen werden als Gesamtwert geführt und täglich gegen die zu erwartende Invasionsstärke neu berechnet. Eine gefallene Garnison gilt als Rechenfehler, der sich nicht wiederholen darf.
 - **Veyari:** Veyari-Garnisonen leben verstreut in Waldlagern und sammeln sich erst, wenn die Landungsschiffe aufsetzen. Sie stellen sich dort, wo das Gelände ihnen hilft, nicht dort, wo der Gegner sie erwartet.
 
 ##### Technisches Dossier
 
-Die Garnison ist keine Einheit, sondern die gesamte Bodenverteidigung eines Planeten: alle dort stationierten Bodentruppen aus der Kaserne, die Hilfstruppen von Verbündeten und, wenn sie ausgerufen ist, die Miliz der Bewohner. Ihr Gefecht beginnt erst, wenn der Angreifer den Orbit hält, die Gebäude auf 30 Prozent Integrität bombardiert hat und seine Truppentransporter mit je 100 Truppenplätzen gelandet sind. Dann läuft die Belagerung 48 Spielstunden lang, und alle 15 Spielminuten folgt eine Bodenrunde mit gleichzeitigem Feuer, in der jede Truppengattung ihre Zielart nach den Konterfaktoren wählt und Schäden, die eine Einheit nicht zerstören, bis zur nächsten Runde bleiben.
+Die Garnison ist keine Einheit, sondern die gesamte Bodenverteidigung eines Planeten: alle dort stationierten Bodentruppen aus der Kaserne, die Hilfstruppen von Verbündeten und, wenn sie ausgerufen ist, die Miliz der Bewohner. Ihr Gefecht beginnt erst, wenn der Angreifer den Orbit hält, die Gebäude auf 30 Prozent Integrität bombardiert hat und seine Truppentransporter mit je 100 Truppenplätzen gelandet sind, denn ein Kolonieschiff braucht er erst für die Übernahme. Dann zählt der Planet vier Verteidigungslinien, deren letzte der Rückhalt ist, und der Verteidiger verteilt Garnison und Miliz frei nach Typ und Zahl auf sie, wobei alles, was er keiner Linie zuweist, im Rückhalt steht.
 
-Übernommen wird der Planet frühestens nach Ablauf dieser Frist und nur, wenn kein Bodenverteidiger mehr lebt, und die Bevölkerung bleibt dabei auf ihrer Welt. Während der Belagerung landen eigene Bodentruppen trotz Blockade als Nachschub, und Verbündete verstärken mit eigenen Truppen, die ihr Eigentum bleiben und nach dem Ende der Belagerung mit den Überlebenden heimkehren. Die Garnison schützt nur am Boden: Gegen Flotten, Bombardement und Blockade hilft sie nichts, und eine Welt kann ihre Garnison behalten und trotzdem bis auf die Dreißig-Grenze zerbombt werden.
+Alle 12 Spielstunden greift eine Welle die aktuelle Linie an, die erste zwölf Stunden nach der Landung, und sie kämpft höchstens sechs Bodenrunden im Abstand von 15 Spielminuten mit gleichzeitigem Feuer, in denen jede Truppengattung ihre Zielart nach den Konterfaktoren wählt und Schäden, die eine Einheit nicht zerstören, bis zur nächsten Runde bleiben. Fallen alle Angreifer, ist die Invasion abgewehrt, bricht die Linie, trifft die nächste Welle die nächste Linie, und eine leere Linie fällt kampflos. Eigener Nachschub landet trotz Blockade und stellt sich in den Rückhalt, ebenso alles, was die Kaserne während der Invasion mit halbem Tempo neu ausbildet, und verbündete Bodenhilfe verteidigt dort mit Truppen, die Eigentum ihres Absenders bleiben.
 
-Der ursprüngliche Heimatplanet einer Gründung ist nie einnehmbar, wie stark seine Garnison auch sei.
+Bricht der Rückhalt, ist der Planet verwüstet: Der Besitzer verliert die Kontrolle, die Besatzungstruppen halten den Boden, und ein Kolonieschiff der Besatzer übernimmt die Welt, sobald ein Kolonieplatz frei ist, wobei die Bevölkerung bleibt. Landen vorher neue Verteidiger, steht der Rückhalt wieder, doch gegen Flotten, Bombardement und Blockade hilft die Garnison nichts, und der ursprüngliche Heimatplanet einer Gründung ist nie einnehmbar, wie stark seine Garnison auch sei.
 
 ##### Chronik
 
-Eine Garnison im heutigen Sinn gibt es seit der ersten Kaserne im Zeitalter des Sternenflugs, als Sturminfanterie, Schwere Infanterie und die ersten Drohnen die jungen Kolonien am Boden bewachten, ohne dass irgendein Volk schon eine fremde Welt für eine Landung brechen konnte. Auf die Probe gestellt wurde sie erst in den Bomberjahren, als Bomber die ersten Welten bis zur Dreißig-Grenze brachen, Truppentransporter landeten und Gouverneure lernten, dass eine Belagerung zwei Tage dauert und in dieser Zeit jeder Nachschub und jeder Verbündete zählt. Mit der Hilfe verbündeter Truppen lernten die Völker, dass eine Garnison nicht nur aus eigenen Kämpfern besteht, denn Verbündete landen während der Belagerung, kämpfen mit und fliegen danach mit ihren Überlebenden heim. Mit der Miliz als letztem Ring und den zwölf Truppentypen der Kaserne wurde die Garnison zur wichtigsten Zeile jedes Spionageberichts, und keine Heimatwelt ist in der Chronik je gefallen.
+Eine Garnison im heutigen Sinn gibt es seit der ersten Kaserne der Orbitzeit, als Sturminfanterie, Schwere Infanterie und die ersten Drohnen die jungen Kolonien am Boden bewachten, ohne dass irgendein Volk schon eine fremde Welt für eine Landung brechen konnte. Auf die Probe gestellt wurde sie erst in den Bomberjahren, als Bomber die ersten Welten bis zur Dreißig-Grenze brachen, Truppentransporter landeten und Gouverneure lernten, dass zwischen zwei Angriffswellen zwölf Stunden liegen und in dieser Zeit jede Umverteilung, jeder Nachschub und jeder Verbündete zählt. Mit der Hilfe verbündeter Truppen lernten die Völker, dass eine Garnison nicht nur aus eigenen Kämpfern besteht, denn verbündete Bodenhilfe landet mitten in einer Invasion, steht im Rückhalt und bleibt doch Eigentum ihres Reichs. Mit der Miliz als letzter Reserve und den zwölf Truppentypen der Kaserne wurde die Garnison zur wichtigsten Zeile jedes Spionageberichts, und keine Heimatwelt ist in der Chronik je gefallen.
 
 ##### Volksakten
 
-**Aurelianer-Akte.** Aurelianische Garnisonen stehen unter Garnisonsvertrag, einem Soldbrief für eine ganze Welt, den Haus Brann mit dem Gouverneur schließt und Haus Quirin versichert. Ihre Gouverneure lassen die Stärke der Garnison am Hafentor öffentlich aushängen, denn eine sichtbare Verteidigung schreckt Invasoren ab, bevor sie einen Truppentransporter beladen. Jeder Garnisonsvertrag enthält eine Beistandsklausel, nach der verbündete Häuser während einer Belagerung Kontraktkompanien schicken, die Eigentum ihres Hauses bleiben und nach der Belagerung mit Rechnung heimfliegen.
+**Aurelianer-Akte.** Aurelianische Garnisonen stehen unter Garnisonsvertrag, einem Soldbrief für eine ganze Welt, den Haus Brann mit dem Gouverneur schließt und Haus Quirin versichert. Ihre Gouverneure lassen die Stärke der Garnison am Hafentor öffentlich aushängen, denn eine sichtbare Verteidigung schreckt Invasoren ab, bevor sie einen Truppentransporter beladen. Jeder Garnisonsvertrag enthält eine Beistandsklausel, nach der verbündete Häuser während einer Invasion Kontraktkompanien in den Rückhalt schicken, die Eigentum ihres Hauses bleiben und nach der letzten Welle mit Rechnung heimfliegen.
 
 Gouverneurin Serafina Lazar hat ihre Kolonie eine ganze Epoche lang gehalten, ohne dass je ein Schuss am Boden fiel, und sie sagt, sie habe in dieser Zeit mehr fremde Spionagesonden gezählt als Söldner bezahlt. Für ein Händlervolk ist die beste Garnison die, die nie kämpfen muss, und die teuerste die, die zu klein war.
 
-**Krath-Akte.** Die Krath nennen ihre Garnison Bannerwacht, und sie messen den Rang eines Gouverneurs an ihrer Stärke, nicht an seinen Minen. Jeder Krieger, der in der Kaserne ausgebildet wird, legt einen Eid vor dem Banner des Planeten ab, und ein Gouverneur kennt die Zahl seiner Kämpfer auswendig. Weil der Bodenkrieg Clansache ist, gehört die Bannerwacht dem Clan, der die Welt hält, und wenn ein befreundeter Clan in einer Belagerung zu Hilfe kommt, landet er unter eigenem Banner, kämpft für das gegebene Wort und fliegt mit seinen Überlebenden wieder heim.
+**Krath-Akte.** Die Krath nennen ihre Garnison Bannerwacht, und sie messen den Rang eines Gouverneurs an ihrer Stärke, nicht an seinen Minen. Jeder Krieger, der in der Kaserne ausgebildet wird, legt einen Eid vor dem Banner des Planeten ab, und ein Gouverneur kennt die Zahl seiner Kämpfer auswendig. Weil der Bodenkrieg Clansache ist, gehört die Bannerwacht dem Clan, der die Welt hält, und wenn ein befreundeter Clan in einer Invasion zu Hilfe kommt, steht er unter eigenem Banner im Rückhalt, kämpft für das gegebene Wort und nimmt seine Überlebenden wieder mit heim.
 
-Fällt eine Welt einem Invasor in die Hände, bringt das Schande über den ganzen Clan. Auf der Welt, auf der eine Gründung ihren Ersten Funken schlug, hat noch nie ein Fremder als Herr gestanden, und der uralte Grothak sagt, dort kämpfe jeder Stein mit.
+Bricht der Rückhalt und fällt eine Welt einem Invasor in die Hände, bringt das Schande über den ganzen Clan. Auf der Welt, auf der eine Gründung ihren Ersten Funken schlug, hat noch nie ein Fremder als Herr gestanden, und der uralte Grothak sagt, dort kämpfe jeder Stein mit.
 
-**Syntheten-Akte.** Synthetische Garnisonen werden als Gesamtwert geführt und täglich gegen die zu erwartende Invasionsstärke neu berechnet, und jede neu ausgebildete Einheit verschiebt diesen Wert. Die Einheit Ordo, die auf mehreren Welten Garnisonen führte, hängte in jede Kaserne eine Tafel mit drei Zahlen: der eigenen Bodenstärke, der größten beobachteten Landungsflotte und den Stunden, die eine Belagerung noch dauert. Sie protokollierte, eine Welt sei sicher, solange noch ein einziger Verteidiger lebt, und das Kollektiv hält diese Zeile für die kürzeste Verteidigungslehre der Weite.
+**Syntheten-Akte.** Synthetische Garnisonen werden als Gesamtwert geführt und täglich gegen die zu erwartende Invasionsstärke neu berechnet, und jede neu ausgebildete Einheit verschiebt diesen Wert. Die Einheit Ordo, die auf mehreren Welten Garnisonen führte, hängte in jede Kaserne eine Tafel mit drei Zahlen: der eigenen Bodenstärke, der größten beobachteten Landungsflotte und den Stunden bis zur nächsten Welle. Sie protokollierte, eine Welt sei sicher, solange im Rückhalt noch ein einziger Verteidiger steht, und das Kollektiv hält diese Zeile für die kürzeste Verteidigungslehre der Weite.
 
-Darum rechnen Syntheten ihre Garnisonen nicht auf den Sieg, sondern auf das Überleben, und verteilen sie so, dass kein einzelner Treffer die letzte Einheit nimmt. Eine gefallene Garnison gilt ihnen nicht als Unglück, sondern als Rechenfehler, der sich nicht wiederholen darf.
+Darum rechnen Syntheten ihre Garnisonen nicht auf den Sieg, sondern auf das Überleben, und verteilen sie so auf die Linien, dass keine Welle den Rückhalt leer findet. Eine gefallene Garnison gilt ihnen nicht als Unglück, sondern als Rechenfehler, der sich nicht wiederholen darf.
 
-**Veyari-Akte.** Veyari-Garnisonen leben verstreut in Waldlagern unter lebendem Dach und sammeln sich erst, wenn die Landungsschiffe aufsetzen. Sie kennen jeden Hain und jede Lichtung ihrer Welt und stellen sich Invasoren dort, wo das Gelände ihnen hilft, statt ihnen offen entgegenzutreten, denn übernommen wird eine Welt erst, wenn keiner ihrer Verteidiger mehr steht. Kael Dornhag hat diese Lehre im Dornensommer geschrieben, als ein Krath-Clan eine scheinbar leere Kolonie fand und erst beim Gegenschlag merkte, wie viele Waldlager sie hatte. Die Veyari sagen seither, eine Welt werde nicht von Mauern verteidigt, sondern von denen, die in ihren Gärten leben.
+**Veyari-Akte.** Veyari-Garnisonen leben verstreut in Waldlagern unter lebendem Dach und sammeln sich erst, wenn die Landungsschiffe aufsetzen. Sie kennen jeden Hain und jede Lichtung ihrer Welt und stellen sich Invasoren dort, wo das Gelände ihnen hilft, statt ihnen offen entgegenzutreten, denn verwüstet ist eine Welt erst, wenn ihr Rückhalt fällt, und jede Linie davor kostet den Angreifer eine Welle. Kael Dornhag hat diese Lehre im Dornensommer geschrieben, als ein Krath-Clan eine scheinbar leere Kolonie fand und erst beim Gegenschlag merkte, wie viele Waldlager sie hatte. Die Veyari sagen seither, eine Welt werde nicht von Mauern verteidigt, sondern von denen, die in ihren Gärten leben.
 
 **Siehe auch:** [Kaserne](#kaserne) · [Miliz](#miliz) · [Truppentransporter](#truppentransporter) · [Sturminfanterie](#sturminfanterie) · [Bomber](#bomber)
 

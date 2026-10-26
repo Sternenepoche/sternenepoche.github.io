@@ -207,7 +207,7 @@ mark{background:rgba(226,189,98,.35);color:#fff;border-radius:2px}
 .wk-text p{margin:0;color:#c9d6e2;font-size:15px}
 .strahl{display:inline-flex;align-items:center;gap:8px;font:500 12px/1 var(--titel);letter-spacing:.14em;text-transform:uppercase;color:var(--leise)}
 .strahl i{width:40px;height:3px;border-radius:2px;background:var(--farbe);box-shadow:0 0 12px var(--farbe)}
-.wk-ansichten{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--rand);border-top:1px solid var(--rand)}
+.wk-ansichten{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;background:var(--rand);border-top:1px solid var(--rand)}
 .wk-ansichten figure{margin:0;background:#02060c}
 .wk-ansichten img{width:100%;aspect-ratio:1;object-fit:contain}
 .wk-ansichten figcaption{padding:8px 12px;font:500 11.5px/1.3 var(--titel);letter-spacing:.12em;text-transform:uppercase;color:var(--leise)}
@@ -297,7 +297,7 @@ mark{background:rgba(226,189,98,.35);color:#fff;border-radius:2px}
  .kennzahlen{grid-template-columns:repeat(2,minmax(0,1fr))}
  .neu,.neu.breit,.neu.halb{grid-column:1/-1}
  .voelker,.downloads,.wege,.rat-karten{grid-template-columns:minmax(0,1fr)}
- .wk-ansichten{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .wk-ansichten{grid-template-columns:repeat(3,minmax(0,1fr))}.wk-ansichten figcaption{padding:8px 6px;letter-spacing:.03em;font-size:10.5px}
  .fuss-raster{grid-template-columns:minmax(0,1fr)}
  .text h2{font-size:26px}
 }

@@ -102,7 +102,7 @@
 .kino-szenen button{position:relative;display:block;width:100%;padding:0;border:1px solid var(--rand);border-radius:4px;background:#050b15;color:var(--text);cursor:pointer;overflow:hidden;text-align:left;font:inherit;transition:border-color .3s,transform .3s var(--ease)}
 .kino-szenen img{width:100%;aspect-ratio:16/9;object-fit:cover;opacity:.62;transition:opacity .3s}
 .kino-szenen span{position:absolute;left:6px;top:5px;font:600 10px/1 var(--titel);letter-spacing:.08em;color:var(--blau);text-shadow:0 1px 4px #000}
-.kino-szenen b{display:block;padding:6px 7px 7px;font:600 11.5px/1.2 var(--titel);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kino-szenen b{display:block;padding:6px 7px 7px;font:600 11.5px/1.2 var(--titel);letter-spacing:.02em}
 .kino-szenen button:hover,.kino-szenen button:focus-visible{border-color:var(--rand2);transform:translateY(-2px)}
 .kino-szenen button:hover img{opacity:.9}
 .kino-szenen .an button{border-color:var(--gold);box-shadow:0 0 18px rgba(226,189,98,.3)}

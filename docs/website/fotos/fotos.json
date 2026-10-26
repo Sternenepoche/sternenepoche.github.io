@@ -1,252 +1,248 @@
 {
  "uebersicht.webp": {
-  "welt": "isolierte Spielprobe",
+  "welt": "flotten",
   "ziel": "reich",
-  "breite": 396,
-  "hoehe": 841,
-  "zeit": "2026-10-24T14:37:57",
-  "version": "0.4.6"
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-26T05:16:48"
  },
  "auftraege.webp": {
   "welt": "flotten",
   "ziel": "auftraege",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:22:25"
+  "zeit": "2026-10-26T05:16:53"
  },
  "versorgung.webp": {
   "welt": "flotten",
   "ziel": "versorgung",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:22:29"
+  "zeit": "2026-10-26T05:16:58"
  },
  "produktion.webp": {
   "welt": "flotten",
   "ziel": "kolonie",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:22:32"
+  "zeit": "2026-10-26T05:17:03"
  },
  "anlagen.webp": {
   "welt": "flotten",
   "ziel": "gebaeude",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:22:36"
+  "zeit": "2026-10-26T05:17:08"
  },
  "forschung.webp": {
   "welt": "flotten",
   "ziel": "forschen",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:22:39"
+  "zeit": "2026-10-26T05:17:13"
  },
  "technologiebaum.webp": {
   "welt": "flotten",
   "ziel": "freischaltungen",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:22:43"
+  "zeit": "2026-10-26T05:17:18"
  },
  "werft.webp": {
   "welt": "flotten",
   "ziel": "werft",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:22:47"
+  "zeit": "2026-10-26T05:17:24"
  },
  "verteidigung.webp": {
   "welt": "flotten",
   "ziel": "verteidigung",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:22:50"
+  "zeit": "2026-10-26T05:17:29"
  },
  "truppen.webp": {
   "welt": "flotten",
   "ziel": "truppen",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:22:54"
+  "zeit": "2026-10-26T05:17:34"
  },
  "flotte.webp": {
   "welt": "flotten",
   "ziel": "flotten",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:22:57"
+  "zeit": "2026-10-26T05:17:39"
  },
  "kampfsimulator.webp": {
   "welt": "flotten",
   "ziel": "warsim",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:23:01"
+  "zeit": "2026-10-26T05:17:44"
  },
  "galaxie.webp": {
-  "welt": "isolierte Spielprobe",
-  "ziel": "karte/tabelle",
-  "breite": 396,
-  "hoehe": 841,
-  "zeit": "2026-10-24T14:37:57",
-  "version": "0.4.6"
+  "welt": "flotten",
+  "ziel": "karte",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-26T05:17:49"
  },
  "kolonisation.webp": {
-  "welt": "isolierte Spielprobe",
-  "ziel": "kolonisation/zielpruefung",
-  "breite": 396,
-  "hoehe": 841,
-  "zeit": "2026-10-24T14:47:25",
-  "version": "0.4.6"
+  "welt": "flotten",
+  "ziel": "kolonien",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-26T05:17:54"
  },
  "imperium.webp": {
   "welt": "flotten",
   "ziel": "imperium",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:23:12"
+  "zeit": "2026-10-26T05:17:59"
  },
  "codex.webp": {
   "welt": "flotten",
   "ziel": "codex",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:23:16"
+  "zeit": "2026-10-26T05:18:04"
  },
  "allianz.webp": {
   "welt": "flotten",
   "ziel": "allianzbereich",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:23:19"
+  "zeit": "2026-10-26T05:18:09"
  },
  "briefkasten.webp": {
   "welt": "flotten",
   "ziel": "briefkasten",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:23:23"
+  "zeit": "2026-10-26T05:18:15"
  },
  "berichte.webp": {
-  "welt": "isolierte Spielprobe",
+  "welt": "flotten",
   "ziel": "berichte",
-  "breite": 396,
-  "hoehe": 841,
-  "zeit": "2026-10-24T14:37:57",
-  "version": "0.4.6"
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-26T05:18:20"
  },
  "handel.webp": {
   "welt": "flotten",
   "ziel": "aktionen",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:23:30"
+  "zeit": "2026-10-26T05:18:25"
  },
  "rat.webp": {
   "welt": "flotten",
   "ziel": "agent",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:23:33"
+  "zeit": "2026-10-26T05:18:30"
  },
  "pinwaende.webp": {
   "welt": "flotten",
   "ziel": "pinwaende",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:23:37"
+  "zeit": "2026-10-26T05:18:35"
  },
  "technik-blaupause.webp": {
   "welt": "flotten",
   "ziel": "technik:kreuzer:blaupause",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:23:49"
+  "zeit": "2026-10-26T05:19:00"
  },
  "technik-explosion.webp": {
   "welt": "flotten",
   "ziel": "technik:kreuzer:explosion",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:24:00"
+  "zeit": "2026-10-26T05:19:16"
  },
  "technik-schnitt.webp": {
   "welt": "flotten",
   "ziel": "technik:kreuzer:schnitt",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:24:11"
+  "zeit": "2026-10-26T05:19:37"
  },
  "archiv.webp": {
   "welt": "flotten",
   "ziel": "archiv:kreuzer",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:24:22"
+  "zeit": "2026-10-26T05:19:55"
  },
  "uebersicht-handy.webp": {
   "welt": "flotten",
   "ziel": "reich",
   "breite": 390,
   "hoehe": 844,
-  "zeit": "2026-10-21T10:25:17"
+  "zeit": "2026-10-26T05:21:36"
  },
  "werft-handy.webp": {
   "welt": "flotten",
   "ziel": "werft",
   "breite": 390,
   "hoehe": 844,
-  "zeit": "2026-10-21T10:25:21"
+  "zeit": "2026-10-26T05:21:40"
  },
  "truppen-handy.webp": {
   "welt": "flotten",
   "ziel": "truppen",
   "breite": 390,
   "hoehe": 844,
-  "zeit": "2026-10-21T10:25:24"
+  "zeit": "2026-10-26T05:21:45"
  },
  "flotte-handy.webp": {
   "welt": "flotten",
   "ziel": "flotten",
   "breite": 390,
   "hoehe": 844,
-  "zeit": "2026-10-21T10:25:27"
+  "zeit": "2026-10-26T05:21:50"
  },
  "galaxie-handy.webp": {
   "welt": "flotten",
   "ziel": "karte",
   "breite": 390,
   "hoehe": 844,
-  "zeit": "2026-10-21T10:25:36"
+  "zeit": "2026-10-26T05:21:56"
  },
  "mond.webp": {
   "welt": "monde",
   "ziel": "mond",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:26:18"
+  "zeit": "2026-10-26T05:15:13"
  },
  "grossprojekt.webp": {
   "welt": "dyson",
   "ziel": "grossprojekt",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:26:32"
+  "zeit": "2026-10-26T05:15:32"
  },
  "grossprojekt-handy.webp": {
   "welt": "dyson",
   "ziel": "grossprojekt",
   "breite": 390,
   "hoehe": 844,
-  "zeit": "2026-10-21T10:26:40"
+  "zeit": "2026-10-26T05:15:41"
  },
  "lage.webp": {
   "welt": "lage",
   "ziel": "reich",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:26:47"
+  "zeit": "2026-10-26T05:15:51"
  },
  "techbaum-karte.webp": {
   "welt": "techbaum",
@@ -274,42 +270,42 @@
   "ziel": "mond",
   "breite": 390,
   "hoehe": 844,
-  "zeit": "2026-10-21T10:26:25"
+  "zeit": "2026-10-26T05:15:22"
  },
  "infodisplay.webp": {
   "welt": "flotten",
   "ziel": "info:kreuzer",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:24:32"
+  "zeit": "2026-10-26T05:20:04"
  },
  "bericht.webp": {
   "welt": "flotten",
   "ziel": "bericht",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T10:24:42"
+  "zeit": "2026-10-26T05:20:13"
  },
  "galaxie-3d.webp": {
   "welt": "flotten",
   "ziel": "atlas",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-21T20:28:34"
+  "zeit": "2026-10-26T05:20:46"
  },
  "bericht-handy.webp": {
   "welt": "flotten",
   "ziel": "bericht",
   "breite": 390,
   "hoehe": 844,
-  "zeit": "2026-10-21T10:25:44"
+  "zeit": "2026-10-26T05:22:05"
  },
  "galaxie-3d-handy.webp": {
   "welt": "flotten",
   "ziel": "atlas",
   "breite": 390,
   "hoehe": 844,
-  "zeit": "2026-10-21T20:29:26"
+  "zeit": "2026-10-26T05:22:30"
  },
  "techbaum-raumfahrt.webp": {
   "welt": "techbaum",
@@ -323,27 +319,41 @@
   "ziel": "einsatz:angriff",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-25T22:54:00"
+  "zeit": "2026-10-26T05:21:09"
  },
  "einsatz-handy.webp": {
   "welt": "flotten",
   "ziel": "einsatz:angriff",
   "breite": 390,
   "hoehe": 844,
-  "zeit": "2026-10-25T22:54:18"
+  "zeit": "2026-10-26T05:22:44"
  },
  "invasion.webp": {
   "welt": "invasion",
   "ziel": "reich",
   "breite": 1440,
   "hoehe": 900,
-  "zeit": "2026-10-25T22:54:27"
+  "zeit": "2026-10-26T05:16:00"
  },
  "invasion-handy.webp": {
   "welt": "invasion",
   "ziel": "reich",
   "breite": 390,
   "hoehe": 844,
-  "zeit": "2026-10-25T22:54:36"
+  "zeit": "2026-10-26T05:16:09"
+ },
+ "kraefteatlas.webp": {
+  "welt": "flotten",
+  "ziel": "kraefteatlas",
+  "breite": 1440,
+  "hoehe": 900,
+  "zeit": "2026-10-26T05:21:27"
+ },
+ "kraefteatlas-handy.webp": {
+  "welt": "flotten",
+  "ziel": "kraefteatlas",
+  "breite": 390,
+  "hoehe": 844,
+  "zeit": "2026-10-26T05:23:01"
  }
 }
