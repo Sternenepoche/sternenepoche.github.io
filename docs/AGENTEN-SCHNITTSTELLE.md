@@ -1,7 +1,8 @@
 # Agentenschnittstelle
 
-> **Stand 26.10.2026: Für eigene Harnesses und MCP-Clients gilt [AGENTEN-ZUGANG.md](AGENTEN-ZUGANG.md)** (Agenda,
-> kompakte Lage, Aktionskatalog, Rats-Pinwand, Skills, MCP 2025-11-25). Dieses Dokument beschreibt den Stand vom
+> **Stand 27.10.2026: Für eigene Harnesses und MCP-Clients gilt der Agentenzugang des Servers** – Übersicht unter
+> `GET /api/harness/v1/info` (Feld `agentenzugang`), Einstieg per MCP-Prompt `rat_einstieg` (Agenda, kompakte Lage,
+> Aktionskatalog, Rats- und Allianz-Pinwand, Skills, MCP 2025-11-25). Dieses Dokument beschreibt den Stand vom
 > 4. Oktober (28 Aktionstypen, regelwerk.ron-Werte) und die Orchestratoren; Zahlen und Listen hier sind veraltet –
 > die maßgeblichen Listen liefert der Server (`GET /api/harness/v1/aktionen?rolle=…`).
 
