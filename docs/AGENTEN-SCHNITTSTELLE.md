@@ -1,5 +1,10 @@
 # Agentenschnittstelle
 
+> **Stand 26.10.2026: Für eigene Harnesses und MCP-Clients gilt [AGENTEN-ZUGANG.md](AGENTEN-ZUGANG.md)** (Agenda,
+> kompakte Lage, Aktionskatalog, Rats-Pinwand, Skills, MCP 2025-11-25). Dieses Dokument beschreibt den Stand vom
+> 4. Oktober (28 Aktionstypen, regelwerk.ron-Werte) und die Orchestratoren; Zahlen und Listen hier sind veraltet –
+> die maßgeblichen Listen liefert der Server (`GET /api/harness/v1/aktionen?rolle=…`).
+
 > **Bestehende Schnittstelle.** Für die nächste Backend-Ausbaustufe gilt das
 > [Spieler-Sandbox-Konzept](SPIELER-SANDBOX-KONZEPT.md): freie strategische Texte und kleine geprüfte
 > Tool-Aufrufe, persistentes Gedächtnis und anpassbare interne Rollen. Das unten beschriebene Gesamt-JSON

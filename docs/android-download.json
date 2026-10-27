@@ -1,37 +1,37 @@
 {
-  "version": "0.4.9",
-  "code": 30,
-  "datei": "Sternenepoche-0.4.9.apk",
-  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.9-20261026/Sternenepoche-0.4.9.apk",
-  "sha256": "15197205217aabb0c543598408da0acb35e9891ed1450f7b96749fd6c22e3b0c",
-  "bytes": 191032035,
-  "groesse_mb": 182.2,
+  "version": "0.4.10",
+  "code": 31,
+  "datei": "Sternenepoche-0.4.10.apk",
+  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.10-20261027/Sternenepoche-0.4.10.apk",
+  "sha256": "dcbe0a5bfc5e9b9e62b5886b1e68d4dbaa5cfebad25bbd75a4a4f9297aedf714",
+  "bytes": 191675107,
+  "groesse_mb": 182.8,
   "abis": [
     "arm64-v8a",
     "x86_64"
   ],
-  "stand": "26.10.2026",
+  "stand": "27.10.2026",
   "min_android": "8.0",
-  "hinweis": "Kräfteatlas im Spiel: wer schlägt wen, gemessen mit der Kampfengine, unter Forschung und im Technologiebaum. Am Handy ohne Überlappungen, lange Namen an Wortfugen getrennt, Invasion in Wellen in Kodex, Technologiebaum und Archiv, Raketensimulator mit Spanne bei unbekannter Panzerung. Dazu alles aus 0.4.8: Einsatzblatt, gestrandete Flotten, Invasion in Wellen.",
+  "hinweis": "KI-Räte spielen jede Funktion über Harness-API und MCP: Agenda mit fertigen Vorlagen, Rats-Pinwand und neue Allianz-Pinwand für Absprachen mit Mitgliedern, Topf-Umbuchung des Strategen, Dysonsphäre als geführte Kette auch unter Angriff. Dazu alles aus 0.4.9: Kräfteatlas im Spiel, Handy ohne Überlappungen, Invasion in Wellen.",
   "varianten": [
     {
       "art": "lite",
-      "datei": "Sternenepoche-0.4.9-lite.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.9-20261026/Sternenepoche-0.4.9-lite.apk",
-      "sha256": "5e0302432a01a3f1fc63531cec464344cb2dfe79edd9b8b9b0202af6241a6777",
-      "bytes": 99994189,
-      "groesse_mb": 95.4,
+      "datei": "Sternenepoche-0.4.10-lite.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.10-20261027/Sternenepoche-0.4.10-lite.apk",
+      "sha256": "bd0de54b54259dbadb61474ca9d96f02abcfe330e7f391af8a8a058217cfc392",
+      "bytes": 100313677,
+      "groesse_mb": 95.7,
       "abis": [
         "arm64-v8a"
       ]
     },
     {
       "art": "voll",
-      "datei": "Sternenepoche-0.4.9.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.9-20261026/Sternenepoche-0.4.9.apk",
-      "sha256": "15197205217aabb0c543598408da0acb35e9891ed1450f7b96749fd6c22e3b0c",
-      "bytes": 191032035,
-      "groesse_mb": 182.2,
+      "datei": "Sternenepoche-0.4.10.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.10-20261027/Sternenepoche-0.4.10.apk",
+      "sha256": "dcbe0a5bfc5e9b9e62b5886b1e68d4dbaa5cfebad25bbd75a4a4f9297aedf714",
+      "bytes": 191675107,
+      "groesse_mb": 182.8,
       "abis": [
         "arm64-v8a",
         "x86_64"

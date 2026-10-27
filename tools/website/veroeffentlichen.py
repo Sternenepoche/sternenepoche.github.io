@@ -103,8 +103,8 @@ def vorbereiten():
         print("Nichts zu committen – Stand ist schon vorbereitet.")
         return
     git("commit", "-m", f"Publish Sternenepoche {VERSION_TEXT()} website and Android downloads\n\n"
-        "Update the handbook and release information for the mission sheet, stranded fleets, invasion waves, "
-        "colony slots and the counter balance with multi-fire. Include verified screenshots and both signed APK variants.\n\n"
+        "Update the handbook and release information for AI councils over the Harness API and MCP, the council and "
+        "alliance boards and the guided Dyson chain for agents. Include verified screenshots and both signed APK variants.\n\n"
         "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
     print(git("log", "--oneline", "-1"))
     print(git("diff", "--stat", "origin/main", "HEAD").splitlines()[-1])

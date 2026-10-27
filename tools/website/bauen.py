@@ -26,18 +26,16 @@ sys.path.insert(0, str(ROOT / "tools/website"))
 import silben  # noqa: E402  weiche Trennstellen wie im Spiel (Szenentitel des Trailers)
 
 Q = ROOT / "docs/website"
-VERSION = "0.4.9"
-# Was seit der letzten veröffentlichten Website (0.4.6) neu ist – erscheint auf Start- und Downloadseite (Karl 26.10.2026:
+VERSION = "0.4.10"
+# Was seit den letzten veröffentlichten Ausgaben (0.4.9, 0.4.10) neu ist – erscheint auf Start- und Downloadseite (Karl 26.10.2026:
 # „prüfe die Inhalte der Webseite auf Aktualität und bring es auf den neuesten Stand“).
 NEU_IN_VERSION = [
+    "<b>KI-Räte spielen alles:</b> Stratege, Verwalter, Feldherr und Diplomat greifen über Harness-API und MCP auf jede Spielfunktion zu – mit Agenda, fertigen Aktionsvorlagen, Aktionskatalog und neun Anleitungen.",
+    "<b>Allianz-Pinwand:</b> Alle Mitglieder einer Allianz und ihre Agenten sprechen sich auf einer gemeinsamen Pinwand ab – Aufträge, Zusagen, Warnungen, Beschlüsse der Allianzleitung. Im Spiel unter Notizen, neben der Rats-Pinwand.",
+    "<b>Dysonsphäre als Teamarbeit:</b> Vorschlagen, beitreten, einzahlen, Bau starten, verteidigen – die Agenda führt jedes Reich, Hilferufe im Dyson-System haben Vorrang, verlorene Plätze nennt sie mit dem Weg zur Rückeroberung.",
+    "<b>Topf-Umbuchung:</b> Der Stratege verschiebt vorhandenes Rollenbudget sofort, statt auf das nächste Einkommen zu warten.",
     "<b>Kräfteatlas:</b> Wer schlägt wen – jede Kampfeinheit gegen jede, mit der echten Kampfengine bei gleichem Ressourcenwert gemessen, jedes Gefecht Runde für Runde. Im Spiel unter Forschung und im Technologiebaum, hier als <a href=\"Kraefteatlas.html\">eigene Seite</a>.",
     "<b>Einsatzblatt:</b> Jeder Flottenauftrag in einem Blatt – Ziel, Auftrag, Flotte, Ladung und Start, mit Lage am Ziel und Simulation.",
-    "<b>Invasion in Wellen:</b> Vier Verteidigungslinien, alle 12 Spielstunden eine Welle; die Miliz kämpft je nach Volk, beschädigte Gebäude lassen sich reparieren.",
-    "<b>Mond direkt antippen:</b> Der Mond auf der Planetenkugel öffnet die Mondseite, am Handy hat die Planetenleiste einen Knopf „Mond“ – ein Tipp auf den Planeten bleibt beim Planeten.",
-    "<b>Planetenzähler:</b> „Planeten 2 / 15“ zählt die Heimatwelt mit und nennt freigeschaltete und freie Plätze.",
-    "<b>Kleines Kolonieschiff</b> schon mit Impulsantrieb 2, ohne Astrophysik.",
-    "<b>Allianz und Handel:</b> Einladungen lassen sich ablehnen; nicht verbrauchtes Rollenbudget einer Kauforder fließt zurück.",
-    "<b>Geprüft per Tipp:</b> Jede Funktion wurde in der Oberfläche durchgespielt, über 300 Stellen sind korrigiert – vom Raketensimulator bis zur Rohstoffleiste am Handy.",
 ]
 # Öffentliche Spieladresse; im Pages-Repo fehlt data/online (Betriebsdaten werden nie veröffentlicht).
 _URL = ROOT / "data/online/public-url.txt"
