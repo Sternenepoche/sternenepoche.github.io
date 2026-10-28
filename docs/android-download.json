@@ -1,25 +1,25 @@
 {
-  "version": "0.4.10",
-  "code": 31,
-  "datei": "Sternenepoche-0.4.10.apk",
-  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.10-20261027/Sternenepoche-0.4.10.apk",
-  "sha256": "dcbe0a5bfc5e9b9e62b5886b1e68d4dbaa5cfebad25bbd75a4a4f9297aedf714",
-  "bytes": 191675107,
-  "groesse_mb": 182.8,
+  "version": "0.4.11",
+  "code": 32,
+  "datei": "Sternenepoche-0.4.11.apk",
+  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.11-20261028/Sternenepoche-0.4.11.apk",
+  "sha256": "b248c22661f0b55740403fb1474b053a93264432cc0606bf50895a58826c7d4f",
+  "bytes": 191851235,
+  "groesse_mb": 183.0,
   "abis": [
     "arm64-v8a",
     "x86_64"
   ],
-  "stand": "27.10.2026",
+  "stand": "28.10.2026",
   "min_android": "8.0",
-  "hinweis": "KI-Räte spielen jede Funktion über Harness-API und MCP: Agenda mit fertigen Vorlagen, Rats-Pinwand und neue Allianz-Pinwand für Absprachen mit Mitgliedern, Topf-Umbuchung des Strategen, Dysonsphäre als geführte Kette auch unter Angriff. Dazu alles aus 0.4.9: Kräfteatlas im Spiel, Handy ohne Überlappungen, Invasion in Wellen.",
+  "hinweis": "Wichtige Korrektur: Schnelles Füllen der Baulisten konnte die App blockieren, bis zum Neustart. Jetzt laufen Befehle der Reihe nach, und ein unbeantworteter Befehl wird beim nächsten Tipp selbst nachgefragt. Für KI-Räte: Großziele mit dem ganzen Weg in der Agenda. Dazu alles aus 0.4.10: KI-Räte über Harness-API und MCP, Allianz-Pinwand, Dyson-Kette.",
   "varianten": [
     {
       "art": "lite",
-      "datei": "Sternenepoche-0.4.10-lite.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.10-20261027/Sternenepoche-0.4.10-lite.apk",
-      "sha256": "bd0de54b54259dbadb61474ca9d96f02abcfe330e7f391af8a8a058217cfc392",
-      "bytes": 100313677,
+      "datei": "Sternenepoche-0.4.11-lite.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.11-20261028/Sternenepoche-0.4.11-lite.apk",
+      "sha256": "8708a9b7f391e0d4775da67ba1442816783f1a2db4065d3d9f5eade84e5f5187",
+      "bytes": 100395597,
       "groesse_mb": 95.7,
       "abis": [
         "arm64-v8a"
@@ -27,11 +27,11 @@
     },
     {
       "art": "voll",
-      "datei": "Sternenepoche-0.4.10.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.10-20261027/Sternenepoche-0.4.10.apk",
-      "sha256": "dcbe0a5bfc5e9b9e62b5886b1e68d4dbaa5cfebad25bbd75a4a4f9297aedf714",
-      "bytes": 191675107,
-      "groesse_mb": 182.8,
+      "datei": "Sternenepoche-0.4.11.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.11-20261028/Sternenepoche-0.4.11.apk",
+      "sha256": "b248c22661f0b55740403fb1474b053a93264432cc0606bf50895a58826c7d4f",
+      "bytes": 191851235,
+      "groesse_mb": 183.0,
       "abis": [
         "arm64-v8a",
         "x86_64"
