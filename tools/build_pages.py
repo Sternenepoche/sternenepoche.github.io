@@ -6,6 +6,14 @@ from PIL import Image
 from site_policy import decorate
 ROOT=Path(__file__).resolve().parents[1]
 EXT={'.html','.md','.css','.js','.svg','.png','.jpg','.jpeg','.webp','.ico','.gif'}
+SPIELSERVER='https://sternenepoche.taila4f584.ts.net/'
+WEITERLEITUNG=f'''<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sternenepoche – weiter zum Spiel</title><meta http-equiv="refresh" content="0; url={SPIELSERVER}">
+<link rel="canonical" href="{SPIELSERVER}"><meta name="robots" content="noindex">
+<style>body{{margin:0;min-height:100vh;display:grid;place-items:center;background:#050a14;color:#e8eef8;font:18px/1.5 system-ui,sans-serif}}a{{color:#8fdca5}}</style>
+</head><body><p>Das Spiel läuft direkt auf dem Spielserver: <a href="{SPIELSERVER}">weiter zu Sternenepoche</a></p></body></html>
+'''
 
 def externalize_art(document:str,out:Path)->str:
     """Keep local pages standalone; publish each repeated bitmap once for browser caching."""
@@ -122,6 +130,11 @@ def prepare(out:Path):
             target.write_text(body,encoding='utf-8')
         else:
             shutil.copyfile(file,target)
+    # Karl 28.10.2026: Die gespiegelte Spielkopie unter /web-client/ hinkte dem Server hinterher (zuletzt 11.10., ohne den
+    # Softlock-Fix von 0.4.11). Statt sie bei jedem Server-Update nachzuziehen, führt /web-client/ zum Spielserver – dort
+    # spielt man immer mit genau dem Client, den der Server ausliefert. Die übrigen Dateien bleiben für andere Seiten.
+    (out/'web-client').mkdir(parents=True,exist_ok=True)
+    (out/'web-client/index.html').write_text(WEITERLEITUNG,encoding='utf-8')
     loading_files=['brand-animation.js','loading-screen.js','loading-screen.css','brand/neuralstern-panels.webp','brand/neuralstern-poster.jpg']
     if sum((ROOT/'web-client'/name).stat().st_size for name in loading_files)>110000:
         raise ValueError('Default loader exceeds its 110 KB transfer budget')
