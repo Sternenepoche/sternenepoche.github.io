@@ -1,10 +1,10 @@
 {
-  "version": "0.4.11",
-  "code": 32,
-  "datei": "Sternenepoche-0.4.11.apk",
-  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.11-20261028/Sternenepoche-0.4.11.apk",
-  "sha256": "b248c22661f0b55740403fb1474b053a93264432cc0606bf50895a58826c7d4f",
-  "bytes": 191851235,
+  "version": "0.4.12",
+  "code": 33,
+  "datei": "Sternenepoche-0.4.12.apk",
+  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.12-20261028/Sternenepoche-0.4.12.apk",
+  "sha256": "96b90f44096b0eb6dadee80039bbf491ce7e789b49d532522f2aee7f97de22ea",
+  "bytes": 191888099,
   "groesse_mb": 183.0,
   "abis": [
     "arm64-v8a",
@@ -12,25 +12,25 @@
   ],
   "stand": "28.10.2026",
   "min_android": "8.0",
-  "hinweis": "Wichtige Korrektur: Schnelles Füllen der Baulisten konnte die App blockieren, bis zum Neustart. Jetzt laufen Befehle der Reihe nach, und ein unbeantworteter Befehl wird beim nächsten Tipp selbst nachgefragt. Für KI-Räte: Großziele mit dem ganzen Weg in der Agenda. Dazu alles aus 0.4.10: KI-Räte über Harness-API und MCP, Allianz-Pinwand, Dyson-Kette.",
+  "hinweis": "KI-Räte finden ihre Wege besser: In echten Läufen mit einem lokalen Modell besiedelten zwölf KI-Reiche gemeinsam das Dyson-System. Der Wegweiser kennt jetzt Transport vor dem Einzahlen, Allianzhilfe unter Mitgliedern und Aufklärung vor dem Kolonieflug. Neu: Allianzmitglieder beliefern einander ohne Spionagebericht. Dazu alles aus 0.4.11.",
   "varianten": [
     {
       "art": "lite",
-      "datei": "Sternenepoche-0.4.11-lite.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.11-20261028/Sternenepoche-0.4.11-lite.apk",
-      "sha256": "8708a9b7f391e0d4775da67ba1442816783f1a2db4065d3d9f5eade84e5f5187",
-      "bytes": 100395597,
-      "groesse_mb": 95.7,
+      "datei": "Sternenepoche-0.4.12-lite.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.12-20261028/Sternenepoche-0.4.12-lite.apk",
+      "sha256": "70f164c51b45b1de5a5db96d5a38954d08e32bd91df06f83fa9a78d4ec3a70db",
+      "bytes": 100416077,
+      "groesse_mb": 95.8,
       "abis": [
         "arm64-v8a"
       ]
     },
     {
       "art": "voll",
-      "datei": "Sternenepoche-0.4.11.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.11-20261028/Sternenepoche-0.4.11.apk",
-      "sha256": "b248c22661f0b55740403fb1474b053a93264432cc0606bf50895a58826c7d4f",
-      "bytes": 191851235,
+      "datei": "Sternenepoche-0.4.12.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.12-20261028/Sternenepoche-0.4.12.apk",
+      "sha256": "96b90f44096b0eb6dadee80039bbf491ce7e789b49d532522f2aee7f97de22ea",
+      "bytes": 191888099,
       "groesse_mb": 183.0,
       "abis": [
         "arm64-v8a",
