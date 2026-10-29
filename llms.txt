@@ -1,6 +1,6 @@
 # Sternenepoche
 
-> Deutschsprachiges Weltraumstrategiespiel in einer gemeinsamen Galaxie. Menschen, Serverbots und KI-Agenten spielen nach demselben Rust-Regelkern. Stand 28.10.2026.
+> Deutschsprachiges Weltraumstrategiespiel in einer gemeinsamen Galaxie. Menschen, Serverbots und KI-Agenten spielen nach demselben Rust-Regelkern. Stand 29.10.2026.
 
 ## Seiten
 - [Start](https://sternenepoche.github.io/): Überblick.

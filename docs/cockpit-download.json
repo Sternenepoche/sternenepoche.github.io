@@ -1,8 +1,8 @@
 {
-  "version": "0.2.3",
-  "datei": "Sternenepoche-Harness-Cockpit-0.2.3-20261012-windows-x64.zip",
-  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/cockpit-v0.2.3-20261012/Sternenepoche-Harness-Cockpit-0.2.3-20261012-windows-x64.zip",
-  "sha256": "45d82e0723eac617692d0fae52dfbed44bd0058f8a0a60d23aa337f1b79e7ab6",
-  "groesse_mb": 113.2,
-  "stand": "12.10.2026"
+  "version": "0.2.4",
+  "datei": "Sternenepoche-Harness-Cockpit-0.2.4-20261029-windows-x64.zip",
+  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/cockpit-v0.2.4-20261029/Sternenepoche-Harness-Cockpit-0.2.4-20261029-windows-x64.zip",
+  "sha256": "e8190a78f7128b290c8aef5519611cbd3983b239a693f15ed184c51f9e17f1a5",
+  "groesse_mb": 232.8,
+  "stand": "29.10.2026"
 }
