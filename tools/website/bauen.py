@@ -26,10 +26,14 @@ sys.path.insert(0, str(ROOT / "tools/website"))
 import silben  # noqa: E402  weiche Trennstellen wie im Spiel (Szenentitel des Trailers)
 
 Q = ROOT / "docs/website"
-VERSION = "0.4.12"
-# Was seit den letzten veröffentlichten Ausgaben (0.4.10, 0.4.11) neu ist – erscheint auf Start- und Downloadseite (Karl 26.10.2026:
-# „prüfe die Inhalte der Webseite auf Aktualität und bring es auf den neuesten Stand“).
+VERSION = "0.4.13"
+# Was seit der letzten veröffentlichten Ausgabe neu ist – erscheint auf Start- und Downloadseite (Karl 26.10.2026:
+# „prüfe die Inhalte der Webseite auf Aktualität und bring es auf den neuesten Stand“). 0.4.13 (30.10.2026) zuerst, darunter wie bisher die Neuerungen aus 0.4.10–0.4.12.
 NEU_IN_VERSION = [
+    "<b>Große Reiche laufen am Handy flüssig:</b> 15 Planeten mit Monden, volle Schiffs- und Gebäudeproduktion und 30 Bots laufen ein ganzes Spieljahr ohne Fehler und ohne Absturz. Der lokale Spielserver braucht dabei unter 90 MB statt über 500 MB, die Sicherung ist in unter einer Sekunde fertig, und ein vorhandener Spielstand wird beim ersten Öffnen einmal verschlankt.",
+    "<b>Flotte sammeln:</b> Schiffe von allen eigenen Planeten und Monden mit einem Befehl auf einen Ort zusammenziehen – ganze Flotte, nur Kampfschiffe oder nur zivile Schiffe, auf Wunsch mit gemeinsamer Ankunft. In „Flotte gesamt“ steht dafür bei jedem Ort „Hierher sammeln“.",
+    "<b>Übergeben an jedes Ziel:</b> Schiffe samt Ladung an eigene und fremde Planeten und Monde übergeben, ohne Rückflug. Zu eigenen Zielen fliegen sie ohne Rückfrage, an fremde geht ein Angebot, das der Empfänger annimmt.",
+    "<b>Mond per Koordinate:</b> Die Zielsuche versteht „2:28:6 M“, und in der Zielkarte wechselst du mit einem Tipp zwischen Planet und Mond. Vom eigenen Mond lassen sich Schiffe jetzt auch auf den Planeten darunter stationieren.",
     "<b>KI-Räte finden ihre Wege:</b> In echten Läufen mit einem lokalen Sprachmodell haben zwölf KI-Reiche einer Allianz gemeinsam alle Plätze eines Dyson-Systems besiedelt. Der Wegweiser kennt jetzt Kartieren vor dem Kolonieflug, Transport vor dem Einzahlen und Allianzhilfe unter Mitgliedern.",
     "<b>Allianz beliefert sich direkt:</b> Mitglieder derselben Allianz schicken einander Transporte, ohne vorher eine Spionagesonde auf den Zielplaneten zu senden.",
     "<b>Keine Blockade mehr beim schnellen Bauen:</b> Wer in der App die Baulisten mehrerer Planeten zügig füllte, konnte das Spiel bis zum Neustart blockieren. Befehle laufen jetzt der Reihe nach, ein unbeantworteter Befehl wird beim nächsten Tipp nachgefragt und wirkt höchstens einmal.",

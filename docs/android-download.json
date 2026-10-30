@@ -1,25 +1,25 @@
 {
-  "version": "0.4.12",
-  "code": 33,
-  "datei": "Sternenepoche-0.4.12.apk",
-  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.12-20261028/Sternenepoche-0.4.12.apk",
-  "sha256": "96b90f44096b0eb6dadee80039bbf491ce7e789b49d532522f2aee7f97de22ea",
-  "bytes": 191888099,
+  "version": "0.4.13",
+  "code": 35,
+  "datei": "Sternenepoche-0.4.13.apk",
+  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.13-20261030/Sternenepoche-0.4.13.apk",
+  "sha256": "4906a62e29c85e37f9299d21814ea6943fe3df81ae4469bc767591de17f648a5",
+  "bytes": 191892195,
   "groesse_mb": 183.0,
   "abis": [
     "arm64-v8a",
     "x86_64"
   ],
-  "stand": "28.10.2026",
+  "stand": "30.10.2026",
   "min_android": "8.0",
-  "hinweis": "KI-Räte finden ihre Wege besser: In echten Läufen mit einem lokalen Modell besiedelten zwölf KI-Reiche gemeinsam das Dyson-System. Der Wegweiser kennt jetzt Transport vor dem Einzahlen, Allianzhilfe unter Mitgliedern und Aufklärung vor dem Kolonieflug. Neu: Allianzmitglieder beliefern einander ohne Spionagebericht. Dazu alles aus 0.4.11.",
+  "hinweis": "Deine lokale Welt bleibt auch mit großem Reich flüssig: 15 Planeten mit Monden und voller Produktion laufen ein ganzes Spieljahr ohne Absturz, alte Spielstände werden beim Öffnen einmal verschlankt. Neu in der Flottenführung: Flotte von allen Planeten und Monden mit einem Befehl sammeln, Schiffe an jedes Ziel übergeben, Monde per Koordinate anfliegen (z. B. „2:28:6 M“).",
   "varianten": [
     {
       "art": "lite",
-      "datei": "Sternenepoche-0.4.12-lite.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.12-20261028/Sternenepoche-0.4.12-lite.apk",
-      "sha256": "70f164c51b45b1de5a5db96d5a38954d08e32bd91df06f83fa9a78d4ec3a70db",
-      "bytes": 100416077,
+      "datei": "Sternenepoche-0.4.13-lite.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.13-20261030/Sternenepoche-0.4.13-lite.apk",
+      "sha256": "bbc874e7ad8d55fbdca110361a97dff1555c8d0414db76cc95f5fae15c017e79",
+      "bytes": 100420173,
       "groesse_mb": 95.8,
       "abis": [
         "arm64-v8a"
@@ -27,10 +27,10 @@
     },
     {
       "art": "voll",
-      "datei": "Sternenepoche-0.4.12.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.12-20261028/Sternenepoche-0.4.12.apk",
-      "sha256": "96b90f44096b0eb6dadee80039bbf491ce7e789b49d532522f2aee7f97de22ea",
-      "bytes": 191888099,
+      "datei": "Sternenepoche-0.4.13.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.13-20261030/Sternenepoche-0.4.13.apk",
+      "sha256": "4906a62e29c85e37f9299d21814ea6943fe3df81ae4469bc767591de17f648a5",
+      "bytes": 191892195,
       "groesse_mb": 183.0,
       "abis": [
         "arm64-v8a",
