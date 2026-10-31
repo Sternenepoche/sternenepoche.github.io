@@ -472,14 +472,13 @@
       "struktur": 300000,
       "schild": 30000,
       "angriff": 0,
-      "ab_stufe": 4,
+      "ab_stufe": 3,
       "max_anzahl": 1,
       "kosten": {
         "erz": 50000,
         "kristall": 50000,
         "legierung": 2000,
-        "elektronik": 1000,
-        "xenokristall": 100
+        "elektronik": 1000
       },
       "antrieb": null,
       "braucht": {},
@@ -488,7 +487,7 @@
       "klasse": "schild",
       "label": "Planetenschild I",
       "voraussetzungen": {
-        "schildtechnik": 4,
+        "schildtechnik": 3,
         "energietechnik": 3
       },
       "motiv": "a planetary shield generator with three pylons projecting a translucent hemispherical energy field",
@@ -1015,7 +1014,7 @@
       "tempo": 0,
       "verbrauch": 0,
       "besatzung": 0,
-      "ab_stufe": 5,
+      "ab_stufe": 4,
       "werft": 0,
       "antrieb": null,
       "kosten": {
@@ -1033,8 +1032,8 @@
       "max_anzahl": 1,
       "wirkung": "Mittlere Planetenschutzbarriere: stärkerer Schild und Rumpf, hohe Energie- und Schildtechnik erforderlich. Ersetzt Stufe I; wird im Kampf als eigenes Ziel bekämpft.",
       "voraussetzungen": {
-        "schildtechnik": 7,
-        "energietechnik": 6
+        "schildtechnik": 5,
+        "energietechnik": 5
       },
       "motiv": "a planetary shield facility with six robust emitters projecting two clearly visible concentric translucent energy domes",
       "neu": true
@@ -1067,9 +1066,9 @@
       "max_anzahl": 1,
       "wirkung": "Größte Planetenschutzbarriere: höchster Schild und Rumpf. Teurer Xenomaterial- und Technikpfad; ersetzt kleinere Stufen und besitzt keine Angriffskraft.",
       "voraussetzungen": {
-        "schildtechnik": 10,
-        "energietechnik": 8,
-        "xenomaterialkunde": 4
+        "schildtechnik": 7,
+        "energietechnik": 7,
+        "xenomaterialkunde": 2
       },
       "motiv": "a massive planetary shield facility with nine emitter pylons, three concentric translucent energy domes and a protected central reactor",
       "neu": true
@@ -1795,7 +1794,7 @@
       "schadensfaktoren": {},
       "voraussetzungen": {
         "energietechnik": 3,
-        "schildtechnik": 4
+        "schildtechnik": 3
       },
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
@@ -2200,8 +2199,8 @@
       "ziele": 0,
       "schadensfaktoren": {},
       "voraussetzungen": {
-        "energietechnik": 6,
-        "schildtechnik": 7
+        "energietechnik": 5,
+        "schildtechnik": 5
       },
       "schildfaktor": 1.0,
       "kolonie_minen": 0,
@@ -2213,9 +2212,9 @@
       "ziele": 0,
       "schadensfaktoren": {},
       "voraussetzungen": {
-        "energietechnik": 8,
-        "schildtechnik": 10,
-        "xenomaterialkunde": 4
+        "energietechnik": 7,
+        "schildtechnik": 7,
+        "xenomaterialkunde": 2
       },
       "schildfaktor": 1.0,
       "kolonie_minen": 0,

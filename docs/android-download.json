@@ -1,25 +1,25 @@
 {
-  "version": "0.4.13",
-  "code": 35,
-  "datei": "Sternenepoche-0.4.13.apk",
-  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.13-20261030/Sternenepoche-0.4.13.apk",
-  "sha256": "4906a62e29c85e37f9299d21814ea6943fe3df81ae4469bc767591de17f648a5",
-  "bytes": 191892195,
-  "groesse_mb": 183.0,
+  "version": "0.4.14",
+  "code": 36,
+  "datei": "Sternenepoche-0.4.14.apk",
+  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.14-20261031/Sternenepoche-0.4.14.apk",
+  "sha256": "ad1acaffdfeafef0b9b253670d45d0c0756a663b341646e06a176e0e04ff3d6b",
+  "bytes": 192002787,
+  "groesse_mb": 183.1,
   "abis": [
     "arm64-v8a",
     "x86_64"
   ],
-  "stand": "30.10.2026",
+  "stand": "31.10.2026",
   "min_android": "8.0",
-  "hinweis": "Deine lokale Welt bleibt auch mit großem Reich flüssig: 15 Planeten mit Monden und voller Produktion laufen ein ganzes Spieljahr ohne Absturz, alte Spielstände werden beim Öffnen einmal verschlankt. Neu in der Flottenführung: Flotte von allen Planeten und Monden mit einem Befehl sammeln, Schiffe an jedes Ziel übergeben, Monde per Koordinate anfliegen (z. B. „2:28:6 M“).",
+  "hinweis": "Planetenschilde kommen früher: Planetenschild I ab Zivilisationsstufe III (Schildtechnik 3, Energietechnik 3, ohne Xenokristall), Planetenschild II ab Stufe IV (Schildtechnik 5, Energietechnik 5, Orbitalwerft 2), Planetenschild III ab Stufe V (Schildtechnik 7, Energietechnik 7, Xenomaterialkunde 2). Gilt auch in deiner bestehenden lokalen Welt; die Online-Welt folgt mit dem Server-Update.",
   "varianten": [
     {
       "art": "lite",
-      "datei": "Sternenepoche-0.4.13-lite.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.13-20261030/Sternenepoche-0.4.13-lite.apk",
-      "sha256": "bbc874e7ad8d55fbdca110361a97dff1555c8d0414db76cc95f5fae15c017e79",
-      "bytes": 100420173,
+      "datei": "Sternenepoche-0.4.14-lite.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.14-20261031/Sternenepoche-0.4.14-lite.apk",
+      "sha256": "9bb9c08d963bac2e2af420774941aa56036490780c3bd95895eb0e092f80baa1",
+      "bytes": 100469325,
       "groesse_mb": 95.8,
       "abis": [
         "arm64-v8a"
@@ -27,11 +27,11 @@
     },
     {
       "art": "voll",
-      "datei": "Sternenepoche-0.4.13.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.13-20261030/Sternenepoche-0.4.13.apk",
-      "sha256": "4906a62e29c85e37f9299d21814ea6943fe3df81ae4469bc767591de17f648a5",
-      "bytes": 191892195,
-      "groesse_mb": 183.0,
+      "datei": "Sternenepoche-0.4.14.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.14-20261031/Sternenepoche-0.4.14.apk",
+      "sha256": "ad1acaffdfeafef0b9b253670d45d0c0756a663b341646e06a176e0e04ff3d6b",
+      "bytes": 192002787,
+      "groesse_mb": 183.1,
       "abis": [
         "arm64-v8a",
         "x86_64"

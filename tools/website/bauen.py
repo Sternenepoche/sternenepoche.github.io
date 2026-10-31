@@ -26,10 +26,11 @@ sys.path.insert(0, str(ROOT / "tools/website"))
 import silben  # noqa: E402  weiche Trennstellen wie im Spiel (Szenentitel des Trailers)
 
 Q = ROOT / "docs/website"
-VERSION = "0.4.13"
+VERSION = "0.4.14"
 # Was seit der letzten veröffentlichten Ausgabe neu ist – erscheint auf Start- und Downloadseite (Karl 26.10.2026:
-# „prüfe die Inhalte der Webseite auf Aktualität und bring es auf den neuesten Stand“). 0.4.13 (30.10.2026) zuerst, darunter wie bisher die Neuerungen aus 0.4.10–0.4.12.
+# „prüfe die Inhalte der Webseite auf Aktualität und bring es auf den neuesten Stand“). 0.4.14 (31.10.2026) zuerst, dann 0.4.13 (30.10.2026), darunter wie bisher die Neuerungen aus 0.4.10–0.4.12.
 NEU_IN_VERSION = [
+    "<b>Planetenschilde kommen früher:</b> Planetenschild I ab Zivilisationsstufe III (Schildtechnik 3, Energietechnik 3, ohne Xenokristall), Planetenschild II ab Stufe IV (Schildtechnik 5, Energietechnik 5, Orbitalwerft 2), Planetenschild III ab Stufe V (Schildtechnik 7, Energietechnik 7, Xenomaterialkunde 2). Bestehende lokale Welten übernehmen das beim ersten Öffnen mit 0.4.14, die Online-Welt mit dem Server-Update; Bestände und Forschung bleiben.",
     "<b>Große Reiche laufen am Handy flüssig:</b> 15 Planeten mit Monden, volle Schiffs- und Gebäudeproduktion und 30 Bots laufen ein ganzes Spieljahr ohne Fehler und ohne Absturz. Der lokale Spielserver braucht dabei unter 90 MB statt über 500 MB, die Sicherung ist in unter einer Sekunde fertig, und ein vorhandener Spielstand wird beim ersten Öffnen einmal verschlankt.",
     "<b>Flotte sammeln:</b> Schiffe von allen eigenen Planeten und Monden mit einem Befehl auf einen Ort zusammenziehen – ganze Flotte, nur Kampfschiffe oder nur zivile Schiffe, auf Wunsch mit gemeinsamer Ankunft. In „Flotte gesamt“ steht dafür bei jedem Ort „Hierher sammeln“.",
     "<b>Übergeben an jedes Ziel:</b> Schiffe samt Ladung an eigene und fremde Planeten und Monde übergeben, ohne Rückflug. Zu eigenen Zielen fliegen sie ohne Rückfrage, an fremde geht ein Angebot, das der Empfänger annimmt.",

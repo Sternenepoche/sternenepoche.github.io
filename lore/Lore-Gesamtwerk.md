@@ -1,6 +1,6 @@
 # Sternenepoche – Lore-Gesamtwerk
 
-Die gesamte geltende Lore an einem Ort, erzeugt am 26.10.2026 02:47 aus `docs/LORE-BIBEL.md`, `content/beschreibungen.json`, `docs/rat/rat.json` und `web-client/audio/bots/texte.json`. **Nicht hier ändern:** Lore wird in diesen Quellen geändert und danach mit `python -X utf8 tools/content/lore_gesamtwerk.py` neu erzeugt.
+Die gesamte geltende Lore an einem Ort, erzeugt am 31.10.2026 20:36 aus `docs/LORE-BIBEL.md`, `content/beschreibungen.json`, `docs/rat/rat.json` und `web-client/audio/bots/texte.json`. **Nicht hier ändern:** Lore wird in diesen Quellen geändert und danach mit `python -X utf8 tools/content/lore_gesamtwerk.py` neu erzeugt.
 
 ## Teil I · Der Kanon (Lore-Bibel)
 
@@ -130,8 +130,8 @@ Epochen tauchen in Expeditionsberichten auf.
 |---|---|---|---|
 | I | Gründungszeit | Start | Landnacht, Solarfolie, Bohrturm, die erste Akademie in einer Halle aus Archenrumpf. Alles ist Bausatz und Improvisation. |
 | II | Industrie | 1.500 Einwohner, Erzmine 5, Kristallmine 5 | Die ersten Brecher laufen im Takt. Gießerei, Elektronikwerk, Fusion, erste Jäger und Frachter. |
-| III | Orbit | 4.000 Einwohner, Gießerei 3, Elektronikwerk 2, Energietechnik 3, Stabilität 55 | Der Himmel wird Arbeitsplatz: Markt, Phalanx, Silos, Bergbau im Gürtel, die ersten Impulskreuzer und kleinen Kolonieschiffe. Die erste Kaserne mit den ersten Bodentruppen (Sturminfanterie, Schwere Infanterie, Kampf- und Aufklärungsdrohne) bewacht die Kolonien. |
-| IV | Sternenflug | 40.000 Einwohner, Werft 4, Impulsantrieb 3, Astrophysik 1, Stabilität 60, Konsum 80 % | Impulsflotten, Orbitalwerft, Große Kolonieschiffe, Terraformer, Gaußkanone, erster Planetenschild. Die ersten Monde (Kreuzerwinter) und Mondbasen. Truppentransporter, Panzer und die schwereren Bodentruppen – noch ohne Landung auf fremdem Boden, denn die braucht Bomber. Aus einer Welt wird ein Reich. |
+| III | Orbit | 4.000 Einwohner, Gießerei 3, Elektronikwerk 2, Energietechnik 3, Stabilität 55 | Der Himmel wird Arbeitsplatz: Markt, Phalanx, Silos, Bergbau im Gürtel, die ersten Impulskreuzer und kleinen Kolonieschiffe und über den wichtigsten Welten die erste Schildkuppel. Die erste Kaserne mit den ersten Bodentruppen (Sturminfanterie, Schwere Infanterie, Kampf- und Aufklärungsdrohne) bewacht die Kolonien. |
+| IV | Sternenflug | 40.000 Einwohner, Werft 4, Impulsantrieb 3, Astrophysik 1, Stabilität 60, Konsum 80 % | Impulsflotten, Orbitalwerft, Große Kolonieschiffe, Terraformer, Gaußkanone, Bunkerbrecher. Die ersten Monde (Kreuzerwinter) und Mondbasen. Truppentransporter, Panzer und die schwereren Bodentruppen – noch ohne Landung auf fremdem Boden, denn die braucht Bomber. Aus einer Welt wird ein Reich. |
 | V | Imperium | 200.000 Einwohner, Hyperraumantrieb 1, 3 Kolonien | Hyperraum, Schlachtschiffe, Flottenkreuzer, Plasmawerfer, Bomber (und mit ihnen die ersten Landungen), Zerstörer, Schlachtkreuzer, Planetenschild II und III, Orbitalring, Hyperraumtor-Generatoren, Weltenkrümmer; als Allianzwerk die Dysonsphäre. |
 
 Die Stufen sind **Kanon für den Klang**: Ein Text über eine Stufe-II-Anlage klingt nach Staub, Schweiß und Improvisation;
@@ -255,7 +255,10 @@ Weitere feste Begriffe:
 - **Schildtechnik:** +10 % Schild je Stufe.
 - **Planetenschild:** ein am Boden verankerter Schirm mit Pylonen. **Nur einer je Planet**, denn zwei konzentrische Schirme
   um denselben Körper geraten in Feldinterferenz und löschen einander aus. Stufe II (Pylonen höher als jedes Gebäude) und
-  Stufe III (Xenokristallgitter, Sterne wirken durch ihn verschwommen) folgten den Belagerungsschiffen.
+  Stufe III (Xenokristallgitter, Sterne wirken durch ihn verschwommen) folgten den Belagerungsschiffen. Der erste Schirm stammt
+  aus der Orbitzeit (Stufe III, Schildtechnik 3); Stufe II ist ein Kind der Kuppelkrise, doch seit die **Ringnorm** jeder Werft
+  die Anschlussmaße gibt, baut eine Gründung sie schon im Sternenflug (Stufe IV, Schildtechnik 5, Orbitalwerft 2). Stufe III
+  bleibt dem Imperium vorbehalten (Stufe V, Xenomaterialkunde 2).
 
 #### 4.6 Struktur und Panzerung
 
@@ -1131,7 +1134,7 @@ Ein Veyari-Mantel wird Jahr um Jahr nachgeflochten, bis man ihn dem Garten zurü
 
 *Fördergebäude für seltene Güter · Spezialförderanlage, die Xenokristall aus den Ablagerungen kosmischer Nebel gewinnt.*
 
-**Wozu.** Xenokristall ist Pflicht für Hyperraumantrieb, Schlachtschiffe, Zerstörer, Planetenschilde und die Großprojekte.
+**Wozu.** Xenokristall ist Pflicht für Hyperraumantrieb, Schlachtschiffe, Zerstörer, Planetenschild II und III und die Großprojekte.
 
 **Stärke.** Er fördert mit 4 Einheiten Grundertrag das seltenste Gut des Spiels, das in der Wertung zwanzigfach zählt.
 
@@ -2195,13 +2198,13 @@ Energietechnik ist die Lehre davon, wie aus Licht, Plasma und Bewegung nutzbarer
 
 Jede Forschungsstufe bringt 5 Prozent mehr Stromerzeugung, durch reiner gezogene Kristallfolien, geringere Umschaltverluste in den Wandlern und Kühlkreisläufe, die Wärme dort abführen, wo sie entsteht. Weil der Gewinn ein Anteil am vorhandenen Ertrag ist, wirkt die Energietechnik nur, wo schon Kraftwerke stehen: Ein Fusionskraftwerk mit 50 Strom Grundertrag gewinnt mit jeder Stufe, eine Welt ohne Kraftwerk gewinnt nichts. Die erste Stufe kostet 400 Kristall und 200 Deuterium bei einem Laboraufwand von 150 Forschungspunkten, und jede weitere Stufe kostet doppelt so viel wie die vorige.
 
-Erforschbar ist sie schon in der Gründungszeit mit einem Labor der Stufe 1, und Energietechnik 3 ist Pflicht für den Aufstieg in den Orbit. Ihren größten Wert hat sie für Schilde, denn ein Phasenschirm leitet Treffer in Kondensatorbänke ab, die zwischen den Salven nachgeladen werden müssen: Der Planetenschild I verlangt Energietechnik 3, der Schildkreuzer mit seinen 3.000 Schild Stufe 4, Planetenschild II Stufe 6 und Planetenschild III Stufe 8.
+Erforschbar ist sie schon in der Gründungszeit mit einem Labor der Stufe 1, und Energietechnik 3 ist Pflicht für den Aufstieg in den Orbit. Ihren größten Wert hat sie für Schilde, denn ein Phasenschirm leitet Treffer in Kondensatorbänke ab, die zwischen den Salven nachgeladen werden müssen: Der Planetenschild I verlangt Energietechnik 3, der Schildkreuzer mit seinen 3.000 Schild Stufe 4, Planetenschild II Stufe 5 und Planetenschild III Stufe 7.
 
 ##### Chronik
 
 Die Energietechnik ist so alt wie jede Gründung, denn in der Landnacht wird die Folie der Arche zum ersten Solarfeld, und schon das erste Labor fragt, warum es abends weniger Strom liefert, als die Rechnung verspricht. Sie gehört mit Agrarwissenschaft, Spionagetechnik und Verbrennungsantrieb zu den vier Fächern, die schon in der Gründungszeit ein Labor der Stufe 1 erlaubt. In der Industriezeit trägt sie das Fusionskraftwerk, das fast doppelt so viel liefert wie ein Solarkraftwerk, und ihre dritte Stufe öffnet zusammen mit Gießerei und Elektronikwerk den Weg in den Orbit.
 
-Im Sternenflug macht sie den ersten Planetenschild möglich, und als in der Kuppelkrise Belagerungsschiffe einfache Schirme in wenigen Salven brachen, waren es Energietechnik 6 und 8, die Planetenschild II und III speisten. Ihr Endpunkt im Imperium ist das Versorgungsnetz, dessen supraleitende Ringleitungen die Verluste des Altnetzes beseitigen, gegen die das Fach so lange gearbeitet hat.
+In der Orbitzeit machte ihre dritte Stufe den ersten Planetenschild möglich, und als in der Kuppelkrise Belagerungsschiffe einfache Schirme in wenigen Salven brachen, waren es Energietechnik 5 und 7, die Planetenschild II und III speisten. Ihr Endpunkt im Imperium ist das Versorgungsnetz, dessen supraleitende Ringleitungen die Verluste des Altnetzes beseitigen, gegen die das Fach so lange gearbeitet hat.
 
 ##### Volksakten
 
@@ -2782,7 +2785,7 @@ Wer eine neue Stufe abschließt, verbringt eine Nacht im Garten der Stille, eine
 
 **Wozu.** Sie erhöht den Schild aller Schiffe und Verteidigungsanlagen.
 
-**Stärke.** Jede Stufe bringt 10 Prozent Schild, und die Stufen 4, 7 und 10 öffnen die drei Planetenschilde.
+**Stärke.** Jede Stufe bringt 10 Prozent Schild, und die Stufen 3, 5 und 7 öffnen die drei Planetenschilde.
 
 **Grenzen.** Sie ist gegen viele kleine Treffer besonders wertvoll, hilft aber nicht gegen Raketen, die Schilde umgehen.
 
@@ -2799,13 +2802,13 @@ Ein Phasenschirm wird von einem Gitter aus Emitterplatten aus Gitterkristall auf
 
 Treffer unter 1 % der vollen Schirmstärke weist das Feld vollständig ab, und dieser Schwellreflex ist der Grund, warum Massen leichter Waffen gegen stark geschirmte Ziele nutzlos bleiben. Schildtechnik verbessert alle drei Glieder der Kette, den Emitterschliff, die Bankdichte und den Nachladegenerator, und hebt den Schild aller Schiffe und Verteidigungsanlagen um 10 Prozent je Stufe, wobei mit dem Schirm auch die Schwelle wächst, unter der Treffer verpuffen. Die erste Stufe ist ab der Industriezeit mit einem Labor der Stufe 2 zugänglich und kostet 200 Erz, 600 Kristall und 400 Forschungspunkte, jede weitere Stufe verdoppelt den Aufwand, und der Kristallanteil geht fast vollständig in geschliffene Versuchsplatten.
 
-Gegen Raketen aus planetaren Silos hilft kein Schirm, denn ein Flugkörper mit eigenem Antrieb durchdringt das Feld ohne den kurzen Energiestoß, den die Emitter abfangen, und zündet erst dahinter. Auf ihren Stufen öffnet die Forschung den Schweren Jäger bei 3, den Planetenschild bei 4, Schildkreuzer, Schweren Schlachtkreuzer und Trägerschlachtschiff bei 5, den Planetenschild II bei 7 und den Planetenschild III bei 10.
+Gegen Raketen aus planetaren Silos hilft kein Schirm, denn ein Flugkörper mit eigenem Antrieb durchdringt das Feld ohne den kurzen Energiestoß, den die Emitter abfangen, und zündet erst dahinter. Auf ihren Stufen öffnet die Forschung den Schweren Jäger und den Planetenschild bei 3, Schildkreuzer, Planetenschild II, Schweren Schlachtkreuzer und Trägerschlachtschiff bei 5 und den Planetenschild III bei 7.
 
 ##### Chronik
 
-Die Schildtechnik entstand in der Industriezeit, als die Werften der Glutjagd lernten, dass ein Frachter, der einen Laserpuls ableitet, billiger ist als einer, der ihn mit Panzerplatten auffängt. Ihre dritte Stufe machte in der Orbitzeit den Schweren Jäger mit seinem Schirm von 250 möglich, der in den Bomberjahren berühmt wurde, und auf Stufe 4 entstand im Sternenflug der erste Planetenschild, ein am Boden verankertes Feld aus Pylonen. Mit Stufe 5 und der Energietechnik kam der Schildkreuzer, dessen 3.000 Schild in der Schlacht am Zehnten Nebel den Rückzug von Clan Ul-Tharn deckten, als die synthetische Einheit Bastion ihr Schiff zwischen die Krath und die feindliche Linie legte.
+Die Schildtechnik entstand in der Industriezeit, als die Werften der Glutjagd lernten, dass ein Frachter, der einen Laserpuls ableitet, billiger ist als einer, der ihn mit Panzerplatten auffängt. Ihre dritte Stufe machte in der Orbitzeit den Schweren Jäger mit seinem Schirm von 250 möglich, der in den Bomberjahren berühmt wurde, und auf derselben Stufe entstand der erste Planetenschild, ein am Boden verankertes Feld aus Pylonen. Mit Stufe 5 und der Energietechnik kam der Schildkreuzer, dessen 3.000 Schild in der Schlacht am Zehnten Nebel den Rückzug von Clan Ul-Tharn deckten, als die synthetische Einheit Bastion ihr Schiff zwischen die Krath und die feindliche Linie legte.
 
-In der Kuppelkrise zeigte sich die Grenze des einfachen Schirms, und die Admiralitäten antworteten mit dem Planetenschild II auf Stufe 7 und dem Planetenschild III auf Stufe 10, durch dessen Xenokristallgitter die Sterne verschwommen wirken. Bis heute steht nur ein Schirm je Planet, weil zwei konzentrische Felder in Interferenz geraten und einander auslöschen.
+In der Kuppelkrise zeigte sich die Grenze des einfachen Schirms, und die Admiralitäten antworteten mit dem Planetenschild II auf Stufe 5 und dem Planetenschild III auf Stufe 7, durch dessen Xenokristallgitter die Sterne verschwommen wirken. Bis heute steht nur ein Schirm je Planet, weil zwei konzentrische Felder in Interferenz geraten und einander auslöschen.
 
 ##### Volksakten
 
@@ -3076,7 +3079,7 @@ Im Dornensommer waren es solche Kapseln, mit denen Kael Dornhag die Rudel des Kr
 
 **Wozu.** Sie steigert die Xenokristallförderung und öffnet die schwersten Rümpfe und Schilde.
 
-**Stärke.** Jede Stufe bringt 10 Prozent mehr Xenokristall, und die Stufen 2, 3 und 4 öffnen Belagerungsschlachtschiff, Strategischen Bomber und Planetenschild III.
+**Stärke.** Jede Stufe bringt 10 Prozent mehr Xenokristall, Stufe 2 öffnet Belagerungsschlachtschiff und Planetenschild III, Stufe 3 den Strategischen Bomber.
 
 **Grenzen.** Ab Stufe IV mit Labor 5 verfügbar und mit 500 Xenokristall schon auf Stufe 1 teuer, lohnt sie sich vor allem für Besitzer von Nebelwelten.
 
@@ -3093,13 +3096,13 @@ Xenomaterialkunde ist die Wissenschaft von der Bruchmaterie: Xenokristall entste
 
 Gefunden wird Xenokristall nur in den Nebelsystemen des Zehnerrasters, und gefördert wird er im Xenoextraktor mit einem Grundertrag von 4 Einheiten. Jede Stufe der Forschung hebt diese Förderung um 10 Prozent, weil die Förderköpfe besser auf die Kopplung der Ablagerungen abgestimmt werden und beim Abbau weniger Gitter zerspringen oder verlöschen. Die erste Stufe verlangt den Sternenflug und ein Labor der Stufe 5, kostet 10.000 Kristall, 500 Xenokristall und 4.000 Forschungspunkte, und jede weitere Stufe verdoppelt den Aufwand, sodass sich das Fach vor allem für Besitzer von Nebelwelten lohnt.
 
-Auf ihren höheren Stufen öffnet die Forschung die schwersten Rümpfe und Schirme: das Belagerungsschlachtschiff bei Stufe 2, den Strategischen Bomber bei Stufe 3 und den Planetenschild III mit seinem Xenokristallgitter bei Stufe 4. Warum sich das Gitter nie wiederholt und wer die Scherung einst auslöste, beantwortet das Fach nicht; es misst nur immer genauer, wie wenig es weiß.
+Auf ihren höheren Stufen öffnet die Forschung die schwersten Rümpfe und Schirme: das Belagerungsschlachtschiff und den Planetenschild III mit seinem Xenokristallgitter bei Stufe 2 und den Strategischen Bomber bei Stufe 3. Warum sich das Gitter nie wiederholt und wer die Scherung einst auslöste, beantwortet das Fach nicht; es misst nur immer genauer, wie wenig es weiß.
 
 ##### Chronik
 
 Xenomaterialkunde ist ein Fach des Sternenflugs, und jede Gründung muss es neu beginnen, denn kein Xenokristallgitter übersteht die Schwelle: In der Schwellenblässe verlischt jede mitgebrachte Probe, und nur das Wissen reist mit. Das erste Xenolabor der Chronik brannte ab, weil eine Probe sich ohne Ursache erwärmte, und seither stehen Xenolabore abseits der Siedlungen über Kühlbecken. Die Messreihen dieser frühen Labore lieferten die Daten, mit denen die Antriebsbauer den ersten Resonator stimmten, und alle vier Völker zählen den Ersten Sprung deshalb auch zu den Siegen ihrer Xenoforscher.
 
-Im Imperium öffnete das Fach das Belagerungsschlachtschiff, das in der Kuppelkrise die einfachen Planetenschilde brach, dazu den Strategischen Bomber und auf Stufe 4 die späte Antwort auf die Kuppelkrise, den Planetenschild III mit seinem Gitter aus Xenokristall. Seit dem Fall von Kessa, als die Scherlanze eines Weltenkrümmers zum ersten Mal einen Mond brach, fragt jedes Xenolabor auch, ob es dem Ersten Bruch näher kommt, als ihm lieb ist.
+Im Imperium öffnete das Fach das Belagerungsschlachtschiff, das in der Kuppelkrise die einfachen Planetenschilde brach, dazu den Strategischen Bomber und als späte Antwort auf die Kuppelkrise den Planetenschild III mit seinem Gitter aus Xenokristall, den eine Gründung heute schon mit Stufe 2 aufspannt. Seit dem Fall von Kessa, als die Scherlanze eines Weltenkrümmers zum ersten Mal einen Mond brach, fragt jedes Xenolabor auch, ob es dem Ersten Bruch näher kommt, als ihm lieb ist.
 
 ##### Volksakten
 
@@ -4442,7 +4445,7 @@ Gegen Schiffe sind die nach unten gerichteten Geschütze nicht eingemessen und t
 
 ##### Chronik
 
-Das Belagerungsschlachtschiff entstand, als die Planetenschilde aus dem Zeitalter des Sternenflugs jede Flotte über einer Welt festhielten, bis ihre Wärmesenken gesättigt waren und sie abdrehen musste. Mit Waffentechnik 7 und Xenomaterialkunde 2 gelang ein Rumpf, dessen Planetenkanonen die Kuppel schneller zermürbten, als ihre Generatoren die Bänke zwischen den Salven nachfüllen konnten, und so begann die Kuppelkrise. Der einfache Planetenschild brach damals in wenigen Salven, und die Antwort der Verteidiger waren Planetenschild II und III, deren Schirme das Feuer wieder über viele Runden binden, auch wenn das Schiff sie weiterhin doppelt trifft.
+Das Belagerungsschlachtschiff entstand, als die Planetenschilde aus Orbitzeit und Sternenflug jede Flotte über einer Welt festhielten, bis ihre Wärmesenken gesättigt waren und sie abdrehen musste. Mit Waffentechnik 7 und Xenomaterialkunde 2 gelang ein Rumpf, dessen Planetenkanonen die Kuppel schneller zermürbten, als ihre Generatoren die Bänke zwischen den Salven nachfüllen konnten, und so begann die Kuppelkrise. Der einfache Planetenschild brach damals in wenigen Salven, und die Antwort der Verteidiger waren Planetenschild II und III, deren Schirme das Feuer wieder über viele Runden binden, auch wenn das Schiff sie weiterhin doppelt trifft.
 
 Der ältere Bunkerbrecher, bis dahin eine Silorakete gegen Festungswelten, erlebte in diesen Jahren an der Seite der Belagerer seine größte Zeit, denn er trifft Gaußkanonen, Plasmawerfer und alle Planetenschilde doppelt und damit fast dieselben Ziele. Gegen die Belagerer selbst setzten die Admiralitäten auf Zerstörer, die es dreifach treffen, und danach auf den Schweren Zerstörer, der es ebenfalls dreifach trifft und dabei zwei Ziele je Runde nimmt.
 
@@ -5142,13 +5145,13 @@ Zu jedem neuen Werfer pflanzt man einen Baum für die Welt, die er schützt, und
 
 Der Planetenschild ist ein Phasenschirm in planetarem Maßstab: Drei Pylonen, jeder mit einem Kranz aus Kristall-Emitterplatten, spannen über der Kolonie eine halbdurchsichtige Kuppel auf, die im Boden verankert ist und Treffer als Energie in Kondensatorbänke unter den Pylonen ableitet. Zwischen den Salven füllen die Generatoren die Bänke wieder auf, darum baut sich der Schirm Runde für Runde neu auf, bis die Struktur der Anlage selbst nachgibt. Gemessen werden 30.000 Schild und 300.000 Struktur, ein eigener Angriff fehlt völlig, und im Gefecht ist der Schild ein eigenes, sehr zähes Ziel, das feindliches Feuer über viele Runden bindet, das sonst Geschütze und Siedlung treffen würde.
 
-Der Schwellreflex macht ihn gegen Kleinkaliber unangreifbar, denn jeder Treffer unter einem Hundertstel der vollen Schirmstärke verpufft wirkungslos, bei der Grundstärke also jeder unter 300, und jede Stufe Schildtechnik hebt diese Schwelle weiter an. Nur einer je Planet ist möglich, weil zwei konzentrische Schirme um denselben Körper in Feldinterferenz geraten und einander auslöschen. Gebaut wird er ab Stufe IV mit Schildtechnik 4 und Energietechnik 3 aus 50.000 Erz, 50.000 Kristall, 2.000 Legierung, 1.000 Elektronik und 100 Xenokristall, und dieser kleine Xenoanteil hält die Emitter über einer ganzen Halbkugel in Phase, weshalb keine Arche einen Schild durch die Schwelle bringen kann.
+Der Schwellreflex macht ihn gegen Kleinkaliber unangreifbar, denn jeder Treffer unter einem Hundertstel der vollen Schirmstärke verpufft wirkungslos, bei der Grundstärke also jeder unter 300, und jede Stufe Schildtechnik hebt diese Schwelle weiter an. Nur einer je Planet ist möglich, weil zwei konzentrische Schirme um denselben Körper in Feldinterferenz geraten und einander auslöschen. Gebaut wird er ab Stufe III mit Schildtechnik 3 und Energietechnik 3 aus 50.000 Erz, 50.000 Kristall, 2.000 Legierung und 1.000 Elektronik, ganz ohne Xenokristall, denn erst die Schildgitter höherer Ordnung brauchen Bruchmaterie, und so steht die erste Kuppel schon über den Welten der Orbitzeit.
 
 Strategische Bomber treffen ihn dreifach, Belagerungsschlachtschiffe und Bunkerbrecher doppelt, und Raketen schlüpfen durch den Schirm, als wäre er nicht da. Weil Bodenmannschaften zerstörte Verteidigung nach dem Gefecht zu 70 Prozent instand setzen und ein Schild nur einmal steht, richten sie eine gefallene Kuppel in aller Regel wieder auf.
 
 ##### Chronik
 
-Der Planetenschild entstand im Sternenflug, als Schildtechnik 4, Energietechnik 3 und die ersten Xenoextraktoren der Nebel zum ersten Mal einen Schirm über eine ganze Kolonie erlaubten. Gegen die Kreuzer und Raketenkreuzer seiner Zeit war er kaum zu überwinden, und die Angreifer suchten andere Wege: Die älteren Interplanetarraketen schlüpften ohnehin unter jedem Schirm hindurch, und noch im Sternenflug kam der Bunkerbrecher hinzu, der ihn doppelt trifft. Seine Grenze zeigte die Kuppelkrise, als Belagerungsschlachtschiffe einfache Kuppeln in wenigen Salven brachen. Die Antwort waren Planetenschild II und III, die ihn ersetzen, ohne das Gesetz des einen Schirms je Welt aufzuheben.
+Der Planetenschild entstand in der Orbitzeit, als Schildtechnik 3, die schon den Schirm des Schweren Jägers trug, und Energietechnik 3 zum ersten Mal einen Schirm über eine ganze Kolonie erlaubten. Gegen die Kreuzer seiner Zeit war er kaum zu überwinden, und die Angreifer suchten andere Wege: Die Interplanetarraketen der Silos schlüpften ohnehin unter jedem Schirm hindurch, und im Sternenflug kam der Bunkerbrecher hinzu, der ihn doppelt trifft. Seine Grenze zeigte die Kuppelkrise, als Belagerungsschlachtschiffe einfache Kuppeln in wenigen Salven brachen. Die Antwort waren Planetenschild II und III, die ihn ersetzen, ohne das Gesetz des einen Schirms je Welt aufzuheben.
 
 ##### Volksakten
 
@@ -5156,7 +5159,7 @@ Der Planetenschild entstand im Sternenflug, als Schildtechnik 4, Energietechnik 
 
 In der Abendsonne schimmert die Tutela golden, und Händler drucken sie auf ihre Frachtbriefe. Severin Lazar soll gesagt haben, der beste Vertrag sei einer, den der Gegner von außen lesen kann, ohne ihn brechen zu können.
 
-**Krath-Akte.** Den Krath galt ein Schirm über einer Stadt lange als Feigheit, denn wer sich verstecke, lade den Feind nur zum Warten ein. Das änderte sich, als Clan Groth seine Heimatwelt im Sternenflug unter einer Kuppel durch eine ganze Belagerung brachte und Grothak danach vor den Clan trat und sagte, auch eine Mutter stelle sich vor ihre Kinder, ohne selbst zu schlagen. Seitdem heißt die Kuppel bei den Krath Schild der Mütter, und wer am Generator Dienst tut, trägt dieselbe Ehre wie ein Frontkämpfer.
+**Krath-Akte.** Den Krath galt ein Schirm über einer Stadt lange als Feigheit, denn wer sich verstecke, lade den Feind nur zum Warten ein. Das änderte sich, als Clan Groth seine Heimatwelt in der Orbitzeit unter einer Kuppel durch eine ganze Belagerung brachte und Grothak danach vor den Clan trat und sagte, auch eine Mutter stelle sich vor ihre Kinder, ohne selbst zu schlagen. Seitdem heißt die Kuppel bei den Krath Schild der Mütter, und wer am Generator Dienst tut, trägt dieselbe Ehre wie ein Frontkämpfer.
 
 Die drei Pylonen sind kantige Basaltstahltürme, die jede Hammerprobe überstehen, aber die Emitterplatten sind feine Technik, die die Clans nur widerwillig bei aurelianischen Schleifern kaufen. Dass die Krath wegen ihrer langsameren Forschung die nötige Schildtechnik erst nach den anderen Völkern erreichen, erklären die Clans damit, dass ein Schild warten könne, ein Hammer nicht.
 
@@ -5174,7 +5177,7 @@ Die drei Pylonen sind kantige Basaltstahltürme, die jede Hammerprobe überstehe
 
 **Stärke.** Mit 60.000 Schild und 500.000 Struktur verdoppelt sie den Schirm der ersten Stufe.
 
-**Grenzen.** Sie braucht Schildtechnik 7, Energietechnik 6, Orbitalwerft 2 und 500.000 Erz und bleibt angreifbar durch Strategische Bomber, Belagerungsschiffe und Bunkerbrecher.
+**Grenzen.** Sie braucht Stufe IV, Schildtechnik 5, Energietechnik 5, Orbitalwerft 2 und 500.000 Erz und bleibt angreifbar durch Strategische Bomber, Belagerungsschiffe und Bunkerbrecher.
 
 > Die zweite Schildstufe entstand in der Kuppelkrise, nachdem Belagerungsschiffe gelernt hatten, einfache Kuppeln in wenigen Salven zu brechen. Ihre sechs Pylonen ragen höher als jedes Gebäude der Kolonie, und ihre zwei ineinanderliegenden Schalen sind von weitem das Zeichen einer wehrhaften Welt.
 
@@ -5187,13 +5190,15 @@ Die drei Pylonen sind kantige Basaltstahltürme, die jede Hammerprobe überstehe
 
 Planetenschild II ersetzt die erste Stufe und ist dennoch kein zweiter Schild, auch wenn man von außen zwei ineinanderliegende Kuppeln sieht. Sechs Emitterpylonen, höher als jedes Gebäude der Kolonie, spannen eine Doppelschale auf, deren innere und äußere Lage von einem einzigen Generator im selben Phasentakt gespeist werden, und weil beide Lagen eine einzige Schwingung bilden, entsteht keine Feldinterferenz. Zwischen den Lagen liegen Speicherringe, Kondensatorbänke in Ringform, die einen Treffer über das ganze Netz verteilen, sodass kaum je eine Stelle überlastet.
 
-Gemessen werden 60.000 Schild und 500.000 Struktur, doppelt so viel Schirm wie bei der ersten Stufe, und der Schwellreflex weist entsprechend schon bei Grundstärke jeden Treffer unter 600 ab. Voraussetzung sind Schildtechnik 7, Energietechnik 6 und eine Orbitalwerft der Stufe 2, denn die Speicherringe sind zu groß und zu fein, um in der Schwerkraft am Boden gewickelt zu werden. Die Kosten zeigen, wie ernst die Kuppelkrise war: 500.000 Erz, 250.000 Kristall, 500 Deuterium, 8.333 Legierung, 2.500 Elektronik und 625 Xenokristall.
+Gemessen werden 60.000 Schild und 500.000 Struktur, doppelt so viel Schirm wie bei der ersten Stufe, und der Schwellreflex weist entsprechend schon bei Grundstärke jeden Treffer unter 600 ab. Voraussetzung sind Stufe IV, Schildtechnik 5, Energietechnik 5 und eine Orbitalwerft der Stufe 2, denn die Speicherringe sind zu groß und zu fein, um in der Schwerkraft am Boden gewickelt zu werden. Die Kosten zeigen, wie ernst die Kuppelkrise war: 500.000 Erz, 250.000 Kristall, 500 Deuterium, 8.333 Legierung, 2.500 Elektronik und 625 Xenokristall.
 
 Einen eigenen Angriff hat auch diese Stufe nicht, und Strategische Bomber treffen sie dreifach, Belagerungsschlachtschiffe und Bunkerbrecher doppelt, weil deren Bomben, Artillerie und Gefechtsköpfe gezielt auf die Fundamente der Pylonen eingemessen sind.
 
 ##### Chronik
 
-Planetenschild II ist die erste Antwort auf die Kuppelkrise im Zeitalter der Imperien. Belagerungsschlachtschiffe, die Schilde doppelt treffen, brachen einfache Kuppeln in wenigen Salven, und zugleich legten die Angreifer die älteren Bunkerbrecher gezielt auf die Pylonen. Die Schildbauer aller Völker lernten, dass mehr Pylonen allein nichts nützten, solange ein zweiter Generator die Feldinterferenz auslöste, und fanden den Weg über die gekoppelte Doppelschale. Die zweite Stufe hielt die Belagerer deutlich länger auf, doch Strategische Bomber und Belagerungsschiffe blieben ihr gewachsen, und so folgte Planetenschild III mit seinem Xenokristallgitter.
+Planetenschild II ist die erste Antwort auf die Kuppelkrise im Zeitalter der Imperien. Belagerungsschlachtschiffe, die Schilde doppelt treffen, brachen einfache Kuppeln in wenigen Salven, und zugleich legten die Angreifer die älteren Bunkerbrecher gezielt auf die Pylonen. Die Schildbauer aller Völker lernten, dass mehr Pylonen allein nichts nützten, solange ein zweiter Generator die Feldinterferenz auslöste, und fanden den Weg über die gekoppelte Doppelschale.
+
+Die zweite Stufe hielt die Belagerer deutlich länger auf, doch Strategische Bomber und Belagerungsschiffe blieben ihr gewachsen, und so folgte Planetenschild III mit seinem Xenokristallgitter. Seit die Ringnorm aus jenen Jahren jeder Werft die Anschlussmaße gibt, muss keine Gründung die Doppelschale neu erfinden, und so wickelt heute schon eine Welt des Sternenflugs ihre Speicherringe, lange bevor über ihr ein Belagerer auftaucht.
 
 ##### Volksakten
 
@@ -5221,7 +5226,7 @@ Mira Sennwurz hat die Doppelschale mit dem Myzelnetz unter den Hochwäldern Veyh
 
 **Stärke.** Mit 100.000 Schild und 800.000 Struktur trägt sie den stärksten Schirm des Spiels.
 
-**Grenzen.** Sie braucht Schildtechnik 10, Energietechnik 8, Xenomaterialkunde 4 und 1.000 Xenokristall, hat keinerlei Angriffskraft und bleibt Ziel spezialisierter Schildbrecher.
+**Grenzen.** Sie braucht Stufe V, Schildtechnik 7, Energietechnik 7, Xenomaterialkunde 2 und 1.000 Xenokristall, hat keinerlei Angriffskraft und bleibt Ziel spezialisierter Schildbrecher.
 
 > Ein Planetenschild der dritten Stufe ist so stark, dass Sterne durch ihn hindurch leicht verschwommen wirken, als läge die Welt unter Wasser. Nur wenige Welten tragen einen, und die, die einen tragen, werden selten angegriffen und nie unterschätzt.
 
@@ -5234,7 +5239,7 @@ Mira Sennwurz hat die Doppelschale mit dem Myzelnetz unter den Hochwäldern Veyh
 
 Planetenschild III ist die größte planetare Schutzbarriere: Neun Emitterpylonen spannen drei ineinanderliegende Schalen auf, und in ihrer Mitte liegt ein geschützter Zentralreaktor, der alle drei im selben Phasentakt speist, sodass auch hier nur ein einziger Schirm entsteht. Neu ist das Xenokristallgitter in den Speichern, denn Bruchmaterie bleibt an die Kurzschicht des Hyperraums gekoppelt und kann Trefferenergie dorthin ableiten, wo gewöhnliche Kondensatorbänke längst voll wären. Diese Kopplung erklärt nach gängiger Lehre auch, warum Sterne durch den Schirm verschwommen wirken, denn das Feld verzerrt den Raum über der Kolonie, und das Licht folgt der Verzerrung.
 
-Gemessen werden 100.000 Schild und 800.000 Struktur, der stärkste Schirm, den eine Welt tragen kann, und der Schwellreflex weist schon bei Grundstärke jeden Einzeltreffer unter 1.000 ab, sodass selbst Staffeln Schwerer Jäger ohne großen Forschungsvorsprung wirkungslos bleiben. Voraussetzungen sind Schildtechnik 10, Energietechnik 8, Xenomaterialkunde 4 und eine Orbitalwerft der Stufe 2, und die Kosten von 800.000 Erz, 400.000 Kristall, 500 Deuterium, 13.333 Legierung, 4.000 Elektronik und 1.000 Xenokristall machen ihn zur teuersten Verteidigung einer Welt. Er ersetzt die kleineren Stufen, hat keinerlei Angriffskraft und bleibt Ziel spezialisierter Schildbrecher: Strategische Bomber treffen ihn dreifach, Belagerungsschlachtschiffe und Bunkerbrecher doppelt.
+Gemessen werden 100.000 Schild und 800.000 Struktur, der stärkste Schirm, den eine Welt tragen kann, und der Schwellreflex weist schon bei Grundstärke jeden Einzeltreffer unter 1.000 ab, sodass selbst Staffeln Schwerer Jäger ohne großen Forschungsvorsprung wirkungslos bleiben. Voraussetzungen sind Stufe V, Schildtechnik 7, Energietechnik 7, Xenomaterialkunde 2, dieselbe Stufe, die auch das Belagerungsschlachtschiff verlangt, und eine Orbitalwerft der Stufe 2, und die Kosten von 800.000 Erz, 400.000 Kristall, 500 Deuterium, 13.333 Legierung, 4.000 Elektronik und 1.000 Xenokristall machen ihn zur teuersten Verteidigung einer Welt. Er ersetzt die kleineren Stufen, hat keinerlei Angriffskraft und bleibt Ziel spezialisierter Schildbrecher: Strategische Bomber treffen ihn dreifach, Belagerungsschlachtschiffe und Bunkerbrecher doppelt.
 
 Das Gitter ist wild wie aller Xenokristall der Weite, und kein Ingenieur verspricht, dass zwei Schilde dieser Stufe sich je genau gleich verhalten.
 
@@ -5250,7 +5255,7 @@ Planetenschild III ist das zweite Kind der Kuppelkrise und kam erst, als Xenomat
 
 Die neun Pylonen sind kantige Basaltstahltürme mit oxidroten Einlagen, so überdimensioniert, dass sie aussehen, als könnten sie den Himmel auch ohne Feld tragen. Vor den Xenokristall-Speichern stehen Wachen, nicht weil jemand sie stehlen könnte, sondern weil die Krath einem Stoff, der sich ohne Ursache erwärmt, nicht den Rücken zukehren.
 
-**Syntheten-Akte.** Die Klasse Akkord, Revision 3, ist das einzige Bauwerk des Kollektivs, bei dem die Syntheten in ihren eigenen Protokollen eine Unsicherheit stehen lassen. Ihre Xenokristall-Speicher verhalten sich in keiner Messreihe zweimal ganz gleich, und das Kollektiv duldet das nur, weil kein anderer Schirm in seinen Modellen so lange hält. Bastion, die am Zehnten Nebel den Rückzug von Clan Ul-Tharn deckte, hat die Speicher der ersten Revision berechnet und dabei die Lehre jenes Gefechts eingebracht: Ein Schirm muss nicht unzerbrechlich sein, er muss nur länger halten als die Geduld des Gegners. Wegen ihrer schnelleren Forschung erreichen die Syntheten Xenomaterialkunde 4 meist vor den anderen Völkern, und ihre ersten Akkorde stehen über den Welten, auf denen das Kollektiv seine Kernabbilder lagert.
+**Syntheten-Akte.** Die Klasse Akkord, Revision 3, ist das einzige Bauwerk des Kollektivs, bei dem die Syntheten in ihren eigenen Protokollen eine Unsicherheit stehen lassen. Ihre Xenokristall-Speicher verhalten sich in keiner Messreihe zweimal ganz gleich, und das Kollektiv duldet das nur, weil kein anderer Schirm in seinen Modellen so lange hält. Bastion, die am Zehnten Nebel den Rückzug von Clan Ul-Tharn deckte, hat die Speicher der ersten Revision berechnet und dabei die Lehre jenes Gefechts eingebracht: Ein Schirm muss nicht unzerbrechlich sein, er muss nur länger halten als die Geduld des Gegners. Wegen ihrer schnelleren Forschung erreichen die Syntheten Xenomaterialkunde 2 meist vor den anderen Völkern, und ihre ersten Akkorde stehen über den Welten, auf denen das Kollektiv seine Kernabbilder lagert.
 
 **Veyari-Akte.** Die Veyari nennen ihre stärksten Schilde Himmelshaut und bauen sie als Baureihe Mammutbaum, deren neun Pylonen wie die ältesten Bäume eines Hochwalds über die Kolonie ragen. Mira Sennwurz, die den Xenokristall für ein Wurzelwerk zwischen den Sternen hält, hat die Speicher mitentworfen und behauptet, das Gitter leite Trefferenergie in dieses Wurzelwerk ab wie ein Baum den Blitz in den Boden. Viele Veyari halten das für Poesie, und Mira Sennwurz antwortet darauf, gute Poesie sei nur eine Messung, die noch keiner nachgeprüft habe.
 
@@ -5336,7 +5341,7 @@ Sie trifft weder Bewohner noch geparkte Schiffe, bringt keine Beute, wird von je
 
 ##### Chronik
 
-Die Interplanetarrakete entstand im Zeitalter des Orbits, als der Impulsantrieb zum ersten Mal einen Flugkörper über Systemgrenzen trug und das Raketensilo seine zweite Stufe erreichte. Sie war die erste Waffe, mit der eine Welt die Verteidigung einer anderen schwächen konnte, ohne ein einziges Schiff zu riskieren, und zwang alle Völker, ihre Silos mit Abfangraketen zu füllen. Als im Sternenflug die ersten Planetenschilde aufzogen, galt sie bereits als die Waffe, gegen die keine Kuppel hilft. Ihre Erben sind der Bunkerbrecher, der dasselbe Prinzip mit schwererem Kopf gegen Festungsanlagen richtet, und die Hyperrakete, die keine zwanzig Minuten Flug mehr braucht.
+Die Interplanetarrakete entstand im Zeitalter des Orbits, als der Impulsantrieb zum ersten Mal einen Flugkörper über Systemgrenzen trug und das Raketensilo seine zweite Stufe erreichte. Sie war die erste Waffe, mit der eine Welt die Verteidigung einer anderen schwächen konnte, ohne ein einziges Schiff zu riskieren, und zwang alle Völker, ihre Silos mit Abfangraketen zu füllen. Als in der Orbitzeit die ersten Planetenschilde aufzogen, galt sie bereits als die Waffe, gegen die keine Kuppel hilft. Ihre Erben sind der Bunkerbrecher, der dasselbe Prinzip mit schwererem Kopf gegen Festungsanlagen richtet, und die Hyperrakete, die keine zwanzig Minuten Flug mehr braucht.
 
 ##### Volksakten
 
