@@ -2876,7 +2876,7 @@
    "rolle": "Schildgenerator mit drei Pylonen, die eine halbdurchsichtige Energiekuppel über die Kolonie legen.",
    "zweck": "Er fängt Treffer ab, die sonst Verteidigungsanlagen und Siedlungen treffen würden, und ist im Kampf ein eigenes, sehr zähes Ziel.",
    "staerke": "Mit 30.000 Schild und 300.000 Struktur bindet er feindliches Feuer über viele Runden.",
-   "nische": "Nur einer je Planet ist erlaubt, er hat keinen eigenen Angriff, und Strategische Bomber treffen ihn dreifach, Belagerungsschlachtschiffe und Bunkerbrecher doppelt.",
+   "nische": "Er braucht Stufe III, Schildtechnik 3, Energietechnik 3 und Werft 3 (er belegt drei Fertigungsplätze), aber keinen Xenokristall; nur einer je Planet ist erlaubt, er hat keinen eigenen Angriff, und Strategische Bomber treffen ihn dreifach, Belagerungsschlachtschiffe und Bunkerbrecher doppelt.",
    "lore": {
     "allgemein": "Ein Planetenschild sieht von unten aus wie ein dünner Schleier, in dem Treffer als kreisende Lichtwellen über den Himmel laufen. Weil zwei Kuppeln um dieselbe Welt einander auslöschen würden, hat jeder Planet nur einen, und wer ihn angreift, braucht Geduld und sehr viel Feuerkraft.",
     "aurelianer": "Aurelianer bauen ihren ersten Planetenschild der Serie Tutela über der Welt mit dem größten Markt, denn offener Handel braucht einen sicheren Himmel. Die Kuppel schimmert dort golden in der Abendsonne, und Händler werben damit, dass ihre Lager darunter liegen.",

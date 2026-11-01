@@ -23,6 +23,7 @@
     }
     for (const source of document.querySelectorAll(selector)) {
       if(source.closest('.art-shell,.tile-image,.item-info-dialog,.planet-pick,.bs-kachel,.bs-banner,.bs-detail-bild,.bs-auftrag,.planet-bild,.gt-tabelle,#techinfo'))continue;
+      if(source.tagName==='IMG'&&source.closest('.lv-buehne'))continue; // Völkerschau: eine Marke für die ganze Bühne (data-ai-image)
       if (labels.has(source)) continue;
       const host = hostFor(source);
       if (!host) continue;

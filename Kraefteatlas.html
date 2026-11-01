@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="de"><head><meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-tii1D8tpCZOr+/G5GIP04PmsxsY2MFyZUeAz8lbWZUc=&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;; img-src &#x27;self&#x27; data:; font-src &#x27;self&#x27;; connect-src &#x27;self&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;self&#x27;">
+<meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; script-src &#x27;self&#x27; &#x27;sha256-N+llwWIOEIPA9VTxkNHqFtUeq8X5kZPEQmSHr/K62HY=&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;; img-src &#x27;self&#x27; data:; font-src &#x27;self&#x27;; connect-src &#x27;self&#x27;; media-src &#x27;self&#x27;; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;self&#x27;">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Kräfteatlas – Sternenepoche</title>
 <meta name="description" content="Wer schlägt wen: jede Kampfeinheit gegen jede bei gleichem Ressourcenwert, gemessen mit der Kampfengine des Spiels – Konter, Duell-Bilanz, Völker, Raketen, Bodentruppen und jedes Gefecht im Detail.">
@@ -9,9 +9,9 @@
 <meta property="og:image" content="https://sternenepoche.github.io/docs/website/fotos/uebersicht.webp">
 <link rel="icon" type="image/png" href="docs/branding/favicon.png">
 <link rel="preload" href="web-client/fonts/oxanium-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="seite/kopf.css?v=f1647d4a15">
+<link rel="stylesheet" href="seite/kopf.css?v=a6e49dd3dd">
 
-<link rel="stylesheet" href="seite/kraefteatlas.css?v=f1647d4a15">
+<link rel="stylesheet" href="seite/kraefteatlas.css?v=a6e49dd3dd">
 <style id="site-ai-notice-style">.site-ai-notice{box-sizing:border-box;position:relative;z-index:6;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 12px;margin:0;padding:8px 16px;background:#10212d;color:#d3e3e8;border-bottom:1px solid #38515d;font:12px/1.6 system-ui,'Segoe UI',sans-serif;letter-spacing:0;text-align:center}
 .site-ai-notice .site-ai-tag{display:inline-block;padding:0 7px;border:1px solid #729e9c;border-radius:4px;color:#bce9de;font-weight:700;letter-spacing:.05em}
 .site-ai-notice a{display:inline-flex;align-items:center;min-height:28px;color:#f2d3a2;text-decoration:underline;text-underline-offset:3px;font:inherit;white-space:nowrap}
@@ -44,8 +44,8 @@
 </div>
 <p class="ki">Bild, Ton und Text der Sternenepoche sind KI-generiert. Stand 01.11.2026.</p>
 </div></footer>
-<script src="seite/seite.js?v=f1647d4a15" defer></script>
-<script src="web-client/kraefteatlas/daten.js?v=2d8b9914c735"></script><script src="web-client/kraefteatlas/atlas.js?v=f1647d4a15"></script><script src="seite/kraefteatlas-start.js?v=f1647d4a15"></script>
+<script src="seite/seite.js?v=a6e49dd3dd" defer></script>
+<script src="web-client/kraefteatlas/daten.js?v=5a3bbe3a4148"></script><script src="web-client/kraefteatlas/atlas.js?v=a6e49dd3dd"></script><script src="seite/kraefteatlas-start.js?v=a6e49dd3dd"></script>
 <script id="site-ai-labels">// One small label per displayed image, including images added by the game UI.
 (() => {
   'use strict';
@@ -71,6 +71,7 @@
     }
     for (const source of document.querySelectorAll(selector)) {
       if(source.closest('.art-shell,.tile-image,.item-info-dialog,.planet-pick,.bs-kachel,.bs-banner,.bs-detail-bild,.bs-auftrag,.planet-bild,.gt-tabelle,#techinfo'))continue;
+      if(source.tagName==='IMG'&&source.closest('.lv-buehne'))continue; // Völkerschau: eine Marke für die ganze Bühne (data-ai-image)
       if (labels.has(source)) continue;
       const host = hostFor(source);
       if (!host) continue;

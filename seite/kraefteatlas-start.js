@@ -2,6 +2,6 @@
 const kopfhoehe = () => document.documentElement.style.setProperty('--kopfhoehe', document.querySelector('.sk-kopf').getBoundingClientRect().bottom + 'px');
 kopfhoehe(); addEventListener('resize', kopfhoehe);
 const wurzel = document.getElementById('atlas').attachShadow({mode: 'open'}), css = document.createElement('link');
-css.rel = 'stylesheet'; css.href = "web-client/kraefteatlas/atlas.css?v=f1647d4a15";
+css.rel = 'stylesheet'; css.href = "web-client/kraefteatlas/atlas.css?v=a6e49dd3dd";
 css.onload = css.onerror = () => KraefteatlasStart({wurzel, basis: "web-client/", eingebettet: false, vollbild: true});
 wurzel.append(css);

@@ -1,6 +1,6 @@
 # Sternenepoche – Lore-Gesamtwerk
 
-Die gesamte geltende Lore an einem Ort, erzeugt am 31.10.2026 20:36 aus `docs/LORE-BIBEL.md`, `content/beschreibungen.json`, `docs/rat/rat.json` und `web-client/audio/bots/texte.json`. **Nicht hier ändern:** Lore wird in diesen Quellen geändert und danach mit `python -X utf8 tools/content/lore_gesamtwerk.py` neu erzeugt.
+Die gesamte geltende Lore an einem Ort, erzeugt am 01.11.2026 13:17 aus `docs/LORE-BIBEL.md`, `content/beschreibungen.json`, `docs/rat/rat.json` und `web-client/audio/bots/texte.json`. **Nicht hier ändern:** Lore wird in diesen Quellen geändert und danach mit `python -X utf8 tools/content/lore_gesamtwerk.py` neu erzeugt.
 
 ## Teil I · Der Kanon (Lore-Bibel)
 
@@ -131,8 +131,8 @@ Epochen tauchen in Expeditionsberichten auf.
 | I | Gründungszeit | Start | Landnacht, Solarfolie, Bohrturm, die erste Akademie in einer Halle aus Archenrumpf. Alles ist Bausatz und Improvisation. |
 | II | Industrie | 1.500 Einwohner, Erzmine 5, Kristallmine 5 | Die ersten Brecher laufen im Takt. Gießerei, Elektronikwerk, Fusion, erste Jäger und Frachter. |
 | III | Orbit | 4.000 Einwohner, Gießerei 3, Elektronikwerk 2, Energietechnik 3, Stabilität 55 | Der Himmel wird Arbeitsplatz: Markt, Phalanx, Silos, Bergbau im Gürtel, die ersten Impulskreuzer und kleinen Kolonieschiffe und über den wichtigsten Welten die erste Schildkuppel. Die erste Kaserne mit den ersten Bodentruppen (Sturminfanterie, Schwere Infanterie, Kampf- und Aufklärungsdrohne) bewacht die Kolonien. |
-| IV | Sternenflug | 40.000 Einwohner, Werft 4, Impulsantrieb 3, Astrophysik 1, Stabilität 60, Konsum 80 % | Impulsflotten, Orbitalwerft, Große Kolonieschiffe, Terraformer, Gaußkanone, Bunkerbrecher. Die ersten Monde (Kreuzerwinter) und Mondbasen. Truppentransporter, Panzer und die schwereren Bodentruppen – noch ohne Landung auf fremdem Boden, denn die braucht Bomber. Aus einer Welt wird ein Reich. |
-| V | Imperium | 200.000 Einwohner, Hyperraumantrieb 1, 3 Kolonien | Hyperraum, Schlachtschiffe, Flottenkreuzer, Plasmawerfer, Bomber (und mit ihnen die ersten Landungen), Zerstörer, Schlachtkreuzer, Planetenschild II und III, Orbitalring, Hyperraumtor-Generatoren, Weltenkrümmer; als Allianzwerk die Dysonsphäre. |
+| IV | Sternenflug | 40.000 Einwohner, Werft 4, Impulsantrieb 3, Astrophysik 1, Stabilität 60, Konsum 80 % | Impulsflotten, Orbitalwerft, über den Kernwelten die Doppelschale des Planetenschilds II nach der Ringnorm, Große Kolonieschiffe, Terraformer, Gaußkanone, Bunkerbrecher. Die ersten Monde (Kreuzerwinter) und Mondbasen. Truppentransporter, Panzer und die schwereren Bodentruppen – noch ohne Landung auf fremdem Boden, denn die braucht Bomber. Aus einer Welt wird ein Reich. |
+| V | Imperium | 200.000 Einwohner, Hyperraumantrieb 1, 3 Kolonien | Hyperraum, Schlachtschiffe, Flottenkreuzer, Plasmawerfer, Bomber (und mit ihnen die ersten Landungen), Zerstörer, Schlachtkreuzer, Planetenschild III, Orbitalring, Hyperraumtor-Generatoren, Weltenkrümmer; als Allianzwerk die Dysonsphäre. |
 
 Die Stufen sind **Kanon für den Klang**: Ein Text über eine Stufe-II-Anlage klingt nach Staub, Schweiß und Improvisation;
 ein Text über eine Stufe-V-Einheit nach Großwerft, Admiralität und Machtpolitik.
@@ -5132,7 +5132,7 @@ Zu jedem neuen Werfer pflanzt man einen Baum für die Welt, die er schützt, und
 
 **Stärke.** Mit 30.000 Schild und 300.000 Struktur bindet er feindliches Feuer über viele Runden.
 
-**Grenzen.** Nur einer je Planet ist erlaubt, er hat keinen eigenen Angriff, und Strategische Bomber treffen ihn dreifach, Belagerungsschlachtschiffe und Bunkerbrecher doppelt.
+**Grenzen.** Er braucht Stufe III, Schildtechnik 3, Energietechnik 3 und Werft 3 (er belegt drei Fertigungsplätze), aber keinen Xenokristall; nur einer je Planet ist erlaubt, er hat keinen eigenen Angriff, und Strategische Bomber treffen ihn dreifach, Belagerungsschlachtschiffe und Bunkerbrecher doppelt.
 
 > Ein Planetenschild sieht von unten aus wie ein dünner Schleier, in dem Treffer als kreisende Lichtwellen über den Himmel laufen. Weil zwei Kuppeln um dieselbe Welt einander auslöschen würden, hat jeder Planet nur einen, und wer ihn angreift, braucht Geduld und sehr viel Feuerkraft.
 

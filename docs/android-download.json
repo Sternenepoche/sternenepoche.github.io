@@ -1,11 +1,11 @@
 {
-  "version": "0.4.15",
-  "code": 38,
-  "datei": "Sternenepoche-0.4.15.apk",
-  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.15-20261101/Sternenepoche-0.4.15.apk",
-  "sha256": "3caa2cd588767d0506164a614382b832088f14bb40ad4a2a0daf79d21415f47a",
-  "bytes": 192010979,
-  "groesse_mb": 183.1,
+  "version": "0.4.16",
+  "code": 39,
+  "datei": "Sternenepoche-0.4.16.apk",
+  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.16-20261101/Sternenepoche-0.4.16.apk",
+  "sha256": "b14e635841ae8ce1882ce1eed195adbeb225d0a85ff353a913f97998c9a98e4e",
+  "bytes": 192113762,
+  "groesse_mb": 183.2,
   "abis": [
     "arm64-v8a",
     "x86_64"
@@ -16,22 +16,22 @@
   "varianten": [
     {
       "art": "lite",
-      "datei": "Sternenepoche-0.4.15-lite.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.15-20261101/Sternenepoche-0.4.15-lite.apk",
-      "sha256": "7dee8792bcb09f052a8042b47d27b6741614f71bb47def5f1be82236c2285b4b",
-      "bytes": 100469325,
-      "groesse_mb": 95.8,
+      "datei": "Sternenepoche-0.4.16-lite.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.16-20261101/Sternenepoche-0.4.16-lite.apk",
+      "sha256": "523b9cc668ccbabf7e0c9a6340ac64b02aec6ca15ab3b50762aa643f844c5405",
+      "bytes": 100563916,
+      "groesse_mb": 95.9,
       "abis": [
         "arm64-v8a"
       ]
     },
     {
       "art": "voll",
-      "datei": "Sternenepoche-0.4.15.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.15-20261101/Sternenepoche-0.4.15.apk",
-      "sha256": "3caa2cd588767d0506164a614382b832088f14bb40ad4a2a0daf79d21415f47a",
-      "bytes": 192010979,
-      "groesse_mb": 183.1,
+      "datei": "Sternenepoche-0.4.16.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.16-20261101/Sternenepoche-0.4.16.apk",
+      "sha256": "b14e635841ae8ce1882ce1eed195adbeb225d0a85ff353a913f97998c9a98e4e",
+      "bytes": 192113762,
+      "groesse_mb": 183.2,
       "abis": [
         "arm64-v8a",
         "x86_64"
