@@ -60,6 +60,9 @@ VOELKER = [("aurelianer", "Aurelianer", "#ffcf33"), ("krath", "Krath", "#ff4a2e"
 VOLKFARBE = {v: f for v, _, f in VOELKER}
 VOLKNAME = {v: n for v, n, _ in VOELKER}
 esc = lambda s: html.escape(str(s), quote=True)
+# Prüfsummen in Achterblöcken mit Umbruchstellen: am Handy bricht die Zeile nur zwischen den Blöcken, kopiert bleibt sie eine
+# Zeichenkette (Überlappungsprüfung 01.11.2026: Wortbruch in der SHA-256 der Voll-APK bei 360 px).
+pruefsumme = lambda s: "<wbr>".join(esc(s)[i:i + 8] for i in range(0, len(esc(s)), 8))
 
 NAV = [("index.html", "Start", "Überblick"), ("Trailer.html", "Trailer", "Der Weltenkrümmer im Film"),
        ("Sternenepoche-Start.html", "Spielguide", "Einstieg und alle Spielbereiche"),
@@ -850,7 +853,7 @@ function atlasVerweis(key){if(!window.KRAEFTEATLAS_INDEX?.ids?.includes(key))ret
                   + (f'<section data-suche><h2 id="api"><span class="nr">Für eigene Programme</span>Harness-API</h2>{api_text}</section>' if api_text else "")
                   + f'<section><h2 id="cockpit-laden"><span class="nr">Download</span>Harness-Cockpit {esc(c["version"])}</h2><p>Das Harness-Cockpit für Windows enthält deinen Rat aus vier Agenten, den vorgebauten Harness und eine lokale Spielwelt. '
                   + f'Download {esc(str(c["groesse_mb"]).replace(".", ","))} MB.</p><p><a class="button" href="{esc(c["url"])}">Cockpit {esc(c["version"])} für Windows laden</a></p>'
-                  + f'<p class="leise" style="word-break:break-all">SHA-256: {esc(c["sha256"])}</p></section></article></div>')
+                  + f'<p class="leise" style="overflow-wrap:anywhere">SHA-256: {pruefsumme(c["sha256"])}</p></section></article></div>')
         self.schreibe("Harness-Cockpit.html", self.huelle("Harness-Cockpit.html", "Mit KI spielen – Sternenepoche",
                       "Eigene Modelle über Ollama oder OpenRouter, der Rat im Harness-Cockpit und die Harness-API der Sternenepoche.", inhalt))
 
@@ -868,7 +871,7 @@ function atlasVerweis(key){if(!window.KRAEFTEATLAS_INDEX?.ids?.includes(key))ret
         def apk(art, titel, etwa, kennung, text, punkte):
             v = varianten.get(art, {})
             knopf = (f'<p><a class="button{" secondary" if art == "voll" else ""}" href="{esc(v["url"])}">{titel} laden ({mb(v, etwa)})</a></p>'
-                     f'<p class="pruefsumme">{esc(v.get("datei", ""))}<br>SHA-256 {esc(v["sha256"])}</p>') if bereit else (
+                     f'<p class="pruefsumme">{esc(v.get("datei", ""))}<br>SHA-256 {pruefsumme(v["sha256"])}</p>') if bereit else (
                      f'<p><span class="button secondary" aria-disabled="true">{titel} – erscheint mit der Freigabe</span></p>')
             li = "".join(f"<li>{x}</li>" for x in punkte)
             return (f'<article class="download glas" id="android-{art}"><span class="kennung">{kennung}</span><h3>{titel} <small class="leise">{mb(v, etwa)}</small></h3>'

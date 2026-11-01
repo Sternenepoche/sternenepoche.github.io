@@ -222,7 +222,7 @@ mark{background:rgba(226,189,98,.35);color:#fff;border-radius:2px}
 .downloads{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .download{padding:22px;display:flex;flex-direction:column;gap:12px}
 .download h3{margin:0}
-.download .pruefsumme{font:12px/1.5 var(--mono);color:var(--leise);word-break:break-all}
+.download .pruefsumme{font:12px/1.5 var(--mono);color:var(--leise);overflow-wrap:anywhere}
 .download ul{margin:0;padding-left:18px;color:#c4d2df;font-size:14.5px}
 
 /* ---------- Fuß ---------- */
