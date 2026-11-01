@@ -26,10 +26,12 @@ sys.path.insert(0, str(ROOT / "tools/website"))
 import silben  # noqa: E402  weiche Trennstellen wie im Spiel (Szenentitel des Trailers)
 
 Q = ROOT / "docs/website"
-VERSION = "0.4.14"
+VERSION = "0.4.15"
 # Was seit der letzten veröffentlichten Ausgabe neu ist – erscheint auf Start- und Downloadseite (Karl 26.10.2026:
-# „prüfe die Inhalte der Webseite auf Aktualität und bring es auf den neuesten Stand“). 0.4.14 (31.10.2026) zuerst, dann 0.4.13 (30.10.2026), darunter wie bisher die Neuerungen aus 0.4.10–0.4.12.
+# „prüfe die Inhalte der Webseite auf Aktualität und bring es auf den neuesten Stand“). 0.4.15 (01.11.2026) zuerst, dann 0.4.14 (31.10.2026) und 0.4.13 (30.10.2026), darunter wie bisher die Neuerungen aus 0.4.10–0.4.12.
 NEU_IN_VERSION = [
+    "<b>Updates ohne Neuinstallation:</b> Regeln, Oberfläche und Bilder kommen ab 0.4.15 als kleine, signierte Spieldaten-Updates – geladen werden nur geänderte Dateien, meist wenige Kilobyte statt rund 95 MB. Deine Welt startet in Sekunden neu und läuft mit Bauten, Forschung und Spielzeit weiter. Unter „Hilfe“ lassen sich jederzeit wieder die eingebauten Spieldaten wählen.",
+    "<b>Keine Selbstinstallation mehr:</b> Die App installiert nichts mehr selbst und fragt dafür auch keine Berechtigung mehr an. Neue App-Versionen lädst du im Browser und installierst sie über die vorhandene App – nicht vorher löschen, sonst sind eigene Welten weg.",
     "<b>Planetenschilde kommen früher:</b> Planetenschild I ab Zivilisationsstufe III (Schildtechnik 3, Energietechnik 3, ohne Xenokristall), Planetenschild II ab Stufe IV (Schildtechnik 5, Energietechnik 5, Orbitalwerft 2), Planetenschild III ab Stufe V (Schildtechnik 7, Energietechnik 7, Xenomaterialkunde 2). Bestehende lokale Welten übernehmen das beim ersten Öffnen mit 0.4.14, die Online-Welt mit dem Server-Update; Bestände und Forschung bleiben.",
     "<b>Große Reiche laufen am Handy flüssig:</b> 15 Planeten mit Monden, volle Schiffs- und Gebäudeproduktion und 30 Bots laufen ein ganzes Spieljahr ohne Fehler und ohne Absturz. Der lokale Spielserver braucht dabei unter 90 MB statt über 500 MB, die Sicherung ist in unter einer Sekunde fertig, und ein vorhandener Spielstand wird beim ersten Öffnen einmal verschlankt.",
     "<b>Flotte sammeln:</b> Schiffe von allen eigenen Planeten und Monden mit einem Befehl auf einen Ort zusammenziehen – ganze Flotte, nur Kampfschiffe oder nur zivile Schiffe, auf Wunsch mit gemeinsamer Ankunft. In „Flotte gesamt“ steht dafür bei jedem Ort „Hierher sammeln“.",
@@ -895,6 +897,11 @@ function atlasVerweis(key){if(!window.KRAEFTEATLAS_INDEX?.ids?.includes(key))ret
 <div class="downloads zwei" style="margin-top:22px">{lite}{voll}</div>
 <h3 id="neu" style="margin-top:36px">Neu in {VERSION}</h3><div class="glas" style="padding:20px 26px;margin-top:14px"><ul class="neu-liste">{"".join(f"<li>{x}</li>" for x in NEU_IN_VERSION)}</ul></div>
 <h3 style="margin-top:36px">Die beiden Fassungen</h3>{vergleich}
+<h3 id="updates" style="margin-top:36px">Updates</h3><div class="glas" style="padding:20px 26px;margin-top:14px"><ul class="neu-liste">
+<li><b>Spieldaten ohne Neuinstallation (ab 0.4.15):</b> Regeln, Oberfläche, Bilder und 3D-Modelle kommen als geprüfte Spieldaten direkt in der App. „Nach Updates suchen“ lädt nur die geänderten Dateien, meist wenige Kilobyte; deine Welt läuft danach mit denselben Spielständen weiter.</li>
+<li><b>Neue App-Version:</b> Bringt eine Version Programmänderungen, lädst du die APK auf dieser Seite im Browser und tippst „Installieren“. <b>Über die vorhandene App installieren, nicht vorher deinstallieren</b> – beim Deinstallieren löscht Android deine eigenen Welten. Mit derselben Signatur bleiben Spielstände, Notizen und Einstellungen erhalten. Wer schon gelöscht hat, spielt eine vorher gesicherte Welt unter „Spielstände“ wieder ein.</li>
+<li><b>Sicherheit:</b> Die App installiert selbst nichts und lädt keinen Programmcode nach. Spieldaten sind mit dem Schlüssel der Sternenepoche signiert, jede Datei wird vor Gebrauch geprüft. Bis 0.4.14 konnte sich die App selbst aktualisieren; Android stufte das als riskant ein und blockierte Updates. Diese Funktion ist seit 0.4.15 entfernt.</li>
+</ul></div>
 <h2 style="margin-top:56px">Weitere Wege</h2>
 <div class="downloads zwei" style="margin-top:22px">
 <article class="download glas" id="browser"><span class="kennung">Ohne Installation</span><h3>Im Browser</h3><p>Die Online-Galaxie läuft in jedem aktuellen Browser auf PC, Tablet und Handy.</p><p><a class="button" href="{SPIEL_URL}">Im Browser spielen ↗</a></p></article>
