@@ -59,7 +59,8 @@ def seite(browser, server, groesse, fehler):
                         f"sessionStorage.setItem('sternenepoche-session',{json.dumps(json.dumps(sitzung))});")
     p = ctx.new_page()
     p.on("pageerror", lambda e: fehler.append(str(e)[:200]))
-    p.on("console", lambda m: fehler.append(m.text[:200]) if m.type == "error" else None)
+    p.on("console", lambda m: fehler.append(f"{m.text[:200]} @ {(m.location or {}).get('url', '')[:160]}") if m.type == "error" else None)
+    p.on("response", lambda r: fehler.append(f"HTTP {r.status} {r.request.method} {r.url[:160]}") if r.status >= 400 else None)
     p.goto(server + "/", timeout=90000)  # 20.10.2026: ein langsamer erster Seitenaufbau brach sonst den ganzen Lauf ab
     for _ in range(80):
         if p.evaluate("() => typeof view !== 'undefined' && !!view && !document.getElementById('game').hidden"):
@@ -103,16 +104,20 @@ def gehe(p, ziel):
         p.evaluate("() => { const c = [...document.querySelectorAll('canvas')].find(x => x.getClientRects().length && x.width > 300); c?.scrollIntoView({block: 'end'}); }")
         time.sleep(4); return
     if ziel == "bericht":
-        # Einen Bericht in der Berichtansicht öffnen (erster Eintrag der Liste).
+        # Einen Spionagebericht öffnen wie im Spielguide Schritt 07: Bündel aufklappen, Bericht antippen (Blatt neben der
+        # Liste). 02.11.2026: der alte Weg traf die Bündelzeile, das Foto zeigte nur die aufgeklappte Liste.
         gehe(p, "briefkasten"); time.sleep(2)
-        p.evaluate("() => { const l = document.getElementById('messages') || document;"
-                   " const b = l.querySelector('[data-report-open], [data-report], .report-row button, .report-row, li button, details summary');"
-                   " b?.click(); }")
+        p.evaluate("""() => { const l = document.getElementById('messages'); if (!l) return;
+            const d = l.querySelector('.bz-buendel details'); if (d && !d.open) d.querySelector('summary')?.click();
+            const k = [...l.querySelectorAll('[data-bz-oeffnen]')];
+            (k.find(b => /^Spionage\\b/.test(b.querySelector('.bz-zeile-titel')?.textContent.trim() || '')) || k[0])?.click(); }""")
         time.sleep(2.5); return
     if ziel.startswith(("technik:", "archiv:", "info:")):
         teile = ziel.split(":"); gehe(p, "werft"); time.sleep(1.5)
-        # Kachel wählen: das Infodisplay der Einheit erscheint auf der Seite.
-        p.evaluate("(k) => document.querySelector(`[data-bs-key='${k}']`)?.click()", teile[1]); time.sleep(1.5)
+        # Kachel wählen: das Infodisplay der Einheit erscheint auf der Seite. Die Kachel schaltet um – ist das Infodisplay vom
+        # vorigen Foto noch offen, schloss ein zweiter Tipp es (02.11.2026: Explosion und Archiv zeigten nur die Werft).
+        p.evaluate("""(k) => { const t = document.querySelector(`[data-bs-techinfo='${k}']`);
+            if (!(t && t.getClientRects().length)) document.querySelector(`[data-bs-key='${k}']`)?.click(); }""", teile[1]); time.sleep(1.5)
         if teile[0] == "info":
             p.evaluate("() => document.querySelector('.bs-detail, [id^=bs-detail]')?.scrollIntoView({block: 'center'})")
             time.sleep(1); return
@@ -131,7 +136,10 @@ def gehe(p, ziel):
                 if not p.evaluate(tippe, [text, "button"]):
                     print("Zeichnungsreiter nicht gefunden:", text)
             else:
-                if not p.evaluate(tippe, ["Archiv", "button"]):
+                # Seit dem Dossier-Umbau ist das Archiv ein eingeklappter Abschnitt (details.d-abschnitt, Überschrift „Archiv“).
+                if not p.evaluate("""() => { const r = document.getElementById('techbaum-overlay')?.shadowRoot;
+                        const s = r && [...r.querySelectorAll('details.d-abschnitt > summary')].find(x => x.querySelector('h3')?.textContent.trim() === 'Archiv' && x.getClientRects().length);
+                        if (!s) return false; if (!s.parentElement.open) s.click(); return true; }"""):
                     print("Archiv nicht gefunden")
                 time.sleep(1)
                 p.evaluate("""() => { const r = document.getElementById('techbaum-overlay')?.shadowRoot;

@@ -54,6 +54,16 @@ Wenn du deinen Browser schließt, bleiben dein Konto und Reich erhalten. Bereits
 
 **Beispiel:** Du meldest dich ab, während ein Gebäude noch zwei Spielstunden braucht. Das Gebäude kann ohne dich fertig werden. Dein lokales Modell gibt währenddessen keine neuen Aufträge, wenn sein Browser-Tab geschlossen ist.
 
+### Mit der App spielen: online, eigene Welt oder WLAN-Runde
+
+Auf der Seite **Spielen** stellst du unter **Serverstart** ein, wie du spielst:
+
+- **Online** verbindet dich mit derselben Welt wie im Browser. Dort meldest du dich mit Name und Passwort an (Kapitel 3).
+- **Eigene Welt** startet den Spielserver auf deinem Handy, auch ohne Internet. Mit **Nur ich** spielst du allein. Mit **Handy als Server** treten Mitspieler im selben WLAN bei; du legst **Masterpasswort für Mitspieler**, **Port** und **Freie Plätze** fest. Dazu wählst du die **Weltgröße** (Klein mit 30 Bots, Mittel mit 100, Groß mit 200 ab 6 GB RAM, Riesig mit 400 ab 8 GB RAM), das **Tempo der Spielzeit** (1×, 10×, 30× oder 60×) und, nur beim Anlegen einer Welt, die **Bot-Schonzeit für Menschen**.
+- **WLAN beitreten** sucht mit **Hosts im WLAN suchen** eine laufende Runde oder nimmt die **Adresse des Hosts**.
+
+Über **Los geht's** stehen alle gewählten Einstellungen noch einmal zusammengefasst. Läuft deine Welt schon, heißt der Knopf **Ins Spiel**; **Neue Partie beginnen …** legt eine neue Welt an. Im Spiel betrittst du die eigene Welt nur mit deinem Namen (**Deine Welt betreten**, Knopf **Spielen**), eine WLAN-Runde mit deinem Namen und dem Masterpasswort des Hosts (**Der Runde beitreten**, Knopf **Beitreten**). Ein neues Reich landet direkt bei der Platzwahl wie in Kapitel 3.
+
 ### Die Android-App aktuell halten
 
 Die App bekommt Neues auf zwei Wegen. Beide prüfst du unten in der App unter **Hilfe** mit **Nach Updates suchen**; gibt es etwas, steht oben auf der Seite **Spielen** eine Karte dazu.
@@ -71,10 +81,10 @@ Die App bekommt Neues auf zwei Wegen. Beide prüfst du unten in der App unter **
 1. Öffne den öffentlichen Spielzugang oder die Website.
 2. Du kannst zunächst zuschauen. Dafür brauchst du keinen Spielerplatz und kein Sprachmodell.
 3. In der aktuellen Testphase erhältst du ein Konto vom Betreiber. Dieses Konto funktioniert ohne E-Mail-Bestätigung.
-4. Gib deinen Kontonamen und dein Passwort ein und wähle **Anmelden**. Hast du einen Authenticator verbunden, trägst du zusätzlich dessen aktuellen sechsstelligen Code ein. Verwende ein langes, eigenes Passwort; mindestens zwölf Zeichen sind erforderlich.
-5. Wähle vor der Reichsgründung dein **Volk**. Lies seine Vor- und Nachteile.
-6. Wähle **Mensch**, **Agent** oder **Gemischt**.
-7. Wähle **Platz belegen**, wenn ein freigegebener Platz verfügbar ist. Andernfalls trittst du der Warteliste bei.
+4. Den Zugang **Mitspielen** öffnest du oben im Kopf der Seite: am Computer, sobald du darauf zeigst oder klickst; am Handy öffnet er sich von selbst, sobald der Kopf zu sehen ist. Gib deinen Kontonamen und dein Passwort ein und wähle **Anmelden**. Hast du einen Authenticator verbunden, trägst du zusätzlich dessen aktuellen sechsstelligen Code ein. Verwende ein langes, eigenes Passwort; mindestens zwölf Zeichen sind erforderlich.
+5. Nach dem Anmelden steht **Volk und Spielweise wählen** direkt unter dem Kopf. Tippe auf das Wappen deines **Volks**: Die Bühne zeigt seinen Anführer vor dem Weltenkrümmer des Volks, die **Volksakten** seine Stärken (▲) und Schwächen (▼).
+6. Tippe auf **Mensch**, **Agent** oder **Gemischt**. Willst du Anfängerschutz, setze den Haken bei **Anfängerschutz für dieses neue Reich aktivieren**; später geht das nicht mehr (Kapitel 15).
+7. Am grünen Knopf steht deine Wahl zusammengefasst, etwa „Veyari · Gemischt · Rollen geteilt“. Wähle **Platz belegen / Spielweise ändern**, wenn ein freigegebener Platz verfügbar ist. Andernfalls trittst du der Warteliste bei.
 
 Ein Konto allein erzeugt noch keinen Heimatplaneten. Erst der angenommene Beitritt ordnet dir ein Reich und einen automatisch vergebenen Heimatplatz zu.
 
@@ -512,13 +522,17 @@ Vor dem Start erscheinen die bekannten Zielangaben und die vollständige Ladung.
 
 ### Berichte
 
-Die Systemansicht zeigt Scans vor den zugehörigen Begleitmeldungen. Gruppen fassen höchstens 20 Minuten Echtzeit zusammen; Planeten- und Spielerhistorie sind direkt erreichbar. Das Archiv hält je Reich bis zu 300 Planetenscans und 120 vollständige Systemaufnahmen vor.
+**Hier findest du:** Kampf-, Spionage- und Scanberichte und die Meldungen deines Reichs. Sie stehen in derselben Chronik wie die Briefe, auf der Seite **Nachrichten**. Hier prüfst du, was tatsächlich angekommen, geschehen oder beobachtet worden ist.
 
-Die Sammlung lässt sich nach **Systemen**, **Spielern** oder **Zeitverlauf** betrachten und nach Koordinate oder Name durchsuchen. Innerhalb eines Systems bündeln Zeitfenster bis zu 20 Minuten Echtzeit; Systemscan, Planetenspionage, Planetenerkundung und Mondberichte bleiben eigene Gruppen. Über **Historie** gelangst du zu den gespeicherten Beobachtungen eines Planeten oder Spielers. **Gesammelte Aufklärung** führt zum Systemarchiv, **System öffnen** zur Karte.
+**Ordnen und finden:** Die Reiter **Alle**, **Kampf**, **Spionage**, **Scans**, **Briefe** und **Reich** filtern nach Art; **Ungelesen** und **Markiert** grenzen weiter ein, das Suchfeld nimmt einen Spielernamen, eine Koordinate wie [1:58] oder Text. **Spieler** listet die Reiche aus deinen Berichten und Briefen, wahlweise nach **Zuletzt** oder **Bedrohung** geordnet. **Systeme** listet die beobachteten Sonnensysteme. Ein Tipp auf ein System zeigt seine zwölf Plätze, den letzten Systemscan, Trümmerfelder und deine Berichte dort, dazu **Im System zeigen**, **Erneut scannen** und **Recycler nach …**. **Chronik** neben einem System oder Spieler zeigt nur die Einträge dazu.
 
-Abbau und Trümmerbergung öffnen eine gemeinsame Einsatzplanung mit Flugzeit, Einsatzdauer, automatischer Rückkehr, Treibstoff, Laderaum und zusätzlichen Personenplätzen. Recycler bergen Rohstoffe; große Transporter und Bergungsschiffe helfen bei der Rettung von Besatzungen. Wartende Überlebende bleiben sichtbar, wenn die Rohstoffe bereits abgeholt wurden.
+**Bündel:** Einträge derselben Art am selben Ort innerhalb von 20 Minuten Echtzeit stehen in einer Zeile, etwa „Aufklärung System“ mit Systemscan, Planetenspionage und den Meldungen dazu; die Zeile klappt auf. Ein einzelner Bericht mit seinen Begleitmeldungen bleibt eine Zeile: Ein Tipp öffnet den Bericht, die Meldungen stehen darin.
 
-**Hier findest du:** Reichsereignisse und bekannte Spionage- oder Kampfergebnisse. Hier prüfst du, was tatsächlich angekommen, geschehen oder beobachtet worden ist. Persönliche Briefe stehen in derselben Chronik unter dem Reiter **Briefe**.
+**Ein Bericht:** Er öffnet sich als Blatt neben der Liste. Ein Spionagebericht zeigt Ziel, Zeitpunkt, Rohstoffe, Flotte, Verteidigung, Gebäude und Forschung, soweit die Aufklärung reichte, und führt direkt weiter: **Angriff planen**, **Erneut ausspähen**, **Simulieren**, das **Profil** des Spielers und **Im System zeigen**.
+
+**Archiv:** Je Reich hält das Spiel bis zu 300 Planetenscans und 120 vollständige Systemaufnahmen vor; die ältesten fallen zuerst heraus. Die gesammelten Berichte und die Scan-Historie eines Systems erreichst du auch in der Galaxietabelle über **Archiv**.
+
+**Trümmer bergen:** **Recycler nach …** öffnet das Einsatzblatt für Recyceln mit Flugzeit, passenden Vorlagen und Laderaum. Nur Recycler und Bergungsschiffe sammeln Erz und Kristall; freie Personenplätze von großen Transportern und Bergungsschiffen retten Überlebende. Das System muss kartiert sein. Wartende Überlebende bleiben sichtbar, wenn die Rohstoffe bereits abgeholt wurden.
 
 **So liest du einen Bericht:** Vergleiche Berichtstyp, Zielkoordinate, Beobachtungszeit und Informationsumfang. Trenne Ressourcen, Schiffe, Verteidigung, Gebäude und Technik. Ein Sondenbericht ist eine Momentaufnahme. Bei einem alten oder unvollständigen Bericht brauchst du vor einer wichtigen Entscheidung gegebenenfalls eine neue Sonde.
 
@@ -944,7 +958,7 @@ Die Ankunft wird auf die späteste nötige Ankunft abgestimmt. Eine frühere Flo
 
 ### Anfängerschutz
 
-Ein neues Reich hat grundsätzlich zehn Spieltage Anfängerschutz. Er endet früher, wenn es Zivilisationsstufe III erreicht oder selbst einen feindlichen Angriff startet. Er wird ab dem eigenen Beitritt gerechnet.
+Anfängerschutz gibt es nur, wenn du ihn bei der Gründung wählst: **Anfängerschutz für dieses neue Reich aktivieren** ist standardmäßig aus. Gewählt, schützt er dein Reich zehn Spieltage ab dem eigenen Beitritt. Er endet früher, wenn es Zivilisationsstufe III erreicht oder selbst einen feindlichen Angriff startet. Später lässt er sich nicht mehr einschalten.
 
 Eine kleine Punktzahl allein schützt nach Ablauf dieses Schutzes nicht automatisch vor stärkeren Reichen. Diplomatie, Sensoren, eine tragfähige Wirtschaft und Saven bleiben wichtig.
 
