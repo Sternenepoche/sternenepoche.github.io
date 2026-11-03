@@ -107,10 +107,12 @@ def gehe(p, ziel):
         # Einen Spionagebericht öffnen wie im Spielguide Schritt 07: Bündel aufklappen, Bericht antippen (Blatt neben der
         # Liste). 02.11.2026: der alte Weg traf die Bündelzeile, das Foto zeigte nur die aufgeklappte Liste.
         gehe(p, "briefkasten"); time.sleep(2)
+        # 0.4.19: Bündel sind eine Zeile mit Sammelblatt – Spionage steht dann als Karte darin (Kopf öffnet den Bericht).
         p.evaluate("""() => { const l = document.getElementById('messages'); if (!l) return;
-            const d = l.querySelector('.bz-buendel details'); if (d && !d.open) d.querySelector('summary')?.click();
-            const k = [...l.querySelectorAll('[data-bz-oeffnen]')];
-            (k.find(b => /^Spionage\\b/.test(b.querySelector('.bz-zeile-titel')?.textContent.trim() || '')) || k[0])?.click(); }""")
+            const spion = b => /^Spionage\\b/.test(b.querySelector('.bz-zeile-titel')?.textContent.trim() || '');
+            let k = [...l.querySelectorAll('[data-bz-oeffnen]')];
+            if (!k.some(spion)) { l.querySelector('[data-bz-buendel^="scan:"]')?.click(); k = [...document.querySelectorAll('#bz-blatt [data-bz-oeffnen]')]; }
+            (k.find(spion) || k[0])?.click(); }""")
         time.sleep(2.5); return
     if ziel.startswith(("technik:", "archiv:", "info:")):
         teile = ziel.split(":"); gehe(p, "werft"); time.sleep(1.5)

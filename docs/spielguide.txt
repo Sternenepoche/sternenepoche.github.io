@@ -499,11 +499,15 @@ Vor dem Start erscheinen die bekannten Zielangaben und die vollständige Ladung.
 
 **Verträge mit Kaution:** Wähle **Partner**, **Vertrag** und **Kaution**, dann **Vertrag anbieten**. Der andere Spieler muss das Angebot bearbeiten. Persönliche Korrespondenz und einfache diplomatische Anfragen liegen unter **Nachrichten**.
 
+**Soforthandel:** Ganz oben tauschst du ohne Gegenpartei sofort am gewählten Planeten. Links wählst du, was du **gibst**, rechts, was du **erhältst** – jeweils als Kachel mit Bestand und Preis; 25 %, 50 % und Alles füllen die Menge. Die Vorschau zeigt Kurs, Wert, Gebühr und das Ziellager danach, bevor du bestätigst. Grundgüter (Erz, Kristall, Deuterium, Nahrung, Credits) tauschen in beide Richtungen zum selben Kurs. Legierung und Elektronik nimmt der Händler für 4 Credits an und gibt sie für 8 ab – Erz in Legierung zu tauschen geht also, kostet aber gut 8 Erz je Legierung statt 4 in der Gießerei. Xenokristall tauscht er **nur gegen Credits** (20 an, 150 ab); verschicken kannst du ihn weiterhin per Transport. Habitatmodule (2.000 Credits) und Antriebskerne (3.600 Credits) kauft er ganzstückig an, auch gegen Legierung, Elektronik oder Xenokristall; verkaufen tut er sie nicht. Gesperrte Paare sind gestrichelt; Antippen erklärt den nächsten Schritt.
+
+**Angebote und Übergaben:** Marktorders und Allianzangebote, die sieben Spieltage ohne Abschluss bleiben, gehen von selbst zurück (Credits bzw. Ware), mit Meldung. Darunter stehen nur Schiffs- und Allianzangebote, die noch eine Entscheidung brauchen oder unterwegs sind – mit Annehmen, Ablehnen, Zurücknehmen und Storno. Abgelehnte, zurückgezogene, abgelaufene, gescheiterte und zugestellte Angebote wandern in den eingeklappten **Verlauf** (die letzten 20). Scheitert eine Übergabe, bekommt der Käufer seine Credits und der Absender Schiffe, Fracht, Personen und Truppen zurück; beide Seiten erhalten eine Meldung.
+
 **Weitere Befehle verwenden:** Klappe **Weitere Regierungs- und Flottenbefehle** auf, wähle **Befehl**, fülle die dazu angezeigten Felder aus und benutze **Befehl ausführen**. Hier liegen etwa Stufenaufstieg, Steuern, Doktrin, Raketen, Bombardieren und besonderer Flottennachschub. Lies die Bedeutung, bevor du bestätigst: Ein angenommener Regierungs- oder Militärbefehl verändert die Welt.
 
 ### Nachrichten
 
-**Hier findest du:** Briefe, Berichte und Meldungen in einer Chronik. Unter dem Reiter **Briefe** stehen **Eingang**, **Gesendet** und **Diplomatie** mit Betreff, Lesestatus und Antworten. Deine Verbündeten stehen oben als direkt auswählbare Kontakte. **＋ Brief** öffnet ein großes Schreibfenster. Gib den bekannten Spielernamen an oder wähle einen Verbündeten. Klicke einen Brief an und benutze **Antworten**. Ältere Post lässt sich nachladen und geladene Post durchsuchen. Allianz und aktuelle Beziehung stehen neben dem Namen.
+**Hier findest du:** zwei getrennte Bereiche. **Berichte** sammelt Kampf-, Spionage- und Scanberichte (Filter Kampf · Spionage · Scans, ordnen nach Spieler oder System); jede Zeile zeigt schon die Kennzahlen – Verluste beider Seiten in Stück und Wert, Beute, Trümmerfeld, Mond –, ein Tipp öffnet den Bericht mit der Lagekarte oben, Runden und Technik sind eingeklappt. Viele Scans desselben Ziels stehen als eine Zeile und öffnen ein Sammelblatt. Auch die Meldung „Gefecht/Beute bei …“ in der Übersicht öffnet direkt ihren Kampfbericht. **Nachrichten** enthält Briefe und Reichsmeldungen. Unter dem Reiter **Briefe** stehen **Eingang**, **Gesendet** und **Diplomatie** mit Betreff, Lesestatus und Antworten. Deine Verbündeten stehen oben als direkt auswählbare Kontakte. **＋ Brief** öffnet ein großes Schreibfenster. Gib den bekannten Spielernamen an oder wähle einen Verbündeten. Klicke einen Brief an und benutze **Antworten**. Ältere Post lässt sich nachladen und geladene Post durchsuchen. Allianz und aktuelle Beziehung stehen neben dem Namen.
 
 **Diplomatische Anfrage:** Wähle Empfänger und Art: Allianzbeitritt, NAP, Verteidigungsbündnis, Handelsabkommen, Krieg oder Frieden. Ein Brieftext allein schließt keinen Vertrag. Angebote benötigen eine ausdrückliche Entscheidung; die Kriegserklärung gilt unmittelbar. Die ausführlichen Regeln stehen in Kapitel 17.
 
@@ -679,7 +683,11 @@ Ein Lager begrenzt örtliche Vorräte. Was über die Grenze hinaus gefördert w�
 
 Schiffe kosten laufend Credits. Im Profil beträgt der tägliche Unterhalt 0,5 % ihres gewichteten Bauwerts; jede Kolonie kostet zusätzlich 300 Credits je Spieltag. Ortsfeste Verteidigung hat keinen solchen Schiffsunterhalt.
 
-Nach drei nicht bezahlten Tagen droht Flottendesertion: Pro weiterem unbezahltem Tag können 10 % der Schiffe verloren gehen. Leere Credits bedeuten daher nicht sofort eine Niederlage, sind aber eine ernsthafte Warnung.
+Reichen die Credits nicht, versorgen sich die Schiffe selbst aus den Lagern deiner Planeten und Monde – zuerst dort, wo sie liegen oder von wo sie gestartet sind, nie bei anderen Spielern. Sie nehmen Nahrung (ein Tagesbedarf der Bevölkerung bleibt liegen), dann Erz, Kristall, Konsumgüter, Deuterium, Legierung und Elektronik; Xenokristall und Bauteile rühren sie nicht an. Die Übersicht zeigt dann die Karte **Flottenunterhalt kommt aus deinen Lagern** mit Unterhalt, Einnahmen und den Gegenmitteln (Steuern anpassen, Güter gegen Credits tauschen, Flotten ansehen); reicht die Versorgung absehbar nur noch drei Spieltage, wird sie zu **Versorgung knapp**.
+
+Erst wenn Credits **und** Vorräte fehlen, läuft eine Frist von mindestens **fünf Spieltagen**; zwei Spieltage vorher kommt die **letzte Warnung**. Danach desertieren täglich bis zu 10 % der Schiffe – nur im Verhältnis zum offenen Betrag (fehlt ein Zehntel des Unterhalts, geht etwa 1 %), gleichmäßig über alle Orte, und jede Flotte behält ein Schiff. Die Meldung nennt jeden Ort mit Typ und Anzahl. Ein einziger gedeckter Tag beendet die Not. Bedenke das Spieltempo: In einer App-Welt mit ×30 ist ein Spieltag 48 Minuten.
+
+Schiffe auf einem eroberten Planeten oder Mond und auf einer aufgegebenen Kolonie verschwinden nicht: Sie fliegen als eigene Flotte zur Heimatwelt (Meldung „evakuiert“).
 
 **Beispiel:** Eine neue Kolonie erweitert Produktion und Möglichkeiten. Wenn sie unversorgt bleibt und gleichzeitig die Credits für Kolonie und Flotte fehlen, kann sie dein Reich zunächst schwächen. Plane ihre Versorgung vor dem Start.
 
@@ -780,6 +788,10 @@ Die Ressourcenangaben beschreiben Vorräte oder Produktionsbedingungen. Es gibt 
 Ohne Sensorenausbau wird ein feindlicher Anflug grundsätzlich **zwei Spielstunden vor seiner Ankunft** angezeigt. Dauert der ganze Flug kürzer, liegt die Warnung entsprechend frühestens ab dem Start vor.
 
 Sobald deine Sensoren die Flotte erfassen, sind Ziel und Ankunftszeit klar. Die Grundwarnung verrät noch nicht automatisch Besitzer, Schiffstypen, genaue Zahl, Fracht oder Herkunft.
+
+### Echte Bedrohung oder Lage beim Verbündeten
+
+Rot ist nur, was **dich** trifft: ein Anflug auf einen eigenen Planeten oder Mond, oder auf einen Verbündeten, über dem deine eigene Halteflotte steht. Dann steht ganz oben in der Übersicht und im Flottenkommando die Karte **Angriff auf deinen Planeten** mit Ziel, Angreifer, Herkunft, Countdown, Stärke und den Schiffen vor Ort, dazu **Flotte retten** (die Wartezeit wird so gewählt, dass die Flotte erst nach dem letzten Einschlag zurückkommt), **Verteidigung**, **Planet öffnen** und **Ausspähen**. Auch die Kopfzeile nennt den Angriff auf jeder Seite. Anflüge auf Verbündete stehen gesammelt und ruhig in der Gruppe **Verbündete unter Angriff**; sie ist zugeklappt, merkt sich ihren Zustand und bietet **Halten schicken** an.
 
 ### Vier zusammenwirkende Bestandteile
 
