@@ -26,11 +26,12 @@ sys.path.insert(0, str(ROOT / "tools/website"))
 import silben  # noqa: E402  weiche Trennstellen wie im Spiel (Szenentitel des Trailers)
 
 Q = ROOT / "docs/website"
-VERSION = "0.4.17"
+VERSION = "0.4.18"
 # Was seit der letzten veröffentlichten Ausgabe neu ist – erscheint auf Start- und Downloadseite (Karl 26.10.2026:
-# „prüfe die Inhalte der Webseite auf Aktualität und bring es auf den neuesten Stand“). 0.4.17 (02.11.2026, mit den Spieldaten-Updates
-# 0.4.16-1/-2) zuerst, dann 0.4.16 (01.11.2026), 0.4.15, 0.4.14 (31.10.2026) und 0.4.13 (30.10.2026), darunter wie bisher die Neuerungen aus 0.4.10–0.4.12.
+# „prüfe die Inhalte der Webseite auf Aktualität und bring es auf den neuesten Stand“). 0.4.18 (03.11.2026) zuerst, dann 0.4.17 (02.11.2026, mit den
+# Spieldaten-Updates 0.4.16-1/-2), dann 0.4.16 (01.11.2026), 0.4.15, 0.4.14 (31.10.2026) und 0.4.13 (30.10.2026), darunter wie bisher die Neuerungen aus 0.4.10–0.4.12.
 NEU_IN_VERSION = [
+    "<b>Bot-Verhalten genauer erklärt, KI-Räte sehen die Stufe:</b> Die App-Startseite sagt jetzt, wie das Spiel rechnet – ein Bot-Angriff auf dich fliegt auf Mittel mindestens 4, auf Schwer mindestens 3 Spielstunden, und als „Feindlicher Anflug“ siehst du ihn spätestens 2 Spielstunden vor der Ankunft, mit Sensorphalanx früher. Die Lage der KI-Räte nennt die Bot-Schwierigkeit der Welt und zeigt die Schonzeit gegenüber den Bots genau wie deine Spieleransicht.",
     "<b>Bots: leicht, mittel oder schwer:</b> Beim Anlegen einer eigenen Welt wählst du unter „Bot-Verhalten“, wie kriegerisch die Bots sind. <b>Leicht</b> – ruhige Nachbarn, Kriege nur nach wiederholten Überfällen. <b>Mittel</b> – Räuber plündern häufiger, Ökonomen ab Stufe IV ebenfalls, Allianzen kämpfen um ihre Systeme und die Vormacht, und auch du wirst angegriffen: frühestens ab Spieltag 3 mit eigener Werft auf Stufe III, etwa einmal am Tag. <b>Schwer</b> – auch Ökonomen und Händler plündern, die Allianzen gehen regelmäßig aufeinander los, Angriffe auf dich kommen mehrmals täglich, frühestens ab Spieltag 2. Jeder Bot-Angriff auf dich fliegt mindestens 4 bzw. 3 Spielstunden; als „Feindlicher Anflug“ siehst du ihn spätestens 2 Spielstunden vor der Ankunft. Kriegserklärungen zwischen Allianzen meldet die Galaxie in deinen Ereignissen.",
     "<b>Die Online-Welt spielt auf Mittel:</b> In frischen Welten mit 30 Bots gab es auf Mittel in den ersten 14 Spieltagen doppelt so viele Kämpfe wie auf Leicht und an der Hälfte der Tage einen Allianzkrieg, auf Schwer gut doppelt so viele wie auf Mittel – die erste Spielwoche bleibt auf allen Stufen ruhig, solange niemand Kampfschiffe hat.",
     "<b>Xenokristall verschicken:</b> Im Einsatzblatt steht Xenokristall oben bei Erz, Kristall und Deuterium, sobald der Start welchen hat; die Vorlage „Ganzer Xenokristall“ lädt den ganzen Bestand und nimmt die nötigen Frachter mit. Plündern lässt er sich wie jedes andere Gut.",
