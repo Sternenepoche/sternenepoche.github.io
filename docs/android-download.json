@@ -1,9 +1,9 @@
 {
-  "version": "0.4.20",
-  "code": 45,
-  "datei": "Sternenepoche-0.4.20.apk",
-  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.20-20261104/Sternenepoche-0.4.20.apk",
-  "sha256": "d7c12e26b4cb4f858eb26cc86d5f6e448da8fe980d9c0af130ed394697ea01de",
+  "version": "0.4.21",
+  "code": 46,
+  "datei": "Sternenepoche-0.4.21.apk",
+  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.21-20261104/Sternenepoche-0.4.21.apk",
+  "sha256": "57df0085fc07675cda8083043183621314c85bb69f0a634bfca66cd110acff25",
   "bytes": 192642146,
   "groesse_mb": 183.7,
   "abis": [
@@ -16,20 +16,20 @@
   "varianten": [
     {
       "art": "lite",
-      "datei": "Sternenepoche-0.4.20-lite.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.20-20261104/Sternenepoche-0.4.20-lite.apk",
-      "sha256": "31d27390d4186818399258ddfc789fa30f7bd1c0bcc861db8aec421c85d4d195",
-      "bytes": 100821964,
-      "groesse_mb": 96.2,
+      "datei": "Sternenepoche-0.4.21-lite.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.21-20261104/Sternenepoche-0.4.21-lite.apk",
+      "sha256": "2c9a7e0c9a5523f3afd6a007102a68218fd5cd8a86851c43fbfb5feb0b74b113",
+      "bytes": 100817868,
+      "groesse_mb": 96.1,
       "abis": [
         "arm64-v8a"
       ]
     },
     {
       "art": "voll",
-      "datei": "Sternenepoche-0.4.20.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.20-20261104/Sternenepoche-0.4.20.apk",
-      "sha256": "d7c12e26b4cb4f858eb26cc86d5f6e448da8fe980d9c0af130ed394697ea01de",
+      "datei": "Sternenepoche-0.4.21.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.21-20261104/Sternenepoche-0.4.21.apk",
+      "sha256": "57df0085fc07675cda8083043183621314c85bb69f0a634bfca66cd110acff25",
       "bytes": 192642146,
       "groesse_mb": 183.7,
       "abis": [

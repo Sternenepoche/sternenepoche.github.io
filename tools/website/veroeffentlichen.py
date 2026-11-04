@@ -88,7 +88,9 @@ def vorbereiten():
             continue
         neu += not z.exists(); geaendert += z.exists()
         z.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(q, z)
+        # copy2 behält die Änderungszeit: bauen.py erzeugt Fotoausschnitte neu, wenn sie älter als das Foto sind. Mit copyfile
+        # galt ein veralteter Ausschnitt aus D: als frisch und hätte 0.4.21 die Ausschnitte vom Vortag zurückgebracht.
+        shutil.copy2(q, z)
     print(f"Übernommen: {neu} neue, {geaendert} geänderte Dateien", flush=True)
     workflow_anpassen()
     lauf("tools/website/bauen.py", "--pages")

@@ -26,11 +26,13 @@ sys.path.insert(0, str(ROOT / "tools/website"))
 import silben  # noqa: E402  weiche Trennstellen wie im Spiel (Szenentitel des Trailers)
 
 Q = ROOT / "docs/website"
-VERSION = "0.4.20"
+VERSION = "0.4.21"
 # Was seit der letzten veröffentlichten Ausgabe neu ist – erscheint auf Start- und Downloadseite (Karl 26.10.2026:
-# „prüfe die Inhalte der Webseite auf Aktualität und bring es auf den neuesten Stand“). 0.4.19 (03.11.2026, abends) zuerst, dann 0.4.18 (03.11.2026), dann 0.4.17 (02.11.2026, mit den
+# „prüfe die Inhalte der Webseite auf Aktualität und bring es auf den neuesten Stand“). 0.4.21 (04.11.2026, abends, Wartungsausgabe:
+# Flugliste aufgeräumt) zuerst, dann 0.4.20 (04.11.2026), dann 0.4.19 (03.11.2026, abends), dann 0.4.18 (03.11.2026), dann 0.4.17 (02.11.2026, mit den
 # Spieldaten-Updates 0.4.16-1/-2), dann 0.4.16 (01.11.2026), 0.4.15, 0.4.14 (31.10.2026) und 0.4.13 (30.10.2026), darunter wie bisher die Neuerungen aus 0.4.10–0.4.12.
 NEU_IN_VERSION = [
+    "<b>Flugliste aufgeräumt:</b> Die alte Liste „Alle Flüge im Detail“ ist jetzt auch im Programm entfernt – Flüge, Rückmeldungen und Rückruf laufen nur noch über die eine Flugliste. Jede neue Ausgabe prüft sie gegen einen echten Server: Aufklappen mit Flugbild und Fracht, Rückruf, Versand von einer Kolonie und Handybreiten ohne Abschneiden. Regeln und Spielstände bleiben, wie sie sind.",
     "<b>Aufklärung mit der Allianz:</b> Die Heimatwelt jedes Reichs kennt jeder – Ort und Besitzer, ohne Details; eine Sonde findet sie auch ohne Systemscan. Alle anderen Planeten deiner Gegner kennst du erst, wenn du oder ein Mitglied deiner Allianz sie erkundet oder ausgespäht hat. Die Allianz teilt Karten und Koordinaten – kartierte Systeme, erkundete Plätze, ausgespähte Planeten samt Besitzer –, die Inhalte der Berichte sieht nur, wer selbst späht. Wer dich angreift oder ausspäht, verrät seinen Startplaneten, und Verbündete belieferst du ohne vorherige Erkundung.",
     "<b>Angriffsalarm am Handy:</b> Ein echter Angriff auf deinen Planeten oder Mond meldet sich als Benachrichtigung mit Countdown und noch einmal fünf Minuten vor dem Einschlag – in der eigenen Welt der App auch bei ausgeschaltetem Bildschirm. Anflüge auf Verbündete melden nichts und stehen auch in der Galaxie ruhig blau statt rot.",
     "<b>Eine Flugliste:</b> Alle Flüge stehen in einer Liste im Flottenkommando – mit Zustand, Ankunft in Spiel- und Echtzeit, Fortschritt und großem Rückrufknopf, ein Tipp klappt Flugbild und Fracht auf. Am Handy ist der Flottenbestand beim ersten Öffnen zugeklappt.",
