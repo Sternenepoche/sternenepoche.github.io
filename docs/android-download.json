@@ -1,37 +1,37 @@
 {
-  "version": "0.4.19",
-  "code": 43,
-  "datei": "Sternenepoche-0.4.19.apk",
-  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.19-20261103/Sternenepoche-0.4.19.apk",
-  "sha256": "1f0ba568fb5c3f8bc7b354ad812f85589a4d086885c3e2b131dceaab2c04ecc1",
-  "bytes": 192482402,
-  "groesse_mb": 183.6,
+  "version": "0.4.20",
+  "code": 45,
+  "datei": "Sternenepoche-0.4.20.apk",
+  "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.20-20261104/Sternenepoche-0.4.20.apk",
+  "sha256": "d7c12e26b4cb4f858eb26cc86d5f6e448da8fe980d9c0af130ed394697ea01de",
+  "bytes": 192642146,
+  "groesse_mb": 183.7,
   "abis": [
     "arm64-v8a",
     "x86_64"
   ],
-  "stand": "03.11.2026",
+  "stand": "04.11.2026",
   "min_android": "8.0",
   "hinweis": "Wichtig: Bitte die neue Version im Browser laden (sternenepoche.github.io → Download) und über die vorhandene App installieren – nicht vorher löschen, sonst sind eigene Welten weg. Der Knopf „Jetzt aktualisieren“ in älteren Apps wird von Android blockiert. Ab 0.4.15 installiert die App nichts mehr selbst, und Regeln, Oberfläche und Bilder kommen als kleine Spieldaten-Updates ohne Neuinstallation.",
   "varianten": [
     {
       "art": "lite",
-      "datei": "Sternenepoche-0.4.19-lite.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.19-20261103/Sternenepoche-0.4.19-lite.apk",
-      "sha256": "1ef5e9b7185be357f8025a3731da33323790d578f239fe9bb1f79ace42922fec",
-      "bytes": 100740044,
-      "groesse_mb": 96.1,
+      "datei": "Sternenepoche-0.4.20-lite.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.20-20261104/Sternenepoche-0.4.20-lite.apk",
+      "sha256": "31d27390d4186818399258ddfc789fa30f7bd1c0bcc861db8aec421c85d4d195",
+      "bytes": 100821964,
+      "groesse_mb": 96.2,
       "abis": [
         "arm64-v8a"
       ]
     },
     {
       "art": "voll",
-      "datei": "Sternenepoche-0.4.19.apk",
-      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.19-20261103/Sternenepoche-0.4.19.apk",
-      "sha256": "1f0ba568fb5c3f8bc7b354ad812f85589a4d086885c3e2b131dceaab2c04ecc1",
-      "bytes": 192482402,
-      "groesse_mb": 183.6,
+      "datei": "Sternenepoche-0.4.20.apk",
+      "url": "https://github.com/Sternenepoche/sternenepoche.github.io/releases/download/android-v0.4.20-20261104/Sternenepoche-0.4.20.apk",
+      "sha256": "d7c12e26b4cb4f858eb26cc86d5f6e448da8fe980d9c0af130ed394697ea01de",
+      "bytes": 192642146,
+      "groesse_mb": 183.7,
       "abis": [
         "arm64-v8a",
         "x86_64"
